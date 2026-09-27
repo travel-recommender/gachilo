@@ -28,3 +28,10 @@ data/raw/
 .DS_Store
 .idea/
 .vscode/
+
+# Local backend database
+backend/.local/
+*.sqlite3
+*.sqlite3-*
+
+.Rhistory

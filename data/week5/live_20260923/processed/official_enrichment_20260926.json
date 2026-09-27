@@ -1,0 +1,6251 @@
+{
+  "schema_version": 1,
+  "scope": "All 150 selected records reviewed; verification incomplete, not a scheduling-ready dataset.",
+  "base_sha256": "a6f803d8da0429137c4591e77cc262a1ccc577c90198ae3b8d5d333bd3aa246b",
+  "reviewed_at": "2026-09-26",
+  "statistics": {
+    "total": 150,
+    "reviewed": 150,
+    "records_with_new_field_updates": 77,
+    "address_verified": 84,
+    "hours_verified": 66,
+    "both_verified_without_specific_blocker": 62,
+    "with_specific_blockers": 27,
+    "missing_fields": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 110,
+      "category": 0,
+      "area": 150,
+      "address": 65,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 35,
+      "cost": 145,
+      "stay_min": 150,
+      "bag_load": 150,
+      "covered": 150,
+      "website": 39,
+      "opening_hours_source": 83,
+      "verified_at": 62
+    }
+  },
+  "checks": [
+    {
+      "check_id": "osaka_001_address_hours_20260926",
+      "place_id": "osaka_001",
+      "osm_ref": "node/3507545614",
+      "name": "道頓堀グリコサイン",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.glico.com/jp/health/contents/glicosign/",
+            "resolved_url": "https://www.glico.com/jp/health/contents/glicosign/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_002_address_hours_20260926",
+      "place_id": "osaka_002",
+      "osm_ref": "way/254319878",
+      "name": "通天閣",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.tsutenkaku.co.jp/",
+            "resolved_url": "https://www.tsutenkaku.co.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_003_address_hours_20260926",
+      "place_id": "osaka_003",
+      "osm_ref": "node/4190308689",
+      "name": "新世界",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "지역 명소. 단일 시설 주소·영업시간의 적용 범위 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_004_address_hours_20260926",
+      "place_id": "osaka_004",
+      "osm_ref": "node/4586410090",
+      "name": "アメリカ村",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区西心斎橋1丁目～2丁目付近",
+        "opening_hours": "점포별 상이"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_tourism_review",
+        "urls": [
+          "https://osaka-info.jp/spot/america-mura-american-village/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://osaka-info.jp/spot/america-mura-american-village/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "상업 지역 범위 주소. 개별 건물 주소가 아님."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_005_address_hours_20260926",
+      "place_id": "osaka_005",
+      "osm_ref": "node/5149144823",
+      "name": "黒門市場",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "시장 전체와 관리사무소 주소 구분, 점포별 운영시간 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_006_address_hours_20260926",
+      "place_id": "osaka_006",
+      "osm_ref": "node/4586420089",
+      "name": "心斎橋筋商店街",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.shinsaibashi.or.jp/",
+            "resolved_url": "https://www.shinsaibashi.or.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_007_address_hours_20260926",
+      "place_id": "osaka_007",
+      "osm_ref": "node/4325335299",
+      "name": "空中庭園展望台",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.skybldg.co.jp/observatory/",
+            "resolved_url": "https://www.skybldg.co.jp/observatory/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "verified",
+        "notes": [
+          "전망대 전용 주소·층 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_008_address_hours_20260926",
+      "place_id": "osaka_008",
+      "osm_ref": "way/332292139",
+      "name": "HEP FIVE観覧車",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.hepfive.jp/ferriswheel",
+            "resolved_url": "https://www.hepfive.jp/ferriswheel",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_009_address_hours_20260926",
+      "place_id": "osaka_009",
+      "osm_ref": "way/1550234049",
+      "name": "大阪城",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osakacastle.net/",
+            "resolved_url": "https://www.osakacastle.net/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_010_address_hours_20260926",
+      "place_id": "osaka_010",
+      "osm_ref": "way/363304259",
+      "name": "大阪天満宮",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区天神橋2丁目1番8号"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osakatemmangu.or.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://osakatemmangu.or.jp/",
+            "resolved_url": "https://osakatemmangu.or.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://osakatemmangu.or.jp/access/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://osakatemmangu.or.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_011_address_hours_20260926",
+      "place_id": "osaka_011",
+      "osm_ref": "way/579077537",
+      "name": "四天王寺",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市天王寺区四天王寺1丁目11番18号",
+        "opening_hours": "중심가람·정원: 4–9월 08:30–16:30, 10–3월 08:30–16:00; 21일·회일 및 행사일 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.shitennoji.or.jp/map.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://shitennoji.or.jp",
+            "resolved_url": "https://www.shitennoji.or.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.shitennoji.or.jp/access.html",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.shitennoji.or.jp/map.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "경내 통행시간과 유료시설 관람시간을 구분. 특별일 운영시간은 별도 확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_012_address_hours_20260926",
+      "place_id": "osaka_012",
+      "osm_ref": "node/4920617728",
+      "name": "大阪歴史博物館",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osakamushis.jp/",
+            "resolved_url": "https://www.osakamushis.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_013_address_hours_20260926",
+      "place_id": "osaka_013",
+      "osm_ref": "way/343837388",
+      "name": "大阪中之島美術館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市北区中之島4-3-1",
+        "opening_hours": "10:00–17:00(입장 16:30까지); 월요일 휴관, 공휴일이면 다음 평일; 전시별 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Tu-Su,PH 10:00-17:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/343837388"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://nakka-art.jp/ko/visit-ko/info-ko/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://nakka-art.jp/",
+            "resolved_url": "https://nakka-art.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://nakka-art.jp/visit/info/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://nakka-art.jp/ko/visit-ko/info-ko/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_014_address_hours_20260926",
+      "place_id": "osaka_014",
+      "osm_ref": "way/231449111",
+      "name": "大阪市立科学館",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.sci-museum.jp/",
+            "resolved_url": "https://www.sci-museum.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_015_address_hours_20260926",
+      "place_id": "osaka_015",
+      "osm_ref": "way/35457792",
+      "name": "大阪城公園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区大阪城",
+        "opening_hours": "상시 개방; 공원 내 개별 시설은 별도 운영"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_tourism_review",
+        "urls": [
+          "https://osaka-info.jp/spot/osaka-castle-park/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://osakacastlepark.jp/",
+            "resolved_url": "https://www.osakacastlepark.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://osaka-info.jp/spot/osaka-castle-park/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_016_address_hours_20260926",
+      "place_id": "osaka_016",
+      "osm_ref": "way/54037338",
+      "name": "中之島公園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区中之島1丁目"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": [
+          "공원 소재 지역 주소. 상세 출입구와 운영시간은 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_017_address_hours_20260926",
+      "place_id": "osaka_017",
+      "osm_ref": "node/4825353606",
+      "name": "中之島公園バラ園",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "나카노시마 공원과 장미정원 구역 범위 구분 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_018_address_hours_20260926",
+      "place_id": "osaka_018",
+      "osm_ref": "way/170693374",
+      "name": "天王寺公園",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osakapark.osgf.or.jp/tennoji/",
+            "resolved_url": "https://parksgreenery.city.osaka.lg.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "기존 URL이 시청 일반 페이지로 연결됨. 공원 전체와 텐시바 점포시간 구분 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_019_address_hours_20260926",
+      "place_id": "osaka_019",
+      "osm_ref": "relation/15447686",
+      "name": "靱公園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市西区靱本町",
+        "opening_hours": "상시 개방; 부속 시설은 별도 운영"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/parks-utsubo/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/parks-utsubo/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "공원 소재 지역 주소."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_020_address_hours_20260926",
+      "place_id": "osaka_020",
+      "osm_ref": "way/451572345",
+      "name": "なんばパークス",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市浪速区難波中2-10-70",
+        "opening_hours": "쇼핑 11:00–21:00; 음식점 11:00–22:00; 일부 점포 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Su 10:00-24:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/451572345"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://nambaparks.com/facilities"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://nambaparks.com/",
+            "resolved_url": "https://nambaparks.com/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://nambaparks.com/about",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://nambaparks.com/facilities"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 10:00–24:00은 정원 시간과 혼동 위험. 정원은 별도 장소."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_021_address_hours_20260926",
+      "place_id": "osaka_021",
+      "osm_ref": "node/447587574",
+      "name": "高島屋",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区難波5丁目1番5号"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.takashimaya.co.jp/osaka/access/index.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.takashimaya.co.jp/osaka",
+            "resolved_url": "https://www.takashimaya.co.jp/osaka/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.takashimaya.co.jp/osaka/storeinfo/index.html",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.takashimaya.co.jp/osaka/access/index.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": [
+          "점포 주소 확인. 주차장 운영시간은 판매장 영업시간에 사용하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_022_address_hours_20260926",
+      "place_id": "osaka_022",
+      "osm_ref": "relation/11079068",
+      "name": "大丸 心斎橋店 本館",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.daimaru.co.jp/shinsaibashi/",
+            "resolved_url": "https://www.daimaru.co.jp/shinsaibashi/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_023_address_hours_20260926",
+      "place_id": "osaka_023",
+      "osm_ref": "node/5865318031",
+      "name": "阪神梅田本店",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区梅田1丁目13番13号",
+        "opening_hours": "판매장 10:00–20:00; 음식점·일부 매장 별도 운영"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "10:00-20:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/5865318031"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.hanshin-dept.jp/hshonten/index.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.hanshin-dept.jp/hshonten/",
+            "resolved_url": "https://www.hanshin-dept.jp/hshonten/index.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.hanshin-dept.jp/hshonten/index.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_024_address_hours_20260926",
+      "place_id": "osaka_024",
+      "osm_ref": "way/161871808",
+      "name": "心斎橋PARCO",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市中央区心斎橋筋1丁目8-3",
+        "opening_hours": "판매·서비스 10:00–20:00; 음식점 13F 11:00–22:00, B2F 11:00–23:00; 일부 점포 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://shinsaibashi.parco.jp/info/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://shinsaibashi.parco.jp/",
+            "resolved_url": "https://shinsaibashi.parco.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://shinsaibashi.parco.jp/info/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://shinsaibashi.parco.jp/info/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 1-7-1 주소를 공식 PARCO 주소로 정정."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_025_address_hours_20260926",
+      "place_id": "osaka_025",
+      "osm_ref": "node/1671341600",
+      "name": "かに道楽",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://douraku.co.jp/",
+            "resolved_url": "https://douraku.co.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "카니도라쿠 본점 전용 안내 확인 필요. 브랜드 공통정보 복사하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_026_address_hours_20260926",
+      "place_id": "osaka_026",
+      "osm_ref": "node/4488318892",
+      "name": "一蘭 道頓堀店別館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区道頓堀1-4-16",
+        "opening_hours": "카운터 24시간; 테이블석 08:00–23:00; 임시 변경 가능"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-south/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://ichiran.com/shop/kinki/dotonbori-south/",
+            "resolved_url": "https://ichiran.com/shop/kinki/dotonbori-south/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-south/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "도톤보리 별관. 영업 종료된 본관과 구분."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_028_address_hours_20260926",
+      "place_id": "osaka_028",
+      "osm_ref": "node/1716203862",
+      "name": "総大醤",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区浮田2-4-16",
+        "opening_hours": "매일 11:00–24:00"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.soudaisyou.com/access.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://www.soudaisyou.com/access.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osm_node_2296903605_address_hours_20260926",
+      "place_id": "osm_node_2296903605",
+      "osm_ref": "node/2296903605",
+      "name": "丸福珈琲店 千日前本店",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+            "resolved_url": "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osm_node_9875632529_address_hours_20260926",
+      "place_id": "osm_node_9875632529",
+      "osm_ref": "node/9875632529",
+      "name": "Brooklyn Roasting Company",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://brooklynroasting.jp/location/namba/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2e4698946819_address_hours_20260926",
+      "place_id": "osaka_draft_2e4698946819",
+      "osm_ref": "node/13516357601",
+      "name": "エレメカ研究所",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 소셜 계정의 최신 지점·운영시간 추가 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_73505422b2e6_address_hours_20260926",
+      "place_id": "osaka_draft_73505422b2e6",
+      "osm_ref": "way/438189049",
+      "name": "道頓堀橋",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.city.osaka.lg.jp/kensetsu/page/0000493973.html",
+            "resolved_url": "https://www.city.osaka.lg.jp/kensetsu/page/0000493973.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "다리 위치와 시청 담당부서 주소 구분. 일반 점포시간 적용 대상 아님."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_a270504b6cd8_address_hours_20260926",
+      "place_id": "osaka_draft_a270504b6cd8",
+      "osm_ref": "way/176301498",
+      "name": "茶室（豊松庵）",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osakacastlepark.jp/articles/detail.html?lang=en&id=33",
+            "resolved_url": "https://www.osakacastlepark.jp/articles/detail.html?lang=en&id=33",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "상시 공개 시설로 확인되지 않음. 특별 공개·예약 행사 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "event_access_required"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_bdd1ec5175d0_address_hours_20260926",
+      "place_id": "osaka_draft_bdd1ec5175d0",
+      "osm_ref": "way/610362551",
+      "name": "OAP港",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "OAP 선착장. 운항사별 출항시간 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_f0f97440bedc_address_hours_20260926",
+      "place_id": "osaka_draft_f0f97440bedc",
+      "osm_ref": "node/12781301802",
+      "name": "ワケ橋",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "ワケ橋와 和気橋 명칭 대조 및 정확한 지점 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "identity_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_1c4a0fd86b91_address_hours_20260926",
+      "place_id": "osaka_draft_1c4a0fd86b91",
+      "osm_ref": "node/14097975136",
+      "name": "包ギョーザ",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "OSM상 포토존 오브젝트. 음식점으로 해석하지 않음. 현존 여부 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "identity_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_85b3463e84b9_address_hours_20260926",
+      "place_id": "osaka_draft_85b3463e84b9",
+      "osm_ref": "node/10123924015",
+      "name": "太閤下水見学施設",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区農人橋1-3-3"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": [
+          "지상 관람창과 지하 견학 구분. 지하 견학은 사전 신청. 연락처 접수시간을 관람시간으로 사용하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_5a243c3857f7_address_hours_20260926",
+      "place_id": "osaka_draft_5a243c3857f7",
+      "osm_ref": "node/7573379495",
+      "name": "松栄堂",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区本町3-6-4 1F",
+        "opening_hours": "평일 10:00–19:00; 토·일·공휴일 10:00–18:00; 연말연시 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.shoyeido.co.jp/shop-info/osaka.html",
+            "resolved_url": "https://www.shoyeido.co.jp/shop-info/osaka.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_84378ff5ba08_address_hours_20260926",
+      "place_id": "osaka_draft_84378ff5ba08",
+      "osm_ref": "node/9473994121",
+      "name": "毛馬閘門",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "현재 갑문과 역사시설 구분, 견학 가능 여부 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "access_conditions_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_0cc625078422_address_hours_20260926",
+      "place_id": "osaka_draft_0cc625078422",
+      "osm_ref": "node/4586417789",
+      "name": "湊町リバープレイス",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市浪速区湊町1-3-1",
+        "opening_hours": "10:00–22:00; 점포별 예외; 1월 1–3일 휴관"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_tourism_review",
+        "urls": [
+          "https://osaka-heartfulweb.jp/facility-info.php?n=114"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://osaka-heartfulweb.jp/facility-info.php?n=114"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_300825840acb_address_hours_20260926",
+      "place_id": "osaka_draft_300825840acb",
+      "osm_ref": "node/10857445433",
+      "name": "Akiba Kart Osaka",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市浪速区日本橋5-5-2 森本ビルII",
+        "opening_hours": "10:00–21:30"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osakakart.com/en/access/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://osakakart.com/en/",
+            "resolved_url": "https://osakakart.com/en/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://osakakart.com/en/access/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "체험 예약과 참가 조건은 별도 확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_7c98da5a96f9_address_hours_20260926",
+      "place_id": "osaka_draft_7c98da5a96f9",
+      "osm_ref": "node/4419665990",
+      "name": "大阪くらしの今昔館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区天神橋6丁目4-20 住まい情報センタービル8階"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.osaka-angenet.jp/konjyakukan/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osaka-angenet.jp/konjyakukan/",
+            "resolved_url": "https://www.osaka-angenet.jp/konjyakukan/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.osaka-angenet.jp/konjyakukan/guide",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.osaka-angenet.jp/konjyakukan/"
+        ],
+        "address_status": "verified",
+        "hours_status": "regular_hours_not_currently_usable",
+        "notes": [
+          "2026-09-01부터 2027-01-05까지 휴관. 기존 정규 운영시간으로 방문 가능 판단 금지."
+        ]
+      },
+      "recommendation_blockers": [
+        "temporary_closure"
+      ],
+      "operating_status": {
+        "status": "temporarily_closed",
+        "from": "2026-09-01",
+        "through": "2027-01-05",
+        "source_urls": [
+          "https://www.osaka-angenet.jp/konjyakukan/"
+        ],
+        "as_of": "2026-09-26"
+      }
+    },
+    {
+      "check_id": "osaka_draft_1cbe7e7894c8_address_hours_20260926",
+      "place_id": "osaka_draft_1cbe7e7894c8",
+      "osm_ref": "node/6549326466",
+      "name": "くすりの道修町資料館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区道修町2-1-8 少彦名神社社務所ビル3F",
+        "opening_hours": "월–토 10:00–16:00(입장 15:30까지); 일·공휴일, 8월 11–16일, 12월 28일–1월 4일 휴관"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Sa 10:00-18:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/6549326466"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.sinnosan.jp/kusuri/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.sinnosan.jp/kusuri/",
+            "resolved_url": "https://www.sinnosan.jp/kusuri/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.sinnosan.jp/kusuri/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_50b7a6cc608f_address_hours_20260926",
+      "place_id": "osaka_draft_50b7a6cc608f",
+      "osm_ref": "node/3904064434",
+      "name": "まほうびん記念館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区天満1丁目20番5号 象印本社1F",
+        "opening_hours": "평일 10:00–12:00, 13:00–16:00; 사전 예약 필수; 토·일·공휴일 및 회사 휴무일 휴관"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Fr 10:00-16:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/3904064434"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.zojirushi.co.jp/corp/kinenkan/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.zojirushi.co.jp/corp/kinenkan/",
+            "resolved_url": "https://www.zojirushi.co.jp/corp/kinenkan/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.zojirushi.co.jp/corp/kinenkan/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "투어 시작 10·11·13·14·15시. 자유 입장 시설이 아님."
+        ]
+      },
+      "recommendation_blockers": [
+        "reservation_required"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_c99cbfbd0f92_address_hours_20260926",
+      "place_id": "osaka_draft_c99cbfbd0f92",
+      "osm_ref": "node/12270061636",
+      "name": "アートコートギャラリー",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区天満橋1-8-5 OAPアートコート1F",
+        "opening_hours": "화–금 11:00–18:00; 토 11:00–17:00; 전시 일정 별도 확인"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Tu-Fr 11:00-18:00; Sa 11:00-17:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/12270061636"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.artcourtgallery.com/eng/access/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.artcourtgallery.com/",
+            "resolved_url": "https://www.artcourtgallery.com/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.artcourtgallery.com/access/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.artcourtgallery.com/eng/access/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_6dbd8bbe7f48_address_hours_20260926",
+      "place_id": "osaka_draft_6dbd8bbe7f48",
+      "osm_ref": "way/222632015",
+      "name": "上方浮世絵館",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://www.kamigata.jp/",
+            "resolved_url": "http://www.kamigata.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 상세 관람 안내 추가 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_ce3b8d452a0e_address_hours_20260926",
+      "place_id": "osaka_draft_ce3b8d452a0e",
+      "osm_ref": "way/231449189",
+      "name": "国立国際美術館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市北区中之島4-2-55"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.nmao.go.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.nmao.go.jp/",
+            "resolved_url": "https://www.nmao.go.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.nmao.go.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "unverified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_316598fb77c9_address_hours_20260926",
+      "place_id": "osaka_draft_316598fb77c9",
+      "osm_ref": "way/173693696",
+      "name": "大阪市立美術館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市天王寺区茶臼山町1-82 天王寺公園内",
+        "opening_hours": "09:30–17:00(입장 16:30까지); 월요일 휴관(공휴일이면 다음 평일), 연말연시·전시교체 휴관"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Tu-Su 09:30-17:00; 2022 Sep 26-2025 Feb 28 closed \"closed due to renovation\"",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/173693696"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.osaka-art-museum.jp/information"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osaka-art-museum.jp/",
+            "resolved_url": "https://www.osaka-art-museum.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.osaka-art-museum.jp/information",
+            "resolved_url": "https://www.osaka-art-museum.jp/information",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.osaka-art-museum.jp/information"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "OSM의 2022–2025년 공사 휴관 표기는 현재 정규 시간으로 대체."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2780be08a88e_address_hours_20260926",
+      "place_id": "osaka_draft_2780be08a88e",
+      "osm_ref": "way/243117031",
+      "name": "御津八幡宮",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市中央区西心斎橋2-10-7",
+        "opening_hours": "개문 07:00–18:00; 사무소 09:00–17:00"
+      },
+      "previous_values": {
+        "address": {
+          "value": "〒542-0086 大阪府大阪市中央区西心斎橋2-10-7",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/243117031"
+          }
+        },
+        "opening_hours": {
+          "value": "Mo-Su 07:00-18:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/243117031"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://mitsugu.org/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://mitsugu.org/",
+            "resolved_url": "https://mitsugu.org/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://mitsugu.org/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_7675eb0bab46_address_hours_20260926",
+      "place_id": "osaka_draft_7675eb0bab46",
+      "osm_ref": "way/637023828",
+      "name": "難波八坂神社",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市浪速区元町2-9-19"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "http://nambayasaka.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://nambayasaka.jp/",
+            "resolved_url": "http://nambayasaka.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "http://nambayasaka.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "unverified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_40d8be797d5b_address_hours_20260926",
+      "place_id": "osaka_draft_40d8be797d5b",
+      "osm_ref": "node/2373447958",
+      "name": "design museum",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "website": null
+      },
+      "previous_values": {
+        "website": {
+          "value": "https://designde.jp/",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/2373447958"
+          }
+        }
+      },
+      "source": {
+        "kind": "website_mismatch_review",
+        "urls": [
+          "https://designde.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://designde.jp/",
+            "resolved_url": "https://designde.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://designde.jp/"
+        ],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "등록 웹사이트가 박물관과 무관한 콘텐츠로 변경됨. 시설 실재·운영 재확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "identity_unconfirmed",
+        "website_mismatch"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_6eda07803129_address_hours_20260926",
+      "place_id": "osaka_draft_6eda07803129",
+      "osm_ref": "node/3953009758",
+      "name": "ギャラリー ササキ商店",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区心斎橋筋1-6-4 佐々木ビル3F"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.gallerysasaki.com/access/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://www.gallerysasaki.com/",
+            "resolved_url": "http://www.gallerysasaki.com/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.gallerysasaki.com/access/",
+            "resolved_url": "https://www.gallerysasaki.com/access/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.gallerysasaki.com/access/"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": [
+          "전시별 운영시간 및 관람 예약 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "reservation_or_exhibition_required"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_43502b1cfa97_address_hours_20260926",
+      "place_id": "osaka_draft_43502b1cfa97",
+      "osm_ref": "node/9792348498",
+      "name": "ブルームギャラリー",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://linktr.ee/bloom_gallery",
+            "resolved_url": "https://linktr.ee/bloom_gallery",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.bloomgallery103.com/contact.html",
+            "resolved_url": "https://bloomgallery103.com/contact.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "현재 운영 여부를 공식 출처로 확정하지 못함."
+        ]
+      },
+      "recommendation_blockers": [
+        "operating_status_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_9cd21dc062f7_address_hours_20260926",
+      "place_id": "osaka_draft_9cd21dc062f7",
+      "osm_ref": "way/162382612",
+      "name": "大阪市立東洋陶磁美術館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区中之島1-1-26",
+        "opening_hours": "정규 09:30–17:00(입장 16:30까지); 월요일 휴관(공휴일이면 다음날), 연말연시 휴관"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.moco.or.jp/guide/access/",
+          "https://www.moco.or.jp/guide/info/",
+          "https://www.moco.or.jp/whatsnew/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.moco.or.jp/",
+            "resolved_url": "https://www.moco.or.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.moco.or.jp/guide/info/",
+            "resolved_url": "https://www.moco.or.jp/guide/info/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.moco.or.jp/guide/access/",
+          "https://www.moco.or.jp/guide/info/",
+          "https://www.moco.or.jp/whatsnew/"
+        ],
+        "address_status": "verified",
+        "hours_status": "regular_hours_not_currently_usable",
+        "notes": [
+          "현재 공사 휴관 안내가 우선. 정규 시간만으로 일정 생성 금지."
+        ]
+      },
+      "recommendation_blockers": [
+        "temporary_closure"
+      ],
+      "operating_status": {
+        "status": "temporarily_closed",
+        "expected_reopening": "2027-04 (approximate; official reopening date not fixed)",
+        "source_urls": [
+          "https://www.moco.or.jp/whatsnew/"
+        ],
+        "as_of": "2026-09-26"
+      }
+    },
+    {
+      "check_id": "osaka_draft_70d399cfaea8_address_hours_20260926",
+      "place_id": "osaka_draft_70d399cfaea8",
+      "osm_ref": "node/3249298362",
+      "name": "日本基督教団大阪教会",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市西区江戸堀1-23-17"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.osaka-church.net/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osaka-church.net/",
+            "resolved_url": "https://www.osaka-church.net/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.moco.or.jp/guide/access/",
+            "resolved_url": "https://www.moco.or.jp/guide/access/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.osaka-church.net/"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": [
+          "전화 응대시간을 관광 관람시간으로 사용하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_07d2c797a410_address_hours_20260926",
+      "place_id": "osaka_draft_07d2c797a410",
+      "osm_ref": "way/276877441",
+      "name": "日本聖公会聖贖主教会礼拝堂",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.hakuaisha-welfare.net/redeemer/",
+            "resolved_url": "https://www.hakuaisha-welfare.net/redeemer/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "예배·복지시설 방문 조건 확인 필요. 전화 응대시간을 관광시간으로 사용하지 않음."
+        ]
+      },
+      "recommendation_blockers": [
+        "access_conditions_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_006a0c207d8c_address_hours_20260926",
+      "place_id": "osaka_draft_006a0c207d8c",
+      "osm_ref": "way/464117222",
+      "name": "歯神社",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.hagamisan.com/",
+            "resolved_url": "https://www.hagamisan.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "자유 참배 안내는 있으나 상세 주소·적용 범위 재확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_718edcaf3985_address_hours_20260926",
+      "place_id": "osaka_draft_718edcaf3985",
+      "osm_ref": "node/9704704688",
+      "name": "海月文庫アートスペース",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市淀川区木川東3-3-12",
+        "opening_hours": "전시 기간 중 11:00–19:00; 마지막 날 16:00 또는 17:00 종료"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.kuragebunko.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.kuragebunko.com/",
+            "resolved_url": "https://www.kuragebunko.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.kuragebunko.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "전시가 없는 날 개방 여부는 별도 확인."
+        ]
+      },
+      "recommendation_blockers": [
+        "exhibition_schedule_required"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_d7da3fdbeaf6_address_hours_20260926",
+      "place_id": "osaka_draft_d7da3fdbeaf6",
+      "osm_ref": "node/12782416201",
+      "name": "絹谷幸二 天空美術館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区大淀中1-1-30 梅田スカイビルタワーウエスト27F",
+        "opening_hours": "10:00–18:00; 금·토·공휴일 전날 10:00–20:00; 입장 종료 30분 전; 화요일 휴관(공휴일이면 다음 평일), 12월 30일–1월 3일·전시교체 휴관"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.kinutani-tenku.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.kinutani-tenku.jp/",
+            "resolved_url": "https://www.kinutani-tenku.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.kinutani-tenku.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_04b34bc4e6e2_address_hours_20260926",
+      "place_id": "osaka_draft_04b34bc4e6e2",
+      "osm_ref": "way/1121693756",
+      "name": "高津宮",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区高津1-1-29"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://kouzu.or.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.kouzu.or.jp/",
+            "resolved_url": "https://kouzu.or.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://kouzu.or.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_1289b4aecc32_address_hours_20260926",
+      "place_id": "osaka_draft_1289b4aecc32",
+      "osm_ref": "way/765953897",
+      "name": "慶沢園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市天王寺区茶臼山町1 天王寺公園内",
+        "opening_hours": "09:30–17:00(입장 16:30까지); 5·9월 토·일·공휴일 18:00까지(입장 17:30까지); 월요일 휴원(공휴일이면 다음 평일), 12월 29일–1월 1일 휴원"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo off; Oct 01-Apr 30 Tu-Su 09:30-17:00; May 01-Sep 30 Tu-Fr 09:30-17:00; May 01-Sep 30 Sa-Su 09:30-18:00; Dec 29-Jan 01 off",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/765953897"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+            "resolved_url": "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "폭풍 경보 시 임시 휴원. 같은 페이지의 차우스야마 07:00–22:00과 구분."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_c62644984874_address_hours_20260926",
+      "place_id": "osaka_draft_c62644984874",
+      "osm_ref": "relation/7175826",
+      "name": "桜之宮公園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区天満1丁目・天満橋1～2丁目"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osakapark.osgf.or.jp/kema_sakuranomiya/",
+            "resolved_url": "https://parksgreenery.city.osaka.lg.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "unverified",
+        "notes": [
+          "공원 소재 지역 주소. 상세 출입구 주소가 아님."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_9e900589aec0_address_hours_20260926",
+      "place_id": "osaka_draft_9e900589aec0",
+      "osm_ref": "way/159278501",
+      "name": "西の丸庭園",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osakacastle.net/park/",
+            "resolved_url": "https://www.osakacastle.net/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "기존 사이트가 다른 공원 페이지로 이동. 정원 전용 안내 재확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_f72944194ef3_address_hours_20260926",
+      "place_id": "osaka_draft_f72944194ef3",
+      "osm_ref": "way/34993780",
+      "name": "千島公園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市大正区千島2丁目7",
+        "opening_hours": "상시 개방; 부속 시설은 별도 운영"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "24/7",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/34993780"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_a66fcd05acfb_address_hours_20260926",
+      "place_id": "osaka_draft_a66fcd05acfb",
+      "osm_ref": "way/161621411",
+      "name": "南天満公園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区天神橋1丁目・天満2～4丁目"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "unverified",
+        "notes": [
+          "공원 소재 지역 주소."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_03cde684bd96_address_hours_20260926",
+      "place_id": "osaka_draft_03cde684bd96",
+      "osm_ref": "relation/7175105",
+      "name": "毛馬公園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区長柄東1～2丁目・国分寺1丁目"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "unverified",
+        "notes": [
+          "공원 소재 지역 주소."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_e102a263e5a8_address_hours_20260926",
+      "place_id": "osaka_draft_e102a263e5a8",
+      "osm_ref": "way/162156955",
+      "name": "淀川河川公園 長柄地区",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "기존 24시간 표기와 공원 공개 이용시간 자료가 다름. 대상 구역·최신 규정 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "hours_conflict"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_5f8dd9212a0c_address_hours_20260926",
+      "place_id": "osaka_draft_5f8dd9212a0c",
+      "osm_ref": "way/1301242841",
+      "name": "藤田邸跡公園",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "정원과 인접 미술관 주소 혼동 가능. 시설별 주소 재확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_c6de5620d3d0_address_hours_20260926",
+      "place_id": "osaka_draft_c6de5620d3d0",
+      "osm_ref": "way/172844586",
+      "name": "難波中公園",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "동명 공원과 정확한 위치를 대조할 공식 근거 부족."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_0cf4fe2e0afe_address_hours_20260926",
+      "place_id": "osaka_draft_0cf4fe2e0afe",
+      "osm_ref": "way/162186567",
+      "name": "花野・新・里山",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "신사토야마·하나노 구역별 주소와 개방 조건 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2941efc9ac2d_address_hours_20260926",
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "osm_ref": "way/1147393995",
+      "name": "うめきた公園 サウスパーク",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区大深町5番",
+        "opening_hours": "상시 개방; 부속 시설은 별도 운영"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_f852e8e07cf8_address_hours_20260926",
+      "place_id": "osaka_draft_f852e8e07cf8",
+      "osm_ref": "way/246557701",
+      "name": "かすがえ公園",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市都島区都島本通1丁目19"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/miyakojima/page/0000655198.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://www.city.osaka.lg.jp/miyakojima/page/0000655198.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_0adb7945fbda_address_hours_20260926",
+      "place_id": "osaka_draft_0adb7945fbda",
+      "osm_ref": "way/1314581362",
+      "name": "ほたるまちにある広場",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "복합시설 전체와 광장 범위 구분 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2fc0df9e9f8d_address_hours_20260926",
+      "place_id": "osaka_draft_2fc0df9e9f8d",
+      "osm_ref": "node/5704362620",
+      "name": "パークスガーデン",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市浪速区難波中2-10-70",
+        "opening_hours": "10:00–24:00; 휴무는 난바 파크스 일정에 따름"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://nambaparks.com/garden",
+          "https://www.city.osaka.lg.jp/toshikeikaku/page/0000390675.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://nambaparks.com/garden",
+          "https://www.city.osaka.lg.jp/toshikeikaku/page/0000390675.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "난바 파크스 내부 정원. 쇼핑몰과 중복 방문 계산 주의."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_cff5e2720c53_address_hours_20260926",
+      "place_id": "osaka_draft_cff5e2720c53",
+      "osm_ref": "way/1454586896",
+      "name": "三和公園",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "OSM 범위가 도요나카까지 걸침. 시 경계·대상 지역 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "city_boundary_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_16f1d28c8bfd_address_hours_20260926",
+      "place_id": "osaka_draft_16f1d28c8bfd",
+      "osm_ref": "way/161450583",
+      "name": "NU茶屋町",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区茶屋町10-12",
+        "opening_hours": "쇼핑 11:00–21:00; 음식점 11:00–23:00; 일부 점포 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Su 11:00-21:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/161450583"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://nu-chayamachi.com/info/openclose/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://nu-chayamachi.com/sp/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [
+          "https://nu-chayamachi.com/info/openclose/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_1b3533415b94_address_hours_20260926",
+      "place_id": "osaka_draft_1b3533415b94",
+      "osm_ref": "way/588689753",
+      "name": "ハービスPLAZA ENT",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "opening_hours": "판매장 11:00–20:00; 음식점·일부 매장은 별도 확인"
+      },
+      "previous_values": {
+        "opening_hours": {
+          "value": "Mo-Su 11:00-20:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/588689753"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.herbis.jp/access/train/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.herbis.jp/",
+            "resolved_url": "https://www.herbis.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.herbis.jp/access/train/",
+            "resolved_url": "https://www.herbis.jp/access/train/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.herbis.jp/access/train/"
+        ],
+        "address_status": "missing",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_4fb99b053e8b_address_hours_20260926",
+      "place_id": "osaka_draft_4fb99b053e8b",
+      "osm_ref": "way/1304559276",
+      "name": "Whityうめだ",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市北区小松原町梅田地下街4-2",
+        "opening_hours": "판매장 10:00–21:00; 음식점 10:00–22:00; NOMOKA 11:00–23:00; 점포별 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://whity.osaka-chikagai.jp/access"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://whity.osaka-chikagai.jp/",
+            "resolved_url": "https://whity.osaka-chikagai.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://whity.osaka-chikagai.jp/access",
+            "resolved_url": "https://whity.osaka-chikagai.jp/access",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://whity.osaka-chikagai.jp/access"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_e51bbe99124a_address_hours_20260926",
+      "place_id": "osaka_draft_e51bbe99124a",
+      "osm_ref": "node/13030991952",
+      "name": "アルデ新大阪",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.arde-shinosaka.jp/",
+            "resolved_url": "https://www.arde-shinosaka.jp/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.arde-shinosaka.jp/access",
+            "resolved_url": "https://www.arde-shinosaka.jp/access",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "공식 안내에서 영업시간·주소 본문 취득 실패."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_02288187c550_address_hours_20260926",
+      "place_id": "osaka_draft_02288187c550",
+      "osm_ref": "relation/14378487",
+      "name": "イオンモール大阪ドームシティ",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市西区千代崎三丁目13番1",
+        "opening_hours": "전문점 10:00–21:00; 이온 매장은 별도 운영"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.aeon.jp/sc/osakadomecity/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.aeon.jp/sc/osakadomecity/",
+            "resolved_url": "https://www.aeon.jp/sc/osakadomecity/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.aeon.jp/sc/osakadomecity/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_11050de606b0_address_hours_20260926",
+      "place_id": "osaka_draft_11050de606b0",
+      "osm_ref": "way/162642438",
+      "name": "ウイステ",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市福島区海老江1-1-23",
+        "opening_hours": "전문점 10:00–21:00; 음식점 11:00–22:00; 이온·일부 점포 별도 운영"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.wiste.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.wiste.jp/",
+            "resolved_url": "https://www.wiste.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.wiste.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_b1eae8a8935b_address_hours_20260926",
+      "place_id": "osaka_draft_b1eae8a8935b",
+      "osm_ref": "node/5083922723",
+      "name": "Asoko Minamihorie",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "ASOKO 미나미호리에점 현재 운영 여부 미확인."
+        ]
+      },
+      "recommendation_blockers": [
+        "operating_status_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_daa353940c61_address_hours_20260926",
+      "place_id": "osaka_draft_daa353940c61",
+      "osm_ref": "way/171978091",
+      "name": "近鉄百貨店",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市天王寺区上本町6-1-55",
+        "opening_hours": "B2–2F·6F·10F·11F 10:00–20:00; 3–5F·7–9F 10:00–18:30(일부 예외); 12F 음식점 11:00–22:00"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Su,PH 10:00-20:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/171978091"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "우에혼마치 지점 기준."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_dc3ec67cb8d1_address_hours_20260926",
+      "place_id": "osaka_draft_dc3ec67cb8d1",
+      "osm_ref": "node/6640371676",
+      "name": "京阪シティモール",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区天満橋京町1-1",
+        "opening_hours": "주요 전문점 10:00–21:00; MBF 일부 10:00–20:00; 음식점 11:00–23:00; 식품매장 등 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://citymall.jp/access/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://citymall.jp/access/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2b9dd68b687a_address_hours_20260926",
+      "place_id": "osaka_draft_2b9dd68b687a",
+      "osm_ref": "way/292400830",
+      "name": "HELLO life",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "공식 사이트는 취업지원 조직. 쇼핑몰 분류와 방문 목적 재검토 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "category_mismatch"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_fa65b053e525_address_hours_20260926",
+      "place_id": "osaka_draft_fa65b053e525",
+      "osm_ref": "way/257771954",
+      "name": "MIHA shop",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "공식 점포 근거 확보 실패. OSM 정보만 유지."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_31878d4960fc_address_hours_20260926",
+      "place_id": "osaka_draft_31878d4960fc",
+      "osm_ref": "node/12913067534",
+      "name": "Viewl 阪急三国",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市淀川区三国本町3-37-35"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.hhbm.hankyu-hanshin.co.jp/managed/sc/profile.pdf"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://www.hhbm.hankyu-hanshin.co.jp/managed/sc/profile.pdf"
+        ],
+        "address_status": "verified",
+        "hours_status": "missing",
+        "notes": [
+          "시설관리사 자료에서 소재지 확인. 영업시간 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_391fae83b26c_address_hours_20260926",
+      "place_id": "osaka_draft_391fae83b26c",
+      "osm_ref": "way/977755839",
+      "name": "てんしばi:na",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "텐시바 전체와 i:na 시설 구분, 점포별 시간 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_a8c6b6985943_address_hours_20260926",
+      "place_id": "osaka_draft_a8c6b6985943",
+      "osm_ref": "way/599490077",
+      "name": "なんばEKIKAN",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市浪速区難波中2-11-1・敷津東1-1-21・1-2-12・2-1-4～5",
+        "opening_hours": "점포별 상이"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://ekikan.com/access",
+          "https://ekikan.com/faq"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://ekikan.com/access",
+          "https://ekikan.com/faq"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "여러 구역으로 구성된 상업시설. 개별 점포 목적지 주소가 아님."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_fc7acd992f21_address_hours_20260926",
+      "place_id": "osaka_draft_fc7acd992f21",
+      "osm_ref": "way/275638697",
+      "name": "新大阪センイシティー",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市淀川区西宮原2-2-2",
+        "opening_hours": "월–토 08:00–19:00; 일·공휴일 09:30–19:00; 점포별 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_social_review",
+        "urls": [
+          "https://page.line.me/hvk0696d"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://page.line.me/hvk0696d"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_b6b6dae05ce5_address_hours_20260926",
+      "place_id": "osaka_draft_b6b6dae05ce5",
+      "osm_ref": "way/148657763",
+      "name": "淀屋橋 odona",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区今橋4-1-1",
+        "opening_hours": "쇼핑 11:00–20:00; 음식점 평일 11:30–22:30, 토·일·공휴일 11:30–21:30; 12월 31일·1월 1일 휴관; 점포별 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://mitsui-shopping-park.com/odona/top.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [
+          "https://mitsui-shopping-park.com/odona/top.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_f1ba0aa6ab58_address_hours_20260926",
+      "place_id": "osaka_draft_f1ba0aa6ab58",
+      "osm_ref": "node/9840655056",
+      "name": "阪急うめだ本店",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市北区角田町8番7号",
+        "opening_hours": "판매장 10:00–20:00; 12·13F 음식점 11:00–22:00; 일부 점포 예외"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Th,Su 10:00-20:00; Fr-Sa 10:00-21:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/9840655056"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.hankyu-dept.co.jp/index.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.hankyu-dept.co.jp/honten",
+            "resolved_url": "https://www.hankyu-dept.co.jp/index.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.hankyu-dept.co.jp/index.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_481d9742f9c2_address_hours_20260926",
+      "place_id": "osaka_draft_481d9742f9c2",
+      "osm_ref": "node/4584816489",
+      "name": "ブリーゼブリーゼ",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区梅田2-4-9",
+        "opening_hours": "판매장 월–토 11:00–20:00, 일·공휴일 11:00–19:00(다음날 공휴일이면 20:00까지); 음식점 11:00–22:00; 비정기 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Su 11:00-21:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/4584816489"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.breeze-breeze.jp/info/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.breeze-breeze.jp/info/",
+            "resolved_url": "https://www.breeze-breeze.jp/info/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.breeze-breeze.jp/info/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_c85fa26beb80_address_hours_20260926",
+      "place_id": "osaka_draft_c85fa26beb80",
+      "osm_ref": "node/13026741817",
+      "name": "なんばマルイ",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://www.0101.co.jp/",
+            "resolved_url": "http://www.0101.co.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "백화점 공통 사이트로 이동. 난바 마루이 지점 전용 안내 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_35640888fa49_address_hours_20260926",
+      "place_id": "osaka_draft_35640888fa49",
+      "osm_ref": "node/4572487891",
+      "name": "モトコーヒー",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.shelf-keybridge.com/motocoffee.html",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "정확한 MOTO 지점과 최신 공식 운영시간 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_f22cfa23d646_address_hours_20260926",
+      "place_id": "osaka_draft_f22cfa23d646",
+      "osm_ref": "way/226005126",
+      "name": "42195 COFFEE",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区中津3-12-15",
+        "opening_hours": "08:00–17:00; 수요일 08:00–12:00; 목요일 휴무; 음료 주문 종료 30분 전, 식사 1시간 전"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-We,Fr 08:00-18:00; Sa-Su,PH 10:00-18:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/226005126"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://42195coffee.wixsite.com/toppage"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://42195coffee.wixsite.com/toppage",
+            "resolved_url": "https://42195coffee.wixsite.com/toppage",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://42195coffee.wixsite.com/toppage"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_b0a5c9b0d460_address_hours_20260926",
+      "place_id": "osaka_draft_b0a5c9b0d460",
+      "osm_ref": "node/4572487893",
+      "name": "Antico Caffe Al Avis",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "website": null
+      },
+      "previous_values": {
+        "website": {
+          "value": "https://www.hakka-group.co.jp/?cmd=read&page=roll%20madu%20umeda",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/4572487893"
+          }
+        }
+      },
+      "source": {
+        "kind": "website_mismatch_review",
+        "urls": [
+          "https://www.hakka-group.co.jp/?cmd=read&page=roll%20madu%20umeda"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.hakka-group.co.jp/?cmd=read&page=roll%20madu%20umeda",
+            "resolved_url": "https://www.hakka-group.co.jp/?cmd=read&page=roll%20madu%20umeda",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.hakka-group.co.jp/?cmd=read&page=roll%20madu%20umeda"
+        ],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "등록 웹사이트가 다른 카페 안내로 연결됨. ANTICO 지점 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "website_mismatch",
+        "branch_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_5a3ef73c2b4b_address_hours_20260926",
+      "place_id": "osaka_draft_5a3ef73c2b4b",
+      "osm_ref": "node/7144593677",
+      "name": "Blue Bottle Coffee",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区茶屋町15-22 アーバンテラス茶屋町A棟",
+        "opening_hours": "매일 08:00–21:00"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Su 08:00-21:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/7144593677"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
+            "resolved_url": "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_3b8f7684482e_address_hours_20260926",
+      "place_id": "osaka_draft_3b8f7684482e",
+      "osm_ref": "node/6300412085",
+      "name": "BOBBIN",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://cafebobbin.com",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "등록 홈페이지 취득 실패. 동명 업체와 구분 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_e3ac280c1575_address_hours_20260926",
+      "place_id": "osaka_draft_e3ac280c1575",
+      "osm_ref": "node/2064207432",
+      "name": "Cafe Di Espresso",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.ufs.co.jp/shop-search/shop_id/263",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "정확한 Cafe Di Espresso 지점 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_9342479ef7d7_address_hours_20260926",
+      "place_id": "osaka_draft_9342479ef7d7",
+      "osm_ref": "node/5875311485",
+      "name": "Cafe yutte",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 소셜 페이지에서 최신 운영시간 추가 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_243b34cd6761_address_hours_20260926",
+      "place_id": "osaka_draft_243b34cd6761",
+      "osm_ref": "node/4632058476",
+      "name": "e-maid",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://e-maid.net",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 점포 페이지 취득 실패. 운영정보 재확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_eda93d07ee2b_address_hours_20260926",
+      "place_id": "osaka_draft_eda93d07ee2b",
+      "osm_ref": "node/2293166511",
+      "name": "Haiku Coffee Roasters",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区浮田2-4-4",
+        "opening_hours": "12:00–17:00; 정기 휴무일 미확인"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo,Tu,Th 10:00-18:00; We off; Fr,Sa 10:00-22:00; Su 10:00-17:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/2293166511"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://haikucoffee.thebase.in/about"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://haikucoffee.thebase.in/",
+            "resolved_url": "https://haikucoffee.thebase.in/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://haikucoffee.thebase.in/about",
+            "resolved_url": "https://haikucoffee.thebase.in/about",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://haikucoffee.thebase.in/about"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_d52fee5c2304_address_hours_20260926",
+      "place_id": "osaka_draft_d52fee5c2304",
+      "osm_ref": "node/2389282617",
+      "name": "Holly's Cafe",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://hollys-corp.jp/",
+            "resolved_url": "https://hollys-corp.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "브랜드 전체 사이트만 확인. 홀리스 개별 지점 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_11ceb1687dfa_address_hours_20260926",
+      "place_id": "osaka_draft_11ceb1687dfa",
+      "osm_ref": "node/7477438893",
+      "name": "La Granda Familio",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区中崎西1-1-18",
+        "opening_hours": "월·수–토 10:30–19:00; 일 10:30–18:00; 화 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Sa 10:30-19:00; Tu 09:15-12:45; Su 10:30-18:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/7477438893"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "http://www.grandafamilio.com/store.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://www.grandafamilio.com/",
+            "resolved_url": "http://www.grandafamilio.com/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "http://www.grandafamilio.com/store.html",
+            "resolved_url": "http://www.grandafamilio.com/store.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "http://www.grandafamilio.com/store.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "기존 주소 1-1-8을 공식 점포 주소 1-1-18로 정정."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2f4886b3a5b6_address_hours_20260926",
+      "place_id": "osaka_draft_2f4886b3a5b6",
+      "osm_ref": "node/11664361242",
+      "name": "Melbourne Coffee",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.melbournecoffee.jp/",
+            "resolved_url": "https://www.melbournecoffee.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 사이트에 복수 지점 소개. OSM 지점과 대조 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_cdb260bb106a_address_hours_20260926",
+      "place_id": "osaka_draft_cdb260bb106a",
+      "osm_ref": "node/6541264285",
+      "name": "rion cafe",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://rioncafe.com",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 홈페이지 취득 실패. 운영정보 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_4af3a5a14578_address_hours_20260926",
+      "place_id": "osaka_draft_4af3a5a14578",
+      "osm_ref": "node/11942324370",
+      "name": "Sub Jazz Cafe",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.subjazzcafe.com/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 홈페이지 취득 실패. 운영정보 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_e5eb4dd70807_address_hours_20260926",
+      "place_id": "osaka_draft_e5eb4dd70807",
+      "osm_ref": "node/6886072023",
+      "name": "SÖT COFFEE",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区大手通1-3-7 ベルヴォア1F・2F",
+        "opening_hours": "매일 08:00–19:00"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "08:00-19:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/6886072023"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.sotcoffee.com/en/pages/shop-osaka"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.sotcoffee.com/en/pages/shop-osaka",
+            "resolved_url": "https://www.sotcoffee.com/en/pages/shop-osaka",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.sotcoffee.com/en/pages/shop-osaka"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "오사카 덴마바시점 기준."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_af11af018972_address_hours_20260926",
+      "place_id": "osaka_draft_af11af018972",
+      "osm_ref": "way/257441510",
+      "name": "こちかぜ",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市天王寺区空清町2-22"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.kotikaze.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.kotikaze.com",
+            "resolved_url": "https://www.kotikaze.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.kotikaze.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "unverified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_19894ad0a123_address_hours_20260926",
+      "place_id": "osaka_draft_19894ad0a123",
+      "osm_ref": "node/3273391255",
+      "name": "アズアン",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://asann.com/",
+            "resolved_url": "https://asann.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 페이지에 사용 가능한 운영정보 없음. 주소 구성요소 재검토 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_c4a30f2620d0_address_hours_20260926",
+      "place_id": "osaka_draft_c4a30f2620d0",
+      "osm_ref": "node/5382170422",
+      "name": "エミュリボン",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://aimyouribbon.com/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 홈페이지 취득 실패. 운영정보 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_32974d974e62_address_hours_20260926",
+      "place_id": "osaka_draft_32974d974e62",
+      "osm_ref": "node/6984070689",
+      "name": "ケーキ＆カフェダイニング　ボナボン",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://www.bonandbon.jp",
+            "resolved_url": "http://www.bonandbon.jp",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 공지가 과거 연도 자료여서 현재 시간으로 확정하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_57eaac2e578d_address_hours_20260926",
+      "place_id": "osaka_draft_57eaac2e578d",
+      "osm_ref": "node/6434846803",
+      "name": "保護ねこカフェneu。",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区谷町六丁目17-5",
+        "opening_hours": "평일 12:00–21:00; 토·일·공휴일 12:00–19:00; 식사 주문 16:00까지; 비정기 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Fr 13:00-21:00; Sa-Su,PH 12:00-20:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/6434846803"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://neu-catcafe.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://neu-catcafe.com/",
+            "resolved_url": "https://neu-catcafe.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://neu-catcafe.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_74dbaeea6a02_address_hours_20260926",
+      "place_id": "osaka_draft_74dbaeea6a02",
+      "osm_ref": "node/10044742347",
+      "name": "喫茶あおい",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市東淀川区西淡路1-17-3 MURAKAMI1F",
+        "opening_hours": null
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo,We-Su 11:00-20:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/10044742347"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://kissaaoiclub.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://kissaaoiclub.com/",
+            "resolved_url": "https://kissaaoiclub.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://kissaaoiclub.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "conflicting",
+        "notes": [
+          "공식 페이지 본문과 하단의 운영시간·휴무일이 충돌하여 영업시간을 미확인 처리."
+        ]
+      },
+      "recommendation_blockers": [
+        "hours_conflict"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_96e588e49f58_address_hours_20260926",
+      "place_id": "osaka_draft_96e588e49f58",
+      "osm_ref": "node/9905594936",
+      "name": "茶淹",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市淀川区十三元今里2-21-3-102",
+        "opening_hours": "수–일 13:00–19:00경(주문 18:30까지); 월·화 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Tu-Sa 13:00-19:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/9905594936"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://chaenjin.jimdofree.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://chaenjin.jimdofree.com/",
+            "resolved_url": "https://chaenjin.jimdofree.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://chaenjin.jimdofree.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_f729469c78c5_address_hours_20260926",
+      "place_id": "osaka_draft_f729469c78c5",
+      "osm_ref": "node/3432264291",
+      "name": "34 Kitchen",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://34sunsea.com/main/category/newsinfo/kitchen/",
+            "resolved_url": "http://34sunsea.com/main/category/newsinfo/kitchen/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 페이지에서 현재 운영시간 근거 확보 실패."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_873f1e0cf834_address_hours_20260926",
+      "place_id": "osaka_draft_873f1e0cf834",
+      "osm_ref": "node/9468409531",
+      "name": "an39",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://superfoodcafe-an39.com",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "이전 URL과 신규 사이트의 같은 지점 여부 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_94d63b518da4_address_hours_20260926",
+      "place_id": "osaka_draft_94d63b518da4",
+      "osm_ref": "node/12741627001",
+      "name": "bee9",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://bee9.shopselect.net/",
+            "resolved_url": "https://bee9.shopselect.net/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://bee9.shopselect.net/about",
+            "resolved_url": "https://bee9.shopselect.net/about",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "온라인 판매 사이트와 실제 방문 가능한 점포 여부 구분 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "physical_store_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_77f869ee706f_address_hours_20260926",
+      "place_id": "osaka_draft_77f869ee706f",
+      "osm_ref": "node/10578824249",
+      "name": "Bubble Net",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://bubblenetjp.amebaownd.com/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "OSM 주소 구성요소가 서로 충돌. 지점 이전 여부 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [
+        "address_conflict"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2f89be830b8c_address_hours_20260926",
+      "place_id": "osaka_draft_2f89be830b8c",
+      "osm_ref": "node/12870742282",
+      "name": "CAFETERIA AGORA",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora",
+            "resolved_url": "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "unverified",
+        "hours_status": "unverified",
+        "notes": [
+          "대학 나카노시마센터 내 점포와 호텔 본사 주소를 구분해야 함."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_ff20bd4cf6b7_address_hours_20260926",
+      "place_id": "osaka_draft_ff20bd4cf6b7",
+      "osm_ref": "node/13059162987",
+      "name": "Casablanca Namba Riverside",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "소셜 계정 기반 점포. 최신 공식 운영정보 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_5f45ffb4d766_address_hours_20260926",
+      "place_id": "osaka_draft_5f45ffb4d766",
+      "osm_ref": "node/12989500937",
+      "name": "CENTRUM",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区梅田1-8-8 ヒルトン大阪2F",
+        "opening_hours": "11:30–14:00, 17:30–21:30(주문 21:00까지); 월·화 휴무(공휴일 제외)"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Su 11:30-14:00,17:30-21:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/12989500937"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osaka.hiltonjapan.co.jp/restaurants/centrum"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://osaka.hiltonjapan.co.jp/restaurants/centrum",
+            "resolved_url": "https://osaka.hiltonjapan.co.jp/restaurants/centrum",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://osaka.hiltonjapan.co.jp/restaurants/centrum"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_89de388fac63_address_hours_20260926",
+      "place_id": "osaka_draft_89de388fac63",
+      "osm_ref": "node/5633793322",
+      "name": "Différence",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://difference.upper.jp/",
+            "resolved_url": "http://difference.upper.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 상세 메뉴·접근 안내 추가 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_23d3d20ef739_address_hours_20260926",
+      "place_id": "osaka_draft_23d3d20ef739",
+      "osm_ref": "way/264771519",
+      "name": "GARB weeks",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区中之島1-1-29 中之島公園内",
+        "opening_hours": "11:30–22:00; 점심 주문 15:00까지, 저녁 17:30–21:30 주문"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Su 11:30-15:00, 17:30-22:30",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/way/264771519"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://garbweeks.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.garbweeks.com/",
+            "resolved_url": "https://garbweeks.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://garbweeks.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_c341bbd2440a_address_hours_20260926",
+      "place_id": "osaka_draft_c341bbd2440a",
+      "osm_ref": "node/10259462714",
+      "name": "MERCY Vegan Factory",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市中央区瓦屋町2-4-15 1階西側",
+        "opening_hours": "08:00–17:00, 18:00–21:00; 점심 주문 16:00·저녁 20:00까지; 토요일 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Su-Fr 08:00-17:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/10259462714"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://shop.mercy-vegan.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://shop.mercy-vegan.jp/",
+            "resolved_url": "https://shop.mercy-vegan.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://shop.mercy-vegan.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_a9bc74861e3f_address_hours_20260926",
+      "place_id": "osaka_draft_a9bc74861e3f",
+      "osm_ref": "node/9720396303",
+      "name": "MONTOMWORKS. mt.cafe & Design Dept.",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市淀川区新北野1-11-23 ハイム北野B102",
+        "opening_hours": "점심 11:00–16:00(주문 15:30까지); 토·일 저녁 18:00–21:00(주문 20:00까지); 수 휴무(공휴일이면 목요일 대체 휴무)"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "11:00-17:00; Tu 11:00-16:00; We off",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/9720396303"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://montomworks.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://montomworks.com/",
+            "resolved_url": "https://montomworks.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://montomworks.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_d580756db04a_address_hours_20260926",
+      "place_id": "osaka_draft_d580756db04a",
+      "osm_ref": "node/5864532121",
+      "name": "natural kitchen めだか2号店",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市北区兎我野町3-20 雁木ビル1F",
+        "opening_hours": "평일 11:00–20:30; 토·일·공휴일 11:00–20:00"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo-Fr 11:00-15:30, Sa-Su 17:00-21:30",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/5864532121"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://shin-medaka.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://shin-medaka.com/",
+            "resolved_url": "https://shin-medaka.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://shin-medaka.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_f8831852f028_address_hours_20260926",
+      "place_id": "osaka_draft_f8831852f028",
+      "osm_ref": "node/7425697907",
+      "name": "PAPALINA",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市東淀川区淡路4-32-16 レジデンスyamaki1F",
+        "opening_hours": "11:30–21:30(주문 21:00까지); 화요일 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Mo,We-Su 11:30-21:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/7425697907"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "http://papalina68.web.fc2.com/access.html"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://papalina68.web.fc2.com/",
+            "resolved_url": "http://papalina68.web.fc2.com/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "http://papalina68.web.fc2.com/access.html",
+            "resolved_url": "http://papalina68.web.fc2.com/access.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "http://papalina68.web.fc2.com/access.html"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_98a4211ed755_address_hours_20260926",
+      "place_id": "osaka_draft_98a4211ed755",
+      "osm_ref": "node/6349557186",
+      "name": "きりん寺 大阪総本店",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://suzume-group.co.jp/",
+            "resolved_url": "https://suzume-group.co.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "브랜드 전환·지점 혼동 가능. 회사 주소를 점포 주소로 사용하지 않음."
+        ]
+      },
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_7d6ecfb032b6_address_hours_20260926",
+      "place_id": "osaka_draft_7d6ecfb032b6",
+      "osm_ref": "node/12403674701",
+      "name": "もりもり寿し",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://www.morimorisushi.com/index.html",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "이온몰 입점 지점의 공식 안내 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_d0e6cdcb566f_address_hours_20260926",
+      "place_id": "osaka_draft_d0e6cdcb566f",
+      "osm_ref": "node/3074543734",
+      "name": "アルバール",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://albar.jp/awaji/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 사이트 취득 실패. 제3자 정보만으로 확정하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_3b1acd991668_address_hours_20260926",
+      "place_id": "osaka_draft_3b1acd991668",
+      "osm_ref": "node/3923003857",
+      "name": "カドヤ食堂",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://ramenadventures.com/listing/kadoya-shokudo/",
+            "resolved_url": "https://ramenadventures.com/listing/kadoya-shokudo/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "등록 링크는 음식 블로그. 공식 검증으로 간주하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2eb759c40909_address_hours_20260926",
+      "place_id": "osaka_draft_2eb759c40909",
+      "osm_ref": "node/1807434526",
+      "name": "サイゼリヤ",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.saizeriya.co.jp/restaurant/shop_detail.php?cd=1031",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "사이제리야 기존 지점 링크 취득 실패. 지점 ID 대조 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_1875c31c058c_address_hours_20260926",
+      "place_id": "osaka_draft_1875c31c058c",
+      "osm_ref": "node/2833959182",
+      "name": "レコッコレ",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://le-coccole.jp/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 사이트 취득 실패. 현재 주소·운영 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_3d97f36846d0_address_hours_20260926",
+      "place_id": "osaka_draft_3d97f36846d0",
+      "osm_ref": "node/4424700690",
+      "name": "中央市場 ゑんどう寿司",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.endo-sushi.com/",
+            "resolved_url": "https://www.endo-sushi.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 페이지 본문이 이미지 위주. 해당 지점 상세 안내 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_1cdebcaa6534_address_hours_20260926",
+      "place_id": "osaka_draft_1cdebcaa6534",
+      "osm_ref": "node/6423399288",
+      "name": "人類みな麺類",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市淀川区西中島1-12-15"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "http://www.jinrui-minamenrui.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://www.jinrui-minamenrui.com/",
+            "resolved_url": "http://www.jinrui-minamenrui.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "http://www.jinrui-minamenrui.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "unverified",
+        "notes": [
+          "영업시간은 운영사 UNCHI의 최신 지점 안내 추가 확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_20aa5444aadd_address_hours_20260926",
+      "place_id": "osaka_draft_20aa5444aadd",
+      "osm_ref": "node/7477484852",
+      "name": "傾奇御麺 天神橋・本店",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://kabuki-gomen.com/",
+            "resolved_url": "http://kabuki-gomen.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "웹사이트 종료 안내는 식당 폐업의 증거가 아님. 점포 운영 재확인 필요."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_7eda017e1ded_address_hours_20260926",
+      "place_id": "osaka_draft_7eda017e1ded",
+      "osm_ref": "node/10755656305",
+      "name": "咲璽季～素食",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://saijiki-syojin.com",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 사이트 취득 실패. 현재 운영정보 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_3c015925bf31_address_hours_20260926",
+      "place_id": "osaka_draft_3c015925bf31",
+      "osm_ref": "node/11724549770",
+      "name": "居酒屋新",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市中央区島之内2-12-8 TOWビル2F",
+        "opening_hours": "14:00–다음날 03:00; 비정기 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Th-Tu 17:30-02:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/11724549770"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://izakayashin.net/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://izakayashin.net/",
+            "resolved_url": "https://izakayashin.net/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://izakayashin.net/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_6789f7f9c22f_address_hours_20260926",
+      "place_id": "osaka_draft_6789f7f9c22f",
+      "osm_ref": "node/6656921489",
+      "name": "舟屋",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市生野区生野西2-1-34",
+        "opening_hours": "매장 식사 11:30–14:30(주문 14:00까지); 목요일 및 월 1회 임시 휴무; 재료 소진 시 종료"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "Fr-We 11:30-14:30, 16:30-21:00",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/6656921489"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.funaya.co.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.funaya.co.jp",
+            "resolved_url": "https://www.funaya.co.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://www.funaya.co.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": [
+          "포장 10:00–20:00을 매장 식사시간에 사용하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_89458a1abeda_address_hours_20260926",
+      "place_id": "osaka_draft_89458a1abeda",
+      "osm_ref": "node/7461081830",
+      "name": "Bistro よし川",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪市淀川区十三本町2-3-13",
+        "opening_hours": "월–금 11:30–14:00, 17:30–22:00; 토 17:30–22:00; 일·공휴일 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_social_review",
+        "urls": [
+          "https://ameblo.jp/b-yoshikawa/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://ameblo.jp/b-yoshikawa/",
+            "resolved_url": "https://ameblo.jp/b-yoshikawa/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://ameblo.jp/b-yoshikawa/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_26a5e809355e_address_hours_20260926",
+      "place_id": "osaka_draft_26a5e809355e",
+      "osm_ref": "node/12997440993",
+      "name": "Cherry Jam",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市福島区吉野2-1-8",
+        "opening_hours": "화–일 11:30–15:00, 17:00–22:30; 월 휴무(대관 예외)"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://cherryjam.owst.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://cherryjam.owst.jp/",
+            "resolved_url": "https://cherryjam.owst.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://cherryjam.owst.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_8cb9705b2793_address_hours_20260926",
+      "place_id": "osaka_draft_8cb9705b2793",
+      "osm_ref": "node/10159432525",
+      "name": "Comfort Zone 8 京いたりあん",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市淀川区十三本町1-18-10 ナショナルマンション101",
+        "opening_hours": "수–금 11:30–15:00, 18:00–23:00; 토 12:00–15:00, 18:00–23:00; 일·공휴일 11:00–14:00, 17:00–21:00; 월·화 휴무; 입장 종료 1시간 전"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://comfortzone8kyoitarian.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://comfortzone8kyoitarian.com/",
+            "resolved_url": "https://comfortzone8kyoitarian.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://comfortzone8kyoitarian.com/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_d996a4118ab0_address_hours_20260926",
+      "place_id": "osaka_draft_d996a4118ab0",
+      "osm_ref": "node/6930081836",
+      "name": "MayWinds",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://maywinds.on.omisenomikata.jp/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "점포 홈페이지 취득 실패. 운영정보 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_2a9b88c21411_address_hours_20260926",
+      "place_id": "osaka_draft_2a9b88c21411",
+      "osm_ref": "node/12785065294",
+      "name": "Parfait de Merrily",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市中央区馬場町3番65号",
+        "opening_hours": "11:00–20:00(주문 19:00까지); 비정기 휴무"
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": null,
+          "source": null
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://parfait-de-merrily.owst.jp/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://parfait-de-merrily.owst.jp/",
+            "resolved_url": "https://parfait-de-merrily.owst.jp/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://parfait-de-merrily.owst.jp/"
+        ],
+        "address_status": "verified",
+        "hours_status": "verified",
+        "notes": []
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osaka_draft_5fa8876a4657_address_hours_20260926",
+      "place_id": "osaka_draft_5fa8876a4657",
+      "osm_ref": "node/2968345518",
+      "name": "Sagano",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.osaka-sagano.jp/",
+            "resolved_url": null,
+            "fetch_status": "fetch_failed"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "missing",
+        "notes": [
+          "공식 사이트 취득 실패. 운영정보 미확인."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osm_way_303446421_address_hours_20260926",
+      "place_id": "osm_way_303446421",
+      "osm_ref": "way/303446421",
+      "name": "水上バス 乗り場",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://suijo-bus.osaka/",
+            "resolved_url": "https://suijo-bus.osaka/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "수상버스 선착장 지점 확인 후 출항표를 적용해야 함."
+        ]
+      },
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osm_way_151816175_address_hours_20260926",
+      "place_id": "osm_way_151816175",
+      "osm_ref": "way/151816175",
+      "name": "天保山マーケットプレース",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://www.kaiyukan.com/thv/marketplace/",
+            "resolved_url": "https://www.kaiyukan.com/thv/marketplace/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://www.kaiyukan.com/thv/marketplace/info.html",
+            "resolved_url": "https://www.kaiyukan.com/thv/marketplace/info.html",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "공식 페이지 시간의 00:00 표시는 로딩용 자리표시자. 실제 영업시간으로 사용하지 않음."
+        ]
+      },
+      "recommendation_blockers": [],
+      "operating_status": null
+    },
+    {
+      "check_id": "osm_node_6189996345_address_hours_20260926",
+      "place_id": "osm_node_6189996345",
+      "osm_ref": "node/6189996345",
+      "name": "cadode cafe",
+      "checked_at": "2026-09-26",
+      "updates": {},
+      "previous_values": {},
+      "source": {
+        "kind": "review_only",
+        "urls": [],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "https://cadodecafe.com/",
+            "resolved_url": "https://cadodecafe.com/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [],
+        "address_status": "missing",
+        "hours_status": "unverified",
+        "notes": [
+          "효고현 아마가사키 소재. 중앙 오사카 bbox에 포함되지만 오사카시 밖임."
+        ]
+      },
+      "recommendation_blockers": [
+        "outside_osaka_city"
+      ],
+      "operating_status": null
+    },
+    {
+      "check_id": "osm_node_2546559085_address_hours_20260926",
+      "place_id": "osm_node_2546559085",
+      "osm_ref": "node/2546559085",
+      "name": "一蘭 道頓堀店本館",
+      "checked_at": "2026-09-26",
+      "updates": {
+        "address": "大阪府大阪市中央区宗右衛門町7-18",
+        "opening_hours": null
+      },
+      "previous_values": {
+        "address": {
+          "value": null,
+          "source": null
+        },
+        "opening_hours": {
+          "value": "24/7",
+          "source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/2546559085"
+          }
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-main/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "audit": {
+        "reviewed_at": "2026-09-26",
+        "coverage": "all_150",
+        "attempted_sources": [
+          {
+            "url": "http://www.ichiran.co.jp/tenpo/kin_douton.html",
+            "resolved_url": "https://ichiran.com/shop/",
+            "fetch_status": "fetched"
+          },
+          {
+            "url": "https://ichiran.com/shop/kinki/dotonbori-main/",
+            "resolved_url": "https://ichiran.com/shop/kinki/dotonbori-main/",
+            "fetch_status": "fetched"
+          }
+        ],
+        "evidence_urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-main/"
+        ],
+        "address_status": "verified",
+        "hours_status": "not_applicable_closed",
+        "notes": [
+          "공식 지점 페이지에서 영업 종료 확인. 도톤보리 별관과 구분."
+        ]
+      },
+      "recommendation_blockers": [
+        "permanently_closed"
+      ],
+      "operating_status": {
+        "status": "permanently_closed",
+        "source_urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-main/"
+        ],
+        "as_of": "2026-09-26"
+      }
+    }
+  ]
+}

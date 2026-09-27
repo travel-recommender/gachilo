@@ -1,0 +1,5849 @@
+{
+  "dataset_status": "draft_for_review",
+  "schema_version": 1,
+  "source_sha256": {
+    "osaka_places_schema.csv": "4bd81cd15f5eade0e56df2666946d04c50a86bf47447768ec73509ce4dc2b5e6",
+    "osaka_place_candidates.csv": "033cf2201bf6cfa82f5e20a3fd93537a2e345372c1a14ae0e2d72f69ccf1adc6"
+  },
+  "category_quotas": {
+    "명소": 20,
+    "문화": 25,
+    "자연": 20,
+    "쇼핑": 25,
+    "카페": 25,
+    "식사": 35
+  },
+  "selection_policy": "Preserve seeds; website/hours/name availability; coordinate-cell rotation; same-name duplicates within 75m skipped. Not a popularity ranking.",
+  "places": [
+    {
+      "place": {
+        "place_id": "osaka_001",
+        "name": "道頓堀グリコサイン",
+        "name_ko": "도톤보리 글리코 사인",
+        "category": "명소",
+        "area": "난바·도톤보리",
+        "address": "大阪府大阪市中央区道頓堀1丁目10-4",
+        "latitude": 34.668926,
+        "longitude": 135.5010546,
+        "opening_hours": "상시 관람 가능 (점등: 일몰 후~24:00)",
+        "cost": 0.0,
+        "stay_min": 20.0,
+        "bag_load": 0.0,
+        "covered": false,
+        "website": null,
+        "opening_hours_source": "https://www.glico.com/jp/health/contents/glicosign/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 2,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "website"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_002",
+        "name": "通天閣",
+        "name_ko": "쓰텐카쿠",
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6525606,
+        "longitude": 135.50629162857143,
+        "opening_hours": "09:00-21:45 (일반 전망대, 최종입장 21:15)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.tsutenkaku.co.jp/",
+        "opening_hours_source": "https://www.tsutenkaku.co.jp/annai/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 3,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_003",
+        "name": "新世界",
+        "name_ko": "신세카이",
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6520901,
+        "longitude": 135.5061908,
+        "opening_hours": "상시 접근 가능 (개별 점포 영업시간 상이)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": "https://www.city.osaka.lg.jp/naniwa/page/0000001012.html",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 4,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_004",
+        "name": "アメリカ村",
+        "name_ko": "아메리카무라",
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.672085,
+        "longitude": 135.4979465,
+        "opening_hours": "상시 접근 가능 (개별 점포 영업시간 상이)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 5,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_005",
+        "name": "黒門市場",
+        "name_ko": "구로몬시장",
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.666272,
+        "longitude": 135.5070387,
+        "opening_hours": "점포별 상이 (방문 권장 시간대 약 09:00-18:00)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": "https://osaka-info.jp/spot/kuromon-market/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 6,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_006",
+        "name": "心斎橋筋商店街",
+        "name_ko": "신사이바시스지 상점가",
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6742186,
+        "longitude": 135.5013722,
+        "opening_hours": "점포별 상이",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://shinsaibashi-noh.jp/",
+        "opening_hours_source": "https://www.shinsaibashi.or.jp/contact/faq",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 7,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음.",
+          "후보 원본의 한국어명·웹사이트와 상점가 이름의 대응 관계 확인."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_007",
+        "name": "空中庭園展望台",
+        "name_ko": "우메다 공중정원 전망대",
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.7053004,
+        "longitude": 135.4901397,
+        "opening_hours": "09:30-22:30 (최종입장 22:00)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": "https://www.skybldg.co.jp/observatory/information/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 8,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_008",
+        "name": "HEP FIVE観覧車",
+        "name_ko": "HEP FIVE 관람차",
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.70399392857143,
+        "longitude": 135.50003475714286,
+        "opening_hours": "11:00-23:00 (최종탑승 22:45)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": "https://www.hepfive.jp/ferriswheel",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 9,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_009",
+        "name": "大阪城",
+        "name_ko": "오사카성",
+        "category": "문화",
+        "area": "오사카성",
+        "address": "大阪府大阪市中央区大阪城1-1",
+        "latitude": 34.68633084444444,
+        "longitude": 135.52545914722222,
+        "opening_hours": "09:00-18:00 (최종입장 17:30)",
+        "cost": 1200.0,
+        "stay_min": 90.0,
+        "bag_load": 0.0,
+        "covered": true,
+        "website": null,
+        "opening_hours_source": "https://www.osakacastle.net/guide/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 10,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "website"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_010",
+        "name": "大阪天満宮",
+        "name_ko": "오사카 텐만구",
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.69620205151515,
+        "longitude": 135.51298887575757,
+        "opening_hours": "05:30-18:30 (하절기 기준, 계절 변동 가능)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://osakatemmangu.or.jp/",
+        "opening_hours_source": "https://osakatemmangu.or.jp/1332",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 11,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_011",
+        "name": "四天王寺",
+        "name_ko": "시텐노지",
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6545283025641,
+        "longitude": 135.5155184230769,
+        "opening_hours": "04-09월 08:30-16:30 / 10-03월 08:30-16:00 (외부 참배 24시간)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://shitennoji.or.jp",
+        "opening_hours_source": "https://www.shitennoji.or.jp/admission.html",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 12,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_012",
+        "name": "大阪歴史博物館",
+        "name_ko": "오사카 역사박물관",
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6826183,
+        "longitude": 135.5208131,
+        "opening_hours": "09:30-17:00 (화요일 휴관, 공휴일이면 다음날)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osakamushis.jp/",
+        "opening_hours_source": "https://www.osakamushis.jp/visit/fee.html",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 13,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_013",
+        "name": "大阪中之島美術館",
+        "name_ko": "오사카 나카노시마 미술관",
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.69269993,
+        "longitude": 135.49118758,
+        "opening_hours": "화-일 10:00-17:00 (월요일 휴관, 전시별 변동 가능)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://nakka-art.jp/",
+        "opening_hours_source": "https://nakka-art.jp/visit/info/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 14,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_014",
+        "name": "大阪市立科学館",
+        "name_ko": "오사카 시립과학관",
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.69127604193548,
+        "longitude": 135.49152248064516,
+        "opening_hours": "09:30-17:00 (월요일 휴관, 공휴일이면 다음 평일)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.sci-museum.jp/",
+        "opening_hours_source": "https://www.sci-museum.jp/info/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 15,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_015",
+        "name": "大阪城公園",
+        "name_ko": "오사카성 공원",
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.68730420141844,
+        "longitude": 135.5268453829787,
+        "opening_hours": "상시 접근 가능 (공원 내 개별 시설 별도)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://osakacastlepark.jp/",
+        "opening_hours_source": "https://osakacastlepark.jp/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 16,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_016",
+        "name": "中之島公園",
+        "name_ko": "나카노시마 공원",
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.692417983333335,
+        "longitude": 135.5075474,
+        "opening_hours": "상시 접근 가능 (개별 시설 별도)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 17,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_017",
+        "name": "中之島公園バラ園",
+        "name_ko": "나카노시마 공원 장미원",
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.6920064,
+        "longitude": 135.5089783,
+        "opening_hours": "상시 접근 가능 (행사·관리 시 변동 가능)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 18,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_018",
+        "name": "天王寺公園",
+        "name_ko": "덴노지 공원",
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.65095327419355,
+        "longitude": 135.51115384032258,
+        "opening_hours": "07:00-22:00 (텐시바 기준, 개별 점포 별도)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osakapark.osgf.or.jp/tennoji/",
+        "opening_hours_source": "https://www.tennoji-park.jp/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 19,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_019",
+        "name": "靱公園",
+        "name_ko": "우츠보 공원",
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.685036163157896,
+        "longitude": 135.4936313263158,
+        "opening_hours": "상시 접근 가능 (개별 시설 별도)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 20,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_020",
+        "name": "なんばパークス",
+        "name_ko": "난바 파크스",
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.661731957692304,
+        "longitude": 135.50169774615384,
+        "opening_hours": "쇼핑 11:00-21:00 / 레스토랑 11:00-22:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://nambaparks.com/",
+        "opening_hours_source": "https://nambaparks.com/facilities",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 21,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_021",
+        "name": "高島屋",
+        "name_ko": "다카시마야 오사카점",
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.6646286,
+        "longitude": 135.5017961,
+        "opening_hours": "10:00-20:00 (일부 매장 상이)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.takashimaya.co.jp/osaka",
+        "opening_hours_source": "https://www.takashimaya.co.jp/osaka/businesshours/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 22,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_022",
+        "name": "大丸 心斎橋店 本館",
+        "name_ko": "다이마루 신사이바시점",
+        "category": "쇼핑",
+        "area": "신사이바시",
+        "address": "大阪府大阪市中央区心斎橋筋1-7-1",
+        "latitude": 34.67327937777778,
+        "longitude": 135.5009304888889,
+        "opening_hours": "10:00-20:00 (레스토랑층 등 일부 상이)",
+        "cost": 0.0,
+        "stay_min": 90.0,
+        "bag_load": 2.0,
+        "covered": true,
+        "website": "https://www.daimaru.co.jp/shinsaibashi",
+        "opening_hours_source": "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 23,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": []
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_023",
+        "name": "阪神梅田本店",
+        "name_ko": "한신 우메다 본점",
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.7011649,
+        "longitude": 135.4986066,
+        "opening_hours": "10:00-20:00 (일부 매장 상이)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.hanshin-dept.jp/hshonten/",
+        "opening_hours_source": "https://www.hanshin-dept.jp/hshonten/map/index.html",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 24,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_024",
+        "name": "心斎橋PARCO",
+        "name_ko": "신사이바시 PARCO",
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.67390001176471,
+        "longitude": 135.50104050588234,
+        "opening_hours": "물판·서비스 10:00-20:00 (식당층 별도)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://shinsaibashi.parco.jp/",
+        "opening_hours_source": "https://shinsaibashi.parco.jp/info/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 25,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_025",
+        "name": "かに道楽",
+        "name_ko": "카니도라쿠",
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6688634,
+        "longitude": 135.5015017,
+        "opening_hours": "11:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://douraku.co.jp/",
+        "opening_hours_source": "https://www.douraku.co.jp/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 26,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_026",
+        "name": "一蘭 道頓堀店別館",
+        "name_ko": "이치란 도톤보리점",
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.668449,
+        "longitude": 135.503214,
+        "opening_hours": "24시간 (맛집중 카운터) / 테이블석 08:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://ichiran.com/shop/kinki/dotonbori-south/",
+        "opening_hours_source": "https://ichiran.com/shop/kinki/dotonbori-south/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 27,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_027",
+        "name": "釜たけうどん明石焼 LINKSヨドバシ梅田店",
+        "name_ko": "카마타케 우동",
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7040777,
+        "longitude": 135.4960769,
+        "opening_hours": "11:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://kamatake.com/shop/links-yodobashi-umeda/",
+        "opening_hours_source": "https://kamatake.com/shop/links-yodobashi-umeda/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 28,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_028",
+        "name": "総大醤",
+        "name_ko": "소다이쇼",
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.710236,
+        "longitude": 135.507619,
+        "opening_hours": "11:00-24:00 (연중무휴)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": "https://www.soudaisyou.com/access.html",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 29,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_029",
+        "name": "丸福珈琲店",
+        "name_ko": "마루후쿠 커피",
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6890073,
+        "longitude": 135.5059322,
+        "opening_hours": "08:00-23:00 (천日前 본점 기준)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": "https://marufukucoffeeten.com/store/area/kansai/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 30,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음.",
+          "영업시간 설명의 본점/NAMBA 지점과 좌표가 같은 지점인지 우선 확인."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_030",
+        "name": "Brooklyn Roasting Company",
+        "name_ko": "브루클린 로스팅 컴퍼니",
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6738057,
+        "longitude": 135.500983,
+        "opening_hours": "평일 09:00-20:00 / 토·일·공휴일 08:00-20:00 (NAMBA 기준)",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://brooklynroasting.jp/",
+        "opening_hours_source": "http://brooklynroasting.jp/",
+        "verified_at": "2026-09-16"
+      },
+      "review": {
+        "status": "existing_not_reverified",
+        "source_file": "osaka_places_schema.csv",
+        "source_row": 31,
+        "notes": [
+          "기존 값 보존. 이번 작업에서 공식 정보 재검증하지 않음.",
+          "영업시간 설명의 본점/NAMBA 지점과 좌표가 같은 지점인지 우선 확인."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2e4698946819",
+        "name": "エレメカ研究所",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.7093677,
+        "longitude": 135.5033041,
+        "opening_hours": "Mo-Su 12:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://x.com/elemecalabo",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 29,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_73505422b2e6",
+        "name": "道頓堀橋",
+        "name_ko": "도톤보리 교",
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.66903473703704,
+        "longitude": 135.50032561851853,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.city.osaka.lg.jp/kensetsu/page/0000493973.html",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 45,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_a270504b6cd8",
+        "name": "茶室（豊松庵）",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.68822910869565,
+        "longitude": 135.52397912608697,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osakacastlepark.jp/articles/detail.html?lang=en&id=33",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 38,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_bdd1ec5175d0",
+        "name": "OAP港",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.70056734,
+        "longitude": 135.52063618000003,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 46,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_f0f97440bedc",
+        "name": "ワケ橋",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6511463,
+        "longitude": 135.5116039,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 28,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_1c4a0fd86b91",
+        "name": "包ギョーザ",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6973339,
+        "longitude": 135.4863544,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 30,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_05edfc5d7fbc",
+        "name": "国旗掲揚塔",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6482783,
+        "longitude": 135.5196896,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 24,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_85b3463e84b9",
+        "name": "太閤下水見学施設",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6801037,
+        "longitude": 135.5144665,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 25,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_5a243c3857f7",
+        "name": "松栄堂",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6829159,
+        "longitude": 135.5009368,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 20,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_84378ff5ba08",
+        "name": "毛馬閘門",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.7211475,
+        "longitude": 135.5170669,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 21,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_0cc625078422",
+        "name": "湊町リバープレイス",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6687571,
+        "longitude": 135.4954509,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 8,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_300825840acb",
+        "name": "Akiba Kart Osaka",
+        "name_ko": null,
+        "category": "명소",
+        "area": null,
+        "address": null,
+        "latitude": 34.6611047,
+        "longitude": 135.5070825,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://osakakart.com/en/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 26,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_7c98da5a96f9",
+        "name": "大阪くらしの今昔館",
+        "name_ko": "오사카 주택박물관",
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.7104664,
+        "longitude": 135.5114334,
+        "opening_hours": "We-Mo 10:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osaka-angenet.jp/konjyakukan/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 101,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_1cbe7e7894c8",
+        "name": "くすりの道修町資料館",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6886356,
+        "longitude": 135.5059954,
+        "opening_hours": "Mo-Sa 10:00-18:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.sinnosan.jp/kusuri/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 225,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_50b7a6cc608f",
+        "name": "まほうびん記念館",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6954604,
+        "longitude": 135.5182208,
+        "opening_hours": "Mo-Fr 10:00-16:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.zojirushi.co.jp/corp/kinenkan/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 93,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_c99cbfbd0f92",
+        "name": "アートコートギャラリー",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6990843,
+        "longitude": 135.5209862,
+        "opening_hours": "Tu-Fr 11:00-18:00; Sa 11:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.artcourtgallery.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 288,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_6dbd8bbe7f48",
+        "name": "上方浮世絵館",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.66798204,
+        "longitude": 135.50219842,
+        "opening_hours": "Tu-Su 11:00-17:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://www.kamigata.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 365,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_ce3b8d452a0e",
+        "name": "国立国際美術館",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6917195117647,
+        "longitude": 135.49206512352941,
+        "opening_hours": "Sa-Su 10:00-17:00,Tu-Th 10:00-19:00,Fr 10:00-19:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.nmao.go.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 375,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_316598fb77c9",
+        "name": "大阪市立美術館",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.65006793809524,
+        "longitude": 135.51053006666666,
+        "opening_hours": "Tu-Su 09:30-17:00; 2022 Sep 26-2025 Feb 28 closed \"closed due to renovation\"",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osaka-art-museum.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 321,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2780be08a88e",
+        "name": "御津八幡宮",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.67143670769231,
+        "longitude": 135.4992702923077,
+        "opening_hours": "Mo-Su 07:00-18:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://mitsugu.org/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 390,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_7675eb0bab46",
+        "name": "難波八坂神社",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.66140392857143,
+        "longitude": 135.49672772857141,
+        "opening_hours": "Mo-Su 06:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://nambayasaka.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 523,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_40d8be797d5b",
+        "name": "design museum",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6910724,
+        "longitude": 135.4868302,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://designde.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 70,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_6eda07803129",
+        "name": "ギャラリー ササキ商店",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6723975,
+        "longitude": 135.5009862,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://www.gallerysasaki.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 94,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_43502b1cfa97",
+        "name": "ブルームギャラリー",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.7155393,
+        "longitude": 135.4811349,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://linktr.ee/bloom_gallery",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 248,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_9cd21dc062f7",
+        "name": "大阪市立東洋陶磁美術館",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.693466139130436,
+        "longitude": 135.50544585652173,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.moco.or.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 314,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_70d399cfaea8",
+        "name": "日本基督教団大阪教会",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.6893554,
+        "longitude": 135.4935515,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osaka-church.net/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 80,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_07d2c797a410",
+        "name": "日本聖公会聖贖主教会礼拝堂",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.72179792,
+        "longitude": 135.47608572,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.hakuaisha-welfare.net/redeemer/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 478,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_006a0c207d8c",
+        "name": "歯神社",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.70475928,
+        "longitude": 135.50099400000002,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.hagamisan.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 499,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_718edcaf3985",
+        "name": "海月文庫アートスペース",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.7265771,
+        "longitude": 135.4930465,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.kuragebunko.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 247,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_d7da3fdbeaf6",
+        "name": "絹谷幸二 天空美術館",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.7052685,
+        "longitude": 135.4896361,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.kinutani-tenku.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 291,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_04b34bc4e6e2",
+        "name": "高津宮",
+        "name_ko": null,
+        "category": "문화",
+        "area": null,
+        "address": null,
+        "latitude": 34.668687166666665,
+        "longitude": 135.51376718333333,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.kouzu.or.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 546,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_1289b4aecc32",
+        "name": "慶沢園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.64967546956522,
+        "longitude": 135.51098882608696,
+        "opening_hours": "Mo off; Oct 01-Apr 30 Tu-Su 09:30-17:00; May 01-Sep 30 Tu-Fr 09:30-17:00; May 01-Sep 30 Sa-Su 09:30-18:00; Dec 29-Jan 01 off",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 802,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_c62644984874",
+        "name": "桜之宮公園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.702918885842294,
+        "longitude": 135.52098679767025,
+        "opening_hours": "24/7",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osakapark.osgf.or.jp/kema_sakuranomiya/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 798,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_9e900589aec0",
+        "name": "西の丸庭園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.68732864444444,
+        "longitude": 135.52309365,
+        "opening_hours": "Jan 04-Dec 28 09:00-17:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osakacastle.net/park/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 612,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_f72944194ef3",
+        "name": "千島公園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.648916660000005,
+        "longitude": 135.47412195333334,
+        "opening_hours": "24/7",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 573,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_a66fcd05acfb",
+        "name": "南天満公園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.69193736153846,
+        "longitude": 135.5148068923077,
+        "opening_hours": "24/7",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 621,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_03cde684bd96",
+        "name": "毛馬公園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.712459981889765,
+        "longitude": 135.51988232283463,
+        "opening_hours": "24/7",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 799,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_e102a263e5a8",
+        "name": "淀川河川公園 長柄地区",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.72023457608696,
+        "longitude": 135.51402621739132,
+        "opening_hours": "24/7",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 632,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_5f8dd9212a0c",
+        "name": "藤田邸跡公園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.69524641666667,
+        "longitude": 135.52447162333334,
+        "opening_hours": "10:00-16:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 813,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_c6de5620d3d0",
+        "name": "難波中公園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.66070795555556,
+        "longitude": 135.4993268111111,
+        "opening_hours": "08:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 649,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_0cf4fe2e0afe",
+        "name": "花野・新・里山",
+        "name_ko": "신 우메다시티 하나노",
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.70586854444444,
+        "longitude": 135.4896999888889,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 634,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2941efc9ac2d",
+        "name": "うめきた公園 サウスパーク",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.703740259090914,
+        "longitude": 135.49260398636363,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 810,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_f852e8e07cf8",
+        "name": "かすがえ公園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.710460260000005,
+        "longitude": 135.52210972,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 698,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_0adb7945fbda",
+        "name": "ほたるまちにある広場",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.69382939285715,
+        "longitude": 135.48885707857144,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 815,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2fc0df9e9f8d",
+        "name": "パークスガーデン",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.6615247,
+        "longitude": 135.5019821,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 570,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_cff5e2720c53",
+        "name": "三和公園",
+        "name_ko": null,
+        "category": "자연",
+        "area": null,
+        "address": null,
+        "latitude": 34.73962195714286,
+        "longitude": 135.47714627142858,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 817,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_16f1d28c8bfd",
+        "name": "NU茶屋町",
+        "name_ko": "NU 자야마치",
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.70686731176471,
+        "longitude": 135.49913724705883,
+        "opening_hours": "Mo-Su 11:00-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://nu-chayamachi.com/sp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 859,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_1b3533415b94",
+        "name": "ハービスPLAZA ENT",
+        "name_ko": "하비스 플라자",
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.69985783939394,
+        "longitude": 135.49466534848486,
+        "opening_hours": "Mo-Su 11:00-20:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.herbis.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 881,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_4fb99b053e8b",
+        "name": "Whityうめだ",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.702617612,
+        "longitude": 135.500038618,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://whity.osaka-chikagai.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 888,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_e51bbe99124a",
+        "name": "アルデ新大阪",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.7340963,
+        "longitude": 135.5013484,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.arde-shinosaka.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 857,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_02288187c550",
+        "name": "イオンモール大阪ドームシティ",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.670438938333334,
+        "longitude": 135.47789146666668,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.aeon.jp/sc/osakadomecity/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 885,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_11050de606b0",
+        "name": "ウイステ",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.6953411925,
+        "longitude": 135.47584719,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.wiste.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 865,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_b1eae8a8935b",
+        "name": "Asoko Minamihorie",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.6710056,
+        "longitude": 135.4937158,
+        "opening_hours": "Mo-Su 11:00-20:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 831,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_daa353940c61",
+        "name": "近鉄百貨店",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.66536818,
+        "longitude": 135.51951986,
+        "opening_hours": "Mo-Su,PH 10:00-20:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 866,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_dc3ec67cb8d1",
+        "name": "京阪シティモール",
+        "name_ko": "케이한 시티 몰",
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.6900304,
+        "longitude": 135.5167195,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 843,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2b9dd68b687a",
+        "name": "HELLO life",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.68459105,
+        "longitude": 135.49421388333334,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 876,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_fa65b053e525",
+        "name": "MIHA shop",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.687297619999995,
+        "longitude": 135.48701721999998,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 873,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_31878d4960fc",
+        "name": "Viewl 阪急三国",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.7372991,
+        "longitude": 135.4832338,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 855,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_bb9d5f00904d",
+        "name": "あべちか",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.64822408571428,
+        "longitude": 135.5133334142857,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 877,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_391fae83b26c",
+        "name": "てんしばi:na",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.64879444545455,
+        "longitude": 135.5095841181818,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 883,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_a8c6b6985943",
+        "name": "なんばEKIKAN",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.659867642857144,
+        "longitude": 135.50274558571428,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 882,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_fc7acd992f21",
+        "name": "新大阪センイシティー",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.7354525,
+        "longitude": 135.49400373333333,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 875,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_b6b6dae05ce5",
+        "name": "淀屋橋 odona",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.691121806666665,
+        "longitude": 135.50024359333332,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": null,
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 858,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "website",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_f1ba0aa6ab58",
+        "name": "阪急うめだ本店",
+        "name_ko": "한큐 백화점 우메다 본점",
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.7027128,
+        "longitude": 135.4984322,
+        "opening_hours": "Mo-Th,Su 10:00-20:00; Fr-Sa 10:00-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.hankyu-dept.co.jp/honten",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 851,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_481d9742f9c2",
+        "name": "ブリーゼブリーゼ",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.6985046,
+        "longitude": 135.4939391,
+        "opening_hours": "Mo-Su 11:00-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.breeze-breeze.jp/info/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 823,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_c85fa26beb80",
+        "name": "なんばマルイ",
+        "name_ko": null,
+        "category": "쇼핑",
+        "area": null,
+        "address": null,
+        "latitude": 34.6655694,
+        "longitude": 135.5010595,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://www.0101.co.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 856,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_35640888fa49",
+        "name": "モトコーヒー",
+        "name_ko": "모토커피",
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6920707,
+        "longitude": 135.5064765,
+        "opening_hours": "Mo-Su 12:00-19:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.shelf-keybridge.com/motocoffee.html",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1137,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_f22cfa23d646",
+        "name": "42195 COFFEE",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.71237514,
+        "longitude": 135.49374364,
+        "opening_hours": "Mo-We,Fr 08:00-18:00; Sa-Su,PH 10:00-18:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://42195coffee.wixsite.com/toppage",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1824,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_b0a5c9b0d460",
+        "name": "Antico Caffe Al Avis",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6994726,
+        "longitude": 135.4942529,
+        "opening_hours": "Su-Th 11:00-22:00,Fr-Sa 11:00-22:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.hakka-group.co.jp/?cmd=read&page=roll%20madu%20umeda",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1138,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_5a3ef73c2b4b",
+        "name": "Blue Bottle Coffee",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.7077414,
+        "longitude": 135.4981894,
+        "opening_hours": "Mo-Su 08:00-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1426,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_3b8f7684482e",
+        "name": "BOBBIN",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6870059,
+        "longitude": 135.4917031,
+        "opening_hours": "Mo-Sa 11:00-18:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://cafebobbin.com",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1361,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_e3ac280c1575",
+        "name": "Cafe Di Espresso",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6975145,
+        "longitude": 135.514626,
+        "opening_hours": "07:00-20:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.ufs.co.jp/shop-search/shop_id/263",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 922,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_9342479ef7d7",
+        "name": "Cafe yutte",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.725377,
+        "longitude": 135.4882807,
+        "opening_hours": "Tu-Sa 10:00-18:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.instagram.com/cafe_yutte",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1327,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_243b34cd6761",
+        "name": "e-maid",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6625479,
+        "longitude": 135.5038063,
+        "opening_hours": "Mo-Fr 12:00-22:30; PH,Sa,Su 11:00-22:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://e-maid.net",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1149,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_eda93d07ee2b",
+        "name": "Haiku Coffee Roasters",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.7101879,
+        "longitude": 135.5074534,
+        "opening_hours": "Mo,Tu,Th 10:00-18:00; We off; Fr,Sa 10:00-22:00; Su 10:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://haikucoffee.thebase.in/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 936,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_d52fee5c2304",
+        "name": "Holly's Cafe",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.683806,
+        "longitude": 135.506096,
+        "opening_hours": "Mo-Fr 06:30-23:00; Sa,Su,PH 06:30-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://hollys-corp.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1003,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_11ceb1687dfa",
+        "name": "La Granda Familio",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.7070237,
+        "longitude": 135.504145,
+        "opening_hours": "Mo-Sa 10:30-19:00; Tu 09:15-12:45; Su 10:30-18:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://www.grandafamilio.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1453,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2f4886b3a5b6",
+        "name": "Melbourne Coffee",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6777375,
+        "longitude": 135.5020841,
+        "opening_hours": "09:00-14:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.melbournecoffee.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1633,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_ad4f12a67de3",
+        "name": "mouton otto",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.7045039,
+        "longitude": 135.5100712,
+        "opening_hours": "11:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://www.mouton.jp.net/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1111,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_cdb260bb106a",
+        "name": "rion cafe",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6597866,
+        "longitude": 135.4950514,
+        "opening_hours": "Mo-Fr 11:30-14:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://rioncafe.com",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1387,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_4af3a5a14578",
+        "name": "Sub Jazz Cafe",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6667521,
+        "longitude": 135.5168554,
+        "opening_hours": "Su-Mo, We-Th 15:00-23:00; Fr 11:00-23:00; Sa 13:30-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.subjazzcafe.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1646,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_e5eb4dd70807",
+        "name": "SÖT COFFEE",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6858813,
+        "longitude": 135.5150117,
+        "opening_hours": "08:00-19:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.sotcoffee.com/en/pages/shop-osaka",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1409,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_af11af018972",
+        "name": "こちかぜ",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.67297645,
+        "longitude": 135.52485556666667,
+        "opening_hours": "11:30-13:30 open \"ランチ\",17:30-21:30 open \"ディナー\" || \"不定休\"",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "www.kotikaze.com",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1826,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_19894ad0a123",
+        "name": "アズアン",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6798624,
+        "longitude": 135.4991583,
+        "opening_hours": "Mo-Sa 11:00-19:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://asann.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1064,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_c4a30f2620d0",
+        "name": "エミュリボン",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6698581,
+        "longitude": 135.4979599,
+        "opening_hours": "Mo-Fr 18:00-23:00; Sa-Su 16:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://aimyouribbon.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1214,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_32974d974e62",
+        "name": "ケーキ＆カフェダイニング　ボナボン",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.717966,
+        "longitude": 135.4853826,
+        "opening_hours": "09:00-21:00; Fr,Sa,PH -1 day 09:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://www.bonandbon.jp",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1421,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_57eaac2e578d",
+        "name": "保護ねこカフェneu。",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.6747753,
+        "longitude": 135.5136323,
+        "opening_hours": "Mo-Fr 13:00-21:00; Sa-Su,PH 12:00-20:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://neu-catcafe.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1373,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_74dbaeea6a02",
+        "name": "喫茶あおい",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.7400123,
+        "longitude": 135.5060998,
+        "opening_hours": "Mo,We-Su 11:00-20:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://kissaaoiclub.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1549,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_96e588e49f58",
+        "name": "茶淹",
+        "name_ko": null,
+        "category": "카페",
+        "area": null,
+        "address": null,
+        "latitude": 34.7188979,
+        "longitude": 135.4751772,
+        "opening_hours": "Tu-Sa 13:00-19:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://chaenjin.jimdofree.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1542,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_f729469c78c5",
+        "name": "34 Kitchen",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.712006,
+        "longitude": 135.492029,
+        "opening_hours": "11:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://34sunsea.com/main/category/newsinfo/kitchen/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 2647,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_873f1e0cf834",
+        "name": "an39",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6973394,
+        "longitude": 135.488608,
+        "opening_hours": "Tu-Su 11:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://superfoodcafe-an39.com",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3930,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_94d63b518da4",
+        "name": "bee9",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6983981,
+        "longitude": 135.5154675,
+        "opening_hours": "Mo-Fr 11:00-17:00; Sa-Su 18:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://bee9.shopselect.net/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4528,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_77f869ee706f",
+        "name": "Bubble Net",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6777038,
+        "longitude": 135.4920565,
+        "opening_hours": "Mo-Su 18:00-28:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://bubblenetjp.amebaownd.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4064,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2f89be830b8c",
+        "name": "CAFETERIA AGORA",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.692746,
+        "longitude": 135.4904344,
+        "opening_hours": "11:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4564,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_ff20bd4cf6b7",
+        "name": "Casablanca Namba Riverside",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6692556,
+        "longitude": 135.4983831,
+        "opening_hours": "11:00-24:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.instagram.com/casablanca_namba_riverside/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4612,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_5f45ffb4d766",
+        "name": "CENTRUM",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7001335,
+        "longitude": 135.4960128,
+        "opening_hours": "Mo-Su 11:30-14:00,17:30-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://osaka.hiltonjapan.co.jp/restaurants/centrum",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4585,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_89de388fac63",
+        "name": "Différence",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.684528,
+        "longitude": 135.4942289,
+        "opening_hours": "12:00-15:00,17:30-22:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://difference.upper.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3169,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_23d3d20ef739",
+        "name": "GARB weeks",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6928005375,
+        "longitude": 135.50588735,
+        "opening_hours": "Mo-Su 11:30-15:00, 17:30-22:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.garbweeks.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 5032,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_c341bbd2440a",
+        "name": "MERCY Vegan Factory",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.669979,
+        "longitude": 135.5133594,
+        "opening_hours": "Su-Fr 08:00-17:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://shop.mercy-vegan.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4019,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_a9bc74861e3f",
+        "name": "MONTOMWORKS. mt.cafe & Design Dept.",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7154755,
+        "longitude": 135.4810448,
+        "opening_hours": "11:00-17:00; Tu 11:00-16:00; We off",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://montomworks.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3958,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_d580756db04a",
+        "name": "natural kitchen めだか2号店",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7010283,
+        "longitude": 135.505641,
+        "opening_hours": "Mo-Fr 11:00-15:30, Sa-Su 17:00-21:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://shin-medaka.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3364,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_f8831852f028",
+        "name": "PAPALINA",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7406154,
+        "longitude": 135.5158676,
+        "opening_hours": "Mo,We-Su 11:30-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://papalina68.web.fc2.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3725,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_98a4211ed755",
+        "name": "きりん寺 大阪総本店",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6572929,
+        "longitude": 135.5055213,
+        "opening_hours": "Mo-Su 11:30-16:30, 18:00-22:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://suzume-group.co.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3524,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_7d6ecfb032b6",
+        "name": "もりもり寿し",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6699382,
+        "longitude": 135.4779563,
+        "opening_hours": "Mo-Su 11:00-22:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://www.morimorisushi.com/index.html",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4478,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_d0e6cdcb566f",
+        "name": "アルバール",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7399063,
+        "longitude": 135.5165624,
+        "opening_hours": "Mo-Fr 11:30-22:30; Su 11:30-22:00; PH 11:30-22:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://albar.jp/awaji/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 2604,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_3b1acd991668",
+        "name": "カドヤ食堂",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6761315,
+        "longitude": 135.4837548,
+        "opening_hours": "11:00+",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://ramenadventures.com/listing/kadoya-shokudo/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 2737,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2eb759c40909",
+        "name": "サイゼリヤ",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7340159,
+        "longitude": 135.4913311,
+        "opening_hours": "11:00-02:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.saizeriya.co.jp/restaurant/shop_detail.php?cd=1031",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 1865,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_1875c31c058c",
+        "name": "レコッコレ",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6803042,
+        "longitude": 135.5022732,
+        "opening_hours": "We-Sa 11:30-22:00; Su-Mo 11:30-18:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://le-coccole.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 2572,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_3d97f36846d0",
+        "name": "中央市場 ゑんどう寿司",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6842674,
+        "longitude": 135.4795028,
+        "opening_hours": "Mo-Sa 05:00-14:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.endo-sushi.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 2810,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_1cdebcaa6534",
+        "name": "人類みな麺類",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7254974,
+        "longitude": 135.4992515,
+        "opening_hours": "Mo-Su 11:00-23:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://www.jinrui-minamenrui.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3557,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_20aa5444aadd",
+        "name": "傾奇御麺 天神橋・本店",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7075822,
+        "longitude": 135.5106449,
+        "opening_hours": "11:30-02:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "http://kabuki-gomen.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3793,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_7eda017e1ded",
+        "name": "咲璽季～素食",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6481859,
+        "longitude": 135.5077342,
+        "opening_hours": "We-Fr 11:00-14:00, 17:00-21:00; Sa-Su 09:00-14:00, 17:00-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://saijiki-syojin.com",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4078,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_3c015925bf31",
+        "name": "居酒屋新",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6711371,
+        "longitude": 135.5081496,
+        "opening_hours": "Th-Tu 17:30-02:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://izakayashin.net/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4328,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_6789f7f9c22f",
+        "name": "舟屋",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6484487,
+        "longitude": 135.5243865,
+        "opening_hours": "Fr-We 11:30-14:30, 16:30-21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.funaya.co.jp",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3618,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_89458a1abeda",
+        "name": "Bistro よし川",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.7215235,
+        "longitude": 135.4811173,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://ameblo.jp/b-yoshikawa/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3761,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_26a5e809355e",
+        "name": "Cherry Jam",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6906292,
+        "longitude": 135.4770396,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://cherryjam.owst.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4595,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_8cb9705b2793",
+        "name": "Comfort Zone 8 京いたりあん",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.718114,
+        "longitude": 135.4786374,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://comfortzone8kyoitarian.com/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4004,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_d996a4118ab0",
+        "name": "MayWinds",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6879231,
+        "longitude": 135.5130323,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://maywinds.on.omisenomikata.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 3664,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_2a9b88c21411",
+        "name": "Parfait de Merrily",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6819166,
+        "longitude": 135.5219033,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://parfait-de-merrily.owst.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 4545,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    },
+    {
+      "place": {
+        "place_id": "osaka_draft_5fa8876a4657",
+        "name": "Sagano",
+        "name_ko": null,
+        "category": "식사",
+        "area": null,
+        "address": null,
+        "latitude": 34.6827812,
+        "longitude": 135.4883205,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.osaka-sagano.jp/",
+        "opening_hours_source": null,
+        "verified_at": null
+      },
+      "review": {
+        "status": "needs_verification",
+        "source_file": "osaka_place_candidates.csv",
+        "source_row": 2583,
+        "notes": [
+          "기존 OSM 후보에서 자동 선별. 지점·운영 여부·관광 적합성·영업시간 확인 필요."
+        ],
+        "missing_fields": [
+          "name_ko",
+          "area",
+          "address",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered",
+          "opening_hours_source",
+          "verified_at"
+        ]
+      }
+    }
+  ]
+}

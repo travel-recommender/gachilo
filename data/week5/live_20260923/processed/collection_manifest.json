@@ -1,0 +1,96 @@
+{
+  "schema_version": 2,
+  "dataset_status": "draft_for_review",
+  "collected_at": "2026-09-23T04:16:44.319902+00:00",
+  "osm_base_timestamp": "2026-09-23T04:14:35Z",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "bbox": [
+    34.6,
+    135.4,
+    34.75,
+    135.6
+  ],
+  "scope": "Central Osaka bounding box, not all Osaka Prefecture",
+  "raw_sha256": "7019a33a976ac75d715ca3c580cc30f12628c8d72c8130705d4cc0c449aa6aa8",
+  "query_sha256": "fade1d530807d7b26f1fdaa2a50455a3a1ea2b555a5fc7075c184c14fc97c517",
+  "previous_draft_sha256": "34e0c4014fc27dcc60191e1ae0edc7a2223b1233ba0d4cf7c6db8d11cc1feda8",
+  "official_checks_sha256": "3c33acc791db88c9f5aa687acf6baf8842a0f1e442c3760b9e840bfdd6423428",
+  "attribution": {
+    "text": "© OpenStreetMap contributors",
+    "url": "https://www.openstreetmap.org/copyright",
+    "license": "ODbL 1.0"
+  },
+  "statistics": {
+    "raw_objects": 11971,
+    "normalized_objects": 11922,
+    "deduplicated_candidates": 11852,
+    "selected": 150,
+    "category_counts": {
+      "명소": 20,
+      "문화": 25,
+      "자연": 20,
+      "쇼핑": 25,
+      "식사": 35,
+      "카페": 25
+    },
+    "previous_match_status": {
+      "matched": 146,
+      "not_matched": 3,
+      "ambiguous": 1
+    },
+    "selected_with_official_field_checks": 86,
+    "selected_missing": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 110,
+      "category": 0,
+      "area": 150,
+      "address": 65,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 35,
+      "cost": 145,
+      "stay_min": 150,
+      "bag_load": 150,
+      "covered": 150,
+      "website": 39,
+      "opening_hours_source": 83,
+      "verified_at": 62
+    },
+    "selected_with_address_components": 50
+  },
+  "selection_revision": "cafe_branches_20260923",
+  "branch_supplement_sha256": "e94686bbe70c42a18915f427cf7206afffd37296a076409b605596d608f3e310",
+  "previous_match_status_scope": "Initial automatic matching before branch selection overrides; see cafe_branch_replacements.json",
+  "enrichment_revision": "official_fields_20260924",
+  "enrichment_checks_sha256": "e083ba05a9ea0cb8e0b1b8359eb0d8ab95b54c2050c848f002bc0fe40c8cce8a",
+  "full_review_revision": "address_hours_20260926",
+  "full_review_statistics": {
+    "total": 150,
+    "reviewed": 150,
+    "records_with_new_field_updates": 77,
+    "address_verified": 84,
+    "hours_verified": 66,
+    "both_verified_without_specific_blocker": 62,
+    "with_specific_blockers": 27,
+    "missing_fields": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 110,
+      "category": 0,
+      "area": 150,
+      "address": 65,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 35,
+      "cost": 145,
+      "stay_min": 150,
+      "bag_load": 150,
+      "covered": 150,
+      "website": 39,
+      "opening_hours_source": 83,
+      "verified_at": 62
+    }
+  },
+  "full_review_checks_sha256": "5befd6e815dea66bcad5e60157ed0a12a414635c1527310ceb311bd48e927751"
+}

@@ -1,0 +1,122 @@
+{
+  "checked_at": "2026-09-23",
+  "checks": [
+    {
+      "id": "glico_sign_20260923",
+      "checked_at": "2026-09-23",
+      "osm_refs": ["node/3507545614"],
+      "urls": ["https://www.glico.com/jp/health/contents/glicosign/"],
+      "updates": {
+        "address": "大阪府大阪市中央区道頓堀1丁目10-4",
+        "opening_hours": "점등: 일몰 후~24:00 (상황에 따라 단축 가능; 관람 가능 시간과 별개)",
+        "website": "https://www.glico.com/jp/health/contents/glicosign/",
+        "opening_hours_source": "https://www.glico.com/jp/health/contents/glicosign/"
+      },
+      "notes": ["간판 건물의 좌표이며 실제 관람 지점/입구가 아님. 공공 보행 공간의 관람 지점 좌표는 별도 확인 필요. 점등시간을 24시간 영업으로 변환하지 않음."]
+    },
+    {
+      "id": "osaka_castle_20260923",
+      "merge_same_venue": true,
+      "checked_at": "2026-09-23",
+      "osm_refs": ["way/34619038", "way/1550234049", "node/13388509601"],
+      "urls": ["https://www.osakacastle.net/guide/"],
+      "updates": {
+        "address": "大阪府大阪市中央区大阪城1-1",
+        "opening_hours": "09:00-18:00 (최종입장 17:30; 12월 28일~1월 1일 휴관)",
+        "cost": 1200,
+        "website": "https://www.osakacastle.net/",
+        "opening_hours_source": "https://www.osakacastle.net/guide/"
+      },
+      "notes": ["요금은 성인 일반 입장료 JPY. 특별 체험·할인 제외.", "OSM 객체가 천수각 건물/성/박물관으로 나뉘어 있어 이 세 객체는 같은 방문 대상으로 통합 검토 필요."]
+    },
+    {
+      "id": "tsutenkaku_20260923",
+      "checked_at": "2026-09-23",
+      "osm_refs": ["way/254319878"],
+      "urls": ["https://www.tsutenkaku.co.jp/annai/"],
+      "updates": {
+        "address": "大阪市浪速区恵美須東1-18-6",
+        "opening_hours": "09:00-21:45 (일반 전망대 최종입장 21:15)",
+        "cost": 1500,
+        "website": "https://www.tsutenkaku.co.jp/",
+        "opening_hours_source": "https://www.tsutenkaku.co.jp/annai/"
+      },
+      "notes": ["15세 이상 일반 전망대 요금 JPY. 입장 시간 예약 필요. 특별 야외 전망대·체험 비용 별도."]
+    },
+    {
+      "id": "umeda_observatory_20260923",
+      "checked_at": "2026-09-23",
+      "osm_refs": ["node/4325335299"],
+      "urls": ["https://www.skybldg.co.jp/observatory/information/"],
+      "updates": {
+        "opening_hours": "09:30-22:30 (최종입장 22:00; 특별 영업일 별도)",
+        "cost": 2000,
+        "website": "https://www.skybldg.co.jp/observatory/",
+        "opening_hours_source": "https://www.skybldg.co.jp/observatory/information/"
+      },
+      "notes": ["성인 일반 입장료 JPY. 2026-11-08은 19:00 종료·18:30 최종입장, 2027-04-18은 18:00 종료·17:30 최종입장. 악천후 옥상 제한 가능."]
+    },
+    {
+      "id": "hep_five_20260923",
+      "checked_at": "2026-09-23",
+      "osm_refs": ["way/332292139"],
+      "urls": ["https://www.hepfive.jp/ferriswheel"],
+      "updates": {
+        "address": "大阪府大阪市北区角田町5-15",
+        "opening_hours": "11:00-23:00 (최종탑승 22:45; 휴관 공지 별도)",
+        "cost": 1000,
+        "website": "https://www.hepfive.jp/ferriswheel",
+        "opening_hours_source": "https://www.hepfive.jp/ferriswheel"
+      },
+      "notes": ["1인 일반 탑승료 JPY, 5세 이하 무료. 페이지에 10/15 목요일 휴관 공지가 있으나 연도 생략이므로 일정 날짜별 재확인 필요. 한 바퀴 약 15분은 대기 포함 체류시간이 아니므로 stay_min에 자동 입력하지 않음."]
+    },
+    {
+      "id": "daimaru_shinsaibashi_20260923",
+      "merge_same_venue": true,
+      "checked_at": "2026-09-23",
+      "osm_refs": ["way/161872478", "relation/11079068"],
+      "urls": ["https://www.daimaru.co.jp/shinsaibashi/hours.html"],
+      "updates": {
+        "address": "大阪府大阪市中央区心斎橋筋1-7-1",
+        "opening_hours": "10:00-20:00 (본관 10층 식당 11:00-22:00; 1월 1~2일 휴무; 일부 매장 별도)",
+        "website": "https://www.daimaru.co.jp/shinsaibashi/",
+        "opening_hours_source": "https://www.daimaru.co.jp/shinsaibashi/hours.html"
+      },
+      "notes": ["본관 대상. 쇼핑 구매액을 0으로 추정하지 않음. OSM 건물 객체의 주소와 운영 객체의 주소가 달라 공식 주소 우선."]
+    },
+    {
+      "id": "shinsaibashi_street_20260923",
+      "merge_same_venue": true,
+      "checked_at": "2026-09-23",
+      "osm_refs": ["node/4586420089", "way/410957183", "way/895630634", "way/895630635"],
+      "urls": ["https://www.shinsaibashi.or.jp/contact/faq", "https://osaka-info.jp/spot/shinsaibashi-suji-shopping-street/"],
+      "updates": {
+        "name_ko": "신사이바시스지 상점가",
+        "address": "大阪市中央区心斎橋筋1丁目～2丁目",
+        "opening_hours": "개별 점포별 상이",
+        "website": "https://www.shinsaibashi.or.jp/",
+        "opening_hours_source": "https://www.shinsaibashi.or.jp/contact/faq"
+      },
+      "editorial_translation_fields": ["name_ko"],
+      "notes": ["공식 관광 안내의 시설명에 맞춰 한국어 표기 편집. OSM의 홉슈크림 표기와 다른 사이트 링크는 사용하지 않음.", "노드와 보행로 여러 구간은 하나의 상점가 방문 대상으로 검토. 주소는 거리 범위이며 사무국 주소가 아님."]
+    }
+  ],
+  "identity_observations": [
+    {
+      "old_place_id": "osaka_029",
+      "osm_ref": "node/2751709851",
+      "status": "branch_unresolved",
+      "urls": ["https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"],
+      "facts": {"official_branch": "丸福珈琲店 千日前本店", "address": "大阪市中央区千日前1-9-1", "opening_hours": "08:00-23:00"},
+      "action": "기존 좌표의 丸福珈琲店이 이 본점인지 확인되지 않아 본점 영업시간을 이전하지 않음. 원본 공식 사실은 참고 정보로만 보존."
+    },
+    {
+      "old_place_id": "osaka_030",
+      "osm_ref": "node/9875632528",
+      "status": "legacy_hours_wrong_branch",
+      "urls": ["https://www.openstreetmap.org/node/9875632528", "https://www.openstreetmap.org/node/9875632529"],
+      "facts": {"old_coordinate_branch_from_osm": "ex-presso Shinsaibashi", "namba_osm_ref": "node/9875632529"},
+      "action": "OSM branch 태그로 지점 차이 확인. 신사이바시 좌표에 기존 난바 영업시간을 복사하지 않음. 난바 공식 페이지 본문 취득 실패로 최신 영업시간은 미확인."
+    }
+  ]
+}
