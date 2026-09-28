@@ -1,0 +1,15 @@
+# 비밀값
+.env
+.env.*
+
+# OSM 원본 덤프 — 100MB에 가까워 깃에 올리지 않는다.
+# 받는 방법은 data/README.md 참고.
+*.osm.geojson
+*.osm.geojson.xz
+*.osm.pbf
+
+# 파이썬
+__pycache__/
+*.pyc
+.venv/
+venv/
