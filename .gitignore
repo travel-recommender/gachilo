@@ -1,0 +1,30 @@
+# 비밀값
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+dist/
+build/
+.next/
+out/
+web/out/
+*.log
+*.tsbuildinfo
+next-env.d.ts
+
+# Python (분석·전처리용)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# 데이터 원본
+data/raw/
+
+# OS / 에디터
+.DS_Store
+.idea/
+.vscode/
