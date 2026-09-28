@@ -38,24 +38,24 @@
       "not_matched": 3,
       "ambiguous": 1
     },
-    "selected_with_official_field_checks": 86,
+    "selected_with_official_field_checks": 110,
     "selected_missing": {
       "place_id": 0,
       "name": 0,
       "name_ko": 110,
       "category": 0,
-      "area": 150,
-      "address": 65,
+      "area": 42,
+      "address": 42,
       "latitude": 0,
       "longitude": 0,
-      "opening_hours": 35,
-      "cost": 145,
-      "stay_min": 150,
+      "opening_hours": 26,
+      "cost": 127,
+      "stay_min": 147,
       "bag_load": 150,
-      "covered": 150,
-      "website": 39,
-      "opening_hours_source": 83,
-      "verified_at": 62
+      "covered": 127,
+      "website": 12,
+      "opening_hours_source": 66,
+      "verified_at": 39
     },
     "selected_with_address_components": 50
   },
@@ -92,5 +92,50 @@
       "verified_at": 62
     }
   },
-  "full_review_checks_sha256": "5befd6e815dea66bcad5e60157ed0a12a414635c1527310ceb311bd48e927751"
+  "full_review_checks_sha256": "5befd6e815dea66bcad5e60157ed0a12a414635c1527310ceb311bd48e927751",
+  "latest_enrichment_revision": "official_fields_20260928",
+  "latest_enrichment_statistics": {
+    "records": 150,
+    "records_with_value_changes": 110,
+    "null_fields_filled": 251,
+    "non_null_fields_updated": 46,
+    "missing_before": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 110,
+      "category": 0,
+      "area": 150,
+      "address": 65,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 35,
+      "cost": 145,
+      "stay_min": 150,
+      "bag_load": 150,
+      "covered": 150,
+      "website": 39,
+      "opening_hours_source": 83,
+      "verified_at": 62
+    },
+    "missing_after": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 110,
+      "category": 0,
+      "area": 42,
+      "address": 42,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 26,
+      "cost": 127,
+      "stay_min": 147,
+      "bag_load": 150,
+      "covered": 127,
+      "website": 12,
+      "opening_hours_source": 66,
+      "verified_at": 39
+    },
+    "records_with_blockers": 31
+  },
+  "latest_enrichment_checks_sha256": "f303b106a1c6fdd5cc43e8328ff5fbf96a197b648b8414d99e4aa492f908813b"
 }

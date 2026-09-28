@@ -1,997 +1,158 @@
-# 오사카 150곳 주소·영업시간 검토
+# 오사카 장소 검토 목록 — 2026-09-28
 
-정리일: 2026-09-26. 근거 조사: 9월 24–26일. 전체 150곳을 검토했으나 검증 완료 데이터는 아닙니다.
+공식 출처로 확인한 필드만 반영했습니다. 모든 장소는 아직 일정 자동 생성에 사용하지 않는 검토 초안입니다.
 
-- 주소 공식 확인: 84곳
-- 정규 영업시간 공식 확인(휴관·충돌 제외): 66곳
-- 주소·시간 확인 및 별도 제한 표시 없음: 62곳
-- 별도 제외/예약/지점 확인 사유: 27곳
-- 주소 빈칸: 65곳 / 영업시간 빈칸: 35곳
+빈칸 251개 보완. 총 110개 장소의 값 변경.
 
-기존 OSM 값이 채워져 있어도 공식 검증을 뜻하지 않습니다. 주소는 공원·상업구역 범위 주소를 포함합니다. 영업시간은 설명문으로, 요일·일본 공휴일·예외를 일정 엔진에 적용하는 정규화 작업이 남았습니다. 모든 schedule_ready는 false입니다.
-
-| 장소 | 주소 검증 | 시간 검증 | 별도 확인 사유 |
+| ID | 장소 | 남은 빈칸 | 확인 필요 |
 |---|---|---|---|
-| 도톤보리 글리코 사인 | 공식 확인 | 공식 확인 | — |
-| 쓰텐카쿠 | 공식 확인 | 공식 확인 | — |
-| 신세카이 | 미확인 | 미확인 | — |
-| 아메리카무라 | 공식 확인 | 공식 확인 | — |
-| 구로몬시장 | 미확인 | 미확인 | — |
-| 신사이바시스지 상점가 | 공식 확인 | 공식 확인 | — |
-| 우메다 공중정원 전망대 | 미확인 | 공식 확인 | — |
-| HEP FIVE 관람차 | 공식 확인 | 공식 확인 | — |
-| 오사카성 | 공식 확인 | 공식 확인 | — |
-| 오사카 텐만구 | 공식 확인 | 미확인 | — |
-| 시텐노지 | 공식 확인 | 공식 확인 | — |
-| 오사카 역사박물관 | 공식 확인 | 공식 확인 | — |
-| 오사카 나카노시마 미술관 | 공식 확인 | 공식 확인 | — |
-| 오사카 시립과학관 | 공식 확인 | 공식 확인 | — |
-| 오사카성 공원 | 공식 확인 | 공식 확인 | — |
-| 나카노시마 공원 | 공식 확인 | 미확인 | — |
-| 나카노시마 공원 장미원 | 미확인 | 미확인 | — |
-| 덴노지 공원 | 미확인 | 미확인 | — |
-| 우츠보 공원 | 공식 확인 | 공식 확인 | — |
-| 난바 파크스 | 공식 확인 | 공식 확인 | — |
-| 다카시마야 오사카점 | 공식 확인 | 미확인 | — |
-| 다이마루 신사이바시점 | 공식 확인 | 공식 확인 | — |
-| 한신 우메다 본점 | 공식 확인 | 공식 확인 | — |
-| 신사이바시 PARCO | 공식 확인 | 공식 확인 | — |
-| 카니도라쿠 | 미확인 | 기존 값·미검증 | — |
-| 이치란 도톤보리점 | 공식 확인 | 공식 확인 | — |
-| 소다이쇼 | 공식 확인 | 공식 확인 | — |
-| 마루후쿠 커피 센니치마에 본점 | 공식 확인 | 공식 확인 | — |
-| 브루클린 로스팅 컴퍼니 난바 | 공식 확인 | 공식 확인 | — |
-| エレメカ研究所 | 미확인 | 기존 값·미검증 | — |
-| 도톤보리 교 | 미확인 | 미확인 | — |
-| 茶室（豊松庵） | 미확인 | 미확인 | 특별 공개 확인 |
-| OAP港 | 미확인 | 미확인 | — |
-| ワケ橋 | 미확인 | 미확인 | 장소 확인 필요 |
-| 包ギョーザ | 미확인 | 미확인 | 장소 확인 필요 |
-| 太閤下水見学施設 | 공식 확인 | 미확인 | — |
-| 松栄堂 | 공식 확인 | 공식 확인 | — |
-| 毛馬閘門 | 미확인 | 미확인 | 입장 조건 확인 |
-| 湊町リバープレイス | 공식 확인 | 공식 확인 | — |
-| Akiba Kart Osaka | 공식 확인 | 공식 확인 | — |
-| 오사카 주택박물관 | 공식 확인 | 임시 휴관 | 임시 휴관 |
-| くすりの道修町資料館 | 공식 확인 | 공식 확인 | — |
-| まほうびん記念館 | 공식 확인 | 공식 확인 | 예약 필수 |
-| アートコートギャラリー | 공식 확인 | 공식 확인 | — |
-| 上方浮世絵館 | 미확인 | 기존 값·미검증 | — |
-| 国立国際美術館 | 공식 확인 | 기존 값·미검증 | — |
-| 大阪市立美術館 | 공식 확인 | 공식 확인 | — |
-| 御津八幡宮 | 공식 확인 | 공식 확인 | — |
-| 難波八坂神社 | 공식 확인 | 기존 값·미검증 | — |
-| design museum | 미확인 | 미확인 | 장소 확인 필요, 사이트 불일치 |
-| ギャラリー ササキ商店 | 공식 확인 | 미확인 | 예약·전시 확인 |
-| ブルームギャラリー | 미확인 | 미확인 | 운영 여부 확인 |
-| 大阪市立東洋陶磁美術館 | 공식 확인 | 임시 휴관 | 임시 휴관 |
-| 日本基督教団大阪教会 | 공식 확인 | 미확인 | — |
-| 日本聖公会聖贖主教会礼拝堂 | 미확인 | 미확인 | 입장 조건 확인 |
-| 歯神社 | 미확인 | 미확인 | — |
-| 海月文庫アートスペース | 공식 확인 | 공식 확인 | 전시 일정 확인 |
-| 絹谷幸二 天空美術館 | 공식 확인 | 공식 확인 | — |
-| 高津宮 | 공식 확인 | 미확인 | — |
-| 慶沢園 | 공식 확인 | 공식 확인 | — |
-| 桜之宮公園 | 공식 확인 | 기존 값·미검증 | — |
-| 西の丸庭園 | 미확인 | 기존 값·미검증 | — |
-| 千島公園 | 공식 확인 | 공식 확인 | — |
-| 南天満公園 | 공식 확인 | 기존 값·미검증 | — |
-| 毛馬公園 | 공식 확인 | 기존 값·미검증 | — |
-| 淀川河川公園 長柄地区 | 미확인 | 기존 값·미검증 | 시간 충돌 |
-| 藤田邸跡公園 | 미확인 | 기존 값·미검증 | — |
-| 難波中公園 | 미확인 | 기존 값·미검증 | — |
-| 신 우메다시티 하나노 | 미확인 | 미확인 | — |
-| うめきた公園 サウスパーク | 공식 확인 | 공식 확인 | — |
-| かすがえ公園 | 공식 확인 | 미확인 | — |
-| ほたるまちにある広場 | 미확인 | 미확인 | — |
-| パークスガーデン | 공식 확인 | 공식 확인 | — |
-| 三和公園 | 미확인 | 미확인 | 시 경계 확인 |
-| NU 자야마치 | 공식 확인 | 공식 확인 | — |
-| 하비스 플라자 | 미확인 | 공식 확인 | — |
-| Whityうめだ | 공식 확인 | 공식 확인 | — |
-| アルデ新大阪 | 미확인 | 미확인 | — |
-| イオンモール大阪ドームシティ | 공식 확인 | 공식 확인 | — |
-| ウイステ | 공식 확인 | 공식 확인 | — |
-| Asoko Minamihorie | 미확인 | 기존 값·미검증 | 운영 여부 확인 |
-| 近鉄百貨店 | 공식 확인 | 공식 확인 | — |
-| 케이한 시티 몰 | 공식 확인 | 공식 확인 | — |
-| HELLO life | 미확인 | 미확인 | 분류 재검토 |
-| MIHA shop | 미확인 | 미확인 | — |
-| Viewl 阪急三国 | 공식 확인 | 미확인 | — |
-| てんしばi:na | 미확인 | 미확인 | — |
-| なんばEKIKAN | 공식 확인 | 공식 확인 | — |
-| 新大阪センイシティー | 공식 확인 | 공식 확인 | — |
-| 淀屋橋 odona | 공식 확인 | 공식 확인 | — |
-| 한큐 백화점 우메다 본점 | 공식 확인 | 공식 확인 | — |
-| ブリーゼブリーゼ | 공식 확인 | 공식 확인 | — |
-| なんばマルイ | 미확인 | 미확인 | — |
-| 모토커피 | 미확인 | 기존 값·미검증 | — |
-| 42195 COFFEE | 공식 확인 | 공식 확인 | — |
-| Antico Caffe Al Avis | 미확인 | 기존 값·미검증 | 사이트 불일치, 지점 확인 |
-| Blue Bottle Coffee | 공식 확인 | 공식 확인 | — |
-| BOBBIN | 미확인 | 기존 값·미검증 | — |
-| Cafe Di Espresso | 미확인 | 기존 값·미검증 | 지점 확인 |
-| Cafe yutte | 미확인 | 기존 값·미검증 | — |
-| e-maid | 미확인 | 기존 값·미검증 | — |
-| Haiku Coffee Roasters | 공식 확인 | 공식 확인 | — |
-| Holly's Cafe | 미확인 | 기존 값·미검증 | 지점 확인 |
-| La Granda Familio | 공식 확인 | 공식 확인 | — |
-| Melbourne Coffee | 미확인 | 기존 값·미검증 | 지점 확인 |
-| rion cafe | 미확인 | 기존 값·미검증 | — |
-| Sub Jazz Cafe | 미확인 | 기존 값·미검증 | — |
-| SÖT COFFEE | 공식 확인 | 공식 확인 | — |
-| こちかぜ | 공식 확인 | 기존 값·미검증 | — |
-| アズアン | 미확인 | 기존 값·미검증 | — |
-| エミュリボン | 미확인 | 기존 값·미검증 | — |
-| ケーキ＆カフェダイニング　ボナボン | 미확인 | 기존 값·미검증 | — |
-| 保護ねこカフェneu。 | 공식 확인 | 공식 확인 | — |
-| 喫茶あおい | 공식 확인 | 출처 충돌 | 시간 충돌 |
-| 茶淹 | 공식 확인 | 공식 확인 | — |
-| 34 Kitchen | 미확인 | 기존 값·미검증 | — |
-| an39 | 미확인 | 기존 값·미검증 | — |
-| bee9 | 미확인 | 기존 값·미검증 | 실제 매장 확인 |
-| Bubble Net | 미확인 | 기존 값·미검증 | 주소 충돌 |
-| CAFETERIA AGORA | 기존 값·미검증 | 기존 값·미검증 | — |
-| Casablanca Namba Riverside | 미확인 | 기존 값·미검증 | — |
-| CENTRUM | 공식 확인 | 공식 확인 | — |
-| Différence | 미확인 | 기존 값·미검증 | — |
-| GARB weeks | 공식 확인 | 공식 확인 | — |
-| MERCY Vegan Factory | 공식 확인 | 공식 확인 | — |
-| MONTOMWORKS. mt.cafe & Design Dept. | 공식 확인 | 공식 확인 | — |
-| natural kitchen めだか2号店 | 공식 확인 | 공식 확인 | — |
-| PAPALINA | 공식 확인 | 공식 확인 | — |
-| きりん寺 大阪総本店 | 미확인 | 기존 값·미검증 | 지점 확인 |
-| もりもり寿し | 미확인 | 기존 값·미검증 | — |
-| アルバール | 미확인 | 기존 값·미검증 | — |
-| カドヤ食堂 | 미확인 | 기존 값·미검증 | — |
-| サイゼリヤ | 미확인 | 기존 값·미검증 | — |
-| レコッコレ | 미확인 | 기존 값·미검증 | — |
-| 中央市場 ゑんどう寿司 | 미확인 | 기존 값·미검증 | — |
-| 人類みな麺類 | 공식 확인 | 기존 값·미검증 | — |
-| 傾奇御麺 天神橋・本店 | 미확인 | 기존 값·미검증 | — |
-| 咲璽季～素食 | 미확인 | 기존 값·미검증 | — |
-| 居酒屋新 | 공식 확인 | 공식 확인 | — |
-| 舟屋 | 공식 확인 | 공식 확인 | — |
-| Bistro よし川 | 공식 확인 | 공식 확인 | — |
-| Cherry Jam | 공식 확인 | 공식 확인 | — |
-| Comfort Zone 8 京いたりあん | 공식 확인 | 공식 확인 | — |
-| MayWinds | 미확인 | 미확인 | — |
-| Parfait de Merrily | 공식 확인 | 공식 확인 | — |
-| Sagano | 미확인 | 미확인 | — |
-| 수상버스 타는곳 | 미확인 | 기존 값·미검증 | 지점 확인 |
-| 덴포잔 마켓 플레이스 | 미확인 | 기존 값·미검증 | — |
-| cadode cafe | 미확인 | 기존 값·미검증 | 오사카시 밖 |
-| 이치란라멘 | 공식 확인 | 폐업 | 폐업 |
-
-## 장소별 근거와 남은 확인사항
-
-### 도톤보리 글리코 사인 (osaka_001)
-- 주소: 大阪府大阪市中央区道頓堀1丁目10-4
-- 영업시간: 점등: 일몰 후~24:00 (상황에 따라 단축 가능; 관람 가능 시간과 별개)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 쓰텐카쿠 (osaka_002)
-- 주소: 大阪市浪速区恵美須東1-18-6
-- 영업시간: 09:00-21:45 (일반 전망대 최종입장 21:15)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 신세카이 (osaka_003)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 지역 명소. 단일 시설 주소·영업시간의 적용 범위 확인 필요.
-
-### 아메리카무라 (osaka_004)
-- 주소: 大阪市中央区西心斎橋1丁目～2丁目付近
-- 영업시간: 점포별 상이
-- 메모: 상업 지역 범위 주소. 개별 건물 주소가 아님.
-- 근거: https://osaka-info.jp/spot/america-mura-american-village/
-
-### 구로몬시장 (osaka_005)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 시장 전체와 관리사무소 주소 구분, 점포별 운영시간 확인 필요.
-
-### 신사이바시스지 상점가 (osaka_006)
-- 주소: 大阪市中央区心斎橋筋1丁目～2丁目
-- 영업시간: 개별 점포별 상이
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 우메다 공중정원 전망대 (osaka_007)
-- 주소: 미확인
-- 영업시간: 09:30-22:30 (최종입장 22:00; 특별 영업일 별도)
-- 메모: 전망대 전용 주소·층 확인 필요.
-
-### HEP FIVE 관람차 (osaka_008)
-- 주소: 大阪府大阪市北区角田町5-15
-- 영업시간: 11:00-23:00 (최종탑승 22:45; 휴관 공지 별도)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 오사카성 (osaka_009)
-- 주소: 大阪府大阪市中央区大阪城1-1
-- 영업시간: 09:00-18:00 (최종입장 17:30; 12월 28일~1월 1일 휴관)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 오사카 텐만구 (osaka_010)
-- 주소: 大阪市北区天神橋2丁目1番8号
-- 영업시간: 미확인/적용 불가
-- 메모:
-- 근거: https://osakatemmangu.or.jp/
-
-### 시텐노지 (osaka_011)
-- 주소: 大阪市天王寺区四天王寺1丁目11番18号
-- 영업시간: 중심가람·정원: 4–9월 08:30–16:30, 10–3월 08:30–16:00; 21일·회일 및 행사일 예외
-- 메모: 경내 통행시간과 유료시설 관람시간을 구분. 특별일 운영시간은 별도 확인.
-- 근거: https://www.shitennoji.or.jp/map.html
-
-### 오사카 역사박물관 (osaka_012)
-- 주소: 大阪市中央区大手前4丁目1-32
-- 영업시간: 09:30-17:00 (최종입장 16:30; 화요일 휴관, 공휴일이면 다음 날; 12월 28일~1월 4일 휴관)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 오사카 나카노시마 미술관 (osaka_013)
-- 주소: 大阪府大阪市北区中之島4-3-1
-- 영업시간: 10:00–17:00(입장 16:30까지); 월요일 휴관, 공휴일이면 다음 평일; 전시별 예외
-- 메모:
-- 근거: https://nakka-art.jp/ko/visit-ko/info-ko/
-
-### 오사카 시립과학관 (osaka_014)
-- 주소: 大阪市北区中之島4-2-1
-- 영업시간: 전시장 09:30-17:00 (최종입장 16:30; 월요일 휴관, 공휴일이면 다음 평일; 연말연시·설비점검 휴관 별도)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 오사카성 공원 (osaka_015)
-- 주소: 大阪市中央区大阪城
-- 영업시간: 상시 개방; 공원 내 개별 시설은 별도 운영
-- 메모:
-- 근거: https://osaka-info.jp/spot/osaka-castle-park/
-
-### 나카노시마 공원 (osaka_016)
-- 주소: 大阪市北区中之島1丁目
-- 영업시간: 미확인/적용 불가
-- 메모: 공원 소재 지역 주소. 상세 출입구와 운영시간은 미확인.
-- 근거: https://www.city.osaka.lg.jp/kita/page/0000001658.html
-
-### 나카노시마 공원 장미원 (osaka_017)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 나카노시마 공원과 장미정원 구역 범위 구분 필요.
-
-### 덴노지 공원 (osaka_018)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 기존 URL이 시청 일반 페이지로 연결됨. 공원 전체와 텐시바 점포시간 구분 필요.
-
-### 우츠보 공원 (osaka_019)
-- 주소: 大阪市西区靱本町
-- 영업시간: 상시 개방; 부속 시설은 별도 운영
-- 메모: 공원 소재 지역 주소.
-- 근거: https://parksgreenery.city.osaka.lg.jp/article/parks-utsubo/
-
-### 난바 파크스 (osaka_020)
-- 주소: 大阪市浪速区難波中2-10-70
-- 영업시간: 쇼핑 11:00–21:00; 음식점 11:00–22:00; 일부 점포 예외
-- 메모: 기존 10:00–24:00은 정원 시간과 혼동 위험. 정원은 별도 장소.
-- 근거: https://nambaparks.com/facilities
-
-### 다카시마야 오사카점 (osaka_021)
-- 주소: 大阪市中央区難波5丁目1番5号
-- 영업시간: 미확인/적용 불가
-- 메모: 점포 주소 확인. 주차장 운영시간은 판매장 영업시간에 사용하지 않음.
-- 근거: https://www.takashimaya.co.jp/osaka/access/index.html
-
-### 다이마루 신사이바시점 (osaka_022)
-- 주소: 大阪府大阪市中央区心斎橋筋1-7-1
-- 영업시간: 10:00-20:00 (본관 10층 식당 11:00-22:00; 1월 1~2일 휴무; 일부 매장 별도)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 한신 우메다 본점 (osaka_023)
-- 주소: 大阪市北区梅田1丁目13番13号
-- 영업시간: 판매장 10:00–20:00; 음식점·일부 매장 별도 운영
-- 메모:
-- 근거: https://www.hanshin-dept.jp/hshonten/index.html
-
-### 신사이바시 PARCO (osaka_024)
-- 주소: 大阪府大阪市中央区心斎橋筋1丁目8-3
-- 영업시간: 판매·서비스 10:00–20:00; 음식점 13F 11:00–22:00, B2F 11:00–23:00; 일부 점포 예외
-- 메모: 기존 1-7-1 주소를 공식 PARCO 주소로 정정.
-- 근거: https://shinsaibashi.parco.jp/info/
-
-### 카니도라쿠 (osaka_025)
-- 주소: 미확인
-- 영업시간: Mo-Su 11:00-23:00
-- 메모: 카니도라쿠 본점 전용 안내 확인 필요. 브랜드 공통정보 복사하지 않음.
-
-### 이치란 도톤보리점 (osaka_026)
-- 주소: 大阪市中央区道頓堀1-4-16
-- 영업시간: 카운터 24시간; 테이블석 08:00–23:00; 임시 변경 가능
-- 메모: 도톤보리 별관. 영업 종료된 본관과 구분.
-- 근거: https://ichiran.com/shop/kinki/dotonbori-south/
-
-### 소다이쇼 (osaka_028)
-- 주소: 大阪市北区浮田2-4-16
-- 영업시간: 매일 11:00–24:00
-- 메모:
-- 근거: https://www.soudaisyou.com/access.html
-
-### 마루후쿠 커피 센니치마에 본점 (osm_node_2296903605)
-- 주소: 大阪市中央区千日前1-9-1
-- 영업시간: 08:00-23:00 (공식 지점 페이지 안내; 임시 변경 가능)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### 브루클린 로스팅 컴퍼니 난바 (osm_node_9875632529)
-- 주소: 大阪市浪速区敷津東1-1-21 なんばEKIKAN
-- 영업시간: 평일 09:00-20:00; 토·일·일본 공휴일 08:00-20:00 (부정기 휴무)
-- 메모: 기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.
-
-### エレメカ研究所 (osaka_draft_2e4698946819)
-- 주소: 미확인
-- 영업시간: Mo-Su 12:00-17:00
-- 메모: 공식 소셜 계정의 최신 지점·운영시간 추가 확인 필요.
-
-### 도톤보리 교 (osaka_draft_73505422b2e6)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 다리 위치와 시청 담당부서 주소 구분. 일반 점포시간 적용 대상 아님.
-
-### 茶室（豊松庵） (osaka_draft_a270504b6cd8)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 상시 공개 시설로 확인되지 않음. 특별 공개·예약 행사 확인 필요.
-
-### OAP港 (osaka_draft_bdd1ec5175d0)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: OAP 선착장. 운항사별 출항시간 확인 필요.
-
-### ワケ橋 (osaka_draft_f0f97440bedc)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: ワケ橋와 和気橋 명칭 대조 및 정확한 지점 확인 필요.
-
-### 包ギョーザ (osaka_draft_1c4a0fd86b91)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: OSM상 포토존 오브젝트. 음식점으로 해석하지 않음. 현존 여부 확인 필요.
-
-### 太閤下水見学施設 (osaka_draft_85b3463e84b9)
-- 주소: 大阪市中央区農人橋1-3-3
-- 영업시간: 미확인/적용 불가
-- 메모: 지상 관람창과 지하 견학 구분. 지하 견학은 사전 신청. 연락처 접수시간을 관람시간으로 사용하지 않음.
-- 근거: https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html
-
-### 松栄堂 (osaka_draft_5a243c3857f7)
-- 주소: 大阪市中央区本町3-6-4 1F
-- 영업시간: 평일 10:00–19:00; 토·일·공휴일 10:00–18:00; 연말연시 예외
-- 메모:
-- 근거: https://www.shoyeido.co.jp/shop-info/osaka.html
-
-### 毛馬閘門 (osaka_draft_84378ff5ba08)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 현재 갑문과 역사시설 구분, 견학 가능 여부 확인 필요.
-
-### 湊町リバープレイス (osaka_draft_0cc625078422)
-- 주소: 大阪市浪速区湊町1-3-1
-- 영업시간: 10:00–22:00; 점포별 예외; 1월 1–3일 휴관
-- 메모:
-- 근거: https://osaka-heartfulweb.jp/facility-info.php?n=114
-
-### Akiba Kart Osaka (osaka_draft_300825840acb)
-- 주소: 大阪市浪速区日本橋5-5-2 森本ビルII
-- 영업시간: 10:00–21:30
-- 메모: 체험 예약과 참가 조건은 별도 확인.
-- 근거: https://osakakart.com/en/access/
-
-### 오사카 주택박물관 (osaka_draft_7c98da5a96f9)
-- 주소: 大阪市北区天神橋6丁目4-20 住まい情報センタービル8階
-- 영업시간: We-Mo 10:00-17:00
-- 메모: 2026-09-01부터 2027-01-05까지 휴관. 기존 정규 운영시간으로 방문 가능 판단 금지.
-- 근거: https://www.osaka-angenet.jp/konjyakukan/
-
-### くすりの道修町資料館 (osaka_draft_1cbe7e7894c8)
-- 주소: 大阪市中央区道修町2-1-8 少彦名神社社務所ビル3F
-- 영업시간: 월–토 10:00–16:00(입장 15:30까지); 일·공휴일, 8월 11–16일, 12월 28일–1월 4일 휴관
-- 메모:
-- 근거: https://www.sinnosan.jp/kusuri/
-
-### まほうびん記念館 (osaka_draft_50b7a6cc608f)
-- 주소: 大阪市北区天満1丁目20番5号 象印本社1F
-- 영업시간: 평일 10:00–12:00, 13:00–16:00; 사전 예약 필수; 토·일·공휴일 및 회사 휴무일 휴관
-- 메모: 투어 시작 10·11·13·14·15시. 자유 입장 시설이 아님.
-- 근거: https://www.zojirushi.co.jp/corp/kinenkan/
-
-### アートコートギャラリー (osaka_draft_c99cbfbd0f92)
-- 주소: 大阪市北区天満橋1-8-5 OAPアートコート1F
-- 영업시간: 화–금 11:00–18:00; 토 11:00–17:00; 전시 일정 별도 확인
-- 메모:
-- 근거: https://www.artcourtgallery.com/eng/access/
-
-### 上方浮世絵館 (osaka_draft_6dbd8bbe7f48)
-- 주소: 미확인
-- 영업시간: Tu-Su 11:00-17:30
-- 메모: 공식 상세 관람 안내 추가 확인 필요.
-
-### 国立国際美術館 (osaka_draft_ce3b8d452a0e)
-- 주소: 大阪府大阪市北区中之島4-2-55
-- 영업시간: Sa-Su 10:00-17:00,Tu-Th 10:00-19:00,Fr 10:00-19:00
-- 메모:
-- 근거: https://www.nmao.go.jp/
-
-### 大阪市立美術館 (osaka_draft_316598fb77c9)
-- 주소: 大阪府大阪市天王寺区茶臼山町1-82 天王寺公園内
-- 영업시간: 09:30–17:00(입장 16:30까지); 월요일 휴관(공휴일이면 다음 평일), 연말연시·전시교체 휴관
-- 메모: OSM의 2022–2025년 공사 휴관 표기는 현재 정규 시간으로 대체.
-- 근거: https://www.osaka-art-museum.jp/information
-
-### 御津八幡宮 (osaka_draft_2780be08a88e)
-- 주소: 大阪府大阪市中央区西心斎橋2-10-7
-- 영업시간: 개문 07:00–18:00; 사무소 09:00–17:00
-- 메모:
-- 근거: https://mitsugu.org/
-
-### 難波八坂神社 (osaka_draft_7675eb0bab46)
-- 주소: 大阪市浪速区元町2-9-19
-- 영업시간: Mo-Su 06:00-17:00
-- 메모:
-- 근거: http://nambayasaka.jp/
-
-### design museum (osaka_draft_40d8be797d5b)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 등록 웹사이트가 박물관과 무관한 콘텐츠로 변경됨. 시설 실재·운영 재확인 필요.
-- 근거: https://designde.jp/
-
-### ギャラリー ササキ商店 (osaka_draft_6eda07803129)
-- 주소: 大阪市中央区心斎橋筋1-6-4 佐々木ビル3F
-- 영업시간: 미확인/적용 불가
-- 메모: 전시별 운영시간 및 관람 예약 확인 필요.
-- 근거: https://www.gallerysasaki.com/access/
-
-### ブルームギャラリー (osaka_draft_43502b1cfa97)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 현재 운영 여부를 공식 출처로 확정하지 못함.
-
-### 大阪市立東洋陶磁美術館 (osaka_draft_9cd21dc062f7)
-- 주소: 大阪市北区中之島1-1-26
-- 영업시간: 정규 09:30–17:00(입장 16:30까지); 월요일 휴관(공휴일이면 다음날), 연말연시 휴관
-- 메모: 현재 공사 휴관 안내가 우선. 정규 시간만으로 일정 생성 금지.
-- 근거: https://www.moco.or.jp/guide/access/
-- 근거: https://www.moco.or.jp/guide/info/
-- 근거: https://www.moco.or.jp/whatsnew/
-
-### 日本基督教団大阪教会 (osaka_draft_70d399cfaea8)
-- 주소: 大阪府大阪市西区江戸堀1-23-17
-- 영업시간: 미확인/적용 불가
-- 메모: 전화 응대시간을 관광 관람시간으로 사용하지 않음.
-- 근거: https://www.osaka-church.net/
-
-### 日本聖公会聖贖主教会礼拝堂 (osaka_draft_07d2c797a410)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 예배·복지시설 방문 조건 확인 필요. 전화 응대시간을 관광시간으로 사용하지 않음.
-
-### 歯神社 (osaka_draft_006a0c207d8c)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 자유 참배 안내는 있으나 상세 주소·적용 범위 재확인 필요.
-
-### 海月文庫アートスペース (osaka_draft_718edcaf3985)
-- 주소: 大阪市淀川区木川東3-3-12
-- 영업시간: 전시 기간 중 11:00–19:00; 마지막 날 16:00 또는 17:00 종료
-- 메모: 전시가 없는 날 개방 여부는 별도 확인.
-- 근거: https://www.kuragebunko.com/
-
-### 絹谷幸二 天空美術館 (osaka_draft_d7da3fdbeaf6)
-- 주소: 大阪市北区大淀中1-1-30 梅田スカイビルタワーウエスト27F
-- 영업시간: 10:00–18:00; 금·토·공휴일 전날 10:00–20:00; 입장 종료 30분 전; 화요일 휴관(공휴일이면 다음 평일), 12월 30일–1월 3일·전시교체 휴관
-- 메모:
-- 근거: https://www.kinutani-tenku.jp/
-
-### 高津宮 (osaka_draft_04b34bc4e6e2)
-- 주소: 大阪市中央区高津1-1-29
-- 영업시간: 미확인/적용 불가
-- 메모:
-- 근거: https://kouzu.or.jp/
-
-### 慶沢園 (osaka_draft_1289b4aecc32)
-- 주소: 大阪市天王寺区茶臼山町1 天王寺公園内
-- 영업시간: 09:30–17:00(입장 16:30까지); 5·9월 토·일·공휴일 18:00까지(입장 17:30까지); 월요일 휴원(공휴일이면 다음 평일), 12월 29일–1월 1일 휴원
-- 메모: 폭풍 경보 시 임시 휴원. 같은 페이지의 차우스야마 07:00–22:00과 구분.
-- 근거: https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html
-
-### 桜之宮公園 (osaka_draft_c62644984874)
-- 주소: 大阪市北区天満1丁目・天満橋1～2丁目
-- 영업시간: 24/7
-- 메모: 공원 소재 지역 주소. 상세 출입구 주소가 아님.
-- 근거: https://www.city.osaka.lg.jp/kita/page/0000001658.html
-
-### 西の丸庭園 (osaka_draft_9e900589aec0)
-- 주소: 미확인
-- 영업시간: Jan 04-Dec 28 09:00-17:30
-- 메모: 기존 사이트가 다른 공원 페이지로 이동. 정원 전용 안내 재확인 필요.
-
-### 千島公園 (osaka_draft_f72944194ef3)
-- 주소: 大阪市大正区千島2丁目7
-- 영업시간: 상시 개방; 부속 시설은 별도 운영
-- 메모:
-- 근거: https://parksgreenery.city.osaka.lg.jp/article/expo_park7/
-
-### 南天満公園 (osaka_draft_a66fcd05acfb)
-- 주소: 大阪市北区天神橋1丁目・天満2～4丁目
-- 영업시간: 24/7
-- 메모: 공원 소재 지역 주소.
-- 근거: https://www.city.osaka.lg.jp/kita/page/0000001658.html
-
-### 毛馬公園 (osaka_draft_03cde684bd96)
-- 주소: 大阪市北区長柄東1～2丁目・国分寺1丁目
-- 영업시간: 24/7
-- 메모: 공원 소재 지역 주소.
-- 근거: https://www.city.osaka.lg.jp/kita/page/0000001658.html
-
-### 淀川河川公園 長柄地区 (osaka_draft_e102a263e5a8)
-- 주소: 미확인
-- 영업시간: 24/7
-- 메모: 기존 24시간 표기와 공원 공개 이용시간 자료가 다름. 대상 구역·최신 규정 확인 필요.
-
-### 藤田邸跡公園 (osaka_draft_5f8dd9212a0c)
-- 주소: 미확인
-- 영업시간: 10:00-16:00
-- 메모: 정원과 인접 미술관 주소 혼동 가능. 시설별 주소 재확인 필요.
-
-### 難波中公園 (osaka_draft_c6de5620d3d0)
-- 주소: 미확인
-- 영업시간: 08:00-17:00
-- 메모: 동명 공원과 정확한 위치를 대조할 공식 근거 부족.
-
-### 신 우메다시티 하나노 (osaka_draft_0cf4fe2e0afe)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 신사토야마·하나노 구역별 주소와 개방 조건 확인 필요.
-
-### うめきた公園 サウスパーク (osaka_draft_2941efc9ac2d)
-- 주소: 大阪市北区大深町5番
-- 영업시간: 상시 개방; 부속 시설은 별도 운영
-- 메모:
-- 근거: https://parksgreenery.city.osaka.lg.jp/article/expo_park16/
-
-### かすがえ公園 (osaka_draft_f852e8e07cf8)
-- 주소: 大阪市都島区都島本通1丁目19
-- 영업시간: 미확인/적용 불가
-- 메모:
-- 근거: https://www.city.osaka.lg.jp/miyakojima/page/0000655198.html
-
-### ほたるまちにある広場 (osaka_draft_0adb7945fbda)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 복합시설 전체와 광장 범위 구분 필요.
-
-### パークスガーデン (osaka_draft_2fc0df9e9f8d)
-- 주소: 大阪市浪速区難波中2-10-70
-- 영업시간: 10:00–24:00; 휴무는 난바 파크스 일정에 따름
-- 메모: 난바 파크스 내부 정원. 쇼핑몰과 중복 방문 계산 주의.
-- 근거: https://nambaparks.com/garden
-- 근거: https://www.city.osaka.lg.jp/toshikeikaku/page/0000390675.html
-
-### 三和公園 (osaka_draft_cff5e2720c53)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: OSM 범위가 도요나카까지 걸침. 시 경계·대상 지역 확인 필요.
-
-### NU 자야마치 (osaka_draft_16f1d28c8bfd)
-- 주소: 大阪市北区茶屋町10-12
-- 영업시간: 쇼핑 11:00–21:00; 음식점 11:00–23:00; 일부 점포 예외
-- 메모:
-- 근거: https://nu-chayamachi.com/info/openclose/
-
-### 하비스 플라자 (osaka_draft_1b3533415b94)
-- 주소: 미확인
-- 영업시간: 판매장 11:00–20:00; 음식점·일부 매장은 별도 확인
-- 메모:
-- 근거: https://www.herbis.jp/access/train/
-
-### Whityうめだ (osaka_draft_4fb99b053e8b)
-- 주소: 大阪府大阪市北区小松原町梅田地下街4-2
-- 영업시간: 판매장 10:00–21:00; 음식점 10:00–22:00; NOMOKA 11:00–23:00; 점포별 예외
-- 메모:
-- 근거: https://whity.osaka-chikagai.jp/access
-
-### アルデ新大阪 (osaka_draft_e51bbe99124a)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 공식 안내에서 영업시간·주소 본문 취득 실패.
-
-### イオンモール大阪ドームシティ (osaka_draft_02288187c550)
-- 주소: 大阪市西区千代崎三丁目13番1
-- 영업시간: 전문점 10:00–21:00; 이온 매장은 별도 운영
-- 메모:
-- 근거: https://www.aeon.jp/sc/osakadomecity/
-
-### ウイステ (osaka_draft_11050de606b0)
-- 주소: 大阪市福島区海老江1-1-23
-- 영업시간: 전문점 10:00–21:00; 음식점 11:00–22:00; 이온·일부 점포 별도 운영
-- 메모:
-- 근거: https://www.wiste.jp/
-
-### Asoko Minamihorie (osaka_draft_b1eae8a8935b)
-- 주소: 미확인
-- 영업시간: Mo-Su 11:00-20:00
-- 메모: ASOKO 미나미호리에점 현재 운영 여부 미확인.
-
-### 近鉄百貨店 (osaka_draft_daa353940c61)
-- 주소: 大阪市天王寺区上本町6-1-55
-- 영업시간: B2–2F·6F·10F·11F 10:00–20:00; 3–5F·7–9F 10:00–18:30(일부 예외); 12F 음식점 11:00–22:00
-- 메모: 우에혼마치 지점 기준.
-- 근거: https://www.d-kintetsu.co.jp/uehonmachi/business-hours/
-
-### 케이한 시티 몰 (osaka_draft_dc3ec67cb8d1)
-- 주소: 大阪市中央区天満橋京町1-1
-- 영업시간: 주요 전문점 10:00–21:00; MBF 일부 10:00–20:00; 음식점 11:00–23:00; 식품매장 등 예외
-- 메모:
-- 근거: https://citymall.jp/access/
-
-### HELLO life (osaka_draft_2b9dd68b687a)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 공식 사이트는 취업지원 조직. 쇼핑몰 분류와 방문 목적 재검토 필요.
-
-### MIHA shop (osaka_draft_fa65b053e525)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 공식 점포 근거 확보 실패. OSM 정보만 유지.
-
-### Viewl 阪急三国 (osaka_draft_31878d4960fc)
-- 주소: 大阪市淀川区三国本町3-37-35
-- 영업시간: 미확인/적용 불가
-- 메모: 시설관리사 자료에서 소재지 확인. 영업시간 미확인.
-- 근거: https://www.hhbm.hankyu-hanshin.co.jp/managed/sc/profile.pdf
-
-### てんしばi:na (osaka_draft_391fae83b26c)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 텐시바 전체와 i:na 시설 구분, 점포별 시간 확인 필요.
-
-### なんばEKIKAN (osaka_draft_a8c6b6985943)
-- 주소: 大阪市浪速区難波中2-11-1・敷津東1-1-21・1-2-12・2-1-4～5
-- 영업시간: 점포별 상이
-- 메모: 여러 구역으로 구성된 상업시설. 개별 점포 목적지 주소가 아님.
-- 근거: https://ekikan.com/access
-- 근거: https://ekikan.com/faq
-
-### 新大阪センイシティー (osaka_draft_fc7acd992f21)
-- 주소: 大阪府大阪市淀川区西宮原2-2-2
-- 영업시간: 월–토 08:00–19:00; 일·공휴일 09:30–19:00; 점포별 예외
-- 메모:
-- 근거: https://page.line.me/hvk0696d
-
-### 淀屋橋 odona (osaka_draft_b6b6dae05ce5)
-- 주소: 大阪市中央区今橋4-1-1
-- 영업시간: 쇼핑 11:00–20:00; 음식점 평일 11:30–22:30, 토·일·공휴일 11:30–21:30; 12월 31일·1월 1일 휴관; 점포별 예외
-- 메모:
-- 근거: https://mitsui-shopping-park.com/odona/top.html
-
-### 한큐 백화점 우메다 본점 (osaka_draft_f1ba0aa6ab58)
-- 주소: 大阪府大阪市北区角田町8番7号
-- 영업시간: 판매장 10:00–20:00; 12·13F 음식점 11:00–22:00; 일부 점포 예외
-- 메모:
-- 근거: https://www.hankyu-dept.co.jp/index.html
-
-### ブリーゼブリーゼ (osaka_draft_481d9742f9c2)
-- 주소: 大阪市北区梅田2-4-9
-- 영업시간: 판매장 월–토 11:00–20:00, 일·공휴일 11:00–19:00(다음날 공휴일이면 20:00까지); 음식점 11:00–22:00; 비정기 휴무
-- 메모:
-- 근거: https://www.breeze-breeze.jp/info/
-
-### なんばマルイ (osaka_draft_c85fa26beb80)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 백화점 공통 사이트로 이동. 난바 마루이 지점 전용 안내 필요.
-
-### 모토커피 (osaka_draft_35640888fa49)
-- 주소: 미확인
-- 영업시간: Mo-Su 12:00-19:00
-- 메모: 정확한 MOTO 지점과 최신 공식 운영시간 미확인.
-
-### 42195 COFFEE (osaka_draft_f22cfa23d646)
-- 주소: 大阪市北区中津3-12-15
-- 영업시간: 08:00–17:00; 수요일 08:00–12:00; 목요일 휴무; 음료 주문 종료 30분 전, 식사 1시간 전
-- 메모:
-- 근거: https://42195coffee.wixsite.com/toppage
-
-### Antico Caffe Al Avis (osaka_draft_b0a5c9b0d460)
-- 주소: 미확인
-- 영업시간: Su-Th 11:00-22:00,Fr-Sa 11:00-22:30
-- 메모: 등록 웹사이트가 다른 카페 안내로 연결됨. ANTICO 지점 확인 필요.
-- 근거: https://www.hakka-group.co.jp/?cmd=read&page=roll%20madu%20umeda
-
-### Blue Bottle Coffee (osaka_draft_5a3ef73c2b4b)
-- 주소: 大阪市北区茶屋町15-22 アーバンテラス茶屋町A棟
-- 영업시간: 매일 08:00–21:00
-- 메모:
-- 근거: https://store.bluebottlecoffee.jp/pages/umeda-chayamachi
-
-### BOBBIN (osaka_draft_3b8f7684482e)
-- 주소: 미확인
-- 영업시간: Mo-Sa 11:00-18:00
-- 메모: 등록 홈페이지 취득 실패. 동명 업체와 구분 필요.
-
-### Cafe Di Espresso (osaka_draft_e3ac280c1575)
-- 주소: 미확인
-- 영업시간: 07:00-20:00
-- 메모: 정확한 Cafe Di Espresso 지점 확인 필요.
-
-### Cafe yutte (osaka_draft_9342479ef7d7)
-- 주소: 미확인
-- 영업시간: Tu-Sa 10:00-18:00
-- 메모: 공식 소셜 페이지에서 최신 운영시간 추가 확인 필요.
-
-### e-maid (osaka_draft_243b34cd6761)
-- 주소: 미확인
-- 영업시간: Mo-Fr 12:00-22:30; PH,Sa,Su 11:00-22:30
-- 메모: 공식 점포 페이지 취득 실패. 운영정보 재확인 필요.
-
-### Haiku Coffee Roasters (osaka_draft_eda93d07ee2b)
-- 주소: 大阪市北区浮田2-4-4
-- 영업시간: 12:00–17:00; 정기 휴무일 미확인
-- 메모:
-- 근거: https://haikucoffee.thebase.in/about
-
-### Holly's Cafe (osaka_draft_d52fee5c2304)
-- 주소: 미확인
-- 영업시간: Mo-Fr 06:30-23:00; Sa,Su,PH 06:30-21:00
-- 메모: 브랜드 전체 사이트만 확인. 홀리스 개별 지점 확인 필요.
-
-### La Granda Familio (osaka_draft_11ceb1687dfa)
-- 주소: 大阪市北区中崎西1-1-18
-- 영업시간: 월·수–토 10:30–19:00; 일 10:30–18:00; 화 휴무
-- 메모: 기존 주소 1-1-8을 공식 점포 주소 1-1-18로 정정.
-- 근거: http://www.grandafamilio.com/store.html
-
-### Melbourne Coffee (osaka_draft_2f4886b3a5b6)
-- 주소: 미확인
-- 영업시간: 09:00-14:00
-- 메모: 공식 사이트에 복수 지점 소개. OSM 지점과 대조 필요.
-
-### rion cafe (osaka_draft_cdb260bb106a)
-- 주소: 미확인
-- 영업시간: Mo-Fr 11:30-14:00
-- 메모: 공식 홈페이지 취득 실패. 운영정보 미확인.
-
-### Sub Jazz Cafe (osaka_draft_4af3a5a14578)
-- 주소: 미확인
-- 영업시간: Su-Mo, We-Th 15:00-23:00; Fr 11:00-23:00; Sa 13:30-23:00
-- 메모: 공식 홈페이지 취득 실패. 운영정보 미확인.
-
-### SÖT COFFEE (osaka_draft_e5eb4dd70807)
-- 주소: 大阪市中央区大手通1-3-7 ベルヴォア1F・2F
-- 영업시간: 매일 08:00–19:00
-- 메모: 오사카 덴마바시점 기준.
-- 근거: https://www.sotcoffee.com/en/pages/shop-osaka
-
-### こちかぜ (osaka_draft_af11af018972)
-- 주소: 大阪府大阪市天王寺区空清町2-22
-- 영업시간: 11:30-13:30 open "ランチ",17:30-21:30 open "ディナー" || "不定休"
-- 메모:
-- 근거: https://www.kotikaze.com/
-
-### アズアン (osaka_draft_19894ad0a123)
-- 주소: 미확인
-- 영업시간: Mo-Sa 11:00-19:00
-- 메모: 공식 페이지에 사용 가능한 운영정보 없음. 주소 구성요소 재검토 필요.
-
-### エミュリボン (osaka_draft_c4a30f2620d0)
-- 주소: 미확인
-- 영업시간: Mo-Fr 18:00-23:00; Sa-Su 16:00-23:00
-- 메모: 공식 홈페이지 취득 실패. 운영정보 미확인.
-
-### ケーキ＆カフェダイニング　ボナボン (osaka_draft_32974d974e62)
-- 주소: 미확인
-- 영업시간: 09:00-21:00; Fr,Sa,PH -1 day 09:00-23:00
-- 메모: 공식 공지가 과거 연도 자료여서 현재 시간으로 확정하지 않음.
-
-### 保護ねこカフェneu。 (osaka_draft_57eaac2e578d)
-- 주소: 大阪市中央区谷町六丁目17-5
-- 영업시간: 평일 12:00–21:00; 토·일·공휴일 12:00–19:00; 식사 주문 16:00까지; 비정기 휴무
-- 메모:
-- 근거: https://neu-catcafe.com/
-
-### 喫茶あおい (osaka_draft_74dbaeea6a02)
-- 주소: 大阪府大阪市東淀川区西淡路1-17-3 MURAKAMI1F
-- 영업시간: 미확인/적용 불가
-- 메모: 공식 페이지 본문과 하단의 운영시간·휴무일이 충돌하여 영업시간을 미확인 처리.
-- 근거: https://kissaaoiclub.com/
-
-### 茶淹 (osaka_draft_96e588e49f58)
-- 주소: 大阪府大阪市淀川区十三元今里2-21-3-102
-- 영업시간: 수–일 13:00–19:00경(주문 18:30까지); 월·화 휴무
-- 메모:
-- 근거: https://chaenjin.jimdofree.com/
-
-### 34 Kitchen (osaka_draft_f729469c78c5)
-- 주소: 미확인
-- 영업시간: 11:00-23:00
-- 메모: 공식 페이지에서 현재 운영시간 근거 확보 실패.
-
-### an39 (osaka_draft_873f1e0cf834)
-- 주소: 미확인
-- 영업시간: Tu-Su 11:00-17:00
-- 메모: 이전 URL과 신규 사이트의 같은 지점 여부 미확인.
-
-### bee9 (osaka_draft_94d63b518da4)
-- 주소: 미확인
-- 영업시간: Mo-Fr 11:00-17:00; Sa-Su 18:00-23:00
-- 메모: 온라인 판매 사이트와 실제 방문 가능한 점포 여부 구분 필요.
-
-### Bubble Net (osaka_draft_77f869ee706f)
-- 주소: 미확인
-- 영업시간: Mo-Su 18:00-28:00
-- 메모: OSM 주소 구성요소가 서로 충돌. 지점 이전 여부 확인 필요.
-
-### CAFETERIA AGORA (osaka_draft_2f89be830b8c)
-- 주소: 大阪府大阪市中之島4-3-53 大阪大学中之島センター2階
-- 영업시간: 11:00-17:00
-- 메모: 대학 나카노시마센터 내 점포와 호텔 본사 주소를 구분해야 함.
-
-### Casablanca Namba Riverside (osaka_draft_ff20bd4cf6b7)
-- 주소: 미확인
-- 영업시간: 11:00-24:00
-- 메모: 소셜 계정 기반 점포. 최신 공식 운영정보 확인 필요.
-
-### CENTRUM (osaka_draft_5f45ffb4d766)
-- 주소: 大阪市北区梅田1-8-8 ヒルトン大阪2F
-- 영업시간: 11:30–14:00, 17:30–21:30(주문 21:00까지); 월·화 휴무(공휴일 제외)
-- 메모:
-- 근거: https://osaka.hiltonjapan.co.jp/restaurants/centrum
-
-### Différence (osaka_draft_89de388fac63)
-- 주소: 미확인
-- 영업시간: 12:00-15:00,17:30-22:00
-- 메모: 공식 상세 메뉴·접근 안내 추가 확인 필요.
-
-### GARB weeks (osaka_draft_23d3d20ef739)
-- 주소: 大阪市北区中之島1-1-29 中之島公園内
-- 영업시간: 11:30–22:00; 점심 주문 15:00까지, 저녁 17:30–21:30 주문
-- 메모:
-- 근거: https://garbweeks.com/
-
-### MERCY Vegan Factory (osaka_draft_c341bbd2440a)
-- 주소: 大阪市中央区瓦屋町2-4-15 1階西側
-- 영업시간: 08:00–17:00, 18:00–21:00; 점심 주문 16:00·저녁 20:00까지; 토요일 휴무
-- 메모:
-- 근거: https://shop.mercy-vegan.jp/
-
-### MONTOMWORKS. mt.cafe & Design Dept. (osaka_draft_a9bc74861e3f)
-- 주소: 大阪府大阪市淀川区新北野1-11-23 ハイム北野B102
-- 영업시간: 점심 11:00–16:00(주문 15:30까지); 토·일 저녁 18:00–21:00(주문 20:00까지); 수 휴무(공휴일이면 목요일 대체 휴무)
-- 메모:
-- 근거: https://montomworks.com/
-
-### natural kitchen めだか2号店 (osaka_draft_d580756db04a)
-- 주소: 大阪市北区兎我野町3-20 雁木ビル1F
-- 영업시간: 평일 11:00–20:30; 토·일·공휴일 11:00–20:00
-- 메모:
-- 근거: https://shin-medaka.com/
-
-### PAPALINA (osaka_draft_f8831852f028)
-- 주소: 大阪市東淀川区淡路4-32-16 レジデンスyamaki1F
-- 영업시간: 11:30–21:30(주문 21:00까지); 화요일 휴무
-- 메모:
-- 근거: http://papalina68.web.fc2.com/access.html
-
-### きりん寺 大阪総本店 (osaka_draft_98a4211ed755)
-- 주소: 미확인
-- 영업시간: Mo-Su 11:30-16:30, 18:00-22:00
-- 메모: 브랜드 전환·지점 혼동 가능. 회사 주소를 점포 주소로 사용하지 않음.
-
-### もりもり寿し (osaka_draft_7d6ecfb032b6)
-- 주소: 미확인
-- 영업시간: Mo-Su 11:00-22:00
-- 메모: 이온몰 입점 지점의 공식 안내 확인 필요.
-
-### アルバール (osaka_draft_d0e6cdcb566f)
-- 주소: 미확인
-- 영업시간: Mo-Fr 11:30-22:30; Su 11:30-22:00; PH 11:30-22:00
-- 메모: 공식 사이트 취득 실패. 제3자 정보만으로 확정하지 않음.
-
-### カドヤ食堂 (osaka_draft_3b1acd991668)
-- 주소: 미확인
-- 영업시간: 11:00+
-- 메모: 등록 링크는 음식 블로그. 공식 검증으로 간주하지 않음.
-
-### サイゼリヤ (osaka_draft_2eb759c40909)
-- 주소: 미확인
-- 영업시간: 11:00-02:00
-- 메모: 사이제리야 기존 지점 링크 취득 실패. 지점 ID 대조 필요.
-
-### レコッコレ (osaka_draft_1875c31c058c)
-- 주소: 미확인
-- 영업시간: We-Sa 11:30-22:00; Su-Mo 11:30-18:00
-- 메모: 공식 사이트 취득 실패. 현재 주소·운영 미확인.
-
-### 中央市場 ゑんどう寿司 (osaka_draft_3d97f36846d0)
-- 주소: 미확인
-- 영업시간: Mo-Sa 05:00-14:00
-- 메모: 공식 페이지 본문이 이미지 위주. 해당 지점 상세 안내 확인 필요.
-
-### 人類みな麺類 (osaka_draft_1cdebcaa6534)
-- 주소: 大阪市淀川区西中島1-12-15
-- 영업시간: Mo-Su 11:00-23:00
-- 메모: 영업시간은 운영사 UNCHI의 최신 지점 안내 추가 확인 필요.
-- 근거: http://www.jinrui-minamenrui.com/
-
-### 傾奇御麺 天神橋・本店 (osaka_draft_20aa5444aadd)
-- 주소: 미확인
-- 영업시간: 11:30-02:00
-- 메모: 웹사이트 종료 안내는 식당 폐업의 증거가 아님. 점포 운영 재확인 필요.
-
-### 咲璽季～素食 (osaka_draft_7eda017e1ded)
-- 주소: 미확인
-- 영업시간: We-Fr 11:00-14:00, 17:00-21:00; Sa-Su 09:00-14:00, 17:00-21:00
-- 메모: 공식 사이트 취득 실패. 현재 운영정보 미확인.
-
-### 居酒屋新 (osaka_draft_3c015925bf31)
-- 주소: 大阪府大阪市中央区島之内2-12-8 TOWビル2F
-- 영업시간: 14:00–다음날 03:00; 비정기 휴무
-- 메모:
-- 근거: https://izakayashin.net/
-
-### 舟屋 (osaka_draft_6789f7f9c22f)
-- 주소: 大阪市生野区生野西2-1-34
-- 영업시간: 매장 식사 11:30–14:30(주문 14:00까지); 목요일 및 월 1회 임시 휴무; 재료 소진 시 종료
-- 메모: 포장 10:00–20:00을 매장 식사시간에 사용하지 않음.
-- 근거: https://www.funaya.co.jp/
-
-### Bistro よし川 (osaka_draft_89458a1abeda)
-- 주소: 大阪市淀川区十三本町2-3-13
-- 영업시간: 월–금 11:30–14:00, 17:30–22:00; 토 17:30–22:00; 일·공휴일 휴무
-- 메모:
-- 근거: https://ameblo.jp/b-yoshikawa/
-
-### Cherry Jam (osaka_draft_26a5e809355e)
-- 주소: 大阪府大阪市福島区吉野2-1-8
-- 영업시간: 화–일 11:30–15:00, 17:00–22:30; 월 휴무(대관 예외)
-- 메모:
-- 근거: https://cherryjam.owst.jp/
-
-### Comfort Zone 8 京いたりあん (osaka_draft_8cb9705b2793)
-- 주소: 大阪府大阪市淀川区十三本町1-18-10 ナショナルマンション101
-- 영업시간: 수–금 11:30–15:00, 18:00–23:00; 토 12:00–15:00, 18:00–23:00; 일·공휴일 11:00–14:00, 17:00–21:00; 월·화 휴무; 입장 종료 1시간 전
-- 메모:
-- 근거: https://comfortzone8kyoitarian.com/
-
-### MayWinds (osaka_draft_d996a4118ab0)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 점포 홈페이지 취득 실패. 운영정보 미확인.
-
-### Parfait de Merrily (osaka_draft_2a9b88c21411)
-- 주소: 大阪府大阪市中央区馬場町3番65号
-- 영업시간: 11:00–20:00(주문 19:00까지); 비정기 휴무
-- 메모:
-- 근거: https://parfait-de-merrily.owst.jp/
-
-### Sagano (osaka_draft_5fa8876a4657)
-- 주소: 미확인
-- 영업시간: 미확인/적용 불가
-- 메모: 공식 사이트 취득 실패. 운영정보 미확인.
-
-### 수상버스 타는곳 (osm_way_303446421)
-- 주소: 미확인
-- 영업시간: Mo-Su 10:00-17:00
-- 메모: 수상버스 선착장 지점 확인 후 출항표를 적용해야 함.
-
-### 덴포잔 마켓 플레이스 (osm_way_151816175)
-- 주소: 미확인
-- 영업시간: Mo-Su 11:00-20:00
-- 메모: 공식 페이지 시간의 00:00 표시는 로딩용 자리표시자. 실제 영업시간으로 사용하지 않음.
-
-### cadode cafe (osm_node_6189996345)
-- 주소: 미확인
-- 영업시간: 11:00-17:00; Mo, Su, PH off
-- 메모: 효고현 아마가사키 소재. 중앙 오사카 bbox에 포함되지만 오사카시 밖임.
-
-### 이치란라멘 (osm_node_2546559085)
-- 주소: 大阪府大阪市中央区宗右衛門町7-18
-- 영업시간: 미확인/적용 불가
-- 메모: 공식 지점 페이지에서 영업 종료 확인. 도톤보리 별관과 구분.
-- 근거: https://ichiran.com/shop/kinki/dotonbori-main/
+| osaka_001 | 도톤보리 글리코 사인 | cost, stay_min, bag_load, covered |  |
+| osaka_002 | 쓰텐카쿠 | stay_min, bag_load, covered |  |
+| osaka_003 | 신세카이 | opening_hours, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_004 | 아메리카무라 | cost, stay_min, bag_load, covered |  |
+| osaka_005 | 구로몬시장 | cost, stay_min, bag_load |  |
+| osaka_006 | 신사이바시스지 상점가 | cost, stay_min, bag_load, covered |  |
+| osaka_007 | 우메다 공중정원 전망대 | stay_min, bag_load, covered |  |
+| osaka_008 | HEP FIVE 관람차 | stay_min, bag_load, covered |  |
+| osaka_009 | 오사카성 | stay_min, bag_load, covered |  |
+| osaka_010 | 오사카 텐만구 | opening_hours, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_011 | 시텐노지 | cost, stay_min, bag_load, covered |  |
+| osaka_012 | 오사카 역사박물관 | stay_min, bag_load, covered |  |
+| osaka_013 | 오사카 나카노시마 미술관 | cost, stay_min, bag_load, covered |  |
+| osaka_014 | 오사카 시립과학관 | stay_min, bag_load |  |
+| osaka_015 | 오사카성 공원 | cost, stay_min, bag_load, covered |  |
+| osaka_016 | 나카노시마 공원 | cost, stay_min, bag_load |  |
+| osaka_017 | 나카노시마 공원 장미원 | cost, stay_min, bag_load |  |
+| osaka_018 | 덴노지 공원 | stay_min, bag_load |  |
+| osaka_019 | 우츠보 공원 | cost, stay_min, bag_load, covered |  |
+| osaka_020 | 난바 파크스 | cost, stay_min, bag_load, covered |  |
+| osaka_021 | 다카시마야 오사카점 | cost, stay_min, bag_load, covered |  |
+| osaka_022 | 다이마루 신사이바시점 | cost, stay_min, bag_load, covered |  |
+| osaka_023 | 한신 우메다 본점 | cost, stay_min, bag_load, covered |  |
+| osaka_024 | 신사이바시 PARCO | cost, stay_min, bag_load, covered |  |
+| osaka_025 | 카니도라쿠 | area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_026 | 이치란 도톤보리점 | cost, stay_min, bag_load, covered |  |
+| osaka_028 | 소다이쇼 | stay_min, bag_load, covered |  |
+| osm_node_2296903605 | 마루후쿠 커피 센니치마에 본점 | cost, stay_min, bag_load, covered |  |
+| osm_node_9875632529 | 브루클린 로스팅 컴퍼니 난바 | cost, stay_min, bag_load, covered |  |
+| osaka_draft_2e4698946819 | エレメカ研究所 | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_73505422b2e6 | 도톤보리 교 | address, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_a270504b6cd8 | 茶室（豊松庵） | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source, verified_at | event_access_required |
+| osaka_draft_bdd1ec5175d0 | OAP港 | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_f0f97440bedc | ワケ橋 | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at | identity_unconfirmed |
+| osaka_draft_1c4a0fd86b91 | 包ギョーザ | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at | identity_unconfirmed |
+| osaka_draft_85b3463e84b9 | 太閤下水見学施設 | name_ko, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_5a243c3857f7 | 松栄堂 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_84378ff5ba08 | 毛馬閘門 | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at | access_conditions_unconfirmed |
+| osaka_draft_0cc625078422 | 湊町リバープレイス | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_300825840acb | Akiba Kart Osaka | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_7c98da5a96f9 | 오사카 주택박물관 | cost, stay_min, bag_load, covered, opening_hours_source | temporary_closure |
+| osaka_draft_1cbe7e7894c8 | くすりの道修町資料館 | name_ko, stay_min, bag_load |  |
+| osaka_draft_50b7a6cc608f | まほうびん記念館 | name_ko, bag_load | reservation_required |
+| osaka_draft_c99cbfbd0f92 | アートコートギャラリー | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_6dbd8bbe7f48 | 上方浮世絵館 | name_ko, stay_min, bag_load |  |
+| osaka_draft_ce3b8d452a0e | 国立国際美術館 | name_ko, stay_min, bag_load, opening_hours_source |  |
+| osaka_draft_316598fb77c9 | 大阪市立美術館 | name_ko, stay_min, bag_load |  |
+| osaka_draft_2780be08a88e | 御津八幡宮 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_7675eb0bab46 | 難波八坂神社 | name_ko, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_40d8be797d5b | design museum | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source | identity_unconfirmed, website_mismatch |
+| osaka_draft_6eda07803129 | ギャラリー ササキ商店 | name_ko, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source | reservation_or_exhibition_required |
+| osaka_draft_43502b1cfa97 | ブルームギャラリー | name_ko, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source | operating_status_unconfirmed, gallery_exhibitions_suspended |
+| osaka_draft_9cd21dc062f7 | 大阪市立東洋陶磁美術館 | name_ko, cost, stay_min, bag_load, covered | temporary_closure |
+| osaka_draft_70d399cfaea8 | 日本基督教団大阪教会 | name_ko, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_07d2c797a410 | 日本聖公会聖贖主教会礼拝堂 | name_ko, opening_hours, cost, stay_min, bag_load, opening_hours_source | access_conditions_unconfirmed |
+| osaka_draft_006a0c207d8c | 歯神社 | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_718edcaf3985 | 海月文庫アートスペース | name_ko, cost, stay_min, bag_load, covered | exhibition_schedule_required |
+| osaka_draft_d7da3fdbeaf6 | 絹谷幸二 天空美術館 | name_ko, stay_min, bag_load |  |
+| osaka_draft_04b34bc4e6e2 | 高津宮 | name_ko, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_1289b4aecc32 | 慶沢園 | name_ko, stay_min, bag_load |  |
+| osaka_draft_c62644984874 | 桜之宮公園 | name_ko, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_9e900589aec0 | 西の丸庭園 | name_ko, stay_min, bag_load, opening_hours_source | hours_conflict |
+| osaka_draft_f72944194ef3 | 千島公園 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_a66fcd05acfb | 南天満公園 | name_ko, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_03cde684bd96 | 毛馬公園 | name_ko, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_e102a263e5a8 | 淀川河川公園 長柄地区 | name_ko, area, address, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at | hours_conflict |
+| osaka_draft_5f8dd9212a0c | 藤田邸跡公園 | name_ko, stay_min, bag_load |  |
+| osaka_draft_c6de5620d3d0 | 難波中公園 | name_ko, area, address, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at |  |
+| osaka_draft_0cf4fe2e0afe | 신 우메다시티 하나노 | opening_hours, cost, stay_min, bag_load, opening_hours_source |  |
+| osaka_draft_2941efc9ac2d | うめきた公園 サウスパーク | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_f852e8e07cf8 | かすがえ公園 | name_ko, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source |  |
+| osaka_draft_0adb7945fbda | ほたるまちにある広場 | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at |  |
+| osaka_draft_2fc0df9e9f8d | パークスガーデン | name_ko, stay_min, bag_load |  |
+| osaka_draft_cff5e2720c53 | 三和公園 | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at | city_boundary_unconfirmed |
+| osaka_draft_16f1d28c8bfd | NU 자야마치 | cost, stay_min, bag_load, covered |  |
+| osaka_draft_1b3533415b94 | 하비스 플라자 | cost, stay_min, bag_load, covered |  |
+| osaka_draft_4fb99b053e8b | Whityうめだ | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_e51bbe99124a | アルデ新大阪 | name_ko, cost, stay_min, bag_load |  |
+| osaka_draft_02288187c550 | イオンモール大阪ドームシティ | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_11050de606b0 | ウイステ | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_b1eae8a8935b | Asoko Minamihorie | name_ko, area, address, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at | operating_status_unconfirmed |
+| osaka_draft_daa353940c61 | 近鉄百貨店 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_dc3ec67cb8d1 | 케이한 시티 몰 | cost, stay_min, bag_load, covered |  |
+| osaka_draft_2b9dd68b687a | HELLO life | name_ko, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source | category_mismatch |
+| osaka_draft_fa65b053e525 | MIHA shop | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source, verified_at |  |
+| osaka_draft_31878d4960fc | Viewl 阪急三国 | name_ko, opening_hours, cost, stay_min, bag_load, covered, website, opening_hours_source |  |
+| osaka_draft_391fae83b26c | てんしばi:na | name_ko, area, address, cost, stay_min, bag_load, covered |  |
+| osaka_draft_a8c6b6985943 | なんばEKIKAN | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_fc7acd992f21 | 新大阪センイシティー | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_b6b6dae05ce5 | 淀屋橋 odona | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_f1ba0aa6ab58 | 한큐 백화점 우메다 본점 | cost, stay_min, bag_load, covered |  |
+| osaka_draft_481d9742f9c2 | ブリーゼブリーゼ | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_c85fa26beb80 | なんばマルイ | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_35640888fa49 | 모토커피 | cost, stay_min, bag_load, covered |  |
+| osaka_draft_f22cfa23d646 | 42195 COFFEE | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_b0a5c9b0d460 | Antico Caffe Al Avis | name_ko, cost, stay_min, bag_load, covered | website_mismatch, branch_unconfirmed |
+| osaka_draft_5a3ef73c2b4b | Blue Bottle Coffee | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_3b8f7684482e | BOBBIN | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_e3ac280c1575 | Cafe Di Espresso | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at | branch_unconfirmed |
+| osaka_draft_9342479ef7d7 | Cafe yutte | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_243b34cd6761 | e-maid | name_ko, cost, stay_min, bag_load |  |
+| osaka_draft_eda93d07ee2b | Haiku Coffee Roasters | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_d52fee5c2304 | Holly's Cafe | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at | branch_unconfirmed |
+| osaka_draft_11ceb1687dfa | La Granda Familio | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_2f4886b3a5b6 | Melbourne Coffee | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at | branch_unconfirmed |
+| osaka_draft_cdb260bb106a | rion cafe | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_4af3a5a14578 | Sub Jazz Cafe | name_ko, cost, stay_min, bag_load |  |
+| osaka_draft_e5eb4dd70807 | SÖT COFFEE | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_af11af018972 | こちかぜ | name_ko, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_19894ad0a123 | アズアン | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_c4a30f2620d0 | エミュリボン | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_32974d974e62 | ケーキ＆カフェダイニング　ボナボン | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_57eaac2e578d | 保護ねこカフェneu。 | name_ko, bag_load, covered | ticket_scenario_required |
+| osaka_draft_74dbaeea6a02 | 喫茶あおい | name_ko, opening_hours, stay_min, bag_load, covered, opening_hours_source | hours_conflict |
+| osaka_draft_96e588e49f58 | 茶淹 | name_ko, stay_min, bag_load, covered |  |
+| osaka_draft_f729469c78c5 | 34 Kitchen | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_873f1e0cf834 | an39 | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_94d63b518da4 | bee9 | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at | physical_store_unconfirmed |
+| osaka_draft_77f869ee706f | Bubble Net | name_ko, cost, stay_min, bag_load, covered, opening_hours_source | address_conflict |
+| osaka_draft_2f89be830b8c | CAFETERIA AGORA | name_ko, area, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_ff20bd4cf6b7 | Casablanca Namba Riverside | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_5f45ffb4d766 | CENTRUM | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_89de388fac63 | Différence | name_ko, bag_load | reservation_required, meal_scenario_required |
+| osaka_draft_23d3d20ef739 | GARB weeks | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_c341bbd2440a | MERCY Vegan Factory | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_a9bc74861e3f | MONTOMWORKS. mt.cafe & Design Dept. | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_d580756db04a | natural kitchen めだか2号店 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_f8831852f028 | PAPALINA | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_98a4211ed755 | きりん寺 大阪総本店 | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at | branch_unconfirmed |
+| osaka_draft_7d6ecfb032b6 | もりもり寿し | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_d0e6cdcb566f | アルバール | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_3b1acd991668 | カドヤ食堂 | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_2eb759c40909 | サイゼリヤ | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_1875c31c058c | レコッコレ | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_3d97f36846d0 | 中央市場 ゑんどう寿司 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_1cdebcaa6534 | 人類みな麺類 | name_ko, cost, stay_min, bag_load, covered, opening_hours_source |  |
+| osaka_draft_20aa5444aadd | 傾奇御麺 天神橋・本店 | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_7eda017e1ded | 咲璽季～素食 | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_3c015925bf31 | 居酒屋新 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_6789f7f9c22f | 舟屋 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_89458a1abeda | Bistro よし川 | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_26a5e809355e | Cherry Jam | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_8cb9705b2793 | Comfort Zone 8 京いたりあん | name_ko, cost, stay_min, bag_load, covered |  |
+| osaka_draft_d996a4118ab0 | MayWinds | name_ko, area, address, opening_hours, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osaka_draft_2a9b88c21411 | Parfait de Merrily | name_ko, stay_min, bag_load |  |
+| osaka_draft_5fa8876a4657 | Sagano | name_ko, cost, stay_min, bag_load | price_conflict, reservation_required |
+| osm_way_303446421 | 수상버스 타는곳 | area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at | branch_unconfirmed |
+| osm_way_151816175 | 덴포잔 마켓 플레이스 | area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at |  |
+| osm_node_6189996345 | cadode cafe | name_ko, area, address, cost, stay_min, bag_load, covered, opening_hours_source, verified_at | outside_osaka_city |
+| osm_node_2546559085 | 이치란라멘 | opening_hours, cost, stay_min, bag_load, covered, opening_hours_source | permanently_closed |
