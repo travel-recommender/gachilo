@@ -10,7 +10,7 @@ class OfficialEnrichmentTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data = json.loads((P / 'osaka_places_150_fresh.json').read_text())
-        cls.ledger = json.loads((P / 'official_enrichment_20260928.json').read_text())
+        cls.ledger = json.loads((P / cls.data['latest_enrichment_checks_file']).read_text())
         cls.records = {r['place']['place_id']: r for r in cls.data['places']}
 
     def test_identity_coordinates_and_blockers_preserved(self):
@@ -54,7 +54,7 @@ class OfficialEnrichmentTests(unittest.TestCase):
             self.assertEqual(x['blockers'], r['review']['recommendation_blockers'])
 
     def test_unknown_values_are_not_filled_with_defaults(self):
-        self.assertTrue(all(r['place']['bag_load'] is None for r in self.records.values()))
+        self.assertTrue(all(r['field_sources']['bag_load']['kind'] == 'team_rule_estimate' for r in self.records.values()))
         for r in self.records.values():
             p = r['place']
             if p['covered'] is not None:
