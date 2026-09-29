@@ -2,9 +2,9 @@
   "reviewed_at": "2026-09-28",
   "statistics": {
     "records": 150,
-    "records_with_value_changes": 110,
-    "null_fields_filled": 251,
-    "non_null_fields_updated": 46,
+    "records_with_value_changes": 150,
+    "null_fields_filled": 782,
+    "non_null_fields_updated": 66,
     "missing_before": {
       "place_id": 0,
       "name": 0,
@@ -26,22 +26,25 @@
     "missing_after": {
       "place_id": 0,
       "name": 0,
-      "name_ko": 110,
+      "name_ko": 0,
       "category": 0,
-      "area": 42,
-      "address": 42,
+      "area": 3,
+      "address": 2,
       "latitude": 0,
       "longitude": 0,
-      "opening_hours": 26,
-      "cost": 127,
-      "stay_min": 147,
-      "bag_load": 150,
-      "covered": 127,
-      "website": 12,
-      "opening_hours_source": 66,
-      "verified_at": 39
+      "opening_hours": 23,
+      "cost": 118,
+      "stay_min": 0,
+      "bag_load": 0,
+      "covered": 116,
+      "website": 11,
+      "opening_hours_source": 57,
+      "verified_at": 27
     },
-    "records_with_blockers": 31
+    "records_with_blockers": 42,
+    "official_null_fields_filled_before_localization": 316,
+    "editorial_korean_names_filled": 110,
+    "map_addresses_added": 31
   },
   "places": [
     {
@@ -62,8 +65,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -85,8 +86,6 @@
         "https://www.tsutenkaku.co.jp/annai/"
       ],
       "missing_fields": [
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -111,8 +110,6 @@
       "missing_fields": [
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -136,8 +133,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -159,9 +154,7 @@
         "https://kuromon.com/jp/"
       ],
       "missing_fields": [
-        "cost",
-        "stay_min",
-        "bag_load"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -185,8 +178,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -209,8 +200,6 @@
         "https://www.skybldg.co.jp/access/"
       ],
       "missing_fields": [
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -232,8 +221,6 @@
         "https://www.hepfive.jp/ferriswheel"
       ],
       "missing_fields": [
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -256,8 +243,6 @@
         "https://www.osakacastle.net/guide/"
       ],
       "missing_fields": [
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -271,15 +256,15 @@
       "address_status": "verified",
       "hours_status": "missing",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "오사카 관광국의 일반 참배 무료 안내. 유료 기도·결혼식 제외. 과거 여름 개문 공지를 연중 시간으로 적용하지 않음."
+      ],
       "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/261",
         "https://osakatemmangu.or.jp/"
       ],
       "missing_fields": [
         "opening_hours",
-        "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -295,15 +280,14 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "경내 통행시간과 유료시설 관람시간을 구분. 특별일 운영시간은 별도 확인."
+        "경내 통행시간과 유료시설 관람시간을 구분. 특별일 운영시간은 별도 확인.",
+        "성인 개인 중심가람 관람 기준 500엔. 정원 300엔·보물관 500엔 별도. 매월 21·22일 및 춘추 피안회 중심가람 무료 개방 예외."
       ],
       "source_urls": [
+        "https://www.shitennoji.or.jp/admission.html",
         "https://www.shitennoji.or.jp/map.html"
       ],
       "missing_fields": [
-        "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -319,16 +303,14 @@
       "blockers": [],
       "notes": [
         "요금은 성인 상설전 개인 입장료 JPY. 특별전 별도. 임시 휴관은 방문일별 확인.",
-        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+        "공식 안내의 10층·9층 등 박물관 상설 전시 관람 기준. 외부 유적 탐방 제외."
       ],
       "source_urls": [
+        "https://www.osakamushis.jp/",
         "https://www.osakamushis.jp/visit/fee.html"
       ],
-      "missing_fields": [
-        "stay_min",
-        "bag_load",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -346,8 +328,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -370,10 +350,7 @@
         "https://www.sci-museum.jp/info/",
         "https://www.sci-museum.jp/info/guide/"
       ],
-      "missing_fields": [
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -385,16 +362,13 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "공원 일반 산책 무료·야외 기준. 천수각·니시노마루 및 개별 시설 이용료 제외."
+      ],
       "source_urls": [
         "https://osaka-info.jp/spot/osaka-castle-park/"
       ],
-      "missing_fields": [
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -415,9 +389,7 @@
         "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
       ],
       "missing_fields": [
-        "cost",
-        "stay_min",
-        "bag_load"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -432,16 +404,14 @@
       "blockers": [],
       "notes": [
         "나카노시마 공원과 장미정원 구역 범위 구분 필요.",
-        "공식 관광 안내: 공원 내 야외 장미원 포함. 식당 영업시간과 구분."
+        "공식 관광 안내: 공원 내 야외 장미원 포함. 식당 영업시간과 구분.",
+        "오사카 관광국 장미원 무료 관람 안내. 인근 유람선 등 유료 활동 제외."
       ],
       "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/244",
         "https://osaka-info.jp/spot/nakanoshima-park/"
       ],
-      "missing_fields": [
-        "cost",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -460,10 +430,7 @@
       "source_urls": [
         "https://osaka-info.jp/spot/tennoji-park-entrance-area-ten-shiba/"
       ],
-      "missing_fields": [
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -477,17 +444,14 @@
       "blockers": [],
       "notes": [
         "공원 소재 지역 주소.",
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "공식 관리 사이트의 무료 야외 장미원 산책 기준. 공원 전체의 테니스장 등 유료 체육시설은 제외."
       ],
       "source_urls": [
-        "https://parksgreenery.city.osaka.lg.jp/article/parks-utsubo/"
+        "https://parksgreenery.city.osaka.lg.jp/article/parks-utsubo/",
+        "https://utsubotennis.osaka/rose_garden/"
       ],
-      "missing_fields": [
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -507,8 +471,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -532,8 +494,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -556,8 +516,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -577,8 +535,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -600,8 +556,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -610,24 +564,22 @@
       "place_id": "osaka_025",
       "name": "かに道楽",
       "name_ko": "카니도라쿠",
-      "address": null,
+      "address": "大阪府大阪市中央区道頓堀1-6-18",
       "opening_hours": "Mo-Su 11:00-23:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "카니도라쿠 본점 전용 안내 확인 필요. 브랜드 공통정보 복사하지 않음."
+        "카니도라쿠 본점 전용 안내 확인 필요. 브랜드 공통정보 복사하지 않음.",
+        "공식 사업장 목록의 도톤보리 본점. 기존 OSM branch=道頓堀本店과 대조. 본부·중점·동점 주소와 구분."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://douraku.co.jp/company/network.html"
+      ],
       "missing_fields": [
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
-        "opening_hours_source",
-        "verified_at"
+        "opening_hours_source"
       ],
       "schedule_ready": false
     },
@@ -649,8 +601,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -673,8 +623,6 @@
         "https://www.soudaisyou.com/menu.html"
       ],
       "missing_fields": [
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -697,8 +645,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -724,8 +670,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -733,23 +677,21 @@
     {
       "place_id": "osaka_draft_2e4698946819",
       "name": "エレメカ研究所",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "엘레메카 연구소",
+      "address": "일본 〒530-0015 Osaka, Kita Ward, Nakazakinishi, 4 Chome−3 1F",
       "opening_hours": "Mo-Su 12:00-17:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "공식 소셜 계정의 최신 지점·운영시간 추가 확인 필요."
+        "공식 소셜 계정의 최신 지점·운영시간 추가 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 6.0m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=11487219151029919111"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -760,24 +702,23 @@
       "place_id": "osaka_draft_73505422b2e6",
       "name": "道頓堀橋",
       "name_ko": "도톤보리 교",
-      "address": null,
+      "address": "10 Dotonbori, Chuo Ward, Osaka, 542-0071 일본",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "missing",
       "blockers": [],
       "notes": [
         "다리 위치와 시청 담당부서 주소 구분. 일반 점포시간 적용 대상 아님.",
-        "공식 교량 소개의 행정구. 문의처 ATC 주소를 교량 주소로 넣지 않음."
+        "공식 교량 소개의 행정구. 문의처 ATC 주소를 교량 주소로 넣지 않음.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.5m. 주소만 확인했으며 영업시간 검증 아님."
       ],
       "source_urls": [
+        "https://maps.google.com/?cid=7388810500975723854",
         "https://www.city.osaka.lg.jp/kensetsu/page/0000493973.html"
       ],
       "missing_fields": [
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -786,26 +727,24 @@
     {
       "place_id": "osaka_draft_a270504b6cd8",
       "name": "茶室（豊松庵）",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "호쇼안 다실",
+      "address": "2 Osakajo, Chuo Ward, Osaka, 540-0002 일본",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "missing",
       "blockers": [
         "event_access_required"
       ],
       "notes": [
-        "상시 공개 시설로 확인되지 않음. 특별 공개·예약 행사 확인 필요."
+        "상시 공개 시설로 확인되지 않음. 특별 공개·예약 행사 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.8m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=5316351724171306774"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -815,27 +754,26 @@
     {
       "place_id": "osaka_draft_bdd1ec5175d0",
       "name": "OAP港",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "오에이피 항구",
+      "address": "1 Chome-8-40 Tenmabashi, Kita Ward, 大阪府 Osaka 530-0042 일본",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "missing",
-      "blockers": [],
+      "blockers": [
+        "google_maps_temporarily_closed"
+      ],
       "notes": [
         "OAP 선착장. 운항사별 출항시간 확인 필요.",
-        "수도오사카 공식 선착장 안내. 시간·요금은 승선 노선별 확인 필요."
+        "수도오사카 공식 선착장 안내. 시간·요금은 승선 노선별 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 0.3m. 주소만 확인했으며 영업시간 검증 아님."
       ],
       "source_urls": [
+        "https://maps.google.com/?cid=4505005300152204382",
         "https://www.suito-osaka.jp/info/port/oap/"
       ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -844,26 +782,24 @@
     {
       "place_id": "osaka_draft_f0f97440bedc",
       "name": "ワケ橋",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "와케 다리",
+      "address": "1 Chausuyamacho, Tennoji Ward, Osaka, 543-0063 일본",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "missing",
       "blockers": [
         "identity_unconfirmed"
       ],
       "notes": [
-        "ワケ橋와 和気橋 명칭 대조 및 정확한 지점 확인 필요."
+        "ワケ橋와 和気橋 명칭 대조 및 정확한 지점 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.9m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=4275703018452935561"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source",
@@ -874,26 +810,25 @@
     {
       "place_id": "osaka_draft_1c4a0fd86b91",
       "name": "包ギョーザ",
-      "name_ko": null,
+      "name_ko": "쓰쓰미 교자 포토존",
       "address": null,
       "opening_hours": null,
       "address_status": "missing",
       "hours_status": "missing",
       "blockers": [
-        "identity_unconfirmed"
+        "identity_unconfirmed",
+        "address_unconfirmed"
       ],
       "notes": [
-        "OSM상 포토존 오브젝트. 음식점으로 해석하지 않음. 현존 여부 확인 필요."
+        "OSM상 포토존 오브젝트. 음식점으로 해석하지 않음. 현존 여부 확인 필요.",
+        "2026-09-28 Google Maps 검색 및 OSM 주소 태그 확인: 일치 장소의 주소 확보 실패. 주변 점포 주소를 대신 넣지 않음."
       ],
       "source_urls": [],
       "missing_fields": [
-        "name_ko",
         "area",
         "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source",
@@ -904,7 +839,7 @@
     {
       "place_id": "osaka_draft_85b3463e84b9",
       "name": "太閤下水見学施設",
-      "name_ko": null,
+      "name_ko": "다이코 하수도 견학시설",
       "address": "大阪市中央区農人橋1-3-3",
       "opening_hours": null,
       "address_status": "verified",
@@ -918,11 +853,8 @@
         "https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html"
       ],
       "missing_fields": [
-        "name_ko",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -931,7 +863,7 @@
     {
       "place_id": "osaka_draft_5a243c3857f7",
       "name": "松栄堂",
-      "name_ko": null,
+      "name_ko": "쇼에이도",
       "address": "大阪市中央区本町3-6-4 1F",
       "opening_hours": "평일 10:00–19:00; 토·일·공휴일 10:00–18:00; 연말연시 예외",
       "address_status": "verified",
@@ -944,10 +876,7 @@
         "https://www.shoyeido.co.jp/shop-info/osaka.html"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -955,26 +884,24 @@
     {
       "place_id": "osaka_draft_84378ff5ba08",
       "name": "毛馬閘門",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "게마 갑문",
+      "address": "3 Chome-7-8 Kemacho, Miyakojima Ward, Osaka, 534-0001 일본",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "missing",
       "blockers": [
         "access_conditions_unconfirmed"
       ],
       "notes": [
-        "현재 갑문과 역사시설 구분, 견학 가능 여부 확인 필요."
+        "현재 갑문과 역사시설 구분, 견학 가능 여부 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 8.4m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=4127091456824211896"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source",
@@ -985,7 +912,7 @@
     {
       "place_id": "osaka_draft_0cc625078422",
       "name": "湊町リバープレイス",
-      "name_ko": null,
+      "name_ko": "미나토마치 리버플레이스",
       "address": "大阪市浪速区湊町1-3-1",
       "opening_hours": "10:00–22:00; 점포별 예외; 1월 1–3일 휴관",
       "address_status": "verified",
@@ -998,10 +925,7 @@
         "https://osaka-heartfulweb.jp/facility-info.php?n=114"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1009,7 +933,7 @@
     {
       "place_id": "osaka_draft_300825840acb",
       "name": "Akiba Kart Osaka",
-      "name_ko": null,
+      "name_ko": "아키바 카트 오사카",
       "address": "大阪市浪速区日本橋5-5-2 森本ビルII",
       "opening_hours": "10:00–21:30",
       "address_status": "verified",
@@ -1022,10 +946,7 @@
         "https://osakakart.com/en/access/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1042,16 +963,14 @@
         "temporary_closure"
       ],
       "notes": [
-        "2026-09-01부터 2027-01-05까지 휴관. 기존 정규 운영시간으로 방문 가능 판단 금지."
+        "2026-09-01부터 2027-01-05까지 휴관. 기존 정규 운영시간으로 방문 가능 판단 금지.",
+        "성인 개인 일반 관람료 600엔, 실내 전시장 기준. 기존 임시휴관 경고는 유지하며 방문일 운영 여부 별도 확인. 특별전·유료 짐 보관료 제외."
       ],
       "source_urls": [
-        "https://www.osaka-angenet.jp/konjyakukan/"
+        "https://www.osaka-angenet.jp/konjyakukan/",
+        "https://www.osaka-angenet.jp/konjyakukan/faq"
       ],
       "missing_fields": [
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
         "opening_hours_source"
       ],
       "schedule_ready": false
@@ -1059,7 +978,7 @@
     {
       "place_id": "osaka_draft_1cbe7e7894c8",
       "name": "くすりの道修町資料館",
-      "name_ko": null,
+      "name_ko": "약의 도쇼마치 자료관",
       "address": "大阪市中央区道修町2-1-8 少彦名神社社務所ビル3F",
       "opening_hours": "월–토 10:00–16:00(입장 15:30까지); 일·공휴일, 8월 11–16일, 12월 28일–1월 4일 휴관",
       "address_status": "verified",
@@ -1071,17 +990,13 @@
       "source_urls": [
         "https://www.sinnosan.jp/kusuri/"
       ],
-      "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_50b7a6cc608f",
       "name": "まほうびん記念館",
-      "name_ko": null,
+      "name_ko": "보온병 기념관",
       "address": "大阪市北区天満1丁目20番5号 象印本社1F",
       "opening_hours": "평일 10:00–12:00, 13:00–16:00; 사전 예약 필수; 토·일·공휴일 및 회사 휴무일 휴관",
       "address_status": "verified",
@@ -1096,16 +1011,13 @@
       "source_urls": [
         "https://www.zojirushi.co.jp/corp/kinenkan/"
       ],
-      "missing_fields": [
-        "name_ko",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_c99cbfbd0f92",
       "name": "アートコートギャラリー",
-      "name_ko": null,
+      "name_ko": "아트코트 갤러리",
       "address": "大阪市北区天満橋1-8-5 OAPアートコート1F",
       "opening_hours": "화–금 11:00–18:00; 토 11:00–17:00; 전시 일정 별도 확인",
       "address_status": "verified",
@@ -1116,10 +1028,7 @@
         "https://www.artcourtgallery.com/eng/access/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1127,7 +1036,7 @@
     {
       "place_id": "osaka_draft_6dbd8bbe7f48",
       "name": "上方浮世絵館",
-      "name_ko": null,
+      "name_ko": "가미가타 우키요에관",
       "address": "大阪市中央区難波1-6-4",
       "opening_hours": "11:00–18:00(입장 17:30까지); 월요일 휴관(공휴일이면 다음날)",
       "address_status": "verified",
@@ -1140,17 +1049,13 @@
       "source_urls": [
         "https://osaka-info.jp/special/coolosaka/cool-spot/1186/"
       ],
-      "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_ce3b8d452a0e",
       "name": "国立国際美術館",
-      "name_ko": null,
+      "name_ko": "국립국제미술관",
       "address": "大阪府大阪市北区中之島4-2-55",
       "opening_hours": "Sa-Su 10:00-17:00,Tu-Th 10:00-19:00,Fr 10:00-19:00",
       "address_status": "verified",
@@ -1164,9 +1069,6 @@
         "https://www.nmao.go.jp/visit/admission/"
       ],
       "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load",
         "opening_hours_source"
       ],
       "schedule_ready": false
@@ -1174,7 +1076,7 @@
     {
       "place_id": "osaka_draft_316598fb77c9",
       "name": "大阪市立美術館",
-      "name_ko": null,
+      "name_ko": "오사카 시립미술관",
       "address": "大阪府大阪市天王寺区茶臼山町1-82 天王寺公園内",
       "opening_hours": "09:30–17:00(입장 16:30까지); 월요일 휴관(공휴일이면 다음 평일), 연말연시·전시교체 휴관",
       "address_status": "verified",
@@ -1188,17 +1090,13 @@
         "https://www.osaka-art-museum.jp/info/9871",
         "https://www.osaka-art-museum.jp/information"
       ],
-      "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_2780be08a88e",
       "name": "御津八幡宮",
-      "name_ko": null,
+      "name_ko": "미쓰 하치만구",
       "address": "大阪府大阪市中央区西心斎橋2-10-7",
       "opening_hours": "개문 07:00–18:00; 사무소 09:00–17:00",
       "address_status": "verified",
@@ -1209,10 +1107,7 @@
         "https://mitsugu.org/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1220,7 +1115,7 @@
     {
       "place_id": "osaka_draft_7675eb0bab46",
       "name": "難波八坂神社",
-      "name_ko": null,
+      "name_ko": "난바 야사카 신사",
       "address": "大阪市浪速区元町2-9-19",
       "opening_hours": "Mo-Su 06:00-17:00",
       "address_status": "verified",
@@ -1231,10 +1126,7 @@
         "http://nambayasaka.jp/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -1243,29 +1135,27 @@
     {
       "place_id": "osaka_draft_40d8be797d5b",
       "name": "design museum",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "디자인 뮤지엄",
+      "address": "일본 〒530-0005 Osaka, Kita Ward, Nakanoshima, 5 Chome−3−56 中之島バンクス EAST",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "mapped_closed_location",
       "hours_status": "missing",
       "blockers": [
         "identity_unconfirmed",
-        "website_mismatch"
+        "website_mismatch",
+        "google_maps_permanently_closed"
       ],
       "notes": [
-        "등록 웹사이트가 박물관과 무관한 콘텐츠로 변경됨. 시설 실재·운영 재확인 필요."
+        "등록 웹사이트가 박물관과 무관한 콘텐츠로 변경됨. 시설 실재·운영 재확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 15.5m. 주소만 확인했으며 영업시간 검증 아님. OSM 원본 website=designde.jp 및 위치가 나카노시마 뱅크스 디자인데와 일치. 폐업 시설의 과거 주소. 지도에 폐업 표시가 있는 과거 주소."
       ],
       "source_urls": [
-        "https://designde.jp/"
+        "https://designde.jp/",
+        "https://maps.google.com/?cid=2219731198643847680"
       ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source"
@@ -1275,7 +1165,7 @@
     {
       "place_id": "osaka_draft_6eda07803129",
       "name": "ギャラリー ササキ商店",
-      "name_ko": null,
+      "name_ko": "갤러리 사사키 상점",
       "address": "大阪市中央区心斎橋筋1-6-4 佐々木ビル3F",
       "opening_hours": null,
       "address_status": "verified",
@@ -1290,11 +1180,8 @@
         "https://www.gallerysasaki.com/access/"
       ],
       "missing_fields": [
-        "name_ko",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -1303,7 +1190,7 @@
     {
       "place_id": "osaka_draft_43502b1cfa97",
       "name": "ブルームギャラリー",
-      "name_ko": null,
+      "name_ko": "블룸 갤러리",
       "address": "大阪市淀川区新北野1-11-23 ハイム北野B103",
       "opening_hours": null,
       "address_status": "verified",
@@ -1320,11 +1207,8 @@
         "https://www.bloomgallery103.com/index.html"
       ],
       "missing_fields": [
-        "name_ko",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -1333,7 +1217,7 @@
     {
       "place_id": "osaka_draft_9cd21dc062f7",
       "name": "大阪市立東洋陶磁美術館",
-      "name_ko": null,
+      "name_ko": "오사카 시립동양도자미술관",
       "address": "大阪市北区中之島1-1-26",
       "opening_hours": "정규 09:30–17:00(입장 16:30까지); 월요일 휴관(공휴일이면 다음날), 연말연시 휴관",
       "address_status": "verified",
@@ -1350,10 +1234,7 @@
         "https://www.moco.or.jp/whatsnew/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1361,33 +1242,31 @@
     {
       "place_id": "osaka_draft_70d399cfaea8",
       "name": "日本基督教団大阪教会",
-      "name_ko": null,
+      "name_ko": "일본기독교단 오사카 교회",
       "address": "大阪府大阪市西区江戸堀1-23-17",
-      "opening_hours": null,
+      "opening_hours": "일요일 오전·목요일 정오·금요일 저녁 예배에 참석한 뒤 관람 가능; 상시 개방하지 않음",
       "address_status": "verified",
-      "hours_status": "missing",
-      "blockers": [],
+      "hours_status": "verified",
+      "blockers": [
+        "worship_attendance_required"
+      ],
       "notes": [
-        "전화 응대시간을 관광 관람시간으로 사용하지 않음."
+        "전화 응대시간을 관광 관람시간으로 사용하지 않음.",
+        "교회 공식 관람 안내. 전화 접수시간을 관람시간으로 사용하지 않음. 예배 외 시간의 관람 대응이 어렵다고 명시."
       ],
       "source_urls": [
-        "https://www.osaka-church.net/"
+        "https://www.osaka-church.net/",
+        "https://www.osaka-church.net/kengaku"
       ],
       "missing_fields": [
-        "name_ko",
-        "opening_hours",
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source"
+        "cost"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_07d2c797a410",
       "name": "日本聖公会聖贖主教会礼拝堂",
-      "name_ko": null,
+      "name_ko": "일본성공회 성속주교회 예배당",
       "address": "大阪市淀川区十三元今里3-1-72",
       "opening_hours": null,
       "address_status": "verified",
@@ -1403,11 +1282,8 @@
         "https://www.hakuaisha-welfare.net/redeemer/"
       ],
       "missing_fields": [
-        "name_ko",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "opening_hours_source"
       ],
       "schedule_ready": false
@@ -1415,34 +1291,29 @@
     {
       "place_id": "osaka_draft_006a0c207d8c",
       "name": "歯神社",
-      "name_ko": null,
-      "address": null,
-      "opening_hours": null,
-      "address_status": "missing",
-      "hours_status": "missing",
+      "name_ko": "하 신사 (치아 신사)",
+      "address": "大阪市北区角田町2-8",
+      "opening_hours": "무인 소규모 신사로 수시 참배 가능; 부적 수여는 별도 오타비샤에서 진행",
+      "address_status": "verified",
+      "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "자유 참배 안내는 있으나 상세 주소·적용 범위 재확인 필요."
+        "자유 참배 안내는 있으나 상세 주소·적용 범위 재확인 필요.",
+        "하 신사 항목만 적용. 같은 페이지의 본사·오타비샤 주소 및 접수시간과 구분."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://tunashiki.sakura.ne.jp/koutuu.html"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
-        "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source",
-        "verified_at"
+        "covered"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_718edcaf3985",
       "name": "海月文庫アートスペース",
-      "name_ko": null,
+      "name_ko": "구라게 문고 아트스페이스",
       "address": "大阪市淀川区木川東3-3-12",
       "opening_hours": "전시 기간 중 11:00–19:00; 마지막 날 16:00 또는 17:00 종료",
       "address_status": "verified",
@@ -1457,10 +1328,7 @@
         "https://www.kuragebunko.com/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1468,7 +1336,7 @@
     {
       "place_id": "osaka_draft_d7da3fdbeaf6",
       "name": "絹谷幸二 天空美術館",
-      "name_ko": null,
+      "name_ko": "기누타니 고지 천공미술관",
       "address": "大阪市北区大淀中1-1-30 梅田スカイビルタワーウエスト27F",
       "opening_hours": "10:00–18:00; 금·토·공휴일 전날 10:00–20:00; 입장 종료 30분 전; 화요일 휴관(공휴일이면 다음 평일), 12월 30일–1월 3일·전시교체 휴관",
       "address_status": "verified",
@@ -1480,41 +1348,34 @@
       "source_urls": [
         "https://www.kinutani-tenku.jp/"
       ],
-      "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_04b34bc4e6e2",
       "name": "高津宮",
-      "name_ko": null,
+      "name_ko": "고즈구 신사",
       "address": "大阪市中央区高津1-1-29",
-      "opening_hours": null,
+      "opening_hours": "경내 06:00–18:00; 신전 17:00 닫음; 사무소 09:00–17:00, 기도 접수 16:00까지",
       "address_status": "verified",
-      "hours_status": "missing",
+      "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "오사카 관광국 고즈구 안내. cost는 일반 참배 기준으로 유료 기도·행사 제외."
+      ],
       "source_urls": [
-        "https://kouzu.or.jp/"
+        "https://kouzu.or.jp/",
+        "https://osaka-info.jp/experience/ja/osaka/spot/529"
       ],
       "missing_fields": [
-        "name_ko",
-        "opening_hours",
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source"
+        "covered"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_1289b4aecc32",
       "name": "慶沢園",
-      "name_ko": null,
+      "name_ko": "게이타쿠엔 정원",
       "address": "大阪市天王寺区茶臼山町1 天王寺公園内",
       "opening_hours": "09:30–17:00(입장 16:30까지); 5·9월 토·일·공휴일 18:00까지(입장 17:30까지); 월요일 휴원(공휴일이면 다음 평일), 12월 29일–1월 1일 휴원",
       "address_status": "verified",
@@ -1527,17 +1388,13 @@
       "source_urls": [
         "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
       ],
-      "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_c62644984874",
       "name": "桜之宮公園",
-      "name_ko": null,
+      "name_ko": "사쿠라노미야 공원",
       "address": "大阪市北区天満1丁目・天満橋1～2丁目",
       "opening_hours": "24/7",
       "address_status": "verified",
@@ -1550,10 +1407,7 @@
         "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -1562,7 +1416,7 @@
     {
       "place_id": "osaka_draft_9e900589aec0",
       "name": "西の丸庭園",
-      "name_ko": null,
+      "name_ko": "니시노마루 정원",
       "address": "大阪市中央区大阪城2",
       "opening_hours": "Jan 04-Dec 28 09:00-17:30",
       "address_status": "verified",
@@ -1580,9 +1434,6 @@
         "https://www.city.osaka.lg.jp/koho/cmsfiles/0000015/15373/15373.pdf"
       ],
       "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load",
         "opening_hours_source"
       ],
       "schedule_ready": false
@@ -1590,31 +1441,28 @@
     {
       "place_id": "osaka_draft_f72944194ef3",
       "name": "千島公園",
-      "name_ko": null,
+      "name_ko": "지시마 공원",
       "address": "大阪市大正区千島2丁目7",
       "opening_hours": "상시 개방; 부속 시설은 별도 운영",
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "시청 공식 안내의 쇼와산·산책로 등 주요 야외 공간 기준. 공원 안 체육관은 별도."
       ],
       "source_urls": [
         "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
       ],
       "missing_fields": [
-        "name_ko",
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_a66fcd05acfb",
       "name": "南天満公園",
-      "name_ko": null,
+      "name_ko": "미나미텐마 공원",
       "address": "大阪市北区天神橋1丁目・天満2～4丁目",
       "opening_hours": "24/7",
       "address_status": "verified",
@@ -1628,10 +1476,7 @@
         "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -1640,7 +1485,7 @@
     {
       "place_id": "osaka_draft_03cde684bd96",
       "name": "毛馬公園",
-      "name_ko": null,
+      "name_ko": "게마 공원",
       "address": "大阪市北区長柄東1～2丁目・国分寺1丁目",
       "opening_hours": "24/7",
       "address_status": "verified",
@@ -1654,10 +1499,7 @@
         "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -1666,36 +1508,33 @@
     {
       "place_id": "osaka_draft_e102a263e5a8",
       "name": "淀川河川公園 長柄地区",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "요도가와 하천공원 나가라 지구",
+      "address": "2 Chome-13-１３地先 Nagaranishi, Kita Ward, Osaka, 531-0061 일본",
       "opening_hours": "24/7",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [
         "hours_conflict"
       ],
       "notes": [
-        "기존 24시간 표기와 공원 공개 이용시간 자료가 다름. 대상 구역·최신 규정 확인 필요."
+        "기존 24시간 표기와 공원 공개 이용시간 자료가 다름. 대상 구역·최신 규정 확인 필요.",
+        "나가라 지구 공식 안내의 기타구와 야외 잔디광장 확인. 관리사무소 소재지 모리구치시는 이 장소 주소로 사용하지 않음. 계절별 개원시간은 기존 충돌 표시 유지.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 58.2m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=249497854434163876",
+        "https://www.yodogawa-park.jp/annai/nagara-kahan/"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "website",
-        "opening_hours_source",
-        "verified_at"
+        "opening_hours_source"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_5f8dd9212a0c",
       "name": "藤田邸跡公園",
-      "name_ko": null,
+      "name_ko": "후지타 저택 터 공원",
       "address": "大阪市都島区網島町10",
       "opening_hours": "10:00–16:00",
       "address_status": "verified",
@@ -1708,33 +1547,27 @@
       "source_urls": [
         "https://osaka-info.jp/experience/ja/osaka/spot/617"
       ],
-      "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_c6de5620d3d0",
       "name": "難波中公園",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "난바나카 공원",
+      "address": "3 Chome-11 Nanbanaka, Naniwa Ward, Osaka, 556-0011 일본",
       "opening_hours": "08:00-17:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "동명 공원과 정확한 위치를 대조할 공식 근거 부족."
+        "동명 공원과 정확한 위치를 대조할 공식 근거 부족.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 19.3m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=4908099958180568253"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source",
@@ -1762,8 +1595,6 @@
       "missing_fields": [
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "opening_hours_source"
       ],
       "schedule_ready": false
@@ -1771,7 +1602,7 @@
     {
       "place_id": "osaka_draft_2941efc9ac2d",
       "name": "うめきた公園 サウスパーク",
-      "name_ko": null,
+      "name_ko": "우메키타 공원 사우스 파크",
       "address": "大阪市北区大深町5番",
       "opening_hours": "상시 개방; 부속 시설은 별도 운영",
       "address_status": "verified",
@@ -1784,10 +1615,7 @@
         "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1795,7 +1623,7 @@
     {
       "place_id": "osaka_draft_f852e8e07cf8",
       "name": "かすがえ公園",
-      "name_ko": null,
+      "name_ko": "가스가에 공원",
       "address": "大阪市都島区都島本通1丁目19",
       "opening_hours": null,
       "address_status": "verified",
@@ -1806,11 +1634,8 @@
         "https://www.city.osaka.lg.jp/miyakojima/page/0000655198.html"
       ],
       "missing_fields": [
-        "name_ko",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source"
@@ -1820,24 +1645,24 @@
     {
       "place_id": "osaka_draft_0adb7945fbda",
       "name": "ほたるまちにある広場",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "호타루마치 광장",
+      "address": "1 Chome-1-30 Fukushima, Fukushima Ward, Osaka, 553-0003 일본",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "parent_facility",
       "hours_status": "missing",
-      "blockers": [],
-      "notes": [
-        "복합시설 전체와 광장 범위 구분 필요."
+      "blockers": [
+        "parent_facility_address"
       ],
-      "source_urls": [],
+      "notes": [
+        "복합시설 전체와 광장 범위 구분 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 18.5m. 주소만 확인했으며 영업시간 검증 아님. 광장 자체 번지가 아니라 광장이 속한 호타루마치 시설 대표주소."
+      ],
+      "source_urls": [
+        "https://maps.google.com/?cid=5296053216589113849"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source",
@@ -1848,7 +1673,7 @@
     {
       "place_id": "osaka_draft_2fc0df9e9f8d",
       "name": "パークスガーデン",
-      "name_ko": null,
+      "name_ko": "파크스 가든",
       "address": "大阪市浪速区難波中2-10-70",
       "opening_hours": "10:00–24:00; 휴무는 난바 파크스 일정에 따름",
       "address_status": "verified",
@@ -1862,36 +1687,31 @@
         "https://nambaparks.com/garden",
         "https://www.city.osaka.lg.jp/toshikeikaku/page/0000390675.html"
       ],
-      "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_cff5e2720c53",
       "name": "三和公園",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "산와 공원",
+      "address": "1 Kamisucho, Toyonaka, Osaka 561-0823 일본",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "missing",
       "blockers": [
-        "city_boundary_unconfirmed"
+        "city_boundary_unconfirmed",
+        "outside_osaka_city"
       ],
       "notes": [
-        "OSM 범위가 도요나카까지 걸침. 시 경계·대상 지역 확인 필요."
+        "OSM 범위가 도요나카까지 걸침. 시 경계·대상 지역 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 20.2m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=981979402430138752"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source",
@@ -1914,8 +1734,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1938,8 +1756,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1947,7 +1763,7 @@
     {
       "place_id": "osaka_draft_4fb99b053e8b",
       "name": "Whityうめだ",
-      "name_ko": null,
+      "name_ko": "화이티 우메다",
       "address": "大阪府大阪市北区小松原町梅田地下街4-2",
       "opening_hours": "판매장 10:00–21:00; 음식점 10:00–22:00; NOMOKA 11:00–23:00; 점포별 예외",
       "address_status": "verified",
@@ -1958,10 +1774,7 @@
         "https://whity.osaka-chikagai.jp/access"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -1969,7 +1782,7 @@
     {
       "place_id": "osaka_draft_e51bbe99124a",
       "name": "アルデ新大阪",
-      "name_ko": null,
+      "name_ko": "아르데 신오사카",
       "address": "大阪市淀川区西中島5-16-1 JR新大阪駅2F",
       "opening_hours": "점포별 상이; 시설 연중무휴",
       "address_status": "verified",
@@ -1983,17 +1796,14 @@
         "https://osaka-info.jp/spot/arudeshinosaka/"
       ],
       "missing_fields": [
-        "name_ko",
-        "cost",
-        "stay_min",
-        "bag_load"
+        "cost"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_02288187c550",
       "name": "イオンモール大阪ドームシティ",
-      "name_ko": null,
+      "name_ko": "이온몰 오사카 돔시티",
       "address": "大阪市西区千代崎三丁目13番1",
       "opening_hours": "전문점 10:00–21:00; 이온 매장은 별도 운영",
       "address_status": "verified",
@@ -2004,10 +1814,7 @@
         "https://www.aeon.jp/sc/osakadomecity/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2015,7 +1822,7 @@
     {
       "place_id": "osaka_draft_11050de606b0",
       "name": "ウイステ",
-      "name_ko": null,
+      "name_ko": "위스테",
       "address": "大阪市福島区海老江1-1-23",
       "opening_hours": "전문점 10:00–21:00; 음식점 11:00–22:00; 이온·일부 점포 별도 운영",
       "address_status": "verified",
@@ -2026,10 +1833,7 @@
         "https://www.wiste.jp/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2037,25 +1841,24 @@
     {
       "place_id": "osaka_draft_b1eae8a8935b",
       "name": "Asoko Minamihorie",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "아소코 미나미호리에",
+      "address": "일본 〒550-0015 Osaka, Nishi Ward, Minamihorie, 1 Chome−19−23 前衛的ビルヂング",
       "opening_hours": "Mo-Su 11:00-20:00",
-      "address_status": "missing",
+      "address_status": "mapped_closed_location",
       "hours_status": "unverified",
       "blockers": [
-        "operating_status_unconfirmed"
+        "operating_status_unconfirmed",
+        "google_maps_permanently_closed"
       ],
       "notes": [
-        "ASOKO 미나미호리에점 현재 운영 여부 미확인."
+        "ASOKO 미나미호리에점 현재 운영 여부 미확인.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 2.1m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=7538024598924441434"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source",
@@ -2066,7 +1869,7 @@
     {
       "place_id": "osaka_draft_daa353940c61",
       "name": "近鉄百貨店",
-      "name_ko": null,
+      "name_ko": "긴테쓰 백화점",
       "address": "大阪市天王寺区上本町6-1-55",
       "opening_hours": "B2–2F·6F·10F·11F 10:00–20:00; 3–5F·7–9F 10:00–18:30(일부 예외); 12F 음식점 11:00–22:00",
       "address_status": "verified",
@@ -2080,10 +1883,7 @@
         "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2105,8 +1905,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2114,7 +1912,7 @@
     {
       "place_id": "osaka_draft_2b9dd68b687a",
       "name": "HELLO life",
-      "name_ko": null,
+      "name_ko": "헬로 라이프",
       "address": "大阪市西区靭本町1-16-14",
       "opening_hours": null,
       "address_status": "verified",
@@ -2130,11 +1928,8 @@
         "https://co.hellolife.jp/"
       ],
       "missing_fields": [
-        "name_ko",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -2143,24 +1938,24 @@
     {
       "place_id": "osaka_draft_fa65b053e525",
       "name": "MIHA shop",
-      "name_ko": null,
+      "name_ko": "미하 숍",
       "address": null,
       "opening_hours": null,
       "address_status": "missing",
       "hours_status": "missing",
-      "blockers": [],
+      "blockers": [
+        "address_unconfirmed"
+      ],
       "notes": [
-        "공식 점포 근거 확보 실패. OSM 정보만 유지."
+        "공식 점포 근거 확보 실패. OSM 정보만 유지.",
+        "2026-09-28 Google Maps 검색 및 OSM 주소 태그 확인: 일치 장소의 주소 확보 실패. 주변 점포 주소를 대신 넣지 않음."
       ],
       "source_urls": [],
       "missing_fields": [
-        "name_ko",
         "area",
         "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source",
@@ -2171,7 +1966,7 @@
     {
       "place_id": "osaka_draft_31878d4960fc",
       "name": "Viewl 阪急三国",
-      "name_ko": null,
+      "name_ko": "뷰르 한큐 미쿠니",
       "address": "大阪市淀川区三国本町3-37-35",
       "opening_hours": null,
       "address_status": "verified",
@@ -2184,11 +1979,8 @@
         "https://www.hhbm.hankyu-hanshin.co.jp/managed/sc/profile.pdf"
       ],
       "missing_fields": [
-        "name_ko",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "website",
         "opening_hours_source"
@@ -2198,26 +1990,23 @@
     {
       "place_id": "osaka_draft_391fae83b26c",
       "name": "てんしばi:na",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "덴시바 이나",
+      "address": "5-55号 Chausuyamacho, Tennoji Ward, Osaka, 543-0063 일본",
       "opening_hours": "공원 07:00–22:00; 이나 구역 점포·활동시설은 개별 시간 확인",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
       "notes": [
         "텐시바 전체와 i:na 시설 구분, 점포별 시간 확인 필요.",
-        "공식 안내에서 텐시바 이나 별도 구역 확인. 개별 유료 시설 이용시간·요금은 별도."
+        "공식 안내에서 텐시바 이나 별도 구역 확인. 개별 유료 시설 이용시간·요금은 별도.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 2.9m. 주소만 확인했으며 영업시간 검증 아님."
       ],
       "source_urls": [
+        "https://maps.google.com/?cid=2093338456744825032",
         "https://www.tennoji-park.jp/"
       ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2225,7 +2014,7 @@
     {
       "place_id": "osaka_draft_a8c6b6985943",
       "name": "なんばEKIKAN",
-      "name_ko": null,
+      "name_ko": "난바 에키칸",
       "address": "大阪市浪速区難波中2-11-1・敷津東1-1-21・1-2-12・2-1-4～5",
       "opening_hours": "점포별 상이",
       "address_status": "verified",
@@ -2240,10 +2029,7 @@
         "https://ekikan.com/faq"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2251,7 +2037,7 @@
     {
       "place_id": "osaka_draft_fc7acd992f21",
       "name": "新大阪センイシティー",
-      "name_ko": null,
+      "name_ko": "신오사카 센이시티",
       "address": "大阪府大阪市淀川区西宮原2-2-2",
       "opening_hours": "월–토 08:00–19:00; 일·공휴일 09:30–19:00; 점포별 예외",
       "address_status": "verified",
@@ -2264,10 +2050,7 @@
         "https://page.line.me/hvk0696d"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2275,7 +2058,7 @@
     {
       "place_id": "osaka_draft_b6b6dae05ce5",
       "name": "淀屋橋 odona",
-      "name_ko": null,
+      "name_ko": "요도야바시 오도나",
       "address": "大阪市中央区今橋4-1-1",
       "opening_hours": "쇼핑 11:00–20:00; 음식점 평일 11:30–22:30, 토·일·공휴일 11:30–21:30; 12월 31일·1월 1일 휴관; 점포별 예외",
       "address_status": "verified",
@@ -2288,10 +2071,7 @@
         "https://mitsui-shopping-park.com/odona/top.html"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2311,8 +2091,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2320,7 +2098,7 @@
     {
       "place_id": "osaka_draft_481d9742f9c2",
       "name": "ブリーゼブリーゼ",
-      "name_ko": null,
+      "name_ko": "브리제 브리제",
       "address": "大阪市北区梅田2-4-9",
       "opening_hours": "판매장 월–토 11:00–20:00, 일·공휴일 11:00–19:00(다음날 공휴일이면 20:00까지); 음식점 11:00–22:00; 비정기 휴무",
       "address_status": "verified",
@@ -2331,10 +2109,7 @@
         "https://www.breeze-breeze.jp/info/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2342,7 +2117,7 @@
     {
       "place_id": "osaka_draft_c85fa26beb80",
       "name": "なんばマルイ",
-      "name_ko": null,
+      "name_ko": "난바 마루이",
       "address": "大阪市中央区難波3丁目8-9",
       "opening_hours": "11:00–20:00; 비정기 휴무",
       "address_status": "verified",
@@ -2356,10 +2131,7 @@
         "https://osaka-info.jp/spot/o1o1-namba-marui/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2382,8 +2154,6 @@
       ],
       "missing_fields": [
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2391,7 +2161,7 @@
     {
       "place_id": "osaka_draft_f22cfa23d646",
       "name": "42195 COFFEE",
-      "name_ko": null,
+      "name_ko": "42195 커피",
       "address": "大阪市北区中津3-12-15",
       "opening_hours": "08:00–17:00; 수요일 08:00–12:00; 목요일 휴무; 음료 주문 종료 30분 전, 식사 1시간 전",
       "address_status": "verified",
@@ -2402,10 +2172,7 @@
         "https://42195coffee.wixsite.com/toppage"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2413,7 +2180,7 @@
     {
       "place_id": "osaka_draft_b0a5c9b0d460",
       "name": "Antico Caffe Al Avis",
-      "name_ko": null,
+      "name_ko": "안티코 카페 알 아비스",
       "address": "大阪市北区梅田2-2-22 ハービスPLAZA ENT B2",
       "opening_hours": "평일 08:00–22:00; 토·일·공휴일 10:00–22:00; 주문 마감 21:30",
       "address_status": "verified",
@@ -2433,10 +2200,7 @@
         "https://www.herbis.jp/restaurant-cafe/detail/154"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2444,7 +2208,7 @@
     {
       "place_id": "osaka_draft_5a3ef73c2b4b",
       "name": "Blue Bottle Coffee",
-      "name_ko": null,
+      "name_ko": "블루보틀 커피",
       "address": "大阪市北区茶屋町15-22 アーバンテラス茶屋町A棟",
       "opening_hours": "매일 08:00–21:00",
       "address_status": "verified",
@@ -2455,10 +2219,7 @@
         "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2466,23 +2227,23 @@
     {
       "place_id": "osaka_draft_3b8f7684482e",
       "name": "BOBBIN",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "보빈",
+      "address": "2 Chome-3-9 Edobori, Nishi Ward, Osaka, 550-0002 일본",
       "opening_hours": "Mo-Sa 11:00-18:00",
-      "address_status": "missing",
+      "address_status": "mapped_closed_location",
       "hours_status": "unverified",
-      "blockers": [],
-      "notes": [
-        "등록 홈페이지 취득 실패. 동명 업체와 구분 필요."
+      "blockers": [
+        "google_maps_permanently_closed"
       ],
-      "source_urls": [],
+      "notes": [
+        "등록 홈페이지 취득 실패. 동명 업체와 구분 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.7m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
+      ],
+      "source_urls": [
+        "https://maps.google.com/?cid=2499544374569210101"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -2492,25 +2253,23 @@
     {
       "place_id": "osaka_draft_e3ac280c1575",
       "name": "Cafe Di Espresso",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "카페 디 에스프레소",
+      "address": "일본 〒530-0044 Osaka, Kita Ward, Higashitenma, 2 Chome−6−8 Shinohara Higashi Temma Building, 1F",
       "opening_hours": "07:00-20:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [
         "branch_unconfirmed"
       ],
       "notes": [
-        "정확한 Cafe Di Espresso 지점 확인 필요."
+        "정확한 Cafe Di Espresso 지점 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 5.8m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=10290661718380662293"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -2520,23 +2279,21 @@
     {
       "place_id": "osaka_draft_9342479ef7d7",
       "name": "Cafe yutte",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "카페 윳테",
+      "address": "2 Chome-24-18 Kikawanishi, Yodogawa Ward, Osaka, 532-0013 일본",
       "opening_hours": "Tu-Sa 10:00-18:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "공식 소셜 페이지에서 최신 운영시간 추가 확인 필요."
+        "공식 소셜 페이지에서 최신 운영시간 추가 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 0.7m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=8309990315285248752"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -2546,7 +2303,7 @@
     {
       "place_id": "osaka_draft_243b34cd6761",
       "name": "e-maid",
-      "name_ko": null,
+      "name_ko": "이메이드",
       "address": "大阪市浪速区難波中2-3-6 レディースマンション西山1階",
       "opening_hours": "월–금 12:00–22:30; 토·일·공휴일 11:00–22:30; 최종 입장 21:40; 비정기 휴무",
       "address_status": "verified",
@@ -2560,17 +2317,14 @@
         "https://www.e-maid.net/"
       ],
       "missing_fields": [
-        "name_ko",
-        "cost",
-        "stay_min",
-        "bag_load"
+        "cost"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_eda93d07ee2b",
       "name": "Haiku Coffee Roasters",
-      "name_ko": null,
+      "name_ko": "하이쿠 커피 로스터스",
       "address": "大阪市北区浮田2-4-4",
       "opening_hours": "12:00–17:00; 정기 휴무일 미확인",
       "address_status": "verified",
@@ -2581,10 +2335,7 @@
         "https://haikucoffee.thebase.in/about"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2592,35 +2343,30 @@
     {
       "place_id": "osaka_draft_d52fee5c2304",
       "name": "Holly's Cafe",
-      "name_ko": null,
-      "address": null,
-      "opening_hours": "Mo-Fr 06:30-23:00; Sa,Su,PH 06:30-21:00",
-      "address_status": "missing",
-      "hours_status": "unverified",
+      "name_ko": "홀리스 카페",
+      "address": "大阪府大阪市中央区本町2-1-6 堺筋本町センタービル1F",
+      "opening_hours": "평일 06:30–23:00; 토·일·공휴일 06:30–21:00; 주문은 폐점 30분 전까지; 비정기 휴무",
+      "address_status": "verified",
+      "hours_status": "verified",
       "blockers": [
         "branch_unconfirmed"
       ],
       "notes": [
-        "브랜드 전체 사이트만 확인. 홀리스 개별 지점 확인 필요."
+        "브랜드 전체 사이트만 확인. 홀리스 개별 지점 확인 필요.",
+        "사카이스지혼마치점 공식 주소·운영시간. 기존 좌표의 센터빌딩 위치 및 평일/주말 시간이 일치. 실내 좌석 기준; 기존 지점 주의 표시는 유지."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://hollys-corp.jp/shop/o_sakaisujihon/"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source",
-        "verified_at"
+        "cost"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_11ceb1687dfa",
       "name": "La Granda Familio",
-      "name_ko": null,
+      "name_ko": "라 그란다 파밀리오",
       "address": "大阪市北区中崎西1-1-18",
       "opening_hours": "월·수–토 10:30–19:00; 일 10:30–18:00; 화 휴무",
       "address_status": "verified",
@@ -2633,10 +2379,7 @@
         "http://www.grandafamilio.com/store.html"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2644,25 +2387,23 @@
     {
       "place_id": "osaka_draft_2f4886b3a5b6",
       "name": "Melbourne Coffee",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "멜버른 커피",
+      "address": "三栄ムアビル １Ｆ, 3 Chome-8-7 Minamisenba, Chuo Ward, Osaka, 542-0081 일본",
       "opening_hours": "09:00-14:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [
         "branch_unconfirmed"
       ],
       "notes": [
-        "공식 사이트에 복수 지점 소개. OSM 지점과 대조 필요."
+        "공식 사이트에 복수 지점 소개. OSM 지점과 대조 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 13.5m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=10706766863826258741"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -2672,23 +2413,23 @@
     {
       "place_id": "osaka_draft_cdb260bb106a",
       "name": "rion cafe",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "리온 카페",
+      "address": "3 Chome-12-23 Motomachi, Naniwa Ward, Osaka, 556-0016 일본",
       "opening_hours": "Mo-Fr 11:30-14:00",
-      "address_status": "missing",
+      "address_status": "mapped_closed_location",
       "hours_status": "unverified",
-      "blockers": [],
-      "notes": [
-        "공식 홈페이지 취득 실패. 운영정보 미확인."
+      "blockers": [
+        "google_maps_permanently_closed"
       ],
-      "source_urls": [],
+      "notes": [
+        "공식 홈페이지 취득 실패. 운영정보 미확인.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 2.8m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
+      ],
+      "source_urls": [
+        "https://maps.google.com/?cid=12732517738845233053"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -2698,7 +2439,7 @@
     {
       "place_id": "osaka_draft_4af3a5a14578",
       "name": "Sub Jazz Cafe",
-      "name_ko": null,
+      "name_ko": "서브 재즈 카페",
       "address": "大阪市中央区上汐2丁目4-6 上六センタービルB1F",
       "opening_hours": "월–토 17:00–23:00; 일요일 휴무; 공연 일정 별도 확인",
       "address_status": "verified",
@@ -2712,17 +2453,14 @@
         "https://www.subjazzcafe.com/our-shops"
       ],
       "missing_fields": [
-        "name_ko",
-        "cost",
-        "stay_min",
-        "bag_load"
+        "cost"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_e5eb4dd70807",
       "name": "SÖT COFFEE",
-      "name_ko": null,
+      "name_ko": "소트 커피",
       "address": "大阪市中央区大手通1-3-7 ベルヴォア1F・2F",
       "opening_hours": "매일 08:00–19:00",
       "address_status": "verified",
@@ -2735,10 +2473,7 @@
         "https://www.sotcoffee.com/en/pages/shop-osaka"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2746,7 +2481,7 @@
     {
       "place_id": "osaka_draft_af11af018972",
       "name": "こちかぜ",
-      "name_ko": null,
+      "name_ko": "고치카제",
       "address": "大阪府大阪市天王寺区空清町2-22",
       "opening_hours": "11:30-13:30 open \"ランチ\",17:30-21:30 open \"ディナー\" || \"不定休\"",
       "address_status": "verified",
@@ -2757,10 +2492,7 @@
         "https://www.kotikaze.com/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -2769,23 +2501,23 @@
     {
       "place_id": "osaka_draft_19894ad0a123",
       "name": "アズアン",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "아즈안",
+      "address": "4 Chome-2-3 Kitakyuhojimachi, Chuo Ward, Osaka, 541-0057 일본",
       "opening_hours": "Mo-Sa 11:00-19:00",
-      "address_status": "missing",
+      "address_status": "mapped_closed_location",
       "hours_status": "unverified",
-      "blockers": [],
-      "notes": [
-        "공식 페이지에 사용 가능한 운영정보 없음. 주소 구성요소 재검토 필요."
+      "blockers": [
+        "google_maps_permanently_closed"
       ],
-      "source_urls": [],
+      "notes": [
+        "공식 페이지에 사용 가능한 운영정보 없음. 주소 구성요소 재검토 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 5.0m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
+      ],
+      "source_urls": [
+        "https://maps.google.com/?cid=5170159399566503020"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -2795,23 +2527,23 @@
     {
       "place_id": "osaka_draft_c4a30f2620d0",
       "name": "エミュリボン",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "에뮤리본",
+      "address": "일본 〒542-0086 Osaka, Chuo Ward, Nishishinsaibashi, 2 Chome−13−5 リヴィエール 道頓堀 B1F",
       "opening_hours": "Mo-Fr 18:00-23:00; Sa-Su 16:00-23:00",
-      "address_status": "missing",
+      "address_status": "mapped_closed_location",
       "hours_status": "unverified",
-      "blockers": [],
-      "notes": [
-        "공식 홈페이지 취득 실패. 운영정보 미확인."
+      "blockers": [
+        "google_maps_permanently_closed"
       ],
-      "source_urls": [],
+      "notes": [
+        "공식 홈페이지 취득 실패. 운영정보 미확인.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.9m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
+      ],
+      "source_urls": [
+        "https://maps.google.com/?cid=2591418205298486497"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -2821,33 +2553,29 @@
     {
       "place_id": "osaka_draft_32974d974e62",
       "name": "ケーキ＆カフェダイニング　ボナボン",
-      "name_ko": null,
-      "address": null,
-      "opening_hours": "09:00-21:00; Fr,Sa,PH -1 day 09:00-23:00",
-      "address_status": "missing",
-      "hours_status": "unverified",
+      "name_ko": "케이크 앤 카페 다이닝 보나본",
+      "address": "大阪市淀川区十三東1-20-3 ザ・グランビュー大阪1F",
+      "opening_hours": "일–목 09:00–21:00(주문 20:00까지); 금·토·공휴일 전날 09:00–23:00(주문 22:00까지)",
+      "address_status": "verified",
+      "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "공식 공지가 과거 연도 자료여서 현재 시간으로 확정하지 않음."
+        "공식 공지가 과거 연도 자료여서 현재 시간으로 확정하지 않음.",
+        "보나본 공식 매장 안내. 2024년 메뉴 개편 공지가 있어 오래된 메뉴 가격은 사용하지 않음."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://bonandbon.jp/company/"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source",
-        "verified_at"
+        "covered"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_57eaac2e578d",
       "name": "保護ねこカフェneu。",
-      "name_ko": null,
+      "name_ko": "보호고양이 카페 노이",
       "address": "大阪市中央区谷町六丁目17-5",
       "opening_hours": "평일 12:00–21:00; 토·일·공휴일 12:00–19:00; 식사 주문 16:00까지; 비정기 휴무",
       "address_status": "verified",
@@ -2863,8 +2591,6 @@
         "https://neu-catcafe.com/price"
       ],
       "missing_fields": [
-        "name_ko",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2872,7 +2598,7 @@
     {
       "place_id": "osaka_draft_74dbaeea6a02",
       "name": "喫茶あおい",
-      "name_ko": null,
+      "name_ko": "찻집 아오이",
       "address": "大阪府大阪市東淀川区西淡路1-17-3 MURAKAMI1F",
       "opening_hours": null,
       "address_status": "verified",
@@ -2888,10 +2614,7 @@
         "https://kissaaoiclub.com/"
       ],
       "missing_fields": [
-        "name_ko",
         "opening_hours",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -2900,7 +2623,7 @@
     {
       "place_id": "osaka_draft_96e588e49f58",
       "name": "茶淹",
-      "name_ko": null,
+      "name_ko": "차엔",
       "address": "大阪府大阪市淀川区十三元今里2-21-3-102",
       "opening_hours": "수–일 13:00–19:00경(주문 18:30까지); 월·화 휴무",
       "address_status": "verified",
@@ -2913,9 +2636,6 @@
         "https://chaenjin.jimdofree.com/"
       ],
       "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -2923,23 +2643,21 @@
     {
       "place_id": "osaka_draft_f729469c78c5",
       "name": "34 Kitchen",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "삼십사 키친 (34 Kitchen)",
+      "address": "일본 〒531-0071 Osaka, Kita Ward, Nakatsu, 3 Chome−23−8 １F",
       "opening_hours": "11:00-23:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "공식 페이지에서 현재 운영시간 근거 확보 실패."
+        "공식 페이지에서 현재 운영시간 근거 확보 실패.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.7m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=3177627592851906159"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -2949,51 +2667,49 @@
     {
       "place_id": "osaka_draft_873f1e0cf834",
       "name": "an39",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "앙상크 (an39)",
+      "address": "5 Chome-6-31-102 Fukushima, Fukushima Ward, Osaka, 553-0003 일본",
       "opening_hours": "Tu-Su 11:00-17:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "이전 URL과 신규 사이트의 같은 지점 여부 미확인."
+        "이전 URL과 신규 사이트의 같은 지점 여부 미확인.",
+        "공식 an39 사이트의 오사카 후쿠시마구 매장. cost는 부다볼+수프 한 메뉴 1580엔 기준으로 평균 식비가 아님. 상세 번지는 공식 확인하지 못해 빈칸 유지.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 4.2m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=979399678341509410",
+        "https://superfoodcafe-an39.jp/",
+        "https://superfoodcafe-an39.jp/menu/"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
-        "cost",
-        "stay_min",
-        "bag_load",
         "covered",
-        "opening_hours_source",
-        "verified_at"
+        "opening_hours_source"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_94d63b518da4",
       "name": "bee9",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "비나인",
+      "address": "일본 〒530-0037 Osaka, Kita Ward, Matsugaecho, 6−1 グロウビル 1F",
       "opening_hours": "Mo-Fr 11:00-17:00; Sa-Su 18:00-23:00",
-      "address_status": "missing",
+      "address_status": "mapped_closed_location",
       "hours_status": "unverified",
       "blockers": [
-        "physical_store_unconfirmed"
+        "physical_store_unconfirmed",
+        "google_maps_permanently_closed"
       ],
       "notes": [
-        "온라인 판매 사이트와 실제 방문 가능한 점포 여부 구분 필요."
+        "온라인 판매 사이트와 실제 방문 가능한 점포 여부 구분 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 6.3m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=12740684156138802496"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3003,7 +2719,7 @@
     {
       "place_id": "osaka_draft_77f869ee706f",
       "name": "Bubble Net",
-      "name_ko": null,
+      "name_ko": "버블 넷",
       "address": "大阪市西区新町2-12-19 グラントピア新町1F",
       "opening_hours": "Mo-Su 18:00-28:00",
       "address_status": "verified",
@@ -3019,10 +2735,7 @@
         "https://sites.google.com/view/bubble-net"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -3031,48 +2744,44 @@
     {
       "place_id": "osaka_draft_2f89be830b8c",
       "name": "CAFETERIA AGORA",
-      "name_ko": null,
+      "name_ko": "카페테리아 아고라",
       "address": "大阪府大阪市中之島4-3-53 大阪大学中之島センター2階",
       "opening_hours": "11:00-17:00",
       "address_status": "unverified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "대학 나카노시마센터 내 점포와 호텔 본사 주소를 구분해야 함."
+        "대학 나카노시마센터 내 점포와 호텔 본사 주소를 구분해야 함.",
+        "아고라 공식 카페 메뉴의 오므라이스 단품 1000엔 기준. 음료 세트는 1200엔으로 별도. 평균 식비가 아니며 세금 포함 여부는 해당 가격 문구에서 미확인."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+      ],
       "missing_fields": [
-        "name_ko",
         "area",
-        "cost",
-        "stay_min",
-        "bag_load",
         "covered",
-        "opening_hours_source",
-        "verified_at"
+        "opening_hours_source"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_ff20bd4cf6b7",
       "name": "Casablanca Namba Riverside",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "카사블랑카 난바 리버사이드",
+      "address": "일본 〒542-0086 Osaka, Chuo Ward, Nishishinsaibashi, 2 Chome−6−7 S-Front 道頓堀 1階",
       "opening_hours": "11:00-24:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "소셜 계정 기반 점포. 최신 공식 운영정보 확인 필요."
+        "소셜 계정 기반 점포. 최신 공식 운영정보 확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.4m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=4472300049098221213"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3082,7 +2791,7 @@
     {
       "place_id": "osaka_draft_5f45ffb4d766",
       "name": "CENTRUM",
-      "name_ko": null,
+      "name_ko": "센트럼",
       "address": "大阪市北区梅田1-8-8 ヒルトン大阪2F",
       "opening_hours": "11:30–14:00, 17:30–21:30(주문 21:00까지); 월·화 휴무(공휴일 제외)",
       "address_status": "verified",
@@ -3093,10 +2802,7 @@
         "https://osaka.hiltonjapan.co.jp/restaurants/centrum"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3104,7 +2810,7 @@
     {
       "place_id": "osaka_draft_89de388fac63",
       "name": "Différence",
-      "name_ko": null,
+      "name_ko": "디페랑스",
       "address": "大阪市西区靱本町1-16-12",
       "opening_hours": "12:00–15:00(주문 13:00까지), 17:30–22:00(주문 19:30까지); 화요일 휴무; 예약 필요",
       "address_status": "verified",
@@ -3120,16 +2826,13 @@
       "source_urls": [
         "https://difference.upper.jp/jp/"
       ],
-      "missing_fields": [
-        "name_ko",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_23d3d20ef739",
       "name": "GARB weeks",
-      "name_ko": null,
+      "name_ko": "가브 위크스",
       "address": "大阪市北区中之島1-1-29 中之島公園内",
       "opening_hours": "11:30–22:00; 점심 주문 15:00까지, 저녁 17:30–21:30 주문",
       "address_status": "verified",
@@ -3140,10 +2843,7 @@
         "https://garbweeks.com/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3151,7 +2851,7 @@
     {
       "place_id": "osaka_draft_c341bbd2440a",
       "name": "MERCY Vegan Factory",
-      "name_ko": null,
+      "name_ko": "머시 비건 팩토리",
       "address": "大阪市中央区瓦屋町2-4-15 1階西側",
       "opening_hours": "08:00–17:00, 18:00–21:00; 점심 주문 16:00·저녁 20:00까지; 토요일 휴무",
       "address_status": "verified",
@@ -3162,10 +2862,7 @@
         "https://shop.mercy-vegan.jp/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3173,7 +2870,7 @@
     {
       "place_id": "osaka_draft_a9bc74861e3f",
       "name": "MONTOMWORKS. mt.cafe & Design Dept.",
-      "name_ko": null,
+      "name_ko": "몬톰웍스 엠티 카페 앤 디자인 뎁트",
       "address": "大阪府大阪市淀川区新北野1-11-23 ハイム北野B102",
       "opening_hours": "점심 11:00–16:00(주문 15:30까지); 토·일 저녁 18:00–21:00(주문 20:00까지); 수 휴무(공휴일이면 목요일 대체 휴무)",
       "address_status": "verified",
@@ -3184,10 +2881,7 @@
         "https://montomworks.com/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3195,7 +2889,7 @@
     {
       "place_id": "osaka_draft_d580756db04a",
       "name": "natural kitchen めだか2号店",
-      "name_ko": null,
+      "name_ko": "내추럴 키친 메다카 2호점",
       "address": "大阪市北区兎我野町3-20 雁木ビル1F",
       "opening_hours": "평일 11:00–20:30; 토·일·공휴일 11:00–20:00",
       "address_status": "verified",
@@ -3206,10 +2900,7 @@
         "https://shin-medaka.com/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3217,7 +2908,7 @@
     {
       "place_id": "osaka_draft_f8831852f028",
       "name": "PAPALINA",
-      "name_ko": null,
+      "name_ko": "파팔리나",
       "address": "大阪市東淀川区淡路4-32-16 レジデンスyamaki1F",
       "opening_hours": "11:30–21:30(주문 21:00까지); 화요일 휴무",
       "address_status": "verified",
@@ -3228,10 +2919,7 @@
         "http://papalina68.web.fc2.com/access.html"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3239,103 +2927,88 @@
     {
       "place_id": "osaka_draft_98a4211ed755",
       "name": "きりん寺 大阪総本店",
-      "name_ko": null,
-      "address": null,
-      "opening_hours": "Mo-Su 11:30-16:30, 18:00-22:00",
-      "address_status": "missing",
-      "hours_status": "unverified",
+      "name_ko": "기린지 오사카 총본점",
+      "address": "大阪市浪速区日本橋5-11-12",
+      "opening_hours": "11:00–16:30, 18:00–22:00; 연중무휴",
+      "address_status": "verified",
+      "hours_status": "verified",
       "blockers": [
         "branch_unconfirmed"
       ],
       "notes": [
-        "브랜드 전환·지점 혼동 가능. 회사 주소를 점포 주소로 사용하지 않음."
+        "브랜드 전환·지점 혼동 가능. 회사 주소를 점포 주소로 사용하지 않음.",
+        "오사카 총본점 주소·전화가 기존 OSM 지점 정보와 일치. OSM의 11:30 개점 대신 공식 11:00 적용. 기존 지점 주의 표시는 검토 이력으로 유지."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://suzume-group.co.jp/kirinji/"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source",
-        "verified_at"
+        "covered"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_7d6ecfb032b6",
       "name": "もりもり寿し",
-      "name_ko": null,
-      "address": null,
-      "opening_hours": "Mo-Su 11:00-22:00",
-      "address_status": "missing",
-      "hours_status": "unverified",
+      "name_ko": "모리모리 스시",
+      "address": "大阪市西区千代崎3-13-1 イオンモール大阪ドームシティ4F",
+      "opening_hours": "11:00–21:00; 최종 입점 20:00, 주문 20:30까지",
+      "address_status": "verified",
+      "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "이온몰 입점 지점의 공식 안내 확인 필요."
+        "이온몰 입점 지점의 공식 안내 확인 필요.",
+        "기존 OSM 영문 지점명과 번지가 도쿄돔이 아닌 오사카돔점과 일치. 쇼핑몰 공식 주소와 4층 매장 위치 결합. 실내 식당 기준."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://www.aeon.jp/sc/osakadomecity/access/",
+        "https://www.aeon.jp/sc/osakadomecity/shop/store/food-185.html"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source",
-        "verified_at"
+        "cost"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_d0e6cdcb566f",
       "name": "アルバール",
-      "name_ko": null,
-      "address": null,
-      "opening_hours": "Mo-Fr 11:30-22:30; Su 11:30-22:00; PH 11:30-22:00",
-      "address_status": "missing",
-      "hours_status": "unverified",
+      "name_ko": "알바르",
+      "address": "大阪府大阪市東淀川区淡路4-11-15 2F",
+      "opening_hours": "평일·공휴일 전날 11:30–16:00(주문 15:30까지), 17:00–22:30(주문 22:00까지); 토·일·공휴일 11:30–22:30(주문 22:00까지); 정기휴무 없음",
+      "address_status": "verified",
+      "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "공식 사이트 취득 실패. 제3자 정보만으로 확정하지 않음."
+        "공식 사이트 취득 실패. 제3자 정보만으로 확정하지 않음.",
+        "ALBAR 아와지점 공식 운영 페이지. 실내 좌석·테라스 없음 확인. 가격 범위는 단일 cost로 환산하지 않음."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://albar-awaji.owst.jp/"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
-        "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source",
-        "verified_at"
+        "cost"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_3b1acd991668",
       "name": "カドヤ食堂",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "가도야 식당",
+      "address": "4 Chome-16-13 Shinmachi, Nishi Ward, Osaka, 550-0013 일본",
       "opening_hours": "11:00+",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "등록 링크는 음식 블로그. 공식 검증으로 간주하지 않음."
+        "등록 링크는 음식 블로그. 공식 검증으로 간주하지 않음.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 8.9m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=4715903537433432411"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3345,49 +3018,45 @@
     {
       "place_id": "osaka_draft_2eb759c40909",
       "name": "サイゼリヤ",
-      "name_ko": null,
-      "address": null,
-      "opening_hours": "11:00-02:00",
-      "address_status": "missing",
-      "hours_status": "unverified",
+      "name_ko": "사이제리야",
+      "address": "大阪府大阪市淀川区西宮原2-7-8 ヴィラフェニックス1F",
+      "opening_hours": "10:00–다음날 01:00",
+      "address_status": "verified",
+      "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "사이제리야 기존 지점 링크 취득 실패. 지점 ID 대조 필요."
+        "사이제리야 기존 지점 링크 취득 실패. 지점 ID 대조 필요.",
+        "공식 점포 코드 1031, 신오사카역 니시미야하라점. 기존 주소 구성요소·전화와 대조. 기존 11:00–02:00를 공식 시간으로 정정."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source",
-        "verified_at"
+        "covered"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_1875c31c058c",
       "name": "レコッコレ",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "레 코콜레",
+      "address": "大阪市中央区北久宝寺町3丁目4-1 豆庭ビル",
       "opening_hours": "We-Sa 11:30-22:00; Su-Mo 11:30-18:00",
-      "address_status": "missing",
+      "address_status": "historical_or_conflicting",
       "hours_status": "unverified",
-      "blockers": [],
-      "notes": [
-        "공식 사이트 취득 실패. 현재 주소·운영 미확인."
+      "blockers": [
+        "address_location_conflict"
       ],
-      "source_urls": [],
+      "notes": [
+        "공식 사이트 취득 실패. 현재 주소·운영 미확인.",
+        "기존 OSM addr 태그 조합으로 복원한 과거 주소. Google Maps 동일 상호는 다른 위치·폐업 표시이므로 현재 주소로 대체하지 않음. 이전/폐업 재확인 필요."
+      ],
+      "source_urls": [
+        "https://maps.google.com/?cid=890042322343609855"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3397,7 +3066,7 @@
     {
       "place_id": "osaka_draft_3d97f36846d0",
       "name": "中央市場 ゑんどう寿司",
-      "name_ko": null,
+      "name_ko": "중앙시장 엔도 스시",
       "address": "大阪市福島区野田1-1-86",
       "opening_hours": "06:00–14:00; 일요일·공휴일 휴무",
       "address_status": "verified",
@@ -3411,10 +3080,7 @@
         "https://www.endo-sushi.com/1243312435123931235812395123881235612390.html"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3422,7 +3088,7 @@
     {
       "place_id": "osaka_draft_1cdebcaa6534",
       "name": "人類みな麺類",
-      "name_ko": null,
+      "name_ko": "진루이 미나 멘루이",
       "address": "大阪市淀川区西中島1-12-15",
       "opening_hours": "Mo-Su 11:00-23:00",
       "address_status": "verified",
@@ -3435,10 +3101,7 @@
         "http://www.jinrui-minamenrui.com/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -3447,23 +3110,23 @@
     {
       "place_id": "osaka_draft_20aa5444aadd",
       "name": "傾奇御麺 天神橋・本店",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "가부키오멘 덴진바시 본점",
+      "address": "4-23 Naniwacho, Kita Ward, Osaka, 530-0022 일본",
       "opening_hours": "11:30-02:00",
-      "address_status": "missing",
+      "address_status": "mapped_closed_location",
       "hours_status": "unverified",
-      "blockers": [],
-      "notes": [
-        "웹사이트 종료 안내는 식당 폐업의 증거가 아님. 점포 운영 재확인 필요."
+      "blockers": [
+        "google_maps_permanently_closed"
       ],
-      "source_urls": [],
+      "notes": [
+        "웹사이트 종료 안내는 식당 폐업의 증거가 아님. 점포 운영 재확인 필요.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.6m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
+      ],
+      "source_urls": [
+        "https://maps.google.com/?cid=4479733544869607912"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3473,23 +3136,21 @@
     {
       "place_id": "osaka_draft_7eda017e1ded",
       "name": "咲璽季～素食",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "사이지키 채식요리",
+      "address": "Tennoji Park Villa, 105号, 1 Chome-1-10 Sanno, Nishinari Ward, Osaka, 557-0001 일본",
       "opening_hours": "We-Fr 11:00-14:00, 17:00-21:00; Sa-Su 09:00-14:00, 17:00-21:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "공식 사이트 취득 실패. 현재 운영정보 미확인."
+        "공식 사이트 취득 실패. 현재 운영정보 미확인.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.3m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=9917888328142414501"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3499,7 +3160,7 @@
     {
       "place_id": "osaka_draft_3c015925bf31",
       "name": "居酒屋新",
-      "name_ko": null,
+      "name_ko": "이자카야 신",
       "address": "大阪府大阪市中央区島之内2-12-8 TOWビル2F",
       "opening_hours": "14:00–다음날 03:00; 비정기 휴무",
       "address_status": "verified",
@@ -3510,10 +3171,7 @@
         "https://izakayashin.net/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3521,7 +3179,7 @@
     {
       "place_id": "osaka_draft_6789f7f9c22f",
       "name": "舟屋",
-      "name_ko": null,
+      "name_ko": "후나야",
       "address": "大阪市生野区生野西2-1-34",
       "opening_hours": "매장 식사 11:30–14:30(주문 14:00까지); 목요일 및 월 1회 임시 휴무; 재료 소진 시 종료",
       "address_status": "verified",
@@ -3534,10 +3192,7 @@
         "https://www.funaya.co.jp/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3545,7 +3200,7 @@
     {
       "place_id": "osaka_draft_89458a1abeda",
       "name": "Bistro よし川",
-      "name_ko": null,
+      "name_ko": "비스트로 요시카와",
       "address": "大阪市淀川区十三本町2-3-13",
       "opening_hours": "월–금 11:30–14:00, 17:30–22:00; 토 17:30–22:00; 일·공휴일 휴무",
       "address_status": "verified",
@@ -3556,10 +3211,7 @@
         "https://ameblo.jp/b-yoshikawa/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3567,7 +3219,7 @@
     {
       "place_id": "osaka_draft_26a5e809355e",
       "name": "Cherry Jam",
-      "name_ko": null,
+      "name_ko": "체리 잼",
       "address": "大阪府大阪市福島区吉野2-1-8",
       "opening_hours": "화–일 11:30–15:00, 17:00–22:30; 월 휴무(대관 예외)",
       "address_status": "verified",
@@ -3578,10 +3230,7 @@
         "https://cherryjam.owst.jp/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3589,7 +3238,7 @@
     {
       "place_id": "osaka_draft_8cb9705b2793",
       "name": "Comfort Zone 8 京いたりあん",
-      "name_ko": null,
+      "name_ko": "컴포트 존 에이트 교토 이탈리안",
       "address": "大阪府大阪市淀川区十三本町1-18-10 ナショナルマンション101",
       "opening_hours": "수–금 11:30–15:00, 18:00–23:00; 토 12:00–15:00, 18:00–23:00; 일·공휴일 11:00–14:00, 17:00–21:00; 월·화 휴무; 입장 종료 1시간 전",
       "address_status": "verified",
@@ -3600,10 +3249,7 @@
         "https://comfortzone8kyoitarian.com/"
       ],
       "missing_fields": [
-        "name_ko",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered"
       ],
       "schedule_ready": false
@@ -3611,24 +3257,22 @@
     {
       "place_id": "osaka_draft_d996a4118ab0",
       "name": "MayWinds",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "메이윈즈",
+      "address": "2 Chome-4-1 Funakoshicho, Chuo Ward, Osaka, 540-0036 일본",
       "opening_hours": null,
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "missing",
       "blockers": [],
       "notes": [
-        "점포 홈페이지 취득 실패. 운영정보 미확인."
+        "점포 홈페이지 취득 실패. 운영정보 미확인.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 15.0m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=17132172652483626966"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3638,7 +3282,7 @@
     {
       "place_id": "osaka_draft_2a9b88c21411",
       "name": "Parfait de Merrily",
-      "name_ko": null,
+      "name_ko": "파르페 드 메릴리",
       "address": "大阪府大阪市中央区馬場町3番65号",
       "opening_hours": "11:00–20:00(주문 19:00까지); 비정기 휴무",
       "address_status": "verified",
@@ -3650,17 +3294,13 @@
       "source_urls": [
         "https://parfait-de-merrily.owst.jp/"
       ],
-      "missing_fields": [
-        "name_ko",
-        "stay_min",
-        "bag_load"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_5fa8876a4657",
       "name": "Sagano",
-      "name_ko": null,
+      "name_ko": "사가노",
       "address": "大阪市西区靱本町3-4-15",
       "opening_hours": "11:30–15:00(주문 13:30까지), 18:00–23:00(입장 20:00까지); 일·공휴일 휴무; 코스 예약 필요",
       "address_status": "verified",
@@ -3677,10 +3317,7 @@
         "https://www.osaka-sagano.jp/"
       ],
       "missing_fields": [
-        "name_ko",
-        "cost",
-        "stay_min",
-        "bag_load"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -3688,23 +3325,22 @@
       "place_id": "osm_way_303446421",
       "name": "水上バス 乗り場",
       "name_ko": "수상버스 타는곳",
-      "address": null,
+      "address": "2 Osakajo, Chuo Ward, Osaka, 540-0002 일본",
       "opening_hours": "Mo-Su 10:00-17:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [
         "branch_unconfirmed"
       ],
       "notes": [
-        "수상버스 선착장 지점 확인 후 출항표를 적용해야 함."
+        "수상버스 선착장 지점 확인 후 출항표를 적용해야 함.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 9.8m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=14704441767393759651"
+      ],
       "missing_fields": [
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3715,49 +3351,47 @@
       "place_id": "osm_way_151816175",
       "name": "天保山マーケットプレース",
       "name_ko": "덴포잔 마켓 플레이스",
-      "address": null,
+      "address": "大阪府大阪市港区海岸通1-1-10",
       "opening_hours": "Mo-Su 11:00-20:00",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
-      "blockers": [],
-      "notes": [
-        "공식 페이지 시간의 00:00 표시는 로딩용 자리표시자. 실제 영업시간으로 사용하지 않음."
+      "blockers": [
+        "date_specific_hours_required"
       ],
-      "source_urls": [],
+      "notes": [
+        "공식 페이지 시간의 00:00 표시는 로딩용 자리표시자. 실제 영업시간으로 사용하지 않음.",
+        "시청 공식 행사 공지의 마켓플레이스 시설 주소와 운영사 층별 안내 확인. covered는 실내 쇼핑 공간. 영업시간은 방문일별 공식 달력 확인 필요."
+      ],
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/hodoshiryo/port/0000668679.html",
+        "https://www.kaiyukan.com/thv/marketplace/floor.html"
+      ],
       "missing_fields": [
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
-        "covered",
-        "opening_hours_source",
-        "verified_at"
+        "opening_hours_source"
       ],
       "schedule_ready": false
     },
     {
       "place_id": "osm_node_6189996345",
       "name": "cadode cafe",
-      "name_ko": null,
-      "address": null,
+      "name_ko": "가도데 카페",
+      "address": "3-chome-3-11 Kamisakabe, Amagasaki, Hyogo 661-0979 일본",
       "opening_hours": "11:00-17:00; Mo, Su, PH off",
-      "address_status": "missing",
+      "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [
         "outside_osaka_city"
       ],
       "notes": [
-        "효고현 아마가사키 소재. 중앙 오사카 bbox에 포함되지만 오사카시 밖임."
+        "효고현 아마가사키 소재. 중앙 오사카 bbox에 포함되지만 오사카시 밖임.",
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.6m. 주소만 확인했으며 영업시간 검증 아님."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://maps.google.com/?cid=9057845089131137736"
+      ],
       "missing_fields": [
-        "name_ko",
-        "area",
-        "address",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source",
         "verified_at"
@@ -3784,8 +3418,6 @@
       "missing_fields": [
         "opening_hours",
         "cost",
-        "stay_min",
-        "bag_load",
         "covered",
         "opening_hours_source"
       ],
@@ -3818,5 +3450,6 @@
       "opening_hours_source": 83,
       "verified_at": 62
     }
-  }
+  },
+  "latest_enrichment_revision": "team_planning_rules_20260929"
 }
