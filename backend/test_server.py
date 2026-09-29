@@ -2,6 +2,16 @@ import concurrent.futures,json,tempfile,threading,unittest,urllib.request,urllib
 from pathlib import Path
 from server import make_server,Store
 class ApiTests(unittest.TestCase):
+ def test_real_catalog_has_explicit_units_and_stays_separate(self):
+  from unittest.mock import patch
+  with patch.dict('os.environ',{'JPY_TO_KRW':'9.5'}):
+   status,data,_=self.req('GET','/api/places?limit=150')
+  self.assertEqual(status,200);self.assertEqual(len(data['places']),150)
+  self.assertEqual(data['currency'],'KRW');self.assertEqual(data['exchange_rate']['krw_per_jpy'],'9.5')
+  self.assertNotIn('cost',data['places'][0]);self.assertIn('cost_krw',data['places'][0])
+  self.assertTrue(all(p['stay_min'] and p['bag_load'] is not None for p in data['places']))
+  self.assertEqual(self.req('GET','/api/places?limit=0')[0],400)
+  self.assertEqual(self.req('GET','/places')[1]['dataset'],'prototype_demo_36')
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.db=Path(self.tmp.name)/'db.sqlite3';self.server=make_server(self.db,port=0);self.thread=threading.Thread(target=self.server.serve_forever,daemon=True);self.thread.start();self.base=f'http://127.0.0.1:{self.server.server_port}'
  def tearDown(self):self.server.shutdown();self.server.server_close();self.thread.join();self.tmp.cleanup()

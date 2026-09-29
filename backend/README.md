@@ -4,7 +4,7 @@
 
 ## 실행
 
-Python 3.10 이상과 Node.js 24 이상이 필요합니다. 별도 Python/npm 패키지는 필요 없습니다. Node가 PATH에 없으면 `NODE_BINARY`로 실행 파일을 지정하세요. 현재 작업 컴퓨터에서는 Codex 번들 Node도 자동 감지합니다.
+Python 3.10 이상과 Node.js 24 이상이 필요합니다. 별도 Python/npm 패키지는 필요 없습니다. Node가 PATH에 없으면 `NODE_BINARY`로 실행 파일을 지정하세요. 시작할 때 버전을 확인하며, Node 24 미만이면 필요한 버전을 안내하고 종료합니다.
 
 ```sh
 cd backend
@@ -95,3 +95,17 @@ HTTP 통합검사로 저장·조회, 권한·출처 제한, 동시 입력, 재�
 백엔드를 실행한 뒤 다른 터미널에서 `cd web && npm install && npm run dev`로 화면을 실행합니다. `http://localhost:3000/server-check`에서 연결을 확인합니다. 서버 주소 변경 시 `NEXT_PUBLIC_API_BASE_URL`을 설정하고 백엔드 `--origin`과 일치시키세요.
 
 OSM 수집 데이터 비용은 JPY, 기존 시연 계산 예산은 KRW이므로 두 데이터를 직접 합치지 않습니다.
+
+## 2026-09-29 조은 데이터 마무리
+
+`GET /api/places?q=검색어&category=카페&limit=20`은 검토용 실제 150곳을 반환합니다. 기존 `/places`와 `/rooms/.../calculate`는 KRW 시연용 36곳이며 두 자료를 합산하지 않습니다. API 계약 PR #22 전체가 구현된 것은 아닙니다.
+
+실제 150곳의 원본 `cost`는 JPY 그대로입니다. `JPY_TO_KRW`에 **1 JPY당 KRW** 환율을 설정하면 `cost_krw = ROUND_HALF_UP(cost × rate)`로 원 단위 반올림합니다. 미설정 시 유료 장소는 `cost_krw=null`, `cost_status=exchange_rate_required`입니다. 100엔당 환율을 그대로 넣으면 안 됩니다. 예: 테스트용 9.5 설정은 1엔=9.5원이라는 뜻이며 최신 시장환율이 아닙니다. 운영 환율의 기준일·출처는 운영자가 별도 관리해야 합니다.
+
+`cost_status=unknown`은 미확인 가격, `not_applicable_shopping`은 개인 구매액 제외입니다. 둘 다 무료를 뜻하지 않습니다. 쇼핑 예산은 입장권·카페·식당 예산과 별도입니다. 금액을 합산하기 전에 이 상태를 확인해야 합니다. 실제 데이터의 `area`는 행정구역이며 관광 권역으로 해석하면 안 됩니다.
+
+체류시간은 사용자가 제공한 유형별 범위의 상한을 기본값으로 사용합니다. 기존 공식 체류시간은 보존하고 새 값은 `team_rule_estimate`로 표시합니다. 분류 범위는 각 장소의 `review.stay_policy`에 있습니다. 짐 점수는 기존 `scripts/recommend_itinerary.py:get_luggage_score`와 동일하게 쇼핑 2, 구로몬시장·신사이바시스지 상점가·아메리카무라·신세카이 1, 그 외 0입니다. 스냅샷 엔진의 0~1 `bagLoad`와 직접 혼합하지 않습니다.
+
+한국어 이름·체류시간·짐 점수는 150/150, 주소는 148/150입니다. 주소 미확인 2곳과 영업시간 미확인 23곳은 그대로 남깁니다. Google Maps 폐업·임시휴업 표시, 시설 대표주소, 이전 위치 충돌을 `planning.review_required`로 내보냅니다. 모든 실제 장소는 방문일별 운영시간 확인이 필요하며 `planning.schedule_ready=false`입니다. 이 150곳을 그대로 자동 일정 생성에 넣으면 안 됩니다.
+
+검증: `python3 -m unittest discover -s backend -p 'test_*.py'` 및 `python3 -m unittest discover -s scripts -p 'test_*.py'`.
