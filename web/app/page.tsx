@@ -3,14 +3,18 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
-import { Avatar, Body, Screen } from "@/components/ui";
+import { defaultStartDate } from "@/lib/room-api";
+import { Avatar, Body, Notice, Screen } from "@/components/ui";
 
 const MAX_MEMBERS = 6;
 
 export default function Home() {
   const router = useRouter();
-  const { state, set, setMemberNames, reset } = useTrip();
+  const { state, set, setMemberNames, createRoom, reset } = useTrip();
   const [names, setNames] = useState<string[]>(state.members.map((m) => m.name));
+  const [startDate, setStartDate] = useState(state.startDate || defaultStartDate());
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const setName = (i: number, v: string) =>
     setNames((ns) => ns.map((n, idx) => (idx === i ? v : n)));
@@ -19,8 +23,26 @@ export default function Home() {
 
   const valid = names.length >= 2 && names.every((n) => n.trim().length > 0);
 
-  const start = () => {
+  /**
+   * 서버에 방을 만든다. 서버가 안 떠 있으면 로컬 데모 모드로 그냥 진행한다 —
+   * 발표·수업 중에 서버 때문에 화면이 아예 막히면 안 된다.
+   */
+  const start = async () => {
+    setBusy(true);
+    setError(null);
     setMemberNames(names);
+    try {
+      await createRoom(startDate, state.nights, names);
+      router.push("/invite");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "방을 만들지 못했어요.");
+      setBusy(false);
+    }
+  };
+
+  const startLocal = () => {
+    setMemberNames(names);
+    set({ room: null });
     router.push("/pick");
   };
 
@@ -43,7 +65,11 @@ export default function Home() {
 
         {/* 기간 */}
         <div className="mt-6 rounded-2xl bg-white/12 p-4">
-          <div className="text-[12px] text-white/70">며칠 가시나요</div>
+          <div className="text-[12px] text-white/70">언제 떠나시나요</div>
+          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)}
+            className="mt-2 w-full rounded-xl bg-white/15 px-3 py-2.5 text-[14px] text-white outline-none [color-scheme:dark]" />
+
+          <div className="mt-4 text-[12px] text-white/70">며칠 가시나요</div>
           <div className="mt-2 flex items-center justify-between">
             <button onClick={() => set({ nights: Math.max(1, state.nights - 1) })}
               aria-label="하루 줄이기"
@@ -96,9 +122,17 @@ export default function Home() {
 
       <div className="sticky bottom-0 z-20 px-5 pb-6 pt-3">
         <div className="space-y-2">
-          <button onClick={start} disabled={!valid}
+          {error && (
+            <div className="rounded-2xl bg-white/15 px-3.5 py-3 text-[12px] leading-relaxed">
+              {error}
+              <button onClick={startLocal} className="mt-1 block font-semibold underline">
+                서버 없이 데모로 계속하기
+              </button>
+            </div>
+          )}
+          <button onClick={start} disabled={!valid || busy || !startDate}
             className="btn w-full bg-white text-brand-700 hover:bg-white/90 disabled:opacity-50">
-            {valid ? "시작하기" : "이름을 모두 채워주세요"}
+            {busy ? "방을 만드는 중…" : !valid ? "이름을 모두 채워주세요" : "방 만들기"}
           </button>
           <button onClick={() => { reset(); setNames(["나", "윤진", "조은", "민서", "도윤"]); }}
             className="btn w-full bg-white/10 text-white hover:bg-white/20">
