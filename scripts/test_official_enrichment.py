@@ -9,8 +9,8 @@ P = ROOT / 'data/week5/live_20260923/processed'
 class OfficialEnrichmentTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.data = json.loads((P / 'osaka_places_150_fresh.json').read_text())
-        cls.ledger = json.loads((P / cls.data['latest_enrichment_checks_file']).read_text())
+        cls.data = json.loads((P / 'osaka_places_150_fresh.json').read_text(encoding='utf-8'))
+        cls.ledger = json.loads((P / cls.data['latest_enrichment_checks_file']).read_text(encoding='utf-8'))
         cls.records = {r['place']['place_id']: r for r in cls.data['places']}
 
     def test_identity_coordinates_and_blockers_preserved(self):
@@ -46,7 +46,7 @@ class OfficialEnrichmentTests(unittest.TestCase):
         stats = self.ledger['statistics']
         self.assertEqual(missing, stats['missing_after'])
         self.assertEqual(sum(stats['missing_before'].values()) - sum(missing.values()), stats['null_fields_filled'])
-        queue = json.loads((P / 'place_review_queue.json').read_text())
+        queue = json.loads((P / 'place_review_queue.json').read_text(encoding='utf-8'))
         self.assertEqual(queue['statistics'], stats)
         for x in queue['places']:
             r = self.records[x['place_id']]

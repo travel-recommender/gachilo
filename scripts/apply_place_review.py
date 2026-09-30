@@ -44,6 +44,6 @@ def apply_review(dataset, ledger):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('input',type=Path);parser.add_argument('ledger',type=Path);parser.add_argument('output',type=Path)
-    args=parser.parse_args();result=apply_review(json.loads(args.input.read_text()),json.loads(args.ledger.read_text()))
-    args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    args=parser.parse_args();result=apply_review(json.loads(args.input.read_text(encoding='utf-8')),json.loads(args.ledger.read_text(encoding='utf-8')))
+    args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
     print('Applied local review ledger to 150 places. No network/API requests.')

@@ -50,7 +50,7 @@ class DatasetTests(unittest.TestCase):
     def test_overpass_partial_response_rejected_before_other_inputs(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp); raw=root/'raw.json'
-            raw.write_text(json.dumps({'remark':'runtime error: timeout','elements':[self.node()]}))
+            raw.write_text(json.dumps({'remark':'runtime error: timeout','elements':[self.node()]}), encoding='utf-8')
             with self.assertRaises(ValueError):
                 build(raw,root/'query',root/'previous',root/'checks',root/'out')
             self.assertFalse((root/'out').exists())

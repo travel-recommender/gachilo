@@ -96,9 +96,9 @@ def build(raw_path, query_path, previous_path, checks_path, output):
     if raw.get('remark') or not raw.get('elements'):
         raise ValueError('Empty or partial/error Overpass response; refusing to publish a dataset')
     collected_at = datetime.fromtimestamp(raw_path.stat().st_mtime, timezone.utc).isoformat()
-    check_document = json.loads(checks_path.read_text())
+    check_document = json.loads(checks_path.read_text(encoding='utf-8'))
     checks = check_document['checks']
-    old = json.loads(previous_path.read_text())['places']
+    old = json.loads(previous_path.read_text(encoding='utf-8'))['places']
     by_ref = {}
     for element in raw['elements']:
         r = normalize(element, collected_at)
@@ -189,7 +189,7 @@ def build(raw_path, query_path, previous_path, checks_path, output):
                                ('osaka_candidates_fresh.json',dict(metadata, places=records)),
                                ('osaka_places_150_fresh.json',dict(metadata, category_quotas=QUOTAS, places=selected)),
                                ('previous_draft_comparison.json',dict(metadata, matches=matches))]:
-        (output/filename).write_text(json.dumps(document,ensure_ascii=False,indent=2)+'\n')
+        (output/filename).write_text(json.dumps(document,ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
     lines = ['# 오사카 실제 수집 결과', '', f"수집 완료 시각(UTC): {collected_at}",
              f"OSM 데이터 기준 시각(UTC): {metadata['osm_base_timestamp']}", '',
              f"원본 객체 {stats['raw_objects']:,}개 → 분류 가능한 객체 {stats['normalized_objects']:,}개 → 근접 중복 정리 후 후보 {len(pool):,}개 → 검토용 150개.", '',
@@ -213,7 +213,7 @@ def build(raw_path, query_path, previous_path, checks_path, output):
               '범위는 위도 34.60~34.75, 경도 135.40~135.60의 오사카 중심부 사각형이며 오사카부 전체가 아니다.', '',
               '## 출처', '', '[© OpenStreetMap contributors — ODbL](https://www.openstreetmap.org/copyright)',
               '공식 페이지 본문·사진은 복제하지 않고 확인한 사실과 출처 링크만 기록했다.']
-    (output/'collection_report.md').write_text('\n'.join(lines)+'\n')
+    (output/'collection_report.md').write_text('\n'.join(lines)+'\n', encoding='utf-8')
     return stats
 
 
@@ -232,7 +232,7 @@ def main():
         # against the public endpoint; a failed call is explicit.
         args.output.mkdir(parents=True, exist_ok=True)
         raw_path = args.output / ('overpass_' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ') + '.json')
-        request = urllib.request.Request(ENDPOINT, data=urllib.parse.urlencode({'data':args.query.read_text()}).encode(),
+        request = urllib.request.Request(ENDPOINT, data=urllib.parse.urlencode({'data':args.query.read_text(encoding='utf-8')}).encode(),
                     headers={'User-Agent':'GatiroCapstone/0.1 (Osaka academic dataset collection)'})
         with urllib.request.urlopen(request, timeout=115) as response:
             payload = response.read()

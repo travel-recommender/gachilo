@@ -10,14 +10,14 @@ from pathlib import Path
 def apply(folder):
     path = folder / 'osaka_places_150_fresh.json'
     supplement_path = folder / 'cafe_branch_supplement.json'
-    dataset = json.loads(path.read_text())
-    supplement = json.loads(supplement_path.read_text())
+    dataset = json.loads(path.read_text(encoding='utf-8'))
+    supplement = json.loads(supplement_path.read_text(encoding='utf-8'))
     if dataset['raw_sha256'] != supplement['source_raw_sha256']:
         raise ValueError('Supplement belongs to a different OSM snapshot')
     original = copy.deepcopy(dataset['places'])
     before = Counter(r['place']['category'] for r in original)
     log_path = folder / 'cafe_branch_replacements.json'
-    log = json.loads(log_path.read_text()) if log_path.exists() else {'replacements': []}
+    log = json.loads(log_path.read_text(encoding='utf-8')) if log_path.exists() else {'replacements': []}
     for incoming in supplement['places']:
         old_id = incoming['identity_comparison']['legacy_place_id']
         new_id = incoming['place']['place_id']
@@ -46,7 +46,7 @@ def apply(folder):
     dataset['selection_revision'] = 'cafe_branches_20260923'
     dataset['branch_supplement_sha256'] = hashlib.sha256(supplement_path.read_bytes()).hexdigest()
     manifest_path = folder / 'collection_manifest.json'
-    manifest = json.loads(manifest_path.read_text())
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
     manifest['selection_revision'] = dataset['selection_revision']
     manifest['branch_supplement_sha256'] = dataset['branch_supplement_sha256']
     stats = manifest['statistics']
@@ -56,7 +56,7 @@ def apply(folder):
     manifest['previous_match_status_scope'] = 'Initial automatic matching before branch selection overrides; see cafe_branch_replacements.json'
     # Recompute the displayed missing-field table in the generated report.
     report_path = folder / 'collection_report.md'
-    report = report_path.read_text()
+    report = report_path.read_text(encoding='utf-8')
     start = report.index('| 항목 | 미확인/누락 |')
     end = report.index('\n\n', start)
     table = '| 항목 | 미확인/누락 |\n| --- | ---: |\n' + '\n'.join(f'| {k} | {v} |' for k,v in stats['selected_missing'].items() if v)
@@ -66,8 +66,8 @@ def apply(folder):
     marker = '\n## 카페 지점 반영\n'
     report = report.split(marker)[0] + marker + '\n마루후쿠 센니치마에 본점과 브루클린 난바점을 새 ID로 교체 편입했다. 총 150개·카페25개 유지. 마루후쿠 주소와 08:00~23:00은 공식 확인값, 브루클린 주소·영업시간은 미확인이다. 이전 지점의 전체 기록은 cafe_branch_replacements.json에 보존했다. 초기 자동 매칭 비교 결과는 교체 이전 기록이다. 재생성 후 scripts/apply_cafe_branches.py를 실행하면 동일 교체가 다시 적용된다.\n'
     for target,content in [(path,dataset),(manifest_path,manifest),(log_path,log)]:
-        target.write_text(json.dumps(content,ensure_ascii=False,indent=2)+'\n')
-    report_path.write_text(report)
+        target.write_text(json.dumps(content,ensure_ascii=False,indent=2)+'\n', encoding='utf-8')
+    report_path.write_text(report, encoding='utf-8')
     return stats
 
 
