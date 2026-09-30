@@ -41,6 +41,12 @@ export default function Condition() {
     <Screen>
       <TopBar title="내 조건 입력" subtitle="이것도 다른 사람에게 안 보여요" back="/shortlist" />
       <Body>
+        {state.inputMissing && (
+          <Notice tone="warn">
+            이 기기에는 제출했던 입력이 남아 있지 않아요. 여기서 저장하면 기본값이 제출한 입력을 덮어써서
+            저장하지 않아요. <b>가고 싶은 곳 고르기부터 다시</b> 입력해 주세요.
+          </Notice>
+        )}
         <Notice tone="info">
           예산과 체력은 <b>말하기 어려운 정보</b>라 비공개로 받아요.
           결과에는 반영되지만 누가 얼마를 적었는지는 끝까지 공개되지 않아요.

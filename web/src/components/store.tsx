@@ -11,6 +11,7 @@ import {
   setMembers,
   type CustomPlaceInput,
 } from "@/lib/places";
+import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
 import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
@@ -46,6 +47,11 @@ export interface AppState {
   allowPartial: boolean;
   /** 사용자가 직접 추가한 장소 */
   customPlaces: Place[];
+  /**
+   * 제출은 했는데 이 기기에 그 입력이 없다(초안 없이 재접속).
+   * 이 상태에서 제출하면 기본값이 서버 입력을 덮어쓰므로 막는다. 1차 선택부터 다시 고르면 풀린다.
+   */
+  inputMissing: boolean;
 }
 
 const INITIAL: AppState = {
@@ -58,32 +64,8 @@ const INITIAL: AppState = {
   strategy: "fairness",
   allowPartial: true,
   customPlaces: [],
+  inputMissing: false,
 };
-
-/**
- * 저장은 두 갈래로 나눈다.
- * - localStorage: 방 세션과 여행 설정(날짜·명단). 재접속에 필요한 값만
- * - sessionStorage: 내 선택·조건 초안. 새로고침은 버티고 탭을 닫으면 사라진다
- * 본인 입력을 서버에서 복원하는 API가 생기면(#22 B.6) 초안 저장은 뺀다.
- */
-const KEY = "gatiga-v4";
-const DRAFT_KEY = "gatiga-v4-draft";
-/** 입력 전체를 localStorage에 담던 이전 판. 읽지 않고 지운다 */
-const LEGACY_KEY = "gatiga-v3";
-
-const SESSION_FIELDS = ["room", "nights", "startDate", "members", "submitted"] as const;
-const DRAFT_FIELDS = ["mine", "customPlaces", "strategy", "allowPartial"] as const;
-
-function pick<K extends keyof AppState>(src: Partial<AppState>, keys: readonly K[]) {
-  const out: Partial<Pick<AppState, K>> = {};
-  for (const k of keys) if (src[k] !== undefined) out[k] = src[k];
-  return out;
-}
-
-function readJson(storage: Storage, key: string): Partial<AppState> {
-  const raw = storage.getItem(key);
-  return raw ? JSON.parse(raw) : {};
-}
 
 interface Ctx {
   state: AppState;
@@ -122,26 +104,23 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      window.localStorage.removeItem(LEGACY_KEY);
-      setState({
-        ...INITIAL,
-        ...pick(readJson(window.localStorage, KEY), SESSION_FIELDS),
-        ...pick(readJson(window.sessionStorage, DRAFT_KEY), DRAFT_FIELDS),
-      });
+      setState(restore(window.localStorage, window.sessionStorage, INITIAL));
     } catch { /* 무시 */ }
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
-    try {
-      window.localStorage.setItem(KEY, JSON.stringify(pick(state, SESSION_FIELDS)));
-      window.sessionStorage.setItem(DRAFT_KEY, JSON.stringify(pick(state, DRAFT_FIELDS)));
-    } catch { /* 무시 */ }
+    try { save(state, window.localStorage, window.sessionStorage); } catch { /* 무시 */ }
   }, [state, ready]);
 
   const set = (p: Partial<AppState>) => setState((s) => ({ ...s, ...p }));
-  const setMine = (p: Partial<Submission>) => setState((s) => ({ ...s, mine: { ...s.mine, ...p } }));
+  const setMine = (p: Partial<Submission>) => setState((s) => ({
+    ...s,
+    mine: { ...s.mine, ...p },
+    // 1차 선택을 다시 고르기 시작하면 새 입력이다
+    inputMissing: p.longlist !== undefined ? false : s.inputMissing,
+  }));
   const setMemberNames = (names: string[]) => setState((s) => ({ ...s, members: makeMembers(names) }));
 
   const createRoom = async (startDate: string, nights: number, names: string[]) => {
@@ -170,6 +149,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       members,
       room: session,
       mine: { ...s.mine, memberId: me.id },
+      submitted: false,
+      inputMissing: false,
     }));
     return session;
   };
@@ -200,12 +181,15 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       mine: { ...MY_DEFAULT, memberId },
       customPlaces: [],
       submitted: false,
+      inputMissing: false,
     }));
   };
 
   const submitMine = async () => {
     const room = stateRef.current.room;
     if (!room) return; // 로컬 데모 모드 — 서버 없이도 화면이 돌아야 한다
+    const blocker = submitBlocker(stateRef.current);
+    if (blocker) throw new ApiError(blocker, 409);
     const mine = stateRef.current.mine;
     await roomApi.submit({ roomId: room.roomId }, { id: room.memberId, submissionToken: room.token }, {
       longlist: mine.longlist,
@@ -233,7 +217,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   const reset = () => {
     setState(INITIAL);
     try {
-      window.localStorage.removeItem(KEY);
+      window.localStorage.removeItem(SESSION_KEY);
+      window.sessionStorage.removeItem(SESSION_KEY);
       window.sessionStorage.removeItem(DRAFT_KEY);
     } catch { /* 무시 */ }
   };
