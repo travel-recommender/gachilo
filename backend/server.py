@@ -5,6 +5,8 @@ from datetime import date, datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from engine import Engine, EngineError
+from urllib.parse import urlsplit, parse_qs
+from place_catalog import catalog, exchange_rate
 
 class ApiError(Exception):
     def __init__(self,status,message):self.status,self.message=status,message
@@ -122,6 +124,7 @@ class Store:
         return {'saved':True,'revision':b['revision']}
 
 def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost:3000'):
+    exchange_rate() # Fail at startup for malformed conversion configuration.
     engine=Engine()
     store=Store(path,engine.catalog)
     class Handler(BaseHTTPRequestHandler):
@@ -153,7 +156,13 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 if self.command=='GET' and path in assets:
                     filename,mime=assets[path];raw=(Path(__file__).parent/'public'/filename).read_bytes()
                     self.send_response(200);self.send_header('Content-Type',mime+'; charset=utf-8');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw);return
-                if self.command=='GET' and path=='/places':return self.send_json(200,{'dataset':'prototype_demo_36','places':engine.catalog})
+                if self.command=='GET' and path=='/api/places':
+                    qs=parse_qs(urlsplit(self.path).query)
+                    try:limit=int(qs.get('limit',['150'])[0])
+                    except ValueError:raise ApiError(400,'limit는 1~150 정수여야 합니다.')
+                    require(1<=limit<=150,'limit는 1~150 정수여야 합니다.')
+                    return self.send_json(200,catalog(qs.get('q',[''])[0],qs.get('category',[None])[0],limit))
+                if self.command=='GET' and path=='/places':return self.send_json(200,{'dataset':'prototype_demo_36','currency':'KRW','places':engine.catalog})
                 m=re.fullmatch(r'/rooms/([\w-]+)/calculate',path)
                 if m and self.command=='POST':
                     require(isinstance(b,dict) and b.get('strategy') in ('average','least_misery','fairness'),'추천 전략을 선택하세요.')

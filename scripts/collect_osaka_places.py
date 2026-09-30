@@ -1,3 +1,8 @@
+"""Overpass 원본 JSON을 새 파일로 저장한다. 실패 시 종료 코드 1, 기존 파일은 덮어쓰지 않는다."""
+import argparse
+import json
+from datetime import datetime, timezone
+from pathlib import Path
 import requests
 
 OVERPASS_URLS = [
@@ -13,25 +18,36 @@ node["tourism"="attraction"]
 out;
 """
 
-print("오사카 장소 데이터를 요청합니다...")
+def collect(output):
+    output = Path(output)
+    if output.exists():
+        raise FileExistsError(f"기존 파일은 덮어쓰지 않습니다: {output}")
+    for url in OVERPASS_URLS:
+        try:
+            response = requests.post(url, data={"data": QUERY}, timeout=60)
+            response.raise_for_status()
+            payload = response.json()
+            if not isinstance(payload, dict) or not isinstance(payload.get("elements"), list):
+                raise ValueError("Overpass elements 배열이 없습니다.")
+        except (requests.exceptions.RequestException, ValueError):
+            continue
+        output.parent.mkdir(parents=True, exist_ok=True)
+        with output.open("xb") as handle:
+            handle.write(json.dumps(payload, ensure_ascii=False, indent=2).encode("utf-8"))
+        return output
+    raise RuntimeError("모든 Overpass 서버 요청이 실패했습니다. 파일을 저장하지 않았습니다.")
 
-for url in OVERPASS_URLS:
-    print("현재 서버:", url)
 
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parent.parent / "data" / "raw" / f"osaka_{stamp}.json")
+    args = parser.parse_args()
     try:
-        response = requests.post(
-            url,
-            data={"data": QUERY},
-            timeout=60
-        )
+        print(f"원본 저장 완료: {collect(args.output)}")
+    except (OSError, RuntimeError) as error:
+        parser.exit(1, f"{error}\n")
 
-        print("응답 상태:", response.status_code)
 
-        if response.status_code == 200:
-            print("데이터 요청 성공!")
-            break
-        else:
-            print("이 서버는 실패했습니다. 다음 서버를 시도합니다.")
-
-    except requests.exceptions.RequestException:
-        print("서버 연결에 실패했습니다. 다음 서버를 시도합니다.")
+if __name__ == "__main__":
+    main()
