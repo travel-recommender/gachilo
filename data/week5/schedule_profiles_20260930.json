@@ -16,7 +16,8 @@
     "HEP FIVE 10/15(목) 공지는 연도 생략. 2026-10-15를 확정 휴업으로 단정하지 않고 확인 전 제외한다.",
     "공원 가격·시간은 명시한 무료 일반 이용 구역에만 적용한다. 좌표는 수집 원본으로 실제 출입구가 아니며 경로 정확도 검증에 쓰지 않는다.",
     "2026-09-30 후속: 실제 장소 서버 모드에서 재사용. 쇼핑 5곳은 allowShopping 옵션에서만 배치하고 소비 비용은 null/비산정으로 표시. 150곳 전체 검증 완료가 아님.",
-    "2026-09-30 추가 확인: 쇼핑층 공통 시간·무료 참배/공원·찻집을 정규화. Whity 11/19 정기휴관, 위스테 10/8·차엔 10/10 확인 전 제외. 비정기 휴무 브리제는 여전히 보류."
+    "2026-09-30 추가 확인: 쇼핑층 공통 시간·무료 참배/공원·찻집을 정규화. Whity 11/19 정기휴관, 위스테 10/8·차엔 10/10 확인 전 제외. 비정기 휴무 브리제는 여전히 보류.",
+    "2026-09-30 후속: 장소별 검증 유효기간과 날짜별 무료요금 적용. 일반 가격은 원본에 보존. 명시한 공통 시간대만 사용하며 가격·방문일 미확인은 계속 제외한다."
   ],
   "places": {
     "osaka_002": {
@@ -585,6 +586,306 @@
         6
       ],
       "price_unavailable_holidays": true
+    },
+    "osaka_draft_5a243c3857f7": {
+      "window": [
+        600,
+        1080,
+        1080
+      ],
+      "cost_basis": "향 판매점 쇼핑 구매비 비산정(null). 별도 유료 체험 제외.",
+      "source_urls": [
+        "https://www.shoyeido.co.jp/shop-info/osaka.html"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_011": {
+      "window": [
+        510,
+        960,
+        960
+      ],
+      "cost_basis": "성인 개인 중심가람 500 JPY, 매월 21·22일 0 JPY; 정원·보물관 별도. 10~11월 공통 08:30~16:00만 사용.",
+      "source_urls": [
+        "https://www.shitennoji.or.jp/admission.html",
+        "https://www.shitennoji.or.jp/map.html"
+      ],
+      "checked_at": "2026-09-30",
+      "exceptions": {
+        "2026-10-21": {
+          "cost_jpy": 0
+        },
+        "2026-10-22": {
+          "cost_jpy": 0
+        },
+        "2026-11-21": {
+          "cost_jpy": 0
+        },
+        "2026-11-22": {
+          "cost_jpy": 0
+        }
+      }
+    },
+    "osaka_draft_ce3b8d452a0e": {
+      "window": [
+        600,
+        1020,
+        990
+      ],
+      "cost_basis": "2026 컬렉션1 성인 주간 430 JPY; 공식 무료일 0 JPY. 특별전·음성안내·금요일 야간 별도.",
+      "source_urls": [
+        "https://www.nmao.go.jp/events/event/collection20260719/"
+      ],
+      "checked_at": "2026-09-30",
+      "valid_from": "2026-07-19",
+      "valid_through": "2026-11-03",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true,
+      "exceptions": {
+        "2026-10-03": {
+          "cost_jpy": 0
+        },
+        "2026-10-16": {
+          "cost_jpy": 0
+        },
+        "2026-10-17": {
+          "cost_jpy": 0
+        },
+        "2026-10-23": {
+          "cost_jpy": 0
+        },
+        "2026-10-24": {
+          "cost_jpy": 0
+        },
+        "2026-11-03": {
+          "cost_jpy": 0
+        },
+        "2026-11-02": {
+          "closed": false
+        }
+      }
+    },
+    "osaka_draft_9e900589aec0": {
+      "window": [
+        540,
+        990,
+        960
+      ],
+      "cost_basis": "성인 일반 정원 300 JPY. 10~11월 공통 09:00~16:30만 사용, 야간행사·찻집 별도.",
+      "source_urls": [
+        "https://osaka-chushin.jp/en/routes/33146",
+        "https://www.osakacastlepark.jp/news/?lang=ja"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true
+    },
+    "osaka_draft_fc7acd992f21": {
+      "window": [
+        570,
+        1140,
+        1140
+      ],
+      "cost_basis": "쇼핑 구매비 비산정(null). 일반 입점 쇼핑 구역 공통 시간, 개별 점포 예외 별도.",
+      "source_urls": [
+        "https://page.line.me/hvk0696d"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_873f1e0cf834": {
+      "window": [
+        660,
+        1020,
+        1020
+      ],
+      "cost_basis": "부다볼+수프 1580 JPY 한 메뉴; 평균 식비 아님. 운영시간은 기존 OSM 자료로 공식 재확인과 구분.",
+      "source_urls": [
+        "https://superfoodcafe-an39.jp/menu/",
+        "https://www.openstreetmap.org/node/9468409531"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_hours_unconfirmed": true,
+      "evidence_level": "official_menu_and_osm_hours"
+    },
+    "osaka_draft_2f89be830b8c": {
+      "window": [
+        840,
+        1020,
+        1020
+      ],
+      "cost_basis": "카페 시간 오므라이스 단품 1000 JPY(세금 포함); 14~17시만 적용. 단체/케이터링·음료 별도.",
+      "source_urls": [
+        "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_2eb759c40909": {
+      "window": [
+        600,
+        1320,
+        1320
+      ],
+      "cost_basis": "밀라노풍 도리아 단품 300 JPY(세금 포함). 공식 체인 메뉴 기준, 지점 품절 보장 아님. 22시 이후 10% 가산·추가 주문 제외.",
+      "source_urls": [
+        "https://www.saizeriya.co.jp/menu-popular/2101/",
+        "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_57eaac2e578d": {
+      "window": [
+        720,
+        1260,
+        1260
+      ],
+      "cost_basis": "고양이방 일반 1시간 1800 JPY. 양말 지참; 미지참 구매165엔·연장비 제외. 비정기 휴무 확인 필요.",
+      "source_urls": [
+        "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
+        "https://neu-catcafe.com/price"
+      ],
+      "checked_at": "2026-09-30",
+      "requires_visit_confirmation": true
+    },
+    "osm_node_2296903605": {
+      "window": [
+        480,
+        1380,
+        1380
+      ],
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_e5eb4dd70807": {
+      "window": [
+        480,
+        1140,
+        1140
+      ],
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://www.sotcoffee.com/en/pages/shop-osaka"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_5a3ef73c2b4b": {
+      "window": [
+        480,
+        1260,
+        1260
+      ],
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_c85fa26beb80": {
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://osaka-info.jp/spot/o1o1-namba-marui/"
+      ],
+      "checked_at": "2026-09-30",
+      "requires_visit_confirmation": true
+    },
+    "osaka_draft_2a9b88c21411": {
+      "window": [
+        660,
+        1200,
+        1140
+      ],
+      "cost_basis": "공식 매장 사이트의 파르페와 메릴리 런치 세트 1인 2300엔 JPY. 시즌·주문 구성에 따라 달라짐. 실내 좌석 안내.",
+      "source_urls": [
+        "https://parfait-de-merrily.owst.jp/"
+      ],
+      "checked_at": "2026-09-30",
+      "requires_visit_confirmation": true
+    },
+    "osaka_draft_50b7a6cc608f": {
+      "window": [
+        780,
+        960,
+        960
+      ],
+      "cost_basis": "무료 입장, 공식 견학 소요시간 약 50분, 본사 1층 실내. 2일 전 예약 필요; 예약 제한은 유지.",
+      "source_urls": [
+        "https://www.zojirushi.co.jp/corp/kinenkan/"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        0,
+        6
+      ],
+      "closed_holidays": true,
+      "entry_time_reservation": true
+    },
+    "osaka_draft_a270504b6cd8": {
+      "window": [
+        600,
+        960,
+        930
+      ],
+      "cost_basis": "2026 공개 다도 체험 1인 1,500 JPY. 니시노마루 정원 입장료 별도이므로 전체 방문 비용이 아님.",
+      "source_urls": [
+        "https://osaka-info.jp/special/dc/event/detail605/"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "requires_visit_confirmation": true
+    },
+    "osaka_draft_89de388fac63": {
+      "window": [
+        720,
+        900,
+        780
+      ],
+      "cost_basis": "기준 시나리오: 성인 런치 7500엔 코스(세금·서비스 포함), 공식 소요시간 약 2시간. 12000엔 런치 150분, 디너 18000엔 180분은 별도. 자동 저녁 배치에 이 기준값 재사용 금지.",
+      "source_urls": [
+        "https://difference.upper.jp/jp/"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        2
+      ],
+      "entry_time_reservation": true
+    },
+    "osaka_draft_316598fb77c9": {
+      "window": [
+        570,
+        1020,
+        990
+      ],
+      "cost_basis": "성인 1인 기획전 관람료 JPY. 특별전·특별진열은 별도 요금. covered는 실내 전시 관람 기준.",
+      "source_urls": [
+        "https://www.osaka-art-museum.jp/information"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true,
+      "requires_visit_confirmation": true
     }
   }
 }

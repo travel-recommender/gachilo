@@ -42,7 +42,10 @@ export function availability(record, date, profiles, {allowShopping = false} = {
   if (!p.address) reasons.push('address_missing');
   if (!p.opening_hours) reasons.push('opening_hours_missing');
   const shopping = shoppingRecord(record);
-  if (shopping ? !allowShopping : !Number.isSafeInteger(p.cost) || p.cost < 0) reasons.push('cost_unknown_or_not_applicable');
+  const override = profile?.exceptions?.[date];
+  // Keep the catalogue's ordinary price; dated free-admission rules apply only to this visit.
+  const visitCost = override && Object.hasOwn(override, 'cost_jpy') ? override.cost_jpy : p.cost;
+  if (shopping ? !allowShopping : !Number.isSafeInteger(visitCost) || visitCost < 0) reasons.push('cost_unknown_or_not_applicable');
   if (!Number.isSafeInteger(p.stay_min) || p.stay_min <= 0) reasons.push('stay_min_invalid');
   if (![0, 1, 2].includes(p.bag_load)) reasons.push('bag_load_invalid');
   if (!Number.isFinite(p.latitude) || !Number.isFinite(p.longitude)
@@ -52,11 +55,15 @@ export function availability(record, date, profiles, {allowShopping = false} = {
   if (date < profiles.valid_from || date > profiles.valid_through) reasons.push('outside_reviewed_date_range');
   let window = null;
   if (profile) {
+    if (profile.valid_from && date < profile.valid_from || profile.valid_through && date > profile.valid_through) {
+      reasons.push('outside_place_reviewed_date_range');
+    }
     if (profile.requires_visit_confirmation) reasons.push('visit_confirmation_required');
     if (profile.entry_time_reservation) reasons.push('entry_time_reservation_required');
     if (profile.uncertain_dates?.includes(date)) reasons.push('closure_notice_year_unconfirmed');
     const weekday = dayOfWeek(date);
     const holiday = profiles.japan_holidays.includes(date);
+    if (profile.holiday_hours_unconfirmed && holiday) reasons.push('holiday_hours_unconfirmed');
     // A weekday-only price cannot imply that the restaurant itself is closed.
     if (profile.price_unavailable_weekdays?.includes(weekday)
         || profile.price_unavailable_holidays && holiday) reasons.push('price_not_applicable_on_visit_date');
@@ -66,9 +73,9 @@ export function availability(record, date, profiles, {allowShopping = false} = {
     const yesterday = previousDay(date);
     if (profile.holiday_moves_closure && profiles.japan_holidays.includes(yesterday)
         && profile.closed_weekdays?.includes(dayOfWeek(yesterday))) closed = true;
+    // A dated official opening also overrides a regular weekly closure.
+    if (typeof override?.closed === 'boolean') closed = override.closed;
     if (closed) reasons.push('closed_on_visit_date');
-    const override = profile.exceptions?.[date];
-    if (override?.closed) reasons.push('closed_on_visit_date');
     window = profile.window;
     if (profile.weekday_window && !holiday && weekday >= 1 && weekday <= 5) window = profile.weekday_window;
     const tomorrow = new Date(Date.parse(date + 'T00:00:00Z') + 86400000).toISOString().slice(0, 10);
@@ -79,6 +86,7 @@ export function availability(record, date, profiles, {allowShopping = false} = {
         || window[2] < window[0] || window[2] > window[1]) reasons.push('invalid_time_window');
   }
   return {place_id: p.place_id, name_ko: p.name_ko, reasons: [...new Set(reasons)], window,
+    cost_jpy: shopping ? null : visitCost,
     cost_basis: profile?.cost_basis ?? null, source_urls: profile?.source_urls ?? [],
     eligible_for_model: reasons.length === 0, schedule_ready: false};
 }
@@ -94,17 +102,18 @@ export function validateDay(request, dataset, profiles, options = {}) {
   }
   costKrw(0, request.krw_per_jpy); // Validate the rate even if all candidates are blocked.
   const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
-  const rejected = [], accepted = [], windows = new Map();
+  const rejected = [], accepted = [], windows = new Map(), visitCosts = new Map();
   for (const id of request.place_ids) {
     const r = byId.get(id);
     if (!r) { rejected.push({place_id: id, reasons: ['unknown_place_id']}); continue; }
     const check = availability(r, request.date, profiles, options);
     if (!check.eligible_for_model) { rejected.push(check); continue; }
     windows.set(id, check.window);
+    visitCosts.set(id, check.cost_jpy);
     const p = r.place;
     accepted.push({place: {
       id, name: p.name_ko, area: p.area || '', category: categories[p.category],
-      lat: p.latitude, lng: p.longitude, cost: options.allowShopping && shoppingRecord(r) ? 0 : costKrw(p.cost, request.krw_per_jpy),
+      lat: p.latitude, lng: p.longitude, cost: options.allowShopping && shoppingRecord(r) ? 0 : costKrw(check.cost_jpy, request.krw_per_jpy),
       stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1],
       bagLoad: p.bag_load / 2,
       // No invented popularity/exposure/arcade values: the scheduling function does not use them.
@@ -126,7 +135,7 @@ export function validateDay(request, dataset, profiles, options = {}) {
     const shopping = shoppingRecord(record);
     return {place_id: item.place.id, name_ko: item.place.name, start_min: item.startMin, end_min: item.endMin,
       stay_min: item.place.stayMin, move_min: movement.min, move_mode: movement.mode,
-      cost_jpy: shopping ? null : record.place.cost, cost_krw: shopping ? null : item.place.cost,
+      cost_jpy: shopping ? null : visitCosts.get(item.place.id), cost_krw: shopping ? null : item.place.cost,
       cost_status: shopping ? 'not_applicable_shopping' : 'known',
       cost_basis: profiles.places[item.place.id].cost_basis};
   });

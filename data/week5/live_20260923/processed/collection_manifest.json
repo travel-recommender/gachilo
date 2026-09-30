@@ -49,12 +49,12 @@
       "latitude": 0,
       "longitude": 0,
       "opening_hours": 16,
-      "cost": 110,
+      "cost": 109,
       "stay_min": 0,
       "bag_load": 0,
       "covered": 116,
       "website": 10,
-      "opening_hours_source": 48,
+      "opening_hours_source": 44,
       "verified_at": 24
     },
     "selected_with_address_components": 50
@@ -97,8 +97,8 @@
   "latest_enrichment_statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 810,
-    "non_null_fields_updated": 96,
+    "null_fields_filled": 815,
+    "non_null_fields_updated": 113,
     "missing_before": {
       "place_id": 0,
       "name": 0,
@@ -127,12 +127,12 @@
       "latitude": 0,
       "longitude": 0,
       "opening_hours": 16,
-      "cost": 110,
+      "cost": 109,
       "stay_min": 0,
       "bag_load": 0,
       "covered": 116,
       "website": 10,
-      "opening_hours_source": 48,
+      "opening_hours_source": 44,
       "verified_at": 24
     },
     "records_with_blockers": 45,
@@ -140,5 +140,5 @@
     "editorial_korean_names_filled": 110,
     "map_addresses_added": 31
   },
-  "latest_enrichment_checks_sha256": "ff560b4367b0420e33f7955924dc6935f38fa6ab6f56dcd9a3e3b929ed12692e"
+  "latest_enrichment_checks_sha256": "90a09b458d6d7391909961ec7266566716321227ce87a3ccdf02941f3e8d5b5f"
 }

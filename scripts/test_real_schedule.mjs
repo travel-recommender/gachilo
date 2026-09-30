@@ -16,6 +16,51 @@ test('JPY conversion is decimal half-up and rejects null/invalid rates', () => {
   for (const cost of [null, true, -1, NaN, 1.2]) assert.throws(() => costKrw(cost, '9.2'));
   for (const rate of [null, 9.2, '0', '-1', 'NaN', 'Infinity']) assert.throws(() => costKrw(1, rate));
 });
+test('dated free admission changes both JPY and KRW totals without changing the catalogue', () => {
+  const id='osaka_draft_ce3b8d452a0e';
+  const regular=run([id]);
+  assert.equal(regular.items[0].cost_jpy,430);
+  const free=run([id],{date:'2026-10-03',budget_krw:0});
+  assert.equal(free.passed_model_checks,true);
+  assert.equal(free.items[0].cost_jpy,0);
+  assert.equal(free.items[0].cost_krw,0);
+  assert.equal(free.totals.selected_admission_and_menu_krw,0);
+  assert.equal(record(id).place.cost,430);
+  assert.equal(run(['osaka_011'],{date:'2026-10-21',budget_krw:0}).passed_model_checks,true);
+  assert.equal(run(['osaka_011'],{date:'2026-10-20',budget_krw:0}).passed_model_checks,false);
+});
+test('exhibition end date and special Monday opening are enforced independently', () => {
+  const id='osaka_draft_ce3b8d452a0e';
+  assert.equal(run([id],{date:'2026-11-02'}).passed_model_checks,true);
+  assert.equal(run([id],{date:'2026-11-03',budget_krw:0}).passed_model_checks,true);
+  assert.ok(availability(record(id),'2026-11-04',profiles).reasons.includes('outside_place_reviewed_date_range'));
+  assert.ok(availability(record(id),'2026-10-13',profiles).reasons.includes('closed_on_visit_date'));
+  assert.equal(run([id],{date:'2026-10-12'}).passed_model_checks,true);
+});
+test('invalid dated prices fail closed, including explicit null instead of a fallback price', () => {
+  const id='osaka_draft_ce3b8d452a0e';
+  for (const cost of [null,-1,1.5,'0',true]) {
+    const p=structuredClone(profiles);p.places[id].exceptions['2026-10-03'].cost_jpy=cost;
+    assert.equal(run([id],{date:'2026-10-03'},dataset,p).passed_model_checks,false);
+  }
+});
+test('corrected shopping category keeps spend null and applies the agreed short stay', () => {
+  const id='osaka_draft_5a243c3857f7';
+  const result=validateDay(request([id]),dataset,profiles,{allowShopping:true});
+  assert.equal(result.passed_model_checks,true);
+  assert.equal(result.items[0].cost_jpy,null);
+  assert.equal(result.items[0].stay_min,30);
+  assert.equal(record(id).place.bag_load,2);
+});
+test('restaurant menu scope and unresolved holiday hours are not widened', () => {
+  const agora=run(['osaka_draft_2f89be830b8c']);
+  assert.equal(agora.passed_model_checks,true);
+  assert.ok(agora.items[0].start_min>=840 && agora.items[0].end_min<=1020);
+  const saizeriya=run(['osaka_draft_2eb759c40909']);
+  assert.equal(saizeriya.items[0].cost_jpy,300);
+  assert.ok(saizeriya.items[0].end_min<=1320);
+  assert.ok(availability(record('osaka_draft_873f1e0cf834'),'2026-11-03',profiles).reasons.includes('holiday_hours_unconfirmed'));
+});
 test('historical museum closes Tuesday and shifts a holiday closure to Wednesday', () => {
   const r = record('osaka_012');
   assert.ok(availability(r, '2026-10-06', profiles).reasons.includes('closed_on_visit_date'));

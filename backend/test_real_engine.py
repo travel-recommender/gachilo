@@ -53,6 +53,20 @@ class RealRoomTests(unittest.TestCase):
         persisted=Store(self.db).result(room['roomId'],room['ownerToken'])
         self.assertEqual(persisted,data)
 
+    def test_free_exhibition_date_survives_http_calculation_and_saved_result(self):
+        room=self.room(start='2026-10-03',end='2026-10-03')
+        place_id='osaka_draft_ce3b8d452a0e'
+        for member in room['members']:
+            self.assertEqual(self.save(room,member,[place_id],budgetPerDay=0)[0],200)
+        code,data,_=self.calculate(room)
+        self.assertEqual(code,200)
+        self.assertEqual(data['planning']['scheduled_count'],1)
+        item=data['planning']['days'][0]['items'][0]
+        self.assertEqual((item['place_id'],item['cost_jpy'],item['cost_krw']),(place_id,0,0))
+        code,saved,_=self.req('GET',f"/rooms/{room['roomId']}/results",token=room['ownerToken'])
+        self.assertEqual(code,200)
+        self.assertEqual(saved,data)
+
     def test_catalogs_do_not_mix_in_either_direction(self):
         real=self.room();demo=self.room('prototype_demo_36')
         self.assertEqual(self.save(real,real['members'][0],['glico'])[0],400)

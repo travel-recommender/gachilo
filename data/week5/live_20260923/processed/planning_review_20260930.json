@@ -5,8 +5,8 @@
   "statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 810,
-    "non_null_fields_updated": 96,
+    "null_fields_filled": 815,
+    "non_null_fields_updated": 113,
     "missing_before": {
       "place_id": 0,
       "name": 0,
@@ -35,12 +35,12 @@
       "latitude": 0,
       "longitude": 0,
       "opening_hours": 16,
-      "cost": 110,
+      "cost": 109,
       "stay_min": 0,
       "bag_load": 0,
       "covered": 116,
       "website": 10,
-      "opening_hours_source": 48,
+      "opening_hours_source": 44,
       "verified_at": 24
     },
     "records_with_blockers": 45,
@@ -14799,6 +14799,464 @@
         "revision": "schedule_profile_expansion_20260930",
         "note": "현재 공식 메뉴 페이지에서 연결한 평일 오늘의 메인 플레이트 1인 1250 JPY(빵 또는 밥). 휴일 메뉴의 1700 JPY와 다르므로 평일 비공휴일 11:30~15:00에만 계산. 15시는 점심 주문 마감이며 이 모델에서는 식사도 그 전에 마치도록 제한. 음료·추가 주문 제외. 최신 PDF에서 세금 포함 문구는 확인하지 못함."
       }
+    },
+    {
+      "place_id": "osaka_draft_5a243c3857f7",
+      "field": "category",
+      "before": "명소",
+      "after": "쇼핑",
+      "previous_source": {
+        "kind": "osm",
+        "url": "https://www.openstreetmap.org/node/7573379495"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 오사카 혼마치점의 향 판매점 안내에 따라 명소→쇼핑으로 분류 정정. 원본 OSM 태그·ID·좌표는 보존."
+      }
+    },
+    {
+      "place_id": "osaka_draft_5a243c3857f7",
+      "field": "stay_min",
+      "before": 120,
+      "after": 30,
+      "previous_source": {
+        "kind": "team_rule_estimate",
+        "urls": [
+          "https://github.com/travel-recommender/gachilo/issues/1"
+        ],
+        "checked_at": "2026-09-29",
+        "revision": "team_planning_rules_20260929",
+        "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+      },
+      "source": {
+        "kind": "team_rule_estimate",
+        "urls": [
+          "https://github.com/travel-recommender/gachilo/issues/1",
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "사용자 합의 단순 쇼핑 15~30분 상한 30분, get_luggage_score 쇼핑=2 적용. 실측 소요시간/무게 아님."
+      }
+    },
+    {
+      "place_id": "osaka_draft_5a243c3857f7",
+      "field": "bag_load",
+      "before": 0,
+      "after": 2,
+      "previous_source": {
+        "kind": "team_rule_estimate",
+        "urls": [
+          "https://github.com/travel-recommender/gachilo/issues/1"
+        ],
+        "checked_at": "2026-09-29",
+        "revision": "team_planning_rules_20260929",
+        "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+      },
+      "source": {
+        "kind": "team_rule_estimate",
+        "urls": [
+          "https://github.com/travel-recommender/gachilo/issues/1",
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "사용자 합의 단순 쇼핑 15~30분 상한 30분, get_luggage_score 쇼핑=2 적용. 실측 소요시간/무게 아님."
+      }
+    },
+    {
+      "place_id": "osaka_draft_ce3b8d452a0e",
+      "field": "opening_hours",
+      "before": "Sa-Su 10:00-17:00,Tu-Th 10:00-19:00,Fr 10:00-19:00",
+      "after": "2026-07-19~11-03 컬렉션1: 10:00~17:00, 금요일 20:00까지(입장 30분 전); 월요일 휴관, 10/12·11/2 개관, 10/13 휴관",
+      "previous_source": {
+        "kind": "osm",
+        "url": "https://www.openstreetmap.org/way/231449189"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.nmao.go.jp/events/event/collection20260719/"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "컬렉션1 전시 기간·휴관 예외 확인. 일반 주간 430엔, 지정 무료일 0엔. 금요일 17시 이후 250엔은 모델 대상 시간에서 제외하고, 11/4 이후 새 전시 확인 전 제외."
+      }
+    },
+    {
+      "place_id": "osaka_draft_ce3b8d452a0e",
+      "field": "opening_hours_source",
+      "before": null,
+      "after": "https://www.nmao.go.jp/events/event/collection20260719/",
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.nmao.go.jp/events/event/collection20260719/"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "컬렉션1 전시 기간·휴관 예외 확인. 일반 주간 430엔, 지정 무료일 0엔. 금요일 17시 이후 250엔은 모델 대상 시간에서 제외하고, 11/4 이후 새 전시 확인 전 제외."
+      }
+    },
+    {
+      "place_id": "osaka_draft_ce3b8d452a0e",
+      "field": "verified_at",
+      "before": "2026-09-28",
+      "after": "2026-09-30",
+      "previous_source": {
+        "kind": "review_date_only",
+        "note": "이번에 확인한 필드만 검증. 전체 필드·영업 상태 검증을 뜻하지 않음.",
+        "check_id": "official_fields_20260928"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.nmao.go.jp/events/event/collection20260719/"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "컬렉션1 전시 기간·휴관 예외 확인. 일반 주간 430엔, 지정 무료일 0엔. 금요일 17시 이후 250엔은 모델 대상 시간에서 제외하고, 11/4 이후 새 전시 확인 전 제외."
+      }
+    },
+    {
+      "place_id": "osaka_draft_9e900589aec0",
+      "field": "opening_hours",
+      "before": "Jan 04-Dec 28 09:00-17:30",
+      "after": "3~10월 09:00~17:00(입장 16:30까지); 11~2월 09:00~16:30(입장 16:00까지); 월요일 휴원, 월요일 공휴일이면 다음날 휴원",
+      "previous_source": {
+        "kind": "osm",
+        "url": "https://www.openstreetmap.org/way/159278501"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://osaka-chushin.jp/en/routes/33146",
+          "https://www.osakacastlepark.jp/news/?lang=ja"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 구 관광포털의 계절별 시간으로 기존 OSM 17:30 종료를 정정. 비용은 운영자 2026-04-01 인상 공지의 300 JPY 유지; 관광포털의 구가격 200엔은 사용하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_9e900589aec0",
+      "field": "opening_hours_source",
+      "before": null,
+      "after": "https://osaka-chushin.jp/en/routes/33146",
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://osaka-chushin.jp/en/routes/33146",
+          "https://www.osakacastlepark.jp/news/?lang=ja"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 구 관광포털의 계절별 시간으로 기존 OSM 17:30 종료를 정정. 비용은 운영자 2026-04-01 인상 공지의 300 JPY 유지; 관광포털의 구가격 200엔은 사용하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_9e900589aec0",
+      "field": "verified_at",
+      "before": "2026-09-28",
+      "after": "2026-09-30",
+      "previous_source": {
+        "kind": "review_date_only",
+        "note": "이번에 확인한 필드만 검증. 전체 필드·영업 상태 검증을 뜻하지 않음.",
+        "check_id": "official_fields_20260928"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://osaka-chushin.jp/en/routes/33146",
+          "https://www.osakacastlepark.jp/news/?lang=ja"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 구 관광포털의 계절별 시간으로 기존 OSM 17:30 종료를 정정. 비용은 운영자 2026-04-01 인상 공지의 300 JPY 유지; 관광포털의 구가격 200엔은 사용하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2f89be830b8c",
+      "field": "opening_hours",
+      "before": "11:00-17:00",
+      "after": "점심 11:00~14:00 / 카페 14:00~17:00; 2027-02-08 전일 휴업",
+      "previous_source": {
+        "kind": "osm",
+        "url": "https://www.openstreetmap.org/node/12870742282"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 카페 메뉴 오므라이스 단품 1000엔(세금 포함), 음료 포함 1200엔과 구분. 해당 메뉴는 카페 시간 14~17시에만 모델 적용하며 점심 메뉴로 가정하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2f89be830b8c",
+      "field": "opening_hours_source",
+      "before": null,
+      "after": "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora",
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 카페 메뉴 오므라이스 단품 1000엔(세금 포함), 음료 포함 1200엔과 구분. 해당 메뉴는 카페 시간 14~17시에만 모델 적용하며 점심 메뉴로 가정하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2f89be830b8c",
+      "field": "cost",
+      "before": 1000,
+      "after": 1000,
+      "previous_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+        ],
+        "checked_at": "2026-09-28",
+        "note": "아고라 공식 카페 메뉴의 오므라이스 단품 1000엔 기준. 음료 세트는 1200엔으로 별도. 평균 식비가 아니며 세금 포함 여부는 해당 가격 문구에서 미확인.",
+        "revision": "official_fields_20260928_v2"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 카페 메뉴 오므라이스 단품 1000엔(세금 포함), 음료 포함 1200엔과 구분. 해당 메뉴는 카페 시간 14~17시에만 모델 적용하며 점심 메뉴로 가정하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2f89be830b8c",
+      "field": "verified_at",
+      "before": "2026-09-28",
+      "after": "2026-09-30",
+      "previous_source": {
+        "kind": "review_date_only",
+        "urls": [
+          "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+        ],
+        "checked_at": "2026-09-28",
+        "note": "아고라 공식 카페 메뉴의 오므라이스 단품 1000엔 기준. 음료 세트는 1200엔으로 별도. 평균 식비가 아니며 세금 포함 여부는 해당 가격 문구에서 미확인.",
+        "revision": "official_fields_20260928_v2"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 카페 메뉴 오므라이스 단품 1000엔(세금 포함), 음료 포함 1200엔과 구분. 해당 메뉴는 카페 시간 14~17시에만 모델 적용하며 점심 메뉴로 가정하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2eb759c40909",
+      "field": "cost",
+      "before": null,
+      "after": 300,
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.saizeriya.co.jp/menu-popular/2101/",
+          "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 표준 메뉴 밀라노풍 도리아 1개 300 JPY(세금 포함). 평균/식사 총액 아님. 일부 점포 상품 예외·품절 가능. 22시 이후 10% 심야요금을 피하도록 모델은 22시 전 종료만 허용."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2eb759c40909",
+      "field": "verified_at",
+      "before": "2026-09-28",
+      "after": "2026-09-30",
+      "previous_source": {
+        "kind": "review_date_only",
+        "urls": [
+          "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
+        ],
+        "checked_at": "2026-09-28",
+        "note": "공식 점포 코드 1031, 신오사카역 니시미야하라점. 기존 주소 구성요소·전화와 대조. 기존 11:00–02:00를 공식 시간으로 정정.",
+        "revision": "official_fields_20260928_v2"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.saizeriya.co.jp/menu-popular/2101/",
+          "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 표준 메뉴 밀라노풍 도리아 1개 300 JPY(세금 포함). 평균/식사 총액 아님. 일부 점포 상품 예외·품절 가능. 22시 이후 10% 심야요금을 피하도록 모델은 22시 전 종료만 허용."
+      }
+    },
+    {
+      "place_id": "osaka_draft_57eaac2e578d",
+      "field": "opening_hours",
+      "before": "평일 12:00–21:00; 토·일·공휴일 12:00–19:00; 식사 주문 16:00까지; 비정기 휴무",
+      "after": "2026년 3월부터 고양이방 매일 12:00~21:00 / 비건카페 12:00~16:00; 비정기 휴무",
+      "previous_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://neu-catcafe.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
+          "https://neu-catcafe.com/price"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "2026-04-22 날짜 있는 운영자 공지 우선. 일반 고양이방 1시간 1800엔(회원할인 제외), 기존 체류 60분과 일치. 양말 지참 조건, 비정기 휴무의 방문일 확인은 남음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_57eaac2e578d",
+      "field": "opening_hours_source",
+      "before": "https://neu-catcafe.com/",
+      "after": "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
+      "previous_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://neu-catcafe.com/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
+          "https://neu-catcafe.com/price"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "2026-04-22 날짜 있는 운영자 공지 우선. 일반 고양이방 1시간 1800엔(회원할인 제외), 기존 체류 60분과 일치. 양말 지참 조건, 비정기 휴무의 방문일 확인은 남음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_57eaac2e578d",
+      "field": "verified_at",
+      "before": "2026-09-28",
+      "after": "2026-09-30",
+      "previous_source": {
+        "kind": "review_date_only",
+        "note": "이번에 확인한 필드만 검증. 전체 필드·영업 상태 검증을 뜻하지 않음.",
+        "check_id": "official_fields_20260928"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
+          "https://neu-catcafe.com/price"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "2026-04-22 날짜 있는 운영자 공지 우선. 일반 고양이방 1시간 1800엔(회원할인 제외), 기존 체류 60분과 일치. 양말 지참 조건, 비정기 휴무의 방문일 확인은 남음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_7c98da5a96f9",
+      "field": "opening_hours",
+      "before": "We-Mo 10:00-17:00",
+      "after": "2026-09-01~2027-01-05 휴관(대규모 보수공사); 재개관 이후 시간은 별도 확인",
+      "previous_source": {
+        "kind": "osm",
+        "url": "https://www.openstreetmap.org/node/4419665990"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.osaka-angenet.jp/konjyakukan/exhibition_special/260001514"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 장기 휴관 기간 확정. 시청의 대체 전시를 기존 박물관 좌표에서 운영하는 것으로 처리하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_7c98da5a96f9",
+      "field": "opening_hours_source",
+      "before": null,
+      "after": "https://www.osaka-angenet.jp/konjyakukan/exhibition_special/260001514",
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.osaka-angenet.jp/konjyakukan/exhibition_special/260001514"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 장기 휴관 기간 확정. 시청의 대체 전시를 기존 박물관 좌표에서 운영하는 것으로 처리하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_7c98da5a96f9",
+      "field": "verified_at",
+      "before": "2026-09-28",
+      "after": "2026-09-30",
+      "previous_source": {
+        "kind": "review_date_only",
+        "urls": [
+          "https://www.osaka-angenet.jp/konjyakukan/faq"
+        ],
+        "checked_at": "2026-09-28",
+        "note": "성인 개인 일반 관람료 600엔, 실내 전시장 기준. 기존 임시휴관 경고는 유지하며 방문일 운영 여부 별도 확인. 특별전·유료 짐 보관료 제외.",
+        "revision": "official_fields_20260928_v2"
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.osaka-angenet.jp/konjyakukan/exhibition_special/260001514"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 장기 휴관 기간 확정. 시청의 대체 전시를 기존 박물관 좌표에서 운영하는 것으로 처리하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_74dbaeea6a02",
+      "field": "cost",
+      "before": 550,
+      "after": 550,
+      "previous_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://kissaaoiclub.com/"
+        ],
+        "checked_at": "2026-09-28",
+        "note": "기준 메뉴: 홍차 1인 550엔 JPY. 커피 550엔부터와 구분, 식사/추가 주문 별도."
+      },
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://kissaaoiclub.com/"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "정확한 메뉴 가격 홍차 550 JPY로 근거를 한정. 커피 550엔부터(하한)는 고정가격으로 쓰지 않음. 동일 공식 페이지의 월요일/화요일 휴무 및 종료시간 충돌이 남아 hours=null·제외 유지."
+      }
     }
   ],
   "attempts": [
@@ -15448,9 +15906,7 @@
       ],
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
-      "remaining_null_fields": [
-        "opening_hours_source"
-      ],
+      "remaining_null_fields": [],
       "additional_pass_evidence_urls": [
         "https://www.osaka-angenet.jp/konjyakukan/faq"
       ]
@@ -15529,9 +15985,7 @@
         "https://www.nmao.go.jp/visit/admission/"
       ],
       "result": "fields_updated",
-      "remaining_null_fields": [
-        "opening_hours_source"
-      ]
+      "remaining_null_fields": []
     },
     {
       "place_id": "osaka_draft_316598fb77c9",
@@ -15795,9 +16249,7 @@
         "https://www.city.osaka.lg.jp/koho/cmsfiles/0000015/15373/15373.pdf"
       ],
       "result": "fields_updated",
-      "remaining_null_fields": [
-        "opening_hours_source"
-      ]
+      "remaining_null_fields": []
     },
     {
       "place_id": "osaka_draft_f72944194ef3",
@@ -16748,8 +17200,7 @@
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
         "area",
-        "covered",
-        "opening_hours_source"
+        "covered"
       ],
       "additional_pass_evidence_urls": [
         "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
@@ -16960,7 +17411,6 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
         "covered"
       ],
       "additional_pass_evidence_urls": [
@@ -18876,6 +19326,81 @@
         "osaka_draft_23d3d20ef739"
       ],
       "count": 19
+    }
+  ],
+  "blocker_resolutions": [
+    {
+      "place_id": "osaka_draft_5a243c3857f7",
+      "blocker": "category_mismatch",
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 오사카 혼마치점의 향 판매점 안내에 따라 명소→쇼핑으로 분류 정정. 원본 OSM 태그·ID·좌표는 보존."
+      }
+    },
+    {
+      "place_id": "osaka_draft_9e900589aec0",
+      "blocker": "hours_conflict",
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://osaka-chushin.jp/en/routes/33146",
+          "https://www.osakacastlepark.jp/news/?lang=ja"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "공식 구 관광포털의 계절별 시간으로 기존 OSM 17:30 종료를 정정. 비용은 운영자 2026-04-01 인상 공지의 300 JPY 유지; 관광포털의 구가격 200엔은 사용하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_57eaac2e578d",
+      "blocker": "ticket_scenario_required",
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
+          "https://neu-catcafe.com/price"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "schedule_followup_20260930",
+        "note": "2026-04-22 날짜 있는 운영자 공지 우선. 일반 고양이방 1시간 1800엔(회원할인 제외), 기존 체류 60분과 일치. 양말 지참 조건, 비정기 휴무의 방문일 확인은 남음."
+      }
+    }
+  ],
+  "followups": [
+    {
+      "revision": "schedule_followup_20260930",
+      "checked_at": "2026-09-30",
+      "touched_place_ids": [
+        "osaka_001",
+        "osaka_011",
+        "osaka_draft_2a9b88c21411",
+        "osaka_draft_2eb759c40909",
+        "osaka_draft_2f89be830b8c",
+        "osaka_draft_316598fb77c9",
+        "osaka_draft_31878d4960fc",
+        "osaka_draft_50b7a6cc608f",
+        "osaka_draft_57eaac2e578d",
+        "osaka_draft_5a243c3857f7",
+        "osaka_draft_5a3ef73c2b4b",
+        "osaka_draft_74dbaeea6a02",
+        "osaka_draft_7c98da5a96f9",
+        "osaka_draft_873f1e0cf834",
+        "osaka_draft_89de388fac63",
+        "osaka_draft_9e900589aec0",
+        "osaka_draft_a270504b6cd8",
+        "osaka_draft_c85fa26beb80",
+        "osaka_draft_ce3b8d452a0e",
+        "osaka_draft_e5eb4dd70807",
+        "osaka_draft_fa65b053e525",
+        "osaka_draft_fc7acd992f21",
+        "osm_node_2296903605"
+      ],
+      "notes": "시간/가격 적용 범위를 확정한 항목만 갱신; 기존 ID/좌표 및 원본 OSM 유지. 모든 장소의 공식 재검증 완료를 뜻하지 않음."
     }
   ]
 }
