@@ -4,6 +4,10 @@ from unittest.mock import patch
 from engine import Engine, EngineError
 
 class EngineTests(unittest.TestCase):
+    def test_utf8_node_output_with_cp949_default(self):
+        with patch('subprocess._text_encoding', return_value='cp949'):
+            engine=Engine()
+        self.assertTrue(any(p.get('name')=='우메다 스카이빌딩 공중정원' for p in engine.catalog))
     def test_old_node_fails_before_catalog(self):
         with patch('engine.os.environ', {'NODE_BINARY':'node'}), patch('engine.subprocess.run', return_value=subprocess.CompletedProcess([],0,'v16.20.2\n','')) as run:
             with self.assertRaisesRegex(EngineError,'Node.js 24.*v16.20.2'):

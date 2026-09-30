@@ -60,7 +60,7 @@ def project(record,rate):
     return out
 
 def catalog(query='',category=None,limit=150,path=DATA,rate=None):
-    rate=exchange_rate(rate);raw=json.loads(Path(path).read_text())['places']
+    rate=exchange_rate(rate);raw=json.loads(Path(path).read_text(encoding='utf-8'))['places']
     matches=[r for r in raw if (not category or r['place']['category']==category) and
       (not query or query.casefold() in (' '.join(str(r['place'].get(k) or '') for k in ('name','name_ko','area'))).casefold())]
     return {'dataset':'osaka_review_150','total':len(matches),'currency':'KRW',
