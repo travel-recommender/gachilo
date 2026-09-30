@@ -92,6 +92,12 @@ class Store:
             count=c.execute('SELECT COUNT(*) FROM members m JOIN submissions s ON m.id=s.member_id WHERE m.room_id=?',(rid,)).fetchone()[0]
             total=c.execute('SELECT COUNT(*) FROM members WHERE room_id=?',(rid,)).fetchone()[0]
         return {'roomId':rid,'status':'ready' if row else 'awaiting_result' if count==total else 'collecting','submittedCount':count,'memberCount':total,'revision':r['revision'],'result':json.loads(row['payload']) if row else None}
+    def meta(self,rid,token):
+        # Room basics for invited members. Never returns tokens or inputs.
+        with self.connect() as c:
+            c.execute('BEGIN');r=self.room(c,rid);self.authenticate(c,r,token)
+            rows=c.execute('SELECT id,name FROM members WHERE room_id=? ORDER BY rowid',(rid,)).fetchall()
+        return {'roomId':rid,'startDate':r['start'],'endDate':r['end'],'members':[{'id':m['id'],'name':m['name']} for m in rows]}
     def snapshot(self,rid,token):
         with self.connect() as c:
             c.execute('BEGIN')
@@ -172,6 +178,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     return self.send_json(200,store.result(m[1],token))
                 if self.command=='GET' and path=='/health':return self.send_json(200,{'ok':True})
                 if self.command=='POST' and path=='/rooms':return self.send_json(201,store.create(b))
+                m=re.fullmatch(r'/rooms/([\w-]+)',path)
+                if self.command=='GET' and m:return self.send_json(200,store.meta(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/submissions/([\w-]+)',path)
                 if self.command=='PUT' and m:return self.send_json(200,store.submit(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/results',path)
