@@ -22,6 +22,7 @@ const CASES = [
   ['정상 응답', { AI_MOCK: '1' }],
   ['JSON이 깨져서 옴', { AI_MOCK: 'bad' }],
   ['없는 장소를 지어냄', { AI_MOCK: 'halluc' }],
+  ['자유 문장을 씀', { AI_MOCK: 'freetext' }],
   ['응답이 없어 시간 초과', { SOMSOM_API_KEY: 'x', SOMSOM_BASE_URL: 'http://10.255.255.1/v1', AI_TIMEOUT_MS: '800' }],
   ['키가 없음', {}],
   ['주소가 틀림', { SOMSOM_API_KEY: 'x', SOMSOM_BASE_URL: 'https://localhost:9/none' }],
@@ -32,6 +33,7 @@ for (const [name, env] of CASES) {
   ['AI_MOCK', 'AI_MOCK_ADD', 'AI_TIMEOUT_MS', 'SOMSOM_API_KEY', 'SOMSOM_BASE_URL'].forEach((k) => delete process.env[k]);
   Object.assign(process.env, env);
   const r = await enrich(consensus, SUBS, DAYS, RULE_SUMMARY);
-  const ok = typeof r.summary === 'string' && r.summary.length > 0 && r.selections.length > 0;
-  console.log(`${ok ? '결과 나옴' : '결과 없음!!'} · ${name.padEnd(12)} · AI ${r.ai.used ? '사용' : '건너뜀'} (${r.ai.reason})${r.ai.errors.length ? ' — ' + r.ai.errors[0] : ''}`);
+  const ok = typeof r.summary === 'string' && r.summary.length > 0 && r.core.length > 0
+             && r.core.every((s) => s.tier === 'core');
+  console.log(`${ok ? '결과 나옴(옵션 없음)' : '문제!!'} · ${name.padEnd(12)} · AI ${r.ai.used ? '사용' : '건너뜀'} (${r.ai.reason})${r.ai.errors.length ? ' — ' + r.ai.errors[0] : ''}`);
 }

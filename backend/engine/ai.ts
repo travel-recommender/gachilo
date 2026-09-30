@@ -2,13 +2,17 @@
  * AI 연결 — 규칙 엔진 결과를 근거 JSON으로 만들어 솜솜AI 게이트웨이(OpenAI 호환)에 1회 보내고,
  * 검증을 통과한 결과만 일정에 반영한다. 실패하면 규칙 결과를 그대로 쓴다.
  *
+ * 설계 원칙 — 모델은 자유 문장을 쓰지 않는다.
+ *   모델이 하는 일은 (1) 후보 중에서 고르기, (2) 어떤 설명이 이번 결과에 해당하는지 고르기 두 가지뿐이다.
+ *   문장은 코드가 템플릿으로 만들고 숫자·장소 이름도 코드가 넣는다.
+ *   그래서 "없는 장소를 말한다", "없는 숫자를 만든다"가 구조적으로 불가능하다.
+ *
  * 환경변수
- *   SOMSOM_API_KEY   동덕여대 솜솜AI API 키. 없으면 AI를 건너뛴다 (서버는 그대로 동작)
- *   SOMSOM_MODEL     기본 gpt-4o-mini. /v1/gateway/models/ 로 목록을 보고 바꾼다
+ *   SOMSOM_API_KEY   동덕여대 솜솜AI API 키. 없으면 AI를 건너뛰고 규칙 결과로 응답한다
+ *   SOMSOM_MODEL     기본 gemini-3.5-flash-lite
  *   SOMSOM_BASE_URL  기본 https://factchat-cloud.mindlogic.ai/v1/gateway
  *   AI_TIMEOUT_MS    기본 12000
- *   AI_MOCK          호출 없이 고정 응답 (테스트용)
- *                    1=정상 · bad=JSON 깨짐 · halluc=없는 장소
+ *   AI_MOCK          호출 없이 고정 응답 (검사용) 1=정상 · bad=JSON 깨짐 · halluc=없는 장소 · freetext=자유 문장
  */
 import { allPlaces } from "./places.ts";
 import { distKm, toView, tripBudget, utilityOf } from "./consensus.ts";
@@ -24,8 +28,7 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
   const capacity = days * slotsPerDay;
 
   // 규칙이 AI 대신 넣어 둔 곳은 빼고 그 자리를 모델에 돌려준다
-  const human = res.selections.filter((s) => !s.aiAdded);
-  const humanCore = human.filter((s) => s.tier === "core");
+  const humanCore = res.core.filter((s) => !s.aiAdded);
   const fixedCost = humanCore.reduce((a, s) => a + s.place.cost, 0);
   const budget = Math.min(...submissions.map((s) => tripBudget(s, days)));
   const remaining = Math.max(0, budget - fixedCost);
@@ -40,18 +43,31 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
     cost_won: p.cost, stay_min: p.stayMin, open: `${hhmm(p.openFrom)}-${hhmm(p.openTo)}`,
   });
 
-  const ai_candidates = allPlaces()
+  const slots = Math.max(0, capacity - humanCore.length);
+
+  // 카테고리별로 돌아가며 뽑는다. popularity가 상수여도 후보가 한 카테고리에 쏠리지 않는다
+  const scored = allPlaces()
     .filter((p) => !taken.has(p.id) && !picked.has(p.id) && !vetoed.has(p.id) && p.cost <= remaining)
     .map((p) => {
       const u = subs.map((s) => utilityOf(p, s));
       return { ...ep(p), fit_min: r2(Math.min(...u)), fit_avg: r2(u.reduce((a, b) => a + b, 0) / u.length),
                taste_match: pickedCats.filter((c) => c.has(p.category)).length };
     })
-    .filter((c) => c.fit_min >= 0.2)
-    .sort((a, b) => b.fit_avg - a.fit_avg || a.id.localeCompare(b.id))
-    .slice(0, 10);
+    .filter((c) => Number.isFinite(c.fit_avg) && c.fit_min >= 0.2)
+    .sort((a, b) => b.fit_avg - a.fit_avg || a.id.localeCompare(b.id));
 
-  const used = [...human.map((s) => s.place), ...allPlaces().filter((p) => ai_candidates.some((c) => c.id === p.id))];
+  const byCat = new Map<string, typeof scored>();
+  scored.forEach((c) => byCat.set(c.category, [...(byCat.get(c.category) ?? []), c]));
+  const ai_candidates: typeof scored = [];
+  while (ai_candidates.length < 10 && [...byCat.values()].some((v) => v.length)) {
+    for (const list of byCat.values()) {
+      const next = list.shift();
+      if (next && ai_candidates.length < 10) ai_candidates.push(next);
+    }
+  }
+
+  const used = [...humanCore, ...res.options].map((s) => s.place)
+    .concat(allPlaces().filter((p) => ai_candidates.some((c) => c.id === p.id)));
   const areas = [...new Set(used.map((p) => p.area))].sort();
   const center = (a: string) => {
     const ps = used.filter((p) => p.area === a);
@@ -61,6 +77,12 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
   for (let i = 0; i < areas.length; i++)
     for (let j = i + 1; j < areas.length; j++)
       area_km[`${areas[i]}|${areas[j]}`] = Math.round(distKm(center(areas[i]), center(areas[j])) * 10) / 10;
+
+  const sel = (s: Selection, tier: "core" | "option") => ({
+    ...ep(s.place), tier,
+    reason: s.mustOf ? "must" : tier === "core" ? "votes" : "partial",
+    votes: s.votes,
+  });
 
   return {
     task: "plan" as const,
@@ -73,9 +95,8 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
       walk_km_per_day: Math.round(Math.min(...subs.map((s) => s.walkLimit)) * 10) / 10,
       active_min_per_day: Math.min(...subs.map((s) => s.activeMin)),
     },
-    ai_slots: Math.max(0, capacity - humanCore.length),
-    fixed: human.map((s) => ({ ...ep(s.place), tier: s.tier,
-      reason: s.mustOf ? "must" : s.tier === "core" ? "votes" : "partial", votes: s.votes })),
+    ai_slots: slots,
+    fixed: [...humanCore.map((s) => sel(s, "core")), ...res.options.map((s) => sel(s, "option"))],
     ai_candidates,
     excluded: res.excluded.map((s) => ({ id: s.place.id, name: s.place.name, reason: s.excluded ?? "time" })),
     area_km,
@@ -83,7 +104,42 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
 }
 export type Evidence = ReturnType<typeof buildEvidence>;
 
-/* ══════════ 2. 프롬프트 (논문 2.3 구조) ══════════ */
+/* ══════════ 2. 출력 어휘 — 모델은 여기 있는 코드만 고를 수 있다 ══════════ */
+
+/** AI가 장소를 추가한 이유. 문장은 코드가 만든다 */
+const REASON_TEXT: Record<string, (name: string) => string> = {
+  budget_fits: (n) => `${n}은(는) 남은 예산 안에서 갈 수 있어요.`,
+  no_one_dislikes: (n) => `${n}은(는) 누구에게도 부담스럽지 않은 곳이에요.`,
+  near_fixed: (n) => `${n}은(는) 이미 정해진 곳들과 가까워 이동이 적어요.`,
+  category_gap: (n) => `${n}은(는) 지금 일정에 없는 종류라 하루가 단조롭지 않아요.`,
+};
+
+/** 전체 설명. 근거가 있을 때만 쓸 수 있다 */
+const SUMMARY_TEXT: Record<string, (e: Evidence, added: Place[]) => string> = {
+  must_kept: (e) => `${e.fixed.filter((f) => f.reason === "must").length}곳의 '꼭 가고 싶은 곳'은 모두 지켰어요.`,
+  ai_filled: (_e, a) => `남은 자리에는 ${a.map((p) => p.name).join(", ")}을(를) 넣었어요.`,
+  no_room: () => `모두가 고른 곳으로 일정이 다 차서 더 넣지 않았어요.`,
+  budget_limited: (e) => `남은 예산 ${e.group_limits.remaining_budget_won.toLocaleString("ko-KR")}원 안에서 고를 수 있는 곳만 담았어요.`,
+  options_free: (e) => `${e.fixed.filter((f) => f.tier === "option").length}곳은 원하는 분만 가는 일정으로 남겼어요.`,
+  veto_excluded: () => `빼 달라고 한 곳은 일정에서 제외했어요.`,
+  walk_limited: (e) => `하루 ${e.group_limits.walk_km_per_day}km 안에서 움직이도록 맞췄어요.`,
+};
+
+/** 각 설명을 쓸 수 있는 조건. 근거와 맞지 않으면 검증에서 걸린다 */
+const SUMMARY_OK: Record<string, (e: Evidence, added: Place[]) => boolean> = {
+  must_kept: (e) => e.fixed.some((f) => f.reason === "must"),
+  ai_filled: (_e, a) => a.length > 0,
+  no_room: (e, a) => e.ai_slots === 0 || a.length === 0,
+  budget_limited: (e) => e.group_limits.remaining_budget_won > 0,
+  options_free: (e) => e.fixed.some((f) => f.tier === "option"),
+  veto_excluded: (e) => e.excluded.some((x) => x.reason === "veto"),
+  walk_limited: () => true,
+};
+
+export interface PlanOutput {
+  ai_added: { id: string; reason_code: string }[];
+  summary: string[];
+}
 
 export const SYSTEM_PROMPT = `당신은 그룹 여행의 합의안을 정리하는 가이드입니다.
 규칙 엔진이 "어디를 갈지"의 대부분을 이미 정했습니다. 당신이 할 일은 두 가지뿐입니다.
@@ -92,19 +148,17 @@ export const SYSTEM_PROMPT = `당신은 그룹 여행의 합의안을 정리하�
    - cost_won 합이 group_limits.remaining_budget_won 이하여야 합니다.
    - fit_min이 높은 곳(누구에게도 싫지 않은 곳)을 우선하고, fixed와 카테고리가 겹치지 않게 섞습니다.
    - 넣을 만한 곳이 없으면 빈 배열로 둡니다.
-2. 설명: ai_added마다 reason 1문장, 전체 summary 2~4문장.
+   - 고른 곳마다 reason_code를 하나 붙입니다:
+     budget_fits(남은 예산 안) · no_one_dislikes(모두에게 무난) · near_fixed(기존 일정과 가까움) · category_gap(없는 종류를 채움)
+2. 설명 고르기: 이번 결과에 해당하는 설명 코드를 summary에 2~4개 고릅니다. 근거에 없는 것은 고르지 않습니다.
+     must_kept(꼭 가고 싶은 곳이 있고 지켜짐) · ai_filled(장소를 추가함) · no_room(추가할 자리가 없음)
+     budget_limited(남은 예산이 제한이 됨) · options_free(옵션 장소가 있음) · veto_excluded(거부된 곳이 있음)
+     walk_limited(걷기 한도에 맞춤)
 
-[사실 규칙 — 반드시 지킬 것]
-- 장소는 입력의 id로만 가리킵니다. 문장에서는 이름 대신 {{id}}라고 씁니다. 예: "{{osaka_castle}}에서 시작해요."
-- 입력에 없는 장소·지역·가게는 절대 쓰지 않습니다.
-- 숫자는 입력에 있는 값을 그대로 옮길 때만 씁니다. 더하거나 나누어 새 숫자를 만들지 않습니다.
-- 입력에 없는 정보(영업시간 설명, 가격 변동, 평점·리뷰, 교통 노선, 날씨, 예약, 대기 줄)는 쓰지 않습니다.
-- 특정 사람을 가리키지 않습니다. "가장 빠듯한 분" 같은 표현도 안 됩니다. "모두", "그룹"으로만 말합니다.
-- 입력 JSON의 필드 이름(ai_slots, fit_min, cost_won 등)을 문장에 쓰지 않습니다. 사람이 읽는 말로만 씁니다.
-- 확실하지 않으면 쓰지 말고 생략합니다.
+문장은 앱이 직접 만듭니다. 당신은 문장을 쓰지 않습니다. 장소 이름·숫자·설명 문구를 직접 쓰면 거부됩니다.
 
 [출력] 아래 JSON 하나만. 설명·코드블록 없이.
-{"ai_added":[{"id":"...","reason":"..."}],"summary":["...","..."]}`;
+{"ai_added":[{"id":"...","reason_code":"..."}],"summary":["must_kept","ai_filled"]}`;
 
 const SHOT_IN = {
   task: "plan", trip: { city: "오사카", days: 2, members: 3 },
@@ -118,57 +172,48 @@ const SHOT_IN = {
   ],
   ai_candidates: [
     { id: "castle_park", name: "오사카성 공원", area: "오사카성", category: "nature", cost_won: 0, stay_min: 60, open: "05:00-23:00", fit_min: 0.41, fit_avg: 0.47, taste_match: 1 },
-    { id: "hankyu", name: "한큐백화점 우메다", area: "우메다", category: "shopping", cost_won: 55000, stay_min: 90, open: "10:00-20:00", fit_min: 0.3, fit_avg: 0.39, taste_match: 0 },
     { id: "nakazaki", name: "나카자키초 카페거리", area: "우메다", category: "cafe", cost_won: 9000, stay_min: 60, open: "11:00-19:00", fit_min: 0.33, fit_avg: 0.38, taste_match: 1 },
   ],
   excluded: [{ id: "usj", name: "유니버설 스튜디오 재팬", reason: "veto" }],
   area_km: { "난바|오사카성": 3.1, "난바|우메다": 3.6, "오사카성|우메다": 3.2 },
 };
 
-const SHOT_OUT = {
+const SHOT_OUT: PlanOutput = {
   ai_added: [
-    { id: "castle_park", reason: "{{osaka_castle}} 바로 옆이라 이동 없이 쉬어 갈 수 있고, 모두에게 무난한 자연 코스예요." },
-    { id: "nakazaki", reason: "남은 예산 안에 들어오는 카페 코스로, {{umeda_sky}} 가기 전에 들르기 좋아요." },
+    { id: "castle_park", reason_code: "near_fixed" },
+    { id: "nakazaki", reason_code: "budget_fits" },
   ],
-  summary: [
-    "모두의 '꼭 가고 싶은 곳'인 {{osaka_castle}}를 코어로 지켰어요.",
-    "{{hankyu}}는 남은 예산에 비해 부담이 커서 넣지 않았어요.",
-    "{{umeda_sky}}는 원하는 사람만 가는 일정으로 남겼어요.",
-  ],
+  summary: ["must_kept", "ai_filled", "options_free", "veto_excluded"],
 };
-
-export interface PlanOutput { ai_added: { id: string; reason: string }[]; summary: string[] }
 
 /* ══════════ 3. 모델 호출 ══════════ */
 
-const MOCK: PlanOutput = process.env.AI_MOCK_ADD ? { ai_added: [{ id: process.env.AI_MOCK_ADD, reason: `{{${process.env.AI_MOCK_ADD}}}는 모두에게 무난해요.` }], summary: [`{{${process.env.AI_MOCK_ADD}}}를 남은 예산 안에서 넣었어요.`] } : { ai_added: [], summary: ["규칙이 정한 일정을 그대로 사용했어요."] };
+function mockOutput(ev: Evidence): unknown {
+  const mode = process.env.AI_MOCK;
+  if (mode === "halluc") return { ai_added: [{ id: "kyoto_tower", reason_code: "budget_fits" }], summary: ["must_kept"] };
+  if (mode === "freetext") return { ai_added: [], summary: ["교토타워를 방문해요.", "모든 장소의 입장료는 0원이에요."] };
+  const first = ev.ai_candidates[0];
+  return first && ev.ai_slots > 0
+    ? { ai_added: [{ id: first.id, reason_code: "no_one_dislikes" }], summary: ["must_kept", "ai_filled"] }
+    : { ai_added: [], summary: ["must_kept", "no_room"] };
+}
 
 export async function callModel(ev: Evidence): Promise<string> {
   const mock = process.env.AI_MOCK;
-  if (mock === "1") return JSON.stringify(MOCK);
-  // fallback 경로 확인용 — 모델이 실제로 이렇게 답하는 경우들을 흉내 낸다
-  if (mock === "bad") return "알겠습니다! 아래와 같이 일정을 만들었어요.\n{\"ai_added\": [{\"id\": ";
-  if (mock === "halluc")
-    return JSON.stringify({ ai_added: [{ id: "kyoto_tower", reason: "교토타워는 평점이 높아요." }],
-                            summary: ["1인 72,000원으로 맞췄어요."] });
+  if (mock === "bad") return "알겠습니다! 아래와 같이 정리했어요.\n{\"ai_added\": [{\"id\": ";
+  if (mock) return JSON.stringify(mockOutput(ev));
 
   const base = process.env.SOMSOM_BASE_URL ?? "https://factchat-cloud.mindlogic.ai/v1/gateway";
-  const model = process.env.SOMSOM_MODEL ?? "gpt-4o-mini";
-  const timeout = Number(process.env.AI_TIMEOUT_MS ?? 12000);
+  const model = process.env.SOMSOM_MODEL ?? "gemini-3.5-flash-lite";
   const ctl = new AbortController();
-  const timer = setTimeout(() => ctl.abort(), timeout);
+  const timer = setTimeout(() => ctl.abort(), Number(process.env.AI_TIMEOUT_MS ?? 12000));
   try {
     const r = await fetch(`${base}/chat/completions/`, {
       method: "POST",
       signal: ctl.signal,
-      headers: {
-        "content-type": "application/json",
-        authorization: `Bearer ${process.env.SOMSOM_API_KEY ?? ""}`,
-      },
+      headers: { "content-type": "application/json", authorization: `Bearer ${process.env.SOMSOM_API_KEY ?? ""}` },
       body: JSON.stringify({
-        model,
-        temperature: 0,
-        max_tokens: 1200,
+        model, temperature: 0, max_tokens: 600,
         response_format: { type: "json_object" },
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
@@ -193,89 +238,66 @@ export function parsePlan(text: string): PlanOutput {
   return o;
 }
 
-/* ══════════ 4. 검증 ══════════ */
+/* ══════════ 4. 검증 — 근거와 대조한다 ══════════ */
 
-const TOPIC_BLOCK = ["호선", "노선", "지하철", "전철", "JR", "평점", "별점", "리뷰", "미슐랭", "웨이팅", "예약 필수", "날씨"];
-/** "미도스지선으로 이동" 같은 노선 언급. "동선으로 구성"처럼 평범한 말은 걸리지 않는다 */
-const LINE_RE = /[가-힣]{2,}선(을 타|를 타|으로 이동|을 이용|으로 갈아|에서 내)/;
-/** 문장에 그대로 나오면 안 되는 입력 JSON 필드 이름 (snake_case) */
-const FIELD_RE = /[a-z]{2,}_[a-z_]{2,}/;
-const PRIVACY_BLOCK = ["님", "빠듯한 분", "부담스러워하는 분", "체력이 약한", "돈이 없"];
-
-function numbersIn(v: unknown, out = new Set<number>()): Set<number> {
-  if (typeof v === "number") out.add(v);
-  else if (typeof v === "string") (v.match(/\d+(\.\d+)?/g) ?? []).forEach((n) => out.add(Number(n)));
-  else if (Array.isArray(v)) v.forEach((x) => numbersIn(x, out));
-  else if (v && typeof v === "object") Object.entries(v).forEach(([k, x]) => { numbersIn(k, out); numbersIn(x, out); });
-  return out;
-}
-function numbersInText(t: string): number[] {
-  const out: number[] = [];
-  for (const m of t.replace(/\{\{[^}]+\}\}/g, " ").matchAll(/(\d+(?:\.\d+)?)\s*만(?:\s*(\d+)\s*천)?|(\d[\d,]*(?:\.\d+)?)/g))
-    out.push(m[1] ? Number(m[1]) * 10000 + (m[2] ? Number(m[2]) * 1000 : 0) : Number(m[3].replace(/,/g, "")));
-  return out;
-}
-
-/** 사실 오류 목록. 비어 있어야 AI 결과를 쓴다 */
 export function validatePlan(out: PlanOutput, ev: Evidence): string[] {
   const errs: string[] = [];
   const cand = new Map(ev.ai_candidates.map((c) => [c.id, c]));
-  const mentionable = new Set([...ev.fixed.map((f) => f.id), ...cand.keys(), ...ev.excluded.map((e) => e.id)]);
+  const byId = new Map(allPlaces().map((p) => [p.id, p]));
 
-  out.ai_added.forEach((a) => { if (!cand.has(a.id)) errs.push(`후보 밖 장소: ${a.id}`); });
-  if (out.ai_added.length > ev.ai_slots) errs.push(`추가 ${out.ai_added.length}곳 > 자리 ${ev.ai_slots}곳`);
-  const dup = new Set(out.ai_added.map((a) => a.id));
-  if (dup.size !== out.ai_added.length) errs.push("같은 장소를 두 번 추가");
-  const cost = out.ai_added.reduce((s, a) => s + (cand.get(a.id)?.cost_won ?? 0), 0);
-  if (cost > ev.group_limits.remaining_budget_won) errs.push(`추가 비용 ${cost} > 남은 예산 ${ev.group_limits.remaining_budget_won}`);
-
-  const nums = numbersIn(ev);
-  [out.ai_added.length, ev.fixed.length, ev.excluded.length, ev.trip.members].forEach((n) => nums.add(n));
-  const areas = new Set([...ev.fixed, ...ev.ai_candidates].map((p) => p.area));
-  const names = new Map(allPlaces().map((p) => [p.name, p.id]));
-
-  [...out.ai_added.map((a, i) => [`reason[${i}]`, a.reason] as const),
-   ...out.summary.map((t, i) => [`summary[${i}]`, t] as const)].forEach(([where, t]) => {
-    if (typeof t !== "string") return errs.push(`${where}: 문자열 아님`);
-    for (const m of t.matchAll(/\{\{([^}]+)\}\}/g)) if (!mentionable.has(m[1])) errs.push(`${where}: 없는 장소 {{${m[1]}}}`);
-    numbersInText(t).forEach((n) => { if (!nums.has(n)) errs.push(`${where}: 입력에 없는 숫자 ${n}`); });
-    const plain = t.replace(/\{\{[^}]+\}\}/g, " ");
-    names.forEach((id, name) => { if (plain.includes(name) && !mentionable.has(id)) errs.push(`${where}: 없는 장소 이름 ${name}`); });
-    [...new Set(allPlaces().map((p) => p.area))].forEach((a) => { if (plain.includes(a) && !areas.has(a)) errs.push(`${where}: 없는 지역 ${a}`); });
-    TOPIC_BLOCK.forEach((w) => { if (plain.includes(w)) errs.push(`${where}: 근거 없는 정보 (${w})`); });
-    const line = plain.match(LINE_RE);
-    if (line) errs.push(`${where}: 근거 없는 교통 정보 (${line[0]})`);
-    const field = plain.match(FIELD_RE);
-    if (field) errs.push(`${where}: 입력 필드 이름이 문장에 그대로 나옴 (${field[0]})`);
-    PRIVACY_BLOCK.forEach((w) => { if (plain.includes(w)) errs.push(`${where}: 개인 지칭 (${w})`); });
+  out.ai_added.forEach((a, i) => {
+    if (typeof a?.id !== "string") return errs.push(`ai_added[${i}]: id가 없음`);
+    if (!cand.has(a.id)) errs.push(`후보 밖 장소: ${a.id}`);
+    if (!REASON_TEXT[a.reason_code]) errs.push(`ai_added[${i}]: 알 수 없는 이유 코드 (${a.reason_code})`);
   });
+  if (out.ai_added.length > ev.ai_slots) errs.push(`추가 ${out.ai_added.length}곳 > 자리 ${ev.ai_slots}곳`);
+  if (new Set(out.ai_added.map((a) => a.id)).size !== out.ai_added.length) errs.push("같은 장소를 두 번 추가");
+  const cost = out.ai_added.reduce((s, a) => s + (cand.get(a.id)?.cost_won ?? 0), 0);
+  if (cost > ev.group_limits.remaining_budget_won)
+    errs.push(`추가 비용 ${cost} > 남은 예산 ${ev.group_limits.remaining_budget_won}`);
+
+  const added = out.ai_added.map((a) => byId.get(a.id)).filter(Boolean) as Place[];
+  const seen = new Set<string>();
+  out.summary.forEach((code, i) => {
+    if (typeof code !== "string" || !SUMMARY_TEXT[code]) return errs.push(`summary[${i}]: 알 수 없는 설명 코드 (${String(code).slice(0, 20)})`);
+    if (!SUMMARY_OK[code](ev, added)) errs.push(`summary[${i}]: 근거가 없는 설명 (${code})`);
+    if (seen.has(code)) errs.push(`summary[${i}]: 같은 설명 반복 (${code})`);
+    seen.add(code);
+  });
+  if (!out.summary.length) errs.push("summary가 비어 있음");
   return errs;
 }
 
-/** {{id}} → 장소 이름 */
-export function render(t: string): string {
-  const names = new Map(allPlaces().map((p) => [p.id, p.name]));
-  return t.replace(/\{\{([^}]+)\}\}/g, (_, id) => names.get(id) ?? id);
+/** 코드 → 사람이 읽는 문장. 장소 이름과 숫자는 여기서 들어간다 */
+export function renderSummary(out: PlanOutput, ev: Evidence): string {
+  const byId = new Map(allPlaces().map((p) => [p.id, p]));
+  const added = out.ai_added.map((a) => byId.get(a.id)).filter(Boolean) as Place[];
+  const lines = out.summary.map((code) => SUMMARY_TEXT[code](ev, added));
+  out.ai_added.forEach((a) => {
+    const place = byId.get(a.id);
+    if (place) lines.push(REASON_TEXT[a.reason_code](place.name));
+  });
+  return lines.join(" ");
 }
 
 /* ══════════ 5. 규칙 결과에 합치기 ══════════ */
 
 export interface Enriched {
-  selections: Selection[];
+  /** 다 같이 가는 일정에 넣을 장소. 옵션은 절대 들어가지 않는다 */
+  core: Selection[];
   summary: string;
   ai: { used: boolean; reason: string; added: string[]; errors: string[]; ms: number };
 }
 
 /**
  * 규칙 결과 + AI 제안 → 일정 재료.
- * 어떤 경우에도 예외를 던지지 않는다. AI가 실패하면 규칙 결과를 그대로 돌려준다.
+ * 어떤 경우에도 예외를 던지지 않는다. AI가 실패하면 규칙의 core를 그대로 돌려준다.
  */
 export async function enrich(
   res: ConsensusResult, submissions: Submission[], days: number, fallbackSummary: string
 ): Promise<Enriched> {
-  const base = res.selections.filter((s) => !s.aiAdded);
   const off = (reason: string, errors: string[] = [], ms = 0): Enriched =>
-    ({ selections: res.selections, summary: fallbackSummary, ai: { used: false, reason, added: [], errors, ms } });
+    ({ core: res.core, summary: fallbackSummary, ai: { used: false, reason, added: [], errors, ms } });
 
   if (!process.env.SOMSOM_API_KEY && !process.env.AI_MOCK) return off("SOMSOM_API_KEY 없음");
 
@@ -294,8 +316,8 @@ export async function enrich(
       return place ? [{ place, votes: 0, mustOf: null, tier: "core" as const, participants: memberIds, aiAdded: true }] : [];
     });
     return {
-      selections: [...base, ...added],
-      summary: plan.summary.map(render).join(" "),
+      core: [...res.core.filter((s) => !s.aiAdded), ...added],
+      summary: renderSummary(plan, ev),
       ai: { used: true, reason: "ok", added: added.map((s) => s.place.id), errors: [], ms },
     };
   } catch (e) {
