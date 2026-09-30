@@ -18,14 +18,6 @@ export default function Result() {
     <Screen className="bg-surface">
       <TopBar title="합의 결과" subtitle={`오사카 ${state.nights}박 ${days}일 · ${state.members.length}명`} back="/" />
       <Body>
-        {state.room && (
-          // 서버는 전원 제출 뒤에도 방장이 계산하기 전까지 result가 비어 있다(awaiting_result).
-          // 방장 calculate 호출과 서버 결과 렌더링을 붙이기 전까지는 로컬 계산임을 밝힌다.
-          <Notice tone="warn">
-            아직 서버 결과와 연결되지 않았어요. 아래는 <b>내 입력과 예시 동행자 입력</b>으로
-            이 기기에서 계산한 미리보기예요. 실제 동행자 입력은 반영되지 않았어요.
-          </Notice>
-        )}
         <Card className="animate-pop bg-gradient-to-br from-brand-600 to-brand-400 text-white">
           <div className="text-[11px] text-white/70">다 같이 가는 곳</div>
           <div className="text-[30px] font-bold leading-tight">{consensus.core.length}곳</div>
