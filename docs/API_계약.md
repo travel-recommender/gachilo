@@ -99,7 +99,7 @@
 
 ---
 
-## A. 현재 계약 (v0) — #24 서버 기준
+## A. 현재 계약 (v0) — #24 서버 기준 (+ #25 추가분)
 
 경로에 `/api` 접두사가 없다(장소 검색 `/api/places`만 예외). 오류는 `{ "error": "메시지" }` 문자열 하나다.
 
@@ -107,11 +107,16 @@
 | --- | --- | --- |
 | `GET /health` | - | 서버 확인 |
 | `POST /rooms` | - | 방 만들기 |
+| `GET /rooms/:roomId` | 방 공용 | 방 날짜·명단 (A.6). **#25(6886354)에서 추가** — #25 머지 후 v0 |
 | `PUT /rooms/:roomId/submissions/:memberId` | 본인 | 1차·2차·조건 **한 번에** 제출 (다시 내면 덮어씀) |
 | `GET /rooms/:roomId/results` | 방 공용 | 제출 현황 + 결과 |
 | `POST /rooms/:roomId/calculate` | 방장 | 전원 제출 후 계산 |
-| `GET /api/places` | - | 150곳 조회 (0.4 형식) |
-| `GET /places` | - | 데모 36곳 (`prototype_demo_36`, 데모 엔진용) |
+| `GET /places` | - | 데모 36곳 (`prototype_demo_36`). **v0에서 제출·계산에 쓰는 장소는 이것뿐이다** |
+| `GET /api/places` | - | 검토용 150곳 (0.4 형식). **조회 전용** — 제출·계산 대상이 아니다 |
+
+> **v0 장소 ID = `GET /places`의 `id`** (`osaka_castle`, `glico`, `kuromon` …).
+> 서버는 데모 36곳 ID만 받는다(`Store(path, engine.catalog)`). `/api/places`의 `place_id`(`osaka_001` 형식)를 제출하면
+> `400 목록에 없는 장소가 포함되어 있습니다.`가 난다. 150곳은 검증이 끝나고 엔진 변환 규칙이 정해진 뒤(B.0 v1-b)에 계산 대상이 된다.
 
 ### A.1 `POST /rooms`
 
@@ -144,11 +149,13 @@
 Authorization: Bearer <그 memberId의 submissionToken>
 ```
 
+장소 ID는 **`GET /places`(데모 36곳)의 `id`**다. `/api/places`의 `place_id`는 넣지 않는다(400).
+
 ```json
 {
-  "longlist": ["osaka_009", "osaka_001", "osaka_005", "osaka_007", "osaka_022"],
-  "picks": ["osaka_009", "osaka_001", "osaka_005"],
-  "must": "osaka_009",
+  "longlist": ["osaka_castle", "glico", "kuromon", "umeda_sky", "hozenji"],
+  "picks": ["osaka_castle", "glico", "kuromon"],
+  "must": "osaka_castle",
   "veto": null,
   "budgetPerDay": 70000,
   "stepLimit": 8000,
@@ -169,7 +176,7 @@ Authorization: Bearer <그 memberId의 submissionToken>
 { "roomId": "Qm3…", "status": "collecting", "submittedCount": 1, "memberCount": 3, "revision": 1, "result": null }
 ```
 
-`status`: `collecting` → `awaiting_result`(전원 제출) → `ready`. `result`는 `{ strategy, days: [{ date, placeIds }], summary }`.
+`status`: `collecting` → `awaiting_result`(전원 제출) → `ready`. `result`는 `{ strategy, days: [{ date, placeIds }], summary }`이고, `placeIds`도 데모 36곳 ID다.
 
 ### A.4 `POST /rooms/:roomId/calculate` (방장)
 
@@ -189,11 +196,35 @@ Authorization: Bearer <그 memberId의 submissionToken>
 
 > v0에 없는 것: 환율 **기준일**(`as_of`). v1에서 추가한다(B.3).
 
+### A.6 `GET /rooms/:roomId` (방 공용) — #25에서 추가
+
+```
+Authorization: Bearer <그 방의 ownerToken 또는 submissionToken>
+```
+
+```json
+{
+  "roomId": "Qm3…",
+  "startDate": "2026-10-10",
+  "endDate": "2026-10-13",
+  "members": [
+    { "id": "a1…", "name": "혜인" },
+    { "id": "b2…", "name": "윤진" },
+    { "id": "c3…", "name": "조은" }
+  ]
+}
+```
+
+초대 링크로 들어온 참여자가 실제 날짜·명단을 받는 용도다. **토큰·입력은 싣지 않는다.** 다른 방 토큰이나 토큰 없음은 403.
+`phase`·`done`·`doneCount`는 아직 없다 — B.2에서 이 응답을 확장한다.
+
 ---
 
 ## B. 목표 계약 (v1) — 추가 예정
 
 v0 규칙(경로 형식, Bearer 토큰, `startDate`/`endDate`)을 **그대로 이어 쓰고**, 없는 기능만 더한다. #25에서 드러난 빈 곳 세 가지가 대상이다.
+
+> B의 예시 장소 ID(`osaka_009` 등)는 **150곳 `place_id`**다. 150곳이 계산 대상이 되는 v1-b 이후 기준이며, 그 전까지 실제 제출은 A.2처럼 데모 ID를 쓴다. `place_id` 형식(연번 vs 슬러그)은 아직 미결이다(5장, #23).
 
 ### B.0 적용 순서 — 조은님과 합의 필요
 
@@ -227,6 +258,8 @@ created → longlist → shortlist → conditions → done
 | `RESULT_NOT_READY` | 409 | 전원 입력 전에 결과 조회 |
 
 ### B.2 `GET /rooms/:roomId` — 방 정보·참여 현황 (방 공용 토큰)
+
+**v0 A.6(날짜·명단)을 확장한다.** 기존 필드는 그대로 두고 `phase`, `days`, `members[].done`, `doneCount`, `memberCount`를 더한다.
 
 ```json
 {
@@ -442,6 +475,7 @@ created → longlist → shortlist → conditions → done
 - [ ] **B.0 적용 순서** (조은·혜인)
 - [ ] **150곳 → 엔진 변환 규칙**: `bag_load` 0/1/2 ↔ 데모 `bagLoad` 0~1, `covered` 의미 차이. 엔진을 바꿀지 변환할지 (조은)
 - [ ] **환율 고정값·기준일·출처** 확정, `as_of` 필드 추가 (조은)
+- [ ] **`place_id` 형식**: 150곳 연번 `osaka_001`(ID 보존) vs 슬러그 `osaka_castle`(AI 환각 방지, 데모 ID와 같은 모양). #23 논의 (조은·윤진)
 - [ ] **관광 권역 매핑**: 행정구 `area` → 난바·우메다 등 권역. 필요한지, 누가 만들지
 - [ ] 경로 접두사 통일 (`/rooms`와 `/api/places` 혼재)
 - [ ] `alternatives` 개수: 1개만 vs 최대 3개 (윤진 문서 6장에도 같은 항목)
