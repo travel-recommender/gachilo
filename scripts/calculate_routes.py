@@ -8,7 +8,7 @@ import requests
 # =========================================================
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
-CSV_PATH = DATA_DIR / "osaka_places.csv"
+CSV_PATH = DATA_DIR / "osaka_places_verified.csv"
 
 places = []
 
@@ -52,7 +52,7 @@ def calculate_walking_route(start, end):
         "?overview=false"
     )
 
-    response = requests.get(url)
+    response = requests.get(url, timeout=30)
 
     if response.status_code != 200:
         print("경로를 불러오지 못했습니다.")
@@ -74,36 +74,40 @@ def calculate_walking_route(start, end):
 # 4. 테스트
 # =========================================================
 
-itinerary_names = [
-    "오사카성",
-    "도톤보리 글리코 사인",
-    "구로몬시장",
-    "쓰텐카쿠"
-]
+def main():
+    itinerary_names = [
+        "오사카성",
+        "도톤보리 글리코 사인",
+        "구로몬시장",
+        "쓰텐카쿠"
+    ]
 
-total_distance = 0
-total_duration = 0
+    total_distance = 0
+    total_duration = 0
 
-for i in range(len(itinerary_names) - 1):
+    for i in range(len(itinerary_names) - 1):
 
-    start = find_place(itinerary_names[i])
-    end = find_place(itinerary_names[i + 1])
+        start = find_place(itinerary_names[i])
+        end = find_place(itinerary_names[i + 1])
 
-    if start and end:
-        result = calculate_walking_route(start, end)
+        if start and end:
+            result = calculate_walking_route(start, end)
 
-        if result:
-            distance, duration = result
+            if result:
+                distance, duration = result
 
-            total_distance += distance
-            total_duration += duration
+                total_distance += distance
+                total_duration += duration
 
-    else:
-        print("장소를 찾지 못했습니다.")
+        else:
+            print("장소를 찾지 못했습니다.")
 
 
-print("\n============================")
-print("하루 전체 이동 정보")
-print("============================")
-print(f"총 도보 거리: {total_distance:.2f} km")
-print(f"총 도보 시간: {total_duration:.0f}분")
+    print("\n============================")
+    print("하루 전체 이동 정보")
+    print("============================")
+    print(f"총 도보 거리: {total_distance:.2f} km")
+    print(f"총 도보 시간: {total_duration:.0f}분")
+
+if __name__ == "__main__":
+    main()

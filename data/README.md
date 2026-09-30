@@ -20,10 +20,15 @@
 서쪽 135.475 / 남쪽 34.647 / 동쪽 135.525 / 북쪽 34.741
 ```
 
-- [BBBike extract](https://extract.bbbike.org/) 에서 위 사각형을 지정해 GeoJSON으로 받거나
-- `scripts/collect_osaka_places.py`의 Overpass 쿼리로 직접 받는다
-
+[BBBike extract](https://extract.bbbike.org/) 에서 위 사각형을 지정해 **GeoJSON**으로 받는다.
 받은 파일을 `data/` 에 두면 `extract_osaka_places.py`가 자동으로 찾는다(`*.geojson` 첫 번째 파일).
+
+> **`scripts/collect_osaka_places.py`로는 이 덤프를 다시 만들 수 없다.** 수집 스크립트는
+> 관광명소 노드(`tourism=attraction`)만, 다른 범위(34.60–34.75, 135.40–135.60)에서 받아
+> Overpass JSON(`elements`)으로 `data/raw/osaka_<시각>.json`에 저장한다(`data/raw/`는 깃 제외).
+> 추출 스크립트가 읽는 GeoJSON(`features`) 형식이 아니고 범위·태그도 다르다.
+> 연결 확인과 원본 보관용 표본으로 쓰고, 5,053곳 후보를 다시 뽑을 때는 위 BBBike 방법을 쓴다.
+> (저장·실패 처리는 #24에서 고친 판이다 — 받은 원본을 새 파일로 저장하고, 기존 파일은 덮어쓰지 않으며, 모든 서버가 실패하면 종료 코드 1)
 
 ## 데이터 흐름
 
