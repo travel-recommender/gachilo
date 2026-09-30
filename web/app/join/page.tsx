@@ -18,7 +18,6 @@ function JoinInner() {
   const roomId = params.get("room");
   const memberId = params.get("m");
   const token = params.get("t");
-  const name = params.get("name") ?? "나";
 
   useEffect(() => {
     if (!ready) return;
@@ -26,8 +25,10 @@ function JoinInner() {
       setError("링크가 올바르지 않아요. 방을 만든 사람에게 링크를 다시 받아주세요.");
       return;
     }
-    joinRoom(roomId, memberId, token, name);
-    router.replace("/pick");
+    // 서버에서 방 날짜·명단을 받은 뒤에 들어간다. 실패하면 이 화면에 머문다
+    joinRoom(roomId, memberId, token)
+      .then(() => router.replace("/pick"))
+      .catch((e) => setError(e instanceof Error ? e.message : "방 정보를 불러오지 못했어요."));
     // joinRoom은 매 렌더마다 새로 만들어지므로 의존성에 넣지 않는다
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ready, roomId, memberId, token]);

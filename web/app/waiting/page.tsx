@@ -70,7 +70,7 @@ export default function Waiting() {
                 <div key={m.id} className="flex items-center gap-3">
                   <Avatar name={m.name} color={ok ? m.color : "#d6dae4"} size={34} />
                   <span className={`flex-1 text-[13.5px] font-semibold ${ok ? "" : "text-ink-300"}`}>
-                    {m.name}{m.id === "me" && " (나)"}
+                    {m.name}{m.id === state.mine.memberId && " (나)"}
                   </span>
                   <span className={`chip ${ok ? "bg-emerald-50 text-emerald-700" : "bg-surface text-ink-300"}`}>
                     {ok ? "완료" : "찾는 중"}

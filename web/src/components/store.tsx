@@ -11,7 +11,7 @@ import {
   setMembers,
   type CustomPlaceInput,
 } from "@/lib/places";
-import { roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
+import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
 /**
@@ -60,7 +60,30 @@ const INITIAL: AppState = {
   customPlaces: [],
 };
 
-const KEY = "gatiga-v3";
+/**
+ * 저장은 두 갈래로 나눈다.
+ * - localStorage: 방 세션과 여행 설정(날짜·명단). 재접속에 필요한 값만
+ * - sessionStorage: 내 선택·조건 초안. 새로고침은 버티고 탭을 닫으면 사라진다
+ * 본인 입력을 서버에서 복원하는 API가 생기면(#22 B.6) 초안 저장은 뺀다.
+ */
+const KEY = "gatiga-v4";
+const DRAFT_KEY = "gatiga-v4-draft";
+/** 입력 전체를 localStorage에 담던 이전 판. 읽지 않고 지운다 */
+const LEGACY_KEY = "gatiga-v3";
+
+const SESSION_FIELDS = ["room", "nights", "startDate", "members", "submitted"] as const;
+const DRAFT_FIELDS = ["mine", "customPlaces", "strategy", "allowPartial"] as const;
+
+function pick<K extends keyof AppState>(src: Partial<AppState>, keys: readonly K[]) {
+  const out: Partial<Pick<AppState, K>> = {};
+  for (const k of keys) if (src[k] !== undefined) out[k] = src[k];
+  return out;
+}
+
+function readJson(storage: Storage, key: string): Partial<AppState> {
+  const raw = storage.getItem(key);
+  return raw ? JSON.parse(raw) : {};
+}
 
 interface Ctx {
   state: AppState;
@@ -71,7 +94,7 @@ interface Ctx {
   /** 서버에 방을 만들고 세션을 저장한다. 방장이 된다 */
   createRoom: (startDate: string, nights: number, names: string[]) => Promise<RoomSession>;
   /** 초대 링크로 들어온 사람이 자기 자리에 앉는다 */
-  joinRoom: (roomId: string, memberId: string, token: string, name: string) => void;
+  joinRoom: (roomId: string, memberId: string, token: string) => Promise<void>;
   /** 내 입력을 서버에 저장한다 */
   submitMine: () => Promise<void>;
   /** 참여 현황·결과를 조회한다 */
@@ -99,15 +122,22 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const raw = window.localStorage.getItem(KEY);
-      if (raw) setState({ ...INITIAL, ...JSON.parse(raw) });
+      window.localStorage.removeItem(LEGACY_KEY);
+      setState({
+        ...INITIAL,
+        ...pick(readJson(window.localStorage, KEY), SESSION_FIELDS),
+        ...pick(readJson(window.sessionStorage, DRAFT_KEY), DRAFT_FIELDS),
+      });
     } catch { /* 무시 */ }
     setReady(true);
   }, []);
 
   useEffect(() => {
     if (!ready) return;
-    try { window.localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* 무시 */ }
+    try {
+      window.localStorage.setItem(KEY, JSON.stringify(pick(state, SESSION_FIELDS)));
+      window.sessionStorage.setItem(DRAFT_KEY, JSON.stringify(pick(state, DRAFT_FIELDS)));
+    } catch { /* 무시 */ }
   }, [state, ready]);
 
   const set = (p: Partial<AppState>) => setState((s) => ({ ...s, ...p }));
@@ -144,24 +174,31 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     return session;
   };
 
-  const joinRoom = (roomId: string, memberId: string, token: string, name: string) => {
+  const joinRoom = async (roomId: string, memberId: string, token: string) => {
+    // 날짜·명단은 이 브라우저의 이전 값이 아니라 서버의 방 정보를 쓴다
+    const info = await roomApi.info(roomId, token);
+    if (!info.members.some((m) => m.id === memberId)) {
+      throw new ApiError("이 방의 참여자 링크가 아니에요. 방을 만든 사람에게 링크를 다시 받아주세요.", 403);
+    }
+    const colors = makeMembers(info.members.map((m) => m.name));
     setState((s) => ({
       ...s,
+      nights: nightsBetween(info.startDate, info.endDate),
+      startDate: info.startDate,
+      members: info.members.map((m, i) => ({ id: m.id, name: m.name, color: colors[i].color })),
       room: {
         roomId,
-        startDate: s.startDate,
-        endDate: s.startDate,
+        startDate: info.startDate,
+        endDate: info.endDate,
         memberId,
         token,
         ownerToken: null,
         members: [],
       },
-      members: s.members.some((m) => m.id === memberId)
-        ? s.members
-        : [{ id: memberId, name, color: "#2f45e0" }, ...s.members],
       // 다른 사람 자리로 들어왔으므로 이전 사람의 선택은 지운다.
       // (같은 브라우저에서 링크를 바꿔 들어가는 시연에서 실제로 섞였다)
       mine: { ...MY_DEFAULT, memberId },
+      customPlaces: [],
       submitted: false,
     }));
   };
@@ -195,16 +232,20 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   const reset = () => {
     setState(INITIAL);
-    try { window.localStorage.removeItem(KEY); } catch { /* 무시 */ }
+    try {
+      window.localStorage.removeItem(KEY);
+      window.sessionStorage.removeItem(DRAFT_KEY);
+    } catch { /* 무시 */ }
   };
 
   // 추가된 장소·참여자는 계산과 설명 생성이 id로 찾을 수 있어야 하므로 계산 전에 등록한다.
   setCustomPlaces(state.customPlaces);
   setMembers(state.members);
 
+  // 서버 방에서는 내 id가 "me"가 아니라 서버가 준 id다
   const companionIds = useMemo(
-    () => state.members.filter((m) => m.id !== "me").map((m) => m.id),
-    [state.members]
+    () => state.members.filter((m) => m.id !== state.mine.memberId).map((m) => m.id),
+    [state.members, state.mine.memberId]
   );
 
   /** 1차 — 전원이 검색으로 찾아온 곳을 합친 그룹 후보 풀 */

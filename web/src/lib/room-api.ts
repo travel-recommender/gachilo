@@ -38,6 +38,14 @@ export interface ApiSubmission {
   activeMin: number;
 }
 
+/** 초대받은 사람도 읽는 방 기본 정보. 토큰·입력은 들어 있지 않다 */
+export interface ApiRoomInfo {
+  roomId: string;
+  startDate: string;
+  endDate: string;
+  members: { id: string; name: string }[];
+}
+
 export type RoomStatus = "collecting" | "awaiting_result" | "ready";
 
 export interface ApiResult {
@@ -89,21 +97,7 @@ async function request<T>(path: string, method = "GET", body?: unknown, token?: 
   return value as T;
 }
 
-/** `nights`(박)를 서버가 받는 startDate/endDate로 바꾼다. 양 끝을 포함한다 */
-export function toDateRange(startDate: string, nights: number) {
-  const start = new Date(`${startDate}T00:00:00`);
-  const end = new Date(start);
-  end.setDate(end.getDate() + nights);
-  const iso = (d: Date) => d.toISOString().slice(0, 10);
-  return { startDate: iso(start), endDate: iso(end) };
-}
-
-/** 오늘 기준 기본 출발일 (일주일 뒤) */
-export function defaultStartDate() {
-  const d = new Date();
-  d.setDate(d.getDate() + 7);
-  return d.toISOString().slice(0, 10);
-}
+export { defaultStartDate, nightsBetween, toDateRange } from "./dates";
 
 /**
  * 참여자별 초대 링크.
@@ -119,6 +113,10 @@ export const roomApi = {
 
   create: (startDate: string, endDate: string, memberNames: string[]) =>
     request<ApiRoom>("/rooms", "POST", { startDate, endDate, memberNames }),
+
+  /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
+  info: (roomId: string, token: string) =>
+    request<ApiRoomInfo>(`/rooms/${encodeURIComponent(roomId)}`, "GET", undefined, token),
 
   // 아래 세 개는 조은님이 만든 호출부(/server-check)를 그대로 쓸 수 있도록
   // 객체를 받는 원래 모양을 유지한다. 필요한 필드만 구조적으로 요구한다.
