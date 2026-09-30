@@ -1,0 +1,26 @@
+[
+  {
+    "source": "web/src/lib/types.ts",
+    "file": "types.ts",
+    "sha256": "c5d81c7098ab84f74949492e93ce1c6a3c68555cccf3344ce6175340a1cab4ff",
+    "change": "Relative imports get .ts extension for Node native TypeScript execution; algorithm unchanged."
+  },
+  {
+    "source": "web/src/lib/places.ts",
+    "file": "places.ts",
+    "sha256": "305b1db0182e54e318b81f3ff0f2573cad06dfd092c5cf1cbf1e85bc5e0303f3",
+    "change": "Relative imports get .ts extension for Node native TypeScript execution; algorithm unchanged."
+  },
+  {
+    "source": "web/src/lib/consensus.ts",
+    "file": "consensus.ts",
+    "sha256": "66c001cfeaefd97b6d26d4916d8c62ec6e9d1ccb06c3cdabcd429e89e2dacafb",
+    "change": "Relative imports get .ts extension for Node native TypeScript execution; algorithm unchanged."
+  },
+  {
+    "source": "web/src/lib/schedule.ts",
+    "file": "schedule.ts",
+    "sha256": "2e4b6a8b8a88a29f194b1186e9e2866b139b242d1590fc686ab17dee4cc5a3c5",
+    "change": "Relative imports get .ts extension for Node native TypeScript execution; algorithm unchanged."
+  }
+]

@@ -1,0 +1,178 @@
+{
+  "replacements": [
+    {
+      "old_place_id": "osaka_029",
+      "new_place_id": "osm_node_2296903605",
+      "reason": "User-selected distinct branch; replace selection, not entity identity",
+      "previous_record": {
+        "place": {
+          "place_id": "osaka_029",
+          "name": "丸福珈琲店",
+          "name_ko": "마루후쿠 커피",
+          "category": "카페",
+          "area": null,
+          "address": null,
+          "latitude": 34.6890073,
+          "longitude": 135.5059322,
+          "opening_hours": null,
+          "cost": null,
+          "stay_min": null,
+          "bag_load": null,
+          "covered": null,
+          "website": null,
+          "opening_hours_source": null,
+          "verified_at": null
+        },
+        "field_sources": {
+          "name": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/2751709851"
+          },
+          "category": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/2751709851"
+          },
+          "latitude": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/2751709851"
+          },
+          "longitude": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/2751709851"
+          },
+          "name_ko": {
+            "kind": "previous_draft_not_reverified",
+            "place_id": "osaka_029"
+          }
+        },
+        "source": {
+          "osm_ref": "node/2751709851",
+          "url": "https://www.openstreetmap.org/node/2751709851",
+          "collected_at": "2026-09-23T04:16:44.319902+00:00",
+          "osm_edited_at": "2014-03-29T12:30:28Z",
+          "coordinate_method": "node",
+          "address_components": {},
+          "tags": {
+            "amenity": "cafe",
+            "cuisine": "coffee_shop",
+            "name": "丸福珈琲店"
+          }
+        },
+        "review": {
+          "status": "needs_verification",
+          "official_checks": [],
+          "notes": [
+            "기존 좌표의 丸福珈琲店이 이 본점인지 확인되지 않아 본점 영업시간을 이전하지 않음. 원본 공식 사실은 참고 정보로만 보존."
+          ],
+          "duplicate_osm_refs": [],
+          "identity_status": "branch_unresolved",
+          "previous_place_id": "osaka_029",
+          "missing_fields": [
+            "area",
+            "address",
+            "opening_hours",
+            "cost",
+            "stay_min",
+            "bag_load",
+            "covered",
+            "website",
+            "opening_hours_source",
+            "verified_at"
+          ],
+          "schedule_ready": false
+        }
+      },
+      "new_osm_ref": "node/2296903605"
+    },
+    {
+      "old_place_id": "osaka_030",
+      "new_place_id": "osm_node_9875632529",
+      "reason": "User-selected distinct branch; replace selection, not entity identity",
+      "previous_record": {
+        "place": {
+          "place_id": "osaka_030",
+          "name": "Brooklyn Roasting Company",
+          "name_ko": "브루클린 로스팅 컴퍼니",
+          "category": "카페",
+          "area": null,
+          "address": null,
+          "latitude": 34.6738057,
+          "longitude": 135.500983,
+          "opening_hours": null,
+          "cost": null,
+          "stay_min": null,
+          "bag_load": null,
+          "covered": null,
+          "website": "http://brooklynroasting.jp/",
+          "opening_hours_source": null,
+          "verified_at": null
+        },
+        "field_sources": {
+          "name": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/9875632528"
+          },
+          "category": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/9875632528"
+          },
+          "latitude": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/9875632528"
+          },
+          "longitude": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/9875632528"
+          },
+          "website": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/9875632528"
+          },
+          "name_ko": {
+            "kind": "previous_draft_not_reverified",
+            "place_id": "osaka_030"
+          }
+        },
+        "source": {
+          "osm_ref": "node/9875632528",
+          "url": "https://www.openstreetmap.org/node/9875632528",
+          "collected_at": "2026-09-23T04:16:44.319902+00:00",
+          "osm_edited_at": "2022-07-09T02:38:33Z",
+          "coordinate_method": "node",
+          "address_components": {},
+          "tags": {
+            "amenity": "cafe",
+            "branch": "ex-presso Shinsaibashi",
+            "fair_trade": "only",
+            "level": "-1",
+            "name": "Brooklyn Roasting Company",
+            "website": "http://brooklynroasting.jp/"
+          }
+        },
+        "review": {
+          "status": "needs_verification",
+          "official_checks": [],
+          "notes": [
+            "OSM branch 태그로 지점 차이 확인. 신사이바시 좌표에 기존 난바 영업시간을 복사하지 않음. 난바 공식 페이지 본문 취득 실패로 최신 영업시간은 미확인."
+          ],
+          "duplicate_osm_refs": [],
+          "identity_status": "legacy_hours_wrong_branch",
+          "previous_place_id": "osaka_030",
+          "missing_fields": [
+            "area",
+            "address",
+            "opening_hours",
+            "cost",
+            "stay_min",
+            "bag_load",
+            "covered",
+            "opening_hours_source",
+            "verified_at"
+          ],
+          "schedule_ready": false
+        }
+      },
+      "new_osm_ref": "node/9875632529"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
@@ -37,6 +38,8 @@ export default function Home() {
         <p className="mt-3 text-[13.5px] leading-relaxed text-white/80">
           여기까지만 같이 정하고, 나머지는 각자 조용히 고르면 돼요.
         </p>
+
+        <Link href="/server-check" className="mt-4 inline-block text-sm underline">서버 연결 확인 (로컬 실행용)</Link>
 
         {/* 기간 */}
         <div className="mt-6 rounded-2xl bg-white/12 p-4">

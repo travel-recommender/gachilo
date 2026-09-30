@@ -1,0 +1,2963 @@
+{
+  "schema_version": 2,
+  "dataset_status": "draft_for_review",
+  "collected_at": "2026-09-23T04:16:44.319902+00:00",
+  "osm_base_timestamp": "2026-09-23T04:14:35Z",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "bbox": [
+    34.6,
+    135.4,
+    34.75,
+    135.6
+  ],
+  "scope": "Central Osaka bounding box, not all Osaka Prefecture",
+  "raw_sha256": "7019a33a976ac75d715ca3c580cc30f12628c8d72c8130705d4cc0c449aa6aa8",
+  "query_sha256": "fade1d530807d7b26f1fdaa2a50455a3a1ea2b555a5fc7075c184c14fc97c517",
+  "previous_draft_sha256": "34e0c4014fc27dcc60191e1ae0edc7a2223b1233ba0d4cf7c6db8d11cc1feda8",
+  "official_checks_sha256": "3c33acc791db88c9f5aa687acf6baf8842a0f1e442c3760b9e840bfdd6423428",
+  "attribution": {
+    "text": "© OpenStreetMap contributors",
+    "url": "https://www.openstreetmap.org/copyright",
+    "license": "ODbL 1.0"
+  },
+  "matches": [
+    {
+      "old_place_id": "osaka_001",
+      "old_name": "道頓堀グリコサイン",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/3507545614",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/3507545614",
+      "changed_fields": {
+        "area": {
+          "previous": "난바·도톤보리",
+          "fresh": null
+        },
+        "opening_hours": {
+          "previous": "상시 관람 가능 (점등: 일몰 후~24:00)",
+          "fresh": "점등: 일몰 후~24:00 (상황에 따라 단축 가능; 관람 가능 시간과 별개)"
+        },
+        "cost": {
+          "previous": 0.0,
+          "fresh": null
+        },
+        "stay_min": {
+          "previous": 20.0,
+          "fresh": null
+        },
+        "bag_load": {
+          "previous": 0.0,
+          "fresh": null
+        },
+        "covered": {
+          "previous": false,
+          "fresh": null
+        },
+        "website": {
+          "previous": null,
+          "fresh": "https://www.glico.com/jp/health/contents/glicosign/"
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": "2026-09-23"
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_002",
+      "old_name": "通天閣",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/254319878",
+          "distance_m": 2.9
+        }
+      ],
+      "osm_ref": "way/254319878",
+      "changed_fields": {
+        "address": {
+          "previous": null,
+          "fresh": "大阪市浪速区恵美須東1-18-6"
+        },
+        "latitude": {
+          "previous": 34.6525606,
+          "fresh": 34.6525393
+        },
+        "longitude": {
+          "previous": 135.50629162857143,
+          "fresh": 135.5063099
+        },
+        "opening_hours": {
+          "previous": "09:00-21:45 (일반 전망대, 최종입장 21:15)",
+          "fresh": "09:00-21:45 (일반 전망대 최종입장 21:15)"
+        },
+        "cost": {
+          "previous": null,
+          "fresh": 1500
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": "2026-09-23"
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_003",
+      "old_name": "新世界",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4190308689",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4190308689",
+      "changed_fields": {
+        "opening_hours": {
+          "previous": "상시 접근 가능 (개별 점포 영업시간 상이)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://www.city.osaka.lg.jp/naniwa/page/0000001012.html",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_004",
+      "old_name": "アメリカ村",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4586410090",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4586410090",
+      "changed_fields": {
+        "opening_hours": {
+          "previous": "상시 접근 가능 (개별 점포 영업시간 상이)",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_005",
+      "old_name": "黒門市場",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/5149144823",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/5149144823",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "구로몬시장",
+          "fresh": "쿠로몬시장"
+        },
+        "opening_hours": {
+          "previous": "점포별 상이 (방문 권장 시간대 약 09:00-18:00)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://osaka-info.jp/spot/kuromon-market/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_006",
+      "old_name": "心斎橋筋商店街",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4586420089",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4586420089",
+      "changed_fields": {
+        "address": {
+          "previous": null,
+          "fresh": "大阪市中央区心斎橋筋1丁目～2丁目"
+        },
+        "opening_hours": {
+          "previous": "점포별 상이",
+          "fresh": "개별 점포별 상이"
+        },
+        "website": {
+          "previous": "https://shinsaibashi-noh.jp/",
+          "fresh": "https://www.shinsaibashi.or.jp/"
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": "2026-09-23"
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_007",
+      "old_name": "空中庭園展望台",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4325335299",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4325335299",
+      "changed_fields": {
+        "opening_hours": {
+          "previous": "09:30-22:30 (최종입장 22:00)",
+          "fresh": "09:30-22:30 (최종입장 22:00; 특별 영업일 별도)"
+        },
+        "cost": {
+          "previous": null,
+          "fresh": 2000
+        },
+        "website": {
+          "previous": null,
+          "fresh": "https://www.skybldg.co.jp/observatory/"
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": "2026-09-23"
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_008",
+      "old_name": "HEP FIVE観覧車",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/332292139",
+          "distance_m": 5.4
+        }
+      ],
+      "osm_ref": "way/332292139",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "HEP FIVE 관람차",
+          "fresh": null
+        },
+        "address": {
+          "previous": null,
+          "fresh": "大阪府大阪市北区角田町5-15"
+        },
+        "latitude": {
+          "previous": 34.70399392857143,
+          "fresh": 34.703996
+        },
+        "longitude": {
+          "previous": 135.50003475714286,
+          "fresh": 135.5000942
+        },
+        "opening_hours": {
+          "previous": "11:00-23:00 (최종탑승 22:45)",
+          "fresh": "11:00-23:00 (최종탑승 22:45; 휴관 공지 별도)"
+        },
+        "cost": {
+          "previous": null,
+          "fresh": 1000
+        },
+        "website": {
+          "previous": null,
+          "fresh": "https://www.hepfive.jp/ferriswheel"
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": "2026-09-23"
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_009",
+      "old_name": "大阪城",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/1550234049",
+          "distance_m": 71.6
+        }
+      ],
+      "osm_ref": "way/1550234049",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "오사카성",
+          "fresh": "오사카성;오사카 성"
+        },
+        "area": {
+          "previous": "오사카성",
+          "fresh": null
+        },
+        "latitude": {
+          "previous": 34.68633084444444,
+          "fresh": 34.6869508
+        },
+        "longitude": {
+          "previous": 135.52545914722222,
+          "fresh": 135.5256708
+        },
+        "opening_hours": {
+          "previous": "09:00-18:00 (최종입장 17:30)",
+          "fresh": "09:00-18:00 (최종입장 17:30; 12월 28일~1월 1일 휴관)"
+        },
+        "stay_min": {
+          "previous": 90.0,
+          "fresh": null
+        },
+        "bag_load": {
+          "previous": 0.0,
+          "fresh": null
+        },
+        "covered": {
+          "previous": true,
+          "fresh": null
+        },
+        "website": {
+          "previous": null,
+          "fresh": "https://www.osakacastle.net/"
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": "2026-09-23"
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_010",
+      "old_name": "大阪天満宮",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/363304259",
+          "distance_m": 20.1
+        }
+      ],
+      "osm_ref": "way/363304259",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.69620205151515,
+          "fresh": 34.6961478
+        },
+        "longitude": {
+          "previous": 135.51298887575757,
+          "fresh": 135.5127788
+        },
+        "opening_hours": {
+          "previous": "05:30-18:30 (하절기 기준, 계절 변동 가능)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://osakatemmangu.or.jp/1332",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_011",
+      "old_name": "四天王寺",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/579077537",
+          "distance_m": 81.7
+        }
+      ],
+      "osm_ref": "way/579077537",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.6545283025641,
+          "fresh": 34.6546295
+        },
+        "longitude": {
+          "previous": 135.5155184230769,
+          "fresh": 135.5164027
+        },
+        "opening_hours": {
+          "previous": "04-09월 08:30-16:30 / 10-03월 08:30-16:00 (외부 참배 24시간)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://www.shitennoji.or.jp/admission.html",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_012",
+      "old_name": "大阪歴史博物館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4920617728",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4920617728",
+      "changed_fields": {
+        "opening_hours": {
+          "previous": "09:30-17:00 (화요일 휴관, 공휴일이면 다음날)",
+          "fresh": "We-Mo 09:30-17:00"
+        },
+        "opening_hours_source": {
+          "previous": "https://www.osakamushis.jp/visit/fee.html",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_013",
+      "old_name": "大阪中之島美術館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/343837388",
+          "distance_m": 29.5
+        }
+      ],
+      "osm_ref": "way/343837388",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "오사카 나카노시마 미술관",
+          "fresh": null
+        },
+        "latitude": {
+          "previous": 34.69269993,
+          "fresh": 34.692442
+        },
+        "longitude": {
+          "previous": 135.49118758,
+          "fresh": 135.4912647
+        },
+        "opening_hours": {
+          "previous": "화-일 10:00-17:00 (월요일 휴관, 전시별 변동 가능)",
+          "fresh": "Tu-Su,PH 10:00-17:00"
+        },
+        "opening_hours_source": {
+          "previous": "https://nakka-art.jp/visit/info/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_014",
+      "old_name": "大阪市立科学館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/231449111",
+          "distance_m": 9.7
+        }
+      ],
+      "osm_ref": "way/231449111",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "오사카 시립과학관",
+          "fresh": null
+        },
+        "latitude": {
+          "previous": 34.69127604193548,
+          "fresh": 34.6911979
+        },
+        "longitude": {
+          "previous": 135.49152248064516,
+          "fresh": 135.4915691
+        },
+        "opening_hours": {
+          "previous": "09:30-17:00 (월요일 휴관, 공휴일이면 다음 평일)",
+          "fresh": "Tu-Su 09:30-17:00"
+        },
+        "opening_hours_source": {
+          "previous": "https://www.sci-museum.jp/info/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_015",
+      "old_name": "大阪城公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/35457792",
+          "distance_m": 89.1
+        }
+      ],
+      "osm_ref": "way/35457792",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "오사카성 공원",
+          "fresh": "오사카 성 공원"
+        },
+        "latitude": {
+          "previous": 34.68730420141844,
+          "fresh": 34.6865762
+        },
+        "longitude": {
+          "previous": 135.5268453829787,
+          "fresh": 135.5272524
+        },
+        "opening_hours": {
+          "previous": "상시 접근 가능 (공원 내 개별 시설 별도)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://osakacastlepark.jp/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_016",
+      "old_name": "中之島公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/54037338",
+          "distance_m": 20.5
+        }
+      ],
+      "osm_ref": "way/54037338",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.692417983333335,
+          "fresh": 34.6924226
+        },
+        "longitude": {
+          "previous": 135.5075474,
+          "fresh": 135.5077718
+        },
+        "opening_hours": {
+          "previous": "상시 접근 가능 (개별 시설 별도)",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_017",
+      "old_name": "中之島公園バラ園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4825353606",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4825353606",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "나카노시마 공원 장미원",
+          "fresh": null
+        },
+        "opening_hours": {
+          "previous": "상시 접근 가능 (행사·관리 시 변동 가능)",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_018",
+      "old_name": "天王寺公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/170693374",
+          "distance_m": 118.4
+        }
+      ],
+      "osm_ref": "way/170693374",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "덴노지 공원",
+          "fresh": null
+        },
+        "latitude": {
+          "previous": 34.65095327419355,
+          "fresh": 34.6508412
+        },
+        "longitude": {
+          "previous": 135.51115384032258,
+          "fresh": 135.5098665
+        },
+        "opening_hours": {
+          "previous": "07:00-22:00 (텐시바 기준, 개별 점포 별도)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://www.tennoji-park.jp/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_019",
+      "old_name": "靱公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "relation/15447686",
+          "distance_m": 54.2
+        }
+      ],
+      "osm_ref": "relation/15447686",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "우츠보 공원",
+          "fresh": null
+        },
+        "latitude": {
+          "previous": 34.685036163157896,
+          "fresh": 34.6850431
+        },
+        "longitude": {
+          "previous": 135.4936313263158,
+          "fresh": 135.4930387
+        },
+        "opening_hours": {
+          "previous": "상시 접근 가능 (개별 시설 별도)",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_020",
+      "old_name": "なんばパークス",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/451572345",
+          "distance_m": 23.6
+        }
+      ],
+      "osm_ref": "way/451572345",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.661731957692304,
+          "fresh": 34.6616826
+        },
+        "longitude": {
+          "previous": 135.50169774615384,
+          "fresh": 135.5019491
+        },
+        "opening_hours": {
+          "previous": "쇼핑 11:00-21:00 / 레스토랑 11:00-22:00",
+          "fresh": "Mo-Su 10:00-24:00"
+        },
+        "opening_hours_source": {
+          "previous": "https://nambaparks.com/facilities",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_021",
+      "old_name": "高島屋",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/447587574",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/447587574",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "다카시마야 오사카점",
+          "fresh": null
+        },
+        "opening_hours": {
+          "previous": "10:00-20:00 (일부 매장 상이)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://www.takashimaya.co.jp/osaka/businesshours/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_022",
+      "old_name": "大丸 心斎橋店 本館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "relation/11079068",
+          "distance_m": 10.8
+        }
+      ],
+      "osm_ref": "relation/11079068",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "다이마루 신사이바시점",
+          "fresh": null
+        },
+        "area": {
+          "previous": "신사이바시",
+          "fresh": null
+        },
+        "latitude": {
+          "previous": 34.67327937777778,
+          "fresh": 34.6731847
+        },
+        "longitude": {
+          "previous": 135.5009304888889,
+          "fresh": 135.5009561
+        },
+        "opening_hours": {
+          "previous": "10:00-20:00 (레스토랑층 등 일부 상이)",
+          "fresh": "10:00-20:00 (본관 10층 식당 11:00-22:00; 1월 1~2일 휴무; 일부 매장 별도)"
+        },
+        "cost": {
+          "previous": 0.0,
+          "fresh": null
+        },
+        "stay_min": {
+          "previous": 90.0,
+          "fresh": null
+        },
+        "bag_load": {
+          "previous": 2.0,
+          "fresh": null
+        },
+        "covered": {
+          "previous": true,
+          "fresh": null
+        },
+        "website": {
+          "previous": "https://www.daimaru.co.jp/shinsaibashi",
+          "fresh": "https://www.daimaru.co.jp/shinsaibashi/"
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": "2026-09-23"
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_023",
+      "old_name": "阪神梅田本店",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/5865318031",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/5865318031",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "한신 우메다 본점",
+          "fresh": null
+        },
+        "opening_hours": {
+          "previous": "10:00-20:00 (일부 매장 상이)",
+          "fresh": "10:00-20:00"
+        },
+        "opening_hours_source": {
+          "previous": "https://www.hanshin-dept.jp/hshonten/map/index.html",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_024",
+      "old_name": "心斎橋PARCO",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/161871808",
+          "distance_m": 6.8
+        }
+      ],
+      "osm_ref": "way/161871808",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "신사이바시 PARCO",
+          "fresh": null
+        },
+        "latitude": {
+          "previous": 34.67390001176471,
+          "fresh": 34.6739227
+        },
+        "longitude": {
+          "previous": 135.50104050588234,
+          "fresh": 135.5009716
+        },
+        "opening_hours": {
+          "previous": "물판·서비스 10:00-20:00 (식당층 별도)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://shinsaibashi.parco.jp/info/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_025",
+      "old_name": "かに道楽",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/1671341600",
+          "distance_m": 0.0
+        },
+        {
+          "osm_ref": "node/2326956816",
+          "distance_m": 151.2
+        }
+      ],
+      "osm_ref": "node/1671341600",
+      "changed_fields": {
+        "opening_hours": {
+          "previous": "11:00-23:00",
+          "fresh": "Mo-Su 11:00-23:00"
+        },
+        "opening_hours_source": {
+          "previous": "https://www.douraku.co.jp/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_026",
+      "old_name": "一蘭 道頓堀店別館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4488318892",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4488318892",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "이치란 도톤보리점",
+          "fresh": "이치란 도톤보리 샵"
+        },
+        "opening_hours": {
+          "previous": "24시간 (맛집중 카운터) / 테이블석 08:00-23:00",
+          "fresh": null
+        },
+        "website": {
+          "previous": "https://ichiran.com/shop/kinki/dotonbori-south/",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://ichiran.com/shop/kinki/dotonbori-south/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_027",
+      "old_name": "釜たけうどん明石焼 LINKSヨドバシ梅田店",
+      "status": "not_matched",
+      "candidates": []
+    },
+    {
+      "old_place_id": "osaka_028",
+      "old_name": "総大醤",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/1716203862",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/1716203862",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "소다이쇼",
+          "fresh": null
+        },
+        "opening_hours": {
+          "previous": "11:00-24:00 (연중무휴)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://www.soudaisyou.com/access.html",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_029",
+      "old_name": "丸福珈琲店",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/2751709851",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/2751709851",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "마루후쿠 커피",
+          "fresh": null
+        },
+        "opening_hours": {
+          "previous": "08:00-23:00 (천日前 본점 기준)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "https://marufukucoffeeten.com/store/area/kansai/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_030",
+      "old_name": "Brooklyn Roasting Company",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/9875632528",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/9875632528",
+      "changed_fields": {
+        "name_ko": {
+          "previous": "브루클린 로스팅 컴퍼니",
+          "fresh": null
+        },
+        "opening_hours": {
+          "previous": "평일 09:00-20:00 / 토·일·공휴일 08:00-20:00 (NAMBA 기준)",
+          "fresh": null
+        },
+        "opening_hours_source": {
+          "previous": "http://brooklynroasting.jp/",
+          "fresh": null
+        },
+        "verified_at": {
+          "previous": "2026-09-16",
+          "fresh": null
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_2e4698946819",
+      "old_name": "エレメカ研究所",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/13516357601",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/13516357601",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_73505422b2e6",
+      "old_name": "道頓堀橋",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/438189049",
+          "distance_m": 0.9
+        }
+      ],
+      "osm_ref": "way/438189049",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.66903473703704,
+          "fresh": 34.6690406
+        },
+        "longitude": {
+          "previous": 135.50032561851853,
+          "fresh": 135.5003322
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_a270504b6cd8",
+      "old_name": "茶室（豊松庵）",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/176301498",
+          "distance_m": 1.4
+        }
+      ],
+      "osm_ref": "way/176301498",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.68822910869565,
+          "fresh": 34.6882229
+        },
+        "longitude": {
+          "previous": 135.52397912608697,
+          "fresh": 135.5239664
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_bdd1ec5175d0",
+      "old_name": "OAP港",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/610362551",
+          "distance_m": 0.7
+        }
+      ],
+      "osm_ref": "way/610362551",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.70056734,
+          "fresh": 34.7005664
+        },
+        "longitude": {
+          "previous": 135.52063618000003,
+          "fresh": 135.5206432
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_f0f97440bedc",
+      "old_name": "ワケ橋",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12781301802",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12781301802",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_1c4a0fd86b91",
+      "old_name": "包ギョーザ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/14097975136",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/14097975136",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_05edfc5d7fbc",
+      "old_name": "国旗掲揚塔",
+      "status": "not_matched",
+      "candidates": []
+    },
+    {
+      "old_place_id": "osaka_draft_85b3463e84b9",
+      "old_name": "太閤下水見学施設",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/10123924015",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/10123924015",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_5a243c3857f7",
+      "old_name": "松栄堂",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/7573379495",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/7573379495",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_84378ff5ba08",
+      "old_name": "毛馬閘門",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/9473994121",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/9473994121",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_0cc625078422",
+      "old_name": "湊町リバープレイス",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4586417789",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4586417789",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_300825840acb",
+      "old_name": "Akiba Kart Osaka",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/10857445433",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/10857445433",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_7c98da5a96f9",
+      "old_name": "大阪くらしの今昔館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4419665990",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4419665990",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_1cbe7e7894c8",
+      "old_name": "くすりの道修町資料館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6549326466",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6549326466",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_50b7a6cc608f",
+      "old_name": "まほうびん記念館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/3904064434",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/3904064434",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_c99cbfbd0f92",
+      "old_name": "アートコートギャラリー",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12270061636",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12270061636",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_6dbd8bbe7f48",
+      "old_name": "上方浮世絵館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/222632015",
+          "distance_m": 1.4
+        }
+      ],
+      "osm_ref": "way/222632015",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.66798204,
+          "fresh": 34.6679703
+        },
+        "longitude": {
+          "previous": 135.50219842,
+          "fresh": 135.5022045
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_ce3b8d452a0e",
+      "old_name": "国立国際美術館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/231449189",
+          "distance_m": 3.7
+        }
+      ],
+      "osm_ref": "way/231449189",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.6917195117647,
+          "fresh": 34.6916919
+        },
+        "longitude": {
+          "previous": 135.49206512352941,
+          "fresh": 135.4920875
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_316598fb77c9",
+      "old_name": "大阪市立美術館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/173693696",
+          "distance_m": 4.3
+        }
+      ],
+      "osm_ref": "way/173693696",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.65006793809524,
+          "fresh": 34.6500885
+        },
+        "longitude": {
+          "previous": 135.51053006666666,
+          "fresh": 135.5104908
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_2780be08a88e",
+      "old_name": "御津八幡宮",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/243117031",
+          "distance_m": 1.2
+        }
+      ],
+      "osm_ref": "way/243117031",
+      "changed_fields": {
+        "address": {
+          "previous": null,
+          "fresh": "〒542-0086 大阪府大阪市中央区西心斎橋2-10-7"
+        },
+        "latitude": {
+          "previous": 34.67143670769231,
+          "fresh": 34.6714458
+        },
+        "longitude": {
+          "previous": 135.4992702923077,
+          "fresh": 135.4992777
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_7675eb0bab46",
+      "old_name": "難波八坂神社",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/637023828",
+          "distance_m": 2.0
+        }
+      ],
+      "osm_ref": "way/637023828",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.66140392857143,
+          "fresh": 34.6613919
+        },
+        "longitude": {
+          "previous": 135.49672772857141,
+          "fresh": 135.4967435
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_40d8be797d5b",
+      "old_name": "design museum",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/2373447958",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/2373447958",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_6eda07803129",
+      "old_name": "ギャラリー ササキ商店",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/3953009758",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/3953009758",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_43502b1cfa97",
+      "old_name": "ブルームギャラリー",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/9792348498",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/9792348498",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_9cd21dc062f7",
+      "old_name": "大阪市立東洋陶磁美術館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/162382612",
+          "distance_m": 8.4
+        }
+      ],
+      "osm_ref": "way/162382612",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.693466139130436,
+          "fresh": 34.6934159
+        },
+        "longitude": {
+          "previous": 135.50544585652173,
+          "fresh": 135.5055152
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_70d399cfaea8",
+      "old_name": "日本基督教団大阪教会",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/3249298362",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/3249298362",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_07d2c797a410",
+      "old_name": "日本聖公会聖贖主教会礼拝堂",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/276877441",
+          "distance_m": 2.7
+        }
+      ],
+      "osm_ref": "way/276877441",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.72179792,
+          "fresh": 34.7217741
+        },
+        "longitude": {
+          "previous": 135.47608572,
+          "fresh": 135.4760878
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_006a0c207d8c",
+      "old_name": "歯神社",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/464117222",
+          "distance_m": 2.3
+        }
+      ],
+      "osm_ref": "way/464117222",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.70475928,
+          "fresh": 34.7047429
+        },
+        "longitude": {
+          "previous": 135.50099400000002,
+          "fresh": 135.5010093
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_718edcaf3985",
+      "old_name": "海月文庫アートスペース",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/9704704688",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/9704704688",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_d7da3fdbeaf6",
+      "old_name": "絹谷幸二 天空美術館",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12782416201",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12782416201",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_04b34bc4e6e2",
+      "old_name": "高津宮",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/1121693756",
+          "distance_m": 12.1
+        }
+      ],
+      "osm_ref": "way/1121693756",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.668687166666665,
+          "fresh": 34.6686688
+        },
+        "longitude": {
+          "previous": 135.51376718333333,
+          "fresh": 135.5138971
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_1289b4aecc32",
+      "old_name": "慶沢園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/765953897",
+          "distance_m": 32.9
+        }
+      ],
+      "osm_ref": "way/765953897",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.64967546956522,
+          "fresh": 34.6497143
+        },
+        "longitude": {
+          "previous": 135.51098882608696,
+          "fresh": 135.5113458
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_c62644984874",
+      "old_name": "桜之宮公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "relation/7175826",
+          "distance_m": 226.2
+        }
+      ],
+      "osm_ref": "relation/7175826",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.702918885842294,
+          "fresh": 34.704941
+        },
+        "longitude": {
+          "previous": 135.52098679767025,
+          "fresh": 135.520714
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_9e900589aec0",
+      "old_name": "西の丸庭園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/159278501",
+          "distance_m": 26.0
+        }
+      ],
+      "osm_ref": "way/159278501",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.68732864444444,
+          "fresh": 34.6870987
+        },
+        "longitude": {
+          "previous": 135.52309365,
+          "fresh": 135.5230444
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_f72944194ef3",
+      "old_name": "千島公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/34993780",
+          "distance_m": 18.5
+        }
+      ],
+      "osm_ref": "way/34993780",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.648916660000005,
+          "fresh": 34.6490799
+        },
+        "longitude": {
+          "previous": 135.47412195333334,
+          "fresh": 135.4740853
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_a66fcd05acfb",
+      "old_name": "南天満公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/161621411",
+          "distance_m": 18.8
+        }
+      ],
+      "osm_ref": "way/161621411",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.69193736153846,
+          "fresh": 34.691977
+        },
+        "longitude": {
+          "previous": 135.5148068923077,
+          "fresh": 135.5146066
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_03cde684bd96",
+      "old_name": "毛馬公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "relation/7175105",
+          "distance_m": 62.7
+        }
+      ],
+      "osm_ref": "relation/7175105",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.712459981889765,
+          "fresh": 34.7128217
+        },
+        "longitude": {
+          "previous": 135.51988232283463,
+          "fresh": 135.5193564
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_e102a263e5a8",
+      "old_name": "淀川河川公園 長柄地区",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/162156955",
+          "distance_m": 61.3
+        }
+      ],
+      "osm_ref": "way/162156955",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.72023457608696,
+          "fresh": 34.7197908
+        },
+        "longitude": {
+          "previous": 135.51402621739132,
+          "fresh": 135.5136285
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_5f8dd9212a0c",
+      "old_name": "藤田邸跡公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/1301242841",
+          "distance_m": 21.1
+        }
+      ],
+      "osm_ref": "way/1301242841",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.69524641666667,
+          "fresh": 34.6950643
+        },
+        "longitude": {
+          "previous": 135.52447162333334,
+          "fresh": 135.5245345
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_c6de5620d3d0",
+      "old_name": "難波中公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/172844586",
+          "distance_m": 4.7
+        }
+      ],
+      "osm_ref": "way/172844586",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.66070795555556,
+          "fresh": 34.6606878
+        },
+        "longitude": {
+          "previous": 135.4993268111111,
+          "fresh": 135.4993723
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_0cf4fe2e0afe",
+      "old_name": "花野・新・里山",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/162186567",
+          "distance_m": 35.1
+        }
+      ],
+      "osm_ref": "way/162186567",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.70586854444444,
+          "fresh": 34.7059837
+        },
+        "longitude": {
+          "previous": 135.4896999888889,
+          "fresh": 135.4900574
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_2941efc9ac2d",
+      "old_name": "うめきた公園 サウスパーク",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/1147393995",
+          "distance_m": 33.8
+        }
+      ],
+      "osm_ref": "way/1147393995",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.703740259090914,
+          "fresh": 34.7034592
+        },
+        "longitude": {
+          "previous": 135.49260398636363,
+          "fresh": 135.4924625
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_f852e8e07cf8",
+      "old_name": "かすがえ公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/246557701",
+          "distance_m": 5.6
+        }
+      ],
+      "osm_ref": "way/246557701",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.710460260000005,
+          "fresh": 34.7104108
+        },
+        "longitude": {
+          "previous": 135.52210972,
+          "fresh": 135.5221222
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_0adb7945fbda",
+      "old_name": "ほたるまちにある広場",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/1314581362",
+          "distance_m": 5.3
+        }
+      ],
+      "osm_ref": "way/1314581362",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.69382939285715,
+          "fresh": 34.6938196
+        },
+        "longitude": {
+          "previous": 135.48885707857144,
+          "fresh": 135.4888006
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_2fc0df9e9f8d",
+      "old_name": "パークスガーデン",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/5704362620",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/5704362620",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_cff5e2720c53",
+      "old_name": "三和公園",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/1454586896",
+          "distance_m": 3.8
+        }
+      ],
+      "osm_ref": "way/1454586896",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.73962195714286,
+          "fresh": 34.739589
+        },
+        "longitude": {
+          "previous": 135.47714627142858,
+          "fresh": 135.4771373
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_16f1d28c8bfd",
+      "old_name": "NU茶屋町",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/161450583",
+          "distance_m": 11.7
+        }
+      ],
+      "osm_ref": "way/161450583",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.70686731176471,
+          "fresh": 34.7069727
+        },
+        "longitude": {
+          "previous": 135.49913724705883,
+          "fresh": 135.4991316
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_1b3533415b94",
+      "old_name": "ハービスPLAZA ENT",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/588689753",
+          "distance_m": 4.7
+        }
+      ],
+      "osm_ref": "way/588689753",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.69985783939394,
+          "fresh": 34.6998307
+        },
+        "longitude": {
+          "previous": 135.49466534848486,
+          "fresh": 135.4947042
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_4fb99b053e8b",
+      "old_name": "Whityうめだ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/1304559276",
+          "distance_m": 67.9
+        }
+      ],
+      "osm_ref": "way/1304559276",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.702617612,
+          "fresh": 34.7032199
+        },
+        "longitude": {
+          "previous": 135.500038618,
+          "fresh": 135.5001589
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_e51bbe99124a",
+      "old_name": "アルデ新大阪",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/13030991952",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/13030991952",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_02288187c550",
+      "old_name": "イオンモール大阪ドームシティ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "relation/14378487",
+          "distance_m": 8.9
+        }
+      ],
+      "osm_ref": "relation/14378487",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.670438938333334,
+          "fresh": 34.6703688
+        },
+        "longitude": {
+          "previous": 135.47789146666668,
+          "fresh": 135.477939
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_11050de606b0",
+      "old_name": "ウイステ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/162642438",
+          "distance_m": 4.3
+        }
+      ],
+      "osm_ref": "way/162642438",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.6953411925,
+          "fresh": 34.6953042
+        },
+        "longitude": {
+          "previous": 135.47584719,
+          "fresh": 135.4758337
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_b1eae8a8935b",
+      "old_name": "Asoko Minamihorie",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/5083922723",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/5083922723",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_daa353940c61",
+      "old_name": "近鉄百貨店",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/171978091",
+          "distance_m": 8.8
+        }
+      ],
+      "osm_ref": "way/171978091",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.66536818,
+          "fresh": 34.6654093
+        },
+        "longitude": {
+          "previous": 135.51951986,
+          "fresh": 135.5196023
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_dc3ec67cb8d1",
+      "old_name": "京阪シティモール",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6640371676",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6640371676",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_2b9dd68b687a",
+      "old_name": "HELLO life",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/292400830",
+          "distance_m": 1.0
+        }
+      ],
+      "osm_ref": "way/292400830",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.68459105,
+          "fresh": 34.6845823
+        },
+        "longitude": {
+          "previous": 135.49421388333334,
+          "fresh": 135.4942168
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_fa65b053e525",
+      "old_name": "MIHA shop",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/257771954",
+          "distance_m": 1.3
+        }
+      ],
+      "osm_ref": "way/257771954",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.687297619999995,
+          "fresh": 34.6872861
+        },
+        "longitude": {
+          "previous": 135.48701721999998,
+          "fresh": 135.487014
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_31878d4960fc",
+      "old_name": "Viewl 阪急三国",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12913067534",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12913067534",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_bb9d5f00904d",
+      "old_name": "あべちか",
+      "status": "ambiguous",
+      "candidates": [
+        {
+          "osm_ref": "way/1323166166",
+          "distance_m": 39.0
+        },
+        {
+          "osm_ref": "way/1323166159",
+          "distance_m": 46.1
+        }
+      ]
+    },
+    {
+      "old_place_id": "osaka_draft_391fae83b26c",
+      "old_name": "てんしばi:na",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/977755839",
+          "distance_m": 17.2
+        }
+      ],
+      "osm_ref": "way/977755839",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.64879444545455,
+          "fresh": 34.648699
+        },
+        "longitude": {
+          "previous": 135.5095841181818,
+          "fresh": 135.5094357
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_a8c6b6985943",
+      "old_name": "なんばEKIKAN",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/599490077",
+          "distance_m": 3.0
+        },
+        {
+          "osm_ref": "way/658015183",
+          "distance_m": 150.8
+        }
+      ],
+      "osm_ref": "way/599490077",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.659867642857144,
+          "fresh": 34.6598441
+        },
+        "longitude": {
+          "previous": 135.50274558571428,
+          "fresh": 135.5027621
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_fc7acd992f21",
+      "old_name": "新大阪センイシティー",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/275638697",
+          "distance_m": 11.5
+        }
+      ],
+      "osm_ref": "way/275638697",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.7354525,
+          "fresh": 34.7355556
+        },
+        "longitude": {
+          "previous": 135.49400373333333,
+          "fresh": 135.4939955
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_b6b6dae05ce5",
+      "old_name": "淀屋橋 odona",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/148657763",
+          "distance_m": 1.8
+        }
+      ],
+      "osm_ref": "way/148657763",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.691121806666665,
+          "fresh": 34.6911335
+        },
+        "longitude": {
+          "previous": 135.50024359333332,
+          "fresh": 135.5002576
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_f1ba0aa6ab58",
+      "old_name": "阪急うめだ本店",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/9840655056",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/9840655056",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_481d9742f9c2",
+      "old_name": "ブリーゼブリーゼ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4584816489",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4584816489",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_c85fa26beb80",
+      "old_name": "なんばマルイ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/13026741817",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/13026741817",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_35640888fa49",
+      "old_name": "モトコーヒー",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4572487891",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4572487891",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_f22cfa23d646",
+      "old_name": "42195 COFFEE",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/226005126",
+          "distance_m": 1.1
+        }
+      ],
+      "osm_ref": "way/226005126",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.71237514,
+          "fresh": 34.7123735
+        },
+        "longitude": {
+          "previous": 135.49374364,
+          "fresh": 135.4937555
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_b0a5c9b0d460",
+      "old_name": "Antico Caffe Al Avis",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4572487893",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4572487893",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_5a3ef73c2b4b",
+      "old_name": "Blue Bottle Coffee",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/7144593677",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/7144593677",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_3b8f7684482e",
+      "old_name": "BOBBIN",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6300412085",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6300412085",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_e3ac280c1575",
+      "old_name": "Cafe Di Espresso",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/2064207432",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/2064207432",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_9342479ef7d7",
+      "old_name": "Cafe yutte",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/5875311485",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/5875311485",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_243b34cd6761",
+      "old_name": "e-maid",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4632058476",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4632058476",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_eda93d07ee2b",
+      "old_name": "Haiku Coffee Roasters",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/2293166511",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/2293166511",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_d52fee5c2304",
+      "old_name": "Holly's Cafe",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/2389282617",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/2389282617",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_11ceb1687dfa",
+      "old_name": "La Granda Familio",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/7477438893",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/7477438893",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_2f4886b3a5b6",
+      "old_name": "Melbourne Coffee",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/11664361242",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/11664361242",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_ad4f12a67de3",
+      "old_name": "mouton otto",
+      "status": "not_matched",
+      "candidates": []
+    },
+    {
+      "old_place_id": "osaka_draft_cdb260bb106a",
+      "old_name": "rion cafe",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6541264285",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6541264285",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_4af3a5a14578",
+      "old_name": "Sub Jazz Cafe",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/11942324370",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/11942324370",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_e5eb4dd70807",
+      "old_name": "SÖT COFFEE",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6886072023",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6886072023",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_af11af018972",
+      "old_name": "こちかぜ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/257441510",
+          "distance_m": 0.6
+        }
+      ],
+      "osm_ref": "way/257441510",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.67297645,
+          "fresh": 34.6729726
+        },
+        "longitude": {
+          "previous": 135.52485556666667,
+          "fresh": 135.5248506
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_19894ad0a123",
+      "old_name": "アズアン",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/3273391255",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/3273391255",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_c4a30f2620d0",
+      "old_name": "エミュリボン",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/5382170422",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/5382170422",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_32974d974e62",
+      "old_name": "ケーキ＆カフェダイニング　ボナボン",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6984070689",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6984070689",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_57eaac2e578d",
+      "old_name": "保護ねこカフェneu。",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6434846803",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6434846803",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_74dbaeea6a02",
+      "old_name": "喫茶あおい",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/10044742347",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/10044742347",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_96e588e49f58",
+      "old_name": "茶淹",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/9905594936",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/9905594936",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_f729469c78c5",
+      "old_name": "34 Kitchen",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/3432264291",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/3432264291",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_873f1e0cf834",
+      "old_name": "an39",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/9468409531",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/9468409531",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_94d63b518da4",
+      "old_name": "bee9",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12741627001",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12741627001",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_77f869ee706f",
+      "old_name": "Bubble Net",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/10578824249",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/10578824249",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_2f89be830b8c",
+      "old_name": "CAFETERIA AGORA",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12870742282",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12870742282",
+      "changed_fields": {
+        "address": {
+          "previous": null,
+          "fresh": "大阪府大阪市中之島4-3-53 大阪大学中之島センター2階"
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_ff20bd4cf6b7",
+      "old_name": "Casablanca Namba Riverside",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/13059162987",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/13059162987",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_5f45ffb4d766",
+      "old_name": "CENTRUM",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12989500937",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12989500937",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_89de388fac63",
+      "old_name": "Différence",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/5633793322",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/5633793322",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_23d3d20ef739",
+      "old_name": "GARB weeks",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "way/264771519",
+          "distance_m": 1.5
+        }
+      ],
+      "osm_ref": "way/264771519",
+      "changed_fields": {
+        "latitude": {
+          "previous": 34.6928005375,
+          "fresh": 34.6928002
+        },
+        "longitude": {
+          "previous": 135.50588735,
+          "fresh": 135.505904
+        }
+      }
+    },
+    {
+      "old_place_id": "osaka_draft_c341bbd2440a",
+      "old_name": "MERCY Vegan Factory",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/10259462714",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/10259462714",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_a9bc74861e3f",
+      "old_name": "MONTOMWORKS. mt.cafe & Design Dept.",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/9720396303",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/9720396303",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_d580756db04a",
+      "old_name": "natural kitchen めだか2号店",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/5864532121",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/5864532121",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_f8831852f028",
+      "old_name": "PAPALINA",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/7425697907",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/7425697907",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_98a4211ed755",
+      "old_name": "きりん寺 大阪総本店",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6349557186",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6349557186",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_7d6ecfb032b6",
+      "old_name": "もりもり寿し",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12403674701",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12403674701",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_d0e6cdcb566f",
+      "old_name": "アルバール",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/3074543734",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/3074543734",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_3b1acd991668",
+      "old_name": "カドヤ食堂",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/3923003857",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/3923003857",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_2eb759c40909",
+      "old_name": "サイゼリヤ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/1807434526",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/1807434526",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_1875c31c058c",
+      "old_name": "レコッコレ",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/2833959182",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/2833959182",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_3d97f36846d0",
+      "old_name": "中央市場 ゑんどう寿司",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/4424700690",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/4424700690",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_1cdebcaa6534",
+      "old_name": "人類みな麺類",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6423399288",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6423399288",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_20aa5444aadd",
+      "old_name": "傾奇御麺 天神橋・本店",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/7477484852",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/7477484852",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_7eda017e1ded",
+      "old_name": "咲璽季～素食",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/10755656305",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/10755656305",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_3c015925bf31",
+      "old_name": "居酒屋新",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/11724549770",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/11724549770",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_6789f7f9c22f",
+      "old_name": "舟屋",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6656921489",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6656921489",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_89458a1abeda",
+      "old_name": "Bistro よし川",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/7461081830",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/7461081830",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_26a5e809355e",
+      "old_name": "Cherry Jam",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12997440993",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12997440993",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_8cb9705b2793",
+      "old_name": "Comfort Zone 8 京いたりあん",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/10159432525",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/10159432525",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_d996a4118ab0",
+      "old_name": "MayWinds",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/6930081836",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/6930081836",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_2a9b88c21411",
+      "old_name": "Parfait de Merrily",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/12785065294",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/12785065294",
+      "changed_fields": {}
+    },
+    {
+      "old_place_id": "osaka_draft_5fa8876a4657",
+      "old_name": "Sagano",
+      "status": "matched",
+      "candidates": [
+        {
+          "osm_ref": "node/2968345518",
+          "distance_m": 0.0
+        }
+      ],
+      "osm_ref": "node/2968345518",
+      "changed_fields": {}
+    }
+  ]
+}

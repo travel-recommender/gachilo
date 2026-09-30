@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "purpose": "Map local and OSM identities to Google Place IDs for subsequent live lookup. No Google place details are cached here.",
+  "links": [
+    {
+      "place_id": "osm_node_2296903605",
+      "osm_ref": "node/2296903605",
+      "google_place_id": "ChIJWQqT02rnAGAREYiacO9ZKGI",
+      "linked_at": "2026-09-24",
+      "match_method": "User-provided output of the two-cafe API test; branch name and address compared with the previously selected branch.",
+      "status": "linked"
+    },
+    {
+      "place_id": "osm_node_9875632529",
+      "osm_ref": "node/9875632529",
+      "google_place_id": "ChIJZ14Mv2jnAGART3u5Qc-BIxY",
+      "linked_at": "2026-09-24",
+      "match_method": "User-provided output of the two-cafe API test; branch name and address compared with the previously selected branch.",
+      "status": "linked"
+    }
+  ]
+}
