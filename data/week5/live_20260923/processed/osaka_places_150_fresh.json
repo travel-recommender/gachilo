@@ -445,14 +445,14 @@
         "address": "大阪市浪速区恵美須東",
         "latitude": 34.6520901,
         "longitude": 135.5061908,
-        "opening_hours": null,
+        "opening_hours": "매일 24시간 (거리 통행 공간 기준; 개별 점포·전망대 영업시간 별도)",
         "cost": null,
         "stay_min": 120,
         "bag_load": 1,
         "covered": null,
         "website": "https://shinsekaiofficial.com/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-28"
+        "opening_hours_source": "https://maps.google.com/?cid=3941168473429300987",
+        "verified_at": "2026-09-30"
       },
       "field_sources": {
         "name": {
@@ -494,9 +494,13 @@
           "note": "신세카이 지역 주소. 특정 상점의 번지나 영업시간을 지역 전체에 적용하지 않음."
         },
         "verified_at": {
-          "kind": "review_date_only",
-          "note": "이번에 확인한 필드만 검증. 전체 필드·영업 상태 검증을 뜻하지 않음.",
-          "check_id": "official_fields_20260928"
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=3941168473429300987"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음."
         },
         "area": {
           "kind": "derived_from_official_address",
@@ -525,6 +529,24 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "opening_hours": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=3941168473429300987"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음."
+        },
+        "opening_hours_source": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=3941168473429300987"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음."
         }
       },
       "source": {
@@ -551,15 +573,14 @@
         ],
         "notes": [
           "지역 명소. 단일 시설 주소·영업시간의 적용 범위 확인 필요.",
-          "신세카이 지역 주소. 특정 상점의 번지나 영업시간을 지역 전체에 적용하지 않음."
+          "신세카이 지역 주소. 특정 상점의 번지나 영업시간을 지역 전체에 적용하지 않음.",
+          "2026-09-30: 신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_003",
         "missing_fields": [
-          "opening_hours",
           "cost",
-          "covered",
-          "opening_hours_source"
+          "covered"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -581,7 +602,18 @@
           "representative": 120,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "exclude_personal_shopping_spend"
+        "planning_cost_policy": "exclude_personal_shopping_spend",
+        "operating_checks": [
+          {
+            "kind": "google_maps_manual_review",
+            "urls": [
+              "https://maps.google.com/?cid=3941168473429300987"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음."
+          }
+        ]
       }
     },
     {
@@ -1781,7 +1813,8 @@
           "official_fields_20260928_v2"
         ],
         "notes": [
-          "오사카 관광국의 일반 참배 무료 안내. 유료 기도·결혼식 제외. 과거 여름 개문 공지를 연중 시간으로 적용하지 않음."
+          "오사카 관광국의 일반 참배 무료 안내. 유료 기도·결혼식 제외. 과거 여름 개문 공지를 연중 시간으로 적용하지 않음.",
+          "2026-09-30: 공식 2022년 여름 개문 시간 공지는 현재 연중 시간으로 적용하지 않음. 지도 17시 표시는 수여소와 경내 개방 구분이 필요하여 영업시간 null 유지."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_010",
@@ -1821,7 +1854,18 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://osakatemmangu.or.jp/1332"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "공식 2022년 여름 개문 시간 공지는 현재 연중 시간으로 적용하지 않음. 지도 17시 표시는 수여소와 경내 개방 구분이 필요하여 영업시간 null 유지."
+          }
+        ]
       }
     },
     {
@@ -5425,14 +5469,14 @@
         "address": "10 Dotonbori, Chuo Ward, Osaka, 542-0071 일본",
         "latitude": 34.6690406,
         "longitude": 135.5003322,
-        "opening_hours": null,
+        "opening_hours": "매일 24시간 (다리 통행 공간 기준; 주변 점포·시설 영업시간 별도)",
         "cost": null,
         "stay_min": 120,
         "bag_load": 0,
         "covered": null,
         "website": "https://www.city.osaka.lg.jp/kensetsu/page/0000493973.html",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-28"
+        "opening_hours_source": "https://maps.google.com/?cid=7388810500975723854",
+        "verified_at": "2026-09-30"
       },
       "field_sources": {
         "name": {
@@ -5468,9 +5512,13 @@
           "note": "공식 교량 소개의 행정구. 문의처 ATC 주소를 교량 주소로 넣지 않음."
         },
         "verified_at": {
-          "kind": "review_date_only",
-          "note": "이번에 확인한 필드만 검증. 전체 필드·영업 상태 검증을 뜻하지 않음.",
-          "check_id": "official_fields_20260928"
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=7388810500975723854"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "도톤보리바시 Google Maps 7일 모두 24시간 표시. 다리 통행과 주변 시설 운영을 구분."
         },
         "address": {
           "kind": "google_maps_ui_review",
@@ -5499,6 +5547,24 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "opening_hours": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=7388810500975723854"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "도톤보리바시 Google Maps 7일 모두 24시간 표시. 다리 통행과 주변 시설 운영을 구분."
+        },
+        "opening_hours_source": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=7388810500975723854"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "도톤보리바시 Google Maps 7일 모두 24시간 표시. 다리 통행과 주변 시설 운영을 구분."
         }
       },
       "source": {
@@ -5534,15 +5600,14 @@
         "notes": [
           "다리 위치와 시청 담당부서 주소 구분. 일반 점포시간 적용 대상 아님.",
           "공식 교량 소개의 행정구. 문의처 ATC 주소를 교량 주소로 넣지 않음.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.5m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.5m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-09-30: 도톤보리바시 Google Maps 7일 모두 24시간 표시. 다리 통행과 주변 시설 운영을 구분."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_73505422b2e6",
         "missing_fields": [
-          "opening_hours",
           "cost",
-          "covered",
-          "opening_hours_source"
+          "covered"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -5579,7 +5644,18 @@
           "representative": 120,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "google_maps_manual_review",
+            "urls": [
+              "https://maps.google.com/?cid=7388810500975723854"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "도톤보리바시 Google Maps 7일 모두 24시간 표시. 다리 통행과 주변 시설 운영을 구분."
+          }
+        ]
       }
     },
     {
@@ -5592,14 +5668,14 @@
         "address": "2 Osakajo, Chuo Ward, Osaka, 540-0002 일본",
         "latitude": 34.6882229,
         "longitude": 135.5239664,
-        "opening_hours": null,
-        "cost": null,
+        "opening_hours": "2026년 9~11월 목요일 10:00~16:00 (최종 입장 15:30); 다도 행사 예약 시 휴업, 다른 기간 별도 확인",
+        "cost": 1500,
         "stay_min": 120,
         "bag_load": 0,
         "covered": null,
-        "website": "https://www.osakacastlepark.jp/articles/detail.html?lang=en&id=33",
-        "opening_hours_source": null,
-        "verified_at": null
+        "website": "https://osaka-info.jp/special/dc/event/detail605/",
+        "opening_hours_source": "https://osaka-info.jp/special/dc/event/detail605/",
+        "verified_at": "2026-09-30"
       },
       "field_sources": {
         "name": {
@@ -5619,8 +5695,13 @@
           "url": "https://www.openstreetmap.org/way/176301498"
         },
         "website": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/way/176301498"
+          "kind": "official_tourism_site",
+          "urls": [
+            "https://osaka-info.jp/special/dc/event/detail605/"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "2026 공개 다도 체험 1인 1,500 JPY. 니시노마루 정원 입장료 별도이므로 전체 방문 비용이 아님."
         },
         "name_ko": {
           "kind": "editorial_korean_translation",
@@ -5670,6 +5751,42 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "opening_hours": {
+          "kind": "official_tourism_site",
+          "urls": [
+            "https://osaka-info.jp/special/dc/event/detail605/"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "오사카 관광국 2026 캠페인의 가을 공개 기간만 적용. 연중 영업시간 아님. 행사 대관 시 휴업하며 현장 접수, 사전 예약 불가."
+        },
+        "opening_hours_source": {
+          "kind": "official_tourism_site",
+          "urls": [
+            "https://osaka-info.jp/special/dc/event/detail605/"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "오사카 관광국 2026 캠페인의 가을 공개 기간만 적용. 연중 영업시간 아님. 행사 대관 시 휴업하며 현장 접수, 사전 예약 불가."
+        },
+        "verified_at": {
+          "kind": "official_tourism_site",
+          "urls": [
+            "https://osaka-info.jp/special/dc/event/detail605/"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "오사카 관광국 2026 캠페인의 가을 공개 기간만 적용. 연중 영업시간 아님. 행사 대관 시 휴업하며 현장 접수, 사전 예약 불가."
+        },
+        "cost": {
+          "kind": "official_tourism_site",
+          "urls": [
+            "https://osaka-info.jp/special/dc/event/detail605/"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "2026 공개 다도 체험 1인 1,500 JPY. 니시노마루 정원 입장료 별도이므로 전체 방문 비용이 아님."
         }
       },
       "source": {
@@ -5708,16 +5825,14 @@
         "official_checks": [],
         "notes": [
           "상시 공개 시설로 확인되지 않음. 특별 공개·예약 행사 확인 필요.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.8m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.8m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-09-30: 오사카 관광국 2026 캠페인의 가을 공개 기간만 적용. 연중 영업시간 아님. 행사 대관 시 휴업하며 현장 접수, 사전 예약 불가.",
+          "2026-09-30: 2026 공개 다도 체험 1인 1,500 JPY. 니시노마루 정원 입장료 별도이므로 전체 방문 비용이 아님."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_a270504b6cd8",
         "missing_fields": [
-          "opening_hours",
-          "cost",
-          "covered",
-          "opening_hours_source",
-          "verified_at"
+          "covered"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -5738,7 +5853,8 @@
           ]
         },
         "recommendation_blockers": [
-          "event_access_required"
+          "event_access_required",
+          "seasonal_event_date_confirmation_required"
         ],
         "map_address_check": {
           "place_id": "osaka_draft_a270504b6cd8",
@@ -5756,7 +5872,27 @@
           "representative": 120,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_tourism_site",
+            "urls": [
+              "https://osaka-info.jp/special/dc/event/detail605/"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "오사카 관광국 2026 캠페인의 가을 공개 기간만 적용. 연중 영업시간 아님. 행사 대관 시 휴업하며 현장 접수, 사전 예약 불가."
+          },
+          {
+            "kind": "official_tourism_site",
+            "urls": [
+              "https://osaka-info.jp/special/dc/event/detail605/"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "2026 공개 다도 체험 1인 1,500 JPY. 니시노마루 정원 입장료 별도이므로 전체 방문 비용이 아님."
+          }
+        ]
       }
     },
     {
@@ -6217,13 +6353,13 @@
         "latitude": 34.6801037,
         "longitude": 135.5144665,
         "opening_hours": null,
-        "cost": null,
+        "cost": 0,
         "stay_min": 120,
         "bag_load": 0,
         "covered": null,
         "website": "https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html",
         "opening_hours_source": null,
-        "verified_at": "2026-09-28"
+        "verified_at": "2026-09-30"
       },
       "field_sources": {
         "name": {
@@ -6251,9 +6387,13 @@
           "evidence_window": "2026-09-24/2026-09-26"
         },
         "verified_at": {
-          "kind": "review_date_only",
-          "note": "이번에 확인한 필드만 검증. 전체 필드·영업 상태 검증을 뜻하지 않음.",
-          "check_id": "official_fields_20260928"
+          "kind": "official_site",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "오사카시 지하 견학은 무료, 약 20분, 사전 신청 필요. 지상 관찰창과 지하 견학을 구분. 평일 09:00~17:30은 담당 부서 연락 시간으로 방문 영업시간에 입력하지 않음. 체류시간은 이동·대기 포함 기존 팀 추정값 유지."
         },
         "website": {
           "kind": "official_web_review",
@@ -6299,6 +6439,15 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "cost": {
+          "kind": "official_site",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "오사카시 지하 견학은 무료, 약 20분, 사전 신청 필요. 지상 관찰창과 지하 견학을 구분. 평일 09:00~17:30은 담당 부서 연락 시간으로 방문 영업시간에 입력하지 않음. 체류시간은 이동·대기 포함 기존 팀 추정값 유지."
         }
       },
       "source": {
@@ -6322,13 +6471,13 @@
         ],
         "notes": [
           "지상 관람창과 지하 견학 구분. 지하 견학은 사전 신청. 연락처 접수시간을 관람시간으로 사용하지 않음.",
-          "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+          "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+          "2026-09-30: 오사카시 지하 견학은 무료, 약 20분, 사전 신청 필요. 지상 관찰창과 지하 견학을 구분. 평일 09:00~17:30은 담당 부서 연락 시간으로 방문 영업시간에 입력하지 않음. 체류시간은 이동·대기 포함 기존 팀 추정값 유지."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_85b3463e84b9",
         "missing_fields": [
           "opening_hours",
-          "cost",
           "covered",
           "opening_hours_source"
         ],
@@ -6346,7 +6495,9 @@
             "지상 관람창과 지하 견학 구분. 지하 견학은 사전 신청. 연락처 접수시간을 관람시간으로 사용하지 않음."
           ]
         },
-        "recommendation_blockers": [],
+        "recommendation_blockers": [
+          "reservation_required"
+        ],
         "stay_policy": {
           "type": "관광 명소(문화·자연 포함)",
           "min": 90,
@@ -6354,7 +6505,18 @@
           "representative": 120,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "오사카시 지하 견학은 무료, 약 20분, 사전 신청 필요. 지상 관찰창과 지하 견학을 구분. 평일 09:00~17:30은 담당 부서 연락 시간으로 방문 영업시간에 입력하지 않음. 체류시간은 이동·대기 포함 기존 팀 추정값 유지."
+          }
+        ]
       }
     },
     {
@@ -9187,7 +9349,8 @@
         ],
         "notes": [
           "현재 운영 여부를 공식 출처로 확정하지 못함.",
-          "2026년 4월 일부 매장 영업 재개, 2026년도 갤러리 내 전시 예정 없음. 월별 영업일 SNS 확인. 관광 전시시설로 자동 추천 보류."
+          "2026년 4월 일부 매장 영업 재개, 2026년도 갤러리 내 전시 예정 없음. 월별 영업일 SNS 확인. 관광 전시시설로 자동 추천 보류.",
+          "2026-09-30: 2026-03-27 공지: 2026년 4월 일부 판매 업무 재개, 2026년 전시 계획 없음. 월별 운영일은 별도 공지. 영구 폐업으로 단정하지 않으며 전시 방문 추천은 보류."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_43502b1cfa97",
@@ -9231,7 +9394,18 @@
           "representative": 120,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://www.bloomgallery103.com/index.html"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "2026-03-27 공지: 2026년 4월 일부 판매 업무 재개, 2026년 전시 계획 없음. 월별 운영일은 별도 공지. 영구 폐업으로 단정하지 않으며 전시 방문 추천은 보류."
+          }
+        ]
       }
     },
     {
@@ -12397,14 +12571,14 @@
         "address": "大阪市都島区都島本通1丁目19",
         "latitude": 34.7104108,
         "longitude": 135.5221222,
-        "opening_hours": null,
+        "opening_hours": "매일 24시간 (공원 개방시간; 공사·행사 등 임시 통제 별도 확인)",
         "cost": null,
         "stay_min": 120,
         "bag_load": 0,
         "covered": null,
         "website": null,
-        "opening_hours_source": null,
-        "verified_at": "2026-09-26"
+        "opening_hours_source": "https://maps.google.com/?cid=3778987939280037928",
+        "verified_at": "2026-09-30"
       },
       "field_sources": {
         "name": {
@@ -12432,9 +12606,13 @@
           "evidence_window": "2026-09-24/2026-09-26"
         },
         "verified_at": {
-          "kind": "review_date_only",
-          "check_id": "osaka_draft_f852e8e07cf8_address_hours_20260926",
-          "note": "장소 전체 또는 일정 사용 가능 판정이 아님. 검증 범위는 필드 출처 참조."
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=3778987939280037928"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "かすがえ公園, 都島本通1丁目19, 좌표와 주소 일치. Google Maps 7일 모두 24시간 표시."
         },
         "area": {
           "kind": "derived_from_official_address",
@@ -12472,6 +12650,24 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "opening_hours": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=3778987939280037928"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "かすがえ公園, 都島本通1丁目19, 좌표와 주소 일치. Google Maps 7일 모두 24시간 표시."
+        },
+        "opening_hours_source": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=3778987939280037928"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "かすがえ公園, 都島本通1丁目19, 좌표와 주소 일치. Google Maps 7일 모두 24시간 표시."
         }
       },
       "source": {
@@ -12492,15 +12688,15 @@
         "official_checks": [
           "osaka_draft_f852e8e07cf8_address_hours_20260926"
         ],
-        "notes": [],
+        "notes": [
+          "2026-09-30: かすがえ公園, 都島本通1丁目19, 좌표와 주소 일치. Google Maps 7일 모두 24시간 표시."
+        ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_f852e8e07cf8",
         "missing_fields": [
-          "opening_hours",
           "cost",
           "covered",
-          "website",
-          "opening_hours_source"
+          "website"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -12522,7 +12718,18 @@
           "representative": 120,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "google_maps_manual_review",
+            "urls": [
+              "https://maps.google.com/?cid=3778987939280037928"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "かすがえ公園, 都島本通1丁目19, 좌표와 주소 일치. Google Maps 7일 모두 24시간 표시."
+          }
+        ]
       }
     },
     {
@@ -19818,7 +20025,8 @@
         ],
         "notes": [
           "공식 페이지 본문과 하단의 운영시간·휴무일이 충돌하여 영업시간을 미확인 처리.",
-          "기준 메뉴: 홍차 1인 550엔 JPY. 커피 550엔부터와 구분, 식사/추가 주문 별도."
+          "기준 메뉴: 홍차 1인 550엔 JPY. 커피 550엔부터와 구분, 식사/추가 주문 별도.",
+          "2026-09-30: 공식 ACCESS와 하단 영업시간·휴무일이 서로 다름(월 휴무/화 휴무). 충돌 해소 전 영업시간 null 유지."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_74dbaeea6a02",
@@ -19857,7 +20065,18 @@
           "representative": 60,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://kissaaoiclub.com/"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "공식 ACCESS와 하단 영업시간·휴무일이 서로 다름(월 휴무/화 휴무). 충돌 해소 전 영업시간 null 유지."
+          }
+        ]
       }
     },
     {
@@ -25060,14 +25279,14 @@
         "address": "2 Chome-4-1 Funakoshicho, Chuo Ward, Osaka, 540-0036 일본",
         "latitude": 34.6879231,
         "longitude": 135.5130323,
-        "opening_hours": null,
+        "opening_hours": "월~금 08:00~21:00; 토 11:00~14:00; 일 휴무 (공휴일 별도 확인)",
         "cost": null,
         "stay_min": 90,
         "bag_load": 0,
         "covered": null,
         "website": "https://maywinds.on.omisenomikata.jp/",
-        "opening_hours_source": null,
-        "verified_at": null
+        "opening_hours_source": "https://maps.google.com/?cid=17132172652483626966",
+        "verified_at": "2026-09-30"
       },
       "field_sources": {
         "name": {
@@ -25137,6 +25356,33 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "opening_hours": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=17132172652483626966"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음."
+        },
+        "opening_hours_source": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=17132172652483626966"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음."
+        },
+        "verified_at": {
+          "kind": "google_maps_manual_review",
+          "urls": [
+            "https://maps.google.com/?cid=17132172652483626966"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "operating_review_20260930",
+          "note": "MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음."
         }
       },
       "source": {
@@ -25163,16 +25409,14 @@
         "official_checks": [],
         "notes": [
           "점포 홈페이지 취득 실패. 운영정보 미확인.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 15.0m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 15.0m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-09-30: MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_d996a4118ab0",
         "missing_fields": [
-          "opening_hours",
           "cost",
-          "covered",
-          "opening_hours_source",
-          "verified_at"
+          "covered"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -25209,7 +25453,18 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "google_maps_manual_review",
+            "urls": [
+              "https://maps.google.com/?cid=17132172652483626966"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "operating_review_20260930",
+            "note": "MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음."
+          }
+        ]
       }
     },
     {
@@ -26316,6 +26571,6 @@
   "enrichment_checks_file": "official_enrichment_20260924.json",
   "full_review_revision": "address_hours_20260926",
   "full_review_checks_file": "official_enrichment_20260926.json",
-  "latest_enrichment_revision": "team_planning_rules_20260929",
-  "latest_enrichment_checks_file": "team_rules_20260929.json"
+  "latest_enrichment_revision": "operating_review_20260930",
+  "latest_enrichment_checks_file": "operating_review_20260930.json"
 }
