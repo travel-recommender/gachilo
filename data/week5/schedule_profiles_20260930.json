@@ -15,7 +15,8 @@
     "window=[개시,종료,최종입장]이며 일본 현지 자정부터 분. 식당의 명시적 최종입장이 없으면 영업종료를 상한으로 두고 체류시간 전부가 창 안에 들어가야 한다.",
     "HEP FIVE 10/15(목) 공지는 연도 생략. 2026-10-15를 확정 휴업으로 단정하지 않고 확인 전 제외한다.",
     "공원 가격·시간은 명시한 무료 일반 이용 구역에만 적용한다. 좌표는 수집 원본으로 실제 출입구가 아니며 경로 정확도 검증에 쓰지 않는다.",
-    "2026-09-30 후속: 실제 장소 서버 모드에서 재사용. 쇼핑 5곳은 allowShopping 옵션에서만 배치하고 소비 비용은 null/비산정으로 표시. 150곳 전체 검증 완료가 아님."
+    "2026-09-30 후속: 실제 장소 서버 모드에서 재사용. 쇼핑 5곳은 allowShopping 옵션에서만 배치하고 소비 비용은 null/비산정으로 표시. 150곳 전체 검증 완료가 아님.",
+    "2026-09-30 추가 확인: 쇼핑층 공통 시간·무료 참배/공원·찻집을 정규화. Whity 11/19 정기휴관, 위스테 10/8·차엔 10/10 확인 전 제외. 비정기 휴무 브리제는 여전히 보류."
   ],
   "places": {
     "osaka_002": {
@@ -325,6 +326,265 @@
         "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
       ],
       "checked_at": "2026-09-30"
+    },
+    "osaka_draft_16f1d28c8bfd": {
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://nu-chayamachi.com/info/openclose/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 쇼핑 11~21시. 공식 2026년 휴관 달력에서 10·11월 정기휴관 없음.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_1b3533415b94": {
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.herbis.jp/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). ENT 일반 판매장 11~20시. 음식점·개별 매장 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_02288187c550": {
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.aeon.jp/sc/osakadomecity/info/time.html"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 몰 전문점 10~21시. 이온 슈퍼·개별 예외점 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_daa353940c61": {
+      "window": [
+        600,
+        1110,
+        1110
+      ],
+      "source_urls": [
+        "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 판매층 공통 구간인 10~18:30만 일정에 사용. 원본의 층별 영업시간은 보존.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_dc3ec67cb8d1": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://citymall.jp/access/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). MBF 단축 운영을 고려해 전문점 공통 구간인 10~20시만 사용.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_b6b6dae05ce5": {
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://mitsui-shopping-park.com/odona/top.html"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 11~20시. 정기 휴관 12/31·1/1은 검토 날짜 범위 밖.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_f1ba0aa6ab58": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.hankyu-dept.co.jp/honten/map/index.html"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 판매장 10~20시. 식당·특별 운영 구역 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_4fb99b053e8b": {
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://whity.osaka-chikagai.jp/",
+        "https://osaka-info.jp/spot/whity-umeda/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 10~21시. 홀수 달 셋째 목요일 휴관 규칙의 범위 내 날짜 2026-11-19 제외.",
+      "checked_at": "2026-09-30",
+      "exceptions": {
+        "2026-11-19": {
+          "closed": true
+        }
+      }
+    },
+    "osaka_draft_11050de606b0": {
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.wiste.jp/information/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 전문점 10~21시. 10/8(목) 휴관 공지에 연도가 없어 해당 날짜는 확인 전 제외.",
+      "checked_at": "2026-09-30",
+      "uncertain_dates": [
+        "2026-10-08"
+      ]
+    },
+    "osaka_draft_481d9742f9c2": {
+      "window": [
+        660,
+        1140,
+        1140
+      ],
+      "source_urls": [
+        "https://www.breeze-breeze.jp/info/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 공통 11~19시만 정규화. 비정기 휴무 확인 전 자동 일정에서는 보류.",
+      "checked_at": "2026-09-30",
+      "requires_visit_confirmation": true
+    },
+    "osaka_draft_6dbd8bbe7f48": {
+      "window": [
+        660,
+        1080,
+        1050
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/special/coolosaka/cool-spot/1186/"
+      ],
+      "cost_basis": "성인 일반 관람 700 JPY; 판화 체험 제외. 월요일 휴관, 공휴일이면 다음날.",
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true
+    },
+    "osaka_draft_04b34bc4e6e2": {
+      "window": [
+        360,
+        1020,
+        1020
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/529"
+      ],
+      "cost_basis": "고즈구 경내 일반 참배 무료. 신전 폐문 17시 전에 마치는 보수적 구간; 기도·행사 참가비 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_5f8dd9212a0c": {
+      "window": [
+        600,
+        960,
+        960
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/617"
+      ],
+      "cost_basis": "후지타 저택 터 공원 무료 일반 공개 10~16시. 후지타 미술관 입장료와 구분.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_2fc0df9e9f8d": {
+      "window": [
+        600,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://nambaparks.com/garden"
+      ],
+      "cost_basis": "무료 옥상정원 10~24시. 쇼핑·음식 제외; 임시 휴관은 난바 파크스 운영 공지 재확인.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_7675eb0bab46": {
+      "window": [
+        360,
+        1020,
+        1020
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/246",
+        "https://osaka-info.jp/special/dc/event/detail12/"
+      ],
+      "cost_basis": "난바 야사카 신사 일반 경내 참배 무료. 06~17시 개문, 사무소 09~16:50; 기도·물품 구매 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_c62644984874": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/458"
+      ],
+      "cost_basis": "게마 사쿠라노미야 공원 일반 야외 산책 24시간·입장 무료. 구장·유람선 등 유료 시설은 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_96e588e49f58": {
+      "window": [
+        780,
+        1140,
+        1110
+      ],
+      "source_urls": [
+        "https://chaenjin.jimdofree.com/"
+      ],
+      "cost_basis": "센차·우롱차 1인 한 주문 750 JPY(최대 3회 우림). 수~일 13~19시경, 주문 18:30까지. 10/10 행사 공지의 일반 영업 여부·연도 확인 전 해당 날짜 제외.",
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1,
+        2
+      ],
+      "uncertain_dates": [
+        "2026-10-10"
+      ]
+    },
+    "osaka_010": {
+      "window": [
+        540,
+        1020,
+        1020
+      ],
+      "source_urls": [
+        "https://discover.osaka-info.jp/jp/articles/tenjin-matsuri-festivals",
+        "https://osaka-info.jp/special/dc/event/detail369/"
+      ],
+      "cost_basis": "관광국 2026년 안내의 참배 09~17시와 별도 시설 소개의 개문 05:30~18:30을 구분. 일정은 두 안내에 공통으로 포함되는 09~17시 경내 참배만 사용; 기도·행사·물품 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_23d3d20ef739": {
+      "window": [
+        690,
+        900,
+        900
+      ],
+      "source_urls": [
+        "https://garbweeks.com/menu/",
+        "https://garbweeks.com/menu/lunch.pdf?2026092802=",
+        "https://garbweeks.com/menu/lunch_h.pdf?2026092802=",
+        "https://garbweeks.com/shop/"
+      ],
+      "cost_basis": "현재 공식 메뉴 페이지에서 연결한 평일 오늘의 메인 플레이트 1인 1250 JPY(빵 또는 밥). 휴일 메뉴의 1700 JPY와 다르므로 평일 비공휴일 11:30~15:00에만 계산. 15시는 점심 주문 마감이며 이 모델에서는 식사도 그 전에 마치도록 제한. 음료·추가 주문 제외. 최신 PDF에서 세금 포함 문구는 확인하지 못함.",
+      "checked_at": "2026-09-30",
+      "price_unavailable_weekdays": [
+        0,
+        6
+      ],
+      "price_unavailable_holidays": true
     }
   }
 }

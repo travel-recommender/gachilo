@@ -1,12 +1,12 @@
 {
   "reviewed_at": "2026-09-30",
   "audited_date": "2026-10-01",
-  "source_sha256": "7a1ef0343c7a625b5fd99fe7755d1d4296c46d30f622ff97a0d2955f4af294d6",
-  "profiles_sha256": "b86ab1314bc757c3141e50e0eff5e64e4f9dc329faa8fabdfad90e6c8b155684",
+  "source_sha256": "97701a9be7bc2e39f4b7f5fecb956bac4f2249bfbc1d8367902295d9cbb688ed",
+  "profiles_sha256": "dea7e02a4cb92a0c942e395cc1bd37f0c10590940192fc63f7a4c2ab4b27f87b",
   "summary": {
     "total_records": 150,
-    "with_date_profile": 22,
-    "eligible_for_offline_model": 14,
+    "with_date_profile": 41,
+    "eligible_for_offline_model": 23,
     "production_schedule_ready": 0,
     "scenarios_passed": 4,
     "distinct_scheduled_places": 10
@@ -146,14 +146,18 @@
     {
       "place_id": "osaka_010",
       "name_ko": "오사카 텐만구",
-      "reasons": [
-        "opening_hours_missing",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        540,
+        1020,
+        1020
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "관광국 2026년 안내의 참배 09~17시와 별도 시설 소개의 개문 05:30~18:30을 구분. 일정은 두 안내에 공통으로 포함되는 09~17시 경내 참배만 사용; 기도·행사·물품 제외.",
+      "source_urls": [
+        "https://discover.osaka-info.jp/jp/articles/tenjin-matsuri-festivals",
+        "https://osaka-info.jp/special/dc/event/detail369/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -558,6 +562,7 @@
       "place_id": "osaka_draft_5a243c3857f7",
       "name_ko": "쇼에이도",
       "reasons": [
+        "category_mismatch",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -666,13 +671,17 @@
     {
       "place_id": "osaka_draft_6dbd8bbe7f48",
       "name_ko": "가미가타 우키요에관",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        660,
+        1080,
+        1050
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "성인 일반 관람 700 JPY; 판화 체험 제외. 월요일 휴관, 공휴일이면 다음날.",
+      "source_urls": [
+        "https://osaka-info.jp/special/coolosaka/cool-spot/1186/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -715,14 +724,18 @@
     {
       "place_id": "osaka_draft_7675eb0bab46",
       "name_ko": "난바 야사카 신사",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        360,
+        1020,
+        1020
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "난바 야사카 신사 일반 경내 참배 무료. 06~17시 개문, 사무소 09~16:50; 기도·물품 구매 제외.",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/246",
+        "https://osaka-info.jp/special/dc/event/detail12/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -862,13 +875,17 @@
     {
       "place_id": "osaka_draft_04b34bc4e6e2",
       "name_ko": "고즈구 신사",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        360,
+        1020,
+        1020
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "고즈구 경내 일반 참배 무료. 신전 폐문 17시 전에 마치는 보수적 구간; 기도·행사 참가비 제외.",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/529"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -890,14 +907,17 @@
     {
       "place_id": "osaka_draft_c62644984874",
       "name_ko": "사쿠라노미야 공원",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        0,
+        1440,
+        1440
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "게마 사쿠라노미야 공원 일반 야외 산책 24시간·입장 무료. 구장·유람선 등 유료 시설은 제외.",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/458"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -969,13 +989,17 @@
     {
       "place_id": "osaka_draft_5f8dd9212a0c",
       "name_ko": "후지타 저택 터 공원",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        600,
+        960,
+        960
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "후지타 저택 터 공원 무료 일반 공개 10~16시. 후지타 미술관 입장료와 구분.",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/617"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1049,13 +1073,17 @@
     {
       "place_id": "osaka_draft_2fc0df9e9f8d",
       "name_ko": "파크스 가든",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        600,
+        1440,
+        1440
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "무료 옥상정원 10~24시. 쇼핑·음식 제외; 임시 휴관은 난바 파크스 운영 공지 재확인.",
+      "source_urls": [
+        "https://nambaparks.com/garden"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1078,12 +1106,17 @@
       "place_id": "osaka_draft_16f1d28c8bfd",
       "name_ko": "NU 자야마치",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 쇼핑 11~21시. 공식 2026년 휴관 달력에서 10·11월 정기휴관 없음.",
+      "source_urls": [
+        "https://nu-chayamachi.com/info/openclose/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1091,12 +1124,17 @@
       "place_id": "osaka_draft_1b3533415b94",
       "name_ko": "하비스 플라자",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). ENT 일반 판매장 11~20시. 음식점·개별 매장 제외.",
+      "source_urls": [
+        "https://www.herbis.jp/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1104,12 +1142,18 @@
       "place_id": "osaka_draft_4fb99b053e8b",
       "name_ko": "화이티 우메다",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 10~21시. 홀수 달 셋째 목요일 휴관 규칙의 범위 내 날짜 2026-11-19 제외.",
+      "source_urls": [
+        "https://whity.osaka-chikagai.jp/",
+        "https://osaka-info.jp/spot/whity-umeda/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1130,12 +1174,17 @@
       "place_id": "osaka_draft_02288187c550",
       "name_ko": "이온몰 오사카 돔시티",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 몰 전문점 10~21시. 이온 슈퍼·개별 예외점 제외.",
+      "source_urls": [
+        "https://www.aeon.jp/sc/osakadomecity/info/time.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1143,12 +1192,17 @@
       "place_id": "osaka_draft_11050de606b0",
       "name_ko": "위스테",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 전문점 10~21시. 10/8(목) 휴관 공지에 연도가 없어 해당 날짜는 확인 전 제외.",
+      "source_urls": [
+        "https://www.wiste.jp/information/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1171,12 +1225,17 @@
       "place_id": "osaka_draft_daa353940c61",
       "name_ko": "긴테쓰 백화점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1110,
+        1110
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 판매층 공통 구간인 10~18:30만 일정에 사용. 원본의 층별 영업시간은 보존.",
+      "source_urls": [
+        "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1184,12 +1243,17 @@
       "place_id": "osaka_draft_dc3ec67cb8d1",
       "name_ko": "케이한 시티 몰",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). MBF 단축 운영을 고려해 전문점 공통 구간인 10~20시만 사용.",
+      "source_urls": [
+        "https://citymall.jp/access/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1281,12 +1345,17 @@
       "place_id": "osaka_draft_b6b6dae05ce5",
       "name_ko": "요도야바시 오도나",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 11~20시. 정기 휴관 12/31·1/1은 검토 날짜 범위 밖.",
+      "source_urls": [
+        "https://mitsui-shopping-park.com/odona/top.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1294,12 +1363,17 @@
       "place_id": "osaka_draft_f1ba0aa6ab58",
       "name_ko": "한큐 백화점 우메다 본점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 판매장 10~20시. 식당·특별 운영 구역 제외.",
+      "source_urls": [
+        "https://www.hankyu-dept.co.jp/honten/map/index.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1308,11 +1382,17 @@
       "name_ko": "브리제 브리제",
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "visit_confirmation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1140,
+        1140
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 공통 11~19시만 정규화. 비정기 휴무 확인 전 자동 일정에서는 보류.",
+      "source_urls": [
+        "https://www.breeze-breeze.jp/info/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1622,13 +1702,17 @@
     {
       "place_id": "osaka_draft_96e588e49f58",
       "name_ko": "차엔",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        780,
+        1140,
+        1110
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "센차·우롱차 1인 한 주문 750 JPY(최대 3회 우림). 수~일 13~19시경, 주문 18:30까지. 10/10 행사 공지의 일반 영업 여부·연도 확인 전 해당 날짜 제외.",
+      "source_urls": [
+        "https://chaenjin.jimdofree.com/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1740,14 +1824,20 @@
     {
       "place_id": "osaka_draft_23d3d20ef739",
       "name_ko": "가브 위크스",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        690,
+        900,
+        900
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "현재 공식 메뉴 페이지에서 연결한 평일 오늘의 메인 플레이트 1인 1250 JPY(빵 또는 밥). 휴일 메뉴의 1700 JPY와 다르므로 평일 비공휴일 11:30~15:00에만 계산. 15시는 점심 주문 마감이며 이 모델에서는 식사도 그 전에 마치도록 제한. 음료·추가 주문 제외. 최신 PDF에서 세금 포함 문구는 확인하지 못함.",
+      "source_urls": [
+        "https://garbweeks.com/menu/",
+        "https://garbweeks.com/menu/lunch.pdf?2026092802=",
+        "https://garbweeks.com/menu/lunch_h.pdf?2026092802=",
+        "https://garbweeks.com/shop/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {

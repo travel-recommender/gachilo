@@ -104,7 +104,7 @@ HTTP 통합검사로 저장·조회, 권한·출처 제한, 동시 입력, 재�
 
 체류시간은 사용자가 제공한 유형별 범위의 상한을 기본값으로 사용합니다. 기존 공식 체류시간은 보존하고 새 값은 `team_rule_estimate`로 표시합니다. 분류 범위는 각 장소의 `review.stay_policy`에 있습니다. 짐 점수는 기존 `scripts/recommend_itinerary.py:get_luggage_score`와 동일하게 쇼핑 2, 구로몬시장·신사이바시스지 상점가·아메리카무라·신세카이 1, 그 외 0입니다. 스냅샷 엔진의 0~1 `bagLoad`와 직접 혼합하지 않습니다.
 
-한국어 이름·체류시간·짐 점수는 150/150, 주소는 148/150입니다. 주소 미확인 2곳과 영업시간 미확인 17곳은 그대로 남깁니다. Google Maps 폐업·임시휴업 표시, 시설 대표주소, 이전 위치 충돌을 `planning.review_required`로 내보냅니다. 모든 실제 장소는 방문일별 운영시간 확인이 필요하며 `planning.schedule_ready=false`입니다. 이 150곳을 그대로 자동 일정 생성에 넣으면 안 됩니다.
+한국어 이름·체류시간·짐 점수는 150/150, 주소는 148/150입니다. 주소 미확인 2곳과 영업시간 미확인 16곳은 그대로 남깁니다. Google Maps 폐업·임시휴업 표시, 시설 대표주소, 이전 위치 충돌을 `planning.review_required`로 내보냅니다. 모든 실제 장소는 방문일별 운영시간 확인이 필요하며 `planning.schedule_ready=false`입니다. 이 150곳을 그대로 자동 일정 생성에 넣으면 안 됩니다.
 
 검증: `python3 -m unittest discover -s backend -p 'test_*.py'` 및 `python3 -m unittest discover -s scripts -p 'test_*.py'`.
 
@@ -137,4 +137,6 @@ HTTP 통합검사로 저장·조회, 권한·출처 제한, 동시 입력, 재�
 
 `python3 -m unittest discover -s backend -v`와 `node --test scripts/test_real_schedule.mjs scripts/test_real_rooms.mjs`로 재현합니다. Node 24 이상이 필요합니다. 테스트는 로컬 HTTP 포트를 엽니다.
 
-150개 ID를 여섯 명의 합성 입력으로 모두 저장·계산하는 검사, 모드 간 ID 혼합 차단, 같은 방 권한, 환율 누락, 쇼핑 null, hard limit, 날짜 변경, 결과 재조회·무효화·동시 수정, 기존 DB 이관을 검증합니다. `../data/week5/real_catalog_integration_20260930.json`은 150곳 전체 투입 실험의 재현 가능한 결과입니다. 2026-10-01~07 기준 19곳만 배치되고 131곳은 보류됩니다. **모든 ID의 서버 연결 완료와 모든 장소의 여행 가능 검증은 다릅니다.**
+150개 ID를 여섯 명의 합성 입력으로 모두 저장·계산하는 검사, 모드 간 ID 혼합 차단, 같은 방 권한, 환율 누락, 쇼핑 null, hard limit, 날짜 변경, 결과 재조회·무효화·동시 수정, 기존 DB 이관을 검증합니다. `../data/week5/real_catalog_integration_20260930.json`은 150곳 전체 투입 실험의 재현 가능한 결과입니다. 2026-10-01~07 기준 30곳 배치·120곳 미배치입니다. 장소별 단독 검사에서는 37곳 통과·113곳 보류이며, 7곳은 단독 검사 통과 후 전체 일정 제약으로 미배치됐습니다. **모든 ID의 서버 연결 완료와 모든 장소의 여행 가능 검증은 다릅니다.**
+
+2026-09-30 실제 확인값: 하나은행 매매기준율 337회차(14:04 KST), 100 JPY=862.53 KRW → 1 JPY=8.6253 KRW. 저장소 루트에서 `source config/hana_20260930.sh` 후 서버를 실행하면 기존 환경변수 설정을 사용합니다. 자동 최신값이 아닌 날짜가 명시된 공개 설정이며, 자세한 출처·제한은 [일정 검증 문서](../docs/week5_schedule_validation.md#하나은행-확인값과-실행-설정)를 확인하세요.

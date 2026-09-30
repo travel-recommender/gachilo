@@ -57,6 +57,9 @@ export function availability(record, date, profiles, {allowShopping = false} = {
     if (profile.uncertain_dates?.includes(date)) reasons.push('closure_notice_year_unconfirmed');
     const weekday = dayOfWeek(date);
     const holiday = profiles.japan_holidays.includes(date);
+    // A weekday-only price cannot imply that the restaurant itself is closed.
+    if (profile.price_unavailable_weekdays?.includes(weekday)
+        || profile.price_unavailable_holidays && holiday) reasons.push('price_not_applicable_on_visit_date');
     let closed = profile.closed_weekdays?.includes(weekday) || false;
     if (profile.closed_holidays && holiday) closed = true;
     if (profile.holiday_moves_closure && closed && holiday) closed = false;

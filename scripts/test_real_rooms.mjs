@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {auditRealCatalog} from './audit_real_catalog.mjs';
+import {auditRealCatalog, auditIndividualPlaces} from './audit_real_catalog.mjs';
 import {calculateReal} from '../backend/engine/real.mjs';
 import {loadInputs, availability} from './validate_real_schedule.mjs';
 const {dataset,profiles}=loadInputs();
@@ -49,4 +49,49 @@ test('committed all-catalogue integration fixture matches the current data',()=>
   assert.equal(actual.summary.selected_ids,150);
   assert.equal(actual.summary.scheduled_over_seven_days+actual.summary.not_scheduled,150);
   assert.deepEqual(actual,JSON.parse(fs.readFileSync(new URL('../data/week5/real_catalog_integration_20260930.json',import.meta.url),'utf8')));
+});
+test('individual checks retry a closed first date and expose a real scheduling failure',()=>{
+  const museum=record('osaka_012');
+  const tooLong=structuredClone(record('osaka_015'));tooLong.place.stay_min=721;
+  const rows=auditIndividualPlaces({places:[museum,tooLong]},profiles,['2026-10-06','2026-10-07']);
+  assert.equal(rows[0].example.date,'2026-10-07');
+  assert.deepEqual(rows[0].excluded_date_groups[0].dates,['2026-10-06']);
+  assert.ok(rows[0].excluded_date_groups[0].reasons.includes('closed_on_visit_date'));
+  assert.equal(rows[1].eligible_dates.length,2);
+  assert.equal(rows[1].passed_individual_model,false);
+  assert.equal(rows[1].failures.length,2);
+});
+test('Whity closes on the reviewed odd-month third Thursday, not the even-month one',()=>{
+  const p=dataset.places.find(r=>r.place.name_ko==='화이티 우메다');
+  const check=date=>availability(p,date,profiles,{allowShopping:true});
+  assert.equal(check('2026-10-15').eligible_for_model,true);
+  assert.ok(check('2026-11-19').reasons.includes('closed_on_visit_date'));
+  assert.equal(check('2026-11-20').eligible_for_model,true);
+});
+test('uncertain shopping closure and irregular holidays remain excluded',()=>{
+  const wiste=record('osaka_draft_11050de606b0');
+  assert.ok(availability(wiste,'2026-10-08',profiles,{allowShopping:true}).reasons.includes('closure_notice_year_unconfirmed'));
+  assert.equal(availability(wiste,'2026-10-09',profiles,{allowShopping:true}).eligible_for_model,true);
+  assert.ok(availability(record('osaka_draft_481d9742f9c2'),'2026-10-01',profiles,{allowShopping:true}).reasons.includes('visit_confirmation_required'));
+});
+test('department-store common windows and tea-shop closed days are respected',()=>{
+  assert.deepEqual(availability(record('osaka_draft_daa353940c61'),'2026-10-01',profiles,{allowShopping:true}).window,[600,1110,1110]);
+  assert.deepEqual(availability(record('osaka_draft_dc3ec67cb8d1'),'2026-10-01',profiles,{allowShopping:true}).window,[600,1200,1200]);
+  const tea=record('osaka_draft_96e588e49f58');
+  for(const date of ['2026-10-05','2026-10-06']) assert.ok(availability(tea,date,profiles).reasons.includes('closed_on_visit_date'));
+  assert.equal(availability(tea,'2026-10-07',profiles).eligible_for_model,true);
+});
+test('GARB weekday menu price is never used on weekends or holidays',()=>{
+  const id='osaka_draft_23d3d20ef739';
+  const weekday=run(trip([id]));
+  assert.equal(weekday.planning.scheduled_count,1);
+  const item=weekday.planning.days[0].items[0];
+  assert.equal(item.cost_jpy,1250);assert.ok(item.end_min<=900);
+  for(const date of ['2026-10-03','2026-10-04','2026-10-12']){
+    const check=availability(record(id),date,profiles);
+    assert.ok(check.reasons.includes('price_not_applicable_on_visit_date'));
+    assert.ok(!check.reasons.includes('closed_on_visit_date'));
+    const r=trip([id]);r.startDate=date;r.endDate=date;
+    assert.equal(run(r).planning.scheduled_count,0);
+  }
 });

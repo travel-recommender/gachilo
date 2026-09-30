@@ -1,6 +1,6 @@
 # 전체 150개 장소 검토 현황 — 2026-09-30
 
-한국어 이름 150/150, 주소 148/150, 영업시간 133/150. 날짜별 일정 검증 결과와 제한은 [5주차 일정 검증 문서](../../../../docs/week5_schedule_validation.md)를 확인하세요.
+한국어 이름 150/150, 주소 148/150, 영업시간 134/150. 날짜별 일정 검증 결과와 제한은 [5주차 일정 검증 문서](../../../../docs/week5_schedule_validation.md)를 확인하세요.
 
 폐업·임시휴업·예약·지점 미확인 표시는 보존했습니다. 주소가 있어도 영업 또는 일정 투입 완료를 뜻하지 않습니다. 모든 장소의 schedule_ready는 false입니다.
 
@@ -42,7 +42,7 @@
 | 와케 다리 | 1 Chausuyamacho, Tennoji Ward, Osaka, 543-0063 일본 | identity_unconfirmed |
 | 쓰쓰미 교자 포토존 | 미확인 | identity_unconfirmed, address_unconfirmed |
 | 다이코 하수도 견학시설 | 大阪市中央区農人橋1-3-3 | reservation_required |
-| 쇼에이도 | 大阪市中央区本町3-6-4 1F |  |
+| 쇼에이도 | 大阪市中央区本町3-6-4 1F | category_mismatch |
 | 게마 갑문 | 3 Chome-7-8 Kemacho, Miyakojima Ward, Osaka, 534-0001 일본 | access_conditions_unconfirmed |
 | 미나토마치 리버플레이스 | 大阪市浪速区湊町1-3-1 |  |
 | 아키바 카트 오사카 | 大阪市浪速区日本橋5-5-2 森本ビルII |  |
