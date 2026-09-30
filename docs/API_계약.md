@@ -28,7 +28,7 @@
 - 모든 방 관련 요청은 `Authorization: Bearer <토큰>` 헤더를 보낸다.
 - 서버 검증 규칙:
   - **본인 전용** (`…/members/:memberId/…`, `…/submissions/:memberId`) — 토큰 해시가 **그 방의 그 `memberId`** 해시와 일치해야 한다. 다른 참여자 토큰·방장 토큰으로는 안 된다.
-  - **방장 전용** (결과 계산) — `ownerToken`만 허용
+  - **방장 전용** (결과 계산·저장) — `ownerToken`만 허용
   - **방 공용** (참여 현황·결과 조회) — 그 방의 방장 또는 참여자 토큰
   - 불일치하면 `403`. 방 존재 여부 외에 무엇이 틀렸는지는 알려주지 않는다.
 - 토큰은 초대 링크에 실린다(`/join?room=&m=&t=`, #25 후속 PR). **링크는 사람마다 다르고**, 단체방에 하나만 공유하면 서로의 자리에 들어갈 수 있다는 점을 화면에서 안내한다.
@@ -104,6 +104,19 @@
 
 경로에 `/api` 접두사가 없다(장소 검색 `/api/places`만 예외). 오류는 `{ "error": "메시지" }` 문자열 하나다.
 
+v0 공통 오류 (B.1의 오류 코드 체계는 v1 계획이다):
+
+| 상태 | 언제 |
+| --- | --- |
+| 400 | 형식·범위 위반, `Content-Type`이 `application/json`이 아님 |
+| 403 | 토큰이 없거나 그 방·그 참여자 것이 아님 (**v0는 토큰이 없어도 401이 아니라 403**), 허용되지 않은 `Origin` |
+| 404 | 없는 방, 없는 경로 |
+| 409 | 전원 제출 전 계산·저장, 입력이 바뀐 뒤(`revision` 불일치) 결과 저장 |
+| 413 | 본문 64KB 초과 |
+| 503 | 추천 엔진(Node) 또는 저장소(SQLite) 실패 |
+
+**Origin 제한**: 브라우저 요청은 서버 `--origin`(기본 `http://localhost:3000`)과 서버 자신의 주소에서만 받는다. 프론트 주소가 바뀌면 서버를 `--origin`으로 띄우고 `NEXT_PUBLIC_API_BASE_URL`을 맞춘다.
+
 | 메서드·경로 | 토큰 | 용도 |
 | --- | --- | --- |
 | `GET /health` | - | 서버 확인 |
@@ -111,7 +124,8 @@
 | `GET /rooms/:roomId` | 방 공용 | 방 날짜·명단 (A.6). **v0에 아직 없다** — #25에서 추가됐다가 #26으로 되돌렸다. #25 후속 PR에서 다시 들어온다 |
 | `PUT /rooms/:roomId/submissions/:memberId` | 본인 | 1차·2차·조건 **한 번에** 제출 (다시 내면 덮어씀) |
 | `GET /rooms/:roomId/results` | 방 공용 | 제출 현황 + 결과 |
-| `POST /rooms/:roomId/calculate` | 방장 | 전원 제출 후 계산 |
+| `POST /rooms/:roomId/calculate` | 방장 | 전원 제출 후 계산하고 결과를 저장 (A.4) |
+| `POST /rooms/:roomId/results` | 방장 | 계산 결과를 직접 저장 (A.4-1). 서버 밖에서 만든 결과를 넣는 경계용 |
 | `GET /places` | - | 데모 36곳 (`prototype_demo_36`). **v0에서 제출·계산에 쓰는 장소는 이것뿐이다** |
 | `GET /api/places` | - | 검토용 150곳 (0.4 형식). **조회 전용** — 제출·계산 대상이 아니다 |
 
@@ -171,6 +185,19 @@ Authorization: Bearer <그 memberId의 submissionToken>
 
 제출할 때마다 `revision`이 올라가고, 저장된 결과는 무효가 된다.
 
+검증 규칙 (어기면 400):
+
+| 필드 | 규칙 |
+| --- | --- |
+| `longlist`, `picks` | 문자열 배열, **각 30개 이하**, 중복 불가, 모두 데모 36곳 ID |
+| `must` | null 또는 **`picks` 안의** ID 1개 |
+| `veto` | null 또는 ID 1개, **`picks`에 넣을 수 없음** |
+| `budgetPerDay` | 정수 0 ~ 10,000,000 (원/하루) |
+| `stepLimit` | 정수 0 ~ 100,000 (보/하루) |
+| `activeMin` | 정수 1 ~ 1,440 (분/하루) |
+
+v0는 개수를 30개까지 허용한다. "1차 5곳·2차 5곳" 같은 화면 규칙은 프론트가 지킨다(B.6에서 서버 규칙으로 올린다).
+
 ### A.3 `GET /rooms/:roomId/results`
 
 ```json
@@ -181,7 +208,31 @@ Authorization: Bearer <그 memberId의 submissionToken>
 
 ### A.4 `POST /rooms/:roomId/calculate` (방장)
 
-`{ "strategy": "average" | "least_misery" | "fairness" }` → A.3과 같은 형식. 전원 제출 전이면 409.
+`{ "strategy": "average" | "least_misery" | "fairness" }` → A.3과 같은 형식(`status: "ready"`). 전원 제출 전이면 409, 엔진 실패는 503.
+서버가 저장된 입력으로 엔진을 돌리고, 그 결과를 A.4-1과 같은 검증을 거쳐 저장한다.
+
+### A.4-1 `POST /rooms/:roomId/results` (방장)
+
+```json
+{
+  "revision": 3,
+  "result": {
+    "strategy": "fairness",
+    "days": [ { "date": "2026-10-10", "placeIds": ["glico", "kuromon"] } ],
+    "summary": "…"
+  }
+}
+```
+
+```json
+// 응답 200
+{ "saved": true, "revision": 3 }
+```
+
+- `result`는 **`strategy`·`days`·`summary` 세 키만** 받는다. 다른 키(예: 개인 입력)가 있으면 400 — 개인 선택이 결과에 섞여 나가지 않게 막는 경계다.
+- `days`: 30개 이하, 각 항목은 `date`·`placeIds` 두 키만. `date`는 여행 기간 안, 중복 불가. `placeIds`는 30개 이하
+- **`summary`: 문자열 2,000자 이하**
+- `revision`이 현재 방 revision과 다르면 409(그 사이 누가 입력을 바꿈). 전원 제출 전이어도 409
 
 ### A.5 `GET /api/places?q=&category=&limit=`
 
@@ -466,17 +517,26 @@ created → longlist → shortlist → conditions → done
 
 ## AI 연동 — 서버 안쪽
 
-프론트는 AI를 직접 호출하지 않는다. 결과 조회 안에서 서버가 처리한다.
+프론트는 AI를 직접 호출하지 않는다. 서버가 **계산할 때**(v0: `POST …/calculate`) 처리하고, 프론트는 저장된 결과를 조회한다.
 
 ```
-규칙 엔진(코어/옵션 확정) → AI 입력 조립 → 모델 호출 1회 → 출력 검증 → 결과 응답
+규칙 엔진(코어/옵션 확정) → AI 입력 조립 → 모델 호출 1회 → 출력 검증 → 결과 저장 → 결과 조회
 ```
+
+**v0에서 AI 출력이 들어가는 자리** — 결과 형식(A.3·A.4-1)은 바꾸지 않는다(윤진 AI 연결 PR 기준, #23 코멘트).
+
+| AI 출력 | v0 자리 | 제약 |
+| --- | --- | --- |
+| 설명 문장 | `result.summary` | **2,000자 이하** |
+| AI가 추가한 장소 | `result.days[].placeIds` | 데모 36곳 ID, 하루 30곳 이하 |
+
+`explanation`·`alternatives`·`budget_check`·`stamina_check`를 따로 싣는 것은 **v1-b(B.7) 계획**이다. 그 전까지 프론트는 AI 추가 여부·대안을 결과 응답에서 구분할 수 없다.
 
 - **API 키는 서버 환경변수에만 둔다.** 프론트 번들에 들어가면 안 된다.
 - AI 입력·출력 스키마와 System Prompt는 윤진 「AI 입출력 형식 및 프롬프트 설계」를 따른다.
 - 조건값은 AI에 넘길 때 **이름 없는 숫자 배열로 셔플**해서 넘긴다(같은 문서 2.1).
 - AI 출력은 **제안**이므로 서버가 재검증한다(같은 문서 5장). 검증에 실패하면 코어만으로 결과를 만든다.
-  **즉 AI가 죽어도 결과 조회는 200을 돌려준다.**
+  **즉 AI가 죽어도 계산은 성공하고 결과 조회는 200을 돌려준다.** (엔진 자체가 실패하면 503 — A.4)
 
 ## 프론트 mock
 
