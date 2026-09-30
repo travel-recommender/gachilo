@@ -1,6 +1,7 @@
 """Read-only adapter: source JPY and explicit planning estimates stay separate."""
 import json, os
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
+from datetime import date
 from pathlib import Path
 
 DATA=Path(__file__).resolve().parents[1]/'data/week5/live_20260923/processed/osaka_places_150_fresh.json'
@@ -29,7 +30,24 @@ def exchange_rate(value=None):
     try:r=Decimal(str(value))
     except InvalidOperation:raise ValueError('JPY_TO_KRW must be positive KRW per 1 JPY')
     if not r.is_finite() or r<=0:raise ValueError('JPY_TO_KRW must be positive KRW per 1 JPY')
+    exchange_rate_metadata(r) # Validate optional provenance at server startup, too.
     return r
+
+def exchange_rate_metadata(rate):
+    # Missing provenance remains explicit; a server setting is not a live quote.
+    raw_date=os.environ.get('JPY_TO_KRW_AS_OF')
+    source=os.environ.get('JPY_TO_KRW_SOURCE','').strip() or None
+    as_of=None
+    if rate is not None and raw_date:
+        try:
+            as_of=date.fromisoformat(raw_date).isoformat()
+            if as_of!=raw_date:raise ValueError()
+        except ValueError:raise ValueError('JPY_TO_KRW_AS_OF must be YYYY-MM-DD')
+    return {'krw_per_jpy':str(rate) if rate is not None else None,
+      'rounding':'ROUND_HALF_UP to integer KRW',
+      'as_of':as_of,'source':source if rate is not None else None,
+      'provenance_status':'unconfigured' if rate is None else 'documented' if as_of and source else 'incomplete',
+      'live_quote':False}
 
 def cost_krw(cost,rate):
     if cost is None:return None
@@ -64,5 +82,5 @@ def catalog(query='',category=None,limit=150,path=DATA,rate=None):
     matches=[r for r in raw if (not category or r['place']['category']==category) and
       (not query or query.casefold() in (' '.join(str(r['place'].get(k) or '') for k in ('name','name_ko','area'))).casefold())]
     return {'dataset':'osaka_review_150','total':len(matches),'currency':'KRW',
-      'exchange_rate':{'krw_per_jpy':str(rate) if rate else None,'rounding':'ROUND_HALF_UP to integer KRW','source':'server configuration; not a live quote'},
+      'exchange_rate':exchange_rate_metadata(rate),
       'places':[project(r,rate) for r in matches[:limit]]}

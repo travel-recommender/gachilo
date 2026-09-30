@@ -2,7 +2,7 @@ import unittest,json,copy,ast
 from unittest.mock import patch
 from decimal import Decimal
 from pathlib import Path
-from place_catalog import cost_krw,exchange_rate,project,catalog,DATA,get_luggage_score
+from place_catalog import cost_krw,exchange_rate,project,catalog,DATA,get_luggage_score,exchange_rate_metadata
 
 class CatalogTests(unittest.TestCase):
  def test_utf8_catalog_with_cp949_default(self):
@@ -13,6 +13,22 @@ class CatalogTests(unittest.TestCase):
    result=catalog(query='도톤보리 글리코 사인',rate='9.5')
   self.assertEqual(result['total'],1)
   self.assertEqual(result['places'][0]['name_ko'],'도톤보리 글리코 사인')
+ def test_exchange_rate_provenance_is_not_invented(self):
+  with patch.dict('os.environ',{},clear=True):
+   missing=exchange_rate_metadata(None)
+   self.assertIsNone(missing['as_of']);self.assertIsNone(missing['source'])
+   partial=exchange_rate_metadata(Decimal('9.5'))
+   self.assertEqual(partial['provenance_status'],'incomplete')
+   self.assertFalse(partial['live_quote'])
+  with patch.dict('os.environ',{'JPY_TO_KRW_AS_OF':'2026-09-30','JPY_TO_KRW_SOURCE':'team-reviewed test quote'},clear=True):
+   result=catalog(rate='9.5')['exchange_rate']
+   self.assertEqual(result['as_of'],'2026-09-30')
+   self.assertEqual(result['source'],'team-reviewed test quote')
+   self.assertEqual(result['provenance_status'],'documented')
+   self.assertEqual(exchange_rate_metadata(None)['provenance_status'],'unconfigured')
+  for bad in ('2026-02-30','20260930','yesterday'):
+   with patch.dict('os.environ',{'JPY_TO_KRW_AS_OF':bad},clear=True):
+    with self.assertRaisesRegex(ValueError,'YYYY-MM-DD'):exchange_rate_metadata(Decimal('9.5'))
  def test_conversion_missing_zero_and_rounding(self):
   self.assertIsNone(cost_krw(None,Decimal('9.5')))
   self.assertEqual(cost_krw(0,None),0)
