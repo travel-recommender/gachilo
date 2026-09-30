@@ -399,7 +399,8 @@
         ],
         "notes": [
           "15세 이상 일반 전망대 요금 JPY. 입장 시간 예약 필요. 특별 야외 전망대·체험 비용 별도.",
-          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+          "2026-09-30: 일반 전망대도 입장 시간 예약이 필요. 당일 현장 구매 역시 입장 시간을 지정하므로 예약 확인 전 자동 일정에 배치하지 않음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_002",
@@ -424,7 +425,9 @@
             "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
           ]
         },
-        "recommendation_blockers": [],
+        "recommendation_blockers": [
+          "entry_time_reservation_required"
+        ],
         "stay_policy": {
           "type": "전망대",
           "min": 60,
@@ -432,7 +435,18 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://www.tsutenkaku.co.jp/annai/"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "planning_review_20260930",
+            "note": "일반 전망대도 입장 시간 예약이 필요. 당일 현장 구매 역시 입장 시간을 지정하므로 예약 확인 전 자동 일정에 배치하지 않음."
+          }
+        ]
       }
     },
     {
@@ -1274,7 +1288,8 @@
         "notes": [
           "성인 일반 입장료 JPY. 2026-11-08은 19:00 종료·18:30 최종입장, 2027-04-18은 18:00 종료·17:30 최종입장. 악천후 옥상 제한 가능.",
           "전망대 전용 주소·층 확인 필요.",
-          "공식 전망대 접근 안내의 시설 주소."
+          "공식 전망대 접근 안내의 시설 주소.",
+          "2026-09-30: 공식 특별 영업 2026-11-08은 09:30~19:00, 최종입장 18:30으로 날짜 프로필에 반영. 기본 영업시간 문자열은 보존."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_007",
@@ -1307,7 +1322,18 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://www.skybldg.co.jp/observatory/information/"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "planning_review_20260930",
+            "note": "공식 특별 영업 2026-11-08은 09:30~19:00, 최종입장 18:30으로 날짜 프로필에 반영. 기본 영업시간 문자열은 보존."
+          }
+        ]
       }
     },
     {
@@ -1443,7 +1469,8 @@
         ],
         "notes": [
           "1인 일반 탑승료 JPY, 5세 이하 무료. 페이지에 10/15 목요일 휴관 공지가 있으나 연도 생략이므로 일정 날짜별 재확인 필요. 한 바퀴 약 15분은 대기 포함 체류시간이 아니므로 stay_min에 자동 입력하지 않음.",
-          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+          "2026-09-30: 10/15(목) 휴관 공지는 연도 생략. 날짜 프로필에서는 2026-10-15를 재확인 대상으로 제외하며, 연중 10월 15일 휴관 규칙으로 일반화하지 않음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_008",
@@ -1476,7 +1503,18 @@
           "representative": 120,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://www.hepfive.jp/ferriswheel"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "planning_review_20260930",
+            "note": "10/15(목) 휴관 공지는 연도 생략. 날짜 프로필에서는 2026-10-15를 재확인 대상으로 제외하며, 연중 10월 15일 휴관 규칙으로 일반화하지 않음."
+          }
+        ]
       }
     },
     {
@@ -17570,13 +17608,13 @@
         "latitude": 34.6625479,
         "longitude": 135.5038063,
         "opening_hours": "월–금 12:00–22:30; 토·일·공휴일 11:00–22:30; 최종 입장 21:40; 비정기 휴무",
-        "cost": null,
+        "cost": 715,
         "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://e-maid.net",
         "opening_hours_source": "https://www.e-maid.net/",
-        "verified_at": "2026-09-28"
+        "verified_at": "2026-09-30"
       },
       "field_sources": {
         "name": {
@@ -17632,9 +17670,14 @@
           "note": "공식 카페 위치·운영시간 및 실내 좌석 안내."
         },
         "verified_at": {
-          "kind": "review_date_only",
-          "note": "이번에 확인한 필드만 검증. 전체 필드·영업 상태 검증을 뜻하지 않음.",
-          "check_id": "official_fields_20260928"
+          "kind": "official_site",
+          "urls": [
+            "https://www.e-maid.net/menu.html",
+            "https://www.e-maid.net/concept.html"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "planning_review_20260930",
+          "note": "일반 핫/아이스 커피 1잔 715 JPY(세금 포함). 1인 1음료 필수, 별도 좌석료 없음. 음식·추가 주문·평균 지출을 뜻하지 않음. 비정기 휴무는 방문일 확인 필요."
         },
         "area": {
           "kind": "derived_from_official_address",
@@ -17672,6 +17715,16 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "cost": {
+          "kind": "official_site",
+          "urls": [
+            "https://www.e-maid.net/menu.html",
+            "https://www.e-maid.net/concept.html"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "planning_review_20260930",
+          "note": "일반 핫/아이스 커피 1잔 715 JPY(세금 포함). 1인 1음료 필수, 별도 좌석료 없음. 음식·추가 주문·평균 지출을 뜻하지 않음. 비정기 휴무는 방문일 확인 필요."
         }
       },
       "source": {
@@ -17697,13 +17750,12 @@
         ],
         "notes": [
           "공식 점포 페이지 취득 실패. 운영정보 재확인 필요.",
-          "공식 카페 위치·운영시간 및 실내 좌석 안내."
+          "공식 카페 위치·운영시간 및 실내 좌석 안내.",
+          "2026-09-30: 일반 핫/아이스 커피 1잔 715 JPY(세금 포함). 1인 1음료 필수, 별도 좌석료 없음. 음식·추가 주문·평균 지출을 뜻하지 않음. 비정기 휴무는 방문일 확인 필요."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_243b34cd6761",
-        "missing_fields": [
-          "cost"
-        ],
+        "missing_fields": [],
         "schedule_ready": false,
         "address_hours_audit": {
           "reviewed_at": "2026-09-26",
@@ -17730,7 +17782,19 @@
           "representative": 60,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://www.e-maid.net/menu.html",
+              "https://www.e-maid.net/concept.html"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "planning_review_20260930",
+            "note": "일반 핫/아이스 커피 1잔 715 JPY(세금 포함). 1인 1음료 필수, 별도 좌석료 없음. 음식·추가 주문·평균 지출을 뜻하지 않음. 비정기 휴무는 방문일 확인 필요."
+          }
+        ]
       }
     },
     {
@@ -24950,13 +25014,13 @@
         "latitude": 34.6906292,
         "longitude": 135.4770396,
         "opening_hours": "화–일 11:30–15:00, 17:00–22:30; 월 휴무(대관 예외)",
-        "cost": null,
+        "cost": 980,
         "stay_min": 90,
         "bag_load": 0,
         "covered": null,
         "website": "https://cherryjam.owst.jp/",
         "opening_hours_source": "https://cherryjam.owst.jp/",
-        "verified_at": "2026-09-26"
+        "verified_at": "2026-09-30"
       },
       "field_sources": {
         "name": {
@@ -25004,9 +25068,13 @@
           "evidence_window": "2026-09-24/2026-09-26"
         },
         "verified_at": {
-          "kind": "review_date_only",
-          "check_id": "osaka_draft_26a5e809355e_address_hours_20260926",
-          "note": "장소 전체 또는 일정 사용 가능 판정이 아님. 검증 범위는 필드 출처 참조."
+          "kind": "official_site",
+          "urls": [
+            "https://cherryjam.owst.jp/"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "planning_review_20260930",
+          "note": "점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
         },
         "area": {
           "kind": "derived_from_official_address",
@@ -25044,6 +25112,15 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "cost": {
+          "kind": "official_site",
+          "urls": [
+            "https://cherryjam.owst.jp/"
+          ],
+          "checked_at": "2026-09-30",
+          "revision": "planning_review_20260930",
+          "note": "점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
         }
       },
       "source": {
@@ -25072,11 +25149,12 @@
         "official_checks": [
           "osaka_draft_26a5e809355e_address_hours_20260926"
         ],
-        "notes": [],
+        "notes": [
+          "2026-09-30: 점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
+        ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_26a5e809355e",
         "missing_fields": [
-          "cost",
           "covered"
         ],
         "schedule_ready": false,
@@ -25105,7 +25183,18 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_site",
+            "urls": [
+              "https://cherryjam.owst.jp/"
+            ],
+            "checked_at": "2026-09-30",
+            "revision": "planning_review_20260930",
+            "note": "점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
+          }
+        ]
       }
     },
     {
@@ -26571,6 +26660,6 @@
   "enrichment_checks_file": "official_enrichment_20260924.json",
   "full_review_revision": "address_hours_20260926",
   "full_review_checks_file": "official_enrichment_20260926.json",
-  "latest_enrichment_revision": "operating_review_20260930",
-  "latest_enrichment_checks_file": "operating_review_20260930.json"
+  "latest_enrichment_revision": "planning_review_20260930",
+  "latest_enrichment_checks_file": "planning_review_20260930.json"
 }
