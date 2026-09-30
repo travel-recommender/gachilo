@@ -31,17 +31,22 @@ export function calculateReal(request, dataset, profiles) {
     let chosen = null;
     // Try every visit day; keep the valid day with the lowest elapsed time.
     for (const day of days) {
-      if (day.placeIds.length >= 30) { attempts.push('daily_place_limit'); continue; }
       const check = record ? availability(record, day.date, profiles, {allowShopping: true}) : {reasons: ['unknown_place_id']};
-      if (check.reasons.length) { attempts.push(...check.reasons); continue; }
+      if (check.reasons.length) { attempts.push(new Set(check.reasons)); continue; }
+      if (day.placeIds.length >= 30) { attempts.push(new Set(['daily_place_limit'])); continue; }
       const trial = validateDay({...limits, date: day.date, place_ids: [...day.placeIds, id]}, dataset, profiles, {allowShopping: true});
-      if (!trial.passed_model_checks) { attempts.push(...trial.violations.map(v => v.code)); continue; }
+      if (!trial.passed_model_checks) { attempts.push(new Set(trial.violations.map(v => v.code))); continue; }
       if (!chosen || trial.totals.elapsed_from_0900_min < chosen.trial.totals.elapsed_from_0900_min) chosen = {day, trial};
     }
     if (chosen) {
       chosen.day.placeIds = chosen.trial.items.map(item => item.place_id);
       details.set(chosen.day.date, chosen.trial);
-    } else failures.push({id, reasons: [...new Set(attempts)]});
+    } else {
+      // A reason represents the whole trip only when it blocks every visit date.
+      // Mixed failures (e.g. closed Tuesday, no room Wednesday) have no single cause.
+      const common = [...attempts[0]].filter(reason => attempts.every(day => day.has(reason)));
+      failures.push({id, reasons: common.length ? common : ['date_conditions_vary']});
+    }
   }
   const scheduled = new Set(days.flatMap(day => day.placeIds));
   const missingMust = [...must].some(id => !scheduled.has(id));

@@ -163,7 +163,7 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     except (ValueError,UnicodeDecodeError):raise ApiError(400,'JSON을 읽을 수 없습니다.')
                 auth=self.headers.get('Authorization','');token=auth[7:] if auth.startswith('Bearer ') else ''
                 path=self.path.split('?')[0].rstrip('/')
-                assets={'':('index.html','text/html'),'/app.js':('app.js','text/javascript'),'/client.js':('client.js','text/javascript'),'/style.css':('style.css','text/css')}
+                assets={'':('index.html','text/html'),'/app.js':('app.js','text/javascript'),'/planning-reasons.mjs':('planning-reasons.mjs','text/javascript'),'/client.js':('client.js','text/javascript'),'/style.css':('style.css','text/css')}
                 if self.command=='GET' and path in assets:
                     filename,mime=assets[path];raw=(Path(__file__).parent/'public'/filename).read_bytes()
                     self.send_response(200);self.send_header('Content-Type',mime+'; charset=utf-8');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw);return

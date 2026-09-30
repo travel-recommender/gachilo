@@ -122,6 +122,7 @@ HTTP 통합검사로 저장·조회, 권한·출처 제한, 동시 입력, 재�
 - 거부 장소를 제외하고 사용자가 선택한 후보만 계산합니다. 인기도·자동 식당·미선택 후보를 추가하지 않습니다. 꼭 갈 곳도 운영시간·금액·한도 조건을 통과해야 합니다. 실패하면 `must_satisfied=false`입니다.
 - 각 날짜를 검토해 일일 예산·걸음 수·활동시간은 그룹의 최솟값을 상한으로 적용합니다. 알려지지 않은 가격·시간·예약은 미배치합니다. 쇼핑 5곳은 일반 판매장 구역에 한해 배치하며 `cost_krw=null`, `cost_status=not_applicable_shopping`으로 표시합니다. 개인 구매액은 예산 합계에 넣지 않습니다.
 - 결과의 기존 `strategy/days/summary`를 유지하고, 응답 바깥에 `planning`을 추가합니다. 실제 모드의 저장 후 상태는 항상 `status=draft`입니다. `planning.status`는 `model_checks_passed` 또는 `needs_review`, `schedule_ready`는 항상 false입니다. 배치 수, 미배치 수, 이유별 개수, 날짜별 시간·확인된 비용 합계, 환율 출처를 저장합니다. 개인 이름·토큰·개별 선택·개인 조건·거부 장소 ID는 응답에 포함하지 않습니다.
+- `planning.exclusion_reason_counts`는 미배치 장소별로 **모든 여행일에 공통인 사유**만 셉니다. 공통 사유가 없고 날짜마다 실패 조건이 다르면 `date_conditions_vary`로 한 번 집계합니다. 일부 날짜의 휴무나 검증 범위 초과를 여행 전체의 원인으로 표시하지 않습니다. 여러 공통 사유가 있으면 같은 장소가 중복 집계될 수 있어 합계는 미배치 장소 수와 다릅니다. 화면은 시간·마감·하루 장소 수 한도를 각각 안내하고, 나머지 미매핑 사유는 장소 수가 아닌 중복 포함 사유 건수로 한 줄에 표시합니다. 기존 저장 결과는 재계산해야 새 집계가 적용됩니다.
 - 실제 모드의 수동 `POST /results`는 거부합니다. 검증된 `calculate` 결과만 저장합니다. 입력 변경 시 결과와 planning을 함께 폐기하고 이전 revision 계산은 409입니다.
 - 기존 SQLite에 dataset과 planning 열을 추가하는 비파괴 마이그레이션입니다. 기존 방·결과·토큰은 유지됩니다. 별도 프로세스가 스키마를 직접 쓴다면 열 이름을 명시해야 합니다.
 
@@ -135,7 +136,7 @@ HTTP 통합검사로 저장·조회, 권한·출처 제한, 동시 입력, 재�
 
 ### 검증 범위
 
-`python3 -m unittest discover -s backend -v`와 `node --test scripts/test_real_schedule.mjs scripts/test_real_rooms.mjs`로 재현합니다. Node 24 이상이 필요합니다. 테스트는 로컬 HTTP 포트를 엽니다.
+`python3 -m unittest discover -s backend -v`와 `node --test scripts/test_real_schedule.mjs scripts/test_real_rooms.mjs scripts/test_planning_reasons.mjs`로 재현합니다. Node 24 이상이 필요합니다. 테스트는 로컬 HTTP 포트를 엽니다.
 
 150개 ID를 여섯 명의 합성 입력으로 모두 저장·계산하는 검사, 모드 간 ID 혼합 차단, 같은 방 권한, 환율 누락, 쇼핑 null, hard limit, 날짜 변경, 결과 재조회·무효화·동시 수정, 기존 DB 이관을 검증합니다. `../data/week5/real_catalog_integration_20260930.json`은 150곳 전체 투입 실험의 재현 가능한 결과입니다. 2026-10-01~07 기준 31곳 배치·119곳 미배치입니다. 장소별 단독 검사에서는 45곳 통과·105곳 보류이며, 14곳은 단독 검사 통과 후 전체 일정 제약으로 미배치됐습니다. **모든 ID의 서버 연결 완료와 모든 장소의 여행 가능 검증은 다릅니다.**
 

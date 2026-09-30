@@ -29,6 +29,26 @@ test('closed first day is retried on the second date',()=>{
   const p=run(r);assert.deepEqual(p.result.days[0].placeIds,[]);
   assert.deepEqual(p.result.days[1].placeIds,['osaka_012']);
 });
+test('a partially unreviewed trip does not blame every omitted place on its date range',()=>{
+  const r=trip(dataset.places.map(row=>row.place.place_id));
+  r.startDate='2026-11-15';r.endDate='2026-12-14';
+  const p=run(r).planning;
+  assert.equal(p.scheduled_count,44);assert.equal(p.unplaced_count,106);
+  assert.equal(p.exclusion_reason_counts.outside_reviewed_date_range,undefined);
+  assert.equal(p.exclusion_reason_counts.cost_unknown_or_not_applicable,79);
+  assert.equal(p.exclusion_reason_counts.structured_date_profile_missing,91);
+});
+test('a wholly unreviewed trip retains the date-range reason',()=>{
+  const r=trip(['osaka_015']);r.startDate='2026-12-01';r.endDate='2026-12-02';
+  assert.deepEqual(run(r).planning.exclusion_reason_counts,{outside_reviewed_date_range:1});
+});
+test('closed on one day and over the time limit on another is a mixed failure',()=>{
+  const r=trip(['osaka_012'],{activeMin:1});r.startDate='2026-10-06';r.endDate='2026-10-07';
+  assert.equal(run(r).planning.scheduled_count,0);
+  assert.deepEqual(run(r).planning.exclusion_reason_counts,{date_conditions_vary:1});
+  r.endDate=r.startDate;
+  assert.deepEqual(run(r).planning.exclusion_reason_counts,{closed_on_visit_date:1});
+});
 test('museum holiday closure and late opening are normalized',()=>{
   const id='osaka_draft_1cbe7e7894c8';
   assert.ok(availability(record(id),'2026-11-03',profiles).reasons.includes('closed_on_visit_date'));
