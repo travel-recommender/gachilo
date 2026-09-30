@@ -5,7 +5,7 @@
   "statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 798,
+    "null_fields_filled": 803,
     "non_null_fields_updated": 73,
     "missing_before": {
       "place_id": 0,
@@ -34,14 +34,14 @@
       "address": 2,
       "latitude": 0,
       "longitude": 0,
-      "opening_hours": 18,
-      "cost": 114,
+      "opening_hours": 17,
+      "cost": 113,
       "stay_min": 0,
       "bag_load": 0,
       "covered": 116,
-      "website": 11,
-      "opening_hours_source": 52,
-      "verified_at": 25
+      "website": 10,
+      "opening_hours_source": 51,
+      "verified_at": 24
     },
     "records_with_blockers": 44,
     "official_null_fields_filled_before_localization": 316,
@@ -14116,6 +14116,86 @@
         "revision": "planning_review_20260930",
         "note": "점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
       }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "field": "opening_hours",
+      "before": null,
+      "after": "차우스야마 공원 구역 07:00–22:00, 연중무휴; 다리 통제·공사 별도 확인",
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "planning_review_20260930",
+        "note": "오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "field": "opening_hours_source",
+      "before": null,
+      "after": "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "planning_review_20260930",
+        "note": "오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "field": "cost",
+      "before": null,
+      "after": 0,
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "planning_review_20260930",
+        "note": "오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "field": "website",
+      "before": null,
+      "after": "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "planning_review_20260930",
+        "note": "오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "field": "verified_at",
+      "before": null,
+      "after": "2026-09-30",
+      "previous_source": null,
+      "source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "planning_review_20260930",
+        "note": "오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존."
+      }
     }
   ],
   "attempts": [
@@ -14652,12 +14732,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "opening_hours",
-        "cost",
-        "covered",
-        "website",
-        "opening_hours_source",
-        "verified_at"
+        "covered"
       ]
     },
     {

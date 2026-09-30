@@ -1,4 +1,4 @@
-/** Offline Week 5 validation; does not change the server's demo catalogue. Node 24+. */
+/** Week 5 day validator, also reused by the opt-in real catalogue server adapter. Node 24+. */
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath, pathToFileURL} from 'node:url';
@@ -12,6 +12,9 @@ export const loadInputs = () => ({
   profiles: JSON.parse(fs.readFileSync(profilesURL, 'utf8')),
 });
 const categories = {명소: 'landmark', 문화: 'culture', 자연: 'nature', 쇼핑: 'shopping', 카페: 'cafe', 식사: 'food'};
+const shoppingRecord = r => r.place.category === '쇼핑'
+  || ['구로몬시장', '신사이바시스지 상점가', '아메리카무라', '신세카이'].includes(r.place.name_ko)
+  || ['shopping_spend_excluded', 'exclude_personal_shopping_spend'].includes(r.review.planning_cost_policy);
 const validDate = value => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)
   && Number.isFinite(Date.parse(value + 'T00:00:00Z'))
   && new Date(value + 'T00:00:00Z').toISOString().slice(0, 10) === value;
@@ -32,14 +35,14 @@ export function costKrw(jpy, rate) {
   return won;
 }
 
-export function availability(record, date, profiles) {
+export function availability(record, date, profiles, {allowShopping = false} = {}) {
   if (!validDate(date)) throw Error('date must be a real YYYY-MM-DD date in Japan');
   const p = record.place, profile = profiles.places[p.place_id];
   const reasons = [...(record.review.recommendation_blockers || [])];
   if (!p.address) reasons.push('address_missing');
   if (!p.opening_hours) reasons.push('opening_hours_missing');
-  if (!Number.isSafeInteger(p.cost) || p.cost < 0 || p.category === '쇼핑'
-      || record.review.planning_cost_policy === 'shopping_spend_excluded') reasons.push('cost_unknown_or_not_applicable');
+  const shopping = shoppingRecord(record);
+  if (shopping ? !allowShopping : !Number.isSafeInteger(p.cost) || p.cost < 0) reasons.push('cost_unknown_or_not_applicable');
   if (!Number.isSafeInteger(p.stay_min) || p.stay_min <= 0) reasons.push('stay_min_invalid');
   if (![0, 1, 2].includes(p.bag_load)) reasons.push('bag_load_invalid');
   if (!Number.isFinite(p.latitude) || !Number.isFinite(p.longitude)
@@ -55,6 +58,7 @@ export function availability(record, date, profiles) {
     const weekday = dayOfWeek(date);
     const holiday = profiles.japan_holidays.includes(date);
     let closed = profile.closed_weekdays?.includes(weekday) || false;
+    if (profile.closed_holidays && holiday) closed = true;
     if (profile.holiday_moves_closure && closed && holiday) closed = false;
     const yesterday = previousDay(date);
     if (profile.holiday_moves_closure && profiles.japan_holidays.includes(yesterday)
@@ -62,8 +66,11 @@ export function availability(record, date, profiles) {
     if (closed) reasons.push('closed_on_visit_date');
     const override = profile.exceptions?.[date];
     if (override?.closed) reasons.push('closed_on_visit_date');
-    window = override?.window || profile.window;
+    window = profile.window;
     if (profile.weekday_window && !holiday && weekday >= 1 && weekday <= 5) window = profile.weekday_window;
+    const tomorrow = new Date(Date.parse(date + 'T00:00:00Z') + 86400000).toISOString().slice(0, 10);
+    if (profile.extended_weekdays?.includes(weekday) || profile.extend_before_holiday && profiles.japan_holidays.includes(tomorrow)) window = profile.extended_window;
+    if (override?.window) window = override.window;
     if (!Array.isArray(window) || window.length !== 3 || !window.every(Number.isInteger)
         || window[0] < 0 || window[1] > 1440 || window[0] >= window[1]
         || window[2] < window[0] || window[2] > window[1]) reasons.push('invalid_time_window');
@@ -74,7 +81,7 @@ export function availability(record, date, profiles) {
 }
 
 /** One Japan-local day. All requested IDs must be kept; omissions fail validation. */
-export function validateDay(request, dataset, profiles) {
+export function validateDay(request, dataset, profiles, options = {}) {
   if (!validDate(request.date)) throw Error('date must be a real YYYY-MM-DD date in Japan');
   if (!Array.isArray(request.place_ids) || request.place_ids.length === 0
       || request.place_ids.some(id => typeof id !== 'string')
@@ -88,13 +95,13 @@ export function validateDay(request, dataset, profiles) {
   for (const id of request.place_ids) {
     const r = byId.get(id);
     if (!r) { rejected.push({place_id: id, reasons: ['unknown_place_id']}); continue; }
-    const check = availability(r, request.date, profiles);
+    const check = availability(r, request.date, profiles, options);
     if (!check.eligible_for_model) { rejected.push(check); continue; }
     windows.set(id, check.window);
     const p = r.place;
     accepted.push({place: {
       id, name: p.name_ko, area: p.area || '', category: categories[p.category],
-      lat: p.latitude, lng: p.longitude, cost: costKrw(p.cost, request.krw_per_jpy),
+      lat: p.latitude, lng: p.longitude, cost: options.allowShopping && shoppingRecord(r) ? 0 : costKrw(p.cost, request.krw_per_jpy),
       stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1],
       bagLoad: p.bag_load / 2,
       // No invented popularity/exposure/arcade values: the scheduling function does not use them.
@@ -112,9 +119,12 @@ export function validateDay(request, dataset, profiles) {
       violations.push({code: 'opening_or_last_entry_violation', place_id: item.place.id});
     }
     previous = item.place;
+    const record = byId.get(item.place.id);
+    const shopping = shoppingRecord(record);
     return {place_id: item.place.id, name_ko: item.place.name, start_min: item.startMin, end_min: item.endMin,
       stay_min: item.place.stayMin, move_min: movement.min, move_mode: movement.mode,
-      cost_jpy: byId.get(item.place.id).place.cost, cost_krw: item.place.cost,
+      cost_jpy: shopping ? null : record.place.cost, cost_krw: shopping ? null : item.place.cost,
+      cost_status: shopping ? 'not_applicable_shopping' : 'known',
       cost_basis: profiles.places[item.place.id].cost_basis};
   });
   const included = new Set(items.map(item => item.place_id));
@@ -131,7 +141,7 @@ export function validateDay(request, dataset, profiles) {
     totals: {selected_admission_and_menu_krw: plan.cost, estimated_walking_km: walkingKm,
       estimated_steps: steps, elapsed_from_0900_min: elapsed},
     limitations: [
-      'Offline experiment only. The live server still uses the 36-place demo catalogue.',
+      'This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.',
       'Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.',
       'JPY→KRW rate is a caller-supplied simulation value, not a live quote.',
       'Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.',

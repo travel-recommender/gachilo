@@ -1,15 +1,16 @@
 {
-  "reviewed_at": "2026-09-30",
-  "audited_date": "2026-10-01",
   "source_sha256": "7a1ef0343c7a625b5fd99fe7755d1d4296c46d30f622ff97a0d2955f4af294d6",
   "profiles_sha256": "b86ab1314bc757c3141e50e0eff5e64e4f9dc329faa8fabdfad90e6c8b155684",
+  "purpose": "All 150 source IDs submitted as six synthetic participants; this is not a 150-place production-readiness certificate.",
   "summary": {
     "total_records": 150,
+    "selected_ids": 150,
+    "address_missing": 2,
+    "opening_hours_missing": 17,
     "with_date_profile": 22,
-    "eligible_for_offline_model": 14,
-    "production_schedule_ready": 0,
-    "scenarios_passed": 4,
-    "distinct_scheduled_places": 10
+    "eligible_on_20261001_with_shopping_excluded_from_cost": 19,
+    "scheduled_over_seven_days": 19,
+    "not_scheduled": 131
   },
   "audit": [
     {
@@ -47,7 +48,6 @@
       "place_id": "osaka_003",
       "name_ko": "신세카이",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -60,7 +60,6 @@
       "place_id": "osaka_004",
       "name_ko": "아메리카무라",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -73,7 +72,6 @@
       "place_id": "osaka_005",
       "name_ko": "구로몬시장",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -86,7 +84,6 @@
       "place_id": "osaka_006",
       "name_ko": "신사이바시스지 상점가",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -295,9 +292,7 @@
     {
       "place_id": "osaka_020",
       "name_ko": "난바 파크스",
-      "reasons": [
-        "cost_unknown_or_not_applicable"
-      ],
+      "reasons": [],
       "window": [
         660,
         1260,
@@ -307,15 +302,13 @@
       "source_urls": [
         "https://nambaparks.com/facilities"
       ],
-      "eligible_for_model": false,
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_021",
       "name_ko": "다카시마야 오사카점",
-      "reasons": [
-        "cost_unknown_or_not_applicable"
-      ],
+      "reasons": [],
       "window": [
         600,
         1200,
@@ -325,15 +318,13 @@
       "source_urls": [
         "https://www.takashimaya.co.jp/osaka/businesshours/"
       ],
-      "eligible_for_model": false,
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_022",
       "name_ko": "다이마루 신사이바시점",
-      "reasons": [
-        "cost_unknown_or_not_applicable"
-      ],
+      "reasons": [],
       "window": [
         600,
         1200,
@@ -343,15 +334,13 @@
       "source_urls": [
         "https://www.daimaru.co.jp/shinsaibashi/hours.html"
       ],
-      "eligible_for_model": false,
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_023",
       "name_ko": "한신 우메다 본점",
-      "reasons": [
-        "cost_unknown_or_not_applicable"
-      ],
+      "reasons": [],
       "window": [
         600,
         1200,
@@ -361,15 +350,13 @@
       "source_urls": [
         "https://www.hanshin-dept.jp/hshonten/map/index.html"
       ],
-      "eligible_for_model": false,
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_024",
       "name_ko": "신사이바시 PARCO",
-      "reasons": [
-        "cost_unknown_or_not_applicable"
-      ],
+      "reasons": [],
       "window": [
         600,
         1200,
@@ -379,7 +366,7 @@
       "source_urls": [
         "https://shinsaibashi.parco.jp/info/"
       ],
-      "eligible_for_model": false,
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1078,7 +1065,6 @@
       "place_id": "osaka_draft_16f1d28c8bfd",
       "name_ko": "NU 자야마치",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1091,7 +1077,6 @@
       "place_id": "osaka_draft_1b3533415b94",
       "name_ko": "하비스 플라자",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1104,7 +1089,6 @@
       "place_id": "osaka_draft_4fb99b053e8b",
       "name_ko": "화이티 우메다",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1117,7 +1101,6 @@
       "place_id": "osaka_draft_e51bbe99124a",
       "name_ko": "아르데 신오사카",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1130,7 +1113,6 @@
       "place_id": "osaka_draft_02288187c550",
       "name_ko": "이온몰 오사카 돔시티",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1143,7 +1125,6 @@
       "place_id": "osaka_draft_11050de606b0",
       "name_ko": "위스테",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1158,7 +1139,6 @@
       "reasons": [
         "operating_status_unconfirmed",
         "google_maps_permanently_closed",
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1171,7 +1151,6 @@
       "place_id": "osaka_draft_daa353940c61",
       "name_ko": "긴테쓰 백화점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1184,7 +1163,6 @@
       "place_id": "osaka_draft_dc3ec67cb8d1",
       "name_ko": "케이한 시티 몰",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1199,7 +1177,6 @@
       "reasons": [
         "category_mismatch",
         "opening_hours_missing",
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1215,7 +1192,6 @@
         "address_unconfirmed",
         "address_missing",
         "opening_hours_missing",
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1229,7 +1205,6 @@
       "name_ko": "뷰르 한큐 미쿠니",
       "reasons": [
         "opening_hours_missing",
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1242,7 +1217,6 @@
       "place_id": "osaka_draft_391fae83b26c",
       "name_ko": "덴시바 이나",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1255,7 +1229,6 @@
       "place_id": "osaka_draft_a8c6b6985943",
       "name_ko": "난바 에키칸",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1268,7 +1241,6 @@
       "place_id": "osaka_draft_fc7acd992f21",
       "name_ko": "신오사카 센이시티",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1281,7 +1253,6 @@
       "place_id": "osaka_draft_b6b6dae05ce5",
       "name_ko": "요도야바시 오도나",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1294,7 +1265,6 @@
       "place_id": "osaka_draft_f1ba0aa6ab58",
       "name_ko": "한큐 백화점 우메다 본점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1307,7 +1277,6 @@
       "place_id": "osaka_draft_481d9742f9c2",
       "name_ko": "브리제 브리제",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -1320,7 +1289,6 @@
       "place_id": "osaka_draft_c85fa26beb80",
       "name_ko": "난바 마루이",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -2062,7 +2030,6 @@
       "name_ko": "덴포잔 마켓 플레이스",
       "reasons": [
         "date_specific_hours_required",
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -2101,282 +2068,450 @@
       "schedule_ready": false
     }
   ],
-  "scenarios": [
-    {
-      "name": "castle_museum_park",
-      "date": "2026-10-01",
-      "passed_model_checks": true,
-      "schedule_ready": false,
-      "input": {
+  "result": {
+    "strategy": "average",
+    "days": [
+      {
         "date": "2026-10-01",
-        "place_ids": [
-          "osaka_009",
-          "osaka_012",
-          "osaka_015"
-        ],
-        "krw_per_jpy": "9.2",
-        "budget_krw": 50000,
-        "step_limit": 15000,
-        "active_min": 600
-      },
-      "items": [
-        {
-          "place_id": "osaka_009",
-          "name_ko": "오사카성",
-          "start_min": 540,
-          "end_min": 660,
-          "stay_min": 120,
-          "move_min": 0,
-          "move_mode": "walk",
-          "cost_jpy": 1200,
-          "cost_krw": 11040,
-          "cost_status": "known",
-          "cost_basis": "성인 천수각 일반 입장료 1,200 JPY"
-        },
-        {
-          "place_id": "osaka_015",
-          "name_ko": "오사카성 공원",
-          "start_min": 663,
-          "end_min": 783,
-          "stay_min": 120,
-          "move_min": 3,
-          "move_mode": "walk",
-          "cost_jpy": 0,
-          "cost_krw": 0,
-          "cost_status": "known",
-          "cost_basis": "공원 일반 야외 산책 무료; 천수각·니시노마루·유료시설 제외"
-        },
-        {
-          "place_id": "osaka_012",
-          "name_ko": "오사카 역사박물관",
-          "start_min": 797,
-          "end_min": 917,
-          "stay_min": 120,
-          "move_min": 14,
-          "move_mode": "walk",
-          "cost_jpy": 600,
-          "cost_krw": 5520,
-          "cost_status": "known",
-          "cost_basis": "성인 상설전 입장료 600 JPY; 특별전 별도"
-        }
-      ],
-      "rejected": [],
-      "dropped": [],
-      "violations": [],
-      "totals": {
-        "selected_admission_and_menu_krw": 16560,
-        "estimated_walking_km": 1.193427679157748,
-        "estimated_steps": 1705,
-        "elapsed_from_0900_min": 377
-      },
-      "limitations": [
-        "This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.",
-        "Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.",
-        "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
-        "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
-        "Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.",
-        "Stay times are team estimates. Weather, entry queues and unannounced closures are not verified."
-      ]
-    },
-    {
-      "name": "umeda_observatories_lunch",
-      "date": "2026-10-01",
-      "passed_model_checks": true,
-      "schedule_ready": false,
-      "input": {
-        "date": "2026-10-01",
-        "place_ids": [
+        "placeIds": [
           "osaka_007",
-          "osaka_008",
-          "osaka_028"
-        ],
-        "krw_per_jpy": "9.2",
-        "budget_krw": 50000,
-        "step_limit": 15000,
-        "active_min": 600
-      },
-      "items": [
-        {
-          "place_id": "osaka_007",
-          "name_ko": "우메다 공중정원 전망대",
-          "start_min": 570,
-          "end_min": 660,
-          "stay_min": 90,
-          "move_min": 0,
-          "move_mode": "walk",
-          "cost_jpy": 2000,
-          "cost_krw": 18400,
-          "cost_status": "known",
-          "cost_basis": "성인 일반 공중정원 입장료 2,000 JPY"
-        },
-        {
-          "place_id": "osaka_028",
-          "name_ko": "소다이쇼",
-          "start_min": 676,
-          "end_min": 766,
-          "stay_min": 90,
-          "move_min": 16,
-          "move_mode": "transit",
-          "cost_jpy": 950,
-          "cost_krw": 8740,
-          "cost_status": "known",
-          "cost_basis": "흑대장 간장라멘 1인 950 JPY 세금 포함. 추가 주문·세트 제외"
-        },
-        {
-          "place_id": "osaka_008",
-          "name_ko": "HEP FIVE 관람차",
-          "start_min": 778,
-          "end_min": 898,
-          "stay_min": 120,
-          "move_min": 12,
-          "move_mode": "transit",
-          "cost_jpy": 1000,
-          "cost_krw": 9200,
-          "cost_status": "known",
-          "cost_basis": "관람차 일반 탑승 1인 1,000 JPY"
-        }
-      ],
-      "rejected": [],
-      "dropped": [],
-      "violations": [],
-      "totals": {
-        "selected_admission_and_menu_krw": 36340,
-        "estimated_walking_km": 1.4,
-        "estimated_steps": 2000,
-        "elapsed_from_0900_min": 358
-      },
-      "limitations": [
-        "This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.",
-        "Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.",
-        "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
-        "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
-        "Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.",
-        "Stay times are team estimates. Weather, entry queues and unannounced closures are not verified."
-      ]
-    },
-    {
-      "name": "parks_and_lunch",
-      "date": "2026-10-01",
-      "passed_model_checks": true,
-      "schedule_ready": false,
-      "input": {
-        "date": "2026-10-01",
-        "place_ids": [
-          "osaka_019",
           "osaka_draft_26a5e809355e",
-          "osaka_017"
-        ],
-        "krw_per_jpy": "9.2",
-        "budget_krw": 50000,
-        "step_limit": 15000,
-        "active_min": 600
+          "osaka_021"
+        ]
       },
-      "items": [
-        {
-          "place_id": "osaka_019",
-          "name_ko": "우츠보 공원",
-          "start_min": 540,
-          "end_min": 660,
-          "stay_min": 120,
-          "move_min": 0,
-          "move_mode": "walk",
-          "cost_jpy": 0,
-          "cost_krw": 0,
-          "cost_status": "known",
-          "cost_basis": "공원 야외 장미원 산책 무료; 유료 체육시설 제외"
-        },
-        {
-          "place_id": "osaka_draft_26a5e809355e",
-          "name_ko": "체리 잼",
-          "start_min": 690,
-          "end_min": 780,
-          "stay_min": 90,
-          "move_min": 15,
-          "move_mode": "transit",
-          "cost_jpy": 980,
-          "cost_krw": 9016,
-          "cost_status": "known",
-          "cost_basis": "점심 데미글라스 햄버그 150g 정식 980 JPY 세금 포함. 점심 창에만 적용; 저녁·추가 주문 제외"
-        },
-        {
-          "place_id": "osaka_017",
-          "name_ko": "나카노시마 공원 장미원",
-          "start_min": 801,
-          "end_min": 921,
-          "stay_min": 120,
-          "move_min": 21,
-          "move_mode": "transit",
-          "cost_jpy": 0,
-          "cost_krw": 0,
-          "cost_status": "known",
-          "cost_basis": "공원 장미원 야외 관람 무료; 유람선·음식점 제외"
-        }
-      ],
-      "rejected": [],
-      "dropped": [],
-      "violations": [],
-      "totals": {
-        "selected_admission_and_menu_krw": 9016,
-        "estimated_walking_km": 1.4,
-        "estimated_steps": 2000,
-        "elapsed_from_0900_min": 381
+      {
+        "date": "2026-10-02",
+        "placeIds": [
+          "osaka_008",
+          "osaka_024"
+        ]
       },
-      "limitations": [
-        "This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.",
-        "Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.",
-        "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
-        "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
-        "Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.",
-        "Stay times are team estimates. Weather, entry queues and unannounced closures are not verified."
-      ]
+      {
+        "date": "2026-10-03",
+        "placeIds": [
+          "osaka_018",
+          "osaka_draft_1289b4aecc32",
+          "osaka_009"
+        ]
+      },
+      {
+        "date": "2026-10-04",
+        "placeIds": [
+          "osaka_012",
+          "osaka_draft_d7da3fdbeaf6",
+          "osaka_022"
+        ]
+      },
+      {
+        "date": "2026-10-05",
+        "placeIds": [
+          "osaka_015",
+          "osaka_draft_1cbe7e7894c8",
+          "osaka_020"
+        ]
+      },
+      {
+        "date": "2026-10-06",
+        "placeIds": [
+          "osaka_014",
+          "osaka_023"
+        ]
+      },
+      {
+        "date": "2026-10-07",
+        "placeIds": [
+          "osaka_017",
+          "osaka_028",
+          "osaka_019"
+        ]
+      }
+    ],
+    "summary": "실제 수집 장소 150곳 중 선택한 장소만 계산한 초안입니다. 19곳 배치, 131곳은 운영·가격·일일 한도 확인으로 미배치했습니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 이동·걸음 수는 추정입니다."
+  },
+  "planning": {
+    "status": "needs_review",
+    "schedule_ready": false,
+    "selection_policy": "must_then_selection_count_then_id; selected_only; veto_excluded",
+    "exchange_rate": {
+      "krw_per_jpy": "9.5",
+      "as_of": "2026-09-30",
+      "source": "하나은행 고시환율 형식 테스트용 가상값; 실제 고시 아님",
+      "live_quote": false,
+      "provenance_status": "test_fixture"
     },
-    {
-      "name": "tenshiba_walk",
-      "date": "2026-10-01",
-      "passed_model_checks": true,
-      "schedule_ready": false,
-      "input": {
+    "catalog_count": 150,
+    "scheduled_count": 19,
+    "unplaced_count": 131,
+    "must_satisfied": true,
+    "exclusion_reason_counts": {
+      "cost_unknown_or_not_applicable": 84,
+      "structured_date_profile_missing": 128,
+      "entry_time_reservation_required": 1,
+      "opening_hours_missing": 17,
+      "access_conditions_unconfirmed": 2,
+      "parent_facility_address": 1,
+      "address_location_conflict": 1,
+      "google_maps_permanently_closed": 8,
+      "identity_unconfirmed": 3,
+      "address_unconfirmed": 2,
+      "address_missing": 2,
+      "visit_confirmation_required": 1,
+      "category_mismatch": 1,
+      "branch_unconfirmed": 6,
+      "website_mismatch": 2,
+      "operating_status_unconfirmed": 2,
+      "gallery_exhibitions_suspended": 1,
+      "reservation_required": 4,
+      "ticket_scenario_required": 1,
+      "price_conflict": 1,
+      "reservation_or_exhibition_required": 1,
+      "worship_attendance_required": 1,
+      "exhibition_schedule_required": 1,
+      "hours_conflict": 3,
+      "address_conflict": 1,
+      "temporary_closure": 2,
+      "meal_scenario_required": 1,
+      "physical_store_unconfirmed": 1,
+      "event_access_required": 1,
+      "seasonal_event_date_confirmation_required": 1,
+      "google_maps_temporarily_closed": 1,
+      "city_boundary_unconfirmed": 1,
+      "outside_osaka_city": 2,
+      "permanently_closed": 1,
+      "date_specific_hours_required": 1
+    },
+    "days": [
+      {
         "date": "2026-10-01",
-        "place_ids": [
-          "osaka_018"
+        "items": [
+          {
+            "place_id": "osaka_007",
+            "name_ko": "우메다 공중정원 전망대",
+            "start_min": 570,
+            "end_min": 660,
+            "stay_min": 90,
+            "move_min": 0,
+            "move_mode": "walk",
+            "cost_jpy": 2000,
+            "cost_krw": 19000,
+            "cost_status": "known",
+            "cost_basis": "성인 일반 공중정원 입장료 2,000 JPY"
+          },
+          {
+            "place_id": "osaka_draft_26a5e809355e",
+            "name_ko": "체리 잼",
+            "start_min": 690,
+            "end_min": 780,
+            "stay_min": 90,
+            "move_min": 17,
+            "move_mode": "transit",
+            "cost_jpy": 980,
+            "cost_krw": 9310,
+            "cost_status": "known",
+            "cost_basis": "점심 데미글라스 햄버그 150g 정식 980 JPY 세금 포함. 점심 창에만 적용; 저녁·추가 주문 제외"
+          },
+          {
+            "place_id": "osaka_021",
+            "name_ko": "다카시마야 오사카점",
+            "start_min": 804,
+            "end_min": 984,
+            "stay_min": 180,
+            "move_min": 24,
+            "move_mode": "transit",
+            "cost_jpy": null,
+            "cost_krw": null,
+            "cost_status": "not_applicable_shopping",
+            "cost_basis": "일반 판매장 방문. 일부 단축 영업 매장 제외; 개인 쇼핑 지출 미산정"
+          }
         ],
-        "krw_per_jpy": "9.2",
-        "budget_krw": 50000,
-        "step_limit": 15000,
-        "active_min": 600
-      },
-      "items": [
-        {
-          "place_id": "osaka_018",
-          "name_ko": "덴노지 공원",
-          "start_min": 540,
-          "end_min": 660,
-          "stay_min": 120,
-          "move_min": 0,
-          "move_mode": "walk",
-          "cost_jpy": 0,
-          "cost_krw": 0,
-          "cost_status": "known",
-          "cost_basis": "텐시바 입구 광장만 무료; 동물원·미술관·게이타쿠엔 제외"
+        "totals": {
+          "selected_admission_and_menu_krw": 28310,
+          "estimated_walking_km": 1.4,
+          "estimated_steps": 2000,
+          "elapsed_from_0900_min": 444
         }
-      ],
-      "rejected": [],
-      "dropped": [],
-      "violations": [],
-      "totals": {
-        "selected_admission_and_menu_krw": 0,
-        "estimated_walking_km": 0,
-        "estimated_steps": 0,
-        "elapsed_from_0900_min": 120
       },
-      "limitations": [
-        "This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.",
-        "Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.",
-        "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
-        "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
-        "Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.",
-        "Stay times are team estimates. Weather, entry queues and unannounced closures are not verified."
-      ]
-    }
-  ]
+      {
+        "date": "2026-10-02",
+        "items": [
+          {
+            "place_id": "osaka_008",
+            "name_ko": "HEP FIVE 관람차",
+            "start_min": 660,
+            "end_min": 780,
+            "stay_min": 120,
+            "move_min": 0,
+            "move_mode": "walk",
+            "cost_jpy": 1000,
+            "cost_krw": 9500,
+            "cost_status": "known",
+            "cost_basis": "관람차 일반 탑승 1인 1,000 JPY"
+          },
+          {
+            "place_id": "osaka_024",
+            "name_ko": "신사이바시 PARCO",
+            "start_min": 803,
+            "end_min": 983,
+            "stay_min": 180,
+            "move_min": 23,
+            "move_mode": "transit",
+            "cost_jpy": null,
+            "cost_krw": null,
+            "cost_status": "not_applicable_shopping",
+            "cost_basis": "일반 판매·서비스 구역 방문. 전시·영화·음식점 제외; 개인 쇼핑 지출 미산정"
+          }
+        ],
+        "totals": {
+          "selected_admission_and_menu_krw": 9500,
+          "estimated_walking_km": 0.7,
+          "estimated_steps": 1000,
+          "elapsed_from_0900_min": 443
+        }
+      },
+      {
+        "date": "2026-10-03",
+        "items": [
+          {
+            "place_id": "osaka_018",
+            "name_ko": "덴노지 공원",
+            "start_min": 540,
+            "end_min": 660,
+            "stay_min": 120,
+            "move_min": 0,
+            "move_mode": "walk",
+            "cost_jpy": 0,
+            "cost_krw": 0,
+            "cost_status": "known",
+            "cost_basis": "텐시바 입구 광장만 무료; 동물원·미술관·게이타쿠엔 제외"
+          },
+          {
+            "place_id": "osaka_draft_1289b4aecc32",
+            "name_ko": "게이타쿠엔 정원",
+            "start_min": 664,
+            "end_min": 784,
+            "stay_min": 120,
+            "move_min": 4,
+            "move_mode": "walk",
+            "cost_jpy": 300,
+            "cost_krw": 2850,
+            "cost_status": "known",
+            "cost_basis": "성인 정원 입장료 300 JPY; 다실·미술관 제외"
+          },
+          {
+            "place_id": "osaka_009",
+            "name_ko": "오사카성",
+            "start_min": 812,
+            "end_min": 932,
+            "stay_min": 120,
+            "move_min": 28,
+            "move_mode": "transit",
+            "cost_jpy": 1200,
+            "cost_krw": 11400,
+            "cost_status": "known",
+            "cost_basis": "성인 천수각 일반 입장료 1,200 JPY"
+          }
+        ],
+        "totals": {
+          "selected_admission_and_menu_krw": 14250,
+          "estimated_walking_km": 0.9485350440436335,
+          "estimated_steps": 1355,
+          "elapsed_from_0900_min": 392
+        }
+      },
+      {
+        "date": "2026-10-04",
+        "items": [
+          {
+            "place_id": "osaka_012",
+            "name_ko": "오사카 역사박물관",
+            "start_min": 570,
+            "end_min": 690,
+            "stay_min": 120,
+            "move_min": 0,
+            "move_mode": "walk",
+            "cost_jpy": 600,
+            "cost_krw": 5700,
+            "cost_status": "known",
+            "cost_basis": "성인 상설전 입장료 600 JPY; 특별전 별도"
+          },
+          {
+            "place_id": "osaka_draft_d7da3fdbeaf6",
+            "name_ko": "기누타니 고지 천공미술관",
+            "start_min": 715,
+            "end_min": 835,
+            "stay_min": 120,
+            "move_min": 25,
+            "move_mode": "transit",
+            "cost_jpy": 1300,
+            "cost_krw": 12350,
+            "cost_status": "known",
+            "cost_basis": "성인 일반 입장료 1300 JPY; 카페 제외"
+          },
+          {
+            "place_id": "osaka_022",
+            "name_ko": "다이마루 신사이바시점",
+            "start_min": 860,
+            "end_min": 1040,
+            "stay_min": 180,
+            "move_min": 25,
+            "move_mode": "transit",
+            "cost_jpy": null,
+            "cost_krw": null,
+            "cost_status": "not_applicable_shopping",
+            "cost_basis": "본관 일반 판매장 방문. 음식점·별도 운영 매장 제외; 개인 쇼핑 지출 미산정"
+          }
+        ],
+        "totals": {
+          "selected_admission_and_menu_krw": 18050,
+          "estimated_walking_km": 1.4,
+          "estimated_steps": 2000,
+          "elapsed_from_0900_min": 500
+        }
+      },
+      {
+        "date": "2026-10-05",
+        "items": [
+          {
+            "place_id": "osaka_015",
+            "name_ko": "오사카성 공원",
+            "start_min": 540,
+            "end_min": 660,
+            "stay_min": 120,
+            "move_min": 0,
+            "move_mode": "walk",
+            "cost_jpy": 0,
+            "cost_krw": 0,
+            "cost_status": "known",
+            "cost_basis": "공원 일반 야외 산책 무료; 천수각·니시노마루·유료시설 제외"
+          },
+          {
+            "place_id": "osaka_draft_1cbe7e7894c8",
+            "name_ko": "약의 도쇼마치 자료관",
+            "start_min": 677,
+            "end_min": 797,
+            "stay_min": 120,
+            "move_min": 17,
+            "move_mode": "transit",
+            "cost_jpy": 0,
+            "cost_krw": 0,
+            "cost_status": "known",
+            "cost_basis": "자료관 일반 입장 무료"
+          },
+          {
+            "place_id": "osaka_020",
+            "name_ko": "난바 파크스",
+            "start_min": 819,
+            "end_min": 999,
+            "stay_min": 180,
+            "move_min": 22,
+            "move_mode": "transit",
+            "cost_jpy": null,
+            "cost_krw": null,
+            "cost_status": "not_applicable_shopping",
+            "cost_basis": "일반 쇼핑 구역 방문. 개인 구매·음식·유료 행사는 예산 합계에서 제외"
+          }
+        ],
+        "totals": {
+          "selected_admission_and_menu_krw": 0,
+          "estimated_walking_km": 1.4,
+          "estimated_steps": 2000,
+          "elapsed_from_0900_min": 459
+        }
+      },
+      {
+        "date": "2026-10-06",
+        "items": [
+          {
+            "place_id": "osaka_014",
+            "name_ko": "오사카 시립과학관",
+            "start_min": 570,
+            "end_min": 690,
+            "stay_min": 120,
+            "move_min": 0,
+            "move_mode": "walk",
+            "cost_jpy": 400,
+            "cost_krw": 3800,
+            "cost_status": "known",
+            "cost_basis": "성인 전시장 입장료 400 JPY; 플라네타륨 제외"
+          },
+          {
+            "place_id": "osaka_023",
+            "name_ko": "한신 우메다 본점",
+            "start_min": 704,
+            "end_min": 884,
+            "stay_min": 180,
+            "move_min": 14,
+            "move_mode": "transit",
+            "cost_jpy": null,
+            "cost_krw": null,
+            "cost_status": "not_applicable_shopping",
+            "cost_basis": "일반 판매장 방문. 음식점·일부 점포 제외; 개인 쇼핑 지출 미산정"
+          }
+        ],
+        "totals": {
+          "selected_admission_and_menu_krw": 3800,
+          "estimated_walking_km": 0.7,
+          "estimated_steps": 1000,
+          "elapsed_from_0900_min": 344
+        }
+      },
+      {
+        "date": "2026-10-07",
+        "items": [
+          {
+            "place_id": "osaka_017",
+            "name_ko": "나카노시마 공원 장미원",
+            "start_min": 540,
+            "end_min": 660,
+            "stay_min": 120,
+            "move_min": 0,
+            "move_mode": "walk",
+            "cost_jpy": 0,
+            "cost_krw": 0,
+            "cost_status": "known",
+            "cost_basis": "공원 장미원 야외 관람 무료; 유람선·음식점 제외"
+          },
+          {
+            "place_id": "osaka_028",
+            "name_ko": "소다이쇼",
+            "start_min": 677,
+            "end_min": 767,
+            "stay_min": 90,
+            "move_min": 17,
+            "move_mode": "transit",
+            "cost_jpy": 950,
+            "cost_krw": 9025,
+            "cost_status": "known",
+            "cost_basis": "흑대장 간장라멘 1인 950 JPY 세금 포함. 추가 주문·세트 제외"
+          },
+          {
+            "place_id": "osaka_019",
+            "name_ko": "우츠보 공원",
+            "start_min": 789,
+            "end_min": 909,
+            "stay_min": 120,
+            "move_min": 22,
+            "move_mode": "transit",
+            "cost_jpy": 0,
+            "cost_krw": 0,
+            "cost_status": "known",
+            "cost_basis": "공원 야외 장미원 산책 무료; 유료 체육시설 제외"
+          }
+        ],
+        "totals": {
+          "selected_admission_and_menu_krw": 9025,
+          "estimated_walking_km": 1.4,
+          "estimated_steps": 2000,
+          "elapsed_from_0900_min": 369
+        }
+      }
+    ],
+    "limitations": [
+      "No popularity scores or unselected places are used.",
+      "Validated only within the reviewed date range; unknown prices, hours and reservations are excluded.",
+      "Shopping spend is not applicable to the budget subtotal; null never means free admission.",
+      "Travel uses distance × 1.35 and estimated transit; lodging access, venue walking, queues and weather are not included.",
+      "Starts at 09:00 Japan time. Stay estimates use the upper end of the team ranges."
+    ]
+  }
 }
