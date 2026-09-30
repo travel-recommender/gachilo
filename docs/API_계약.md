@@ -6,7 +6,7 @@
 
 이 문서는 두 부분으로 나뉜다.
 
-- **A. 현재 계약 (v0)** — #24 서버(`backend/server.py`)가 **지금 실제로** 동작하는 형식. #25 프론트는 이것에 붙는다.
+- **A. 현재 계약 (v0)** — #24 서버(`backend/server.py`)가 **지금 실제로** 동작하는 형식. 프론트는 #25 후속 PR(`feat/front-api-integration-v2`)에서 이것에 붙는다(#25는 #26으로 되돌림).
 - **B. 목표 계약 (v1)** — 2단계 선택·후보 풀·결과 화면을 위해 **앞으로** 추가할 형식. v0를 깨지 않고 하나씩 붙인다.
 
 프론트 mock은 **이미 있는 기능은 A, 아직 없는 기능은 B**를 기준으로 만든다.
@@ -31,7 +31,7 @@
   - **방장 전용** (결과 계산) — `ownerToken`만 허용
   - **방 공용** (참여 현황·결과 조회) — 그 방의 방장 또는 참여자 토큰
   - 불일치하면 `403`. 방 존재 여부 외에 무엇이 틀렸는지는 알려주지 않는다.
-- 토큰은 초대 링크에 실린다(`/join?room=&m=&t=`, #25). **링크는 사람마다 다르고**, 단체방에 하나만 공유하면 서로의 자리에 들어갈 수 있다는 점을 화면에서 안내한다.
+- 토큰은 초대 링크에 실린다(`/join?room=&m=&t=`, #25 후속 PR). **링크는 사람마다 다르고**, 단체방에 하나만 공유하면 서로의 자리에 들어갈 수 있다는 점을 화면에서 안내한다.
 - 서버 로그에 토큰·입력값을 남기지 않는다.
 
 ### 0.2 null 규칙
@@ -49,7 +49,8 @@
 
 - 원본 `cost` = **1인 필수 방문 비용(JPY)**. 입장권·기준 메뉴·코스·이용권 가격이며 **평균 총지출이 아니다.** 적용 범위는 `cost_basis`에 있다.
 - 환산: `cost_krw = round_half_up(cost × krw_per_jpy)`, **원 단위 정수**
-- 환율은 **서버 설정값**(`JPY_TO_KRW` 환경변수, 1 JPY당 KRW)이다. 실시간 시세가 아니다. 응답에 **환율·반올림 방식·기준일·출처**를 함께 싣는다.
+- 환율은 **서버 설정값**(`JPY_TO_KRW` 환경변수, 1 JPY당 KRW)이다. 실시간 시세가 아니다. 응답에 **환율·반올림 방식·기준일·출처**를 함께 싣는다(A.5).
+  기준일은 `JPY_TO_KRW_AS_OF`(`YYYY-MM-DD`), 출처는 `JPY_TO_KRW_SOURCE`로 설정한다. **설정하지 않은 값은 지어내지 않고 null로 둔다.**
 - 환율이 설정되지 않으면 유료 장소의 `cost_krw`는 `null`(`cost_status: "exchange_rate_required"`). 원본이 0이면 환율과 상관없이 0.
 - **쇼핑 구매비는 계산하지 않는다** (개인차가 커서). 쇼핑 장소는 `cost_krw: null`, `cost_status: "not_applicable_shopping"`이며 **무료가 아니다.** 무료는 `cost_krw: 0` + `cost_status: "known"`이다.
 
@@ -99,7 +100,7 @@
 
 ---
 
-## A. 현재 계약 (v0) — #24 서버 기준 (+ #25 추가분)
+## A. 현재 계약 (v0) — #24 서버 기준
 
 경로에 `/api` 접두사가 없다(장소 검색 `/api/places`만 예외). 오류는 `{ "error": "메시지" }` 문자열 하나다.
 
@@ -107,7 +108,7 @@
 | --- | --- | --- |
 | `GET /health` | - | 서버 확인 |
 | `POST /rooms` | - | 방 만들기 |
-| `GET /rooms/:roomId` | 방 공용 | 방 날짜·명단 (A.6). **#25(6886354)에서 추가** — #25 머지 후 v0 |
+| `GET /rooms/:roomId` | 방 공용 | 방 날짜·명단 (A.6). **v0에 아직 없다** — #25에서 추가됐다가 #26으로 되돌렸다. #25 후속 PR에서 다시 들어온다 |
 | `PUT /rooms/:roomId/submissions/:memberId` | 본인 | 1차·2차·조건 **한 번에** 제출 (다시 내면 덮어씀) |
 | `GET /rooms/:roomId/results` | 방 공용 | 제출 현황 + 결과 |
 | `POST /rooms/:roomId/calculate` | 방장 | 전원 제출 후 계산 |
@@ -141,7 +142,7 @@
 }
 ```
 
-기간 1~30일, 인원 2~6명, 이름 1~40자. 프론트는 `nights`를 `startDate`/`endDate`로 환산해 보낸다(#25 `toDateRange`).
+기간 1~30일, 인원 2~6명, 이름 1~40자. 프론트는 `nights`를 `startDate`/`endDate`로 환산해 보낸다(#25 후속 PR의 `toDateRange`).
 
 ### A.2 `PUT /rooms/:roomId/submissions/:memberId`
 
@@ -189,14 +190,31 @@ Authorization: Bearer <그 memberId의 submissionToken>
   "dataset": "osaka_review_150",
   "total": 1,
   "currency": "KRW",
-  "exchange_rate": { "krw_per_jpy": "9.2", "rounding": "ROUND_HALF_UP to integer KRW", "source": "server configuration; not a live quote" },
+  "exchange_rate": {
+    "krw_per_jpy": "9.2",
+    "rounding": "ROUND_HALF_UP to integer KRW",
+    "as_of": "2026-09-29",
+    "source": "…",
+    "provenance_status": "documented",
+    "live_quote": false
+  },
   "places": [ { "…": "0.4 형식" } ]
 }
 ```
 
-> v0에 없는 것: 환율 **기준일**(`as_of`). v1에서 추가한다(B.3).
+(환율 9.2·기준일은 형식 예시다. 팀이 쓸 실제 값은 아직 정하지 않았다 — 5장)
 
-### A.6 `GET /rooms/:roomId` (방 공용) — #25에서 추가
+| 필드 | 값 |
+| --- | --- |
+| `krw_per_jpy` | `JPY_TO_KRW` 문자열. 미설정이면 null |
+| `as_of` | `JPY_TO_KRW_AS_OF`. 미설정이면 null. 환율이 설정된 상태에서 형식이 틀리면 **서버가 시작하지 않는다** |
+| `source` | `JPY_TO_KRW_SOURCE`. 미설정이면 null (환율이 없으면 기준일·출처도 null) |
+| `provenance_status` | `unconfigured`(환율 없음) · `incomplete`(환율은 있으나 기준일·출처 중 빠진 것 있음) · `documented`(셋 다 있음) |
+| `live_quote` | 항상 `false`. **현재 시세로 표시하지 않는다** |
+### A.6 `GET /rooms/:roomId` (방 공용) — 예정: #25 후속 PR
+
+> **#26 머지 상태의 v0에는 이 엔드포인트가 없다.** #25(6886354)에서 추가됐다가 #26으로 #25 전체와 함께 되돌렸다.
+> 세션·초안 수정(bf33b56)과 함께 #25 후속 PR(`feat/front-api-integration-v2`)으로 다시 들어오며, 그 PR이 머지되면 v0에 포함한다.
 
 ```
 Authorization: Bearer <그 방의 ownerToken 또는 submissionToken>
@@ -229,7 +247,7 @@ v0 규칙(경로 형식, Bearer 토큰, `startDate`/`endDate`)을 **그대로 �
 ### B.0 적용 순서 — 조은님과 합의 필요
 
 1. **#24 머지** — v0 서버·150곳 조회가 main에 들어간다
-2. **#25 base를 main으로** — 프론트가 v0에 붙는다 (방 만들기·초대 링크·제출·현황)
+2. **#25 후속 PR을 main으로** — 프론트가 v0에 붙는다 (방 만들기·초대 링크·제출·현황, A.6 방 조회). #25는 수정 도중 머지돼 #26으로 되돌렸고, 세션·초안 수정(bf33b56)을 더해 `feat/front-api-integration-v2`로 다시 올린다
 3. **v1-a: 1차 제출 + 후보 풀** (B.2·B.4·B.5) — 2단계 선택 흐름을 서버로 옮긴다 (#25 발견 1·2)
 4. **v1-b: 결과 응답 확장** (B.7) — 코어/옵션·시간표·AI 설명 (#25 발견 3). 150곳 `bag_load`·`covered` 변환 규칙이 정해진 뒤
 5. **v1-c: 오류 형식·단계(phase) 통일** (B.1) — 프론트 오류 처리를 한 번에 바꾼다
@@ -259,7 +277,7 @@ created → longlist → shortlist → conditions → done
 
 ### B.2 `GET /rooms/:roomId` — 방 정보·참여 현황 (방 공용 토큰)
 
-**v0 A.6(날짜·명단)을 확장한다.** 기존 필드는 그대로 두고 `phase`, `days`, `members[].done`, `doneCount`, `memberCount`를 더한다.
+**A.6(날짜·명단, #25 후속 PR에서 추가)을 확장한다.** 기존 필드는 그대로 두고 `phase`, `days`, `members[].done`, `doneCount`, `memberCount`를 더한다.
 
 ```json
 {
@@ -279,18 +297,15 @@ created → longlist → shortlist → conditions → done
 
 **토큰은 절대 싣지 않는다.** `done`은 현재 단계를 마쳤는지만 알린다. 여기 나온 `id`로는 아무것도 할 수 없다(0.1).
 
-### B.3 `GET /api/places` — v0에 기준일 추가
+### B.3 `GET /api/places` — 150곳 장소 예시
+
+환율 기준일·출처는 #24에서 v0에 들어왔다(A.5). 여기서는 150곳이 계산 대상이 된 뒤의 장소 필드 예시만 보인다.
 
 ```json
 {
   "dataset": "osaka_review_150",
   "currency": "KRW",
-  "exchange_rate": {
-    "krw_per_jpy": "9.2",
-    "rounding": "ROUND_HALF_UP to integer KRW",
-    "as_of": "2026-09-29",
-    "source": "팀 고정값 (출처: 서버 설정 JPY_TO_KRW_SOURCE)"
-  },
+  "exchange_rate": { "…": "A.5와 같다" },
   "places": [
     {
       "place_id": "osaka_009",
@@ -474,7 +489,7 @@ created → longlist → shortlist → conditions → done
 
 - [ ] **B.0 적용 순서** (조은·혜인)
 - [ ] **150곳 → 엔진 변환 규칙**: `bag_load` 0/1/2 ↔ 데모 `bagLoad` 0~1, `covered` 의미 차이. 엔진을 바꿀지 변환할지 (조은)
-- [ ] **환율 고정값·기준일·출처** 확정, `as_of` 필드 추가 (조은)
+- [ ] **환율 고정값·기준일·출처** 확정 (조은). 응답 형식(`as_of`·`source`·`provenance_status`)은 #24에서 반영됨(A.5), 실제 값만 남음
 - [ ] **`place_id` 형식**: 150곳 연번 `osaka_001`(ID 보존) vs 슬러그 `osaka_castle`(AI 환각 방지, 데모 ID와 같은 모양). #23 논의 (조은·윤진)
 - [ ] **관광 권역 매핑**: 행정구 `area` → 난바·우메다 등 권역. 필요한지, 누가 만들지
 - [ ] 경로 접두사 통일 (`/rooms`와 `/api/places` 혼재)
