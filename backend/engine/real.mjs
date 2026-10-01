@@ -64,7 +64,7 @@ export function calculateReal(request, dataset, profiles) {
       selection_policy: 'must_then_selection_count_then_id; selected_only; veto_excluded',
       exchange_rate: request.exchange_rate, catalog_count: dataset.places.length,
       scheduled_count: scheduled.size, unplaced_count: failures.length,
-      must_satisfied: !missingMust, exclusion_reason_counts: reasons,
+      must_satisfied: !missingMust, reason_aggregation: 'common_across_dates', exclusion_reason_counts: reasons,
       days: days.map(day => {
         const trial = details.get(day.date);
         return {date: day.date, items: trial?.items || [], totals: trial?.totals || null};

@@ -7240,6 +7240,7 @@
     "scheduled_count": 31,
     "unplaced_count": 119,
     "must_satisfied": true,
+    "reason_aggregation": "common_across_dates",
     "exclusion_reason_counts": {
       "public_viewpoint_unconfirmed": 1,
       "cost_unknown_or_not_applicable": 75,
