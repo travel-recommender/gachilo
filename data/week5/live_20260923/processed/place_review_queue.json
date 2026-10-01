@@ -3,8 +3,8 @@
   "statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 796,
-    "non_null_fields_updated": 71,
+    "null_fields_filled": 798,
+    "non_null_fields_updated": 73,
     "missing_before": {
       "place_id": 0,
       "name": 0,
@@ -33,7 +33,7 @@
       "latitude": 0,
       "longitude": 0,
       "opening_hours": 18,
-      "cost": 116,
+      "cost": 114,
       "stay_min": 0,
       "bag_load": 0,
       "covered": 116,
@@ -41,7 +41,7 @@
       "opening_hours_source": 52,
       "verified_at": 25
     },
-    "records_with_blockers": 43,
+    "records_with_blockers": 44,
     "official_null_fields_filled_before_localization": 316,
     "editorial_korean_names_filled": 110,
     "map_addresses_added": 31
@@ -77,10 +77,13 @@
       "opening_hours": "09:00-21:45 (일반 전망대 최종입장 21:15)",
       "address_status": "verified",
       "hours_status": "verified",
-      "blockers": [],
+      "blockers": [
+        "entry_time_reservation_required"
+      ],
       "notes": [
         "15세 이상 일반 전망대 요금 JPY. 입장 시간 예약 필요. 특별 야외 전망대·체험 비용 별도.",
-        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+        "2026-09-30: 일반 전망대도 입장 시간 예약이 필요. 당일 현장 구매 역시 입장 시간을 지정하므로 예약 확인 전 자동 일정에 배치하지 않음."
       ],
       "source_urls": [
         "https://www.tsutenkaku.co.jp/annai/"
@@ -194,10 +197,12 @@
       "notes": [
         "성인 일반 입장료 JPY. 2026-11-08은 19:00 종료·18:30 최종입장, 2027-04-18은 18:00 종료·17:30 최종입장. 악천후 옥상 제한 가능.",
         "전망대 전용 주소·층 확인 필요.",
-        "공식 전망대 접근 안내의 시설 주소."
+        "공식 전망대 접근 안내의 시설 주소.",
+        "2026-09-30: 공식 특별 영업 2026-11-08은 09:30~19:00, 최종입장 18:30으로 날짜 프로필에 반영. 기본 영업시간 문자열은 보존."
       ],
       "source_urls": [
-        "https://www.skybldg.co.jp/access/"
+        "https://www.skybldg.co.jp/access/",
+        "https://www.skybldg.co.jp/observatory/information/"
       ],
       "missing_fields": [
         "covered"
@@ -215,7 +220,8 @@
       "blockers": [],
       "notes": [
         "1인 일반 탑승료 JPY, 5세 이하 무료. 페이지에 10/15 목요일 휴관 공지가 있으나 연도 생략이므로 일정 날짜별 재확인 필요. 한 바퀴 약 15분은 대기 포함 체류시간이 아니므로 stay_min에 자동 입력하지 않음.",
-        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+        "2026-09-30: 10/15(목) 휴관 공지는 연도 생략. 날짜 프로필에서는 2026-10-15를 재확인 대상으로 제외하며, 연중 10월 15일 휴관 규칙으로 일반화하지 않음."
       ],
       "source_urls": [
         "https://www.hepfive.jp/ferriswheel"
@@ -2316,14 +2322,15 @@
       "blockers": [],
       "notes": [
         "공식 점포 페이지 취득 실패. 운영정보 재확인 필요.",
-        "공식 카페 위치·운영시간 및 실내 좌석 안내."
+        "공식 카페 위치·운영시간 및 실내 좌석 안내.",
+        "2026-09-30: 일반 핫/아이스 커피 1잔 715 JPY(세금 포함). 1인 1음료 필수, 별도 좌석료 없음. 음식·추가 주문·평균 지출을 뜻하지 않음. 비정기 휴무는 방문일 확인 필요."
       ],
       "source_urls": [
-        "https://www.e-maid.net/"
+        "https://www.e-maid.net/",
+        "https://www.e-maid.net/menu.html",
+        "https://www.e-maid.net/concept.html"
       ],
-      "missing_fields": [
-        "cost"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -3231,12 +3238,13 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30: 점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
+      ],
       "source_urls": [
         "https://cherryjam.owst.jp/"
       ],
       "missing_fields": [
-        "cost",
         "covered"
       ],
       "schedule_ready": false
@@ -3455,5 +3463,5 @@
       "verified_at": 62
     }
   },
-  "latest_enrichment_revision": "operating_review_20260930"
+  "latest_enrichment_revision": "planning_review_20260930"
 }
