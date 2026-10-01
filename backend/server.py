@@ -101,6 +101,18 @@ class Store:
             total=c.execute('SELECT COUNT(*) FROM members WHERE room_id=?',(rid,)).fetchone()[0]
         extra={'dataset':REAL_DATASET,'planning':json.loads(row['planning']) if row and row['planning'] else None} if r['dataset']==REAL_DATASET else {}
         return {**extra,'roomId':rid,'status':('draft' if r['dataset']==REAL_DATASET else 'ready') if row else 'awaiting_result' if count==total else 'collecting','submittedCount':count,'memberCount':total,'revision':r['revision'],'result':json.loads(row['payload']) if row else None}
+    def meta(self,rid,token):
+        # Same public room shape as the frontend v2 branch; no private inputs.
+        with self.connect() as c:
+            c.execute('BEGIN');r=self.room(c,rid);self.authenticate(c,r,token)
+            rows=c.execute('SELECT id,name FROM members WHERE room_id=? ORDER BY rowid',(rid,)).fetchall()
+        return {'roomId':rid,'startDate':r['start'],'endDate':r['end'],'members':[{'id':m['id'],'name':m['name']} for m in rows],**({'dataset':r['dataset']} if r['dataset']==REAL_DATASET else {})}
+    def own_submission(self,rid,mid,token):
+        # Even the owner token cannot read another participant's choices.
+        with self.connect() as c:
+            c.execute('BEGIN');r=self.room(c,rid);self.authenticate(c,r,token,mid)
+            row=c.execute('SELECT payload FROM submissions WHERE member_id=?',(mid,)).fetchone()
+        return {'roomId':rid,'memberId':mid,'revision':r['revision'],'submission':json.loads(row['payload']) if row else None}
     def snapshot(self,rid,token):
         with self.connect() as c:
             c.execute('BEGIN')
@@ -146,7 +158,7 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
         def send_json(self,status,payload):
             raw=json.dumps(payload,ensure_ascii=False).encode();self.send_response(status)
             if self.headers.get('Origin') and self.trusted_origin():self.send_header('Access-Control-Allow-Origin',self.headers['Origin'])
-            self.send_header('Vary','Origin');self.send_header('Cache-Control','no-store');self.send_header('Content-Type','application/json; charset=utf-8');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw)
+            self.send_header('Vary','Origin');self.send_header('Cache-Control','no-store');self.send_header('Referrer-Policy','no-referrer');self.send_header('Content-Type','application/json; charset=utf-8');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw)
         def do_OPTIONS(self):
             if not self.trusted_origin():return self.send_json(403,{'error':'허용되지 않은 출처입니다.'})
             self.send_response(204);self.send_header('Access-Control-Allow-Origin',self.headers.get('Origin',allowed_origin));self.send_header('Access-Control-Allow-Methods','GET,POST,PUT,OPTIONS');self.send_header('Access-Control-Allow-Headers','Content-Type,Authorization');self.send_header('Vary','Origin');self.end_headers()
@@ -163,10 +175,10 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     except (ValueError,UnicodeDecodeError):raise ApiError(400,'JSON을 읽을 수 없습니다.')
                 auth=self.headers.get('Authorization','');token=auth[7:] if auth.startswith('Bearer ') else ''
                 path=self.path.split('?')[0].rstrip('/')
-                assets={'':('index.html','text/html'),'/app.js':('app.js','text/javascript'),'/planning-reasons.mjs':('planning-reasons.mjs','text/javascript'),'/client.js':('client.js','text/javascript'),'/style.css':('style.css','text/css')}
+                assets={'':('index.html','text/html'),'/join':('index.html','text/html'),'/app.js':('app.js','text/javascript'),'/planning-reasons.mjs':('planning-reasons.mjs','text/javascript'),'/session.mjs':('session.mjs','text/javascript'),'/polling.mjs':('polling.mjs','text/javascript'),'/client.js':('client.js','text/javascript'),'/style.css':('style.css','text/css')}
                 if self.command=='GET' and path in assets:
                     filename,mime=assets[path];raw=(Path(__file__).parent/'public'/filename).read_bytes()
-                    self.send_response(200);self.send_header('Content-Type',mime+'; charset=utf-8');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw);return
+                    self.send_response(200);self.send_header('Content-Type',mime+'; charset=utf-8');self.send_header('Cache-Control','no-store');self.send_header('Referrer-Policy','no-referrer');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw);return
                 if self.command=='GET' and path=='/api/places':
                     qs=parse_qs(urlsplit(self.path).query)
                     try:limit=int(qs.get('limit',['150'])[0])
@@ -188,7 +200,10 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     return self.send_json(200,store.result(m[1],token))
                 if self.command=='GET' and path=='/health':return self.send_json(200,{'ok':True})
                 if self.command=='POST' and path=='/rooms':return self.send_json(201,store.create(b))
+                m=re.fullmatch(r'/rooms/([\w-]+)',path)
+                if self.command=='GET' and m:return self.send_json(200,store.meta(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/submissions/([\w-]+)',path)
+                if self.command=='GET' and m:return self.send_json(200,store.own_submission(*m.groups(),token))
                 if self.command=='PUT' and m:return self.send_json(200,store.submit(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/results',path)
                 if m and self.command=='GET':return self.send_json(200,store.result(m[1],token))
@@ -201,9 +216,9 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
     return ThreadingHTTPServer((host,port),Handler)
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--port',type=int,default=8000);p.add_argument('--db',default=str(Path(__file__).parent/'.local/trips.sqlite3'));p.add_argument('--origin',default='http://localhost:3000');a=p.parse_args()
-    server=make_server(a.db,port=a.port,allowed_origin=a.origin)
-    print(f'Local API: http://127.0.0.1:{server.server_port}',flush=True)
+    p=argparse.ArgumentParser();p.add_argument('--host',default='127.0.0.1');p.add_argument('--port',type=int,default=8000);p.add_argument('--db',default=str(Path(__file__).parent/'.local/trips.sqlite3'));p.add_argument('--origin',default='http://localhost:3000');a=p.parse_args()
+    server=make_server(a.db,host=a.host,port=a.port,allowed_origin=a.origin)
+    print(f'API listening on {a.host}:{server.server_port}',flush=True)
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:server.server_close()

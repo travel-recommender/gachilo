@@ -1,0 +1,61 @@
+{
+  "reviewed_at": "2026-10-01",
+  "source_commit": "8c69bb469e677a67d50062958be9cf18bea6a87d",
+  "source_sha256": "a201d4d4f959058164b6bc52fb9e3305e4b0ef59a2a83c081e1bf25b85084004",
+  "total_records": 150,
+  "categories": [
+    {
+      "category": "명소",
+      "collected": 19,
+      "passed_individual_model": 2,
+      "held": 17,
+      "production_ready": 0
+    },
+    {
+      "category": "문화",
+      "collected": 25,
+      "passed_individual_model": 11,
+      "held": 14,
+      "production_ready": 0
+    },
+    {
+      "category": "자연",
+      "collected": 20,
+      "passed_individual_model": 9,
+      "held": 11,
+      "production_ready": 0
+    },
+    {
+      "category": "쇼핑",
+      "collected": 26,
+      "passed_individual_model": 16,
+      "held": 10,
+      "production_ready": 0
+    },
+    {
+      "category": "카페",
+      "collected": 25,
+      "passed_individual_model": 1,
+      "held": 24,
+      "production_ready": 0
+    },
+    {
+      "category": "식사",
+      "collected": 35,
+      "passed_individual_model": 6,
+      "held": 29,
+      "production_ready": 0
+    }
+  ],
+  "test_dates": [
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-03",
+    "2026-10-04",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07"
+  ],
+  "meaning": "Published PR30 baseline only. Individual model pass is not production readiness. Separate local uncommitted official-data work is excluded.",
+  "priority": "User prefers verifiable candidates over preserving category ratios. No numeric category quota agreed."
+}
