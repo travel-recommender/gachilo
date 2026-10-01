@@ -1,12 +1,12 @@
 {
-  "reviewed_at": "2026-09-30",
+  "reviewed_at": "2026-10-01",
   "audited_date": "2026-10-01",
-  "source_sha256": "24f8c555d83e053334e4a4c5241dd9277b55f7419a11e02f4008dfce98c9a2b1",
-  "profiles_sha256": "b731a72eb94130fe6663db76bbcc7d6ea8dd93c943ee391bfd5459db8e49f25b",
+  "source_sha256": "0ed60d507cb36d5a30ee04eb1ac8bf217317ec879fcffe0a7304b322c8d635c5",
+  "profiles_sha256": "1977ed517e6252f64cc483ce9818e4dfb28d1926309c2b03a17beb0143f64733",
   "summary": {
     "total_records": 150,
-    "with_date_profile": 12,
-    "eligible_for_offline_model": 10,
+    "with_date_profile": 59,
+    "eligible_for_offline_model": 29,
     "production_schedule_ready": 0,
     "scenarios_passed": 4,
     "distinct_scheduled_places": 10
@@ -16,10 +16,12 @@
       "place_id": "osaka_001",
       "name_ko": "도톤보리 글리코 사인",
       "reasons": [
+        "public_viewpoint_unconfirmed",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -36,6 +38,7 @@
         1305,
         1275
       ],
+      "cost_jpy": 1500,
       "cost_basis": "성인 일반 전망대 1인 1,500 JPY. 입장 시간 예약 확인 전 제외; 특별 전망대·체험 별도.",
       "source_urls": [
         "https://www.tsutenkaku.co.jp/annai/"
@@ -51,6 +54,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -64,6 +68,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -77,6 +82,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -90,6 +96,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -104,6 +111,7 @@
         1350,
         1320
       ],
+      "cost_jpy": 2000,
       "cost_basis": "성인 일반 공중정원 입장료 2,000 JPY",
       "source_urls": [
         "https://www.skybldg.co.jp/observatory/information/"
@@ -120,6 +128,7 @@
         1380,
         1365
       ],
+      "cost_jpy": 1000,
       "cost_basis": "관람차 일반 탑승 1인 1,000 JPY",
       "source_urls": [
         "https://www.hepfive.jp/ferriswheel"
@@ -136,6 +145,7 @@
         1080,
         1050
       ],
+      "cost_jpy": 1200,
       "cost_basis": "성인 천수각 일반 입장료 1,200 JPY",
       "source_urls": [
         "https://www.osakacastle.net/guide/"
@@ -146,26 +156,37 @@
     {
       "place_id": "osaka_010",
       "name_ko": "오사카 텐만구",
-      "reasons": [
-        "opening_hours_missing",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        540,
+        1020,
+        1020
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 0,
+      "cost_basis": "관광국 2026년 안내의 참배 09~17시와 별도 시설 소개의 개문 05:30~18:30을 구분. 일정은 두 안내에 공통으로 포함되는 09~17시 경내 참배만 사용; 기도·행사·물품 제외.",
+      "source_urls": [
+        "https://discover.osaka-info.jp/jp/articles/tenjin-matsuri-festivals",
+        "https://osaka-info.jp/special/dc/event/detail369/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_011",
       "name_ko": "시텐노지",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        510,
+        960,
+        960
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 500,
+      "cost_basis": "성인 개인 중심가람 500 JPY, 매월 21·22일 0 JPY; 정원·보물관 별도. 10~11월 공통 08:30~16:00만 사용.",
+      "source_urls": [
+        "https://www.shitennoji.or.jp/admission.html",
+        "https://www.shitennoji.or.jp/map.html"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -177,6 +198,7 @@
         1020,
         990
       ],
+      "cost_jpy": 600,
       "cost_basis": "성인 상설전 입장료 600 JPY; 특별전 별도",
       "source_urls": [
         "https://www.osakamushis.jp/visit/fee.html"
@@ -192,6 +214,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -200,13 +223,18 @@
     {
       "place_id": "osaka_014",
       "name_ko": "오사카 시립과학관",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        570,
+        1020,
+        990
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 400,
+      "cost_basis": "성인 전시장 입장료 400 JPY; 플라네타륨 제외",
+      "source_urls": [
+        "https://www.sci-museum.jp/info/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -218,6 +246,7 @@
         1440,
         1440
       ],
+      "cost_jpy": 0,
       "cost_basis": "공원 일반 야외 산책 무료; 천수각·니시노마루·유료시설 제외",
       "source_urls": [
         "https://osaka-info.jp/spot/osaka-castle-park/"
@@ -233,6 +262,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -247,6 +277,7 @@
         1440,
         1440
       ],
+      "cost_jpy": 0,
       "cost_basis": "공원 장미원 야외 관람 무료; 유람선·음식점 제외",
       "source_urls": [
         "https://osaka-info.jp/experience/ja/osaka/spot/244",
@@ -264,6 +295,7 @@
         1320,
         1320
       ],
+      "cost_jpy": 0,
       "cost_basis": "텐시바 입구 광장만 무료; 동물원·미술관·게이타쿠엔 제외",
       "source_urls": [
         "https://osaka-info.jp/spot/tennoji-park-entrance-area-ten-shiba/"
@@ -280,6 +312,7 @@
         1440,
         1440
       ],
+      "cost_jpy": 0,
       "cost_basis": "공원 야외 장미원 산책 무료; 유료 체육시설 제외",
       "source_urls": [
         "https://utsubotennis.osaka/rose_garden/",
@@ -292,12 +325,18 @@
       "place_id": "osaka_020",
       "name_ko": "난바 파크스",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "cost_jpy": null,
+      "cost_basis": "일반 쇼핑 구역 방문. 개인 구매·음식·유료 행사는 예산 합계에서 제외",
+      "source_urls": [
+        "https://nambaparks.com/facilities"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -305,12 +344,18 @@
       "place_id": "osaka_021",
       "name_ko": "다카시마야 오사카점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "일반 판매장 방문. 일부 단축 영업 매장 제외; 개인 쇼핑 지출 미산정",
+      "source_urls": [
+        "https://www.takashimaya.co.jp/osaka/businesshours/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -318,12 +363,18 @@
       "place_id": "osaka_022",
       "name_ko": "다이마루 신사이바시점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "본관 일반 판매장 방문. 음식점·별도 운영 매장 제외; 개인 쇼핑 지출 미산정",
+      "source_urls": [
+        "https://www.daimaru.co.jp/shinsaibashi/hours.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -331,12 +382,18 @@
       "place_id": "osaka_023",
       "name_ko": "한신 우메다 본점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "일반 판매장 방문. 음식점·일부 점포 제외; 개인 쇼핑 지출 미산정",
+      "source_urls": [
+        "https://www.hanshin-dept.jp/hshonten/map/index.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -344,12 +401,18 @@
       "place_id": "osaka_024",
       "name_ko": "신사이바시 PARCO",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "일반 판매·서비스 구역 방문. 전시·영화·음식점 제외; 개인 쇼핑 지출 미산정",
+      "source_urls": [
+        "https://shinsaibashi.parco.jp/info/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -361,6 +424,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -370,10 +434,10 @@
       "place_id": "osaka_026",
       "name_ko": "이치란 도톤보리점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": 1180,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -388,6 +452,7 @@
         1440,
         1440
       ],
+      "cost_jpy": 950,
       "cost_basis": "흑대장 간장라멘 1인 950 JPY 세금 포함. 추가 주문·세트 제외",
       "source_urls": [
         "https://www.soudaisyou.com/access.html"
@@ -399,12 +464,18 @@
       "place_id": "osm_node_2296903605",
       "name_ko": "마루후쿠 커피 센니치마에 본점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        480,
+        1380,
+        1380
+      ],
+      "cost_jpy": null,
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -416,6 +487,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -429,6 +501,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -442,6 +515,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -453,11 +527,18 @@
       "reasons": [
         "event_access_required",
         "seasonal_event_date_confirmation_required",
-        "structured_date_profile_missing"
+        "visit_confirmation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        960,
+        930
+      ],
+      "cost_jpy": 1500,
+      "cost_basis": "2026 공개 다도 체험 1인 1,500 JPY. 니시노마루 정원 입장료 별도이므로 전체 방문 비용이 아님.",
+      "source_urls": [
+        "https://osaka-info.jp/special/dc/event/detail605/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -471,6 +552,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -480,14 +562,18 @@
       "place_id": "osaka_draft_f0f97440bedc",
       "name_ko": "와케 다리",
       "reasons": [
-        "identity_unconfirmed",
-        "opening_hours_missing",
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "identity_unconfirmed"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        420,
+        1320,
+        1320
+      ],
+      "cost_jpy": 0,
+      "cost_basis": "차우스야마 공원 안 와케 다리 주변 야외 관람 무료. 공식 공원 개방시간 범위만 적용. 임시 다리 통제·공사는 별도 확인.",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -503,6 +589,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -517,6 +604,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": 0,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -526,12 +614,18 @@
       "place_id": "osaka_draft_5a243c3857f7",
       "name_ko": "쇼에이도",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1080,
+        1080
+      ],
+      "cost_jpy": null,
+      "cost_basis": "향 판매점 쇼핑 구매비 비산정(null). 별도 유료 체험 제외.",
+      "source_urls": [
+        "https://www.shoyeido.co.jp/shop-info/osaka.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -545,6 +639,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -558,6 +653,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -567,10 +663,10 @@
       "place_id": "osaka_draft_300825840acb",
       "name_ko": "아키바 카트 오사카",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": 7000,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -584,6 +680,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": 600,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -592,13 +689,18 @@
     {
       "place_id": "osaka_draft_1cbe7e7894c8",
       "name_ko": "약의 도쇼마치 자료관",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        600,
+        960,
+        930
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 0,
+      "cost_basis": "자료관 일반 입장 무료",
+      "source_urls": [
+        "https://www.sinnosan.jp/kusuri/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -606,11 +708,18 @@
       "name_ko": "보온병 기념관",
       "reasons": [
         "reservation_required",
-        "structured_date_profile_missing"
+        "entry_time_reservation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        780,
+        960,
+        960
+      ],
+      "cost_jpy": 0,
+      "cost_basis": "무료 입장, 공식 견학 소요시간 약 50분, 본사 1층 실내. 2일 전 예약 필요; 예약 제한은 유지.",
+      "source_urls": [
+        "https://www.zojirushi.co.jp/corp/kinenkan/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -622,6 +731,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -630,36 +740,53 @@
     {
       "place_id": "osaka_draft_6dbd8bbe7f48",
       "name_ko": "가미가타 우키요에관",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        660,
+        1080,
+        1050
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 700,
+      "cost_basis": "성인 일반 관람 700 JPY; 판화 체험 제외. 월요일 휴관, 공휴일이면 다음날.",
+      "source_urls": [
+        "https://osaka-info.jp/special/coolosaka/cool-spot/1186/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_ce3b8d452a0e",
       "name_ko": "국립국제미술관",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        600,
+        1020,
+        990
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 430,
+      "cost_basis": "2026 컬렉션1 성인 주간 430 JPY; 공식 무료일 0 JPY. 특별전·음성안내·금요일 야간 별도.",
+      "source_urls": [
+        "https://www.nmao.go.jp/events/event/collection20260719/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_316598fb77c9",
       "name_ko": "오사카 시립미술관",
       "reasons": [
-        "structured_date_profile_missing"
+        "visit_confirmation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        570,
+        1020,
+        990
+      ],
+      "cost_jpy": 500,
+      "cost_basis": "성인 1인 기획전 관람료 JPY. 특별전·특별진열은 별도 요금. covered는 실내 전시 관람 기준.",
+      "source_urls": [
+        "https://www.osaka-art-museum.jp/information"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -671,6 +798,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -679,14 +807,19 @@
     {
       "place_id": "osaka_draft_7675eb0bab46",
       "name_ko": "난바 야사카 신사",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        360,
+        1020,
+        1020
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 0,
+      "cost_basis": "난바 야사카 신사 일반 경내 참배 무료. 06~17시 개문, 사무소 09~16:50; 기도·물품 구매 제외.",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/246",
+        "https://osaka-info.jp/special/dc/event/detail12/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -701,6 +834,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -716,6 +850,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -732,6 +867,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -746,6 +882,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -760,6 +897,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -775,6 +913,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -788,6 +927,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -802,6 +942,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -810,63 +951,87 @@
     {
       "place_id": "osaka_draft_d7da3fdbeaf6",
       "name_ko": "기누타니 고지 천공미술관",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        600,
+        1080,
+        1050
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 1300,
+      "cost_basis": "성인 일반 입장료 1300 JPY; 카페 제외",
+      "source_urls": [
+        "https://www.kinutani-tenku.jp/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_04b34bc4e6e2",
       "name_ko": "고즈구 신사",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        360,
+        1020,
+        1020
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 0,
+      "cost_basis": "고즈구 경내 일반 참배 무료. 신전 폐문 17시 전에 마치는 보수적 구간; 기도·행사 참가비 제외.",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/529"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_1289b4aecc32",
       "name_ko": "게이타쿠엔 정원",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        570,
+        1020,
+        990
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 300,
+      "cost_basis": "성인 정원 입장료 300 JPY; 다실·미술관 제외",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_c62644984874",
       "name_ko": "사쿠라노미야 공원",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        0,
+        1440,
+        1440
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 0,
+      "cost_basis": "게마 사쿠라노미야 공원 일반 야외 산책 24시간·입장 무료. 구장·유람선 등 유료 시설은 제외.",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/458"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_9e900589aec0",
       "name_ko": "니시노마루 정원",
-      "reasons": [
-        "hours_conflict",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        540,
+        990,
+        960
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 300,
+      "cost_basis": "성인 일반 정원 300 JPY. 10~11월 공통 09:00~16:30만 사용, 야간행사·찻집 별도.",
+      "source_urls": [
+        "https://osaka-chushin.jp/en/routes/33146",
+        "https://www.osakacastlepark.jp/news/?lang=ja"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -877,6 +1042,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -890,6 +1056,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -903,6 +1070,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -917,6 +1085,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -925,13 +1094,18 @@
     {
       "place_id": "osaka_draft_5f8dd9212a0c",
       "name_ko": "후지타 저택 터 공원",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        600,
+        960,
+        960
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 0,
+      "cost_basis": "후지타 저택 터 공원 무료 일반 공개 10~16시. 후지타 미술관 입장료와 구분.",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/617"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -942,6 +1116,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -956,6 +1131,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -969,6 +1145,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -982,6 +1159,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -997,6 +1175,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1005,13 +1184,18 @@
     {
       "place_id": "osaka_draft_2fc0df9e9f8d",
       "name_ko": "파크스 가든",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        600,
+        1440,
+        1440
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 0,
+      "cost_basis": "무료 옥상정원 10~24시. 쇼핑·음식 제외; 임시 휴관은 난바 파크스 운영 공지 재확인.",
+      "source_urls": [
+        "https://nambaparks.com/garden"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1025,6 +1209,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1034,12 +1219,18 @@
       "place_id": "osaka_draft_16f1d28c8bfd",
       "name_ko": "NU 자야마치",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 쇼핑 11~21시. 공식 2026년 휴관 달력에서 10·11월 정기휴관 없음.",
+      "source_urls": [
+        "https://nu-chayamachi.com/info/openclose/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1047,12 +1238,18 @@
       "place_id": "osaka_draft_1b3533415b94",
       "name_ko": "하비스 플라자",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). ENT 일반 판매장 11~20시. 음식점·개별 매장 제외.",
+      "source_urls": [
+        "https://www.herbis.jp/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1060,12 +1257,19 @@
       "place_id": "osaka_draft_4fb99b053e8b",
       "name_ko": "화이티 우메다",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 10~21시. 홀수 달 셋째 목요일 휴관 규칙의 범위 내 날짜 2026-11-19 제외.",
+      "source_urls": [
+        "https://whity.osaka-chikagai.jp/",
+        "https://osaka-info.jp/spot/whity-umeda/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1077,6 +1281,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1086,12 +1291,18 @@
       "place_id": "osaka_draft_02288187c550",
       "name_ko": "이온몰 오사카 돔시티",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 몰 전문점 10~21시. 이온 슈퍼·개별 예외점 제외.",
+      "source_urls": [
+        "https://www.aeon.jp/sc/osakadomecity/info/time.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1099,12 +1310,18 @@
       "place_id": "osaka_draft_11050de606b0",
       "name_ko": "위스테",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "cost_jpy": null,
+      "cost_basis": "실내 판매장 방문만 계산. 개인 구매·음식·유료 행사비 미산정(null). 전문점 10~21시. 최신 휴관 공지는 10/8에서 10/15(목)로 변경; 연도 생략으로 2026-10-15는 확인 전 제외.",
+      "source_urls": [
+        "https://www.wiste.jp/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1118,6 +1335,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1127,12 +1345,18 @@
       "place_id": "osaka_draft_daa353940c61",
       "name_ko": "긴테쓰 백화점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1110,
+        1110
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 판매층 공통 구간인 10~18:30만 일정에 사용. 원본의 층별 영업시간은 보존.",
+      "source_urls": [
+        "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1140,12 +1364,18 @@
       "place_id": "osaka_draft_dc3ec67cb8d1",
       "name_ko": "케이한 시티 몰",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). MBF 단축 운영을 고려해 전문점 공통 구간인 10~20시만 사용.",
+      "source_urls": [
+        "https://citymall.jp/access/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1159,6 +1389,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1169,12 +1400,14 @@
       "name_ko": "미하 숍",
       "reasons": [
         "address_unconfirmed",
+        "location_history_conflict",
         "address_missing",
         "opening_hours_missing",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1184,11 +1417,13 @@
       "place_id": "osaka_draft_31878d4960fc",
       "name_ko": "뷰르 한큐 미쿠니",
       "reasons": [
+        "tenant_scope_required",
         "opening_hours_missing",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1202,6 +1437,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1215,6 +1451,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1224,12 +1461,18 @@
       "place_id": "osaka_draft_fc7acd992f21",
       "name_ko": "신오사카 센이시티",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        570,
+        1140,
+        1140
+      ],
+      "cost_jpy": null,
+      "cost_basis": "쇼핑 구매비 비산정(null). 일반 입점 쇼핑 구역 공통 시간, 개별 점포 예외 별도.",
+      "source_urls": [
+        "https://page.line.me/hvk0696d"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1237,12 +1480,18 @@
       "place_id": "osaka_draft_b6b6dae05ce5",
       "name_ko": "요도야바시 오도나",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 11~20시. 정기 휴관 12/31·1/1은 검토 날짜 범위 밖.",
+      "source_urls": [
+        "https://mitsui-shopping-park.com/odona/top.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1250,12 +1499,18 @@
       "place_id": "osaka_draft_f1ba0aa6ab58",
       "name_ko": "한큐 백화점 우메다 본점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 판매장 10~20시. 식당·특별 운영 구역 제외.",
+      "source_urls": [
+        "https://www.hankyu-dept.co.jp/honten/map/index.html"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1264,11 +1519,18 @@
       "name_ko": "브리제 브리제",
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "visit_confirmation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1140,
+        1140
+      ],
+      "cost_jpy": null,
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 공통 11~19시만 정규화. 비정기 휴무 확인 전 자동 일정에서는 보류.",
+      "source_urls": [
+        "https://www.breeze-breeze.jp/info/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1277,11 +1539,18 @@
       "name_ko": "난바 마루이",
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "visit_confirmation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_jpy": null,
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://osaka-info.jp/spot/o1o1-namba-marui/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1293,6 +1562,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1306,6 +1576,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1321,6 +1592,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1330,12 +1602,18 @@
       "place_id": "osaka_draft_5a3ef73c2b4b",
       "name_ko": "블루보틀 커피",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        480,
+        1260,
+        1260
+      ],
+      "cost_jpy": null,
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1348,6 +1626,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1362,6 +1641,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1375,6 +1655,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1391,6 +1672,7 @@
         1350,
         1300
       ],
+      "cost_jpy": 715,
       "cost_basis": "일반 아이스/핫 커피 1잔 715 JPY 세금 포함; 1인 1음료, 별도 좌석료 없음, 추가 음식·음료 제외. 비정기 휴무 확인 전 제외.",
       "source_urls": [
         "https://www.e-maid.net/menu.html",
@@ -1408,6 +1690,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1422,6 +1705,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1435,6 +1719,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1449,6 +1734,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1463,6 +1749,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1476,6 +1763,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1485,12 +1773,18 @@
       "place_id": "osaka_draft_e5eb4dd70807",
       "name_ko": "소트 커피",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        480,
+        1140,
+        1140
+      ],
+      "cost_jpy": null,
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://www.sotcoffee.com/en/pages/shop-osaka"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1502,6 +1796,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1516,6 +1811,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1530,6 +1826,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1543,6 +1840,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1552,12 +1850,19 @@
       "place_id": "osaka_draft_57eaac2e578d",
       "name_ko": "보호고양이 카페 노이",
       "reasons": [
-        "ticket_scenario_required",
-        "structured_date_profile_missing"
+        "visit_confirmation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        720,
+        1260,
+        1260
+      ],
+      "cost_jpy": 1800,
+      "cost_basis": "고양이방 일반 1시간 1800 JPY. 양말 지참; 미지참 구매165엔·연장비 제외. 비정기 휴무 확인 필요.",
+      "source_urls": [
+        "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
+        "https://neu-catcafe.com/price"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1570,6 +1875,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": 550,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1578,13 +1884,18 @@
     {
       "place_id": "osaka_draft_96e588e49f58",
       "name_ko": "차엔",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        780,
+        1140,
+        1110
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 750,
+      "cost_basis": "센차·우롱차 1인 한 주문 750 JPY(최대 3회 우림). 수~일 13~19시경, 주문 18:30까지. 10/10 행사 공지의 일반 영업 여부·연도 확인 전 해당 날짜 제외.",
+      "source_urls": [
+        "https://chaenjin.jimdofree.com/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1595,6 +1906,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1603,13 +1915,19 @@
     {
       "place_id": "osaka_draft_873f1e0cf834",
       "name_ko": "앙상크 (an39)",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        660,
+        1020,
+        1020
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 1580,
+      "cost_basis": "부다볼+수프 1580 JPY 한 메뉴; 평균 식비 아님. 운영시간은 기존 OSM 자료로 공식 재확인과 구분.",
+      "source_urls": [
+        "https://superfoodcafe-an39.jp/menu/",
+        "https://www.openstreetmap.org/node/9468409531"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1622,6 +1940,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1636,6 +1955,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1644,13 +1964,18 @@
     {
       "place_id": "osaka_draft_2f89be830b8c",
       "name_ko": "카페테리아 아고라",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        840,
+        1020,
+        1020
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 1000,
+      "cost_basis": "카페 시간 오므라이스 단품 1000 JPY(세금 포함); 14~17시만 적용. 단체/케이터링·음료 별도.",
+      "source_urls": [
+        "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1661,6 +1986,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1674,6 +2000,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1685,25 +2012,39 @@
       "reasons": [
         "reservation_required",
         "meal_scenario_required",
-        "structured_date_profile_missing"
+        "entry_time_reservation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        720,
+        900,
+        780
+      ],
+      "cost_jpy": 7500,
+      "cost_basis": "기준 시나리오: 성인 런치 7500엔 코스(세금·서비스 포함), 공식 소요시간 약 2시간. 12000엔 런치 150분, 디너 18000엔 180분은 별도. 자동 저녁 배치에 이 기준값 재사용 금지.",
+      "source_urls": [
+        "https://difference.upper.jp/jp/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_23d3d20ef739",
       "name_ko": "가브 위크스",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        690,
+        900,
+        900
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 1250,
+      "cost_basis": "현재 공식 메뉴 페이지에서 연결한 평일 오늘의 메인 플레이트 1인 1250 JPY(빵 또는 밥). 휴일 메뉴의 1700 JPY와 다르므로 평일 비공휴일 11:30~15:00에만 계산. 15시는 점심 주문 마감이며 이 모델에서는 식사도 그 전에 마치도록 제한. 음료·추가 주문 제외. 최신 PDF에서 세금 포함 문구는 확인하지 못함.",
+      "source_urls": [
+        "https://garbweeks.com/menu/",
+        "https://garbweeks.com/menu/lunch.pdf?2026092802=",
+        "https://garbweeks.com/menu/lunch_h.pdf?2026092802=",
+        "https://garbweeks.com/shop/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1714,6 +2055,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1723,10 +2065,10 @@
       "place_id": "osaka_draft_a9bc74861e3f",
       "name_ko": "몬톰웍스 엠티 카페 앤 디자인 뎁트",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": 1300,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1740,6 +2082,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1753,6 +2096,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1767,6 +2111,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1780,6 +2125,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1793,6 +2139,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1806,6 +2153,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1814,14 +2162,19 @@
     {
       "place_id": "osaka_draft_2eb759c40909",
       "name_ko": "사이제리야",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        600,
+        1320,
+        1320
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 300,
+      "cost_basis": "밀라노풍 도리아 단품 300 JPY(세금 포함). 공식 체인 메뉴 기준, 지점 품절 보장 아님. 22시 이후 10% 가산·추가 주문 제외.",
+      "source_urls": [
+        "https://www.saizeriya.co.jp/menu-popular/2101/",
+        "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1833,6 +2186,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1846,6 +2200,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1859,6 +2214,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1873,6 +2229,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1886,6 +2243,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1899,6 +2257,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1912,6 +2271,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1925,6 +2285,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1939,6 +2300,7 @@
         900,
         900
       ],
+      "cost_jpy": 980,
       "cost_basis": "점심 데미글라스 햄버그 150g 정식 980 JPY 세금 포함. 점심 창에만 적용; 저녁·추가 주문 제외",
       "source_urls": [
         "https://cherryjam.owst.jp/"
@@ -1950,10 +2312,10 @@
       "place_id": "osaka_draft_8cb9705b2793",
       "name_ko": "컴포트 존 에이트 교토 이탈리안",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": 1150,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1967,6 +2329,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1976,11 +2339,18 @@
       "place_id": "osaka_draft_2a9b88c21411",
       "name_ko": "파르페 드 메릴리",
       "reasons": [
-        "structured_date_profile_missing"
+        "visit_confirmation_required"
       ],
-      "window": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        1200,
+        1140
+      ],
+      "cost_jpy": 2300,
+      "cost_basis": "공식 매장 사이트의 파르페와 메릴리 런치 세트 1인 2300엔 JPY. 시즌·주문 구성에 따라 달라짐. 실내 좌석 안내.",
+      "source_urls": [
+        "https://parfait-de-merrily.owst.jp/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1994,6 +2364,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -2008,6 +2379,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -2022,6 +2394,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -2036,6 +2409,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -2051,6 +2425,7 @@
         "structured_date_profile_missing"
       ],
       "window": null,
+      "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -2086,6 +2461,7 @@
           "move_mode": "walk",
           "cost_jpy": 1200,
           "cost_krw": 11040,
+          "cost_status": "known",
           "cost_basis": "성인 천수각 일반 입장료 1,200 JPY"
         },
         {
@@ -2098,6 +2474,7 @@
           "move_mode": "walk",
           "cost_jpy": 0,
           "cost_krw": 0,
+          "cost_status": "known",
           "cost_basis": "공원 일반 야외 산책 무료; 천수각·니시노마루·유료시설 제외"
         },
         {
@@ -2110,6 +2487,7 @@
           "move_mode": "walk",
           "cost_jpy": 600,
           "cost_krw": 5520,
+          "cost_status": "known",
           "cost_basis": "성인 상설전 입장료 600 JPY; 특별전 별도"
         }
       ],
@@ -2123,7 +2501,7 @@
         "elapsed_from_0900_min": 377
       },
       "limitations": [
-        "Offline experiment only. The live server still uses the 36-place demo catalogue.",
+        "This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.",
         "Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.",
         "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
         "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
@@ -2159,6 +2537,7 @@
           "move_mode": "walk",
           "cost_jpy": 2000,
           "cost_krw": 18400,
+          "cost_status": "known",
           "cost_basis": "성인 일반 공중정원 입장료 2,000 JPY"
         },
         {
@@ -2171,6 +2550,7 @@
           "move_mode": "transit",
           "cost_jpy": 950,
           "cost_krw": 8740,
+          "cost_status": "known",
           "cost_basis": "흑대장 간장라멘 1인 950 JPY 세금 포함. 추가 주문·세트 제외"
         },
         {
@@ -2183,6 +2563,7 @@
           "move_mode": "transit",
           "cost_jpy": 1000,
           "cost_krw": 9200,
+          "cost_status": "known",
           "cost_basis": "관람차 일반 탑승 1인 1,000 JPY"
         }
       ],
@@ -2196,7 +2577,7 @@
         "elapsed_from_0900_min": 358
       },
       "limitations": [
-        "Offline experiment only. The live server still uses the 36-place demo catalogue.",
+        "This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.",
         "Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.",
         "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
         "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
@@ -2232,6 +2613,7 @@
           "move_mode": "walk",
           "cost_jpy": 0,
           "cost_krw": 0,
+          "cost_status": "known",
           "cost_basis": "공원 야외 장미원 산책 무료; 유료 체육시설 제외"
         },
         {
@@ -2244,6 +2626,7 @@
           "move_mode": "transit",
           "cost_jpy": 980,
           "cost_krw": 9016,
+          "cost_status": "known",
           "cost_basis": "점심 데미글라스 햄버그 150g 정식 980 JPY 세금 포함. 점심 창에만 적용; 저녁·추가 주문 제외"
         },
         {
@@ -2256,6 +2639,7 @@
           "move_mode": "transit",
           "cost_jpy": 0,
           "cost_krw": 0,
+          "cost_status": "known",
           "cost_basis": "공원 장미원 야외 관람 무료; 유람선·음식점 제외"
         }
       ],
@@ -2269,7 +2653,7 @@
         "elapsed_from_0900_min": 381
       },
       "limitations": [
-        "Offline experiment only. The live server still uses the 36-place demo catalogue.",
+        "This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.",
         "Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.",
         "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
         "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
@@ -2303,6 +2687,7 @@
           "move_mode": "walk",
           "cost_jpy": 0,
           "cost_krw": 0,
+          "cost_status": "known",
           "cost_basis": "텐시바 입구 광장만 무료; 동물원·미술관·게이타쿠엔 제외"
         }
       ],
@@ -2316,7 +2701,7 @@
         "elapsed_from_0900_min": 120
       },
       "limitations": [
-        "Offline experiment only. The live server still uses the 36-place demo catalogue.",
+        "This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.",
         "Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.",
         "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
         "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
