@@ -1,0 +1,3219 @@
+{
+  "checked_at": "2026-10-01",
+  "input_filename": "osaka_places_150_review_filled.csv",
+  "input_sha256": "655a37f5ea6ca85ea693293d4be0c3115e81955fe6606067b50f635490477abc",
+  "policy": {
+    "cost": "verified_admission_or_specific_menu_jpy; personal_shopping_spend_excluded_null",
+    "covered": "main_experience_area_only; category_alone_is_not_evidence",
+    "third_party": "retain_as_candidate_until_official_branch_specific_confirmation"
+  },
+  "candidates": [
+    {
+      "place_id": "osaka_001",
+      "name_ko": "도톤보리 글리코 사인",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 거리·상점가 통행 기준 0. 점포 이용 지출 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_001",
+      "name_ko": "도톤보리 글리코 사인",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_002",
+      "name_ko": "쓰텐카쿠",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 전망대 기준 분류 규칙. 특별 야외 전망대는 제외. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_003",
+      "name_ko": "신세카이",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 거리·상점가 통행 기준 0. 점포 이용 지출 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_003",
+      "name_ko": "신세카이",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_004",
+      "name_ko": "아메리카무라",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 거리·상점가 통행 기준 0. 점포 이용 지출 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_004",
+      "name_ko": "아메리카무라",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_005",
+      "name_ko": "구로몬시장",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 거리·상점가 통행 기준 0. 점포 이용 지출 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_006",
+      "name_ko": "신사이바시스지 상점가",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 거리·상점가 통행 기준 0. 점포 이용 지출 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_006",
+      "name_ko": "신사이바시스지 상점가",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "아케이드 상점가 분류 규칙. 모든 접근 경로가 지붕으로 덮였다는 뜻은 아님. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_007",
+      "name_ko": "우메다 공중정원 전망대",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "39·40층 실내 전망 층 기준 분류 규칙. 옥상 공중회랑은 야외이며 악천후 시 제한. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_008",
+      "name_ko": "HEP FIVE 관람차",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "밀폐형 곤돌라·건물 내 탑승구 분류 규칙. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_009",
+      "name_ko": "오사카성",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "천수각 내부 전시 기준 분류 규칙. 성곽·공원 이동 구간은 야외. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_010",
+      "name_ko": "오사카 텐만구",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_011",
+      "name_ko": "시텐노지",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_013",
+      "name_ko": "오사카 나카노시마 미술관",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 미술관 전시 관람 기준.",
+        "urls": [
+          "https://nakka-art.jp/visit/info/"
+        ]
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://nakka-art.jp/ko/visit-ko/facility/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "나카노시마 미술관 4·5F 전시실의 실내 관람. 2F 옥외 잔디광장 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_016",
+      "name_ko": "나카노시마 공원",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_020",
+      "name_ko": "난바 파크스",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_020",
+      "name_ko": "난바 파크스",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "mixed_indoor_outdoor",
+      "decision_reason": "난바 파크스는 판매장과 주요 옥상 공원이 혼합됨. 방문 범위 확정 전 일괄 true 보류.",
+      "recheck_urls": [
+        "https://nambaparks.com/garden"
+      ]
+    },
+    {
+      "place_id": "osaka_021",
+      "name_ko": "다카시마야 오사카점",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_021",
+      "name_ko": "다카시마야 오사카점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.takashimaya.co.jp/osaka/baby_kids/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "오사카점 6F 매장·7~9F 식당 안내. 실내 판매장 방문 범위. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_022",
+      "name_ko": "다이마루 신사이바시점",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_022",
+      "name_ko": "다이마루 신사이바시점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.daimaru.co.jp/shinsaibashi/floor/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "신사이바시점 B2~10F 층별 판매장. 외부·테라스 방문은 범위 밖. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_023",
+      "name_ko": "한신 우메다 본점",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_023",
+      "name_ko": "한신 우메다 본점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.hanshin-dept.jp/hshonten/floor/index.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "우메다 본점 B2~9F 실내 판매장. 남측 테라스 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_024",
+      "name_ko": "신사이바시 PARCO",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_024",
+      "name_ko": "신사이바시 PARCO",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://shinsaibashi.parco.jp/floor/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "신사이바시 PARCO B2~14F 실내 매장. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_025",
+      "name_ko": "카니도라쿠",
+      "field": "cost",
+      "before": null,
+      "proposed": 3740,
+      "proposed_source": {
+        "kind": "third_party_listing",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "도톤보리 본점 점심 코스 \"ほし\" 1인 3,740엔(세금 포함). 점심 주문 16시까지. 디너·추가 주문 제외.",
+        "urls": [
+          "https://www.hotpepper.jp/strJ000018294/lunch/"
+        ]
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "third_party_not_official",
+      "decision_reason": "외부 사이트 제안 가격 보존. 동일 지점의 공식 메뉴·세금·적용 시간 확인 전 보류.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_025",
+      "name_ko": "카니도라쿠",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_026",
+      "name_ko": "이치란 도톤보리점",
+      "field": "cost",
+      "before": null,
+      "proposed": 1180,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "기본 돈코츠 라멘 1그릇 1,180엔. 22시~익일 6시 심야요금 별도, 추가 주문 제외.",
+        "urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-south/"
+        ]
+      },
+      "canonical_value": 1180,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-south/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "도톤보리 별관 천연 돈코츠 라멘 1그릇 1,180 JPY. 추가 주문 제외. 22:00~06:00 심야 할증에는 적용하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      }
+    },
+    {
+      "place_id": "osaka_026",
+      "name_ko": "이치란 도톤보리점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "카운터 30석·테이블 52석 실내 좌석.",
+        "urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-south/"
+        ]
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-south/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "도톤보리 별관의 카운터 30석·테이블 52석 안내. 외부 대기줄 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_028",
+      "name_ko": "소다이쇼",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osm_node_2296903605",
+      "name_ko": "마루후쿠 커피 센니치마에 본점",
+      "field": "cost",
+      "before": null,
+      "proposed": 630,
+      "proposed_source": {
+        "kind": "third_party_listing",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "블렌드 커피 1잔 630엔. 세금 포함 여부 표기 없음. 음식·추가 주문 제외.",
+        "urls": [
+          "https://r.gnavi.co.jp/7cd1u6ke0000/menu1/"
+        ]
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "third_party_not_official",
+      "decision_reason": "외부 사이트 제안 가격 보존. 동일 지점의 공식 메뉴·세금·적용 시간 확인 전 보류.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osm_node_2296903605",
+      "name_ko": "마루후쿠 커피 센니치마에 본점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "1층 95석·2층 22석 실내 좌석.",
+        "urls": [
+          "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+        ]
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osm_node_9875632529",
+      "name_ko": "브루클린 로스팅 컴퍼니 난바",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_73505422b2e6",
+      "name_ko": "도톤보리 교",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 거리·상점가 통행 기준 0. 점포 이용 지출 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_73505422b2e6",
+      "name_ko": "도톤보리 교",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_a270504b6cd8",
+      "name_ko": "호쇼안 다실",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "다실 실내 다도 체험 분류 규칙. 니시노마루 정원 이동은 야외. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_bdd1ec5175d0",
+      "name_ko": "오에이피 항구",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "name_ko": "와케 다리",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_5a243c3857f7",
+      "name_ko": "쇼에이도",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_5a243c3857f7",
+      "name_ko": "쇼에이도",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공식 매장 안내의 실내 점포.",
+        "urls": [
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ]
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "오사카 혼마치점 1층 매장 내부 설명. 거리 전체가 아닌 점포 내부. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_84378ff5ba08",
+      "name_ko": "게마 갑문",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_300825840acb",
+      "name_ko": "아키바 카트 오사카",
+      "field": "cost",
+      "before": null,
+      "proposed": 7000,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "1시간 코스 16시 이전 1인 7,000엔(세금 포함). 16시 이후 8,000엔, 2시간 코스 별도. 운전면허 필수.",
+        "urls": [
+          "https://osakakart.com/en/course-osaka/"
+        ]
+      },
+      "canonical_value": 7000,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osakakart.com/en/course-osaka/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "1인 1시간 코스, 16시 이전 주간 요금 7,000 JPY(세금 포함). 16시 이후 8,000 JPY와 구분. 예약·유효 면허·참가 조건 확인 필요. 팀 체류시간 120분을 1시간 상품으로 오인하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      }
+    },
+    {
+      "place_id": "osaka_draft_300825840acb",
+      "name_ko": "아키바 카트 오사카",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공도로를 카트로 주행하는 야외 투어.",
+        "urls": [
+          "https://osakakart.com/en/"
+        ]
+      },
+      "canonical_value": false,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://osakakart.com/en/",
+          "https://osakakart.com/en/course-osaka/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "공공 도로를 주행하는 야외 카트 투어 기준."
+      }
+    },
+    {
+      "place_id": "osaka_draft_c99cbfbd0f92",
+      "name_ko": "아트코트 갤러리",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_2780be08a88e",
+      "name_ko": "미쓰 하치만구",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "신사 일반 경내 참배 기준 0. 기도·수여품 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_2780be08a88e",
+      "name_ko": "미쓰 하치만구",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_7675eb0bab46",
+      "name_ko": "난바 야사카 신사",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_6eda07803129",
+      "name_ko": "갤러리 사사키 상점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_43502b1cfa97",
+      "name_ko": "블룸 갤러리",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_9cd21dc062f7",
+      "name_ko": "오사카 시립동양도자미술관",
+      "field": "cost",
+      "before": null,
+      "proposed": 1600,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "성인 개인 관람료 1,600엔(단체 1,400엔 제외). 2027년 4월경까지 개수공사 휴관 공지 확인 — 휴관 표시 유지.",
+        "urls": [
+          "https://www.moco.or.jp/guide/info/"
+        ]
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "specific_exhibition_not_reopening_price",
+      "decision_reason": "1,600 JPY는 MOCO 컬렉션 옴니버스 PART2 전시 요금. 휴관 중이며 재개관 후 가격 미정.",
+      "recheck_urls": [
+        "https://www.moco.or.jp/guide/info/",
+        "https://www.moco.or.jp/whatsnew/3943/"
+      ]
+    },
+    {
+      "place_id": "osaka_draft_9cd21dc062f7",
+      "name_ko": "오사카 시립동양도자미술관",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 미술관 전시 관람 기준.",
+        "urls": [
+          "https://www.moco.or.jp/"
+        ]
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.moco.or.jp/guide/info/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "동양도자미술관의 관내 전시 관람 기준. 공사 휴관 해제나 재개관 확정 의미 아님. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_006a0c207d8c",
+      "name_ko": "하 신사 (치아 신사)",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "신사 일반 경내 참배 기준 0. 기도·수여품 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_006a0c207d8c",
+      "name_ko": "하 신사 (치아 신사)",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_718edcaf3985",
+      "name_ko": "구라게 문고 아트스페이스",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_04b34bc4e6e2",
+      "name_ko": "고즈구 신사",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_c62644984874",
+      "name_ko": "사쿠라노미야 공원",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_f72944194ef3",
+      "name_ko": "지시마 공원",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_a66fcd05acfb",
+      "name_ko": "미나미텐마 공원",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_a66fcd05acfb",
+      "name_ko": "미나미텐마 공원",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_03cde684bd96",
+      "name_ko": "게마 공원",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_03cde684bd96",
+      "name_ko": "게마 공원",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_e102a263e5a8",
+      "name_ko": "요도가와 하천공원 나가라 지구",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_c6de5620d3d0",
+      "name_ko": "난바나카 공원",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_c6de5620d3d0",
+      "name_ko": "난바나카 공원",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_0cf4fe2e0afe",
+      "name_ko": "신 우메다시티 하나노",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "name_ko": "우메키타 공원 사우스 파크",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "name_ko": "우메키타 공원 사우스 파크",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_f852e8e07cf8",
+      "name_ko": "가스가에 공원",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_f852e8e07cf8",
+      "name_ko": "가스가에 공원",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_0adb7945fbda",
+      "name_ko": "호타루마치 광장",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_0adb7945fbda",
+      "name_ko": "호타루마치 광장",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_cff5e2720c53",
+      "name_ko": "산와 공원",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공공 공원·광장 일반 이용 기준 0. 유료 부속시설 제외. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_cff5e2720c53",
+      "name_ko": "산와 공원",
+      "field": "covered",
+      "before": null,
+      "proposed": false,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "야외 공간(공원·거리·다리·신사 경내) 분류 규칙. 부속 실내 시설은 별도. 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_16f1d28c8bfd",
+      "name_ko": "NU 자야마치",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_16f1d28c8bfd",
+      "name_ko": "NU 자야마치",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://nu-chayamachi.com/floor/2f.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "NU 본관 층별 매장. 별동 PLUS까지의 외부 이동 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_1b3533415b94",
+      "name_ko": "하비스 플라자",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_1b3533415b94",
+      "name_ko": "하비스 플라자",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.herbis.jp/floormap/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "HERBIS PLAZA 층별 실내 판매장. ENT·외부 테라스와 구분. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_4fb99b053e8b",
+      "name_ko": "화이티 우메다",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_4fb99b053e8b",
+      "name_ko": "화이티 우메다",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://whity.osaka-chikagai.jp/floor"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "Whity 지하상가 매장·연결 통로 범위. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e51bbe99124a",
+      "name_ko": "아르데 신오사카",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_02288187c550",
+      "name_ko": "이온몰 오사카 돔시티",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_02288187c550",
+      "name_ko": "이온몰 오사카 돔시티",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.aeon.jp/sc/osakadomecity/info/shisetuannai.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "오사카 돔시티점 3F 키즈 공간·4F 푸드코트 등 실내 상업층. 옥외 시설·접근로 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_11050de606b0",
+      "name_ko": "위스테",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_11050de606b0",
+      "name_ko": "위스테",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.wiste.jp/floorguide/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "위스테 1~4F 실내 전문점 판매장. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_b1eae8a8935b",
+      "name_ko": "아소코 미나미호리에",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_b1eae8a8935b",
+      "name_ko": "아소코 미나미호리에",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_daa353940c61",
+      "name_ko": "긴테쓰 백화점",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_daa353940c61",
+      "name_ko": "긴테쓰 백화점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.d-kintetsu.co.jp/uehonmachi/floor/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "긴테쓰 우에혼마치점 B2~12F 실내 판매장. 옥상 비어가든 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_dc3ec67cb8d1",
+      "name_ko": "케이한 시티 몰",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_dc3ec67cb8d1",
+      "name_ko": "케이한 시티 몰",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.citymall.jp/shopguide/?floor=2f"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "게이한 시티몰 실내 판매층. RF 바비큐 구역 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_31878d4960fc",
+      "name_ko": "뷰르 한큐 미쿠니",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_31878d4960fc",
+      "name_ko": "뷰르 한큐 미쿠니",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_391fae83b26c",
+      "name_ko": "덴시바 이나",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_a8c6b6985943",
+      "name_ko": "난바 에키칸",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_a8c6b6985943",
+      "name_ko": "난바 에키칸",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_fc7acd992f21",
+      "name_ko": "신오사카 센이시티",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_fc7acd992f21",
+      "name_ko": "신오사카 센이시티",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_b6b6dae05ce5",
+      "name_ko": "요도야바시 오도나",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_b6b6dae05ce5",
+      "name_ko": "요도야바시 오도나",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://mitsui-shopping-park.com/odona/floor.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "요도야바시 오도나 B1·1·2F 실내 매장. 외부 접근로 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f1ba0aa6ab58",
+      "name_ko": "한큐 백화점 우메다 본점",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_f1ba0aa6ab58",
+      "name_ko": "한큐 백화점 우메다 본점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.hankyu-dept.co.jp/honten/floor/index.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "한큐 우메다 B2~13F 실내 판매장. 13F 옥상 광장 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_481d9742f9c2",
+      "name_ko": "브리제 브리제",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_481d9742f9c2",
+      "name_ko": "브리제 브리제",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.breeze-breeze.jp/shop/floor"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "브리제 브리제 층별 실내 상업시설. 비정기 휴무 확인 조건 유지. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_c85fa26beb80",
+      "name_ko": "난바 마루이",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_c85fa26beb80",
+      "name_ko": "난바 마루이",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.0101.co.jp/085/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "난바 마루이 관내 판매장·B1/1F 취식 공간 안내. 실내 판매장 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_35640888fa49",
+      "name_ko": "모토커피",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_f22cfa23d646",
+      "name_ko": "42195 커피",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_b0a5c9b0d460",
+      "name_ko": "안티코 카페 알 아비스",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_5a3ef73c2b4b",
+      "name_ko": "블루보틀 커피",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_3b8f7684482e",
+      "name_ko": "보빈",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_e3ac280c1575",
+      "name_ko": "카페 디 에스프레소",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_9342479ef7d7",
+      "name_ko": "카페 윳테",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_d52fee5c2304",
+      "name_ko": "홀리스 카페",
+      "field": "cost",
+      "before": null,
+      "proposed": 300,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "전 점포 공통 메뉴의 오리지널 블렌드 커피 R 300엔(세금 포함). 매장별 예외 가능, 지점 주의 표시 유지.",
+        "urls": [
+          "https://hollys-corp.jp/menu/"
+        ]
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "branch_price_unconfirmed",
+      "decision_reason": "Hollys 브랜드 메뉴 300 JPY는 일부 점포 가격이 다르다고 명시. 해당 지점 적용 미확인.",
+      "recheck_urls": [
+        "https://hollys-corp.jp/menu/"
+      ]
+    },
+    {
+      "place_id": "osaka_draft_11ceb1687dfa",
+      "name_ko": "라 그란다 파밀리오",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_2f4886b3a5b6",
+      "name_ko": "멜버른 커피",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_cdb260bb106a",
+      "name_ko": "리온 카페",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_e5eb4dd70807",
+      "name_ko": "소트 커피",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "1층 30석·2층 20석 실내 좌석.",
+        "urls": [
+          "https://www.sotcoffee.com/en/pages/shop-osaka"
+        ]
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.sotcoffee.com/en/pages/shop-osaka"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "SOT 덴마바시점 1F 30석·2F 20석 및 점내 좌석 안내. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_af11af018972",
+      "name_ko": "고치카제",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_19894ad0a123",
+      "name_ko": "아즈안",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_c4a30f2620d0",
+      "name_ko": "에뮤리본",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_32974d974e62",
+      "name_ko": "케이크 앤 카페 다이닝 보나본",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_57eaac2e578d",
+      "name_ko": "보호고양이 카페 노이",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_74dbaeea6a02",
+      "name_ko": "찻집 아오이",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_96e588e49f58",
+      "name_ko": "차엔",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_f729469c78c5",
+      "name_ko": "삼십사 키친 (34 Kitchen)",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_873f1e0cf834",
+      "name_ko": "앙상크 (an39)",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_94d63b518da4",
+      "name_ko": "비나인",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_77f869ee706f",
+      "name_ko": "버블 넷",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_2f89be830b8c",
+      "name_ko": "카페테리아 아고라",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_ff20bd4cf6b7",
+      "name_ko": "카사블랑카 난바 리버사이드",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_5f45ffb4d766",
+      "name_ko": "센트럼",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_23d3d20ef739",
+      "name_ko": "가브 위크스",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_c341bbd2440a",
+      "name_ko": "머시 비건 팩토리",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_a9bc74861e3f",
+      "name_ko": "몬톰웍스 엠티 카페 앤 디자인 뎁트",
+      "field": "cost",
+      "before": null,
+      "proposed": 1300,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공식 사이트의 일일 런치(샐러드+메인+커피 또는 홍차) 1,300엔, 11:00~15:30. 추가 주문 제외.",
+        "urls": [
+          "https://montomworks.com/"
+        ]
+      },
+      "canonical_value": 1300,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://montomworks.com/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "11:00~15:30 점심 세트(샐러드·메인·커피/차) 1인 1,300 JPY. 저녁·추가 주문 제외. 실내와 테라스 4석이 함께 있어 covered는 미확인 유지. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      }
+    },
+    {
+      "place_id": "osaka_draft_a9bc74861e3f",
+      "name_ko": "몬톰웍스 엠티 카페 앤 디자인 뎁트",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "mixed_indoor_outdoor",
+      "decision_reason": "실내 좌석과 테라스 4석이 함께 있어 좌석 범위 확인 필요.",
+      "recheck_urls": [
+        "https://montomworks.com/"
+      ]
+    },
+    {
+      "place_id": "osaka_draft_d580756db04a",
+      "name_ko": "내추럴 키친 메다카 2호점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_f8831852f028",
+      "name_ko": "파팔리나",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_98a4211ed755",
+      "name_ko": "기린지 오사카 총본점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_3b1acd991668",
+      "name_ko": "가도야 식당",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_2eb759c40909",
+      "name_ko": "사이제리야",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_1875c31c058c",
+      "name_ko": "레 코콜레",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_3d97f36846d0",
+      "name_ko": "중앙시장 엔도 스시",
+      "field": "cost",
+      "before": null,
+      "proposed": 1100,
+      "proposed_source": {
+        "kind": "third_party_listing",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "노다 본점 \"まぜ\" 1접시(5관) 1,100엔. 세금 포함 여부 표기 없음. 1인 평균 지출 아님.",
+        "urls": [
+          "https://www.hotpepper.jp/strJ000452031/"
+        ]
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "third_party_not_official",
+      "decision_reason": "외부 사이트 제안 가격 보존. 동일 지점의 공식 메뉴·세금·적용 시간 확인 전 보류.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_3d97f36846d0",
+      "name_ko": "중앙시장 엔도 스시",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_1cdebcaa6534",
+      "name_ko": "진루이 미나 멘루이",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_20aa5444aadd",
+      "name_ko": "가부키오멘 덴진바시 본점",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_7eda017e1ded",
+      "name_ko": "사이지키 채식요리",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_3c015925bf31",
+      "name_ko": "이자카야 신",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_6789f7f9c22f",
+      "name_ko": "후나야",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공식 사이트의 점내 식사 안내(11:30~14:30, 예약 불가).",
+        "urls": [
+          "https://www.funaya.co.jp"
+        ]
+      },
+      "canonical_value": true,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.funaya.co.jp"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "후나야 점내 식사 안내와 이쿠노니시 2-1-34 지점 일치. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_89458a1abeda",
+      "name_ko": "비스트로 요시카와",
+      "field": "cost",
+      "before": null,
+      "proposed": 1000,
+      "proposed_source": {
+        "kind": "third_party_listing",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "점심 치킨 코코넛 카레(샐러드 포함) 1,000엔(세금 포함). 월·수·금 한정 점심 메뉴라 그 외 요일·저녁에 재사용 금지.",
+        "urls": [
+          "https://www.hotpepper.jp/strJ001133582/lunch/"
+        ]
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "third_party_not_official",
+      "decision_reason": "외부 사이트 제안 가격 보존. 동일 지점의 공식 메뉴·세금·적용 시간 확인 전 보류.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_89458a1abeda",
+      "name_ko": "비스트로 요시카와",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_26a5e809355e",
+      "name_ko": "체리 잼",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_8cb9705b2793",
+      "name_ko": "컴포트 존 에이트 교토 이탈리안",
+      "field": "cost",
+      "before": null,
+      "proposed": 1150,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "공식 런치 메뉴 \"本日のパスタ\" 단품 1,150엔. 세금 표기 없음. 런치 세트(+300엔)·코스 제외, 점심에만 적용.",
+        "urls": [
+          "https://comfortzone8kyoitarian.com/lunch-menu/"
+        ]
+      },
+      "canonical_value": 1150,
+      "status": "accepted_after_official_recheck",
+      "decision_reason": "공식 자료 재확인 및 적용 범위 기록",
+      "accepted_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://comfortzone8kyoitarian.com/lunch-menu/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "점심 오늘의 파스타 단품 1인 1,150 JPY. +300 JPY 세트·저녁 커버차지와 심야 가산 제외. 페이지상 세금 표시 미확인; 최종 결제 총액으로 확정하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      }
+    },
+    {
+      "place_id": "osaka_draft_8cb9705b2793",
+      "name_ko": "컴포트 존 에이트 교토 이탈리안",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osaka_draft_d996a4118ab0",
+      "name_ko": "메이윈즈",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osm_way_303446421",
+      "name_ko": "수상버스 타는곳",
+      "field": "cost",
+      "before": null,
+      "proposed": 2000,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "아쿠아라이너 정기 순환 크루즈 성인 요금 2,000엔, 약 55분. 다른 선박·이벤트 크루즈 제외.",
+        "urls": [
+          "https://suijo-bus.osaka/cruiselist/aqualiner/"
+        ]
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "dock_vs_product_scope",
+      "decision_reason": "2,000 JPY는 아쿠아라이너 오사카성항 55분 코스 상품. 원본 장소는 지점 미확인 승선장이라 상품 요금을 대입하지 않음.",
+      "recheck_urls": [
+        "https://book.suijo-bus.osaka/top/aquaoption?lng=ja-JP",
+        "https://suijo-bus.osaka/cruiselist/aqualiner/"
+      ]
+    },
+    {
+      "place_id": "osm_way_303446421",
+      "name_ko": "수상버스 타는곳",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "official_web_review",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "아쿠아라이너 선내는 지붕·냉난방을 갖춘 전천후형. 승선장 대기 공간의 지붕 여부는 미확인.",
+        "urls": [
+          "https://suijo-bus.osaka/cruiselist/aqualiner/"
+        ]
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "dock_vs_product_scope",
+      "decision_reason": "선실의 실내 여부를 승선장·대기 공간의 지붕 여부로 적용하지 않음.",
+      "recheck_urls": [
+        "https://suijo-bus.osaka/cruiselist/aqualiner/"
+      ]
+    },
+    {
+      "place_id": "osm_way_151816175",
+      "name_ko": "덴포잔 마켓 플레이스",
+      "field": "cost",
+      "before": null,
+      "proposed": 0,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "입장료 없는 상업시설 기준 0. 쇼핑·식사 지출은 포함하지 않음. 규칙 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "shopping_spend_excluded",
+      "decision_reason": "쇼핑 구매비 비산정 합의에 따라 null 유지. 무료 입장과 개인 예상 소비는 별개.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osm_node_6189996345",
+      "name_ko": "가도데 카페",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    },
+    {
+      "place_id": "osm_node_2546559085",
+      "name_ko": "이치란라멘",
+      "field": "covered",
+      "before": null,
+      "proposed": true,
+      "proposed_source": {
+        "kind": "category_rule_estimate",
+        "checked_at": "2026-10-01",
+        "revision": "blank_fill_20261001",
+        "note": "실내 영업 시설(음식점·카페·상업시설·전시시설) 분류 규칙. 공식 좌석·테라스 정보 미확인 추정값."
+      },
+      "canonical_value": null,
+      "status": "deferred",
+      "reason_code": "category_estimate_unverified",
+      "decision_reason": "카테고리 추정만으로 무료 입장·실내외 범위를 확정하지 않음. 규칙 제안은 별도 보존.",
+      "recheck_urls": []
+    }
+  ],
+  "summary": {
+    "proposed_cells": 161,
+    "proposed_kind_counts": {
+      "category_rule_estimate": 141,
+      "official_web_review": 16,
+      "third_party_listing": 4
+    },
+    "accepted_cells": 27,
+    "deferred_cells": 134,
+    "accepted_by_field": {
+      "covered": 23,
+      "cost": 4
+    },
+    "shopping_zero_proposals": 24,
+    "canonical_missing_after": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 0,
+      "category": 0,
+      "area": 3,
+      "address": 2,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 16,
+      "cost": 105,
+      "stay_min": 0,
+      "bag_load": 0,
+      "covered": 93,
+      "website": 10,
+      "opening_hours_source": 44,
+      "verified_at": 24
+    }
+  },
+  "date_profile_correction": {
+    "place_id": "osaka_draft_11050de606b0",
+    "before": [
+      "2026-10-08"
+    ],
+    "after": [
+      "2026-10-15"
+    ],
+    "source_urls": [
+      "https://www.wiste.jp/"
+    ]
+  }
+}

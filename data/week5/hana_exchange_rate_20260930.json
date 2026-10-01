@@ -1,0 +1,17 @@
+{
+  "provider": "하나은행",
+  "rate_type": "매매기준율",
+  "base_currency": "JPY",
+  "quote_currency": "KRW",
+  "quoted_base_amount": 100,
+  "quoted_krw": "862.53",
+  "krw_per_jpy": "8.6253",
+  "as_of": "2026-09-30",
+  "published_at": "2026-09-30T14:04:00+09:00",
+  "notice_number": 337,
+  "observed_at": "2026-09-30T14:05:12+09:00",
+  "source_url": "https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+  "verification": "공식 현재환율 표의 일본 JPY (100) 행과 매매기준율 열, 고시일시·회차를 브라우저에서 확인",
+  "live_quote": false,
+  "usage": "날짜를 명시한 여행 예산 비교용 서버 설정. 실제 환전·카드 결제 금액이나 수수료를 보장하지 않으며 자동 갱신하지 않음. 테스트 fixture 9.2/9.5와 분리."
+}

@@ -16,6 +16,7 @@ export function createTripClient(baseUrl = '') {
   }
   return {
     places: () => request('/places', 'GET'),
+    realPlaces: () => request('/api/places?limit=150', 'GET'),
     calculate: (roomId, token, strategy = 'fairness') => request(`/rooms/${encodeURIComponent(roomId)}/calculate`, 'POST', {strategy}, token),
     createRoom: (input) => request('/rooms', 'POST', input),
     submit: (roomId, memberId, token, input) => request(`/rooms/${encodeURIComponent(roomId)}/submissions/${encodeURIComponent(memberId)}`, 'PUT', input, token),
