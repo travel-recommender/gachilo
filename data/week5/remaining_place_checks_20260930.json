@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-30",
+  "checked_at": "2026-10-01",
   "dates": [
     "2026-10-01",
     "2026-10-02",
@@ -9,8 +9,8 @@
     "2026-10-06",
     "2026-10-07"
   ],
-  "source_sha256": "bf5d0b3db0dc6770be486ba32e49747008e555cd0e6558e7f2bed0c3183b9279",
-  "profiles_sha256": "426e737fd8ecbe66dddb1b2bb1d0eea542b5aca9accec09970e92a186ff7232f",
+  "source_sha256": "0ed60d507cb36d5a30ee04eb1ac8bf217317ec879fcffe0a7304b322c8d635c5",
+  "profiles_sha256": "1977ed517e6252f64cc483ce9818e4dfb28d1926309c2b03a17beb0143f64733",
   "summary": {
     "records": 150,
     "individual_passed": 45,
@@ -372,8 +372,7 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
         "cost_unknown_or_not_applicable",
@@ -385,6 +384,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://nakka-art.jp/ko/visit-ko/facility/",
         "https://nakka-art.jp/ko/visit-ko/info-ko/",
         "https://nakka-art.jp/",
         "https://www.openstreetmap.org/way/343837388",
@@ -614,8 +614,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -623,6 +622,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.takashimaya.co.jp/osaka/baby_kids/",
         "https://www.takashimaya.co.jp/osaka/businesshours/",
         "https://www.takashimaya.co.jp/osaka",
         "https://www.openstreetmap.org/node/447587574",
@@ -647,8 +647,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -656,6 +655,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.daimaru.co.jp/shinsaibashi/floor/",
         "https://www.daimaru.co.jp/shinsaibashi/hours.html",
         "https://www.daimaru.co.jp/shinsaibashi/",
         "https://www.openstreetmap.org/relation/11079068",
@@ -679,8 +679,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -688,6 +687,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.hanshin-dept.jp/hshonten/floor/index.html",
         "https://www.hanshin-dept.jp/hshonten/index.html",
         "https://www.hanshin-dept.jp/hshonten/",
         "https://www.openstreetmap.org/node/5865318031",
@@ -711,8 +711,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -720,6 +719,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://shinsaibashi.parco.jp/floor/",
         "https://shinsaibashi.parco.jp/info/",
         "https://shinsaibashi.parco.jp/",
         "https://www.openstreetmap.org/way/161871808",
@@ -763,16 +763,11 @@
       "category": "식사",
       "passed_individual_model": false,
       "eligible_dates": [],
-      "remaining_null_fields": [
-        "cost",
-        "covered"
-      ],
+      "remaining_null_fields": [],
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
       "missing_address_hours_note": null,
@@ -822,8 +817,7 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
         "cost_unknown_or_not_applicable"
@@ -1095,8 +1089,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -1178,22 +1171,18 @@
       "category": "명소",
       "passed_individual_model": false,
       "eligible_dates": [],
-      "remaining_null_fields": [
-        "cost",
-        "covered"
-      ],
+      "remaining_null_fields": [],
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
-        "https://osakakart.com/en/access/",
         "https://osakakart.com/en/",
+        "https://osakakart.com/en/course-osaka/",
+        "https://osakakart.com/en/access/",
         "https://www.openstreetmap.org/node/10857445433",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -1563,8 +1552,7 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
         "temporary_closure",
@@ -1578,10 +1566,11 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.moco.or.jp/guide/info/",
+        "https://www.moco.or.jp/whatsnew/3943/",
         "https://www.moco.or.jp/guide/access/",
         "https://www.moco.or.jp/",
         "https://www.openstreetmap.org/way/162382612",
-        "https://www.moco.or.jp/guide/info/",
         "https://www.moco.or.jp/whatsnew/",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -2229,8 +2218,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2239,6 +2227,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://nu-chayamachi.com/info/openclose/",
+        "https://nu-chayamachi.com/floor/2f.html",
         "https://nu-chayamachi.com/sp/",
         "https://www.openstreetmap.org/way/161450583",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -2261,8 +2250,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2271,6 +2259,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.herbis.jp/",
+        "https://www.herbis.jp/floormap/",
         "https://www.herbis.jp/access/train/",
         "https://www.openstreetmap.org/way/588689753",
         "https://dmo-umeda.jp/facilities/325/",
@@ -2294,8 +2283,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2305,6 +2293,7 @@
       "evidence_urls": [
         "https://whity.osaka-chikagai.jp/",
         "https://osaka-info.jp/spot/whity-umeda/",
+        "https://whity.osaka-chikagai.jp/floor",
         "https://www.openstreetmap.org/way/1304559276",
         "https://whity.osaka-chikagai.jp/access",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -2352,8 +2341,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2362,6 +2350,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.aeon.jp/sc/osakadomecity/info/time.html",
+        "https://www.aeon.jp/sc/osakadomecity/info/shisetuannai.html",
         "https://www.aeon.jp/sc/osakadomecity/",
         "https://www.openstreetmap.org/relation/14378487",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -2384,8 +2373,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2394,6 +2382,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.wiste.jp/information/",
+        "https://www.wiste.jp/floorguide/",
         "https://www.wiste.jp/",
         "https://www.openstreetmap.org/way/162642438",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -2446,8 +2435,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2456,6 +2444,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/",
+        "https://www.d-kintetsu.co.jp/uehonmachi/floor/",
         "https://www.openstreetmap.org/way/171978091",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -2477,8 +2466,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2487,6 +2475,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://citymall.jp/access/",
+        "https://www.citymall.jp/shopguide/?floor=2f",
         "https://www.openstreetmap.org/node/6640371676",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -2690,8 +2679,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2700,6 +2688,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://mitsui-shopping-park.com/odona/top.html",
+        "https://mitsui-shopping-park.com/odona/floor.html",
         "https://www.openstreetmap.org/way/148657763",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -2721,8 +2710,7 @@
         "2026-10-07"
       ],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [],
       "next_actions": [
@@ -2731,6 +2719,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.hankyu-dept.co.jp/honten/map/index.html",
+        "https://www.hankyu-dept.co.jp/honten/floor/index.html",
         "https://www.hankyu-dept.co.jp/index.html",
         "https://www.hankyu-dept.co.jp/honten",
         "https://www.openstreetmap.org/node/9840655056",
@@ -2746,8 +2735,7 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
         "visit_confirmation_required"
@@ -2758,6 +2746,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.breeze-breeze.jp/info/",
+        "https://www.breeze-breeze.jp/shop/floor",
         "https://www.openstreetmap.org/node/4584816489",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -2771,8 +2760,7 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
         "visit_confirmation_required"
@@ -2782,8 +2770,8 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
-        "https://osaka-info.jp/spot/o1o1-namba-marui/",
         "https://www.0101.co.jp/085/",
+        "https://osaka-info.jp/spot/o1o1-namba-marui/",
         "https://www.openstreetmap.org/node/13026741817",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -3197,8 +3185,7 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
         "cost_unknown_or_not_applicable"
@@ -3724,15 +3711,12 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
         "covered"
       ],
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
       "missing_address_hours_note": null,
@@ -4125,8 +4109,7 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
         "cost_unknown_or_not_applicable",
@@ -4138,8 +4121,8 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
-        "https://www.funaya.co.jp/",
         "https://www.funaya.co.jp",
+        "https://www.funaya.co.jp/",
         "https://www.openstreetmap.org/node/6656921489",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -4211,19 +4194,17 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
         "covered"
       ],
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://comfortzone8kyoitarian.com/lunch-menu/",
         "https://comfortzone8kyoitarian.com/",
         "https://www.openstreetmap.org/node/10159432525",
         "https://github.com/travel-recommender/gachilo/issues/1"

@@ -35,7 +35,8 @@ test('a partially unreviewed trip does not blame every omitted place on its date
   const p=run(r).planning;
   assert.equal(p.scheduled_count,44);assert.equal(p.unplaced_count,106);
   assert.equal(p.exclusion_reason_counts.outside_reviewed_date_range,undefined);
-  assert.equal(p.exclusion_reason_counts.cost_unknown_or_not_applicable,79);
+  // Four reviewed menu/course prices now exist; their missing date profiles still block scheduling.
+  assert.equal(p.exclusion_reason_counts.cost_unknown_or_not_applicable,75);
   assert.equal(p.exclusion_reason_counts.structured_date_profile_missing,91);
 });
 test('a wholly unreviewed trip retains the date-range reason',()=>{
@@ -90,7 +91,8 @@ test('Whity closes on the reviewed odd-month third Thursday, not the even-month 
 });
 test('uncertain shopping closure and irregular holidays remain excluded',()=>{
   const wiste=record('osaka_draft_11050de606b0');
-  assert.ok(availability(wiste,'2026-10-08',profiles,{allowShopping:true}).reasons.includes('closure_notice_year_unconfirmed'));
+  assert.equal(availability(wiste,'2026-10-08',profiles,{allowShopping:true}).eligible_for_model,true);
+  assert.ok(availability(wiste,'2026-10-15',profiles,{allowShopping:true}).reasons.includes('closure_notice_year_unconfirmed'));
   assert.equal(availability(wiste,'2026-10-09',profiles,{allowShopping:true}).eligible_for_model,true);
   assert.ok(availability(record('osaka_draft_481d9742f9c2'),'2026-10-01',profiles,{allowShopping:true}).reasons.includes('visit_confirmation_required'));
 });

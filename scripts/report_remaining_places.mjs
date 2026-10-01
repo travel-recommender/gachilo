@@ -48,19 +48,19 @@ const places=dataset.places.map(r=>{
    evidence_scope:'기존 필드 출처와 이번 추가 확인을 함께 표시. 이 파일 생성은 모든 출처의 당일 재조회가 아님.',schedule_ready:false};
 });
 const blocked=places.filter(p=>!p.passed_individual_model);
-const report={checked_at:'2026-09-30',dates:audit.individual_validation.dates,source_sha256:audit.source_sha256,profiles_sha256:audit.profiles_sha256,
+const report={checked_at:profiles.checked_at,dates:audit.individual_validation.dates,source_sha256:audit.source_sha256,profiles_sha256:audit.profiles_sha256,
  summary:{records:places.length,individual_passed:places.length-blocked.length,needs_followup:blocked.length,address_missing:audit.summary.address_missing,hours_missing:audit.summary.opening_hours_missing},places};
 const write=(path,body)=>fs.writeFileSync(new URL(path,import.meta.url),body);
 write('../data/week5/remaining_place_checks_20260930.json',JSON.stringify(report,null,2)+'\n');
 const esc=s=>String(s??'미확인').replaceAll('|',' / ').replaceAll('\n',' ');
-let md='# 5주차 남은 장소 검증 — 2026-09-30\n\n';
+let md=`# 5주차 남은 장소 검증 — ${report.checked_at}\n\n`;
 md+=`150곳을 2026-10-01~07에 각각 계산했다. **${report.summary.individual_passed}곳 모델 통과, ${blocked.length}곳 자료·조건 보류**다. 통과는 현장 방문 가능 보증이 아니며 모든 장소의 schedule_ready는 false다.\n\n주소 2곳·영업시간 16곳의 빈칸은 확인되지 않은 사실을 임의로 채우지 않았다. 아래 출처는 기존 검토 기록과 이번 추가 확인을 합친 것이며 150곳 모두의 당일 공식 재검증이라는 뜻은 아니다.\n\n## 주소·영업시간 빈칸\n\n|장소|빈칸|확인 결과·다음 조치|\n|---|---|---|\n`;
 for(const p of places.filter(x=>x.missing_address_hours_note))md+=`|${esc(p.name_ko)}|${p.remaining_null_fields.filter(k=>['address','opening_hours'].includes(k)).join(', ')}|${esc(p.missing_address_hours_note)}|\n`;
 md+='\n## 보류 장소 전체\n\n쇼핑 구매비의 null은 비산정이며 가격 누락과 구분한다. 여러 조건이 겹치는 장소는 각 조건을 모두 해결해야 한다.\n\n|장소·원본 ID|다음 조치|확인할 출처|\n|---|---|---|\n';
 for(const p of blocked)md+=`|${esc(p.name_ko)} (${p.place_id})|${esc(p.next_actions.join('; '))}|${p.evidence_urls.slice(0,3).map((u,i)=>`[근거 ${i+1}](${u})`).join(' · ')}|\n`;
 md+='\n전체 사유 코드·가능 날짜·출처는 [검증 JSON](../data/week5/remaining_place_checks_20260930.json)에 있다. 완료되지 않은 150곳 일정 투입 항목은 이슈에서 체크하지 않는다.\n';
 write('../docs/week5_remaining_places.md',md);
-let q='# 오사카 장소 검토 큐 — 2026-09-30\n\n현재 데이터에서 재생성했다. 빈칸은 미확인, 쇼핑 비용 null은 비산정이다. 모델 통과는 실제 방문 가능 보증이 아니다.\n\n|장소|주소|단독 모델|남은 빈칸|검토 차단 사유|\n|---|---|---|---|---|\n';
+let q=`# 오사카 장소 검토 큐 — ${report.checked_at}\n\n현재 데이터에서 재생성했다. 빈칸은 미확인, 쇼핑 비용 null은 비산정이다. 모델 통과는 실제 방문 가능 보증이 아니다.\n\n|장소|주소|단독 모델|남은 빈칸|검토 차단 사유|\n|---|---|---|---|---|\n`;
 for(const r of dataset.places){const p=byId.get(r.place.place_id);q+=`|${esc(r.place.name_ko)}|${esc(r.place.address)}|${p.passed_individual_model?'통과':'보류'}|${r.review.missing_fields.join(', ')}|${r.review.recommendation_blockers.join(', ')}|\n`;}
 write('../data/week5/live_20260923/processed/place_review_queue.md',q);
 console.log(JSON.stringify(report.summary));

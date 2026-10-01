@@ -3,7 +3,7 @@
   "statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 815,
+    "null_fields_filled": 842,
     "non_null_fields_updated": 113,
     "missing_before": {
       "place_id": 0,
@@ -33,10 +33,10 @@
       "latitude": 0,
       "longitude": 0,
       "opening_hours": 16,
-      "cost": 109,
+      "cost": 105,
       "stay_min": 0,
       "bag_load": 0,
-      "covered": 116,
+      "covered": 93,
       "website": 10,
       "opening_hours_source": 44,
       "verified_at": 24
@@ -335,13 +335,15 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 나카노시마 미술관 4·5F 전시실의 실내 관람. 2F 옥외 잔디광장 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://nakka-art.jp/ko/visit-ko/info-ko/"
+        "https://nakka-art.jp/ko/visit-ko/info-ko/",
+        "https://nakka-art.jp/ko/visit-ko/facility/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -477,7 +479,8 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 10:00–24:00은 정원 시간과 혼동 위험. 정원은 별도 장소."
+        "기존 10:00–24:00은 정원 시간과 혼동 위험. 정원은 별도 장소.",
+        "2026-10-01 보류: 난바 파크스는 판매장과 주요 옥상 공원이 혼합됨. 방문 범위 확정 전 일괄 true 보류."
       ],
       "source_urls": [
         "https://nambaparks.com/facilities"
@@ -499,15 +502,16 @@
       "blockers": [],
       "notes": [
         "점포 주소 확인. 주차장 운영시간은 판매장 영업시간에 사용하지 않음.",
-        "일반 판매장 기준. 레스토랑·스타벅스 등의 시간과 다름."
+        "일반 판매장 기준. 레스토랑·스타벅스 등의 시간과 다름.",
+        "2026-10-01: 오사카점 6F 매장·7~9F 식당 안내. 실내 판매장 방문 범위. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://www.takashimaya.co.jp/osaka/access/index.html",
-        "https://www.takashimaya.co.jp/osaka/businesshours/"
+        "https://www.takashimaya.co.jp/osaka/businesshours/",
+        "https://www.takashimaya.co.jp/osaka/baby_kids/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -522,14 +526,15 @@
       "blockers": [],
       "notes": [
         "본관 대상. 쇼핑 구매액을 0으로 추정하지 않음. OSM 건물 객체의 주소와 운영 객체의 주소가 달라 공식 주소 우선.",
-        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+        "2026-10-01: 신사이바시점 B2~10F 층별 판매장. 외부·테라스 방문은 범위 밖. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://www.daimaru.co.jp/shinsaibashi/hours.html"
+        "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+        "https://www.daimaru.co.jp/shinsaibashi/floor/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -542,13 +547,15 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 우메다 본점 B2~9F 실내 판매장. 남측 테라스 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://www.hanshin-dept.jp/hshonten/index.html"
+        "https://www.hanshin-dept.jp/hshonten/index.html",
+        "https://www.hanshin-dept.jp/hshonten/floor/index.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -562,14 +569,15 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 1-7-1 주소를 공식 PARCO 주소로 정정."
+        "기존 1-7-1 주소를 공식 PARCO 주소로 정정.",
+        "2026-10-01: 신사이바시 PARCO B2~14F 실내 매장. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://shinsaibashi.parco.jp/info/"
+        "https://shinsaibashi.parco.jp/info/",
+        "https://shinsaibashi.parco.jp/floor/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -607,15 +615,14 @@
       "blockers": [],
       "notes": [
         "도톤보리 별관. 영업 종료된 본관과 구분.",
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "2026-10-01: 도톤보리 별관의 카운터 30석·테이블 52석 안내. 외부 대기줄 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-01: 도톤보리 별관 천연 돈코츠 라멘 1그릇 1,180 JPY. 추가 주문 제외. 22:00~06:00 심야 할증에는 적용하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
       ],
       "source_urls": [
         "https://ichiran.com/shop/kinki/dotonbori-south/"
       ],
-      "missing_fields": [
-        "cost",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -651,14 +658,14 @@
       "blockers": [],
       "notes": [
         "사용자 지정 지점으로 150개 목록에 편입. 기존 지점 ID는 재사용하지 않음.",
-        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+        "2026-10-01: 센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -884,15 +891,15 @@
         "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
         "2026-09-30 일정 규칙 보완: 공식 안내는 향 판매점인데 수집 카테고리는 명소. 쇼핑으로 분류·체류시간·짐 규칙을 함께 정정하기 전 자동 배치 보류.",
         "공식 오사카 혼마치점의 향 판매점 안내에 따라 명소→쇼핑으로 분류 정정. 원본 OSM 태그·ID·좌표는 보존.",
-        "사용자 합의 단순 쇼핑 15~30분 상한 30분, get_luggage_score 쇼핑=2 적용. 실측 소요시간/무게 아님."
+        "사용자 합의 단순 쇼핑 15~30분 상한 30분, get_luggage_score 쇼핑=2 적용. 실측 소요시간/무게 아님.",
+        "2026-10-01: 오사카 혼마치점 1층 매장 내부 설명. 거리 전체가 아닌 점포 내부. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://www.shoyeido.co.jp/shop-info/osaka.html",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -955,15 +962,16 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "체험 예약과 참가 조건은 별도 확인."
+        "체험 예약과 참가 조건은 별도 확인.",
+        "2026-10-01: 공공 도로를 주행하는 야외 카트 투어 기준.",
+        "2026-10-01: 1인 1시간 코스, 16시 이전 주간 요금 7,000 JPY(세금 포함). 16시 이후 8,000 JPY와 구분. 예약·유효 면허·참가 조건 확인 필요. 팀 체류시간 120분을 1시간 상품으로 오인하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
       ],
       "source_urls": [
-        "https://osakakart.com/en/access/"
+        "https://osakakart.com/en/access/",
+        "https://osakakart.com/en/",
+        "https://osakakart.com/en/course-osaka/"
       ],
-      "missing_fields": [
-        "cost",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -1246,16 +1254,18 @@
         "temporary_closure"
       ],
       "notes": [
-        "현재 공사 휴관 안내가 우선. 정규 시간만으로 일정 생성 금지."
+        "현재 공사 휴관 안내가 우선. 정규 시간만으로 일정 생성 금지.",
+        "2026-10-01: 동양도자미술관의 관내 전시 관람 기준. 공사 휴관 해제나 재개관 확정 의미 아님. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-01 보류: 1,600 JPY는 MOCO 컬렉션 옴니버스 PART2 전시 요금. 휴관 중이며 재개관 후 가격 미정."
       ],
       "source_urls": [
         "https://www.moco.or.jp/guide/access/",
         "https://www.moco.or.jp/guide/info/",
-        "https://www.moco.or.jp/whatsnew/"
+        "https://www.moco.or.jp/whatsnew/",
+        "https://www.moco.or.jp/whatsnew/3943/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1753,14 +1763,15 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 쇼핑 11~21시. 공식 2026년 휴관 달력에서 10·11월 정기휴관 없음."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 쇼핑 11~21시. 공식 2026년 휴관 달력에서 10·11월 정기휴관 없음.",
+        "2026-10-01: NU 본관 층별 매장. 별동 PLUS까지의 외부 이동 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://nu-chayamachi.com/info/openclose/"
+        "https://nu-chayamachi.com/info/openclose/",
+        "https://nu-chayamachi.com/floor/2f.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1775,16 +1786,17 @@
       "blockers": [],
       "notes": [
         "DMO 우메다 시설 안내의 PLAZA ENT 주소. PLAZA(2-5-25)와 구분.",
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). ENT 일반 판매장 11~20시. 음식점·개별 매장 제외."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). ENT 일반 판매장 11~20시. 음식점·개별 매장 제외.",
+        "2026-10-01: HERBIS PLAZA 층별 실내 판매장. ENT·외부 테라스와 구분. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://dmo-umeda.jp/facilities/325/",
         "https://www.herbis.jp/access/train/",
-        "https://www.herbis.jp/"
+        "https://www.herbis.jp/",
+        "https://www.herbis.jp/floormap/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1799,16 +1811,17 @@
       "blockers": [],
       "notes": [
         "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 10~21시. 홀수 달 셋째 목요일 휴관 규칙의 범위 내 날짜 2026-11-19 제외.",
-        "2026-09-30 일정 규칙 보완: 정기휴관 규칙은 오사카 관광국, 업종별 시간은 운영사와 대조. 10월 셋째 목요일을 임의로 휴관 처리하지 않음."
+        "2026-09-30 일정 규칙 보완: 정기휴관 규칙은 오사카 관광국, 업종별 시간은 운영사와 대조. 10월 셋째 목요일을 임의로 휴관 처리하지 않음.",
+        "2026-10-01: Whity 지하상가 매장·연결 통로 범위. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://whity.osaka-chikagai.jp/access",
         "https://whity.osaka-chikagai.jp/",
-        "https://osaka-info.jp/spot/whity-umeda/"
+        "https://osaka-info.jp/spot/whity-umeda/",
+        "https://whity.osaka-chikagai.jp/floor"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1843,15 +1856,16 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 몰 전문점 10~21시. 이온 슈퍼·개별 예외점 제외."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 몰 전문점 10~21시. 이온 슈퍼·개별 예외점 제외.",
+        "2026-10-01: 오사카 돔시티점 3F 키즈 공간·4F 푸드코트 등 실내 상업층. 옥외 시설·접근로 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://www.aeon.jp/sc/osakadomecity/",
-        "https://www.aeon.jp/sc/osakadomecity/info/time.html"
+        "https://www.aeon.jp/sc/osakadomecity/info/time.html",
+        "https://www.aeon.jp/sc/osakadomecity/info/shisetuannai.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1865,15 +1879,17 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 전문점 10~21시. 10/8(목) 휴관 공지에 연도가 없어 해당 날짜는 확인 전 제외."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 전문점 10~21시. 10/8(목) 휴관 공지에 연도가 없어 해당 날짜는 확인 전 제외.",
+        "2026-10-01: 위스테 1~4F 실내 전문점 판매장. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-01 정정: 실내 판매장 방문만 계산. 개인 구매·음식·유료 행사비 미산정(null). 전문점 10~21시. 최신 휴관 공지는 10/8에서 10/15(목)로 변경; 연도 생략으로 2026-10-15는 확인 전 제외."
       ],
       "source_urls": [
         "https://www.wiste.jp/",
-        "https://www.wiste.jp/information/"
+        "https://www.wiste.jp/information/",
+        "https://www.wiste.jp/floorguide/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1917,14 +1933,15 @@
       "notes": [
         "우에혼마치 지점 기준.",
         "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 판매층 공통 구간인 10~18:30만 일정에 사용. 원본의 층별 영업시간은 보존."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 판매층 공통 구간인 10~18:30만 일정에 사용. 원본의 층별 영업시간은 보존.",
+        "2026-10-01: 긴테쓰 우에혼마치점 B2~12F 실내 판매장. 옥상 비어가든 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
+        "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/",
+        "https://www.d-kintetsu.co.jp/uehonmachi/floor/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1939,14 +1956,15 @@
       "blockers": [],
       "notes": [
         "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). MBF 단축 운영을 고려해 전문점 공통 구간인 10~20시만 사용."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). MBF 단축 운영을 고려해 전문점 공통 구간인 10~20시만 사용.",
+        "2026-10-01: 게이한 시티몰 실내 판매층. RF 바비큐 구역 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://citymall.jp/access/"
+        "https://citymall.jp/access/",
+        "https://www.citymall.jp/shopguide/?floor=2f"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2115,14 +2133,15 @@
       "blockers": [],
       "notes": [
         "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 11~20시. 정기 휴관 12/31·1/1은 검토 날짜 범위 밖."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 11~20시. 정기 휴관 12/31·1/1은 검토 날짜 범위 밖.",
+        "2026-10-01: 요도야바시 오도나 B1·1·2F 실내 매장. 외부 접근로 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://mitsui-shopping-park.com/odona/top.html"
+        "https://mitsui-shopping-park.com/odona/top.html",
+        "https://mitsui-shopping-park.com/odona/floor.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2136,15 +2155,16 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 판매장 10~20시. 식당·특별 운영 구역 제외."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 판매장 10~20시. 식당·특별 운영 구역 제외.",
+        "2026-10-01: 한큐 우메다 B2~13F 실내 판매장. 13F 옥상 광장 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://www.hankyu-dept.co.jp/index.html",
-        "https://www.hankyu-dept.co.jp/honten/map/index.html"
+        "https://www.hankyu-dept.co.jp/honten/map/index.html",
+        "https://www.hankyu-dept.co.jp/honten/floor/index.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2158,14 +2178,15 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 공통 11~19시만 정규화. 비정기 휴무 확인 전 자동 일정에서는 보류."
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 공통 11~19시만 정규화. 비정기 휴무 확인 전 자동 일정에서는 보류.",
+        "2026-10-01: 브리제 브리제 층별 실내 상업시설. 비정기 휴무 확인 조건 유지. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://www.breeze-breeze.jp/info/"
+        "https://www.breeze-breeze.jp/info/",
+        "https://www.breeze-breeze.jp/shop/floor"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2180,14 +2201,15 @@
       "blockers": [],
       "notes": [
         "백화점 공통 사이트로 이동. 난바 마루이 지점 전용 안내 필요.",
-        "오사카 관광국 공식 시설 안내. 개별 점포 예외는 별도 확인."
+        "오사카 관광국 공식 시설 안내. 개별 점포 예외는 별도 확인.",
+        "2026-10-01: 난바 마루이 관내 판매장·B1/1F 취식 공간 안내. 실내 판매장 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://osaka-info.jp/spot/o1o1-namba-marui/"
+        "https://osaka-info.jp/spot/o1o1-namba-marui/",
+        "https://www.0101.co.jp/085/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2409,7 +2431,8 @@
       ],
       "notes": [
         "브랜드 전체 사이트만 확인. 홀리스 개별 지점 확인 필요.",
-        "사카이스지혼마치점 공식 주소·운영시간. 기존 좌표의 센터빌딩 위치 및 평일/주말 시간이 일치. 실내 좌석 기준; 기존 지점 주의 표시는 유지."
+        "사카이스지혼마치점 공식 주소·운영시간. 기존 좌표의 센터빌딩 위치 및 평일/주말 시간이 일치. 실내 좌석 기준; 기존 지점 주의 표시는 유지.",
+        "2026-10-01 보류: Hollys 브랜드 메뉴 300 JPY는 일부 점포 가격이 다르다고 명시. 해당 지점 적용 미확인."
       ],
       "source_urls": [
         "https://hollys-corp.jp/shop/o_sakaisujihon/"
@@ -2523,14 +2546,14 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "오사카 덴마바시점 기준."
+        "오사카 덴마바시점 기준.",
+        "2026-10-01: SOT 덴마바시점 1F 30석·2F 20석 및 점내 좌석 안내. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://www.sotcoffee.com/en/pages/shop-osaka"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2942,12 +2965,14 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 11:00~15:30 점심 세트(샐러드·메인·커피/차) 1인 1,300 JPY. 저녁·추가 주문 제외. 실내와 테라스 4석이 함께 있어 covered는 미확인 유지. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
+        "2026-10-01 보류: 실내 좌석과 테라스 4석이 함께 있어 좌석 범위 확인 필요."
+      ],
       "source_urls": [
         "https://montomworks.com/"
       ],
       "missing_fields": [
-        "cost",
         "covered"
       ],
       "schedule_ready": false
@@ -3253,14 +3278,15 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "포장 10:00–20:00을 매장 식사시간에 사용하지 않음."
+        "포장 10:00–20:00을 매장 식사시간에 사용하지 않음.",
+        "2026-10-01: 후나야 점내 식사 안내와 이쿠노니시 2-1-34 지점 일치. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://www.funaya.co.jp/"
+        "https://www.funaya.co.jp/",
+        "https://www.funaya.co.jp"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -3312,12 +3338,14 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 점심 오늘의 파스타 단품 1인 1,150 JPY. +300 JPY 세트·저녁 커버차지와 심야 가산 제외. 페이지상 세금 표시 미확인; 최종 결제 총액으로 확정하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      ],
       "source_urls": [
-        "https://comfortzone8kyoitarian.com/"
+        "https://comfortzone8kyoitarian.com/",
+        "https://comfortzone8kyoitarian.com/lunch-menu/"
       ],
       "missing_fields": [
-        "cost",
         "covered"
       ],
       "schedule_ready": false
@@ -3400,7 +3428,9 @@
       ],
       "notes": [
         "수상버스 선착장 지점 확인 후 출항표를 적용해야 함.",
-        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 9.8m. 주소만 확인했으며 영업시간 검증 아님."
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 9.8m. 주소만 확인했으며 영업시간 검증 아님.",
+        "2026-10-01 보류: 2,000 JPY는 아쿠아라이너 오사카성항 55분 코스 상품. 원본 장소는 지점 미확인 승선장이라 상품 요금을 대입하지 않음.",
+        "2026-10-01 보류: 선실의 실내 여부를 승선장·대기 공간의 지붕 여부로 적용하지 않음."
       ],
       "source_urls": [
         "https://maps.google.com/?cid=14704441767393759651"
@@ -3517,5 +3547,5 @@
       "verified_at": 62
     }
   },
-  "latest_enrichment_revision": "planning_review_20260930"
+  "latest_enrichment_revision": "teammate_review_20261001"
 }

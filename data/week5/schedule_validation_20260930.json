@@ -1,8 +1,8 @@
 {
-  "reviewed_at": "2026-09-30",
+  "reviewed_at": "2026-10-01",
   "audited_date": "2026-10-01",
-  "source_sha256": "bf5d0b3db0dc6770be486ba32e49747008e555cd0e6558e7f2bed0c3183b9279",
-  "profiles_sha256": "426e737fd8ecbe66dddb1b2bb1d0eea542b5aca9accec09970e92a186ff7232f",
+  "source_sha256": "0ed60d507cb36d5a30ee04eb1ac8bf217317ec879fcffe0a7304b322c8d635c5",
+  "profiles_sha256": "1977ed517e6252f64cc483ce9818e4dfb28d1926309c2b03a17beb0143f64733",
   "summary": {
     "total_records": 150,
     "with_date_profile": 59,
@@ -434,11 +434,10 @@
       "place_id": "osaka_026",
       "name_ko": "이치란 도톤보리점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
-      "cost_jpy": null,
+      "cost_jpy": 1180,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -664,11 +663,10 @@
       "place_id": "osaka_draft_300825840acb",
       "name_ko": "아키바 카트 오사카",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
-      "cost_jpy": null,
+      "cost_jpy": 7000,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -1320,9 +1318,9 @@
         1260
       ],
       "cost_jpy": null,
-      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 전문점 10~21시. 10/8(목) 휴관 공지에 연도가 없어 해당 날짜는 확인 전 제외.",
+      "cost_basis": "실내 판매장 방문만 계산. 개인 구매·음식·유료 행사비 미산정(null). 전문점 10~21시. 최신 휴관 공지는 10/8에서 10/15(목)로 변경; 연도 생략으로 2026-10-15는 확인 전 제외.",
       "source_urls": [
-        "https://www.wiste.jp/information/"
+        "https://www.wiste.jp/"
       ],
       "eligible_for_model": false,
       "schedule_ready": false
@@ -2067,11 +2065,10 @@
       "place_id": "osaka_draft_a9bc74861e3f",
       "name_ko": "몬톰웍스 엠티 카페 앤 디자인 뎁트",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
-      "cost_jpy": null,
+      "cost_jpy": 1300,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,
@@ -2315,11 +2312,10 @@
       "place_id": "osaka_draft_8cb9705b2793",
       "name_ko": "컴포트 존 에이트 교토 이탈리안",
       "reasons": [
-        "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "window": null,
-      "cost_jpy": null,
+      "cost_jpy": 1150,
       "cost_basis": null,
       "source_urls": [],
       "eligible_for_model": false,

@@ -1,11 +1,11 @@
 {
-  "revision": "planning_review_20260930",
-  "checked_at": "2026-09-30",
+  "revision": "teammate_review_20261001",
+  "checked_at": "2026-10-01",
   "base_sha256": "0e84ad829eebe20c7dc184f601aa76c4c533c8f5053a5db0c93181bc8b1dd853",
   "statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 815,
+    "null_fields_filled": 842,
     "non_null_fields_updated": 113,
     "missing_before": {
       "place_id": 0,
@@ -35,10 +35,10 @@
       "latitude": 0,
       "longitude": 0,
       "opening_hours": 16,
-      "cost": 109,
+      "cost": 105,
       "stay_min": 0,
       "bag_load": 0,
-      "covered": 116,
+      "covered": 93,
       "website": 10,
       "opening_hours_source": 44,
       "verified_at": 24
@@ -15257,6 +15257,439 @@
         "revision": "schedule_followup_20260930",
         "note": "정확한 메뉴 가격 홍차 550 JPY로 근거를 한정. 커피 550엔부터(하한)는 고정가격으로 쓰지 않음. 동일 공식 페이지의 월요일/화요일 휴무 및 종료시간 충돌이 남아 hours=null·제외 유지."
       }
+    },
+    {
+      "place_id": "osaka_021",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.takashimaya.co.jp/osaka/baby_kids/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "오사카점 6F 매장·7~9F 식당 안내. 실내 판매장 방문 범위. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_022",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.daimaru.co.jp/shinsaibashi/floor/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "신사이바시점 B2~10F 층별 판매장. 외부·테라스 방문은 범위 밖. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_023",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.hanshin-dept.jp/hshonten/floor/index.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "우메다 본점 B2~9F 실내 판매장. 남측 테라스 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_024",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://shinsaibashi.parco.jp/floor/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "신사이바시 PARCO B2~14F 실내 매장. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_5a243c3857f7",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "오사카 혼마치점 1층 매장 내부 설명. 거리 전체가 아닌 점포 내부. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_16f1d28c8bfd",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://nu-chayamachi.com/floor/2f.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "NU 본관 층별 매장. 별동 PLUS까지의 외부 이동 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_1b3533415b94",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.herbis.jp/floormap/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "HERBIS PLAZA 층별 실내 판매장. ENT·외부 테라스와 구분. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_4fb99b053e8b",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://whity.osaka-chikagai.jp/floor"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "Whity 지하상가 매장·연결 통로 범위. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_02288187c550",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.aeon.jp/sc/osakadomecity/info/shisetuannai.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "오사카 돔시티점 3F 키즈 공간·4F 푸드코트 등 실내 상업층. 옥외 시설·접근로 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_11050de606b0",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.wiste.jp/floorguide/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "위스테 1~4F 실내 전문점 판매장. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_daa353940c61",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.d-kintetsu.co.jp/uehonmachi/floor/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "긴테쓰 우에혼마치점 B2~12F 실내 판매장. 옥상 비어가든 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_dc3ec67cb8d1",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.citymall.jp/shopguide/?floor=2f"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "게이한 시티몰 실내 판매층. RF 바비큐 구역 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_b6b6dae05ce5",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://mitsui-shopping-park.com/odona/floor.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "요도야바시 오도나 B1·1·2F 실내 매장. 외부 접근로 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f1ba0aa6ab58",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.hankyu-dept.co.jp/honten/floor/index.html"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "한큐 우메다 B2~13F 실내 판매장. 13F 옥상 광장 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_481d9742f9c2",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.breeze-breeze.jp/shop/floor"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "브리제 브리제 층별 실내 상업시설. 비정기 휴무 확인 조건 유지. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_c85fa26beb80",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.0101.co.jp/085/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "난바 마루이 관내 판매장·B1/1F 취식 공간 안내. 실내 판매장 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_013",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://nakka-art.jp/ko/visit-ko/facility/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "나카노시마 미술관 4·5F 전시실의 실내 관람. 2F 옥외 잔디광장 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_026",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-south/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "도톤보리 별관의 카운터 30석·테이블 52석 안내. 외부 대기줄 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osm_node_2296903605",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_9cd21dc062f7",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.moco.or.jp/guide/info/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "동양도자미술관의 관내 전시 관람 기준. 공사 휴관 해제나 재개관 확정 의미 아님. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e5eb4dd70807",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.sotcoffee.com/en/pages/shop-osaka"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "SOT 덴마바시점 1F 30석·2F 20석 및 점내 좌석 안내. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_6789f7f9c22f",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.funaya.co.jp"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "후나야 점내 식사 안내와 이쿠노니시 2-1-34 지점 일치. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      }
+    },
+    {
+      "place_id": "osaka_draft_300825840acb",
+      "field": "covered",
+      "before": null,
+      "after": false,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://osakakart.com/en/",
+          "https://osakakart.com/en/course-osaka/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "공공 도로를 주행하는 야외 카트 투어 기준."
+      }
+    },
+    {
+      "place_id": "osaka_026",
+      "field": "cost",
+      "before": null,
+      "after": 1180,
+      "previous_source": null,
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://ichiran.com/shop/kinki/dotonbori-south/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "도톤보리 별관 천연 돈코츠 라멘 1그릇 1,180 JPY. 추가 주문 제외. 22:00~06:00 심야 할증에는 적용하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      }
+    },
+    {
+      "place_id": "osaka_draft_300825840acb",
+      "field": "cost",
+      "before": null,
+      "after": 7000,
+      "previous_source": null,
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osakakart.com/en/course-osaka/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "1인 1시간 코스, 16시 이전 주간 요금 7,000 JPY(세금 포함). 16시 이후 8,000 JPY와 구분. 예약·유효 면허·참가 조건 확인 필요. 팀 체류시간 120분을 1시간 상품으로 오인하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      }
+    },
+    {
+      "place_id": "osaka_draft_a9bc74861e3f",
+      "field": "cost",
+      "before": null,
+      "after": 1300,
+      "previous_source": null,
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://montomworks.com/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "11:00~15:30 점심 세트(샐러드·메인·커피/차) 1인 1,300 JPY. 저녁·추가 주문 제외. 실내와 테라스 4석이 함께 있어 covered는 미확인 유지. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      }
+    },
+    {
+      "place_id": "osaka_draft_8cb9705b2793",
+      "field": "cost",
+      "before": null,
+      "after": 1150,
+      "previous_source": null,
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://comfortzone8kyoitarian.com/lunch-menu/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "점심 오늘의 파스타 단품 1인 1,150 JPY. +300 JPY 세트·저녁 커버차지와 심야 가산 제외. 페이지상 세금 표시 미확인; 최종 결제 총액으로 확정하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      }
     }
   ],
   "attempts": [
@@ -15460,8 +15893,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -15587,8 +16019,7 @@
       ],
       "result": "fields_updated",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -15603,8 +16034,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -15619,8 +16049,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -15635,8 +16064,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -15672,10 +16100,7 @@
         "https://ichiran.com/shop/kinki/dotonbori-south/"
       ],
       "result": "fields_updated",
-      "remaining_null_fields": [
-        "cost",
-        "covered"
-      ]
+      "remaining_null_fields": []
     },
     {
       "place_id": "osaka_028",
@@ -15707,8 +16132,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -15843,8 +16267,7 @@
       ],
       "result": "fields_updated",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -15890,10 +16313,7 @@
       ],
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
-      "remaining_null_fields": [
-        "cost",
-        "covered"
-      ]
+      "remaining_null_fields": []
     },
     {
       "place_id": "osaka_draft_7c98da5a96f9",
@@ -16096,8 +16516,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16447,8 +16866,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16465,8 +16883,7 @@
       ],
       "result": "fields_updated",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16481,8 +16898,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16514,8 +16930,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16530,8 +16945,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16561,8 +16975,7 @@
       ],
       "result": "fields_updated",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16579,8 +16992,7 @@
       ],
       "result": "fields_updated",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16693,8 +17105,7 @@
       ],
       "result": "fields_updated",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16709,8 +17120,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16725,8 +17135,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16743,8 +17152,7 @@
       ],
       "result": "fields_updated",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -16984,8 +17392,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -17292,7 +17699,6 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
         "covered"
       ]
     },
@@ -17532,8 +17938,7 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ]
     },
     {
@@ -17579,7 +17984,6 @@
       "evidence_urls": [],
       "result": "no_new_manually_confirmed_fields",
       "remaining_null_fields": [
-        "cost",
         "covered"
       ]
     },
