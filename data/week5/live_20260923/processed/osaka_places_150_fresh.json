@@ -603,7 +603,8 @@
         "notes": [
           "지역 명소. 단일 시설 주소·영업시간의 적용 범위 확인 필요.",
           "신세카이 지역 주소. 특정 상점의 번지나 영업시간을 지역 전체에 적용하지 않음.",
-          "2026-09-30: 신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음."
+          "2026-09-30: 신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음.",
+          "2026-10-01: 이미 확인한 거리 통행공간24시간만 정규화. 개별 점포·전망대·음식점 영업과 입장료를 포함하지 않음. 상점가 개인 구매비는 팀 규칙에 따라 null/비산정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_003",
@@ -641,6 +642,16 @@
             "checked_at": "2026-09-30",
             "revision": "operating_review_20260930",
             "note": "신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://shinsekaiofficial.com/",
+              "https://maps.google.com/?cid=3941168473429300987"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "이미 확인한 거리 통행공간24시간만 정규화. 개별 점포·전망대·음식점 영업과 입장료를 포함하지 않음. 상점가 개인 구매비는 팀 규칙에 따라 null/비산정."
           }
         ]
       }
@@ -4649,19 +4660,19 @@
       "place": {
         "place_id": "osaka_025",
         "name": "かに道楽",
-        "name_ko": "카니도라쿠",
+        "name_ko": "카니도라쿠 도톤보리 본점",
         "category": "식사",
         "area": "大阪市中央区",
         "address": "大阪府大阪市中央区道頓堀1-6-18",
         "latitude": 34.6688634,
         "longitude": 135.5015017,
-        "opening_hours": "Mo-Su 11:00-23:00",
-        "cost": null,
+        "opening_hours": "11:00–23:00; 최종입장22:00; 12월31일 휴무; 점심 특별코스16:00까지",
+        "cost": 3740,
         "stay_min": 90,
         "bag_load": 0,
-        "covered": null,
-        "website": "https://douraku.co.jp/",
-        "opening_hours_source": null,
+        "covered": true,
+        "website": "https://douraku.co.jp/kansai/honten/",
+        "opening_hours_source": "https://douraku.co.jp/kansai/honten/",
         "verified_at": "2026-09-28"
       },
       "field_sources": {
@@ -4670,8 +4681,14 @@
           "url": "https://www.openstreetmap.org/node/1671341600"
         },
         "name_ko": {
-          "kind": "previous_draft_not_reverified",
-          "place_id": "osaka_025"
+          "kind": "official_web_review",
+          "urls": [
+            "https://douraku.co.jp/kansai/honten/",
+            "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "도톤보리1-6-18 본점과 원본 주소 일치. 다른 지점 가격을 혼합하지 않음."
         },
         "category": {
           "kind": "osm",
@@ -4686,12 +4703,24 @@
           "url": "https://www.openstreetmap.org/node/1671341600"
         },
         "opening_hours": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/1671341600"
+          "kind": "official_web_review",
+          "urls": [
+            "https://douraku.co.jp/kansai/honten/",
+            "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "본점의 영업·최종입장·연말휴무와 점심 가격 시간 범위를 구분."
         },
         "website": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/1671341600"
+          "kind": "official_web_review",
+          "urls": [
+            "https://douraku.co.jp/kansai/honten/",
+            "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "체인 공통 홈페이지를 해당 본점 공식 안내로 구체화."
         },
         "address": {
           "kind": "official_web_review",
@@ -4738,6 +4767,36 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "cost": {
+          "kind": "official_web_review",
+          "urls": [
+            "https://douraku.co.jp/kansai/honten/",
+            "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "도톤보리 본점 점심 코스 호시(ほし)1인3740 JPY 세금 포함. 오후16시까지 점심 메뉴. 제3자 제안값을 본점 공식 메뉴로 재확인했으며 저녁/추가 주문에는 적용하지 않음."
+        },
+        "opening_hours_source": {
+          "kind": "official_web_review",
+          "urls": [
+            "https://douraku.co.jp/kansai/honten/",
+            "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "본점 공식 영업 안내 출처."
+        },
+        "covered": {
+          "kind": "classification_from_official_description",
+          "urls": [
+            "https://douraku.co.jp/kansai/honten/",
+            "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "본점1~7층,300석·개인실11개 등 실내 식사 공간. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
         }
       },
       "source": {
@@ -4777,15 +4836,18 @@
         ],
         "notes": [
           "카니도라쿠 본점 전용 안내 확인 필요. 브랜드 공통정보 복사하지 않음.",
-          "공식 사업장 목록의 도톤보리 본점. 기존 OSM branch=道頓堀本店과 대조. 본부·중점·동점 주소와 구분."
+          "공식 사업장 목록의 도톤보리 본점. 기존 OSM branch=道頓堀本店과 대조. 본부·중점·동점 주소와 구분.",
+          "2026-10-01: 도톤보리1-6-18 본점과 원본 주소 일치. 다른 지점 가격을 혼합하지 않음.",
+          "2026-10-01: 체인 공통 홈페이지를 해당 본점 공식 안내로 구체화.",
+          "2026-10-01: 도톤보리 본점 점심 코스 호시(ほし)1인3740 JPY 세금 포함. 오후16시까지 점심 메뉴. 제3자 제안값을 본점 공식 메뉴로 재확인했으며 저녁/추가 주문에는 적용하지 않음.",
+          "2026-10-01: 본점의 영업·최종입장·연말휴무와 점심 가격 시간 범위를 구분.",
+          "2026-10-01: 본점 공식 영업 안내 출처.",
+          "2026-10-01: 본점1~7층,300석·개인실11개 등 실내 식사 공간. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
+          "2026-10-01: 점심 호시1인3740 JPY 세금 포함,11~16시 안에 식사 완료. 정규영업23시까지라는 정보를 점심 가격에 적용하지 않음. 12/31휴무는 현재검토기간 밖."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_025",
-        "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source"
-        ],
+        "missing_fields": [],
         "schedule_ready": false,
         "address_hours_audit": {
           "reviewed_at": "2026-09-26",
@@ -4812,14 +4874,91 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://douraku.co.jp/kansai/honten/",
+              "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "도톤보리1-6-18 본점과 원본 주소 일치. 다른 지점 가격을 혼합하지 않음."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://douraku.co.jp/kansai/honten/",
+              "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "체인 공통 홈페이지를 해당 본점 공식 안내로 구체화."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://douraku.co.jp/kansai/honten/",
+              "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "도톤보리 본점 점심 코스 호시(ほし)1인3740 JPY 세금 포함. 오후16시까지 점심 메뉴. 제3자 제안값을 본점 공식 메뉴로 재확인했으며 저녁/추가 주문에는 적용하지 않음."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://douraku.co.jp/kansai/honten/",
+              "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "본점의 영업·최종입장·연말휴무와 점심 가격 시간 범위를 구분."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://douraku.co.jp/kansai/honten/",
+              "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "본점 공식 영업 안내 출처."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://douraku.co.jp/kansai/honten/",
+              "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "본점1~7층,300석·개인실11개 등 실내 식사 공간. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://douraku.co.jp/kansai/honten/",
+              "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "점심 호시1인3740 JPY 세금 포함,11~16시 안에 식사 완료. 정규영업23시까지라는 정보를 점심 가격에 적용하지 않음. 12/31휴무는 현재검토기간 밖."
+          }
+        ],
+        "cost_applicability": {
+          "status": "reviewed_menu_window",
+          "automatic_schedule": "subject_to_profile_and_existing_blockers",
+          "checked_at": "2026-10-01"
+        }
       }
     },
     {
       "place": {
         "place_id": "osaka_026",
         "name": "一蘭 道頓堀店別館",
-        "name_ko": "이치란 도톤보리점",
+        "name_ko": "이치란 도톤보리 별관",
         "category": "식사",
         "area": "大阪市中央区",
         "address": "大阪市中央区道頓堀1-4-16",
@@ -4840,8 +4979,13 @@
           "url": "https://www.openstreetmap.org/node/4488318892"
         },
         "name_ko": {
-          "kind": "previous_draft_not_reverified",
-          "place_id": "osaka_026"
+          "kind": "official_web_review",
+          "urls": [
+            "https://ichiran.com/shop/kinki/dotonbori-south/"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "도톤보리 1-4-16 별관. 폐업한 도톤보리 본관 및 다른 지점과 구분."
         },
         "category": {
           "kind": "osm",
@@ -4965,7 +5109,9 @@
           "도톤보리 별관. 영업 종료된 본관과 구분.",
           "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
           "2026-10-01: 도톤보리 별관의 카운터 30석·테이블 52석 안내. 외부 대기줄 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
-          "2026-10-01: 도톤보리 별관 천연 돈코츠 라멘 1그릇 1,180 JPY. 추가 주문 제외. 22:00~06:00 심야 할증에는 적용하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+          "2026-10-01: 도톤보리 별관 천연 돈코츠 라멘 1그릇 1,180 JPY. 추가 주문 제외. 22:00~06:00 심야 할증에는 적용하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
+          "2026-10-01: 도톤보리 1-4-16 별관. 폐업한 도톤보리 본관 및 다른 지점과 구분.",
+          "2026-10-01: 별관 천연 돈코츠 라멘 1그릇 1180 JPY. 22~06시 심야 할증을 피하고 카운터·테이블 공통 이용 가능 시간 중 08~22시에 체류 전체를 제한. 추가 주문 제외."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_026",
@@ -5017,11 +5163,29 @@
             "checked_at": "2026-10-01",
             "revision": "teammate_review_20261001",
             "note": "도톤보리 별관 천연 돈코츠 라멘 1그릇 1,180 JPY. 추가 주문 제외. 22:00~06:00 심야 할증에는 적용하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://ichiran.com/shop/kinki/dotonbori-south/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "도톤보리 1-4-16 별관. 폐업한 도톤보리 본관 및 다른 지점과 구분."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://ichiran.com/shop/kinki/dotonbori-south/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "별관 천연 돈코츠 라멘 1그릇 1180 JPY. 22~06시 심야 할증을 피하고 카운터·테이블 공통 이용 가능 시간 중 08~22시에 체류 전체를 제한. 추가 주문 제외."
           }
         ],
         "cost_applicability": {
-          "status": "reference_menu_or_course_only",
-          "automatic_schedule": "blocked_until_date_and_price_profile_review",
+          "status": "reviewed_menu_window",
+          "automatic_schedule": "subject_to_profile_and_existing_blockers",
           "checked_at": "2026-10-01"
         }
       }
@@ -8187,7 +8351,7 @@
         "cost": null,
         "stay_min": 120,
         "bag_load": 0,
-        "covered": null,
+        "covered": true,
         "website": "https://www.artcourtgallery.com/",
         "opening_hours_source": "https://www.artcourtgallery.com/eng/access/",
         "verified_at": "2026-09-26"
@@ -8278,6 +8442,15 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "covered": {
+          "kind": "classification_from_official_description",
+          "urls": [
+            "https://www.artcourtgallery.com/access/"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "OAP아트코트1F의 갤러리 실내 전시 관람 범위. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
         }
       },
       "source": {
@@ -8318,12 +8491,14 @@
         "official_checks": [
           "osaka_draft_c99cbfbd0f92_address_hours_20260926"
         ],
-        "notes": [],
+        "notes": [
+          "2026-10-01: OAP아트코트1F의 갤러리 실내 전시 관람 범위. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
+          "2026-10-01: Autumn Show 2026 전시9/24~10/17,일·월·공휴일 휴관 안내를 확인. 공식 입장료 공개 근거는 찾지 못했으며 날짜의 요일 표기 불일치도 있어 자동 투입은 계속 보류."
+        ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_c99cbfbd0f92",
         "missing_fields": [
-          "cost",
-          "covered"
+          "cost"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -8356,7 +8531,27 @@
           "representative": 120,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.artcourtgallery.com/access/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "OAP아트코트1F의 갤러리 실내 전시 관람 범위. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.artcourtgallery.com/exhibitions/17306/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "Autumn Show 2026 전시9/24~10/17,일·월·공휴일 휴관 안내를 확인. 공식 입장료 공개 근거는 찾지 못했으며 날짜의 요일 표기 불일치도 있어 자동 투입은 계속 보류."
+          }
+        ]
       }
     },
     {
@@ -14534,7 +14729,7 @@
         "address": "大阪市淀川区西中島5-16-1 JR新大阪駅2F",
         "latitude": 34.7340963,
         "longitude": 135.5013484,
-        "opening_hours": "점포별 상이; 시설 연중무휴",
+        "opening_hours": "일반 패션·잡화 판매장 공통10:00–21:00; 서점·유니클로·약국·음식점·서비스는 개별 시간, 시설 연중무휴",
         "cost": null,
         "stay_min": 180,
         "bag_load": 2,
@@ -14575,10 +14770,12 @@
         "opening_hours": {
           "kind": "official_web_review",
           "urls": [
-            "https://osaka-info.jp/spot/arudeshinosaka/"
+            "https://www.arde-shinosaka.jp/access",
+            "https://www.arde-shinosaka.jp/shopguide?category%5B0%5D=1"
           ],
-          "checked_at": "2026-09-28",
-          "note": "오사카 관광국 공식 안내. 역 건물 2층 쇼핑시설 기준."
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "공식 점포 안내의 일반 판매장 공통시간10~21시. 처방전 접수·휴무 등 별도 서비스에는 적용하지 않음."
         },
         "opening_hours_source": {
           "kind": "official_web_review",
@@ -14659,7 +14856,9 @@
         ],
         "notes": [
           "공식 안내에서 영업시간·주소 본문 취득 실패.",
-          "오사카 관광국 공식 안내. 역 건물 2층 쇼핑시설 기준."
+          "오사카 관광국 공식 안내. 역 건물 2층 쇼핑시설 기준.",
+          "2026-10-01: 공식 점포 안내의 일반 판매장 공통시간10~21시. 처방전 접수·휴무 등 별도 서비스에는 적용하지 않음.",
+          "2026-10-01: 신오사카역2F 일반 패션·잡화 실내 판매장 공통10~21시. 개인 구매비 null/비산정. 처방약·식당·별도 서비스는 범위 밖."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_e51bbe99124a",
@@ -14697,7 +14896,29 @@
           "representative": 180,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "exclude_personal_shopping_spend"
+        "planning_cost_policy": "exclude_personal_shopping_spend",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.arde-shinosaka.jp/access",
+              "https://www.arde-shinosaka.jp/shopguide?category%5B0%5D=1"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "공식 점포 안내의 일반 판매장 공통시간10~21시. 처방전 접수·휴무 등 별도 서비스에는 적용하지 않음."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.arde-shinosaka.jp/access",
+              "https://www.arde-shinosaka.jp/shopguide?category%5B0%5D=1"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "신오사카역2F 일반 패션·잡화 실내 판매장 공통10~21시. 개인 구매비 null/비산정. 처방약·식당·별도 서비스는 범위 밖."
+          }
+        ]
       }
     },
     {
@@ -18104,7 +18325,9 @@
         "official_checks": [
           "osaka_draft_5a3ef73c2b4b_address_hours_20260926"
         ],
-        "notes": [],
+        "notes": [
+          "2026-10-01: 공식 우메다차야마치 메뉴 링크의 인증서 오류로 가격 확인 불가. 보안 경고를 우회하지 않았으며 비용 null 유지."
+        ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_5a3ef73c2b4b",
         "missing_fields": [
@@ -18137,7 +18360,19 @@
           "representative": 60,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
+              "https://bluebottlecoffee.co.jp/menu/jp/umeda.html"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "공식 우메다차야마치 메뉴 링크의 인증서 오류로 가격 확인 불가. 보안 경고를 우회하지 않았으며 비용 null 유지."
+          }
+        ]
       }
     },
     {
@@ -19745,7 +19980,7 @@
         "address": "大阪市中央区上汐2丁目4-6 上六センタービルB1F",
         "latitude": 34.6667521,
         "longitude": 135.5168554,
-        "opening_hours": "월–토 17:00–23:00; 일요일 휴무; 공연 일정 별도 확인",
+        "opening_hours": null,
         "cost": null,
         "stay_min": 60,
         "bag_load": 0,
@@ -19774,10 +20009,13 @@
         "opening_hours": {
           "kind": "official_web_review",
           "urls": [
-            "https://www.subjazzcafe.com/our-shops"
+            "https://www.subjazzcafe.com/",
+            "https://www.subjazzcafe.com/our-shops",
+            "https://www.subjazzcafe.com/music-calendar"
           ],
-          "checked_at": "2026-09-28",
-          "note": "공식 주소와 지하 실내 재즈클럽 안내. 공연별 요금은 변동하여 cost 보류."
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "공식 about 페이지 월~토17~23/일휴무와 현재 홈페이지 수~월18~22 안내가 충돌. 공식 공연표에는 일요일 공연과2026-10-01임시휴무도 있어 기존 일반시간을 확정값으로 유지하지 않음. 회차별 뮤직차지도 미확인."
         },
         "website": {
           "kind": "osm",
@@ -19876,11 +20114,13 @@
         ],
         "notes": [
           "공식 홈페이지 취득 실패. 운영정보 미확인.",
-          "공식 주소와 지하 실내 재즈클럽 안내. 공연별 요금은 변동하여 cost 보류."
+          "공식 주소와 지하 실내 재즈클럽 안내. 공연별 요금은 변동하여 cost 보류.",
+          "2026-10-01: 공식 about 페이지 월~토17~23/일휴무와 현재 홈페이지 수~월18~22 안내가 충돌. 공식 공연표에는 일요일 공연과2026-10-01임시휴무도 있어 기존 일반시간을 확정값으로 유지하지 않음. 회차별 뮤직차지도 미확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_4af3a5a14578",
         "missing_fields": [
+          "opening_hours",
           "cost"
         ],
         "schedule_ready": false,
@@ -19901,7 +20141,9 @@
             "공식 홈페이지 취득 실패. 운영정보 미확인."
           ]
         },
-        "recommendation_blockers": [],
+        "recommendation_blockers": [
+          "hours_conflict"
+        ],
         "stay_policy": {
           "type": "카페",
           "min": 45,
@@ -19909,7 +20151,20 @@
           "representative": 60,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.subjazzcafe.com/",
+              "https://www.subjazzcafe.com/our-shops",
+              "https://www.subjazzcafe.com/music-calendar"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "공식 about 페이지 월~토17~23/일휴무와 현재 홈페이지 수~월18~22 안내가 충돌. 공식 공연표에는 일요일 공연과2026-10-01임시휴무도 있어 기존 일반시간을 확정값으로 유지하지 않음. 회차별 뮤직차지도 미확인."
+          }
+        ]
       }
     },
     {
@@ -22543,10 +22798,10 @@
         "latitude": 34.7001335,
         "longitude": 135.4960128,
         "opening_hours": "11:30–14:00, 17:30–21:30(주문 21:00까지); 월·화 휴무(공휴일 제외)",
-        "cost": null,
+        "cost": 4800,
         "stay_min": 90,
         "bag_load": 0,
-        "covered": null,
+        "covered": true,
         "website": "https://osaka.hiltonjapan.co.jp/restaurants/centrum",
         "opening_hours_source": "https://osaka.hiltonjapan.co.jp/restaurants/centrum",
         "verified_at": "2026-09-26"
@@ -22637,6 +22892,26 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "cost": {
+          "kind": "official_web_review",
+          "urls": [
+            "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+            "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "평일 한정 익스프레스 런치1인4800 JPY,세금·서비스료 포함. 샐러드·기본 메인·커피/차 기준. 4000엔부터라는 예산 표기 대신 명명된 코스 정가를 사용. 주말/공휴일·옵션 제외."
+        },
+        "covered": {
+          "kind": "classification_from_official_description",
+          "urls": [
+            "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+            "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "힐튼오사카2층104석 실내 레스토랑/와인룸/개인실 안내. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
         }
       },
       "source": {
@@ -22679,13 +22954,14 @@
         "official_checks": [
           "osaka_draft_5f45ffb4d766_address_hours_20260926"
         ],
-        "notes": [],
+        "notes": [
+          "2026-10-01: 평일 한정 익스프레스 런치1인4800 JPY,세금·서비스료 포함. 샐러드·기본 메인·커피/차 기준. 4000엔부터라는 예산 표기 대신 명명된 코스 정가를 사용. 주말/공휴일·옵션 제외.",
+          "2026-10-01: 힐튼오사카2층104석 실내 레스토랑/와인룸/개인실 안내. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
+          "2026-10-01: 평일 익스프레스 런치4800 JPY 세금·서비스료 포함,11:30~14시 안에 식사 완료. 주말/공휴일에는 이 가격 미적용. 월·화휴무(공휴일예외)."
+        ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_5f45ffb4d766",
-        "missing_fields": [
-          "cost",
-          "covered"
-        ],
+        "missing_fields": [],
         "schedule_ready": false,
         "address_hours_audit": {
           "reviewed_at": "2026-09-26",
@@ -22712,7 +22988,44 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+              "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "평일 한정 익스프레스 런치1인4800 JPY,세금·서비스료 포함. 샐러드·기본 메인·커피/차 기준. 4000엔부터라는 예산 표기 대신 명명된 코스 정가를 사용. 주말/공휴일·옵션 제외."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+              "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "힐튼오사카2층104석 실내 레스토랑/와인룸/개인실 안내. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+              "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "평일 익스프레스 런치4800 JPY 세금·서비스료 포함,11:30~14시 안에 식사 완료. 주말/공휴일에는 이 가격 미적용. 월·화휴무(공휴일예외)."
+          }
+        ],
+        "cost_applicability": {
+          "status": "reviewed_menu_window",
+          "automatic_schedule": "subject_to_profile_and_existing_blockers",
+          "checked_at": "2026-10-01"
+        }
       }
     },
     {
@@ -23271,7 +23584,9 @@
         "official_checks": [
           "osaka_draft_c341bbd2440a_address_hours_20260926"
         ],
-        "notes": [],
+        "notes": [
+          "2026-10-01: 오사카 본점 운영시간 확인. 온라인 상품 가격을 매장 식사 가격으로 적용하지 않음."
+        ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_c341bbd2440a",
         "missing_fields": [
@@ -23304,7 +23619,19 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.mercy-vegan.jp/restaurants/",
+              "https://shop.mercy-vegan.jp/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "오사카 본점 운영시간 확인. 온라인 상품 가격을 매장 식사 가격으로 적용하지 않음."
+          }
+        ]
       }
     },
     {
@@ -23464,7 +23791,8 @@
         ],
         "notes": [
           "2026-10-01: 11:00~15:30 점심 세트(샐러드·메인·커피/차) 1인 1,300 JPY. 저녁·추가 주문 제외. 실내와 테라스 4석이 함께 있어 covered는 미확인 유지. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
-          "2026-10-01 보류: 실내 좌석과 테라스 4석이 함께 있어 좌석 범위 확인 필요."
+          "2026-10-01 보류: 실내 좌석과 테라스 4석이 함께 있어 좌석 범위 확인 필요.",
+          "2026-10-01: 11~15:30 점심 세트(샐러드·메인·커피/차) 표시가격1300 JPY. 세금 표기 별도 미확인, 최종 결제 총액 보장 아님. 토·일 저녁과 추가 주문 제외. 수요일 휴무, 공휴일이면 목요일 대체 휴무."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_a9bc74861e3f",
@@ -23507,11 +23835,20 @@
             "checked_at": "2026-10-01",
             "revision": "teammate_review_20261001",
             "note": "11:00~15:30 점심 세트(샐러드·메인·커피/차) 1인 1,300 JPY. 저녁·추가 주문 제외. 실내와 테라스 4석이 함께 있어 covered는 미확인 유지. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://montomworks.com/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "11~15:30 점심 세트(샐러드·메인·커피/차) 표시가격1300 JPY. 세금 표기 별도 미확인, 최종 결제 총액 보장 아님. 토·일 저녁과 추가 주문 제외. 수요일 휴무, 공휴일이면 목요일 대체 휴무."
           }
         ],
         "cost_applicability": {
-          "status": "reference_menu_or_course_only",
-          "automatic_schedule": "blocked_until_date_and_price_profile_review",
+          "status": "reviewed_menu_window",
+          "automatic_schedule": "subject_to_profile_and_existing_blockers",
           "checked_at": "2026-10-01"
         }
       }
@@ -23526,11 +23863,11 @@
         "address": "大阪市北区兎我野町3-20 雁木ビル1F",
         "latitude": 34.7010283,
         "longitude": 135.505641,
-        "opening_hours": "평일 11:00–20:30; 토·일·공휴일 11:00–20:00",
-        "cost": null,
+        "opening_hours": "평일 11:00–20:30(주문20시); 토·일·공휴일 11:00–20:00(주문19:30); 점심·카페11:00–16:30, 저녁16:30부터; 비정기 휴무·연말연시",
+        "cost": 1250,
         "stay_min": 90,
         "bag_load": 0,
-        "covered": null,
+        "covered": true,
         "website": "https://shin-medaka.com/",
         "opening_hours_source": "https://shin-medaka.com/",
         "verified_at": "2026-09-26"
@@ -23555,10 +23892,13 @@
         "opening_hours": {
           "kind": "official_web_review",
           "urls": [
-            "https://shin-medaka.com/"
+            "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+            "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+            "https://shin-medaka.com/access/"
           ],
-          "checked_at": "2026-09-26",
-          "evidence_window": "2026-09-24/2026-09-26"
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "공식 접근 안내의 주문 마감·점심/저녁 구분·비정기 휴무 추가. 상시 영업 보장이 아님."
         },
         "website": {
           "kind": "osm",
@@ -23621,6 +23961,28 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "cost": {
+          "kind": "official_web_review",
+          "urls": [
+            "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+            "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+            "https://shin-medaka.com/access/"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "평일 점심 공식 메뉴 이미지의 일일 자연식 정식1250 JPY. 밥130g·주요리·반찬3·된장국 기준. 세금 표기 미확인, 주말/공휴일 가격으로 확대하지 않음. 비정기 휴무로 방문일 확인 필요."
+        },
+        "covered": {
+          "kind": "classification_from_official_description",
+          "urls": [
+            "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+            "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+            "https://shin-medaka.com/access/"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "메다카2호점 간기빌딩1층 유리 전면 점포, 실내27석 안내. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
         }
       },
       "source": {
@@ -23667,13 +24029,15 @@
         "official_checks": [
           "osaka_draft_d580756db04a_address_hours_20260926"
         ],
-        "notes": [],
+        "notes": [
+          "2026-10-01: 평일 점심 공식 메뉴 이미지의 일일 자연식 정식1250 JPY. 밥130g·주요리·반찬3·된장국 기준. 세금 표기 미확인, 주말/공휴일 가격으로 확대하지 않음. 비정기 휴무로 방문일 확인 필요.",
+          "2026-10-01: 공식 접근 안내의 주문 마감·점심/저녁 구분·비정기 휴무 추가. 상시 영업 보장이 아님.",
+          "2026-10-01: 메다카2호점 간기빌딩1층 유리 전면 점포, 실내27석 안내. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
+          "2026-10-01: 평일 점심 일일 자연식 정식 표시가격1250 JPY, 세금 표기 미확인. 11~16:30 범위이며 주말/공휴일에는 이 가격을 적용하지 않음. 비정기 휴무 확인 전 보류."
+        ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_d580756db04a",
-        "missing_fields": [
-          "cost",
-          "covered"
-        ],
+        "missing_fields": [],
         "schedule_ready": false,
         "address_hours_audit": {
           "reviewed_at": "2026-09-26",
@@ -23700,7 +24064,58 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+              "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+              "https://shin-medaka.com/access/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "평일 점심 공식 메뉴 이미지의 일일 자연식 정식1250 JPY. 밥130g·주요리·반찬3·된장국 기준. 세금 표기 미확인, 주말/공휴일 가격으로 확대하지 않음. 비정기 휴무로 방문일 확인 필요."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+              "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+              "https://shin-medaka.com/access/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "공식 접근 안내의 주문 마감·점심/저녁 구분·비정기 휴무 추가. 상시 영업 보장이 아님."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+              "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+              "https://shin-medaka.com/access/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "메다카2호점 간기빌딩1층 유리 전면 점포, 실내27석 안내. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+              "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+              "https://shin-medaka.com/access/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "평일 점심 일일 자연식 정식 표시가격1250 JPY, 세금 표기 미확인. 11~16:30 범위이며 주말/공휴일에는 이 가격을 적용하지 않음. 비정기 휴무 확인 전 보류."
+          }
+        ],
+        "cost_applicability": {
+          "status": "reviewed_menu_window",
+          "automatic_schedule": "subject_to_profile_and_existing_blockers",
+          "checked_at": "2026-10-01"
+        }
       }
     },
     {
@@ -24276,7 +24691,7 @@
         "latitude": 34.7399063,
         "longitude": 135.5165624,
         "opening_hours": "평일·공휴일 전날 11:30–16:00(주문 15:30까지), 17:00–22:30(주문 22:00까지); 토·일·공휴일 11:30–22:30(주문 22:00까지); 정기휴무 없음",
-        "cost": null,
+        "cost": 880,
         "stay_min": 90,
         "bag_load": 0,
         "covered": true,
@@ -24392,6 +24807,16 @@
           "checked_at": "2026-09-29",
           "revision": "team_planning_rules_20260929",
           "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+        },
+        "cost": {
+          "kind": "official_web_review",
+          "urls": [
+            "https://albar-awaji.owst.jp/lunches",
+            "https://albar-awaji.owst.jp/"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "아와지점 점심 타라코 파스타(시소 또는 김) 단품 880 JPY 세금 포함. 880엔부터라는 최저가 설명이 아닌 명명된 단품 가격. 추가 세트·곱빼기 제외."
         }
       },
       "source": {
@@ -24423,13 +24848,13 @@
         ],
         "notes": [
           "공식 사이트 취득 실패. 제3자 정보만으로 확정하지 않음.",
-          "ALBAR 아와지점 공식 운영 페이지. 실내 좌석·테라스 없음 확인. 가격 범위는 단일 cost로 환산하지 않음."
+          "ALBAR 아와지점 공식 운영 페이지. 실내 좌석·테라스 없음 확인. 가격 범위는 단일 cost로 환산하지 않음.",
+          "2026-10-01: 아와지점 점심 타라코 파스타(시소 또는 김) 단품 880 JPY 세금 포함. 880엔부터라는 최저가 설명이 아닌 명명된 단품 가격. 추가 세트·곱빼기 제외.",
+          "2026-10-01: 타라코 파스타 단품 880 JPY(세금 포함). 공통 점심 11:30~15:00 안에 식사를 마치는 보수적 창; 저녁·추가 주문 제외. 정기휴무 없음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_d0e6cdcb566f",
-        "missing_fields": [
-          "cost"
-        ],
+        "missing_fields": [],
         "schedule_ready": false,
         "address_hours_audit": {
           "reviewed_at": "2026-09-26",
@@ -24456,7 +24881,34 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://albar-awaji.owst.jp/lunches",
+              "https://albar-awaji.owst.jp/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "아와지점 점심 타라코 파스타(시소 또는 김) 단품 880 JPY 세금 포함. 880엔부터라는 최저가 설명이 아닌 명명된 단품 가격. 추가 세트·곱빼기 제외."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://albar-awaji.owst.jp/lunches",
+              "https://albar-awaji.owst.jp/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "타라코 파스타 단품 880 JPY(세금 포함). 공통 점심 11:30~15:00 안에 식사를 마치는 보수적 창; 저녁·추가 주문 제외. 정기휴무 없음."
+          }
+        ],
+        "cost_applicability": {
+          "status": "reviewed_menu_window",
+          "automatic_schedule": "subject_to_profile_and_existing_blockers",
+          "checked_at": "2026-10-01"
+        }
       }
     },
     {
@@ -25189,7 +25641,8 @@
         ],
         "notes": [
           "공식 페이지 본문이 이미지 위주. 해당 지점 상세 안내 확인 필요.",
-          "중앙시장점 확인. 같은 페이지 방콕점과 구분."
+          "중앙시장점 확인. 같은 페이지 방콕점과 구분.",
+          "2026-10-01: 공식 상마제5개 메뉴 설명과 사진은 있으나 현재 가격 미공개. 과거 제3자1100엔을 확정값으로 채우지 않음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_3d97f36846d0",
@@ -25223,7 +25676,18 @@
           "representative": 90,
           "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
         },
-        "planning_cost_policy": "verified_admission_or_menu_only"
+        "planning_cost_policy": "verified_admission_or_menu_only",
+        "operating_checks": [
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.endo-sushi.com/12513124911251712540.html"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "공식 상마제5개 메뉴 설명과 사진은 있으나 현재 가격 미공개. 과거 제3자1100엔을 확정값으로 채우지 않음."
+          }
+        ]
       }
     },
     {
@@ -25908,7 +26372,7 @@
         "latitude": 34.6484487,
         "longitude": 135.5243865,
         "opening_hours": "매장 식사 11:30–14:30(주문 14:00까지); 목요일 및 월 1회 임시 휴무; 재료 소진 시 종료",
-        "cost": null,
+        "cost": 2790,
         "stay_min": 90,
         "bag_load": 0,
         "covered": true,
@@ -26011,6 +26475,16 @@
           "checked_at": "2026-10-01",
           "revision": "teammate_review_20261001",
           "note": "후나야 점내 식사 안내와 이쿠노니시 2-1-34 지점 일치. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+        },
+        "cost": {
+          "kind": "official_web_review",
+          "urls": [
+            "https://www.funaya.co.jp/menu/",
+            "https://www.funaya.co.jp/"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "매장 식사 우나주 우메(梅) 1인분 2790 JPY 세금 포함. 포장용 3290엔과 구분. 재료 소진 및 매월 추가 휴무로 방문일 확인 전 일정 보류."
         }
       },
       "source": {
@@ -26037,13 +26511,13 @@
         ],
         "notes": [
           "포장 10:00–20:00을 매장 식사시간에 사용하지 않음.",
-          "2026-10-01: 후나야 점내 식사 안내와 이쿠노니시 2-1-34 지점 일치. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+          "2026-10-01: 후나야 점내 식사 안내와 이쿠노니시 2-1-34 지점 일치. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+          "2026-10-01: 매장 식사 우나주 우메(梅) 1인분 2790 JPY 세금 포함. 포장용 3290엔과 구분. 재료 소진 및 매월 추가 휴무로 방문일 확인 전 일정 보류.",
+          "2026-10-01: 매장 우나주 우메 2790 JPY. 매장 식사 11:30~14:30/주문14시, 목요일+월1회 임시휴무, 매진 종료. 포장10~20시와 구분. 10~11월 추가 휴무일 미확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_6789f7f9c22f",
-        "missing_fields": [
-          "cost"
-        ],
+        "missing_fields": [],
         "schedule_ready": false,
         "address_hours_audit": {
           "reviewed_at": "2026-09-26",
@@ -26082,8 +26556,33 @@
             "checked_at": "2026-10-01",
             "revision": "teammate_review_20261001",
             "note": "후나야 점내 식사 안내와 이쿠노니시 2-1-34 지점 일치. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.funaya.co.jp/menu/",
+              "https://www.funaya.co.jp/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "매장 식사 우나주 우메(梅) 1인분 2790 JPY 세금 포함. 포장용 3290엔과 구분. 재료 소진 및 매월 추가 휴무로 방문일 확인 전 일정 보류."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://www.funaya.co.jp/menu/",
+              "https://www.funaya.co.jp/"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "매장 우나주 우메 2790 JPY. 매장 식사 11:30~14:30/주문14시, 목요일+월1회 임시휴무, 매진 종료. 포장10~20시와 구분. 10~11월 추가 휴무일 미확인."
           }
-        ]
+        ],
+        "cost_applicability": {
+          "status": "reviewed_menu_window",
+          "automatic_schedule": "subject_to_profile_and_existing_blockers",
+          "checked_at": "2026-10-01"
+        }
       }
     },
     {
@@ -26274,7 +26773,7 @@
         "cost": 980,
         "stay_min": 90,
         "bag_load": 0,
-        "covered": null,
+        "covered": true,
         "website": "https://cherryjam.owst.jp/",
         "opening_hours_source": "https://cherryjam.owst.jp/",
         "verified_at": "2026-09-30"
@@ -26378,6 +26877,15 @@
           "checked_at": "2026-09-30",
           "revision": "planning_review_20260930",
           "note": "점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
+        },
+        "covered": {
+          "kind": "classification_from_official_description",
+          "urls": [
+            "https://cherryjam.owst.jp/seats"
+          ],
+          "checked_at": "2026-10-01",
+          "revision": "official_menu_followup_20261001",
+          "note": "체리 잼의 피아노·샹들리에가 있는26석 실내 공간과15명 개인실 설명. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
         }
       },
       "source": {
@@ -26407,13 +26915,12 @@
           "osaka_draft_26a5e809355e_address_hours_20260926"
         ],
         "notes": [
-          "2026-09-30: 점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
+          "2026-09-30: 점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음.",
+          "2026-10-01: 체리 잼의 피아노·샹들리에가 있는26석 실내 공간과15명 개인실 설명. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_26a5e809355e",
-        "missing_fields": [
-          "covered"
-        ],
+        "missing_fields": [],
         "schedule_ready": false,
         "address_hours_audit": {
           "reviewed_at": "2026-09-26",
@@ -26450,6 +26957,15 @@
             "checked_at": "2026-09-30",
             "revision": "planning_review_20260930",
             "note": "점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
+          },
+          {
+            "kind": "official_web_review",
+            "urls": [
+              "https://cherryjam.owst.jp/seats"
+            ],
+            "checked_at": "2026-10-01",
+            "revision": "official_menu_followup_20261001",
+            "note": "체리 잼의 피아노·샹들리에가 있는26석 실내 공간과15명 개인실 설명. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
           }
         ]
       }
@@ -27945,6 +28461,6 @@
   "enrichment_checks_file": "official_enrichment_20260924.json",
   "full_review_revision": "address_hours_20260926",
   "full_review_checks_file": "official_enrichment_20260926.json",
-  "latest_enrichment_revision": "teammate_review_20261001",
+  "latest_enrichment_revision": "official_menu_followup_20261001",
   "latest_enrichment_checks_file": "planning_review_20260930.json"
 }

@@ -1,12 +1,12 @@
 {
   "reviewed_at": "2026-10-01",
   "audited_date": "2026-10-01",
-  "source_sha256": "0ed60d507cb36d5a30ee04eb1ac8bf217317ec879fcffe0a7304b322c8d635c5",
-  "profiles_sha256": "1977ed517e6252f64cc483ce9818e4dfb28d1926309c2b03a17beb0143f64733",
+  "source_sha256": "914f750d8e42b19153e51834b2a75e7ac178991cb7e2304c578dea53961d6c9a",
+  "profiles_sha256": "6844c18e59278c01d3a706e204ea0c58384df39e841fc02bd57809b90182aa96",
   "summary": {
     "total_records": 150,
-    "with_date_profile": 59,
-    "eligible_for_offline_model": 29,
+    "with_date_profile": 68,
+    "eligible_for_offline_model": 34,
     "production_schedule_ready": 0,
     "scenarios_passed": 4,
     "distinct_scheduled_places": 10
@@ -50,13 +50,19 @@
       "place_id": "osaka_003",
       "name_ko": "신세카이",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
+      "window": [
+        0,
+        1440,
+        1440
+      ],
       "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "cost_basis": "이미 확인한 거리 통행공간24시간만 정규화. 개별 점포·전망대·음식점 영업과 입장료를 포함하지 않음. 상점가 개인 구매비는 팀 규칙에 따라 null/비산정.",
+      "source_urls": [
+        "https://shinsekaiofficial.com/",
+        "https://maps.google.com/?cid=3941168473429300987"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -418,29 +424,37 @@
     },
     {
       "place_id": "osaka_025",
-      "name_ko": "카니도라쿠",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "name_ko": "카니도라쿠 도톤보리 본점",
+      "reasons": [],
+      "window": [
+        660,
+        960,
+        960
       ],
-      "window": null,
-      "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 3740,
+      "cost_basis": "점심 호시1인3740 JPY 세금 포함,11~16시 안에 식사 완료. 정규영업23시까지라는 정보를 점심 가격에 적용하지 않음. 12/31휴무는 현재검토기간 밖.",
+      "source_urls": [
+        "https://douraku.co.jp/kansai/honten/",
+        "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_026",
-      "name_ko": "이치란 도톤보리점",
-      "reasons": [
-        "structured_date_profile_missing"
+      "name_ko": "이치란 도톤보리 별관",
+      "reasons": [],
+      "window": [
+        480,
+        1320,
+        1320
       ],
-      "window": null,
       "cost_jpy": 1180,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "별관 천연 돈코츠 라멘 1그릇 1180 JPY. 22~06시 심야 할증을 피하고 카운터·테이블 공통 이용 가능 시간 중 08~22시에 체류 전체를 제한. 추가 주문 제외.",
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/dotonbori-south/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -1277,13 +1291,19 @@
       "place_id": "osaka_draft_e51bbe99124a",
       "name_ko": "아르데 신오사카",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "cost_unknown_or_not_applicable"
       ],
-      "window": null,
+      "window": [
+        600,
+        1260,
+        1260
+      ],
       "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "cost_basis": "신오사카역2F 일반 패션·잡화 실내 판매장 공통10~21시. 개인 구매비 null/비산정. 처방약·식당·별도 서비스는 범위 밖.",
+      "source_urls": [
+        "https://www.arde-shinosaka.jp/access",
+        "https://www.arde-shinosaka.jp/shopguide?category%5B0%5D=1"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1759,6 +1779,8 @@
       "place_id": "osaka_draft_4af3a5a14578",
       "name_ko": "서브 재즈 카페",
       "reasons": [
+        "hours_conflict",
+        "opening_hours_missing",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -1995,15 +2017,19 @@
     {
       "place_id": "osaka_draft_5f45ffb4d766",
       "name_ko": "센트럼",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        690,
+        840,
+        840
       ],
-      "window": null,
-      "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 4800,
+      "cost_basis": "평일 익스프레스 런치4800 JPY 세금·서비스료 포함,11:30~14시 안에 식사 완료. 주말/공휴일에는 이 가격 미적용. 월·화휴무(공휴일예외).",
+      "source_urls": [
+        "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+        "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -2064,27 +2090,38 @@
     {
       "place_id": "osaka_draft_a9bc74861e3f",
       "name_ko": "몬톰웍스 엠티 카페 앤 디자인 뎁트",
-      "reasons": [
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        660,
+        930,
+        930
       ],
-      "window": null,
       "cost_jpy": 1300,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_basis": "11~15:30 점심 세트(샐러드·메인·커피/차) 표시가격1300 JPY. 세금 표기 별도 미확인, 최종 결제 총액 보장 아님. 토·일 저녁과 추가 주문 제외. 수요일 휴무, 공휴일이면 목요일 대체 휴무.",
+      "source_urls": [
+        "https://montomworks.com/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
       "place_id": "osaka_draft_d580756db04a",
       "name_ko": "내추럴 키친 메다카 2호점",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "visit_confirmation_required"
       ],
-      "window": null,
-      "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        660,
+        990,
+        990
+      ],
+      "cost_jpy": 1250,
+      "cost_basis": "평일 점심 일일 자연식 정식 표시가격1250 JPY, 세금 표기 미확인. 11~16:30 범위이며 주말/공휴일에는 이 가격을 적용하지 않음. 비정기 휴무 확인 전 보류.",
+      "source_urls": [
+        "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+        "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+        "https://shin-medaka.com/access/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2134,15 +2171,19 @@
     {
       "place_id": "osaka_draft_d0e6cdcb566f",
       "name_ko": "알바르",
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+      "reasons": [],
+      "window": [
+        690,
+        900,
+        900
       ],
-      "window": null,
-      "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
-      "eligible_for_model": false,
+      "cost_jpy": 880,
+      "cost_basis": "타라코 파스타 단품 880 JPY(세금 포함). 공통 점심 11:30~15:00 안에 식사를 마치는 보수적 창; 저녁·추가 주문 제외. 정기휴무 없음.",
+      "source_urls": [
+        "https://albar-awaji.owst.jp/lunches",
+        "https://albar-awaji.owst.jp/"
+      ],
+      "eligible_for_model": true,
       "schedule_ready": false
     },
     {
@@ -2267,13 +2308,20 @@
       "place_id": "osaka_draft_6789f7f9c22f",
       "name_ko": "후나야",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "visit_confirmation_required",
+        "closed_on_visit_date"
       ],
-      "window": null,
-      "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        690,
+        870,
+        840
+      ],
+      "cost_jpy": 2790,
+      "cost_basis": "매장 우나주 우메 2790 JPY. 매장 식사 11:30~14:30/주문14시, 목요일+월1회 임시휴무, 매진 종료. 포장10~20시와 구분. 10~11월 추가 휴무일 미확인.",
+      "source_urls": [
+        "https://www.funaya.co.jp/menu/",
+        "https://www.funaya.co.jp/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },

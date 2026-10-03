@@ -30,14 +30,14 @@ test('closed first day is retried on the second date',()=>{
   assert.deepEqual(p.result.days[1].placeIds,['osaka_012']);
 });
 test('a partially unreviewed trip does not blame every omitted place on its date range',()=>{
-  const r=trip(dataset.places.map(row=>row.place.place_id));
-  r.startDate='2026-11-15';r.endDate='2026-12-14';
+  // One usable park and one unresolved viewpoint make the reason independent of catalogue growth.
+  const r=trip(['osaka_015','osaka_001']);
+  r.startDate='2026-11-30';r.endDate='2026-12-01';
   const p=run(r).planning;
-  assert.equal(p.scheduled_count,44);assert.equal(p.unplaced_count,106);
+  assert.equal(p.scheduled_count,1);assert.equal(p.unplaced_count,1);
   assert.equal(p.exclusion_reason_counts.outside_reviewed_date_range,undefined);
-  // Four reviewed menu/course prices now exist; their missing date profiles still block scheduling.
-  assert.equal(p.exclusion_reason_counts.cost_unknown_or_not_applicable,75);
-  assert.equal(p.exclusion_reason_counts.structured_date_profile_missing,91);
+  assert.equal(p.exclusion_reason_counts.cost_unknown_or_not_applicable,1);
+  assert.equal(p.exclusion_reason_counts.structured_date_profile_missing,1);
 });
 test('a wholly unreviewed trip retains the date-range reason',()=>{
   const r=trip(['osaka_015']);r.startDate='2026-12-01';r.endDate='2026-12-02';

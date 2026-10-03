@@ -1,0 +1,579 @@
+{
+  "source_sha256": "914f750d8e42b19153e51834b2a75e7ac178991cb7e2304c578dea53961d6c9a",
+  "profiles_sha256": "6844c18e59278c01d3a706e204ea0c58384df39e841fc02bd57809b90182aa96",
+  "evidence_checked_at": "2026-10-01",
+  "test_dates": [
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-03",
+    "2026-10-04",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07"
+  ],
+  "total_records": 150,
+  "individual_passed": 52,
+  "promotion_complete": 0,
+  "categories": [
+    {
+      "category": "명소",
+      "collected": 19,
+      "passed_individual_model": 3,
+      "held": 16,
+      "promotion_complete": 0,
+      "address_missing": 1,
+      "hours_missing": 4,
+      "covered_unknown": 17,
+      "passed_ids": [
+        "osaka_003",
+        "osaka_007",
+        "osaka_008"
+      ],
+      "held_ids": [
+        "osaka_001",
+        "osaka_002",
+        "osaka_004",
+        "osaka_005",
+        "osaka_006",
+        "osaka_draft_2e4698946819",
+        "osaka_draft_73505422b2e6",
+        "osaka_draft_a270504b6cd8",
+        "osaka_draft_bdd1ec5175d0",
+        "osaka_draft_f0f97440bedc",
+        "osaka_draft_1c4a0fd86b91",
+        "osaka_draft_85b3463e84b9",
+        "osaka_draft_84378ff5ba08",
+        "osaka_draft_0cc625078422",
+        "osaka_draft_300825840acb",
+        "osm_way_303446421"
+      ],
+      "blockers": [
+        {
+          "reason": "structured_date_profile_missing",
+          "places": 13
+        },
+        {
+          "reason": "cost_unknown_or_not_applicable",
+          "places": 8
+        },
+        {
+          "reason": "opening_hours_missing",
+          "places": 4
+        },
+        {
+          "reason": "identity_unconfirmed",
+          "places": 2
+        },
+        {
+          "reason": "access_conditions_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "address_missing",
+          "places": 1
+        },
+        {
+          "reason": "address_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "branch_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "closed_on_visit_date",
+          "places": 1
+        },
+        {
+          "reason": "entry_time_reservation_required",
+          "places": 1
+        },
+        {
+          "reason": "event_access_required",
+          "places": 1
+        },
+        {
+          "reason": "google_maps_temporarily_closed",
+          "places": 1
+        },
+        {
+          "reason": "public_viewpoint_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "reservation_required",
+          "places": 1
+        },
+        {
+          "reason": "seasonal_event_date_confirmation_required",
+          "places": 1
+        },
+        {
+          "reason": "visit_confirmation_required",
+          "places": 1
+        }
+      ]
+    },
+    {
+      "category": "문화",
+      "collected": 25,
+      "passed_individual_model": 11,
+      "held": 14,
+      "promotion_complete": 0,
+      "address_missing": 0,
+      "hours_missing": 4,
+      "covered_unknown": 11,
+      "passed_ids": [
+        "osaka_009",
+        "osaka_010",
+        "osaka_011",
+        "osaka_012",
+        "osaka_014",
+        "osaka_draft_1cbe7e7894c8",
+        "osaka_draft_6dbd8bbe7f48",
+        "osaka_draft_ce3b8d452a0e",
+        "osaka_draft_7675eb0bab46",
+        "osaka_draft_d7da3fdbeaf6",
+        "osaka_draft_04b34bc4e6e2"
+      ],
+      "held_ids": [
+        "osaka_013",
+        "osaka_draft_7c98da5a96f9",
+        "osaka_draft_50b7a6cc608f",
+        "osaka_draft_c99cbfbd0f92",
+        "osaka_draft_316598fb77c9",
+        "osaka_draft_2780be08a88e",
+        "osaka_draft_40d8be797d5b",
+        "osaka_draft_6eda07803129",
+        "osaka_draft_43502b1cfa97",
+        "osaka_draft_9cd21dc062f7",
+        "osaka_draft_70d399cfaea8",
+        "osaka_draft_07d2c797a410",
+        "osaka_draft_006a0c207d8c",
+        "osaka_draft_718edcaf3985"
+      ],
+      "blockers": [
+        {
+          "reason": "structured_date_profile_missing",
+          "places": 12
+        },
+        {
+          "reason": "cost_unknown_or_not_applicable",
+          "places": 11
+        },
+        {
+          "reason": "opening_hours_missing",
+          "places": 4
+        },
+        {
+          "reason": "closed_on_visit_date",
+          "places": 2
+        },
+        {
+          "reason": "temporary_closure",
+          "places": 2
+        },
+        {
+          "reason": "access_conditions_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "entry_time_reservation_required",
+          "places": 1
+        },
+        {
+          "reason": "exhibition_schedule_required",
+          "places": 1
+        },
+        {
+          "reason": "gallery_exhibitions_suspended",
+          "places": 1
+        },
+        {
+          "reason": "google_maps_permanently_closed",
+          "places": 1
+        },
+        {
+          "reason": "identity_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "operating_status_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "reservation_or_exhibition_required",
+          "places": 1
+        },
+        {
+          "reason": "reservation_required",
+          "places": 1
+        },
+        {
+          "reason": "visit_confirmation_required",
+          "places": 1
+        },
+        {
+          "reason": "website_mismatch",
+          "places": 1
+        },
+        {
+          "reason": "worship_attendance_required",
+          "places": 1
+        }
+      ]
+    },
+    {
+      "category": "자연",
+      "collected": 20,
+      "passed_individual_model": 9,
+      "held": 11,
+      "promotion_complete": 0,
+      "address_missing": 0,
+      "hours_missing": 3,
+      "covered_unknown": 8,
+      "passed_ids": [
+        "osaka_015",
+        "osaka_017",
+        "osaka_018",
+        "osaka_019",
+        "osaka_draft_1289b4aecc32",
+        "osaka_draft_c62644984874",
+        "osaka_draft_9e900589aec0",
+        "osaka_draft_5f8dd9212a0c",
+        "osaka_draft_2fc0df9e9f8d"
+      ],
+      "held_ids": [
+        "osaka_016",
+        "osaka_draft_f72944194ef3",
+        "osaka_draft_a66fcd05acfb",
+        "osaka_draft_03cde684bd96",
+        "osaka_draft_e102a263e5a8",
+        "osaka_draft_c6de5620d3d0",
+        "osaka_draft_0cf4fe2e0afe",
+        "osaka_draft_2941efc9ac2d",
+        "osaka_draft_f852e8e07cf8",
+        "osaka_draft_0adb7945fbda",
+        "osaka_draft_cff5e2720c53"
+      ],
+      "blockers": [
+        {
+          "reason": "cost_unknown_or_not_applicable",
+          "places": 11
+        },
+        {
+          "reason": "structured_date_profile_missing",
+          "places": 11
+        },
+        {
+          "reason": "opening_hours_missing",
+          "places": 3
+        },
+        {
+          "reason": "city_boundary_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "hours_conflict",
+          "places": 1
+        },
+        {
+          "reason": "outside_osaka_city",
+          "places": 1
+        },
+        {
+          "reason": "parent_facility_address",
+          "places": 1
+        }
+      ]
+    },
+    {
+      "category": "쇼핑",
+      "collected": 26,
+      "passed_individual_model": 17,
+      "held": 9,
+      "promotion_complete": 0,
+      "address_missing": 1,
+      "hours_missing": 3,
+      "covered_unknown": 8,
+      "passed_ids": [
+        "osaka_020",
+        "osaka_021",
+        "osaka_022",
+        "osaka_023",
+        "osaka_024",
+        "osaka_draft_5a243c3857f7",
+        "osaka_draft_16f1d28c8bfd",
+        "osaka_draft_1b3533415b94",
+        "osaka_draft_4fb99b053e8b",
+        "osaka_draft_e51bbe99124a",
+        "osaka_draft_02288187c550",
+        "osaka_draft_11050de606b0",
+        "osaka_draft_daa353940c61",
+        "osaka_draft_dc3ec67cb8d1",
+        "osaka_draft_fc7acd992f21",
+        "osaka_draft_b6b6dae05ce5",
+        "osaka_draft_f1ba0aa6ab58"
+      ],
+      "held_ids": [
+        "osaka_draft_b1eae8a8935b",
+        "osaka_draft_2b9dd68b687a",
+        "osaka_draft_fa65b053e525",
+        "osaka_draft_31878d4960fc",
+        "osaka_draft_391fae83b26c",
+        "osaka_draft_a8c6b6985943",
+        "osaka_draft_481d9742f9c2",
+        "osaka_draft_c85fa26beb80",
+        "osm_way_151816175"
+      ],
+      "blockers": [
+        {
+          "reason": "structured_date_profile_missing",
+          "places": 7
+        },
+        {
+          "reason": "opening_hours_missing",
+          "places": 3
+        },
+        {
+          "reason": "visit_confirmation_required",
+          "places": 2
+        },
+        {
+          "reason": "address_missing",
+          "places": 1
+        },
+        {
+          "reason": "address_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "category_mismatch",
+          "places": 1
+        },
+        {
+          "reason": "date_specific_hours_required",
+          "places": 1
+        },
+        {
+          "reason": "google_maps_permanently_closed",
+          "places": 1
+        },
+        {
+          "reason": "location_history_conflict",
+          "places": 1
+        },
+        {
+          "reason": "operating_status_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "tenant_scope_required",
+          "places": 1
+        }
+      ]
+    },
+    {
+      "category": "카페",
+      "collected": 25,
+      "passed_individual_model": 1,
+      "held": 24,
+      "promotion_complete": 0,
+      "address_missing": 0,
+      "hours_missing": 2,
+      "covered_unknown": 20,
+      "passed_ids": [
+        "osaka_draft_96e588e49f58"
+      ],
+      "held_ids": [
+        "osm_node_2296903605",
+        "osm_node_9875632529",
+        "osaka_draft_35640888fa49",
+        "osaka_draft_f22cfa23d646",
+        "osaka_draft_b0a5c9b0d460",
+        "osaka_draft_5a3ef73c2b4b",
+        "osaka_draft_3b8f7684482e",
+        "osaka_draft_e3ac280c1575",
+        "osaka_draft_9342479ef7d7",
+        "osaka_draft_243b34cd6761",
+        "osaka_draft_eda93d07ee2b",
+        "osaka_draft_d52fee5c2304",
+        "osaka_draft_11ceb1687dfa",
+        "osaka_draft_2f4886b3a5b6",
+        "osaka_draft_cdb260bb106a",
+        "osaka_draft_4af3a5a14578",
+        "osaka_draft_e5eb4dd70807",
+        "osaka_draft_af11af018972",
+        "osaka_draft_19894ad0a123",
+        "osaka_draft_c4a30f2620d0",
+        "osaka_draft_32974d974e62",
+        "osaka_draft_57eaac2e578d",
+        "osaka_draft_74dbaeea6a02",
+        "osm_node_6189996345"
+      ],
+      "blockers": [
+        {
+          "reason": "cost_unknown_or_not_applicable",
+          "places": 21
+        },
+        {
+          "reason": "structured_date_profile_missing",
+          "places": 19
+        },
+        {
+          "reason": "branch_unconfirmed",
+          "places": 4
+        },
+        {
+          "reason": "google_maps_permanently_closed",
+          "places": 4
+        },
+        {
+          "reason": "hours_conflict",
+          "places": 2
+        },
+        {
+          "reason": "opening_hours_missing",
+          "places": 2
+        },
+        {
+          "reason": "visit_confirmation_required",
+          "places": 2
+        },
+        {
+          "reason": "outside_osaka_city",
+          "places": 1
+        },
+        {
+          "reason": "website_mismatch",
+          "places": 1
+        }
+      ]
+    },
+    {
+      "category": "식사",
+      "collected": 35,
+      "passed_individual_model": 11,
+      "held": 24,
+      "promotion_complete": 0,
+      "address_missing": 0,
+      "hours_missing": 1,
+      "covered_unknown": 24,
+      "passed_ids": [
+        "osaka_025",
+        "osaka_026",
+        "osaka_028",
+        "osaka_draft_873f1e0cf834",
+        "osaka_draft_2f89be830b8c",
+        "osaka_draft_5f45ffb4d766",
+        "osaka_draft_23d3d20ef739",
+        "osaka_draft_a9bc74861e3f",
+        "osaka_draft_d0e6cdcb566f",
+        "osaka_draft_2eb759c40909",
+        "osaka_draft_26a5e809355e"
+      ],
+      "held_ids": [
+        "osaka_draft_f729469c78c5",
+        "osaka_draft_94d63b518da4",
+        "osaka_draft_77f869ee706f",
+        "osaka_draft_ff20bd4cf6b7",
+        "osaka_draft_89de388fac63",
+        "osaka_draft_c341bbd2440a",
+        "osaka_draft_d580756db04a",
+        "osaka_draft_f8831852f028",
+        "osaka_draft_98a4211ed755",
+        "osaka_draft_7d6ecfb032b6",
+        "osaka_draft_3b1acd991668",
+        "osaka_draft_1875c31c058c",
+        "osaka_draft_3d97f36846d0",
+        "osaka_draft_1cdebcaa6534",
+        "osaka_draft_20aa5444aadd",
+        "osaka_draft_7eda017e1ded",
+        "osaka_draft_3c015925bf31",
+        "osaka_draft_6789f7f9c22f",
+        "osaka_draft_89458a1abeda",
+        "osaka_draft_8cb9705b2793",
+        "osaka_draft_d996a4118ab0",
+        "osaka_draft_2a9b88c21411",
+        "osaka_draft_5fa8876a4657",
+        "osm_node_2546559085"
+      ],
+      "blockers": [
+        {
+          "reason": "structured_date_profile_missing",
+          "places": 20
+        },
+        {
+          "reason": "cost_unknown_or_not_applicable",
+          "places": 19
+        },
+        {
+          "reason": "visit_confirmation_required",
+          "places": 3
+        },
+        {
+          "reason": "closed_on_visit_date",
+          "places": 2
+        },
+        {
+          "reason": "google_maps_permanently_closed",
+          "places": 2
+        },
+        {
+          "reason": "reservation_required",
+          "places": 2
+        },
+        {
+          "reason": "address_conflict",
+          "places": 1
+        },
+        {
+          "reason": "address_location_conflict",
+          "places": 1
+        },
+        {
+          "reason": "branch_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "entry_time_reservation_required",
+          "places": 1
+        },
+        {
+          "reason": "meal_scenario_required",
+          "places": 1
+        },
+        {
+          "reason": "opening_hours_missing",
+          "places": 1
+        },
+        {
+          "reason": "permanently_closed",
+          "places": 1
+        },
+        {
+          "reason": "physical_store_unconfirmed",
+          "places": 1
+        },
+        {
+          "reason": "price_conflict",
+          "places": 1
+        },
+        {
+          "reason": "price_not_applicable_on_visit_date",
+          "places": 1
+        }
+      ]
+    }
+  ],
+  "policy": "검증 가능한 장소 우선. 카테고리별 의무 비율은 합의되지 않았으며 통과 수를 늘리기 위해 사실을 추정하지 않는다.",
+  "interpretation": "단독 모델 통과는 표시한 날짜 중 최소 하루의 합성 조건 통과다. 전체 일정 배치·현장 검증·실서비스 승격과 다르다. covered 미확인은 비 대응에 사용할 수 없다.",
+  "suggested_research_order": [
+    "카페",
+    "명소",
+    "자연",
+    "식사",
+    "문화",
+    "쇼핑"
+  ]
+}

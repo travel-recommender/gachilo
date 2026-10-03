@@ -9,14 +9,14 @@
     "2026-10-06",
     "2026-10-07"
   ],
-  "source_sha256": "0ed60d507cb36d5a30ee04eb1ac8bf217317ec879fcffe0a7304b322c8d635c5",
-  "profiles_sha256": "1977ed517e6252f64cc483ce9818e4dfb28d1926309c2b03a17beb0143f64733",
+  "source_sha256": "914f750d8e42b19153e51834b2a75e7ac178991cb7e2304c578dea53961d6c9a",
+  "profiles_sha256": "6844c18e59278c01d3a706e204ea0c58384df39e841fc02bd57809b90182aa96",
   "summary": {
     "records": 150,
-    "individual_passed": 45,
-    "needs_followup": 105,
+    "individual_passed": 52,
+    "needs_followup": 98,
     "address_missing": 2,
-    "hours_missing": 16
+    "hours_missing": 17
   },
   "places": [
     {
@@ -77,17 +77,23 @@
       "place_id": "osaka_003",
       "name_ko": "신세카이",
       "category": "명소",
-      "passed_individual_model": false,
-      "eligible_dates": [],
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
+      ],
       "remaining_null_fields": [
         "cost",
         "covered"
       ],
-      "reasons": [
-        "structured_date_profile_missing"
-      ],
+      "reasons": [],
       "next_actions": [
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -730,26 +736,27 @@
     },
     {
       "place_id": "osaka_025",
-      "name_ko": "카니도라쿠",
+      "name_ko": "카니도라쿠 도톤보리 본점",
       "category": "식사",
-      "passed_individual_model": false,
-      "eligible_dates": [],
-      "remaining_null_fields": [
-        "cost",
-        "covered",
-        "opening_hours_source"
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
       ],
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
-      ],
+      "remaining_null_fields": [],
+      "reasons": [],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
-        "https://douraku.co.jp/",
+        "https://douraku.co.jp/kansai/honten/",
+        "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3",
         "https://www.openstreetmap.org/node/1671341600",
         "https://douraku.co.jp/company/network.html",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -759,16 +766,22 @@
     },
     {
       "place_id": "osaka_026",
-      "name_ko": "이치란 도톤보리점",
+      "name_ko": "이치란 도톤보리 별관",
       "category": "식사",
-      "passed_individual_model": false,
-      "eligible_dates": [],
-      "remaining_null_fields": [],
-      "reasons": [
-        "structured_date_profile_missing"
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
       ],
+      "remaining_null_fields": [],
+      "reasons": [],
       "next_actions": [
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -1276,8 +1289,7 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
         "cost_unknown_or_not_applicable",
@@ -1289,6 +1301,8 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.artcourtgallery.com/access/",
+        "https://www.artcourtgallery.com/exhibitions/17306/",
         "https://www.artcourtgallery.com/eng/access/",
         "https://www.artcourtgallery.com/",
         "https://www.openstreetmap.org/node/12270061636",
@@ -2305,19 +2319,27 @@
       "place_id": "osaka_draft_e51bbe99124a",
       "name_ko": "아르데 신오사카",
       "category": "쇼핑",
-      "passed_individual_model": false,
-      "eligible_dates": [],
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
+      ],
       "remaining_null_fields": [
         "cost"
       ],
-      "reasons": [
-        "structured_date_profile_missing"
-      ],
+      "reasons": [],
       "next_actions": [
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.arde-shinosaka.jp/access",
+        "https://www.arde-shinosaka.jp/shopguide?category%5B0%5D=1",
         "https://osaka-info.jp/spot/arudeshinosaka/",
         "https://www.arde-shinosaka.jp/",
         "https://www.openstreetmap.org/node/13030991952",
@@ -2882,6 +2904,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
+        "https://bluebottlecoffee.co.jp/menu/jp/umeda.html",
         "https://www.openstreetmap.org/node/7144593677",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -3158,9 +3181,12 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
+        "opening_hours",
         "cost"
       ],
       "reasons": [
+        "hours_conflict",
+        "opening_hours_missing",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -3168,10 +3194,11 @@
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
-      "missing_address_hours_note": null,
+      "missing_address_hours_note": "2026-10-01: 공식 about 페이지 월~토17~23/일휴무와 현재 홈페이지 수~월18~22 안내가 충돌. 공식 공연표에는 일요일 공연과2026-10-01임시휴무도 있어 기존 일반시간을 확정값으로 유지하지 않음. 회차별 뮤직차지도 미확인.",
       "evidence_urls": [
-        "https://www.subjazzcafe.com/our-shops",
         "https://www.subjazzcafe.com/",
+        "https://www.subjazzcafe.com/our-shops",
+        "https://www.subjazzcafe.com/music-calendar",
         "https://www.openstreetmap.org/node/11942324370",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -3593,22 +3620,24 @@
       "place_id": "osaka_draft_5f45ffb4d766",
       "name_ko": "센트럼",
       "category": "식사",
-      "passed_individual_model": false,
-      "eligible_dates": [],
-      "remaining_null_fields": [
-        "cost",
-        "covered"
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-07"
       ],
+      "remaining_null_fields": [],
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "price_not_applicable_on_visit_date",
+        "closed_on_visit_date"
       ],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+        "https://osaka.hiltonjapan.co.jp/restaurants/centrum/",
         "https://osaka.hiltonjapan.co.jp/restaurants/centrum",
         "https://www.openstreetmap.org/node/12989500937",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -3697,6 +3726,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.mercy-vegan.jp/restaurants/",
         "https://shop.mercy-vegan.jp/",
         "https://www.openstreetmap.org/node/10259462714",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -3708,16 +3738,23 @@
       "place_id": "osaka_draft_a9bc74861e3f",
       "name_ko": "몬톰웍스 엠티 카페 앤 디자인 뎁트",
       "category": "식사",
-      "passed_individual_model": false,
-      "eligible_dates": [],
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06"
+      ],
       "remaining_null_fields": [
         "covered"
       ],
       "reasons": [
-        "structured_date_profile_missing"
+        "closed_on_visit_date"
       ],
       "next_actions": [
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3734,20 +3771,20 @@
       "category": "식사",
       "passed_individual_model": false,
       "eligible_dates": [],
-      "remaining_null_fields": [
-        "cost",
-        "covered"
-      ],
+      "remaining_null_fields": [],
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "visit_confirmation_required",
+        "price_not_applicable_on_visit_date"
       ],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문 날짜에 맞는 예약·입장/전시·메뉴 조건과 일반 이용 가능 여부를 확인",
+        "휴관/가격 적용 범위를 벗어나지 않는 방문일을 선택"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+        "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+        "https://shin-medaka.com/access/",
         "https://shin-medaka.com/",
         "https://www.openstreetmap.org/node/5864532121",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -3843,21 +3880,24 @@
       "place_id": "osaka_draft_d0e6cdcb566f",
       "name_ko": "알바르",
       "category": "식사",
-      "passed_individual_model": false,
-      "eligible_dates": [],
-      "remaining_null_fields": [
-        "cost"
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
       ],
-      "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
-      ],
+      "remaining_null_fields": [],
+      "reasons": [],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://albar-awaji.owst.jp/lunches",
         "https://albar-awaji.owst.jp/",
         "https://www.openstreetmap.org/node/3074543734",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -3978,6 +4018,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.endo-sushi.com/12513124911251712540.html",
         "https://www.endo-sushi.com/1243312435123931235812395123881235612390.html",
         "https://www.endo-sushi.com/",
         "https://www.openstreetmap.org/node/4424700690",
@@ -4108,20 +4149,19 @@
       "category": "식사",
       "passed_individual_model": false,
       "eligible_dates": [],
-      "remaining_null_fields": [
-        "cost"
-      ],
+      "remaining_null_fields": [],
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "visit_confirmation_required",
+        "closed_on_visit_date"
       ],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문 날짜에 맞는 예약·입장/전시·메뉴 조건과 일반 이용 가능 여부를 확인",
+        "휴관/가격 적용 범위를 벗어나지 않는 방문일을 선택"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.funaya.co.jp",
+        "https://www.funaya.co.jp/menu/",
         "https://www.funaya.co.jp/",
         "https://www.openstreetmap.org/node/6656921489",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -4169,9 +4209,7 @@
         "2026-10-06",
         "2026-10-07"
       ],
-      "remaining_null_fields": [
-        "covered"
-      ],
+      "remaining_null_fields": [],
       "reasons": [
         "closed_on_visit_date"
       ],
@@ -4181,6 +4219,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://cherryjam.owst.jp/",
+        "https://cherryjam.owst.jp/seats",
         "https://www.openstreetmap.org/node/12997440993",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
