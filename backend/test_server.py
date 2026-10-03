@@ -2,6 +2,13 @@ import concurrent.futures,json,tempfile,threading,unittest,urllib.request,urllib
 from pathlib import Path
 from server import make_server,Store
 class ApiTests(unittest.TestCase):
+ def test_planning_reason_module_is_served_to_the_result_screen(self):
+  with urllib.request.urlopen(self.base+'/app.js') as response:
+   self.assertIn("from '/planning-reasons.mjs'",response.read().decode())
+  with urllib.request.urlopen(self.base+'/planning-reasons.mjs') as response:
+   self.assertEqual(response.status,200)
+   self.assertEqual(response.headers.get_content_type(),'text/javascript')
+   self.assertIn('export function planningReasonLines',response.read().decode())
  def test_real_catalog_has_explicit_units_and_stays_separate(self):
   from unittest.mock import patch
   with patch.dict('os.environ',{'JPY_TO_KRW':'9.5'}):

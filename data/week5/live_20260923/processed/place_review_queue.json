@@ -3,8 +3,8 @@
   "statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 798,
-    "non_null_fields_updated": 73,
+    "null_fields_filled": 852,
+    "non_null_fields_updated": 120,
     "missing_before": {
       "place_id": 0,
       "name": 0,
@@ -32,16 +32,16 @@
       "address": 2,
       "latitude": 0,
       "longitude": 0,
-      "opening_hours": 18,
-      "cost": 114,
+      "opening_hours": 17,
+      "cost": 100,
       "stay_min": 0,
       "bag_load": 0,
-      "covered": 116,
-      "website": 11,
-      "opening_hours_source": 52,
-      "verified_at": 25
+      "covered": 88,
+      "website": 10,
+      "opening_hours_source": 43,
+      "verified_at": 24
     },
-    "records_with_blockers": 44,
+    "records_with_blockers": 46,
     "official_null_fields_filled_before_localization": 316,
     "editorial_korean_names_filled": 110,
     "map_addresses_added": 31
@@ -55,13 +55,17 @@
       "opening_hours": "점등: 일몰 후~24:00 (상황에 따라 단축 가능; 관람 가능 시간과 별개)",
       "address_status": "verified",
       "hours_status": "verified",
-      "blockers": [],
+      "blockers": [
+        "public_viewpoint_unconfirmed"
+      ],
       "notes": [
         "간판 건물의 좌표이며 실제 관람 지점/입구가 아님. 공공 보행 공간의 관람 지점 좌표는 별도 확인 필요. 점등시간을 24시간 영업으로 변환하지 않음.",
-        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+        "간판 건물의 OSM access=no 좌표를 공공 보행 관람 지점으로 쓰지 않음. 점등시간과 일반 출입시간은 별개. 관람 지점 확인 전 제외."
       ],
       "source_urls": [
-        "https://www.glico.com/jp/health/contents/glicosign/"
+        "https://www.glico.com/jp/health/contents/glicosign/",
+        "https://www.openstreetmap.org/node/3507545614"
       ],
       "missing_fields": [
         "cost",
@@ -105,7 +109,8 @@
       "notes": [
         "지역 명소. 단일 시설 주소·영업시간의 적용 범위 확인 필요.",
         "신세카이 지역 주소. 특정 상점의 번지나 영업시간을 지역 전체에 적용하지 않음.",
-        "2026-09-30: 신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음."
+        "2026-09-30: 신세카이 지역 Google Maps 7일 모두 24시간 표시. 점포·쓰텐카쿠의 운영시간으로 사용하지 않음.",
+        "2026-10-01: 이미 확인한 거리 통행공간24시간만 정규화. 개별 점포·전망대·음식점 영업과 입장료를 포함하지 않음. 상점가 개인 구매비는 팀 규칙에 따라 null/비산정."
       ],
       "source_urls": [
         "https://osaka-info.jp/special/dc/event/detail701/",
@@ -258,23 +263,24 @@
       "name": "大阪天満宮",
       "name_ko": "오사카 텐만구",
       "address": "大阪市北区天神橋2丁目1番8号",
-      "opening_hours": null,
+      "opening_hours": "관광국 참배 안내 09:00–17:00, 연중무휴; 별도 개문 안내 05:30–18:30(계절·행사 시 재확인)",
       "address_status": "verified",
       "hours_status": "missing",
       "blockers": [],
       "notes": [
         "오사카 관광국의 일반 참배 무료 안내. 유료 기도·결혼식 제외. 과거 여름 개문 공지를 연중 시간으로 적용하지 않음.",
-        "2026-09-30: 공식 2022년 여름 개문 시간 공지는 현재 연중 시간으로 적용하지 않음. 지도 17시 표시는 수여소와 경내 개방 구분이 필요하여 영업시간 null 유지."
+        "2026-09-30: 공식 2022년 여름 개문 시간 공지는 현재 연중 시간으로 적용하지 않음. 지도 17시 표시는 수여소와 경내 개방 구분이 필요하여 영업시간 null 유지.",
+        "2026-09-30 일정 규칙 보완: 관광국 2026년 안내의 참배 09~17시와 별도 시설 소개의 개문 05:30~18:30을 구분. 일정은 두 안내에 공통으로 포함되는 09~17시 경내 참배만 사용; 기도·행사·물품 제외."
       ],
       "source_urls": [
         "https://osaka-info.jp/experience/ja/osaka/spot/261",
         "https://osakatemmangu.or.jp/",
-        "https://osakatemmangu.or.jp/1332"
+        "https://osakatemmangu.or.jp/1332",
+        "https://discover.osaka-info.jp/jp/articles/tenjin-matsuri-festivals",
+        "https://osaka-info.jp/special/dc/event/detail369/"
       ],
       "missing_fields": [
-        "opening_hours",
-        "covered",
-        "opening_hours_source"
+        "covered"
       ],
       "schedule_ready": false
     },
@@ -330,13 +336,15 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 나카노시마 미술관 4·5F 전시실의 실내 관람. 2F 옥외 잔디광장 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://nakka-art.jp/ko/visit-ko/info-ko/"
+        "https://nakka-art.jp/ko/visit-ko/info-ko/",
+        "https://nakka-art.jp/ko/visit-ko/facility/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -472,7 +480,8 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 10:00–24:00은 정원 시간과 혼동 위험. 정원은 별도 장소."
+        "기존 10:00–24:00은 정원 시간과 혼동 위험. 정원은 별도 장소.",
+        "2026-10-01 보류: 난바 파크스는 판매장과 주요 옥상 공원이 혼합됨. 방문 범위 확정 전 일괄 true 보류."
       ],
       "source_urls": [
         "https://nambaparks.com/facilities"
@@ -494,15 +503,16 @@
       "blockers": [],
       "notes": [
         "점포 주소 확인. 주차장 운영시간은 판매장 영업시간에 사용하지 않음.",
-        "일반 판매장 기준. 레스토랑·스타벅스 등의 시간과 다름."
+        "일반 판매장 기준. 레스토랑·스타벅스 등의 시간과 다름.",
+        "2026-10-01: 오사카점 6F 매장·7~9F 식당 안내. 실내 판매장 방문 범위. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://www.takashimaya.co.jp/osaka/access/index.html",
-        "https://www.takashimaya.co.jp/osaka/businesshours/"
+        "https://www.takashimaya.co.jp/osaka/businesshours/",
+        "https://www.takashimaya.co.jp/osaka/baby_kids/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -517,14 +527,15 @@
       "blockers": [],
       "notes": [
         "본관 대상. 쇼핑 구매액을 0으로 추정하지 않음. OSM 건물 객체의 주소와 운영 객체의 주소가 달라 공식 주소 우선.",
-        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+        "2026-10-01: 신사이바시점 B2~10F 층별 판매장. 외부·테라스 방문은 범위 밖. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://www.daimaru.co.jp/shinsaibashi/hours.html"
+        "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+        "https://www.daimaru.co.jp/shinsaibashi/floor/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -537,13 +548,15 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 우메다 본점 B2~9F 실내 판매장. 남측 테라스 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://www.hanshin-dept.jp/hshonten/index.html"
+        "https://www.hanshin-dept.jp/hshonten/index.html",
+        "https://www.hanshin-dept.jp/hshonten/floor/index.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -557,14 +570,15 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 1-7-1 주소를 공식 PARCO 주소로 정정."
+        "기존 1-7-1 주소를 공식 PARCO 주소로 정정.",
+        "2026-10-01: 신사이바시 PARCO B2~14F 실내 매장. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://shinsaibashi.parco.jp/info/"
+        "https://shinsaibashi.parco.jp/info/",
+        "https://shinsaibashi.parco.jp/floor/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -579,16 +593,21 @@
       "blockers": [],
       "notes": [
         "카니도라쿠 본점 전용 안내 확인 필요. 브랜드 공통정보 복사하지 않음.",
-        "공식 사업장 목록의 도톤보리 본점. 기존 OSM branch=道頓堀本店과 대조. 본부·중점·동점 주소와 구분."
+        "공식 사업장 목록의 도톤보리 본점. 기존 OSM branch=道頓堀本店과 대조. 본부·중점·동점 주소와 구분.",
+        "2026-10-01: 도톤보리1-6-18 본점과 원본 주소 일치. 다른 지점 가격을 혼합하지 않음.",
+        "2026-10-01: 체인 공통 홈페이지를 해당 본점 공식 안내로 구체화.",
+        "2026-10-01: 도톤보리 본점 점심 코스 호시(ほし)1인3740 JPY 세금 포함. 오후16시까지 점심 메뉴. 제3자 제안값을 본점 공식 메뉴로 재확인했으며 저녁/추가 주문에는 적용하지 않음.",
+        "2026-10-01: 본점의 영업·최종입장·연말휴무와 점심 가격 시간 범위를 구분.",
+        "2026-10-01: 본점 공식 영업 안내 출처.",
+        "2026-10-01: 본점1~7층,300석·개인실11개 등 실내 식사 공간. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
+        "2026-10-01: 점심 호시1인3740 JPY 세금 포함,11~16시 안에 식사 완료. 정규영업23시까지라는 정보를 점심 가격에 적용하지 않음. 12/31휴무는 현재검토기간 밖."
       ],
       "source_urls": [
-        "https://douraku.co.jp/company/network.html"
+        "https://douraku.co.jp/company/network.html",
+        "https://douraku.co.jp/kansai/honten/",
+        "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
       ],
-      "missing_fields": [
-        "cost",
-        "covered",
-        "opening_hours_source"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -602,15 +621,16 @@
       "blockers": [],
       "notes": [
         "도톤보리 별관. 영업 종료된 본관과 구분.",
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "2026-10-01: 도톤보리 별관의 카운터 30석·테이블 52석 안내. 외부 대기줄 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-01: 도톤보리 별관 천연 돈코츠 라멘 1그릇 1,180 JPY. 추가 주문 제외. 22:00~06:00 심야 할증에는 적용하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
+        "2026-10-01: 도톤보리 1-4-16 별관. 폐업한 도톤보리 본관 및 다른 지점과 구분.",
+        "2026-10-01: 별관 천연 돈코츠 라멘 1그릇 1180 JPY. 22~06시 심야 할증을 피하고 카운터·테이블 공통 이용 가능 시간 중 08~22시에 체류 전체를 제한. 추가 주문 제외."
       ],
       "source_urls": [
         "https://ichiran.com/shop/kinki/dotonbori-south/"
       ],
-      "missing_fields": [
-        "cost",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -646,14 +666,14 @@
       "blockers": [],
       "notes": [
         "사용자 지정 지점으로 150개 목록에 편입. 기존 지점 ID는 재사용하지 않음.",
-        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+        "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+        "2026-10-01: 센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -791,7 +811,7 @@
       "name": "ワケ橋",
       "name_ko": "와케 다리",
       "address": "1 Chausuyamacho, Tennoji Ward, Osaka, 543-0063 일본",
-      "opening_hours": null,
+      "opening_hours": "차우스야마 공원 구역 07:00–22:00, 연중무휴; 다리 통제·공사 별도 확인",
       "address_status": "verified",
       "hours_status": "missing",
       "blockers": [
@@ -799,18 +819,15 @@
       ],
       "notes": [
         "ワケ橋와 和気橋 명칭 대조 및 정확한 지점 확인 필요.",
-        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.9m. 주소만 확인했으며 영업시간 검증 아님."
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.9m. 주소만 확인했으며 영업시간 검증 아님.",
+        "2026-09-30: 오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존."
       ],
       "source_urls": [
-        "https://maps.google.com/?cid=4275703018452935561"
+        "https://maps.google.com/?cid=4275703018452935561",
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
       ],
       "missing_fields": [
-        "opening_hours",
-        "cost",
-        "covered",
-        "website",
-        "opening_hours_source",
-        "verified_at"
+        "covered"
       ],
       "schedule_ready": false
     },
@@ -879,14 +896,18 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "2026-09-30 일정 규칙 보완: 공식 안내는 향 판매점인데 수집 카테고리는 명소. 쇼핑으로 분류·체류시간·짐 규칙을 함께 정정하기 전 자동 배치 보류.",
+        "공식 오사카 혼마치점의 향 판매점 안내에 따라 명소→쇼핑으로 분류 정정. 원본 OSM 태그·ID·좌표는 보존.",
+        "사용자 합의 단순 쇼핑 15~30분 상한 30분, get_luggage_score 쇼핑=2 적용. 실측 소요시간/무게 아님.",
+        "2026-10-01: 오사카 혼마치점 1층 매장 내부 설명. 거리 전체가 아닌 점포 내부. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://www.shoyeido.co.jp/shop-info/osaka.html"
+        "https://www.shoyeido.co.jp/shop-info/osaka.html",
+        "https://github.com/travel-recommender/gachilo/issues/1"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -949,15 +970,16 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "체험 예약과 참가 조건은 별도 확인."
+        "체험 예약과 참가 조건은 별도 확인.",
+        "2026-10-01: 공공 도로를 주행하는 야외 카트 투어 기준.",
+        "2026-10-01: 1인 1시간 코스, 16시 이전 주간 요금 7,000 JPY(세금 포함). 16시 이후 8,000 JPY와 구분. 예약·유효 면허·참가 조건 확인 필요. 팀 체류시간 120분을 1시간 상품으로 오인하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
       ],
       "source_urls": [
-        "https://osakakart.com/en/access/"
+        "https://osakakart.com/en/access/",
+        "https://osakakart.com/en/",
+        "https://osakakart.com/en/course-osaka/"
       ],
-      "missing_fields": [
-        "cost",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -965,7 +987,7 @@
       "name": "大阪くらしの今昔館",
       "name_ko": "오사카 주택박물관",
       "address": "大阪市北区天神橋6丁目4-20 住まい情報センタービル8階",
-      "opening_hours": "We-Mo 10:00-17:00",
+      "opening_hours": "2026-09-01~2027-01-05 휴관(대규모 보수공사); 재개관 이후 시간은 별도 확인",
       "address_status": "verified",
       "hours_status": "regular_hours_not_currently_usable",
       "blockers": [
@@ -973,15 +995,15 @@
       ],
       "notes": [
         "2026-09-01부터 2027-01-05까지 휴관. 기존 정규 운영시간으로 방문 가능 판단 금지.",
-        "성인 개인 일반 관람료 600엔, 실내 전시장 기준. 기존 임시휴관 경고는 유지하며 방문일 운영 여부 별도 확인. 특별전·유료 짐 보관료 제외."
+        "성인 개인 일반 관람료 600엔, 실내 전시장 기준. 기존 임시휴관 경고는 유지하며 방문일 운영 여부 별도 확인. 특별전·유료 짐 보관료 제외.",
+        "공식 장기 휴관 기간 확정. 시청의 대체 전시를 기존 박물관 좌표에서 운영하는 것으로 처리하지 않음."
       ],
       "source_urls": [
         "https://www.osaka-angenet.jp/konjyakukan/",
-        "https://www.osaka-angenet.jp/konjyakukan/faq"
+        "https://www.osaka-angenet.jp/konjyakukan/faq",
+        "https://www.osaka-angenet.jp/konjyakukan/exhibition_special/260001514"
       ],
-      "missing_fields": [
-        "opening_hours_source"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -1032,13 +1054,17 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: OAP아트코트1F의 갤러리 실내 전시 관람 범위. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
+        "2026-10-01: Autumn Show 2026 전시9/24~10/17,일·월·공휴일 휴관 안내를 확인. 공식 입장료 공개 근거는 찾지 못했으며 날짜의 요일 표기 불일치도 있어 자동 투입은 계속 보류."
+      ],
       "source_urls": [
-        "https://www.artcourtgallery.com/eng/access/"
+        "https://www.artcourtgallery.com/eng/access/",
+        "https://www.artcourtgallery.com/access/",
+        "https://www.artcourtgallery.com/exhibitions/17306/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1053,7 +1079,8 @@
       "blockers": [],
       "notes": [
         "공식 상세 관람 안내 추가 확인 필요.",
-        "성인 일반 관람료 JPY. 실내 미술관; 판화 체험 별도."
+        "성인 일반 관람료 JPY. 실내 미술관; 판화 체험 별도.",
+        "2026-09-30 일정 규칙 보완: 성인 일반 관람 700 JPY; 판화 체험 제외. 월요일 휴관, 공휴일이면 다음날."
       ],
       "source_urls": [
         "https://osaka-info.jp/special/coolosaka/cool-spot/1186/"
@@ -1066,20 +1093,20 @@
       "name": "国立国際美術館",
       "name_ko": "국립국제미술관",
       "address": "大阪府大阪市北区中之島4-2-55",
-      "opening_hours": "Sa-Su 10:00-17:00,Tu-Th 10:00-19:00,Fr 10:00-19:00",
+      "opening_hours": "2026-07-19~11-03 컬렉션1: 10:00~17:00, 금요일 20:00까지(입장 30분 전); 월요일 휴관, 10/12·11/2 개관, 10/13 휴관",
       "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "일반 컬렉션전 1인 요금 JPY. 특별전 1800엔과 구분; 전시별 비용 재확인 필요. 실내 전시실 기준."
+        "일반 컬렉션전 1인 요금 JPY. 특별전 1800엔과 구분; 전시별 비용 재확인 필요. 실내 전시실 기준.",
+        "컬렉션1 전시 기간·휴관 예외 확인. 일반 주간 430엔, 지정 무료일 0엔. 금요일 17시 이후 250엔은 모델 대상 시간에서 제외하고, 11/4 이후 새 전시 확인 전 제외."
       ],
       "source_urls": [
         "https://www.nmao.go.jp/",
-        "https://www.nmao.go.jp/visit/admission/"
+        "https://www.nmao.go.jp/visit/admission/",
+        "https://www.nmao.go.jp/events/event/collection20260719/"
       ],
-      "missing_fields": [
-        "opening_hours_source"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -1126,18 +1153,21 @@
       "name": "難波八坂神社",
       "name_ko": "난바 야사카 신사",
       "address": "大阪市浪速区元町2-9-19",
-      "opening_hours": "Mo-Su 06:00-17:00",
+      "opening_hours": "경내 06:00–17:00; 사무소 09:00–16:50; 연중무휴",
       "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30 일정 규칙 보완: 난바 야사카 신사 일반 경내 참배 무료. 06~17시 개문, 사무소 09~16:50; 기도·물품 구매 제외.",
+        "2026-09-30 일정 규칙 보완: 난바 야사카 신사 일반 경내 참배 무료. 06~17시 개문, 사무소 09~16:50; 기도·물품 구매 제외."
+      ],
       "source_urls": [
-        "http://nambayasaka.jp/"
+        "http://nambayasaka.jp/",
+        "https://osaka-info.jp/experience/ja/osaka/spot/246",
+        "https://osaka-info.jp/special/dc/event/detail12/"
       ],
       "missing_fields": [
-        "cost",
-        "covered",
-        "opening_hours_source"
+        "covered"
       ],
       "schedule_ready": false
     },
@@ -1236,16 +1266,18 @@
         "temporary_closure"
       ],
       "notes": [
-        "현재 공사 휴관 안내가 우선. 정규 시간만으로 일정 생성 금지."
+        "현재 공사 휴관 안내가 우선. 정규 시간만으로 일정 생성 금지.",
+        "2026-10-01: 동양도자미술관의 관내 전시 관람 기준. 공사 휴관 해제나 재개관 확정 의미 아님. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-01 보류: 1,600 JPY는 MOCO 컬렉션 옴니버스 PART2 전시 요금. 휴관 중이며 재개관 후 가격 미정."
       ],
       "source_urls": [
         "https://www.moco.or.jp/guide/access/",
         "https://www.moco.or.jp/guide/info/",
-        "https://www.moco.or.jp/whatsnew/"
+        "https://www.moco.or.jp/whatsnew/",
+        "https://www.moco.or.jp/whatsnew/3943/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1371,7 +1403,8 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "오사카 관광국 고즈구 안내. cost는 일반 참배 기준으로 유료 기도·행사 제외."
+        "오사카 관광국 고즈구 안내. cost는 일반 참배 기준으로 유료 기도·행사 제외.",
+        "2026-09-30 일정 규칙 보완: 고즈구 경내 일반 참배 무료. 신전 폐문 17시 전에 마치는 보수적 구간; 기도·행사 참가비 제외."
       ],
       "source_urls": [
         "https://kouzu.or.jp/",
@@ -1411,15 +1444,16 @@
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "공원 소재 지역 주소. 상세 출입구 주소가 아님."
+        "공원 소재 지역 주소. 상세 출입구 주소가 아님.",
+        "2026-09-30 일정 규칙 보완: 게마 사쿠라노미야 공원 일반 야외 산책 24시간·입장 무료. 구장·유람선 등 유료 시설은 제외.",
+        "2026-09-30 일정 규칙 보완: 게마 사쿠라노미야 공원 일반 야외 산책 24시간·입장 무료. 구장·유람선 등 유료 시설은 제외."
       ],
       "source_urls": [
-        "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+        "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+        "https://osaka-info.jp/experience/ja/osaka/spot/458"
       ],
       "missing_fields": [
-        "cost",
-        "covered",
-        "opening_hours_source"
+        "covered"
       ],
       "schedule_ready": false
     },
@@ -1428,24 +1462,23 @@
       "name": "西の丸庭園",
       "name_ko": "니시노마루 정원",
       "address": "大阪市中央区大阪城2",
-      "opening_hours": "Jan 04-Dec 28 09:00-17:30",
+      "opening_hours": "3~10월 09:00~17:00(입장 16:30까지); 11~2월 09:00~16:30(입장 16:00까지); 월요일 휴원, 월요일 공휴일이면 다음날 휴원",
       "address_status": "verified",
       "hours_status": "unverified",
-      "blockers": [
-        "hours_conflict"
-      ],
+      "blockers": [],
       "notes": [
         "기존 사이트가 다른 공원 페이지로 이동. 정원 전용 안내 재확인 필요.",
         "공식 관광국 위치와 야외 정원 확인. 가격은 별도 2026년 시청 고시를 적용하며 시간 충돌은 유지.",
-        "오사카시 고시 제1572호: 2026-04-01부터 1인 1회 300엔. 관광국의 옛 200엔보다 시행일 있는 공식 고시 우선. 시간 충돌은 별도로 보류."
+        "오사카시 고시 제1572호: 2026-04-01부터 1인 1회 300엔. 관광국의 옛 200엔보다 시행일 있는 공식 고시 우선. 시간 충돌은 별도로 보류.",
+        "공식 구 관광포털의 계절별 시간으로 기존 OSM 17:30 종료를 정정. 비용은 운영자 2026-04-01 인상 공지의 300 JPY 유지; 관광포털의 구가격 200엔은 사용하지 않음."
       ],
       "source_urls": [
         "https://osaka-info.jp/spot/osaka-castle-nishinomaru-garden/",
-        "https://www.city.osaka.lg.jp/koho/cmsfiles/0000015/15373/15373.pdf"
+        "https://www.city.osaka.lg.jp/koho/cmsfiles/0000015/15373/15373.pdf",
+        "https://osaka-chushin.jp/en/routes/33146",
+        "https://www.osakacastlepark.jp/news/?lang=ja"
       ],
-      "missing_fields": [
-        "opening_hours_source"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -1552,7 +1585,8 @@
       "blockers": [],
       "notes": [
         "정원과 인접 미술관 주소 혼동 가능. 시설별 주소 재확인 필요.",
-        "공식 관광 안내의 무료 공개 회유식 야외 정원. 지붕 있는 휴게소와 주요 야외 관람 구역 구분."
+        "공식 관광 안내의 무료 공개 회유식 야외 정원. 지붕 있는 휴게소와 주요 야외 관람 구역 구분.",
+        "2026-09-30 일정 규칙 보완: 후지타 저택 터 공원 무료 일반 공개 10~16시. 후지타 미술관 입장료와 구분."
       ],
       "source_urls": [
         "https://osaka-info.jp/experience/ja/osaka/spot/617"
@@ -1692,7 +1726,8 @@
       "blockers": [],
       "notes": [
         "난바 파크스 내부 정원. 쇼핑몰과 중복 방문 계산 주의.",
-        "입장 무료인 옥상 공원. 유료 가이드 투어 및 실내 상업시설과 구분."
+        "입장 무료인 옥상 공원. 유료 가이드 투어 및 실내 상업시설과 구분.",
+        "2026-09-30 일정 규칙 보완: 무료 옥상정원 10~24시. 쇼핑·음식 제외; 임시 휴관은 난바 파크스 운영 공지 재확인."
       ],
       "source_urls": [
         "https://nambaparks.com/garden",
@@ -1739,13 +1774,16 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 쇼핑 11~21시. 공식 2026년 휴관 달력에서 10·11월 정기휴관 없음.",
+        "2026-10-01: NU 본관 층별 매장. 별동 PLUS까지의 외부 이동 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://nu-chayamachi.com/info/openclose/"
+        "https://nu-chayamachi.com/info/openclose/",
+        "https://nu-chayamachi.com/floor/2f.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1759,15 +1797,18 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "DMO 우메다 시설 안내의 PLAZA ENT 주소. PLAZA(2-5-25)와 구분."
+        "DMO 우메다 시설 안내의 PLAZA ENT 주소. PLAZA(2-5-25)와 구분.",
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). ENT 일반 판매장 11~20시. 음식점·개별 매장 제외.",
+        "2026-10-01: HERBIS PLAZA 층별 실내 판매장. ENT·외부 테라스와 구분. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://dmo-umeda.jp/facilities/325/",
-        "https://www.herbis.jp/access/train/"
+        "https://www.herbis.jp/access/train/",
+        "https://www.herbis.jp/",
+        "https://www.herbis.jp/floormap/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1776,17 +1817,23 @@
       "name": "Whityうめだ",
       "name_ko": "화이티 우메다",
       "address": "大阪府大阪市北区小松原町梅田地下街4-2",
-      "opening_hours": "판매장 10:00–21:00; 음식점 10:00–22:00; NOMOKA 11:00–23:00; 점포별 예외",
+      "opening_hours": "쇼핑 10:00–21:00; 음식점 10:00–22:00, NOMOKA 11:00–23:00; 홀수 달 셋째 목요일·1월 1일 휴관; 일부 점포 예외",
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 10~21시. 홀수 달 셋째 목요일 휴관 규칙의 범위 내 날짜 2026-11-19 제외.",
+        "2026-09-30 일정 규칙 보완: 정기휴관 규칙은 오사카 관광국, 업종별 시간은 운영사와 대조. 10월 셋째 목요일을 임의로 휴관 처리하지 않음.",
+        "2026-10-01: Whity 지하상가 매장·연결 통로 범위. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://whity.osaka-chikagai.jp/access"
+        "https://whity.osaka-chikagai.jp/access",
+        "https://whity.osaka-chikagai.jp/",
+        "https://osaka-info.jp/spot/whity-umeda/",
+        "https://whity.osaka-chikagai.jp/floor"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1801,10 +1848,14 @@
       "blockers": [],
       "notes": [
         "공식 안내에서 영업시간·주소 본문 취득 실패.",
-        "오사카 관광국 공식 안내. 역 건물 2층 쇼핑시설 기준."
+        "오사카 관광국 공식 안내. 역 건물 2층 쇼핑시설 기준.",
+        "2026-10-01: 공식 점포 안내의 일반 판매장 공통시간10~21시. 처방전 접수·휴무 등 별도 서비스에는 적용하지 않음.",
+        "2026-10-01: 신오사카역2F 일반 패션·잡화 실내 판매장 공통10~21시. 개인 구매비 null/비산정. 처방약·식당·별도 서비스는 범위 밖."
       ],
       "source_urls": [
-        "https://osaka-info.jp/spot/arudeshinosaka/"
+        "https://osaka-info.jp/spot/arudeshinosaka/",
+        "https://www.arde-shinosaka.jp/access",
+        "https://www.arde-shinosaka.jp/shopguide?category%5B0%5D=1"
       ],
       "missing_fields": [
         "cost"
@@ -1820,13 +1871,17 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 몰 전문점 10~21시. 이온 슈퍼·개별 예외점 제외.",
+        "2026-10-01: 오사카 돔시티점 3F 키즈 공간·4F 푸드코트 등 실내 상업층. 옥외 시설·접근로 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://www.aeon.jp/sc/osakadomecity/"
+        "https://www.aeon.jp/sc/osakadomecity/",
+        "https://www.aeon.jp/sc/osakadomecity/info/time.html",
+        "https://www.aeon.jp/sc/osakadomecity/info/shisetuannai.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1839,13 +1894,18 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 전문점 10~21시. 10/8(목) 휴관 공지에 연도가 없어 해당 날짜는 확인 전 제외.",
+        "2026-10-01: 위스테 1~4F 실내 전문점 판매장. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-01 정정: 실내 판매장 방문만 계산. 개인 구매·음식·유료 행사비 미산정(null). 전문점 10~21시. 최신 휴관 공지는 10/8에서 10/15(목)로 변경; 연도 생략으로 2026-10-15는 확인 전 제외."
+      ],
       "source_urls": [
-        "https://www.wiste.jp/"
+        "https://www.wiste.jp/",
+        "https://www.wiste.jp/information/",
+        "https://www.wiste.jp/floorguide/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1888,14 +1948,16 @@
       "blockers": [],
       "notes": [
         "우에혼마치 지점 기준.",
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 판매층 공통 구간인 10~18:30만 일정에 사용. 원본의 층별 영업시간은 보존.",
+        "2026-10-01: 긴테쓰 우에혼마치점 B2~12F 실내 판매장. 옥상 비어가든 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
+        "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/",
+        "https://www.d-kintetsu.co.jp/uehonmachi/floor/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1909,14 +1971,16 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). MBF 단축 운영을 고려해 전문점 공통 구간인 10~20시만 사용.",
+        "2026-10-01: 게이한 시티몰 실내 판매층. RF 바비큐 구역 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://citymall.jp/access/"
+        "https://citymall.jp/access/",
+        "https://www.citymall.jp/shopguide/?floor=2f"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1955,13 +2019,17 @@
       "address_status": "missing",
       "hours_status": "missing",
       "blockers": [
-        "address_unconfirmed"
+        "address_unconfirmed",
+        "location_history_conflict"
       ],
       "notes": [
         "공식 점포 근거 확보 실패. OSM 정보만 유지.",
-        "2026-09-28 Google Maps 검색 및 OSM 주소 태그 확인: 일치 장소의 주소 확보 실패. 주변 점포 주소를 대신 넣지 않음."
+        "2026-09-28 Google Maps 검색 및 OSM 주소 태그 확인: 일치 장소의 주소 확보 실패. 주변 점포 주소를 대신 넣지 않음.",
+        "나라현 공식 소개는 mikuri & MIHA의 주소를 기타구 나카쓰6-9-5로 안내하지만 수집 OSM 좌표는 니시구 도사보리. 본문도 도사보리와 나카쓰 정보가 혼재한다. 이전한 매장 주소를 기존 좌표에 붙이지 않고 주소 null 유지."
       ],
-      "source_urls": [],
+      "source_urls": [
+        "https://www.pref.nara.lg.jp/site/naranoki/magazine/visit/nara_summary_eat_spot.html"
+      ],
       "missing_fields": [
         "area",
         "address",
@@ -1982,12 +2050,16 @@
       "opening_hours": null,
       "address_status": "verified",
       "hours_status": "missing",
-      "blockers": [],
+      "blockers": [
+        "tenant_scope_required"
+      ],
       "notes": [
-        "시설관리사 자료에서 소재지 확인. 영업시간 미확인."
+        "시설관리사 자료에서 소재지 확인. 영업시간 미확인.",
+        "공식 입점 서점 북퍼스트 미쿠니점 10~21시를 확인했으나 뷰르 한큐 미쿠니 전체 영업시간은 아님. 시설 시간 null 유지; 방문 점포 선택이 필요."
       ],
       "source_urls": [
-        "https://www.hhbm.hankyu-hanshin.co.jp/managed/sc/profile.pdf"
+        "https://www.hhbm.hankyu-hanshin.co.jp/managed/sc/profile.pdf",
+        "https://www.book1st.net/shop/mikuni.html"
       ],
       "missing_fields": [
         "opening_hours",
@@ -2076,14 +2148,16 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 11~20시. 정기 휴관 12/31·1/1은 검토 날짜 범위 밖.",
+        "2026-10-01: 요도야바시 오도나 B1·1·2F 실내 매장. 외부 접근로 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://mitsui-shopping-park.com/odona/top.html"
+        "https://mitsui-shopping-park.com/odona/top.html",
+        "https://mitsui-shopping-park.com/odona/floor.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2096,13 +2170,17 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 판매장 10~20시. 식당·특별 운영 구역 제외.",
+        "2026-10-01: 한큐 우메다 B2~13F 실내 판매장. 13F 옥상 광장 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://www.hankyu-dept.co.jp/index.html"
+        "https://www.hankyu-dept.co.jp/index.html",
+        "https://www.hankyu-dept.co.jp/honten/map/index.html",
+        "https://www.hankyu-dept.co.jp/honten/floor/index.html"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2115,13 +2193,16 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 공통 11~19시만 정규화. 비정기 휴무 확인 전 자동 일정에서는 보류.",
+        "2026-10-01: 브리제 브리제 층별 실내 상업시설. 비정기 휴무 확인 조건 유지. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+      ],
       "source_urls": [
-        "https://www.breeze-breeze.jp/info/"
+        "https://www.breeze-breeze.jp/info/",
+        "https://www.breeze-breeze.jp/shop/floor"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2136,14 +2217,15 @@
       "blockers": [],
       "notes": [
         "백화점 공통 사이트로 이동. 난바 마루이 지점 전용 안내 필요.",
-        "오사카 관광국 공식 시설 안내. 개별 점포 예외는 별도 확인."
+        "오사카 관광국 공식 시설 안내. 개별 점포 예외는 별도 확인.",
+        "2026-10-01: 난바 마루이 관내 판매장·B1/1F 취식 공간 안내. 실내 판매장 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
-        "https://osaka-info.jp/spot/o1o1-namba-marui/"
+        "https://osaka-info.jp/spot/o1o1-namba-marui/",
+        "https://www.0101.co.jp/085/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2225,9 +2307,12 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 공식 우메다차야마치 메뉴 링크의 인증서 오류로 가격 확인 불가. 보안 경고를 우회하지 않았으며 비용 null 유지."
+      ],
       "source_urls": [
-        "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
+        "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
+        "https://bluebottlecoffee.co.jp/menu/jp/umeda.html"
       ],
       "missing_fields": [
         "cost",
@@ -2365,7 +2450,8 @@
       ],
       "notes": [
         "브랜드 전체 사이트만 확인. 홀리스 개별 지점 확인 필요.",
-        "사카이스지혼마치점 공식 주소·운영시간. 기존 좌표의 센터빌딩 위치 및 평일/주말 시간이 일치. 실내 좌석 기준; 기존 지점 주의 표시는 유지."
+        "사카이스지혼마치점 공식 주소·운영시간. 기존 좌표의 센터빌딩 위치 및 평일/주말 시간이 일치. 실내 좌석 기준; 기존 지점 주의 표시는 유지.",
+        "2026-10-01 보류: Hollys 브랜드 메뉴 300 JPY는 일부 점포 가격이 다르다고 명시. 해당 지점 적용 미확인."
       ],
       "source_urls": [
         "https://hollys-corp.jp/shop/o_sakaisujihon/"
@@ -2456,15 +2542,21 @@
       "opening_hours": "월–토 17:00–23:00; 일요일 휴무; 공연 일정 별도 확인",
       "address_status": "verified",
       "hours_status": "verified",
-      "blockers": [],
+      "blockers": [
+        "hours_conflict"
+      ],
       "notes": [
         "공식 홈페이지 취득 실패. 운영정보 미확인.",
-        "공식 주소와 지하 실내 재즈클럽 안내. 공연별 요금은 변동하여 cost 보류."
+        "공식 주소와 지하 실내 재즈클럽 안내. 공연별 요금은 변동하여 cost 보류.",
+        "2026-10-01: 공식 about 페이지 월~토17~23/일휴무와 현재 홈페이지 수~월18~22 안내가 충돌. 공식 공연표에는 일요일 공연과2026-10-01임시휴무도 있어 기존 일반시간을 확정값으로 유지하지 않음. 회차별 뮤직차지도 미확인."
       ],
       "source_urls": [
-        "https://www.subjazzcafe.com/our-shops"
+        "https://www.subjazzcafe.com/our-shops",
+        "https://www.subjazzcafe.com/",
+        "https://www.subjazzcafe.com/music-calendar"
       ],
       "missing_fields": [
+        "opening_hours",
         "cost"
       ],
       "schedule_ready": false
@@ -2479,14 +2571,14 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "오사카 덴마바시점 기준."
+        "오사카 덴마바시점 기준.",
+        "2026-10-01: SOT 덴마바시점 1F 30석·2F 20석 및 점내 좌석 안내. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
       ],
       "source_urls": [
         "https://www.sotcoffee.com/en/pages/shop-osaka"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -2589,18 +2681,20 @@
       "name": "保護ねこカフェneu。",
       "name_ko": "보호고양이 카페 노이",
       "address": "大阪市中央区谷町六丁目17-5",
-      "opening_hours": "평일 12:00–21:00; 토·일·공휴일 12:00–19:00; 식사 주문 16:00까지; 비정기 휴무",
+      "opening_hours": "2026년 3월부터 고양이방 매일 12:00~21:00 / 비건카페 12:00~16:00; 비정기 휴무",
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [
-        "ticket_scenario_required"
+        "visit_confirmation_required"
       ],
       "notes": [
-        "비회원 1시간 이용권 기준 1800엔, 연장 15분 300엔. stay_min은 공식 요금제의 60분 시나리오이며 자유 방문 평균 시간 아님."
+        "비회원 1시간 이용권 기준 1800엔, 연장 15분 300엔. stay_min은 공식 요금제의 60분 시나리오이며 자유 방문 평균 시간 아님.",
+        "2026-04-22 날짜 있는 운영자 공지 우선. 일반 고양이방 1시간 1800엔(회원할인 제외), 기존 체류 60분과 일치. 양말 지참 조건, 비정기 휴무의 방문일 확인은 남음."
       ],
       "source_urls": [
         "https://neu-catcafe.com/",
-        "https://neu-catcafe.com/price"
+        "https://neu-catcafe.com/price",
+        "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B"
       ],
       "missing_fields": [
         "covered"
@@ -2621,7 +2715,8 @@
       "notes": [
         "공식 페이지 본문과 하단의 운영시간·휴무일이 충돌하여 영업시간을 미확인 처리.",
         "기준 메뉴: 홍차 1인 550엔 JPY. 커피 550엔부터와 구분, 식사/추가 주문 별도.",
-        "2026-09-30: 공식 ACCESS와 하단 영업시간·휴무일이 서로 다름(월 휴무/화 휴무). 충돌 해소 전 영업시간 null 유지."
+        "2026-09-30: 공식 ACCESS와 하단 영업시간·휴무일이 서로 다름(월 휴무/화 휴무). 충돌 해소 전 영업시간 null 유지.",
+        "정확한 메뉴 가격 홍차 550 JPY로 근거를 한정. 커피 550엔부터(하한)는 고정가격으로 쓰지 않음. 동일 공식 페이지의 월요일/화요일 휴무 및 종료시간 충돌이 남아 hours=null·제외 유지."
       ],
       "source_urls": [
         "https://kissaaoiclub.com/"
@@ -2643,7 +2738,8 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기준 메뉴: 센차 또는 우롱차 1인 주문 750엔 JPY. 최대 3회 우림 포함. 3000엔 티 플라이트와 구분; 전체 방문 평균비용 아님."
+        "기준 메뉴: 센차 또는 우롱차 1인 주문 750엔 JPY. 최대 3회 우림 포함. 3000엔 티 플라이트와 구분; 전체 방문 평균비용 아님.",
+        "2026-09-30 일정 규칙 보완: 센차·우롱차 1인 한 주문 750 JPY(최대 3회 우림). 수~일 13~19시경, 주문 18:30까지. 10/10 행사 공지의 일반 영업 여부·연도 확인 전 해당 날짜 제외."
       ],
       "source_urls": [
         "https://chaenjin.jimdofree.com/"
@@ -2759,21 +2855,21 @@
       "name": "CAFETERIA AGORA",
       "name_ko": "카페테리아 아고라",
       "address": "大阪府大阪市中之島4-3-53 大阪大学中之島センター2階",
-      "opening_hours": "11:00-17:00",
+      "opening_hours": "점심 11:00~14:00 / 카페 14:00~17:00; 2027-02-08 전일 휴업",
       "address_status": "unverified",
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
         "대학 나카노시마센터 내 점포와 호텔 본사 주소를 구분해야 함.",
-        "아고라 공식 카페 메뉴의 오므라이스 단품 1000엔 기준. 음료 세트는 1200엔으로 별도. 평균 식비가 아니며 세금 포함 여부는 해당 가격 문구에서 미확인."
+        "아고라 공식 카페 메뉴의 오므라이스 단품 1000엔 기준. 음료 세트는 1200엔으로 별도. 평균 식비가 아니며 세금 포함 여부는 해당 가격 문구에서 미확인.",
+        "공식 카페 메뉴 오므라이스 단품 1000엔(세금 포함), 음료 포함 1200엔과 구분. 해당 메뉴는 카페 시간 14~17시에만 모델 적용하며 점심 메뉴로 가정하지 않음."
       ],
       "source_urls": [
         "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
       ],
       "missing_fields": [
         "area",
-        "covered",
-        "opening_hours_source"
+        "covered"
       ],
       "schedule_ready": false
     },
@@ -2810,14 +2906,17 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 평일 한정 익스프레스 런치1인4800 JPY,세금·서비스료 포함. 샐러드·기본 메인·커피/차 기준. 4000엔부터라는 예산 표기 대신 명명된 코스 정가를 사용. 주말/공휴일·옵션 제외.",
+        "2026-10-01: 힐튼오사카2층104석 실내 레스토랑/와인룸/개인실 안내. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
+        "2026-10-01: 평일 익스프레스 런치4800 JPY 세금·서비스료 포함,11:30~14시 안에 식사 완료. 주말/공휴일에는 이 가격 미적용. 월·화휴무(공휴일예외)."
+      ],
       "source_urls": [
-        "https://osaka.hiltonjapan.co.jp/restaurants/centrum"
+        "https://osaka.hiltonjapan.co.jp/restaurants/centrum",
+        "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+        "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
       ],
-      "missing_fields": [
-        "cost",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -2851,12 +2950,17 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-09-30 일정 규칙 보완: 현재 공식 메뉴 페이지에서 연결한 평일 오늘의 메인 플레이트 1인 1250 JPY(빵 또는 밥). 휴일 메뉴의 1700 JPY와 다르므로 평일 비공휴일 11:30~15:00에만 계산. 15시는 점심 주문 마감이며 이 모델에서는 식사도 그 전에 마치도록 제한. 음료·추가 주문 제외. 최신 PDF에서 세금 포함 문구는 확인하지 못함."
+      ],
       "source_urls": [
-        "https://garbweeks.com/"
+        "https://garbweeks.com/",
+        "https://garbweeks.com/menu/",
+        "https://garbweeks.com/menu/lunch.pdf?2026092802=",
+        "https://garbweeks.com/menu/lunch_h.pdf?2026092802=",
+        "https://garbweeks.com/shop/"
       ],
       "missing_fields": [
-        "cost",
         "covered"
       ],
       "schedule_ready": false
@@ -2870,9 +2974,12 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 오사카 본점 운영시간 확인. 온라인 상품 가격을 매장 식사 가격으로 적용하지 않음."
+      ],
       "source_urls": [
-        "https://shop.mercy-vegan.jp/"
+        "https://shop.mercy-vegan.jp/",
+        "https://www.mercy-vegan.jp/restaurants/"
       ],
       "missing_fields": [
         "cost",
@@ -2889,12 +2996,15 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 11:00~15:30 점심 세트(샐러드·메인·커피/차) 1인 1,300 JPY. 저녁·추가 주문 제외. 실내와 테라스 4석이 함께 있어 covered는 미확인 유지. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
+        "2026-10-01 보류: 실내 좌석과 테라스 4석이 함께 있어 좌석 범위 확인 필요.",
+        "2026-10-01: 11~15:30 점심 세트(샐러드·메인·커피/차) 표시가격1300 JPY. 세금 표기 별도 미확인, 최종 결제 총액 보장 아님. 토·일 저녁과 추가 주문 제외. 수요일 휴무, 공휴일이면 목요일 대체 휴무."
+      ],
       "source_urls": [
         "https://montomworks.com/"
       ],
       "missing_fields": [
-        "cost",
         "covered"
       ],
       "schedule_ready": false
@@ -2908,14 +3018,19 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 평일 점심 공식 메뉴 이미지의 일일 자연식 정식1250 JPY. 밥130g·주요리·반찬3·된장국 기준. 세금 표기 미확인, 주말/공휴일 가격으로 확대하지 않음. 비정기 휴무로 방문일 확인 필요.",
+        "2026-10-01: 공식 접근 안내의 주문 마감·점심/저녁 구분·비정기 휴무 추가. 상시 영업 보장이 아님.",
+        "2026-10-01: 메다카2호점 간기빌딩1층 유리 전면 점포, 실내27석 안내. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
+        "2026-10-01: 평일 점심 일일 자연식 정식 표시가격1250 JPY, 세금 표기 미확인. 11~16:30 범위이며 주말/공휴일에는 이 가격을 적용하지 않음. 비정기 휴무 확인 전 보류."
+      ],
       "source_urls": [
-        "https://shin-medaka.com/"
+        "https://shin-medaka.com/",
+        "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+        "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+        "https://shin-medaka.com/access/"
       ],
-      "missing_fields": [
-        "cost",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -2994,14 +3109,15 @@
       "blockers": [],
       "notes": [
         "공식 사이트 취득 실패. 제3자 정보만으로 확정하지 않음.",
-        "ALBAR 아와지점 공식 운영 페이지. 실내 좌석·테라스 없음 확인. 가격 범위는 단일 cost로 환산하지 않음."
+        "ALBAR 아와지점 공식 운영 페이지. 실내 좌석·테라스 없음 확인. 가격 범위는 단일 cost로 환산하지 않음.",
+        "2026-10-01: 아와지점 점심 타라코 파스타(시소 또는 김) 단품 880 JPY 세금 포함. 880엔부터라는 최저가 설명이 아닌 명명된 단품 가격. 추가 세트·곱빼기 제외.",
+        "2026-10-01: 타라코 파스타 단품 880 JPY(세금 포함). 공통 점심 11:30~15:00 안에 식사를 마치는 보수적 창; 저녁·추가 주문 제외. 정기휴무 없음."
       ],
       "source_urls": [
-        "https://albar-awaji.owst.jp/"
+        "https://albar-awaji.owst.jp/",
+        "https://albar-awaji.owst.jp/lunches"
       ],
-      "missing_fields": [
-        "cost"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -3039,13 +3155,14 @@
       "blockers": [],
       "notes": [
         "사이제리야 기존 지점 링크 취득 실패. 지점 ID 대조 필요.",
-        "공식 점포 코드 1031, 신오사카역 니시미야하라점. 기존 주소 구성요소·전화와 대조. 기존 11:00–02:00를 공식 시간으로 정정."
+        "공식 점포 코드 1031, 신오사카역 니시미야하라점. 기존 주소 구성요소·전화와 대조. 기존 11:00–02:00를 공식 시간으로 정정.",
+        "공식 표준 메뉴 밀라노풍 도리아 1개 300 JPY(세금 포함). 평균/식사 총액 아님. 일부 점포 상품 예외·품절 가능. 22시 이후 10% 심야요금을 피하도록 모델은 22시 전 종료만 허용."
       ],
       "source_urls": [
-        "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
+        "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031",
+        "https://www.saizeriya.co.jp/menu-popular/2101/"
       ],
       "missing_fields": [
-        "cost",
         "covered"
       ],
       "schedule_ready": false
@@ -3087,10 +3204,12 @@
       "blockers": [],
       "notes": [
         "공식 페이지 본문이 이미지 위주. 해당 지점 상세 안내 확인 필요.",
-        "중앙시장점 확인. 같은 페이지 방콕점과 구분."
+        "중앙시장점 확인. 같은 페이지 방콕점과 구분.",
+        "2026-10-01: 공식 상마제5개 메뉴 설명과 사진은 있으나 현재 가격 미공개. 과거 제3자1100엔을 확정값으로 채우지 않음."
       ],
       "source_urls": [
-        "https://www.endo-sushi.com/1243312435123931235812395123881235612390.html"
+        "https://www.endo-sushi.com/1243312435123931235812395123881235612390.html",
+        "https://www.endo-sushi.com/12513124911251712540.html"
       ],
       "missing_fields": [
         "cost",
@@ -3199,15 +3318,17 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "포장 10:00–20:00을 매장 식사시간에 사용하지 않음."
+        "포장 10:00–20:00을 매장 식사시간에 사용하지 않음.",
+        "2026-10-01: 후나야 점내 식사 안내와 이쿠노니시 2-1-34 지점 일치. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-01: 매장 식사 우나주 우메(梅) 1인분 2790 JPY 세금 포함. 포장용 3290엔과 구분. 재료 소진 및 매월 추가 휴무로 방문일 확인 전 일정 보류.",
+        "2026-10-01: 매장 우나주 우메 2790 JPY. 매장 식사 11:30~14:30/주문14시, 목요일+월1회 임시휴무, 매진 종료. 포장10~20시와 구분. 10~11월 추가 휴무일 미확인."
       ],
       "source_urls": [
-        "https://www.funaya.co.jp/"
+        "https://www.funaya.co.jp/",
+        "https://www.funaya.co.jp",
+        "https://www.funaya.co.jp/menu/"
       ],
-      "missing_fields": [
-        "cost",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -3239,14 +3360,14 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "2026-09-30: 점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음."
+        "2026-09-30: 점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음.",
+        "2026-10-01: 체리 잼의 피아노·샹들리에가 있는26석 실내 공간과15명 개인실 설명. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
       ],
       "source_urls": [
-        "https://cherryjam.owst.jp/"
+        "https://cherryjam.owst.jp/",
+        "https://cherryjam.owst.jp/seats"
       ],
-      "missing_fields": [
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -3258,12 +3379,14 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-01: 점심 오늘의 파스타 단품 1인 1,150 JPY. +300 JPY 세트·저녁 커버차지와 심야 가산 제외. 페이지상 세금 표시 미확인; 최종 결제 총액으로 확정하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      ],
       "source_urls": [
-        "https://comfortzone8kyoitarian.com/"
+        "https://comfortzone8kyoitarian.com/",
+        "https://comfortzone8kyoitarian.com/lunch-menu/"
       ],
       "missing_fields": [
-        "cost",
         "covered"
       ],
       "schedule_ready": false
@@ -3346,7 +3469,9 @@
       ],
       "notes": [
         "수상버스 선착장 지점 확인 후 출항표를 적용해야 함.",
-        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 9.8m. 주소만 확인했으며 영업시간 검증 아님."
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 9.8m. 주소만 확인했으며 영업시간 검증 아님.",
+        "2026-10-01 보류: 2,000 JPY는 아쿠아라이너 오사카성항 55분 코스 상품. 원본 장소는 지점 미확인 승선장이라 상품 요금을 대입하지 않음.",
+        "2026-10-01 보류: 선실의 실내 여부를 승선장·대기 공간의 지붕 여부로 적용하지 않음."
       ],
       "source_urls": [
         "https://maps.google.com/?cid=14704441767393759651"
@@ -3463,5 +3588,5 @@
       "verified_at": 62
     }
   },
-  "latest_enrichment_revision": "planning_review_20260930"
+  "latest_enrichment_revision": "official_menu_followup_20261001"
 }
