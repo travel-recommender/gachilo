@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {runInNewContext} from 'node:vm';
 import {readInvite, inviteUrl, ownerUrl, saveSession, loadSession, clearSession} from '../backend/public/session.mjs';
 import {startStatusPolling} from '../backend/public/polling.mjs';
 const member = {id: 'member_12345', submissionToken: 'secret_123456789'};
@@ -57,4 +59,90 @@ test('connection errors retry with backoff, recovery resets delay, and inactive 
   await flush();assert.equal(clock.next().delay,6000);assert.deepEqual(errors,['offline']);
   fail=false;await clock.next().fn();assert.equal(clock.next().delay,3000);assert.equal(seen[0].submittedCount,2);
   active=false;await clock.next().fn();assert.equal(calls,2);stop();
+});
+
+// Run the real page startup with an isolated DOM and API boundary. Only imports
+// are replaced with dependencies; invite parsing, connection and failure handling
+// execute from app.js so persisting too late fails the reload regression.
+const appSource=readFileSync(new URL('../backend/public/app.js',import.meta.url),'utf8').replace(/^import .*;\n/gm,'');
+async function openPage(tabStorage,href,{failAt,failWith}={}) {
+  const elements=new Map(), calls=[];
+  function element(){return {value:'',textContent:'',hidden:true,children:[],listeners:{},
+    append(...children){this.children.push(...children);},
+    replaceChildren(...children){this.children=children;},
+    addEventListener(type,fn){this.listeners[type]=fn;}};}
+  const byId=id=>{if(!elements.has(id))elements.set(id,element());return elements.get(id);};
+  byId('create-section').hidden=false;byId('dataset').value='osaka_review_150';
+  const document={hidden:false,getElementById:byId,createElement:element,createTextNode:text=>({textContent:text}),
+    querySelectorAll(selector){
+      const inputs=byId('place-options').children.flatMap(label=>label.children).filter(node=>node.type==='checkbox');
+      if(selector==='#place-options input:checked')return inputs.filter(node=>node.checked);
+      return selector==='#place-options input'?inputs:[];
+    }};
+  const location=new URL(href);
+  const data={room:{roomId,startDate:'2026-10-10',endDate:'2026-10-10',dataset:'osaka_review_150',members:[{id:member.id,name:'참여자'}]},
+    ownSubmission:{submission:{picks:['place_01'],must:'place_01',veto:null,budgetPerDay:81000,stepLimit:9000,activeMin:420}},
+    realPlaces:{places:[{place_id:'place_01',name_ko:'검사 장소',planning:{review_required:[]}}]},
+    getResult:{submittedCount:1,memberCount:1,status:'waiting',revision:1,result:null}};
+  const api=Object.fromEntries(Object.keys(data).map(key=>[key,async(...args)=>{
+    calls.push({method:key,args});if(key===failAt)throw failWith;return data[key];
+  }]));
+  await runInNewContext(`(async()=>{${appSource}\n})()`,{
+    document,location,history:{replaceState(_state,_title,path){location.href=new URL(path,location).href;}},
+    window:{sessionStorage:tabStorage,addEventListener(){}},navigator:{onLine:true},
+    createTripClient:()=>api,readInvite,inviteUrl,ownerUrl,saveSession,loadSession,clearSession,
+    startStatusPolling:()=>()=>{},planningResultReasonLines:()=>[],
+  });
+  return {elements,location,calls};
+}
+
+test('first invite timeout, offline or 503 at any connection stage survives a reload',async()=>{
+  for(const failAt of ['room','ownSubmission','realPlaces'])for(const failWith of [
+    Object.assign(new Error('timeout'),{name:'AbortError'}),new TypeError('Failed to fetch'),Object.assign(new Error('temporary'),{status:503}),
+  ]){
+    const tab=storage(), href=inviteUrl('https://trip.example',roomId,member);
+    const first=await openPage(tab,href,{failAt,failWith});
+    assert.equal(first.location.hash,'');assert.equal(first.location.search,'');
+    assert.deepEqual(loadSession(tab),readInvite(href));
+    const reloaded=await openPage(tab,first.location.href);
+    assert.equal(reloaded.elements.get('create-section').hidden,true);
+    assert.equal(reloaded.elements.get('input-section').hidden,false);
+    assert.equal(reloaded.elements.get('budget').value,81000);
+    assert.deepEqual(reloaded.calls.find(c=>c.method==='ownSubmission').args,[roomId,member.id,member.submissionToken]);
+  }
+});
+test('first owner recovery failure preserves the owner identity for reload',async()=>{
+  const tab=storage(),href=ownerUrl('https://trip.example',roomId,'owner_123456789');
+  const first=await openPage(tab,href,{failAt:'realPlaces',failWith:new Error('offline')});
+  assert.deepEqual(loadSession(tab),readInvite(href));
+  const reloaded=await openPage(tab,first.location.href);
+  assert.equal(reloaded.elements.get('owner-controls').hidden,false);
+  assert.equal(reloaded.elements.get('input-section').hidden,true);
+  assert.equal(reloaded.calls.some(c=>c.method==='ownSubmission'),false);
+});
+test('403 or 404 during first connection clears the rejected identity',async()=>{
+  for(const status of [403,404])for(const failAt of ['room','ownSubmission','realPlaces']){
+    const tab=storage();
+    const first=await openPage(tab,inviteUrl('https://trip.example',roomId,member),{failAt,failWith:Object.assign(new Error('rejected'),{status})});
+    assert.equal(loadSession(tab),null);assert.equal(first.location.hash,'');
+    assert.equal(first.elements.get('create-section').hidden,false);
+  }
+});
+test('a failing new invite replaces the previously stored participant rather than restoring it',async()=>{
+  const tab=storage();saveSession(tab,{version:1,roomId:'previous_room',memberId:'previous_member',token:'previous_secret'});
+  const first=await openPage(tab,inviteUrl('https://trip.example',roomId,member),{failAt:'room',failWith:new Error('offline')});
+  assert.equal(loadSession(tab).memberId,member.id);
+  const reloaded=await openPage(tab,first.location.href);
+  assert.equal(reloaded.calls[0].args[0],roomId);
+});
+test('a malformed new invite removes old credentials and makes no authenticated request',async()=>{
+  const tab=storage();saveSession(tab,{version:1,roomId,memberId:member.id,token:member.submissionToken});
+  const first=await openPage(tab,'https://trip.example/join#room=bad');
+  assert.equal(loadSession(tab),null);assert.equal(first.location.hash,'');assert.deepEqual(first.calls,[]);
+});
+test('disabled session storage still permits a live connection and explains the reload limitation',async()=>{
+  const disabled={getItem(){throw new Error('disabled');},setItem(){throw new Error('disabled');},removeItem(){throw new Error('disabled');}};
+  const page=await openPage(disabled,inviteUrl('https://trip.example',roomId,member));
+  assert.equal(page.elements.get('create-section').hidden,true);
+  assert.match(page.elements.get('message').textContent,/재접속 정보를 저장할 수 없어요/);
 });

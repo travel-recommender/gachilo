@@ -111,6 +111,11 @@ let incoming=null, inviteError=null;
 try{incoming=readInvite(location.href);}catch(e){inviteError=e;}
 finally{if(incoming||inviteError)history.replaceState(null,'',location.pathname);}
 if(incoming||inviteError)forget();
+if(incoming){
+  // Keep the new identity across a transient first-request failure and reload.
+  // handleFailure still clears it when the server rejects access (403/404).
+  try{if(storage)saveSession(storage,incoming);}catch{}
+}
 if(inviteError)message(inviteError.message,true);
 else{
   const previous=incoming??(storage?loadSession(storage):null);
