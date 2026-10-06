@@ -19,10 +19,18 @@ class OfficialEnrichmentTests(unittest.TestCase):
         self.assertEqual(set(self.records), {x['place_id'] for x in self.ledger['preserved_identity']})
         for x in self.ledger['preserved_identity']:
             r = self.records[x['place_id']]
-            for k in ('latitude', 'longitude', 'category'):
+            for k in ('latitude', 'longitude'):
                 self.assertEqual(r['place'][k], x[k])
+            if r['place']['category'] != x['category']:
+                corrections = [c for c in self.ledger['changes']
+                               if c['place_id'] == x['place_id'] and c['field'] == 'category']
+                self.assertTrue(corrections, 'Category corrections require an evidence ledger')
+                self.assertEqual(corrections[0]['before'], x['category'])
+                self.assertEqual(corrections[-1]['after'], r['place']['category'])
             self.assertEqual(r['source']['osm_ref'], x['osm_ref'])
-            self.assertTrue(set(x['existing_blockers']) <= set(r['review']['recommendation_blockers']))
+            resolved = {c['blocker'] for c in self.ledger.get('blocker_resolutions', [])
+                        if c['place_id'] == x['place_id'] and c['source'].get('urls') and c['source'].get('note')}
+            self.assertTrue(set(x['existing_blockers']) <= set(r['review']['recommendation_blockers']) | resolved)
             self.assertFalse(r['review']['schedule_ready'])
 
     def test_every_update_has_evidence_and_matches_final_value(self):
