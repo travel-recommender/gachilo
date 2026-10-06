@@ -100,7 +100,7 @@ OSM 수집 데이터 비용은 JPY, 기존 시연 계산 예산은 KRW이므로 
 
 `GET /api/places?q=검색어&category=카페&limit=20`은 검토용 실제 150곳을 반환합니다. 기존 `/places`와 `/rooms/.../calculate`는 KRW 시연용 36곳이며 두 자료를 합산하지 않습니다. API 계약 PR #22 전체가 구현된 것은 아닙니다.
 
-실제 150곳의 원본 `cost`는 JPY 그대로입니다. `JPY_TO_KRW`에 **1 JPY당 KRW** 환율을 설정하면 `cost_krw = ROUND_HALF_UP(cost × rate)`로 원 단위 반올림합니다. 미설정 시 유료 장소는 `cost_krw=null`, `cost_status=exchange_rate_required`입니다. 100엔당 환율을 그대로 넣으면 안 됩니다. 예: 테스트용 9.5 설정은 1엔=9.5원이라는 뜻이며 최신 시장환율이 아닙니다. 운영 환율의 기준일·출처는 운영자가 별도 관리해야 합니다.
+실제 150곳의 원본 `cost`는 JPY 그대로입니다. `JPY_TO_KRW`에 **1 JPY당 KRW** 환율을 설정하면 `cost_krw = ROUND_HALF_UP(cost × rate)`로 원 단위 반올림합니다. 미설정 시 유료 장소는 `cost_krw=null`, `cost_status=exchange_rate_required`입니다. 100엔당 환율을 그대로 넣으면 안 됩니다. 예: 테스트용 9.5 설정은 1엔=9.5원이라는 뜻이며 최신 시장환율이 아닙니다. 운영자가 `JPY_TO_KRW_AS_OF=YYYY-MM-DD`와 `JPY_TO_KRW_SOURCE`(환율 출처 또는 팀 고정값 근거)를 함께 설정하면 응답 `exchange_rate.as_of/source`에 그대로 표시합니다. 미설정 항목은 null이고 `provenance_status=incomplete`입니다. 환율 자체가 없으면 `unconfigured`, 환율·기준일·출처가 모두 있으면 `documented`입니다. `live_quote=false`이므로 현재 시세로 표시하지 마세요. 잘못된 기준일은 서버 시작 시 오류로 알립니다. 팀에서 사용할 실제 환율 숫자·기준일·출처의 확정은 아직 남아 있습니다.
 
 `cost_status=unknown`은 미확인 가격, `not_applicable_shopping`은 개인 구매액 제외입니다. 둘 다 무료를 뜻하지 않습니다. 쇼핑 예산은 입장권·카페·식당 예산과 별도입니다. 금액을 합산하기 전에 이 상태를 확인해야 합니다. 실제 데이터의 `area`는 행정구역이며 관광 권역으로 해석하면 안 됩니다.
 

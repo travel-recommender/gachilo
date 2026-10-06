@@ -1,13 +1,13 @@
-# 전체 150개 장소 주소 보완
+# 전체 150개 장소 검토 현황 — 2026-09-30
 
-한국어 이름 150/150, 주소 148/150. Google Maps 대조 30곳(시설 대표주소 1곳 포함) + OSM 과거 주소 1곳 보완.
-주소가 남은 두 곳: 쓰쓰미 교자 포토존, MIHA shop. 명확한 지점 주소를 확보하지 못했습니다.
-폐업·임시휴업·시외 장소·이전 가능성 표시를 확인하세요. 주소 있음이 현재 영업 또는 모든 필드 검증 완료를 뜻하지 않습니다.
+한국어 이름 150/150, 주소 148/150, 영업시간 132/150. 날짜별 일정 검증 결과와 제한은 [5주차 일정 검증 문서](../../../../docs/week5_schedule_validation.md)를 확인하세요.
+
+폐업·임시휴업·예약·지점 미확인 표시는 보존했습니다. 주소가 있어도 영업 또는 일정 투입 완료를 뜻하지 않습니다. 모든 장소의 schedule_ready는 false입니다.
 
 | 한국어 이름 | 주소 | 주의사항 |
 |---|---|---|
 | 도톤보리 글리코 사인 | 大阪府大阪市中央区道頓堀1丁目10-4 |  |
-| 쓰텐카쿠 | 大阪市浪速区恵美須東1-18-6 |  |
+| 쓰텐카쿠 | 大阪市浪速区恵美須東1-18-6 | entry_time_reservation_required |
 | 신세카이 | 大阪市浪速区恵美須東 |  |
 | 아메리카무라 | 大阪市中央区西心斎橋1丁目～2丁目付近 |  |
 | 구로몬시장 | 大阪市中央区日本橋2丁目（黒門市場一帯） |  |
@@ -37,11 +37,11 @@
 | 브루클린 로스팅 컴퍼니 난바 | 大阪市浪速区敷津東1-1-21 なんばEKIKAN |  |
 | 엘레메카 연구소 | 일본 〒530-0015 Osaka, Kita Ward, Nakazakinishi, 4 Chome−3 1F |  |
 | 도톤보리 교 | 10 Dotonbori, Chuo Ward, Osaka, 542-0071 일본 |  |
-| 호쇼안 다실 | 2 Osakajo, Chuo Ward, Osaka, 540-0002 일본 | event_access_required |
+| 호쇼안 다실 | 2 Osakajo, Chuo Ward, Osaka, 540-0002 일본 | event_access_required, seasonal_event_date_confirmation_required |
 | 오에이피 항구 | 1 Chome-8-40 Tenmabashi, Kita Ward, 大阪府 Osaka 530-0042 일본 | google_maps_temporarily_closed |
 | 와케 다리 | 1 Chausuyamacho, Tennoji Ward, Osaka, 543-0063 일본 | identity_unconfirmed |
 | 쓰쓰미 교자 포토존 | 미확인 | identity_unconfirmed, address_unconfirmed |
-| 다이코 하수도 견학시설 | 大阪市中央区農人橋1-3-3 |  |
+| 다이코 하수도 견학시설 | 大阪市中央区農人橋1-3-3 | reservation_required |
 | 쇼에이도 | 大阪市中央区本町3-6-4 1F |  |
 | 게마 갑문 | 3 Chome-7-8 Kemacho, Miyakojima Ward, Osaka, 534-0001 일본 | access_conditions_unconfirmed |
 | 미나토마치 리버플레이스 | 大阪市浪速区湊町1-3-1 |  |

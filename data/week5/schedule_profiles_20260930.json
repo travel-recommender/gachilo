@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-09-30",
+  "valid_from": "2026-10-01",
+  "valid_through": "2026-11-30",
+  "status": "offline_validation_only",
+  "japan_holidays": [
+    "2026-10-12",
+    "2026-11-03",
+    "2026-11-23"
+  ],
+  "holiday_source": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html",
+  "notes": [
+    "일반 영업 및 확인된 예외의 정규화. 미래 임시휴업·좌석·입장 예약의 보장이 아니다.",
+    "window=[개시,종료,최종입장]이며 일본 현지 자정부터 분. 식당의 명시적 최종입장이 없으면 영업종료를 상한으로 두고 체류시간 전부가 창 안에 들어가야 한다.",
+    "HEP FIVE 10/15(목) 공지는 연도 생략. 2026-10-15를 확정 휴업으로 단정하지 않고 확인 전 제외한다.",
+    "공원 가격·시간은 명시한 무료 일반 이용 구역에만 적용한다. 좌표는 수집 원본으로 실제 출입구가 아니며 경로 정확도 검증에 쓰지 않는다."
+  ],
+  "places": {
+    "osaka_002": {
+      "window": [
+        540,
+        1305,
+        1275
+      ],
+      "entry_time_reservation": true,
+      "cost_basis": "성인 일반 전망대 1인 1,500 JPY. 입장 시간 예약 확인 전 제외; 특별 전망대·체험 별도.",
+      "source_urls": [
+        "https://www.tsutenkaku.co.jp/annai/"
+      ]
+    },
+    "osaka_007": {
+      "window": [
+        570,
+        1350,
+        1320
+      ],
+      "exceptions": {
+        "2026-11-08": {
+          "window": [
+            570,
+            1140,
+            1110
+          ]
+        }
+      },
+      "cost_basis": "성인 일반 공중정원 입장료 2,000 JPY",
+      "source_urls": [
+        "https://www.skybldg.co.jp/observatory/information/"
+      ]
+    },
+    "osaka_008": {
+      "window": [
+        660,
+        1380,
+        1365
+      ],
+      "uncertain_dates": [
+        "2026-10-15"
+      ],
+      "cost_basis": "관람차 일반 탑승 1인 1,000 JPY",
+      "source_urls": [
+        "https://www.hepfive.jp/ferriswheel"
+      ]
+    },
+    "osaka_009": {
+      "window": [
+        540,
+        1080,
+        1050
+      ],
+      "cost_basis": "성인 천수각 일반 입장료 1,200 JPY",
+      "source_urls": [
+        "https://www.osakacastle.net/guide/"
+      ]
+    },
+    "osaka_012": {
+      "window": [
+        570,
+        1020,
+        990
+      ],
+      "closed_weekdays": [
+        2
+      ],
+      "holiday_moves_closure": true,
+      "cost_basis": "성인 상설전 입장료 600 JPY; 특별전 별도",
+      "source_urls": [
+        "https://www.osakamushis.jp/visit/fee.html"
+      ]
+    },
+    "osaka_015": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "cost_basis": "공원 일반 야외 산책 무료; 천수각·니시노마루·유료시설 제외",
+      "source_urls": [
+        "https://osaka-info.jp/spot/osaka-castle-park/"
+      ]
+    },
+    "osaka_017": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "cost_basis": "공원 장미원 야외 관람 무료; 유람선·음식점 제외",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/244",
+        "https://osaka-info.jp/spot/nakanoshima-park/"
+      ]
+    },
+    "osaka_018": {
+      "window": [
+        420,
+        1320,
+        1320
+      ],
+      "cost_basis": "텐시바 입구 광장만 무료; 동물원·미술관·게이타쿠엔 제외",
+      "source_urls": [
+        "https://osaka-info.jp/spot/tennoji-park-entrance-area-ten-shiba/"
+      ]
+    },
+    "osaka_019": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "cost_basis": "공원 야외 장미원 산책 무료; 유료 체육시설 제외",
+      "source_urls": [
+        "https://utsubotennis.osaka/rose_garden/",
+        "https://parksgreenery.city.osaka.lg.jp/article/parks-utsubo/"
+      ]
+    },
+    "osaka_028": {
+      "window": [
+        660,
+        1440,
+        1440
+      ],
+      "cost_basis": "흑대장 간장라멘 1인 950 JPY 세금 포함. 추가 주문·세트 제외",
+      "source_urls": [
+        "https://www.soudaisyou.com/access.html"
+      ]
+    },
+    "osaka_draft_243b34cd6761": {
+      "window": [
+        660,
+        1350,
+        1300
+      ],
+      "weekday_window": [
+        720,
+        1350,
+        1300
+      ],
+      "requires_visit_confirmation": true,
+      "cost_basis": "일반 아이스/핫 커피 1잔 715 JPY 세금 포함; 1인 1음료, 별도 좌석료 없음, 추가 음식·음료 제외. 비정기 휴무 확인 전 제외.",
+      "source_urls": [
+        "https://www.e-maid.net/menu.html",
+        "https://www.e-maid.net/concept.html",
+        "https://www.e-maid.net/"
+      ]
+    },
+    "osaka_draft_26a5e809355e": {
+      "window": [
+        690,
+        900,
+        900
+      ],
+      "closed_weekdays": [
+        1
+      ],
+      "cost_basis": "점심 데미글라스 햄버그 150g 정식 980 JPY 세금 포함. 점심 창에만 적용; 저녁·추가 주문 제외",
+      "source_urls": [
+        "https://cherryjam.owst.jp/"
+      ]
+    }
+  }
+}
