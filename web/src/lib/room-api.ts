@@ -44,6 +44,16 @@ export interface ApiRoomInfo {
   startDate: string;
   endDate: string;
   members: { id: string; name: string }[];
+  /** 실제 장소 방(osaka_review_150)일 때만 온다 */
+  dataset?: string;
+}
+
+/** 본인 입력 조회 응답. 아직 제출하지 않았으면 submission이 null이다 */
+export interface ApiOwnSubmission {
+  roomId: string;
+  memberId: string;
+  revision: number;
+  submission: (ApiSubmission & { memberId: string }) | null;
 }
 
 export type RoomStatus = "collecting" | "awaiting_result" | "ready";
@@ -117,6 +127,15 @@ export const roomApi = {
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>
     request<ApiRoomInfo>(`/rooms/${encodeURIComponent(roomId)}`, "GET", undefined, token),
+
+  /** 내가 저장한 입력. 그 참여자의 토큰으로만 읽힌다 (방장 토큰도 403) */
+  mySubmission: (roomId: string, memberId: string, token: string) =>
+    request<ApiOwnSubmission>(
+      `/rooms/${encodeURIComponent(roomId)}/submissions/${encodeURIComponent(memberId)}`,
+      "GET",
+      undefined,
+      token
+    ),
 
   // 아래 세 개는 조은님이 만든 호출부(/server-check)를 그대로 쓸 수 있도록
   // 객체를 받는 원래 모양을 유지한다. 필요한 필드만 구조적으로 요구한다.

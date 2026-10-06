@@ -13,6 +13,7 @@ import {
 } from "@/lib/places";
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
 import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
+import { editedState, joinedState, restoredFromServer } from "@/lib/room-state";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
 /**
@@ -103,10 +104,21 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   stateRef.current = state;
 
   useEffect(() => {
+    let restored = INITIAL;
     try {
-      setState(restore(window.localStorage, window.sessionStorage, INITIAL));
+      restored = restore(window.localStorage, window.sessionStorage, INITIAL);
+      setState(restored);
     } catch { /* 무시 */ }
     setReady(true);
+    // 이 기기에 제출한 입력이 없으면 서버의 본인 입력으로 채운다. 실패하면 제출 막기(inputMissing)를 유지한다
+    const room = restored.room;
+    if (room && restored.inputMissing) {
+      roomApi.mySubmission(room.roomId, room.memberId, room.token)
+        .then((own) => setState((s) =>
+          s.room?.roomId === room.roomId && s.room.memberId === room.memberId
+            ? restoredFromServer(s, own.submission) : s))
+        .catch(() => { /* 막힌 상태로 둔다 */ });
+    }
   }, []);
 
   useEffect(() => {
@@ -115,12 +127,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   }, [state, ready]);
 
   const set = (p: Partial<AppState>) => setState((s) => ({ ...s, ...p }));
-  const setMine = (p: Partial<Submission>) => setState((s) => ({
-    ...s,
-    mine: { ...s.mine, ...p },
-    // 1차 선택을 다시 고르기 시작하면 새 입력이다
-    inputMissing: p.longlist !== undefined ? false : s.inputMissing,
-  }));
+  const setMine = (p: Partial<Submission>) => setState((s) => editedState(s, p));
   const setMemberNames = (names: string[]) => setState((s) => ({ ...s, members: makeMembers(names) }));
 
   const createRoom = async (startDate: string, nights: number, names: string[]) => {
@@ -161,28 +168,14 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     if (!info.members.some((m) => m.id === memberId)) {
       throw new ApiError("이 방의 참여자 링크가 아니에요. 방을 만든 사람에게 링크를 다시 받아주세요.", 403);
     }
+    // 다른 자리로 들어오거나 이 기기에 입력이 없을 때 채울 서버의 본인 입력
+    const own = await roomApi.mySubmission(roomId, memberId, token);
     const colors = makeMembers(info.members.map((m) => m.name));
-    setState((s) => ({
-      ...s,
-      nights: nightsBetween(info.startDate, info.endDate),
-      startDate: info.startDate,
-      members: info.members.map((m, i) => ({ id: m.id, name: m.name, color: colors[i].color })),
-      room: {
-        roomId,
-        startDate: info.startDate,
-        endDate: info.endDate,
-        memberId,
-        token,
-        ownerToken: null,
-        members: [],
-      },
-      // 다른 사람 자리로 들어왔으므로 이전 사람의 선택은 지운다.
-      // (같은 브라우저에서 링크를 바꿔 들어가는 시연에서 실제로 섞였다)
-      mine: { ...MY_DEFAULT, memberId },
-      customPlaces: [],
-      submitted: false,
-      inputMissing: false,
-    }));
+    const members = info.members.map((m, i) => ({ id: m.id, name: m.name, color: colors[i].color }));
+    setState((s) => joinedState(
+      s, { roomId, memberId, token }, info, members,
+      nightsBetween(info.startDate, info.endDate), own.submission, MY_DEFAULT,
+    ));
   };
 
   const submitMine = async () => {

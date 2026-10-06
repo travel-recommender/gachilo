@@ -5,9 +5,10 @@
  *   localStorage는 모든 탭이 공유하므로 **새 탭·재접속용 마지막 방**으로만 쓴다.
  * - 입력 초안(선택·조건): 탭별 sessionStorage에만. **어느 방·어느 참여자의 초안인지(owner)**를 같이 적고,
  *   복원한 방 세션과 owner가 다르면 버린다. 다른 사람 토큰으로 내 초안이 제출되면 안 된다.
- * 본인 입력을 서버에서 복원하는 API가 생기면(#22 B.6) 초안 저장은 뺀다.
+ * 초안이 없는데 제출한 적이 있으면 서버의 본인 입력 조회로 채운다(store.tsx). 초안은 아직 안 낸 수정을 지키는 용도다.
  */
 import type { AppState } from "../components/store";
+import type { Submission } from "./types";
 
 export const SESSION_KEY = "gatiga-v5";
 export const DRAFT_KEY = "gatiga-v5-draft";
@@ -78,6 +79,15 @@ export function restore(local: KV, session: KV, initial: AppState): AppState {
   return state;
 }
 
+/** 직접 추가한 장소 id의 앞부분 (places.ts makeCustomPlace). 서버 카탈로그에는 없다 */
+export const CUSTOM_PREFIX = "custom_";
+
+/** 이 입력에 서버가 모르는 직접 추가 장소가 들어 있는가 */
+export function hasCustomPlace(mine: Submission) {
+  return [...mine.longlist, ...mine.picks, mine.must, mine.veto]
+    .some((id) => typeof id === "string" && id.startsWith(CUSTOM_PREFIX));
+}
+
 /** 지금 제출하면 안 되는 이유. 없으면 null */
 export function submitBlocker(state: AppState): string | null {
   if (state.inputMissing) {
@@ -85,6 +95,9 @@ export function submitBlocker(state: AppState): string | null {
   }
   if (state.room && state.mine.memberId !== state.room.memberId) {
     return "입력과 참여자 정보가 맞지 않아요. 초대 링크로 다시 들어와 주세요.";
+  }
+  if (state.room && hasCustomPlace(state.mine)) {
+    return "직접 추가한 장소는 아직 여행방에 저장할 수 없어요. 목록에 있는 장소로 바꿔 주세요.";
   }
   return null;
 }

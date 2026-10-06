@@ -29,6 +29,8 @@ export function PlaceSearch({ selected, onToggle, onAdded, disabledAdd }: {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const pool = useMemo(() => allPlaces(), [state.customPlaces]);
+  // 여행방에서는 서버 장소 목록에 있는 id만 저장된다. 서버 장소 등록이 생기기 전까지 직접 추가를 막는다
+  const canAdd = !state.room;
 
   const results = useMemo(() => {
     const q = query.trim();
@@ -63,7 +65,7 @@ export function PlaceSearch({ selected, onToggle, onAdded, disabledAdd }: {
         ))}
       </div>
 
-      {adding ? (
+      {adding && canAdd ? (
         <AddPlaceForm
           initialName={query}
           initialCategory={category}
@@ -82,8 +84,7 @@ export function PlaceSearch({ selected, onToggle, onAdded, disabledAdd }: {
               <p className="text-[13px] font-semibold text-ink-700">아직 아무것도 없어요</p>
               <p className="mt-1 text-[11.5px] leading-relaxed text-ink-500">
                 가고 싶은 곳을 검색하거나 위 카테고리를 눌러보세요.
-                <br />
-                목록에 없으면 직접 추가할 수 있어요.
+                {canAdd && (<><br />목록에 없으면 직접 추가할 수 있어요.</>)}
               </p>
             </div>
           )}
@@ -102,10 +103,16 @@ export function PlaceSearch({ selected, onToggle, onAdded, disabledAdd }: {
             </p>
           )}
 
-          <button onClick={() => setAdding(true)}
-            className="w-full rounded-2xl border border-dashed border-brand-500/60 bg-brand-50/40 px-4 py-3 text-[13px] font-semibold text-brand-600">
-            {query.trim() ? `"${query.trim()}" 직접 추가하기` : "찾는 곳이 없나요? 직접 추가하기"}
-          </button>
+          {canAdd ? (
+            <button onClick={() => setAdding(true)}
+              className="w-full rounded-2xl border border-dashed border-brand-500/60 bg-brand-50/40 px-4 py-3 text-[13px] font-semibold text-brand-600">
+              {query.trim() ? `"${query.trim()}" 직접 추가하기` : "찾는 곳이 없나요? 직접 추가하기"}
+            </button>
+          ) : (
+            <p className="px-1 text-[11.5px] leading-relaxed text-ink-500">
+              여행방에서는 목록에 있는 장소만 고를 수 있어요. 직접 추가는 아직 함께 저장되지 않아요.
+            </p>
+          )}
         </>
       )}
     </div>
