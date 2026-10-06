@@ -1,0 +1,894 @@
+{
+  "revision": "official_followup_20261006",
+  "checked_at": "2026-10-06",
+  "base_sha256": "80466e3072df58d7b25e9db0cfca21f6c5f8b91315a1042e2f0305aa290d0f5a",
+  "scope": "기존 150개 원본의 일부 공식 자료 재검토. 전체 장소의 당일 확인·현장 답사·운영 승격을 의미하지 않음.",
+  "statistics_before": {
+    "records": 150,
+    "records_with_value_changes": 150,
+    "null_fields_filled": 852,
+    "non_null_fields_updated": 120,
+    "missing_before": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 110,
+      "category": 0,
+      "area": 150,
+      "address": 65,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 35,
+      "cost": 145,
+      "stay_min": 150,
+      "bag_load": 150,
+      "covered": 150,
+      "website": 39,
+      "opening_hours_source": 83,
+      "verified_at": 62
+    },
+    "missing_after": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 0,
+      "category": 0,
+      "area": 3,
+      "address": 2,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 17,
+      "cost": 100,
+      "stay_min": 0,
+      "bag_load": 0,
+      "covered": 88,
+      "website": 10,
+      "opening_hours_source": 43,
+      "verified_at": 24
+    },
+    "records_with_blockers": 46,
+    "official_null_fields_filled_before_localization": 316,
+    "editorial_korean_names_filled": 110,
+    "map_addresses_added": 31
+  },
+  "statistics_after": {
+    "records": 150,
+    "records_with_value_changes": 150,
+    "null_fields_filled": 857,
+    "non_null_fields_updated": 126,
+    "missing_before": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 110,
+      "category": 0,
+      "area": 150,
+      "address": 65,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 35,
+      "cost": 145,
+      "stay_min": 150,
+      "bag_load": 150,
+      "covered": 150,
+      "website": 39,
+      "opening_hours_source": 83,
+      "verified_at": 62
+    },
+    "missing_after": {
+      "place_id": 0,
+      "name": 0,
+      "name_ko": 0,
+      "category": 0,
+      "area": 3,
+      "address": 2,
+      "latitude": 0,
+      "longitude": 0,
+      "opening_hours": 17,
+      "cost": 99,
+      "stay_min": 0,
+      "bag_load": 0,
+      "covered": 85,
+      "website": 10,
+      "opening_hours_source": 42,
+      "verified_at": 24
+    },
+    "records_with_blockers": 48,
+    "official_null_fields_filled_before_localization": 316,
+    "editorial_korean_names_filled": 110,
+    "map_addresses_added": 31
+  },
+  "checks": [
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "name_ko": "우메키타 공원 사우스 파크",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+          "https://umekita.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "UR 공식 운영 안내에서 공원 24시간·입장 무료를 확인. 사우스 파크 일반 야외 산책만 대상으로 하며 유료 시설·행사·음식점은 제외. 북쪽 미개방 구역을 포함하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "name_ko": "와케 다리",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+          "https://maps.google.com/?cid=4275703018452935561",
+          "https://www.openstreetmap.org/node/12781301802"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "오사카시 본문은 차우스야마·和気橋·河底池를 함께 명시한다. 기존 9월 지도 대조(원본 OSM과 1.9m 차이)와 이름·공원 위치를 결합해 ワケ橋/和気橋를 동일 대상으로 판단하여 identity_unconfirmed를 해제. 지도는 오늘 재조회한 것이 아니며 현재 통제·공사 및 실제 접근 경로 보장은 별도."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e102a263e5a8",
+      "name_ko": "요도가와 하천공원 나가라 지구",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+          "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도."
+      }
+    },
+    {
+      "place_id": "osaka_draft_8cb9705b2793",
+      "name_ko": "컴포트 존 에이트 교토 이탈리안",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://comfortzone8kyoitarian.com/lunch-menu/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 오늘의 파스타 단품 1150엔과 점심 운영시간 확인. 코스는 2~2.5시간·사전 예약이며 이 단품과 다름. 모든 영업일의 공통 점심 구간 12:00–14:00, 최종 입장 13:00만 사용. 월·화 및 공휴일 운영 충돌 가능일 제외. 추가 세트·저녁 주문 제외; 세금 포함 여부는 페이지에 명시되지 않아 가격 표기 그대로 사용한 모델 참고값이며 최종 예산 확정 전 확인 필요."
+      }
+    },
+    {
+      "place_id": "osaka_draft_300825840acb",
+      "name_ko": "아키바 카트 오사카",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osakakart.com/en/course-osaka/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "1시간 코스 7000엔(세금 포함)은 16시 이전 출발에만 적용. 16시 이후 8000엔. 예약 회차와 일본에서 인정되는 운전 자격 확인이 필요하므로 연속 10:00–21:30 방문처럼 자동 배치하지 않음. 120분 팀 체류 추정과 실제 1시간 주행은 구별."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f22cfa23d646",
+      "name_ko": "42195 커피",
+      "status": "source_conflict",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://42195coffee.wixsite.com/toppage",
+          "https://42195coffee.wixsite.com/toppage/menu"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 첫 화면은 수요일 08:00–12:00·목요일 휴무지만 메뉴 페이지 하단은 매주 수요일·둘째 목요일 휴무로 서로 다름. 게시 시점으로 우선순위를 확정할 수 없어 hours_conflict 추가. 기존 원문 시간은 남기되 일정 배치 보류. 메뉴명은 있으나 확인한 페이지에는 가격이 없어 cost null 유지."
+      }
+    },
+    {
+      "place_id": "osaka_draft_c341bbd2440a",
+      "name_ko": "머시 비건 팩토리",
+      "status": "source_conflict",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.mercy-vegan.jp/restaurants/",
+          "https://www.mercy-vegan.jp/service/",
+          "https://shop.mercy-vegan.jp/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 매장·서비스 본문은 瓦屋町2-4-5, 공식 쇼핑몰과 공통 하단은 2-4-15로 주소가 충돌하여 address_conflict 추가. 어느 번지가 맞는지 임의 선택하지 않음. 쇼핑몰의 냉동 제품 가격을 식당 메뉴 가격으로 쓰지 않음. 공식 서비스 설명의 밝은 실내 공간만 covered 분류."
+      }
+    },
+    {
+      "place_id": "osaka_draft_c99cbfbd0f92",
+      "name_ko": "아트코트 갤러리",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.artcourtgallery.com/exhibitions/17306/",
+          "https://www.artcourtgallery.com/access/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "ACG eyes: Autumn Show 전시 기간 2026-09-24~10-17, 평일 11:00–18:00·토요일 11:00–17:00, 일·월·공휴일 휴관. 공통 11:00–17:00만 사용하고 10/17 이후는 이 전시 근거로 배치하지 않음. 일반 입장료는 페이지에 명시되지 않아 무료라고 추정하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_016",
+      "name_ko": "나카노시마 공원",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osaka-info.jp/spot/nakanoshima-park/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "나카노시마 공원 일반 산책 상시 개방. 별도 장미원 레코드와 중첩 가능; 식당·유람선·행사 제외. 일반 공원 입장료 명시가 없어 기존 cost null 유지."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f72944194ef3",
+      "name_ko": "지시마 공원",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "지시마 공원 상시 개방, 부속 시설 별도. 가격 공지가 없어 cost null을 무료로 바꾸지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2780be08a88e",
+      "name_ko": "미쓰 하치만구",
+      "status": "reviewed_with_conditions",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://mitsugu.org/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "미쓰 하치만구 개문 07:00–18:00만 사용. 사무소 09:00–17:00와 구분. 일반 참배 요금의 명시 근거가 없어 null 유지; 기도·축제·행사 별도."
+      }
+    },
+    {
+      "place_id": "osm_node_2296903605",
+      "name_ko": "마루후쿠 커피 센니치마에 본점",
+      "status": "price_not_found",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "본점 주소·08:00–23:00·실내 좌석 안내 재확인. 공식 페이지에서 음료 가격 확인 안 됨. 외부 목록의 블렌드 630엔을 공식 검증 가격으로 승격하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e5eb4dd70807",
+      "name_ko": "소트 커피",
+      "status": "price_not_found",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.sotcoffee.com/en/pages/shop-osaka"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "오테도리 매장 08:00–19:00 및 층별 좌석 안내 확인. 온라인 원두 가격은 현장 음료 가격과 다르므로 cost null 유지."
+      }
+    },
+    {
+      "place_id": "osaka_draft_5a3ef73c2b4b",
+      "name_ko": "블루보틀 커피",
+      "status": "menu_fetch_failed",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
+          "https://bluebottlecoffee.co.jp/menu/jp/umeda.html"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "우메다 차야마치 매장 안내는 확인했으나 공식 메뉴 링크는 조회 실패(502/인증서 호스트 불일치). 원두 판매가격·가격 인상액만으로 음료 정가를 만들지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_32974d974e62",
+      "name_ko": "케이크 앤 카페 다이닝 보나본",
+      "status": "current_price_unconfirmed",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://bonandbon.jp/",
+          "https://bonandbon.jp/product/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "확인 가능한 메뉴 공지는 2024년 자료로 현재 메뉴·가격 여부를 확정하지 못함. 과거 한정 크레페 금액을 대표 비용으로 적용하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_391fae83b26c",
+      "name_ko": "덴시바 이나",
+      "status": "tenant_scope_unconfirmed",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.tennoji-park.jp/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "텐시바 공원 07:00–22:00를 INA 입점 상점들의 공통 영업시간으로 복사하지 않음. 방문 점포·유료 활동 범위 확인 필요."
+      }
+    },
+    {
+      "place_id": "osaka_draft_481d9742f9c2",
+      "name_ko": "브리제 브리제",
+      "status": "visit_date_confirmation_needed",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.breeze-breeze.jp/info/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "일반 판매장 월~토 11:00–20:00, 일·공휴일 11:00–19:00 등 안내가 있으나 비정기 휴무. 기존 방문일 확인 필요 조건 유지."
+      }
+    },
+    {
+      "place_id": "osaka_draft_3d97f36846d0",
+      "name_ko": "중앙시장 엔도 스시",
+      "status": "price_not_found",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.endo-sushi.com/12513124911251712540.html"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 메뉴에서 오마카세 접시 설명을 확인했으나 가격 텍스트를 확인하지 못함. 이미지 메뉴 금액은 판독하지 못했으므로 미확인 유지."
+      }
+    },
+    {
+      "place_id": "osaka_draft_1cdebcaa6534",
+      "name_ko": "진루이 미나 멘루이",
+      "status": "linked_page_fetch_failed",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.jinrui-minamenrui.com/",
+          "https://www.unchi-co.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "브랜드 홈페이지는 운영 회사로 시간 안내를 연결하지만 후속 조회가 완료되지 않음. 기존 OSM 시간을 새 공식 검증 시간으로 바꾸지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_11ceb1687dfa",
+      "name_ko": "라 그란다 파밀리오",
+      "status": "image_menu_unread",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.grandafamilio.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "페이지는 이미지 중심이며 공식 메뉴 이미지 판독을 완료하지 못함. 미확인 금액은 채우지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f8831852f028",
+      "name_ko": "파팔리나",
+      "status": "official_site_fetch_failed",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://papalina68.web.fc2.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 사이트 조회 실패. 과거 리뷰나 다른 지점 메뉴로 가격을 대체하지 않음."
+      }
+    }
+  ],
+  "field_changes": [
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "field": "cost",
+      "before": null,
+      "after": 0,
+      "previous_source": null,
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+          "https://umekita.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "UR 공식 운영 안내에서 공원 24시간·입장 무료를 확인. 사우스 파크 일반 야외 산책만 대상으로 하며 유료 시설·행사·음식점은 제외. 북쪽 미개방 구역을 포함하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "field": "opening_hours",
+      "before": "상시 개방; 부속 시설은 별도 운영",
+      "after": "매일 24시간 (사우스 파크 일반 산책 공간; 시설·점포·행사 별도)",
+      "previous_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+          "https://umekita.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "UR 공식 운영 안내에서 공원 24시간·입장 무료를 확인. 사우스 파크 일반 야외 산책만 대상으로 하며 유료 시설·행사·음식점은 제외. 북쪽 미개방 구역을 포함하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "field": "opening_hours_source",
+      "before": "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+      "after": "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+      "previous_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/"
+        ],
+        "checked_at": "2026-09-26",
+        "evidence_window": "2026-09-24/2026-09-26"
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+          "https://umekita.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "UR 공식 운영 안내에서 공원 24시간·입장 무료를 확인. 사우스 파크 일반 야외 산책만 대상으로 하며 유료 시설·행사·음식점은 제외. 북쪽 미개방 구역을 포함하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "field": "covered",
+      "before": null,
+      "after": false,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+          "https://umekita.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 설명의 야외 잔디광장·산책 공간을 분류. 일부 대형 지붕이 있어도 공원 전체를 우천 회피 장소로 취급하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "field": "verified_at",
+      "before": "2026-09-28",
+      "after": "2026-10-06",
+      "previous_source": {
+        "kind": "review_date_only",
+        "note": "이번에 확인한 필드만 검증. 전체 필드·영업 상태 검증을 뜻하지 않음.",
+        "check_id": "official_fields_20260928"
+      },
+      "source": {
+        "kind": "review_date_only",
+        "urls": [
+          "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+          "https://umekita.com/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "표시한 필드와 이용 범위의 자료 확인일. 실지 답사일이 아님."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "field": "covered",
+      "before": null,
+      "after": false,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 공원 안내의 연못 위 야외 다리·주변 산책 범위에 대한 분류. 실내 피난·비 회피 시설로 사용하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "field": "verified_at",
+      "before": "2026-09-30",
+      "after": "2026-10-06",
+      "previous_source": {
+        "kind": "official_site",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-09-30",
+        "revision": "planning_review_20260930",
+        "note": "오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존."
+      },
+      "source": {
+        "kind": "review_date_only",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 자료와 기존 지도 대조의 재검토일. 지도 재수집일 아님."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e102a263e5a8",
+      "field": "opening_hours",
+      "before": "24/7",
+      "after": "매일 09:00–17:00; 5월17일–8월16일 09:00–19:00 (재해·공사 통제 별도)",
+      "previous_source": {
+        "kind": "osm",
+        "url": "https://www.openstreetmap.org/way/162156955"
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+          "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e102a263e5a8",
+      "field": "opening_hours_source",
+      "before": null,
+      "after": "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+      "previous_source": null,
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+          "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e102a263e5a8",
+      "field": "verified_at",
+      "before": "2026-09-28",
+      "after": "2026-10-06",
+      "previous_source": {
+        "kind": "review_date_only",
+        "urls": [
+          "https://www.yodogawa-park.jp/annai/nagara-kahan/"
+        ],
+        "checked_at": "2026-09-28",
+        "note": "나가라 지구 공식 안내의 기타구와 야외 잔디광장 확인. 관리사무소 소재지 모리구치시는 이 장소 주소로 사용하지 않음. 계절별 개원시간은 기존 충돌 표시 유지.",
+        "revision": "official_fields_20260928_v2"
+      },
+      "source": {
+        "kind": "review_date_only",
+        "urls": [
+          "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+          "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 개방시간 표 재확인일. 비용 확인은 포함하지 않음."
+      }
+    },
+    {
+      "place_id": "osaka_draft_8cb9705b2793",
+      "field": "cost",
+      "before": 1150,
+      "after": 1150,
+      "previous_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://comfortzone8kyoitarian.com/lunch-menu/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "점심 오늘의 파스타 단품 1인 1,150 JPY. +300 JPY 세트·저녁 커버차지와 심야 가산 제외. 페이지상 세금 표시 미확인; 최종 결제 총액으로 확정하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://comfortzone8kyoitarian.com/lunch-menu/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 오늘의 파스타 단품 1150엔과 점심 운영시간 확인. 코스는 2~2.5시간·사전 예약이며 이 단품과 다름. 모든 영업일의 공통 점심 구간 12:00–14:00, 최종 입장 13:00만 사용. 월·화 및 공휴일 운영 충돌 가능일 제외. 추가 세트·저녁 주문 제외; 세금 포함 여부는 페이지에 명시되지 않아 가격 표기 그대로 사용한 모델 참고값이며 최종 예산 확정 전 확인 필요."
+      }
+    },
+    {
+      "place_id": "osaka_draft_300825840acb",
+      "field": "cost",
+      "before": 7000,
+      "after": 7000,
+      "previous_source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osakakart.com/en/course-osaka/"
+        ],
+        "checked_at": "2026-10-01",
+        "revision": "teammate_review_20261001",
+        "note": "1인 1시간 코스, 16시 이전 주간 요금 7,000 JPY(세금 포함). 16시 이후 8,000 JPY와 구분. 예약·유효 면허·참가 조건 확인 필요. 팀 체류시간 120분을 1시간 상품으로 오인하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osakakart.com/en/course-osaka/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "1시간 코스 7000엔(세금 포함)은 16시 이전 출발에만 적용. 16시 이후 8000엔. 예약 회차와 일본에서 인정되는 운전 자격 확인이 필요하므로 연속 10:00–21:30 방문처럼 자동 배치하지 않음. 120분 팀 체류 추정과 실제 1시간 주행은 구별."
+      }
+    },
+    {
+      "place_id": "osaka_draft_c341bbd2440a",
+      "field": "covered",
+      "before": null,
+      "after": true,
+      "previous_source": null,
+      "source": {
+        "kind": "classification_from_official_description",
+        "urls": [
+          "https://www.mercy-vegan.jp/restaurants/",
+          "https://www.mercy-vegan.jp/service/",
+          "https://shop.mercy-vegan.jp/"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "공식 서비스 설명에 명시된 밝고 개방적인 실내 매장 이용에 한정. 포장 픽업·외부 좌석·접근 경로 제외."
+      }
+    }
+  ],
+  "profile_changes": [
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "previous": null,
+      "current": {
+        "window": [
+          0,
+          1440,
+          1440
+        ],
+        "valid_from": "2026-10-06",
+        "valid_through": "2026-11-30",
+        "checked_at": "2026-10-06",
+        "source_urls": [
+          "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+          "https://umekita.com/"
+        ],
+        "cost_basis": "일반 야외 산책 입장 무료. 시설·유료 행사·음식점 비용 제외."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "previous": {
+        "window": [
+          420,
+          1320,
+          1320
+        ],
+        "cost_basis": "차우스야마 공원 안 와케 다리 주변 야외 관람 무료. 공식 공원 개방시간 범위만 적용. 임시 다리 통제·공사는 별도 확인.",
+        "source_urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        ],
+        "checked_at": "2026-09-30"
+      },
+      "current": {
+        "window": [
+          420,
+          1320,
+          1320
+        ],
+        "valid_from": "2026-10-06",
+        "valid_through": "2026-11-30",
+        "checked_at": "2026-10-06",
+        "source_urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+          "https://maps.google.com/?cid=4275703018452935561",
+          "https://www.openstreetmap.org/node/12781301802"
+        ],
+        "cost_basis": "차우스야마 무료 공원 안 다리 주변 산책. 유료 게이타쿠엔·미술관 제외."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e102a263e5a8",
+      "previous": null,
+      "current": {
+        "window": [
+          540,
+          1020,
+          1020
+        ],
+        "valid_from": "2026-10-06",
+        "valid_through": "2026-11-30",
+        "checked_at": "2026-10-06",
+        "source_urls": [
+          "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+          "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+        ],
+        "cost_basis": "일반 입장 비용 근거 미확인으로 일정 제외. 10~11월 개방시간만 정규화."
+      }
+    },
+    {
+      "place_id": "osaka_draft_8cb9705b2793",
+      "previous": null,
+      "current": {
+        "window": [
+          720,
+          840,
+          780
+        ],
+        "valid_from": "2026-10-06",
+        "valid_through": "2026-11-30",
+        "checked_at": "2026-10-06",
+        "source_urls": [
+          "https://comfortzone8kyoitarian.com/lunch-menu/"
+        ],
+        "cost_basis": "오늘의 파스타 단품 표시가 1150 JPY. 세금 표시 미확인, 추가 세트·코스·저녁 제외.",
+        "closed_weekdays": [
+          1,
+          2
+        ],
+        "holiday_hours_unconfirmed": true
+      }
+    },
+    {
+      "place_id": "osaka_draft_c99cbfbd0f92",
+      "previous": null,
+      "current": {
+        "window": [
+          660,
+          1020,
+          1020
+        ],
+        "valid_from": "2026-10-06",
+        "valid_through": "2026-10-17",
+        "checked_at": "2026-10-06",
+        "source_urls": [
+          "https://www.artcourtgallery.com/exhibitions/17306/",
+          "https://www.artcourtgallery.com/access/"
+        ],
+        "cost_basis": "입장료 미확인으로 일정 제외. 해당 전시 기간의 시간만 정규화.",
+        "closed_weekdays": [
+          0,
+          1
+        ],
+        "closed_holidays": true
+      }
+    },
+    {
+      "place_id": "osaka_016",
+      "previous": null,
+      "current": {
+        "window": [
+          0,
+          1440,
+          1440
+        ],
+        "valid_from": "2026-10-06",
+        "valid_through": "2026-11-30",
+        "checked_at": "2026-10-06",
+        "source_urls": [
+          "https://osaka-info.jp/spot/nakanoshima-park/"
+        ],
+        "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화."
+      }
+    },
+    {
+      "place_id": "osaka_draft_f72944194ef3",
+      "previous": null,
+      "current": {
+        "window": [
+          0,
+          1440,
+          1440
+        ],
+        "valid_from": "2026-10-06",
+        "valid_through": "2026-11-30",
+        "checked_at": "2026-10-06",
+        "source_urls": [
+          "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+        ],
+        "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화."
+      }
+    },
+    {
+      "place_id": "osaka_draft_2780be08a88e",
+      "previous": null,
+      "current": {
+        "window": [
+          420,
+          1080,
+          1080
+        ],
+        "valid_from": "2026-10-06",
+        "valid_through": "2026-11-30",
+        "checked_at": "2026-10-06",
+        "source_urls": [
+          "https://mitsugu.org/"
+        ],
+        "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화."
+      }
+    }
+  ],
+  "blocker_resolutions": [
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "blocker": "identity_unconfirmed",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+          "https://maps.google.com/?cid=4275703018452935561",
+          "https://www.openstreetmap.org/node/12781301802"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "오사카시 본문은 차우스야마·和気橋·河底池를 함께 명시한다. 기존 9월 지도 대조(원본 OSM과 1.9m 차이)와 이름·공원 위치를 결합해 ワケ橋/和気橋를 동일 대상으로 판단하여 identity_unconfirmed를 해제. 지도는 오늘 재조회한 것이 아니며 현재 통제·공사 및 실제 접근 경로 보장은 별도."
+      }
+    },
+    {
+      "place_id": "osaka_draft_e102a263e5a8",
+      "blocker": "hours_conflict",
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+          "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+        ],
+        "checked_at": "2026-10-06",
+        "revision": "official_followup_20261006",
+        "note": "현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도."
+      }
+    }
+  ],
+  "limitations": [
+    "모든 schedule_ready=false 유지. 원본 좌표는 실제 입구 검증이 아님.",
+    "원문 인용 대신 사실 요약·출처 링크·확인일을 저장. 공개되지 않은 가격과 접근 실패는 미확인 유지.",
+    "쇼핑 구매비 null은 비산정. 유료 행사·음식·예외 시설은 공원 무료 입장 범위에서 제외.",
+    "실제 서비스 화면 연결과 3대 기기 시험은 사용자·팀이 2026-10-07 진행 예정."
+  ]
+}

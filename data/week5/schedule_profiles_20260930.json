@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "checked_at": "2026-10-01",
+  "checked_at": "2026-10-06",
   "valid_from": "2026-10-01",
   "valid_through": "2026-11-30",
   "status": "reviewed_model_profiles",
@@ -19,7 +19,8 @@
     "2026-09-30 추가 확인: 쇼핑층 공통 시간·무료 참배/공원·찻집을 정규화. Whity 11/19 정기휴관, 위스테 10/8·차엔 10/10 확인 전 제외. 비정기 휴무 브리제는 여전히 보류.",
     "2026-09-30 후속: 장소별 검증 유효기간과 날짜별 무료요금 적용. 일반 가격은 원본에 보존. 명시한 공통 시간대만 사용하며 가격·방문일 미확인은 계속 제외한다.",
     "2026-10-01: 위스테 공식 정정 공지 반영. 앞선 10/8 제외 기록은 10/15로 대체. 다른 장소의 과거 검토일은 유지.",
-    "2026-10-01: 공식 지점 메뉴5개·시간대 적용9개 추가. 점심·심야할증·비정기휴무를 구분하고 Sub Jazz 공식 시간 충돌은 추가 보류한다."
+    "2026-10-01: 공식 지점 메뉴5개·시간대 적용9개 추가. 점심·심야할증·비정기휴무를 구분하고 Sub Jazz 공식 시간 충돌은 추가 보류한다.",
+    "2026-10-06: 공식 자료 재검토 범위와 신규 날짜 규칙은 별도 official_followup_20261006.json 참조. 새 규칙은 10/6부터 적용하며 전시 종료일·점심 범위·가격 미확인·주소/시간 충돌을 유지. 모든 출처를 당일 재조회한 것은 아님."
   ],
   "places": {
     "osaka_002": {
@@ -324,11 +325,15 @@
         1320,
         1320
       ],
-      "cost_basis": "차우스야마 공원 안 와케 다리 주변 야외 관람 무료. 공식 공원 개방시간 범위만 적용. 임시 다리 통제·공사는 별도 확인.",
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
       "source_urls": [
-        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+        "https://maps.google.com/?cid=4275703018452935561",
+        "https://www.openstreetmap.org/node/12781301802"
       ],
-      "checked_at": "2026-09-30"
+      "cost_basis": "차우스야마 무료 공원 안 다리 주변 산책. 유료 게이타쿠엔·미술관 제외."
     },
     "osaka_draft_16f1d28c8bfd": {
       "window": [
@@ -1027,6 +1032,118 @@
         6
       ],
       "price_unavailable_holidays": true
+    },
+    "osaka_draft_2941efc9ac2d": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+        "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+        "https://umekita.com/"
+      ],
+      "cost_basis": "일반 야외 산책 입장 무료. 시설·유료 행사·음식점 비용 제외."
+    },
+    "osaka_draft_e102a263e5a8": {
+      "window": [
+        540,
+        1020,
+        1020
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+        "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+      ],
+      "cost_basis": "일반 입장 비용 근거 미확인으로 일정 제외. 10~11월 개방시간만 정규화."
+    },
+    "osaka_draft_8cb9705b2793": {
+      "window": [
+        720,
+        840,
+        780
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://comfortzone8kyoitarian.com/lunch-menu/"
+      ],
+      "cost_basis": "오늘의 파스타 단품 표시가 1150 JPY. 세금 표시 미확인, 추가 세트·코스·저녁 제외.",
+      "closed_weekdays": [
+        1,
+        2
+      ],
+      "holiday_hours_unconfirmed": true
+    },
+    "osaka_draft_c99cbfbd0f92": {
+      "window": [
+        660,
+        1020,
+        1020
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-10-17",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://www.artcourtgallery.com/exhibitions/17306/",
+        "https://www.artcourtgallery.com/access/"
+      ],
+      "cost_basis": "입장료 미확인으로 일정 제외. 해당 전시 기간의 시간만 정규화.",
+      "closed_weekdays": [
+        0,
+        1
+      ],
+      "closed_holidays": true
+    },
+    "osaka_016": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://osaka-info.jp/spot/nakanoshima-park/"
+      ],
+      "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화."
+    },
+    "osaka_draft_f72944194ef3": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+      ],
+      "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화."
+    },
+    "osaka_draft_2780be08a88e": {
+      "window": [
+        420,
+        1080,
+        1080
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://mitsugu.org/"
+      ],
+      "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화."
     }
   }
 }
