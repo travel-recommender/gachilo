@@ -16,6 +16,15 @@ const labels = {
   date_conditions_vary: '날짜별 미배치 사유가 다름 (휴무·검증 범위·일정 한도 등)',
 };
 
+// Persisted results predating this marker used a union of reasons across dates.
+// Only newly calculated results can safely use the current all-date labels.
+export function planningResultReasonLines(planning) {
+  if (planning?.reason_aggregation !== 'common_across_dates') {
+    return ['이전 계산 결과이거나 집계 기준을 확인할 수 없습니다. 방장이 다시 계산해 주세요.'];
+  }
+  return planningReasonLines(planning.exclusion_reason_counts || {});
+}
+
 export function planningReasonLines(counts) {
   const lines = [];
   let otherReasonCount = 0;

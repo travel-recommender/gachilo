@@ -54,7 +54,7 @@ const write=(path,body)=>fs.writeFileSync(new URL(path,import.meta.url),body);
 write('../data/week5/remaining_place_checks_20260930.json',JSON.stringify(report,null,2)+'\n');
 const esc=s=>String(s??'미확인').replaceAll('|',' / ').replaceAll('\n',' ');
 let md=`# 5주차 남은 장소 검증 — ${report.checked_at}\n\n`;
-md+=`150곳을 2026-10-01~07에 각각 계산했다. **${report.summary.individual_passed}곳 모델 통과, ${blocked.length}곳 자료·조건 보류**다. 통과는 현장 방문 가능 보증이 아니며 모든 장소의 schedule_ready는 false다.\n\n주소 2곳·영업시간 16곳의 빈칸은 확인되지 않은 사실을 임의로 채우지 않았다. 아래 출처는 기존 검토 기록과 이번 추가 확인을 합친 것이며 150곳 모두의 당일 공식 재검증이라는 뜻은 아니다.\n\n## 주소·영업시간 빈칸\n\n|장소|빈칸|확인 결과·다음 조치|\n|---|---|---|\n`;
+md+=`${report.summary.records}곳을 ${report.dates[0]}~${report.dates.at(-1)}에 각각 계산했다. **${report.summary.individual_passed}곳 모델 통과, ${blocked.length}곳 자료·조건 보류**다. 통과는 현장 방문 가능 보증이 아니며 모든 장소의 schedule_ready는 false다.\n\n주소 ${report.summary.address_missing}곳·영업시간 ${report.summary.hours_missing}곳의 빈칸은 확인되지 않은 사실을 임의로 채우지 않았다. 아래 출처는 기존 검토 기록과 이번 추가 확인을 합친 것이며 전체 장소의 당일 공식 재검증이라는 뜻은 아니다.\n\n## 주소·영업시간 빈칸\n\n|장소|빈칸|확인 결과·다음 조치|\n|---|---|---|\n`;
 for(const p of places.filter(x=>x.missing_address_hours_note))md+=`|${esc(p.name_ko)}|${p.remaining_null_fields.filter(k=>['address','opening_hours'].includes(k)).join(', ')}|${esc(p.missing_address_hours_note)}|\n`;
 md+='\n## 보류 장소 전체\n\n쇼핑 구매비의 null은 비산정이며 가격 누락과 구분한다. 여러 조건이 겹치는 장소는 각 조건을 모두 해결해야 한다.\n\n|장소·원본 ID|다음 조치|확인할 출처|\n|---|---|---|\n';
 for(const p of blocked)md+=`|${esc(p.name_ko)} (${p.place_id})|${esc(p.next_actions.join('; '))}|${p.evidence_urls.slice(0,3).map((u,i)=>`[근거 ${i+1}](${u})`).join(' · ')}|\n`;

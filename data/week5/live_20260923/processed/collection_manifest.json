@@ -48,13 +48,13 @@
       "address": 2,
       "latitude": 0,
       "longitude": 0,
-      "opening_hours": 16,
-      "cost": 105,
+      "opening_hours": 17,
+      "cost": 100,
       "stay_min": 0,
       "bag_load": 0,
-      "covered": 93,
+      "covered": 88,
       "website": 10,
-      "opening_hours_source": 44,
+      "opening_hours_source": 43,
       "verified_at": 24
     },
     "selected_with_address_components": 50
@@ -93,12 +93,12 @@
     }
   },
   "full_review_checks_sha256": "5befd6e815dea66bcad5e60157ed0a12a414635c1527310ceb311bd48e927751",
-  "latest_enrichment_revision": "teammate_review_20261001",
+  "latest_enrichment_revision": "official_menu_followup_20261001",
   "latest_enrichment_statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 842,
-    "non_null_fields_updated": 113,
+    "null_fields_filled": 852,
+    "non_null_fields_updated": 120,
     "missing_before": {
       "place_id": 0,
       "name": 0,
@@ -126,19 +126,19 @@
       "address": 2,
       "latitude": 0,
       "longitude": 0,
-      "opening_hours": 16,
-      "cost": 105,
+      "opening_hours": 17,
+      "cost": 100,
       "stay_min": 0,
       "bag_load": 0,
-      "covered": 93,
+      "covered": 88,
       "website": 10,
-      "opening_hours_source": 44,
+      "opening_hours_source": 43,
       "verified_at": 24
     },
-    "records_with_blockers": 45,
+    "records_with_blockers": 46,
     "official_null_fields_filled_before_localization": 316,
     "editorial_korean_names_filled": 110,
     "map_addresses_added": 31
   },
-  "latest_enrichment_checks_sha256": "f419d0d5e55e947ef5aa1adc986f51c38e50962588d7be3ff16d95ae9790231c"
+  "latest_enrichment_checks_sha256": "64e7949ba6ddbc396e988c7a071a2fcd13e9afb5ee251823d89e52ebf45f8541"
 }

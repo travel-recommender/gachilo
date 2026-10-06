@@ -53,6 +53,27 @@ class RealRoomTests(unittest.TestCase):
         persisted=Store(self.db).result(room['roomId'],room['ownerToken'])
         self.assertEqual(persisted,data)
 
+    def test_legacy_reason_counts_stay_untagged_until_recalculation(self):
+        room=self.room()
+        for member in room['members']:self.save(room,member,['osaka_015'])
+        code,data,_=self.calculate(room)
+        self.assertEqual(code,200)
+        self.assertEqual(data['planning']['reason_aggregation'],'common_across_dates')
+        legacy=dict(data['planning'])
+        legacy.pop('reason_aggregation')
+        legacy['exclusion_reason_counts']={'outside_reviewed_date_range':106}
+        with closing(sqlite3.connect(self.db)) as c, c:
+            c.execute('UPDATE results SET planning=? WHERE room_id=?',(json.dumps(legacy),room['roomId']))
+        path=f"/rooms/{room['roomId']}/results"
+        code,saved,_=self.req('GET',path,token=room['ownerToken'])
+        self.assertEqual(code,200)
+        self.assertEqual(saved['planning'],legacy)
+        code,recalculated,_=self.calculate(room)
+        self.assertEqual(code,200)
+        self.assertEqual(recalculated['planning']['reason_aggregation'],'common_across_dates')
+        self.assertEqual(recalculated['planning']['exclusion_reason_counts'],{})
+        self.assertEqual(self.req('GET',path,token=room['ownerToken'])[1],recalculated)
+
     def test_free_exhibition_date_survives_http_calculation_and_saved_result(self):
         room=self.room(start='2026-10-03',end='2026-10-03')
         place_id='osaka_draft_ce3b8d452a0e'

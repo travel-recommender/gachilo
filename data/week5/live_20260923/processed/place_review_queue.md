@@ -6,7 +6,7 @@
 |---|---|---|---|---|
 |도톤보리 글리코 사인|大阪府大阪市中央区道頓堀1丁目10-4|보류|cost, covered|public_viewpoint_unconfirmed|
 |쓰텐카쿠|大阪市浪速区恵美須東1-18-6|보류|covered|entry_time_reservation_required|
-|신세카이|大阪市浪速区恵美須東|보류|cost, covered||
+|신세카이|大阪市浪速区恵美須東|통과|cost, covered||
 |아메리카무라|大阪市中央区西心斎橋1丁目～2丁目付近|보류|cost, covered||
 |구로몬시장|大阪市中央区日本橋2丁目（黒門市場一帯）|보류|cost||
 |신사이바시스지 상점가|大阪市中央区心斎橋筋1丁目～2丁目|보류|cost, covered||
@@ -28,8 +28,8 @@
 |다이마루 신사이바시점|大阪府大阪市中央区心斎橋筋1-7-1|통과|cost||
 |한신 우메다 본점|大阪市北区梅田1丁目13番13号|통과|cost||
 |신사이바시 PARCO|大阪府大阪市中央区心斎橋筋1丁目8-3|통과|cost||
-|카니도라쿠|大阪府大阪市中央区道頓堀1-6-18|보류|cost, covered, opening_hours_source||
-|이치란 도톤보리점|大阪市中央区道頓堀1-4-16|보류|||
+|카니도라쿠 도톤보리 본점|大阪府大阪市中央区道頓堀1-6-18|통과|||
+|이치란 도톤보리 별관|大阪市中央区道頓堀1-4-16|통과|||
 |소다이쇼|大阪市北区浮田2-4-16|통과|covered||
 |마루후쿠 커피 센니치마에 본점|大阪市中央区千日前1-9-1|보류|cost||
 |브루클린 로스팅 컴퍼니 난바|大阪市浪速区敷津東1-1-21 なんばEKIKAN|보류|cost, covered||
@@ -47,7 +47,7 @@
 |오사카 주택박물관|大阪市北区天神橋6丁目4-20 住まい情報センタービル8階|보류||temporary_closure|
 |약의 도쇼마치 자료관|大阪市中央区道修町2-1-8 少彦名神社社務所ビル3F|통과|||
 |보온병 기념관|大阪市北区天満1丁目20番5号 象印本社1F|보류||reservation_required|
-|아트코트 갤러리|大阪市北区天満橋1-8-5 OAPアートコート1F|보류|cost, covered||
+|아트코트 갤러리|大阪市北区天満橋1-8-5 OAPアートコート1F|보류|cost||
 |가미가타 우키요에관|大阪市中央区難波1-6-4|통과|||
 |국립국제미술관|大阪府大阪市北区中之島4-2-55|통과|||
 |오사카 시립미술관|大阪府大阪市天王寺区茶臼山町1-82 天王寺公園内|보류|||
@@ -81,7 +81,7 @@
 |NU 자야마치|大阪市北区茶屋町10-12|통과|cost||
 |하비스 플라자|大阪市北区梅田2-2-22|통과|cost||
 |화이티 우메다|大阪府大阪市北区小松原町梅田地下街4-2|통과|cost||
-|아르데 신오사카|大阪市淀川区西中島5-16-1 JR新大阪駅2F|보류|cost||
+|아르데 신오사카|大阪市淀川区西中島5-16-1 JR新大阪駅2F|통과|cost||
 |이온몰 오사카 돔시티|大阪市西区千代崎三丁目13番1|통과|cost||
 |위스테|大阪市福島区海老江1-1-23|통과|cost||
 |아소코 미나미호리에|일본 〒550-0015 Osaka, Nishi Ward, Minamihorie, 1 Chome−19−23 前衛的ビルヂング|보류|cost, covered, website, opening_hours_source, verified_at|operating_status_unconfirmed, google_maps_permanently_closed|
@@ -110,7 +110,7 @@
 |라 그란다 파밀리오|大阪市北区中崎西1-1-18|보류|cost, covered||
 |멜버른 커피|三栄ムアビル １Ｆ, 3 Chome-8-7 Minamisenba, Chuo Ward, Osaka, 542-0081 일본|보류|cost, covered, opening_hours_source, verified_at|branch_unconfirmed|
 |리온 카페|3 Chome-12-23 Motomachi, Naniwa Ward, Osaka, 556-0016 일본|보류|cost, covered, opening_hours_source, verified_at|google_maps_permanently_closed|
-|서브 재즈 카페|大阪市中央区上汐2丁目4-6 上六センタービルB1F|보류|cost||
+|서브 재즈 카페|大阪市中央区上汐2丁目4-6 上六センタービルB1F|보류|opening_hours, cost|hours_conflict|
 |소트 커피|大阪市中央区大手通1-3-7 ベルヴォア1F・2F|보류|cost||
 |고치카제|大阪府大阪市天王寺区空清町2-22|보류|cost, covered, opening_hours_source||
 |아즈안|4 Chome-2-3 Kitakyuhojimachi, Chuo Ward, Osaka, 541-0057 일본|보류|cost, covered, opening_hours_source, verified_at|google_maps_permanently_closed|
@@ -125,16 +125,16 @@
 |버블 넷|大阪市西区新町2-12-19 グラントピア新町1F|보류|cost, covered, opening_hours_source|address_conflict|
 |카페테리아 아고라|大阪府大阪市中之島4-3-53 大阪大学中之島センター2階|통과|area, covered||
 |카사블랑카 난바 리버사이드|일본 〒542-0086 Osaka, Chuo Ward, Nishishinsaibashi, 2 Chome−6−7 S-Front 道頓堀 1階|보류|cost, covered, opening_hours_source, verified_at||
-|센트럼|大阪市北区梅田1-8-8 ヒルトン大阪2F|보류|cost, covered||
+|센트럼|大阪市北区梅田1-8-8 ヒルトン大阪2F|통과|||
 |디페랑스|大阪市西区靱本町1-16-12|보류||reservation_required, meal_scenario_required|
 |가브 위크스|大阪市北区中之島1-1-29 中之島公園内|통과|covered||
 |머시 비건 팩토리|大阪市中央区瓦屋町2-4-15 1階西側|보류|cost, covered||
-|몬톰웍스 엠티 카페 앤 디자인 뎁트|大阪府大阪市淀川区新北野1-11-23 ハイム北野B102|보류|covered||
-|내추럴 키친 메다카 2호점|大阪市北区兎我野町3-20 雁木ビル1F|보류|cost, covered||
+|몬톰웍스 엠티 카페 앤 디자인 뎁트|大阪府大阪市淀川区新北野1-11-23 ハイム北野B102|통과|covered||
+|내추럴 키친 메다카 2호점|大阪市北区兎我野町3-20 雁木ビル1F|보류|||
 |파팔리나|大阪市東淀川区淡路4-32-16 レジデンスyamaki1F|보류|cost, covered||
 |기린지 오사카 총본점|大阪市浪速区日本橋5-11-12|보류|cost, covered|branch_unconfirmed|
 |모리모리 스시|大阪市西区千代崎3-13-1 イオンモール大阪ドームシティ4F|보류|cost||
-|알바르|大阪府大阪市東淀川区淡路4-11-15 2F|보류|cost||
+|알바르|大阪府大阪市東淀川区淡路4-11-15 2F|통과|||
 |가도야 식당|4 Chome-16-13 Shinmachi, Nishi Ward, Osaka, 550-0013 일본|보류|cost, covered, opening_hours_source, verified_at||
 |사이제리야|大阪府大阪市淀川区西宮原2-7-8 ヴィラフェニックス1F|통과|covered||
 |레 코콜레|大阪市中央区北久宝寺町3丁目4-1 豆庭ビル|보류|cost, covered, opening_hours_source, verified_at|address_location_conflict|
@@ -143,9 +143,9 @@
 |가부키오멘 덴진바시 본점|4-23 Naniwacho, Kita Ward, Osaka, 530-0022 일본|보류|cost, covered, opening_hours_source, verified_at|google_maps_permanently_closed|
 |사이지키 채식요리|Tennoji Park Villa, 105号, 1 Chome-1-10 Sanno, Nishinari Ward, Osaka, 557-0001 일본|보류|cost, covered, opening_hours_source, verified_at||
 |이자카야 신|大阪府大阪市中央区島之内2-12-8 TOWビル2F|보류|cost, covered||
-|후나야|大阪市生野区生野西2-1-34|보류|cost||
+|후나야|大阪市生野区生野西2-1-34|보류|||
 |비스트로 요시카와|大阪市淀川区十三本町2-3-13|보류|cost, covered||
-|체리 잼|大阪府大阪市福島区吉野2-1-8|통과|covered||
+|체리 잼|大阪府大阪市福島区吉野2-1-8|통과|||
 |컴포트 존 에이트 교토 이탈리안|大阪府大阪市淀川区十三本町1-18-10 ナショナルマンション101|보류|covered||
 |메이윈즈|2 Chome-4-1 Funakoshicho, Chuo Ward, Osaka, 540-0036 일본|보류|cost, covered||
 |파르페 드 메릴리|大阪府大阪市中央区馬場町3番65号|보류|||
