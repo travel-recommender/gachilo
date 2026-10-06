@@ -75,7 +75,7 @@ few-shot은 **대화가 아니라 같은 요청 안의 예시**다. 사용자는
 
 - `id` 는 `ai_candidates` 안에서만
 - `reason_code` 는 4개 중 하나 — `budget_fits` `no_one_dislikes` `near_fixed` `category_gap`
-- `summary` 는 7개 중에서 해당되는 것만 — `must_kept` `ai_filled` `no_room` `budget_limited`
+- `summary` 는 8개 중에서 해당되는 것만 — `must_kept` `ai_filled` `no_room` `slots_filled` `budget_limited`
   `options_free` `veto_excluded` `walk_limited`
 
 문장·장소 이름·숫자는 **코드가 템플릿으로 만든다.** 모델이 글자를 쓰지 않으므로
@@ -91,8 +91,10 @@ few-shot은 **대화가 아니라 같은 요청 안의 예시**다. 사용자는
 POST /rooms/{id}/calculate
   → server.py → engine.py → engine/run.mjs
       buildConsensus()            규칙: 꼭·거부·겹침·예산·체력으로 코어/옵션 확정
-      enrich()                    ← AI: 근거 JSON → 모델 1회 → 검증 → 병합
-      buildSchedule()             규칙: 시간 배치·동선·식사 채우기
+      enrich()                    ← 근거 JSON → 모델 1회 → 후보·코드·이유 검증
+        buildSchedule()           규칙: 시간 배치·동선·식사 채우기
+        validateScheduledPlan()   최종 장소·비용·설명 검증 후 문장 생성, 실패 시 규칙 fallback
+      enriched.schedule           검증한 일정을 그대로 응답 (다시 시간 배치하지 않음)
   → 결과 저장 → GET /rooms/{id}/results
 ```
 
@@ -116,7 +118,9 @@ POST /rooms/{id}/calculate
   ├ JSON 파싱 실패 ───────────────────────┤
   ├ 스키마 불일치 ────────────────────────┼→ AI 출력 버림 → 규칙 결과로 응답
   ├ 검증 실패(없는 장소·지어낸 숫자 등) ──┘
-  └ 통과 → AI가 고른 장소를 selections에 병합, summary를 AI 문장으로 교체
+  └ 후보 통과 → 시간 배치 → 최종 일정 검증
+      ├ 실패 → AI 제안을 버리고 규칙 일정 + fallback 안내문
+      └ 통과 → 검증된 schedule + 템플릿 summary
 ```
 
 재시도는 하지 않는다. `temperature: 0`이라 같은 입력에 같은 실패가 반복될 가능성이 높고, 사용자를 기다리게 하는 비용이 더 크다.
@@ -127,8 +131,10 @@ POST /rooms/{id}/calculate
 | --- | --- |
 | 후보 밖 장소 | `ai_candidates` 에 없는 id, 중복 추가, `ai_slots` 초과 |
 | 예산 | 추가한 곳들의 비용 합이 남은 예산을 넘음 |
-| 모르는 코드 | 정의되지 않은 `reason_code` · 설명 코드 (자유 문장은 전부 여기서 걸린다) |
+| 모르는 코드 | 직접 정의한 문자열 `reason_code` · 설명 코드만 허용 (`toString` 등 상속 속성 거부) |
+| 이유 근거 | 기존 카테고리 중복, 근접 공통 장소 부재, 적합도·예산 근거 불충족 |
 | 근거 없는 설명 | 코드 자체는 맞지만 이번 결과에 해당하지 않음 (`ai_filled` 인데 추가한 곳이 없는 등) |
+| 최종 일정 | 필수·AI 장소 누락, 자동 식사를 포함한 비용 초과, 실제 배치와 설명 불일치 (도보 등) |
 | 빈 출력 | `summary` 가 비어 있음 |
 
 ### 2.3 실패 상황별 확인 결과
@@ -147,13 +153,16 @@ POST /rooms/{id}/calculate
 ```
 
 모든 줄에서 결과가 나오고, **옵션 장소가 그룹 일정에 섞이지 않는 것**까지 함께 본다.
-`enrich()` 는 `core` 만 돌려주고, 실패하면 규칙의 `res.core` 를 그대로 쓴다.
+`enrich()` 는 `core`와 시간 배치가 끝난 `schedule`을 돌려주고, 실패하면 규칙의 `res.core`로 일정을 만든다.
 
 운영 중에는 `AI_DEBUG=1` 로 매 호출의 사용 여부·사유·소요 시간이 로그에 한 줄 남는다.
 
 ---
 
 ## 3. 검사 스크립트
+
+`node --test backend/engine/ai.test.mjs` — 외부 API를 호출하지 않는 자동 회귀검사.
+최종 일정까지 검증하며 실제 `run.mjs`의 fallback/정상 출력도 확인한다.
 
 `node ai_check.mjs` — 키가 없으면 근거 JSON과 검사기만, 키가 있으면 같은 입력으로 3회 호출한다.
 

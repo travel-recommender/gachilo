@@ -9,7 +9,7 @@
  */
 import fs from 'node:fs';
 import { buildConsensus } from './consensus.ts';
-import { buildEvidence, callModel, parsePlan, validatePlan, renderSummary } from './ai.ts';
+import { buildEvidence, callModel, parsePlan, validatePlan, buildPlanSchedule, validateScheduledPlan, renderSummary } from './ai.ts';
 
 const RUNS = Number(process.env.RUNS ?? 3);
 const MODELS = (process.env.MODELS ?? 'gemini-3.5-flash-lite').split(',').map((s) => s.trim()).filter(Boolean);
@@ -53,10 +53,14 @@ for (const c of CASES) {
 
     for (let i = 1; i <= RUNS; i++) {
       const t0 = Date.now();
-      let plan = null, errs = [], failed = null;
+      let plan = null, schedule = null, errs = [], failed = null;
       try {
         plan = parsePlan(await callModel(ev));
         errs = validatePlan(plan, ev);
+        if (!errs.length) {
+          schedule = buildPlanSchedule(plan, consensus, c.subs, c.days).schedule;
+          errs = validateScheduledPlan(plan, ev, schedule);
+        }
       } catch (e) {
         failed = e.message;
       }
@@ -66,11 +70,11 @@ for (const c of CASES) {
       codes.push(plan ? [...plan.summary].sort().join(',') : '-');
       entry.runs.push({ model, run: i, ms, errors: errs, failed,
                         ai_added: plan?.ai_added ?? null, summary_codes: plan?.summary ?? null,
-                        rendered: plan && !errs.length ? renderSummary(plan, ev) : null });
+                        rendered: plan && !errs.length && !failed ? renderSummary(plan, ev, schedule) : null });
 
       console.log(`  [${model} #${i}] ${ms}ms · 사실 오류 ${errs.length}건${failed ? ` · 호출 실패: ${failed}` : ''}`);
       errs.forEach((e) => console.log('      ·', e));
-      if (plan && !errs.length) console.log('      ', renderSummary(plan, ev));
+      if (plan && !errs.length && !failed) console.log('      ', renderSummary(plan, ev, schedule));
     }
 
     rows.push({

@@ -15,7 +15,8 @@
  *   AI_MOCK          호출 없이 고정 응답 (검사용) 1=정상 · bad=JSON 깨짐 · halluc=없는 장소 · freetext=자유 문장
  */
 import { allPlaces } from "./places.ts";
-import { distKm, toView, tripBudget, utilityOf } from "./consensus.ts";
+import { distKm, toView, travel, tripBudget, utilityOf } from "./consensus.ts";
+import { buildSchedule } from "./schedule.ts";
 import type { ConsensusResult, Place, Selection, Submission } from "./types.ts";
 
 /* ══════════ 1. 근거 JSON ══════════ */
@@ -51,7 +52,8 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
     .map((p) => {
       const u = subs.map((s) => utilityOf(p, s));
       return { ...ep(p), fit_min: r2(Math.min(...u)), fit_avg: r2(u.reduce((a, b) => a + b, 0) / u.length),
-               taste_match: pickedCats.filter((c) => c.has(p.category)).length };
+               taste_match: pickedCats.filter((c) => c.has(p.category)).length,
+               near_fixed_ids: humanCore.filter((s) => travel(p, s.place).mode === "walk").map((s) => s.place.id) };
     })
     .filter((c) => Number.isFinite(c.fit_avg) && c.fit_min >= 0.2)
     .sort((a, b) => b.fit_avg - a.fit_avg || a.id.localeCompare(b.id));
@@ -92,7 +94,7 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
       fixed_cost_won: fixedCost,
       remaining_budget_won: remaining,
       walk_steps_per_day: Math.min(...subs.map((s) => s.stepLimit)),
-      walk_km_per_day: Math.round(Math.min(...subs.map((s) => s.walkLimit)) * 10) / 10,
+      walk_km_per_day: Math.min(...subs.map((s) => s.walkLimit)),
       active_min_per_day: Math.min(...subs.map((s) => s.activeMin)),
     },
     ai_slots: slots,
@@ -117,33 +119,49 @@ function josa(word: string, pair: "을" | "은" | "이" | "과"): string {
 /** AI가 장소를 추가한 이유. 문장은 코드가 만든다 */
 const REASON_TEXT: Record<string, (name: string) => string> = {
   budget_fits: (n) => `${josa(n, "은")} 남은 예산 안에서 갈 수 있어요.`,
-  no_one_dislikes: (n) => `${josa(n, "은")} 누구에게도 부담스럽지 않은 곳이에요.`,
-  near_fixed: (n) => `${josa(n, "은")} 이미 정해진 곳들과 가까워 이동이 적어요.`,
-  category_gap: (n) => `${josa(n, "은")} 지금 일정에 없는 종류라 하루가 단조롭지 않아요.`,
+  no_one_dislikes: (n) => `${josa(n, "은")} 구성원 모두의 입력 조건을 바탕으로 고른 후보예요.`,
+  near_fixed: (n) => `${josa(n, "은")} 같은 날 방문하는 공통 선택 장소에서 추정 도보 1.2km 이내예요.`,
+  category_gap: (n) => `${josa(n, "은")} 기존 공통 선택에 없던 종류를 보완했어요.`,
 };
 
 /** 전체 설명. 근거가 있을 때만 쓸 수 있다 */
 const SUMMARY_TEXT: Record<string, (e: Evidence, added: Place[]) => string> = {
   must_kept: (e) => `${e.fixed.filter((f) => f.reason === "must").length}곳의 '꼭 가고 싶은 곳'은 모두 지켰어요.`,
   ai_filled: (_e, a) => `남은 자리에는 ${josa(a.map((p) => p.name).join(", "), "을")} 넣었어요.`,
-  no_room: () => `모두가 고른 곳으로 일정이 다 차서 더 넣지 않았어요.`,
-  slots_filled: (e) => `남은 ${e.ai_slots}자리를 모두 채웠어요.`,
-  budget_limited: (e) => `남은 예산 ${e.group_limits.remaining_budget_won.toLocaleString("ko-KR")}원 안에서 고를 수 있는 곳만 담았어요.`,
-  options_free: (e) => `${e.fixed.filter((f) => f.tier === "option").length}곳은 원하는 분만 가는 일정으로 남겼어요.`,
+  no_room: () => `공통 선택만으로 추가 후보 자리가 모두 차서 AI 장소를 더 넣지 않았어요.`,
+  slots_filled: (e) => `추가 후보 ${e.ai_slots}곳을 모두 일정에 넣었어요.`,
+  budget_limited: () => `최종 일정의 예상 장소 비용은 설정 예산 이내예요.`,
+  options_free: (e) => `${e.fixed.filter((f) => f.tier === "option").length}곳은 공통 일정에서 제외한 선택 후보예요.`,
   veto_excluded: () => `빼 달라고 한 곳은 일정에서 제외했어요.`,
-  walk_limited: (e) => `하루 ${e.group_limits.walk_km_per_day}km 안에서 움직이도록 맞췄어요.`,
+  walk_limited: (e) => `장소 간 하루 추정 도보 이동을 ${e.group_limits.walk_km_per_day}km 이내로 배치했어요.`,
 };
 
 /** 각 설명을 쓸 수 있는 조건. 근거와 맞지 않으면 검증에서 걸린다 */
 const SUMMARY_OK: Record<string, (e: Evidence, added: Place[]) => boolean> = {
   must_kept: (e) => e.fixed.some((f) => f.reason === "must"),
   ai_filled: (_e, a) => a.length > 0,
-  no_room: (e, a) => e.ai_slots === 0 || a.length === 0,
+  no_room: (e, a) => e.ai_slots === 0 && a.length === 0,
   slots_filled: (e, a) => a.length > 0 && a.length === e.ai_slots,
   budget_limited: (e) => e.group_limits.remaining_budget_won > 0,
   options_free: (e) => e.fixed.some((f) => f.tier === "option"),
   veto_excluded: (e) => e.excluded.some((x) => x.reason === "veto"),
+  // 후보 선택 단계에서는 아직 판정할 수 없다. 최종 일정 검사에서 다시 검증한다.
   walk_limited: () => true,
+};
+
+const ownCode = (table: object, code: unknown): code is string =>
+  typeof code === "string" && Object.hasOwn(table, code);
+
+const REASON_OK: Record<string, (id: string, out: PlanOutput, e: Evidence) => boolean> = {
+  budget_fits: (_id, out, e) => out.ai_added.reduce((sum, a) =>
+    sum + (e.ai_candidates.find((c) => c.id === a?.id)?.cost_won ?? 0), 0) <= e.group_limits.remaining_budget_won,
+  no_one_dislikes: (id, _out, e) => (e.ai_candidates.find((c) => c.id === id)?.fit_min ?? -1) >= 0.2,
+  near_fixed: (id, _out, e) => (e.ai_candidates.find((c) => c.id === id)?.near_fixed_ids?.length ?? 0) > 0,
+  category_gap: (id, out, e) => {
+    const category = e.ai_candidates.find((c) => c.id === id)?.category;
+    return category !== undefined && !e.fixed.some((f) => f.tier === "core" && f.category === category)
+      && !out.ai_added.some((a) => a?.id !== id && e.ai_candidates.find((c) => c.id === a?.id)?.category === category);
+  },
 };
 
 export interface PlanOutput {
@@ -159,12 +177,14 @@ export const SYSTEM_PROMPT = `당신은 그룹 여행의 합의안을 정리하�
    - fit_min이 높은 곳(누구에게도 싫지 않은 곳)을 우선하고, fixed와 카테고리가 겹치지 않게 섞습니다.
    - 넣을 만한 곳이 없으면 빈 배열로 둡니다.
    - 고른 곳마다 reason_code를 하나 붙입니다:
-     budget_fits(남은 예산 안) · no_one_dislikes(모두에게 무난) · near_fixed(기존 일정과 가까움) · category_gap(없는 종류를 채움)
+     budget_fits(추가 비용 합이 남은 예산 이내) · no_one_dislikes(fit_min >= 0.2)
+     near_fixed(near_fixed_ids가 비어 있지 않음: 기존 공통 장소에서 추정 도보 1.2km 이내)
+     category_gap(기존 core 및 다른 추가 장소와 카테고리가 겹치지 않음)
 2. 설명 고르기: 이번 결과에 해당하는 설명 코드를 summary에 2~4개 고릅니다. 근거에 없는 것은 고르지 않습니다.
      must_kept(꼭 가고 싶은 곳이 있고 지켜짐) · ai_filled(장소를 하나라도 추가함)
-     slots_filled(남은 자리를 전부 채움) · no_room(한 곳도 추가하지 않음. 추가했다면 쓸 수 없음)
+     slots_filled(남은 자리를 전부 채움) · no_room(ai_slots가 0이고 추가한 장소도 없음)
      budget_limited(남은 예산이 제한이 됨) · options_free(옵션 장소가 있음) · veto_excluded(거부된 곳이 있음)
-     walk_limited(걷기 한도에 맞춤)
+     walk_limited(최종 시간 배치 후 추정 도보 한도 충족 여부를 앱에서 별도 검증)
    - ai_filled와 no_room은 함께 쓸 수 없습니다. 자리를 다 채웠으면 slots_filled를 씁니다.
 
 문장은 앱이 직접 만듭니다. 당신은 문장을 쓰지 않습니다.
@@ -184,8 +204,8 @@ const SHOT_IN = {
     { id: "umeda_sky", name: "우메다 스카이빌딩 공중정원", area: "우메다", category: "landmark", cost_won: 15000, stay_min: 90, open: "09:30-22:30", tier: "option", reason: "partial", votes: 1 },
   ],
   ai_candidates: [
-    { id: "castle_park", name: "오사카성 공원", area: "오사카성", category: "nature", cost_won: 0, stay_min: 60, open: "05:00-23:00", fit_min: 0.41, fit_avg: 0.47, taste_match: 1 },
-    { id: "nakazaki", name: "나카자키초 카페거리", area: "우메다", category: "cafe", cost_won: 9000, stay_min: 60, open: "11:00-19:00", fit_min: 0.33, fit_avg: 0.38, taste_match: 1 },
+    { id: "castle_park", name: "오사카성 공원", area: "오사카성", category: "nature", cost_won: 0, stay_min: 60, open: "05:00-23:00", fit_min: 0.41, fit_avg: 0.47, taste_match: 1, near_fixed_ids: ["osaka_castle"] },
+    { id: "nakazaki", name: "나카자키초 카페거리", area: "우메다", category: "cafe", cost_won: 9000, stay_min: 60, open: "11:00-19:00", fit_min: 0.33, fit_avg: 0.38, taste_match: 1, near_fixed_ids: [] },
   ],
   excluded: [{ id: "usj", name: "유니버설 스튜디오 재팬", reason: "veto" }],
   area_km: { "난바|오사카성": 3.1, "난바|우메다": 3.6, "오사카성|우메다": 3.2 },
@@ -208,7 +228,7 @@ function mockOutput(ev: Evidence): unknown {
   const first = ev.ai_candidates[0];
   return first && ev.ai_slots > 0
     ? { ai_added: [{ id: first.id, reason_code: "no_one_dislikes" }], summary: ["must_kept", "ai_filled"] }
-    : { ai_added: [], summary: ["must_kept", "no_room"] };
+    : { ai_added: [], summary: ["must_kept", ...(ev.ai_slots === 0 ? ["no_room"] : [])] };
 }
 
 export async function callModel(ev: Evidence): Promise<string> {
@@ -255,24 +275,28 @@ export function parsePlan(text: string): PlanOutput {
 
 export function validatePlan(out: PlanOutput, ev: Evidence): string[] {
   const errs: string[] = [];
+  if (!Array.isArray(out?.ai_added) || !Array.isArray(out?.summary)) return ["스키마 불일치"];
   const cand = new Map(ev.ai_candidates.map((c) => [c.id, c]));
   const byId = new Map(allPlaces().map((p) => [p.id, p]));
 
   out.ai_added.forEach((a, i) => {
     if (typeof a?.id !== "string") return errs.push(`ai_added[${i}]: id가 없음`);
     if (!cand.has(a.id)) errs.push(`후보 밖 장소: ${a.id}`);
-    if (!REASON_TEXT[a.reason_code]) errs.push(`ai_added[${i}]: 알 수 없는 이유 코드 (${a.reason_code})`);
+    if (!ownCode(REASON_TEXT, a.reason_code) || !ownCode(REASON_OK, a.reason_code))
+      errs.push(`ai_added[${i}]: 알 수 없는 이유 코드 (${String(a.reason_code).slice(0, 20)})`);
+    else if (cand.has(a.id) && !REASON_OK[a.reason_code](a.id, out, ev))
+      errs.push(`ai_added[${i}]: 근거가 없는 이유 (${a.reason_code})`);
   });
   if (out.ai_added.length > ev.ai_slots) errs.push(`추가 ${out.ai_added.length}곳 > 자리 ${ev.ai_slots}곳`);
-  if (new Set(out.ai_added.map((a) => a.id)).size !== out.ai_added.length) errs.push("같은 장소를 두 번 추가");
-  const cost = out.ai_added.reduce((s, a) => s + (cand.get(a.id)?.cost_won ?? 0), 0);
+  if (new Set(out.ai_added.map((a) => a?.id)).size !== out.ai_added.length) errs.push("같은 장소를 두 번 추가");
+  const cost = out.ai_added.reduce((s, a) => s + (cand.get(a?.id)?.cost_won ?? 0), 0);
   if (cost > ev.group_limits.remaining_budget_won)
     errs.push(`추가 비용 ${cost} > 남은 예산 ${ev.group_limits.remaining_budget_won}`);
 
-  const added = out.ai_added.map((a) => byId.get(a.id)).filter(Boolean) as Place[];
+  const added = out.ai_added.map((a) => byId.get(a?.id)).filter(Boolean) as Place[];
   const seen = new Set<string>();
   out.summary.forEach((code, i) => {
-    if (typeof code !== "string" || !SUMMARY_TEXT[code]) return errs.push(`summary[${i}]: 알 수 없는 설명 코드 (${String(code).slice(0, 20)})`);
+    if (!ownCode(SUMMARY_TEXT, code) || !ownCode(SUMMARY_OK, code)) return errs.push(`summary[${i}]: 알 수 없는 설명 코드 (${String(code).slice(0, 20)})`);
     if (!SUMMARY_OK[code](ev, added)) errs.push(`summary[${i}]: 근거가 없는 설명 (${code})`);
     if (seen.has(code)) errs.push(`summary[${i}]: 같은 설명 반복 (${code})`);
     seen.add(code);
@@ -283,8 +307,61 @@ export function validatePlan(out: PlanOutput, ev: Evidence): string[] {
   return errs;
 }
 
-/** 코드 → 사람이 읽는 문장. 장소 이름과 숫자는 여기서 들어간다 */
-export function renderSummary(out: PlanOutput, ev: Evidence): string {
+type Schedule = ReturnType<typeof buildSchedule>;
+
+/** 모델의 후보 선택을 실제 시간 배치까지 진행한다. 옵션은 공통 일정에 넣지 않는다. */
+export function buildPlanSchedule(out: PlanOutput, res: ConsensusResult, submissions: Submission[], days: number) {
+  const byId = new Map(allPlaces().map((p) => [p.id, p]));
+  const memberIds = submissions.map((s) => s.memberId);
+  const added: Selection[] = out.ai_added.flatMap((a) => {
+    const place = byId.get(a.id);
+    return place ? [{ place, votes: 0, mustOf: null, tier: "core" as const, participants: memberIds, aiAdded: true }] : [];
+  });
+  const core = [...res.core.filter((s) => !s.aiAdded), ...added];
+  return { core, schedule: scheduleCore(core, submissions, days) };
+}
+
+function scheduleCore(core: Selection[], submissions: Submission[], days: number): Schedule {
+  return buildSchedule(core, days, { considerBags: true, fillMeals: true,
+    vetoed: new Set(submissions.map((s) => s.veto).filter(Boolean) as string[]) });
+}
+
+/** 식사 자동 추가·영업시간 탈락까지 반영한 최종 결과로 설명의 사실성을 검증한다. */
+export function validateScheduledPlan(out: PlanOutput, ev: Evidence, schedule: Schedule): string[] {
+  const errs = validatePlan(out, ev);
+  if (errs.length) return errs;
+  const items = schedule.plans.flatMap((day) => day.items);
+  const ids = new Set(items.map((it) => it.place.id));
+  const musts = ev.fixed.filter((f) => f.reason === "must");
+  if (musts.some((f) => !ids.has(f.id))) errs.push("최종 일정에서 꼭 가고 싶은 장소 누락");
+  if (out.ai_added.some((a) => !ids.has(a.id))) errs.push("최종 일정에서 AI 추가 장소 누락");
+  if (items.reduce((sum, it) => sum + it.place.cost, 0) > ev.group_limits.budget_per_person_won)
+    errs.push("최종 일정 비용이 예산 초과 (자동 추가 식사 포함)");
+  if (ev.excluded.some((e) => e.reason === "veto" && ids.has(e.id))) errs.push("최종 일정에 거부 장소 포함");
+  if (out.summary.includes("options_free") && ev.fixed.some((f) => f.tier === "option" && ids.has(f.id)))
+    errs.push("최종 공통 일정에 선택 후보 포함");
+  if (out.summary.includes("no_room") && ev.fixed.some((f) => f.tier === "core" && !ids.has(f.id)))
+    errs.push("no_room: 최종 일정에서 공통 선택 장소 누락");
+  if (out.summary.includes("walk_limited")) {
+    // DayPlan.walkKm은 0.1km 반올림값이다. 판정에는 실제 엔진 계산값을 다시 합산한다.
+    const over = schedule.plans.some((day) => day.items.reduce((km, it, i) =>
+      km + (i ? travel(day.items[i - 1].place, it.place).walkKm : 0), 0) > ev.group_limits.walk_km_per_day);
+    if (over) errs.push("walk_limited: 최종 일정의 추정 도보 한도 초과");
+  }
+  for (const a of out.ai_added.filter((a) => a.reason_code === "near_fixed")) {
+    const day = schedule.plans.find((d) => d.items.some((it) => it.place.id === a.id));
+    const place = day?.items.find((it) => it.place.id === a.id)?.place;
+    if (!place || !day?.items.some((it) => ev.fixed.some((f) => f.tier === "core" && f.id === it.place.id)
+      && travel(place, it.place).mode === "walk")) errs.push(`near_fixed: 같은 날 가까운 공통 선택 장소 없음 (${a.id})`);
+  }
+  return errs;
+}
+
+/** 최종 일정 검증을 통과해야만 코드 → 문장 변환을 허용한다. */
+export function renderSummary(out: PlanOutput, ev: Evidence, schedule: Schedule): string {
+  if (!schedule) throw new Error("최종 일정이 필요합니다");
+  const errors = validateScheduledPlan(out, ev, schedule);
+  if (errors.length) throw new Error(errors.join("; "));
   const byId = new Map(allPlaces().map((p) => [p.id, p]));
   const added = out.ai_added.map((a) => byId.get(a.id)).filter(Boolean) as Place[];
   const lines = out.summary.map((code) => SUMMARY_TEXT[code](ev, added));
@@ -300,6 +377,7 @@ export function renderSummary(out: PlanOutput, ev: Evidence): string {
 export interface Enriched {
   /** 다 같이 가는 일정에 넣을 장소. 옵션은 절대 들어가지 않는다 */
   core: Selection[];
+  schedule: Schedule;
   summary: string;
   ai: {
     used: boolean; reason: string; added: string[]; errors: string[]; ms: number;
@@ -317,7 +395,8 @@ export async function enrich(
   res: ConsensusResult, submissions: Submission[], days: number, fallbackSummary: string
 ): Promise<Enriched> {
   const off = (reason: string, errors: string[] = [], ms = 0): Enriched =>
-    ({ core: res.core, summary: fallbackSummary, ai: { used: false, reason, added: [], errors, ms, basis: [] } });
+    ({ core: res.core, schedule: scheduleCore(res.core, submissions, days), summary: fallbackSummary,
+       ai: { used: false, reason, added: [], errors, ms, basis: [] } });
 
   if (!process.env.SOMSOM_API_KEY && !process.env.AI_MOCK) return off("SOMSOM_API_KEY 없음");
 
@@ -329,17 +408,14 @@ export async function enrich(
     const ms = Date.now() - t0;
     if (errs.length) return off("검증 실패", errs, ms);
 
-    const byId = new Map(allPlaces().map((p) => [p.id, p]));
-    const memberIds = submissions.map((s) => s.memberId);
-    const added: Selection[] = plan.ai_added.flatMap((a) => {
-      const place = byId.get(a.id);
-      return place ? [{ place, votes: 0, mustOf: null, tier: "core" as const, participants: memberIds, aiAdded: true }] : [];
-    });
+    const { core, schedule } = buildPlanSchedule(plan, res, submissions, days);
+    const finalErrors = validateScheduledPlan(plan, ev, schedule);
+    if (finalErrors.length) return off("최종 일정 검증 실패", finalErrors, Date.now() - t0);
     return {
-      core: [...res.core.filter((s) => !s.aiAdded), ...added],
-      summary: renderSummary(plan, ev),
+      core, schedule,
+      summary: renderSummary(plan, ev, schedule),
       ai: {
-        used: true, reason: "ok", added: added.map((s) => s.place.id), errors: [], ms,
+        used: true, reason: "ok", added: plan.ai_added.map((a) => a.id), errors: [], ms: Date.now() - t0,
         basis: plan.ai_added.flatMap((a) => {
           const c = ev.ai_candidates.find((x) => x.id === a.id);
           return c ? [{ id: c.id, name: c.name, reason_code: a.reason_code, fit_min: c.fit_min,

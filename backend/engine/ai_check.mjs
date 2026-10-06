@@ -4,7 +4,8 @@
  *   SOMSOM_API_KEY를 환경변수에 넣고 실행하면 같은 입력으로 3회 호출한다 (사실 오류 0건이 목표)
  */
 import { buildConsensus } from './consensus.ts';
-import { buildEvidence, callModel, parsePlan, validatePlan, renderSummary, enrich } from './ai.ts';
+import assert from 'node:assert/strict';
+import { buildEvidence, callModel, parsePlan, validatePlan, buildPlanSchedule, validateScheduledPlan, renderSummary, enrich } from './ai.ts';
 
 const DAYS = 4;
 const SUBS = [
@@ -32,6 +33,7 @@ const BAD = [
 console.log('\n[검사기] 거부해야 하는 출력');
 BAD.forEach(([name, out]) => {
   const errs = validatePlan(out, ev);
+  assert.ok(errs.length, `${name}: 잘못된 출력을 통과시킴`);
   console.log(`  ${errs.length ? '거부함' : '통과시킴!!'} · ${name}${errs.length ? ' — ' + errs[0] : ''}`);
 });
 
@@ -44,10 +46,12 @@ if (!process.env.SOMSOM_API_KEY) {
     const t0 = Date.now();
     try {
       const plan = parsePlan(await callModel(ev));
-      const errs = validatePlan(plan, ev);
+      let errs = validatePlan(plan, ev);
+      const schedule = errs.length ? null : buildPlanSchedule(plan, consensus, SUBS, DAYS).schedule;
+      if (schedule) errs = validateScheduledPlan(plan, ev, schedule);
       console.log(`\n[run${i}] ${Date.now() - t0}ms · 사실 오류 ${errs.length}건 · 추가 ${plan.ai_added.map((a) => a.id).join(', ') || '없음'}`);
       errs.forEach((e) => console.log('  ·', e));
-      console.log('  ', renderSummary(plan, ev));
+      if (!errs.length) console.log('  ', renderSummary(plan, ev, schedule));
     } catch (e) {
       console.log(`\n[run${i}] 실패: ${e.message}`);
     }
