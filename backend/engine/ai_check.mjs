@@ -26,6 +26,7 @@ const BAD = [
   ['자유 문장(없는 장소)', { ai_added: [], summary: ['교토타워를 방문해요.'] }],
   ['자유 문장(지어낸 가격)', { ai_added: [], summary: ['모든 장소의 입장료는 0원이에요.'] }],
   ['근거 없는 설명', { ai_added: [], summary: ['ai_filled'] }],
+  ['지어낸 숫자', { ai_added: [], summary: ['1인 72,000원으로 맞췄어요.'] }],
   ['모르는 이유 코드', { ai_added: [{ id: ev.ai_candidates[0]?.id, reason_code: '평점이 높아서' }], summary: ['must_kept'] }],
 ];
 console.log('\n[검사기] 거부해야 하는 출력');

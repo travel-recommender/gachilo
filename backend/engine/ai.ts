@@ -106,19 +106,28 @@ export type Evidence = ReturnType<typeof buildEvidence>;
 
 /* ══════════ 2. 출력 어휘 — 모델은 여기 있는 코드만 고를 수 있다 ══════════ */
 
+/** 받침에 맞는 조사. "신세카이 거리를", "오사카성은" */
+function josa(word: string, pair: "을" | "은" | "이" | "과"): string {
+  const last = word.trim().slice(-1).charCodeAt(0);
+  const has = last >= 0xac00 && last <= 0xd7a3 ? (last - 0xac00) % 28 !== 0 : true;
+  const map = { "을": ["를", "을"], "은": ["는", "은"], "이": ["가", "이"], "과": ["와", "과"] } as const;
+  return word + map[pair][has ? 1 : 0];
+}
+
 /** AI가 장소를 추가한 이유. 문장은 코드가 만든다 */
 const REASON_TEXT: Record<string, (name: string) => string> = {
-  budget_fits: (n) => `${n}은(는) 남은 예산 안에서 갈 수 있어요.`,
-  no_one_dislikes: (n) => `${n}은(는) 누구에게도 부담스럽지 않은 곳이에요.`,
-  near_fixed: (n) => `${n}은(는) 이미 정해진 곳들과 가까워 이동이 적어요.`,
-  category_gap: (n) => `${n}은(는) 지금 일정에 없는 종류라 하루가 단조롭지 않아요.`,
+  budget_fits: (n) => `${josa(n, "은")} 남은 예산 안에서 갈 수 있어요.`,
+  no_one_dislikes: (n) => `${josa(n, "은")} 누구에게도 부담스럽지 않은 곳이에요.`,
+  near_fixed: (n) => `${josa(n, "은")} 이미 정해진 곳들과 가까워 이동이 적어요.`,
+  category_gap: (n) => `${josa(n, "은")} 지금 일정에 없는 종류라 하루가 단조롭지 않아요.`,
 };
 
 /** 전체 설명. 근거가 있을 때만 쓸 수 있다 */
 const SUMMARY_TEXT: Record<string, (e: Evidence, added: Place[]) => string> = {
   must_kept: (e) => `${e.fixed.filter((f) => f.reason === "must").length}곳의 '꼭 가고 싶은 곳'은 모두 지켰어요.`,
-  ai_filled: (_e, a) => `남은 자리에는 ${a.map((p) => p.name).join(", ")}을(를) 넣었어요.`,
+  ai_filled: (_e, a) => `남은 자리에는 ${josa(a.map((p) => p.name).join(", "), "을")} 넣었어요.`,
   no_room: () => `모두가 고른 곳으로 일정이 다 차서 더 넣지 않았어요.`,
+  slots_filled: (e) => `남은 ${e.ai_slots}자리를 모두 채웠어요.`,
   budget_limited: (e) => `남은 예산 ${e.group_limits.remaining_budget_won.toLocaleString("ko-KR")}원 안에서 고를 수 있는 곳만 담았어요.`,
   options_free: (e) => `${e.fixed.filter((f) => f.tier === "option").length}곳은 원하는 분만 가는 일정으로 남겼어요.`,
   veto_excluded: () => `빼 달라고 한 곳은 일정에서 제외했어요.`,
@@ -130,6 +139,7 @@ const SUMMARY_OK: Record<string, (e: Evidence, added: Place[]) => boolean> = {
   must_kept: (e) => e.fixed.some((f) => f.reason === "must"),
   ai_filled: (_e, a) => a.length > 0,
   no_room: (e, a) => e.ai_slots === 0 || a.length === 0,
+  slots_filled: (e, a) => a.length > 0 && a.length === e.ai_slots,
   budget_limited: (e) => e.group_limits.remaining_budget_won > 0,
   options_free: (e) => e.fixed.some((f) => f.tier === "option"),
   veto_excluded: (e) => e.excluded.some((x) => x.reason === "veto"),
@@ -151,11 +161,14 @@ export const SYSTEM_PROMPT = `당신은 그룹 여행의 합의안을 정리하�
    - 고른 곳마다 reason_code를 하나 붙입니다:
      budget_fits(남은 예산 안) · no_one_dislikes(모두에게 무난) · near_fixed(기존 일정과 가까움) · category_gap(없는 종류를 채움)
 2. 설명 고르기: 이번 결과에 해당하는 설명 코드를 summary에 2~4개 고릅니다. 근거에 없는 것은 고르지 않습니다.
-     must_kept(꼭 가고 싶은 곳이 있고 지켜짐) · ai_filled(장소를 추가함) · no_room(추가할 자리가 없음)
+     must_kept(꼭 가고 싶은 곳이 있고 지켜짐) · ai_filled(장소를 하나라도 추가함)
+     slots_filled(남은 자리를 전부 채움) · no_room(한 곳도 추가하지 않음. 추가했다면 쓸 수 없음)
      budget_limited(남은 예산이 제한이 됨) · options_free(옵션 장소가 있음) · veto_excluded(거부된 곳이 있음)
      walk_limited(걷기 한도에 맞춤)
+   - ai_filled와 no_room은 함께 쓸 수 없습니다. 자리를 다 채웠으면 slots_filled를 씁니다.
 
-문장은 앱이 직접 만듭니다. 당신은 문장을 쓰지 않습니다. 장소 이름·숫자·설명 문구를 직접 쓰면 거부됩니다.
+문장은 앱이 직접 만듭니다. 당신은 문장을 쓰지 않습니다.
+입력에 주어진 것 외의 장소·숫자·사실을 만들어 내지 마십시오. 코드가 아닌 글자를 쓰면 거부됩니다.
 
 [출력] 아래 JSON 하나만. 설명·코드블록 없이.
 {"ai_added":[{"id":"...","reason_code":"..."}],"summary":["must_kept","ai_filled"]}`;
@@ -264,6 +277,8 @@ export function validatePlan(out: PlanOutput, ev: Evidence): string[] {
     if (seen.has(code)) errs.push(`summary[${i}]: 같은 설명 반복 (${code})`);
     seen.add(code);
   });
+  if (out.summary.includes("ai_filled") && out.summary.includes("no_room"))
+    errs.push("summary: ai_filled와 no_room을 함께 씀 (자리를 다 채웠다면 slots_filled)");
   if (!out.summary.length) errs.push("summary가 비어 있음");
   return errs;
 }
@@ -286,7 +301,12 @@ export interface Enriched {
   /** 다 같이 가는 일정에 넣을 장소. 옵션은 절대 들어가지 않는다 */
   core: Selection[];
   summary: string;
-  ai: { used: boolean; reason: string; added: string[]; errors: string[]; ms: number };
+  ai: {
+    used: boolean; reason: string; added: string[]; errors: string[]; ms: number;
+    /** AI가 추가한 곳마다, 그 판단에 쓰인 입력값을 그대로 남긴다 (근거 추적용) */
+    basis: { id: string; name: string; reason_code: string; fit_min: number; fit_avg: number;
+             taste_match: number; cost_won: number }[];
+  };
 }
 
 /**
@@ -297,7 +317,7 @@ export async function enrich(
   res: ConsensusResult, submissions: Submission[], days: number, fallbackSummary: string
 ): Promise<Enriched> {
   const off = (reason: string, errors: string[] = [], ms = 0): Enriched =>
-    ({ core: res.core, summary: fallbackSummary, ai: { used: false, reason, added: [], errors, ms } });
+    ({ core: res.core, summary: fallbackSummary, ai: { used: false, reason, added: [], errors, ms, basis: [] } });
 
   if (!process.env.SOMSOM_API_KEY && !process.env.AI_MOCK) return off("SOMSOM_API_KEY 없음");
 
@@ -318,7 +338,14 @@ export async function enrich(
     return {
       core: [...res.core.filter((s) => !s.aiAdded), ...added],
       summary: renderSummary(plan, ev),
-      ai: { used: true, reason: "ok", added: added.map((s) => s.place.id), errors: [], ms },
+      ai: {
+        used: true, reason: "ok", added: added.map((s) => s.place.id), errors: [], ms,
+        basis: plan.ai_added.flatMap((a) => {
+          const c = ev.ai_candidates.find((x) => x.id === a.id);
+          return c ? [{ id: c.id, name: c.name, reason_code: a.reason_code, fit_min: c.fit_min,
+                        fit_avg: c.fit_avg, taste_match: c.taste_match, cost_won: c.cost_won }] : [];
+        }),
+      },
     };
   } catch (e) {
     return off(e instanceof Error ? e.message : "알 수 없는 오류", [], Date.now() - t0);
