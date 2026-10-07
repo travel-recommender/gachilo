@@ -83,12 +83,13 @@ test("초안 없는 재접속 — 제출한 입력을 기본값으로 덮어쓰�
   assert.notEqual(submitBlocker(again), null);
 });
 
-test("초안 없는 재접속이라도 아직 제출 전이면 새로 입력하면 된다", () => {
+test("초안 없는 재접속은 submitted=false여도 서버 확인 전까지 막는다", () => {
+  // 제출 뒤 고치면 submitted가 풀리므로, submitted만으로는 서버에 입력이 없다고 말할 수 없다
   const local = new Memory();
   save(joined("room", "a1", ["osaka_castle"]), local, new Memory());
   const s = restore(local, new Memory(), INITIAL);
-  assert.equal(s.inputMissing, false);
-  assert.equal(submitBlocker(s), null);
+  assert.equal(s.inputMissing, true);
+  assert.notEqual(submitBlocker(s), null);
 });
 
 test("데모 모드(방 없음) 초안은 그대로 복원된다", () => {

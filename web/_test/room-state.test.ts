@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { editedState, joinedState, restoredFromServer } from "../src/lib/room-state.ts";
-import { submitBlocker } from "../src/lib/persist.ts";
+import { restore, save, submitBlocker, type KV } from "../src/lib/persist.ts";
 import type { AppState } from "../src/components/store";
 
 const DEFAULTS = { memberId: "me", longlist: [], picks: [], must: null, veto: null, budgetPerDay: 70000, stepLimit: 9000, activeMin: 480 };
@@ -84,4 +84,47 @@ test("제출 뒤 1차 선택을 고치면 최종 대기가 아니라 다시 입�
   const edited = editedState(submitted, { longlist: [...FIVE.slice(0, 4), "dotonbori"] });
   assert.equal(edited.submitted, false); // waiting 화면의 online 판정이 false → /shortlist로 이어진다
   assert.equal(editedState(submitted, { budgetPerDay: 50000 }).submitted, false);
+});
+
+class Memory implements KV {
+  map = new Map<string, string>();
+  getItem(k: string) { return this.map.get(k) ?? null; }
+  setItem(k: string, v: string) { this.map.set(k, v); }
+  removeItem(k: string) { this.map.delete(k); }
+}
+
+test("서버 제출 → 미제출 수정 → 초안 없는 새 탭 → 같은 링크 — 서버 입력을 되찾고 기본값을 내지 않는다", () => {
+  const local = new Memory(), oldTab = new Memory();
+  // 5곳·35,000원 제출 → 50,000원으로 고침(아직 안 냄)
+  const submitted = seated("a", { mine: { ...DEFAULTS, memberId: "a", longlist: FIVE, picks: FIVE, budgetPerDay: 35000 }, submitted: true });
+  const edited = editedState(submitted, { budgetPerDay: 50000 });
+  assert.equal(edited.submitted, false);
+  save(edited, local, oldTab);
+
+  // 탭을 닫고 새 탭: sessionStorage 비어 있음
+  const restored = restore(local, new Memory(), INITIAL);
+  assert.equal(restored.inputMissing, true, "submitted=false여도 초안이 없으면 서버 확인 전이다");
+  assert.notEqual(submitBlocker(restored), null, "서버 조회 전에는 기본값 PUT을 막는다");
+
+  // 같은 초대 링크로 joinRoom — 서버 입력으로 채운다
+  const server = { ...SAVED, picks: FIVE, budgetPerDay: 35000 };
+  const after = join(restored, "a", server);
+  assert.deepEqual(after.mine.picks, FIVE);
+  assert.equal(after.mine.budgetPerDay, 35000);
+  assert.equal(after.submitted, true);
+  assert.equal(submitBlocker(after), null);
+
+  // 조회에 실패해 joinedState·restoredFromServer가 불리지 않으면 막힌 채로 남는다
+  assert.notEqual(submitBlocker(restored), null);
+});
+
+test("초안 없는 새 탭인데 서버에도 입력이 없으면 기본값으로 새로 시작한다", () => {
+  const local = new Memory();
+  save(seated("a"), local, new Memory());
+  const restored = restore(local, new Memory(), INITIAL);
+  const after = join(restored, "a", null);
+  assert.equal(after.inputMissing, false);
+  assert.equal(after.submitted, false);
+  assert.equal(submitBlocker(after), null);
+  assert.equal(restoredFromServer(restored, null).inputMissing, false);
 });
