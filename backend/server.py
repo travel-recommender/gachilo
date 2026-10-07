@@ -105,10 +105,16 @@ class Store:
         hashed=digest(token)
         if member_id:
             m=c.execute('SELECT token_hash FROM members WHERE id=? AND room_id=?',(member_id,r['id'])).fetchone()
-            if m and hmac.compare_digest(m['token_hash'],hashed):return
+            if m and hmac.compare_digest(m['token_hash'],hashed):return self.occupy(c,member_id)
         elif hmac.compare_digest(r['owner_hash'],hashed):return
-        elif not owner_only and c.execute('SELECT 1 FROM members WHERE room_id=? AND token_hash=?',(r['id'],hashed)).fetchone():return
+        elif not owner_only:
+            m=c.execute('SELECT id FROM members WHERE room_id=? AND token_hash=?',(r['id'],hashed)).fetchone()
+            if m:return self.occupy(c,m['id'])
         raise ApiError(403,'이 작업의 접근 토큰이 올바르지 않습니다.')
+    def occupy(self,c,member_id):
+        # A seat someone already uses through a personal link must not be re-picked from the shared link,
+        # or the new token would read that person's private input. Same transaction as the request.
+        c.execute('UPDATE members SET claimed=1 WHERE id=? AND claimed=0',(member_id,))
     def submit(self,rid,mid,token,b):
         require(isinstance(b,dict),'JSON 객체가 필요합니다.')
         for field in ('longlist','picks'):

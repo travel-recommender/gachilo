@@ -18,7 +18,7 @@ const SPLASH_MS = 1600;
 function JoinInner() {
   const router = useRouter();
   const params = useSearchParams();
-  const { state, joinRoom, ready } = useTrip();
+  const { state, seatRoom, joinRoom, ready } = useTrip();
   const [info, setInfo] = useState<ApiInviteInfo | null>(null);
   const [splash, setSplash] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -66,18 +66,41 @@ function JoinInner() {
 
   const next = async () => {
     if (!roomId || !invite) return;
-    if (seated && picked === seated.memberId) { router.push("/pick"); return; }
     setBusy(true);
     setError(null);
+    // 이미 앉은 자리(이전 시도에서 토큰을 받았거나 재접속)는 다시 고르지 않고 같은 토큰으로 이어간다
+    if (seated && !adding && picked === seated.memberId) {
+      try {
+        await joinRoom(roomId, seated.memberId, seated.token);
+        router.push("/pick");
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "방 정보를 불러오지 못했어요. 다음을 눌러 다시 시도해 주세요.");
+        setBusy(false);
+      }
+      return;
+    }
+    let seat;
     try {
-      const seat = await roomApi.claim(roomId, invite,
-        adding ? { name: newName.trim() } : { memberId: picked! });
-      await joinRoom(roomId, seat.memberId, seat.submissionToken);
-      router.push("/pick");
+      seat = await roomApi.claim(roomId, invite, adding ? { name: newName.trim() } : { memberId: picked! });
     } catch (e) {
       setError(e instanceof Error ? e.message : "자리를 잡지 못했어요.");
       // 그 사이 다른 사람이 고른 이름이 있을 수 있으니 목록을 다시 받는다
       roomApi.inviteInfo(roomId, invite).then(setInfo).catch(() => {});
+      setBusy(false);
+      return;
+    }
+    // 서버는 이미 이 자리를 점유하고 예전 토큰을 폐기했다. 조회보다 먼저 받은 토큰을 저장한다
+    const members = adding && !info!.members.some((m) => m.id === seat.memberId)
+      ? [...info!.members, { id: seat.memberId, name: seat.name, claimed: true }] : info!.members;
+    seatRoom({ ...info!, members }, seat.memberId, seat.submissionToken);
+    setInfo({ ...info!, members: members.map((m) => (m.id === seat.memberId ? { ...m, claimed: true } : m)) });
+    setAdding(false);
+    setPicked(seat.memberId);
+    try {
+      await joinRoom(roomId, seat.memberId, seat.submissionToken);
+      router.push("/pick");
+    } catch (e) {
+      setError(`${seat.name} 자리는 잡았어요. 방 정보를 불러오지 못했으니 다음을 눌러 다시 시도해 주세요.`);
       setBusy(false);
     }
   };

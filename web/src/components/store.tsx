@@ -14,6 +14,8 @@ import {
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
 import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
 import { editedState, joinedState, restoredFromServer } from "@/lib/room-state";
+import type { TripExtras } from "@/lib/extras";
+import { EXTRAS_DEFAULT } from "@/lib/room-state";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
 /**
@@ -36,51 +38,8 @@ export interface RoomSession {
   inviteToken?: string | null;
 }
 
-/** 숙소 한 곳. 좌표는 지도 검색으로 고른 경우에만 있다 */
-export interface Lodging {
-  address: string;
-  lat?: number;
-  lng?: number;
-}
-
-/**
- * 화면에서 받지만 아직 서버·알고리즘이 쓰지 않는 입력 (#35에서 연결한다).
- * 꼭 가기·제외는 개수 제한이 없어서 목록으로 따로 둔다. 서버에는 picks·must·veto로 줄여 보낸다.
- */
-export interface TripExtras {
-  mustList: string[];
-  vetoList: string[];
-  arrivalAirport: string;
-  departureAirport: string;
-  /** "HH:MM" */
-  arrivalTime: string;
-  departureTime: string;
-  /** 박마다 하나 (첫째 날 숙소, 둘째 날 숙소…) */
-  lodgings: Lodging[];
-  /** 하루 활동 시작·종료 "HH:MM". activeMin은 이 차이로 정한다 */
-  dayStart: string;
-  dayEnd: string;
-  /** 0~1. 0은 왼쪽(바쁘게·이동 짧게·절약) */
-  tradeoff: { pace: number; distance: number; spend: number };
-  /** P8에서 고친 날짜별 장소 순서 (없으면 계산 결과 그대로) */
-  planEdits: Record<number, string[]>;
-  confirmed: boolean;
-}
-
-export const EXTRAS_DEFAULT: TripExtras = {
-  mustList: [],
-  vetoList: [],
-  arrivalAirport: "KIX",
-  departureAirport: "KIX",
-  arrivalTime: "",
-  departureTime: "",
-  lodgings: [],
-  dayStart: "09:00",
-  dayEnd: "17:00",
-  tradeoff: { pace: 0.5, distance: 0.5, spend: 0.5 },
-  planEdits: {},
-  confirmed: false,
-};
+export type { Lodging, TripExtras } from "@/lib/extras";
+export { EXTRAS_DEFAULT } from "@/lib/room-state";
 
 export interface AppState {
   nights: number;
@@ -128,6 +87,12 @@ interface Ctx {
   setMemberNames: (names: string[]) => void;
   /** 서버에 방을 만들고 세션을 저장한다. 방장이 된다 */
   createRoom: (startDate: string, nights: number, names: string[]) => Promise<RoomSession>;
+  /**
+   * 공용 링크에서 이름을 고른 직후, 받은 자리·토큰부터 저장한다.
+   * 서버는 이미 그 자리를 점유하고 예전 토큰을 폐기했으므로, 이후 조회가 실패해도 이 토큰으로 다시 시도해야 한다.
+   */
+  seatRoom: (info: { roomId: string; startDate: string; endDate: string; members: { id: string; name: string }[] },
+    memberId: string, token: string) => void;
   /** 초대 링크로 들어온 사람이 자기 자리에 앉는다 */
   joinRoom: (roomId: string, memberId: string, token: string) => Promise<void>;
   /** 내 입력을 서버에 저장한다 */
@@ -212,6 +177,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       mine: { ...s.mine, memberId: me.id },
       submitted: false,
       inputMissing: false,
+      // 새 방이다. 이전 방의 꼭 가기·제외·일정 편집을 가져오지 않는다
+      extra: EXTRAS_DEFAULT,
     }));
     return session;
   };
@@ -229,6 +196,15 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     setState((s) => joinedState(
       s, { roomId, memberId, token }, info, members,
       nightsBetween(info.startDate, info.endDate), own.submission, MY_DEFAULT,
+    ));
+  };
+
+  const seatRoom: Ctx["seatRoom"] = (info, memberId, token) => {
+    const colors = makeMembers(info.members.map((m) => m.name));
+    const members = info.members.map((m, i) => ({ id: m.id, name: m.name, color: colors[i].color }));
+    setState((s) => joinedState(
+      s, { roomId: info.roomId, memberId, token }, info, members,
+      nightsBetween(info.startDate, info.endDate), null, MY_DEFAULT,
     ));
   };
 
@@ -311,7 +287,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <C.Provider value={{
-      state, set, setMine, setExtra, setMemberNames, createRoom, joinRoom, submitMine, fetchStatus,
+      state, set, setMine, setExtra, setMemberNames, createRoom, seatRoom, joinRoom, submitMine, fetchStatus,
       addPlace, reset, ready, submissions, pool, consensus, schedule,
     }}>
       {children}

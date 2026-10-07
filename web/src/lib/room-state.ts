@@ -4,6 +4,7 @@
 import type { AppState } from "../components/store";
 import type { ApiRoomInfo, ApiSubmission } from "./room-api";
 import type { Member, Submission } from "./types";
+import type { TripExtras } from "./extras";
 
 /** 서버에 저장된 본인 입력을 화면 입력으로 */
 export function fromServer(saved: ApiSubmission, memberId: string): Submission {
@@ -56,6 +57,8 @@ export function joinedState(
     // 다른 사람 자리로 들어왔다면 이전 사람의 선택은 지운다.
     // (같은 브라우저에서 링크를 바꿔 들어가는 시연에서 실제로 섞였다)
     mine: saved ? fromServer(saved, join.memberId) : { ...defaults, memberId: join.memberId },
+    // 꼭 가기·제외·일정 편집도 자리마다 따로다. 이전 자리 값은 버리고 이 자리의 서버 입력에서 다시 만든다
+    extra: extrasFrom(saved),
     customPlaces: [],
     submitted: saved !== null,
     inputMissing: false,
@@ -81,5 +84,26 @@ export function editedState(s: AppState, p: Partial<Submission>): AppState {
 export function restoredFromServer(s: AppState, saved: ApiSubmission | null): AppState {
   if (!s.room || !s.inputMissing) return s;
   if (!saved) return { ...s, submitted: false, inputMissing: false };
-  return { ...s, mine: fromServer(saved, s.room.memberId), customPlaces: [], submitted: true, inputMissing: false };
+  return { ...s, mine: fromServer(saved, s.room.memberId), extra: extrasFrom(saved), customPlaces: [], submitted: true, inputMissing: false };
+}
+
+export const EXTRAS_DEFAULT: TripExtras = {
+  mustList: [],
+  vetoList: [],
+  arrivalAirport: "KIX",
+  departureAirport: "KIX",
+  arrivalTime: "",
+  departureTime: "",
+  lodgings: [],
+  dayStart: "09:00",
+  dayEnd: "17:00",
+  tradeoff: { pace: 0.5, distance: 0.5, spend: 0.5 },
+  planEdits: {},
+  confirmed: false,
+};
+
+/** 서버에 저장된 입력으로 새 자리의 extra를 만든다. 서버에는 목록이 없어 picks·veto에서 되살린다 */
+export function extrasFrom(saved: Pick<Submission, "picks" | "veto"> | null): TripExtras {
+  if (!saved) return EXTRAS_DEFAULT;
+  return { ...EXTRAS_DEFAULT, mustList: [...saved.picks], vetoList: saved.veto ? [saved.veto] : [] };
 }

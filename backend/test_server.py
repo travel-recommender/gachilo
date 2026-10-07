@@ -73,6 +73,25 @@ class ApiTests(unittest.TestCase):
   for n in ('도윤','하린'):self.assertEqual(self.req('POST',path,{'name':n},invite)[0],200)
   self.assertEqual(self.req('POST',path,{'name':'일곱'},invite)[0],409)
   self.assertEqual(self.req('POST',path,{'name':'a'},self.room()['inviteToken'])[0],403)
+ def test_seat_used_by_personal_link_cannot_be_reclaimed(self):
+  room=self.room();rid=room['roomId'];invite=room['inviteToken'];path=f"/rooms/{rid}/join"
+  a,b,c=room['members']
+  # 제출, 본인 입력 조회, 방 정보 조회 — 어느 쪽이든 개인 토큰을 쓰면 그 자리는 점유된다
+  self.assertEqual(self.submit(room,b)[0],200)
+  self.assertEqual(self.req('GET',f"/rooms/{rid}/submissions/{c['id']}",token=c['submissionToken'])[0],200)
+  claimed={m['name']:m['claimed'] for m in self.req('GET',path,token=invite)[1]['members']}
+  self.assertEqual(claimed,{'조은':True,'윤진':True,'혜인':True})
+  for m in (b,c):self.assertEqual(self.req('POST',path,{'memberId':m['id']},invite)[0],409)
+  # 원래 참여자는 계속 자기 토큰으로 쓸 수 있다
+  self.assertEqual(self.req('GET',f"/rooms/{rid}/submissions/{b['id']}",token=b['submissionToken'])[0],200)
+ def test_room_meta_with_personal_token_occupies_seat(self):
+  room=self.room();rid=room['roomId']
+  b=room['members'][1]
+  self.assertEqual(self.req('GET',f"/rooms/{rid}",token=b['submissionToken'])[0],200)
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/join",{'memberId':b['id']},room['inviteToken'])[0],409)
+  # 방장 토큰으로 보는 것은 아무 자리도 점유하지 않는다
+  self.req('GET',f"/rooms/{rid}",token=room['ownerToken'])
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/join",{'memberId':room['members'][2]['id']},room['inviteToken'])[0],200)
  def test_duplicate_names_rejected_at_creation(self):
   self.assertEqual(self.req('POST','/rooms',{'startDate':'2026-10-01','endDate':'2026-10-02','memberNames':['혜인',' 혜인']})[0],400)
  def test_room_meta_requires_room_token_and_hides_tokens(self):
