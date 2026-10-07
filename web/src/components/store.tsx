@@ -32,7 +32,55 @@ export interface RoomSession {
   ownerToken: string | null;
   /** 방장이 초대 링크를 만들 때만 쓴다 */
   members: RoomMember[];
+  /** 방 공용 초대 토큰. 방장만 가진다 (링크 하나 + 이름 고르기) */
+  inviteToken?: string | null;
 }
+
+/** 숙소 한 곳. 좌표는 지도 검색으로 고른 경우에만 있다 */
+export interface Lodging {
+  address: string;
+  lat?: number;
+  lng?: number;
+}
+
+/**
+ * 화면에서 받지만 아직 서버·알고리즘이 쓰지 않는 입력 (#35에서 연결한다).
+ * 꼭 가기·제외는 개수 제한이 없어서 목록으로 따로 둔다. 서버에는 picks·must·veto로 줄여 보낸다.
+ */
+export interface TripExtras {
+  mustList: string[];
+  vetoList: string[];
+  arrivalAirport: string;
+  departureAirport: string;
+  /** "HH:MM" */
+  arrivalTime: string;
+  departureTime: string;
+  /** 박마다 하나 (첫째 날 숙소, 둘째 날 숙소…) */
+  lodgings: Lodging[];
+  /** 하루 활동 시작·종료 "HH:MM". activeMin은 이 차이로 정한다 */
+  dayStart: string;
+  dayEnd: string;
+  /** 0~1. 0은 왼쪽(바쁘게·이동 짧게·절약) */
+  tradeoff: { pace: number; distance: number; spend: number };
+  /** P8에서 고친 날짜별 장소 순서 (없으면 계산 결과 그대로) */
+  planEdits: Record<number, string[]>;
+  confirmed: boolean;
+}
+
+export const EXTRAS_DEFAULT: TripExtras = {
+  mustList: [],
+  vetoList: [],
+  arrivalAirport: "KIX",
+  departureAirport: "KIX",
+  arrivalTime: "",
+  departureTime: "",
+  lodgings: [],
+  dayStart: "09:00",
+  dayEnd: "17:00",
+  tradeoff: { pace: 0.5, distance: 0.5, spend: 0.5 },
+  planEdits: {},
+  confirmed: false,
+};
 
 export interface AppState {
   nights: number;
@@ -53,6 +101,7 @@ export interface AppState {
    * 이 상태에서 제출하면 기본값이 서버 입력을 덮어쓰므로 막는다. 1차 선택부터 다시 고르면 풀린다.
    */
   inputMissing: boolean;
+  extra: TripExtras;
 }
 
 const INITIAL: AppState = {
@@ -66,12 +115,14 @@ const INITIAL: AppState = {
   allowPartial: true,
   customPlaces: [],
   inputMissing: false,
+  extra: EXTRAS_DEFAULT,
 };
 
 interface Ctx {
   state: AppState;
   set: (p: Partial<AppState>) => void;
   setMine: (p: Partial<Submission>) => void;
+  setExtra: (p: Partial<TripExtras>) => void;
   /** 이름 목록으로 참여자를 다시 만든다 (첫 화면) */
   setMemberNames: (names: string[]) => void;
   /** 서버에 방을 만들고 세션을 저장한다. 방장이 된다 */
@@ -128,6 +179,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   const set = (p: Partial<AppState>) => setState((s) => ({ ...s, ...p }));
   const setMine = (p: Partial<Submission>) => setState((s) => editedState(s, p));
+  const setExtra = (p: Partial<TripExtras>) => setState((s) => ({ ...s, extra: { ...s.extra, ...p } }));
   const setMemberNames = (names: string[]) => setState((s) => ({ ...s, members: makeMembers(names) }));
 
   const createRoom = async (startDate: string, nights: number, names: string[]) => {
@@ -148,6 +200,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       token: me.submissionToken,
       ownerToken: room.ownerToken,
       members: room.members,
+      inviteToken: room.inviteToken ?? null,
     };
     setState((s) => ({
       ...s,
@@ -257,7 +310,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <C.Provider value={{
-      state, set, setMine, setMemberNames, createRoom, joinRoom, submitMine, fetchStatus,
+      state, set, setMine, setExtra, setMemberNames, createRoom, joinRoom, submitMine, fetchStatus,
       addPlace, reset, ready, submissions, pool, consensus, schedule,
     }}>
       {children}

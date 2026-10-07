@@ -10,6 +10,10 @@ const config: Config = {
         coral:{ 400:"#ff7a6b",500:"#f9584a",600:"#dc3c30" },
         ink:  { 900:"#12141a",700:"#3a3f4b",500:"#6b7280",300:"#a6acba" },
         surface: "#f4f5f9",
+        // 최종 UI 디자인(피그마 UI P0~P8)의 색
+        wine: { DEFAULT: "#8b2842", 50: "#f7eef1" },
+        line: { DEFAULT: "#d6d6d6", soft: "#d9d9d9", faint: "#ebebeb" },
+        mute: { DEFAULT: "#737373", soft: "#999999" },
       },
       fontFamily: { sans: ["Pretendard","-apple-system","BlinkMacSystemFont","Apple SD Gothic Neo","Segoe UI","sans-serif"] },
       borderRadius: { card: "18px" },

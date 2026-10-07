@@ -2,9 +2,13 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
-import { Avatar, Body, Card, Notice, Screen, SectionTitle, TopBar } from "@/components/ui";
+import { NavButtons, Page, PlanHeader, asset } from "@/components/gachiro";
 
-/** 1차 입력이 모두 끝나기를 기다린다. 끝나면 모두의 후보가 모인 화면으로 간다 */
+/**
+ * 다른 사람을 기다린다. 디자인에 없는 화면이라 P2(인원 선택) 모양을 따랐다.
+ * - 1차(My list) 뒤: 모두의 목록이 모이면 P4로
+ * - 조건 제출 뒤: 전원이 내면 P7로
+ */
 export default function Waiting() {
   const router = useRouter();
   const { state, pool, fetchStatus } = useTrip();
@@ -19,7 +23,7 @@ export default function Waiting() {
   const [memberCount, setMemberCount] = useState(members.length);
   const [error, setError] = useState<string | null>(null);
 
-  /** 서버가 있으면 3초마다 참여 현황을 묻는다. 없으면 기존 데모 애니메이션 */
+  /** 서버가 있으면 3초마다 참여 현황을 묻는다. 없으면 데모 애니메이션 */
   useEffect(() => {
     if (!online) return;
     let live = true;
@@ -50,9 +54,6 @@ export default function Waiting() {
     return () => clearTimeout(t);
   }, [online, doneCount, members.length, router]);
 
-  /** 제출 뒤 대기인지, 1차 뒤 대기인지에 따라 안내와 다음 화면이 다르다 */
-  const afterSubmit = !!state.room && state.submitted;
-
   const total = online ? memberCount : members.length;
   const allDone = doneCount >= total;
 
@@ -66,62 +67,49 @@ export default function Waiting() {
   const othersDone = Math.max(0, doneCount - (me ? 1 : 0));
   const othersTotal = Math.max(0, total - (me ? 1 : 0));
 
-  return (
-    <Screen>
-      <TopBar title="다른 사람을 기다리는 중"
-        subtitle={afterSubmit ? "전원 입력이 끝나면 결과가 나와요" : undefined} />
-      <Body className="justify-center">
-        <Card>
-          <SectionTitle hint={`${doneCount}/${total}명`}>참여 현황</SectionTitle>
-          <div className="mt-4 space-y-3">
-            {ordered.map((m, i) => {
-              const mine = m === me;
-              const known = mine || !online || allDone;
-              const ok = mine || allDone || (!online && i < doneCount);
-              return (
-                <div key={m.id} className="flex items-center gap-3">
-                  <Avatar name={m.name} color={ok ? m.color : "#d6dae4"} size={34} />
-                  <span className={`flex-1 text-[13.5px] font-semibold ${ok ? "" : "text-ink-300"}`}>
-                    {m.name}{m.id === state.mine.memberId && " (나)"}
-                  </span>
-                  {known && (
-                    <span className={`chip ${ok ? "bg-emerald-50 text-emerald-700" : "bg-surface text-ink-300"}`}>
-                      {ok ? "완료" : "찾는 중"}
-                    </span>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          {online && !allDone && othersTotal > 0 && (
-            <p className="mt-3 text-[11.5px] leading-relaxed text-ink-500">
-              다른 {othersTotal}명 중 {othersDone}명이 입력을 마쳤어요. 누가 냈는지는 보여주지 않아요.
-            </p>
-          )}
-          <div className="mt-4 h-2 overflow-hidden rounded-full bg-surface">
-            <div className="h-full rounded-full bg-brand-600 transition-all duration-500"
-              style={{ width: `${total ? (doneCount / total) * 100 : 0}%` }} />
-          </div>
-          {error && (
-            <p className="mt-3 text-[11.5px] leading-relaxed text-coral-500">{error}</p>
-          )}
-          {allDone && (
-            <>
-              <p className="mt-3 text-[12.5px] font-semibold text-brand-600">
-                {online ? "전원 입력이 끝났어요." : `${pool.length}곳이 모였어요. 이제 이 중에서 고를 차례예요.`}
-              </p>
-              {online && (
-                <button onClick={() => router.push("/result")}
-                  className="btn-primary mt-3 w-full">결과 보기</button>
-              )}
-            </>
-          )}
-        </Card>
+  const next = () => router.push(online ? "/result" : "/shortlist");
 
-        <Notice tone="info">
-          누가 무엇을 찾아왔는지는 <b>끝까지 공개되지 않아요.</b> 몇 명이 겹쳤는지만 보여드려요.
-        </Notice>
-      </Body>
-    </Screen>
+  return (
+    <Page nav={<NavButtons prev={online ? "/condition" : "/pick"} next={next} nextDisabled={!allDone}
+      nextLabel={online ? "결과 보기" : "다음"} />}>
+      <PlanHeader title="기다리는 중" />
+      <div className="px-5 pt-[50px]">
+        <div className="mb-[9px] flex items-baseline justify-between">
+          <h2 className="text-[17px] font-extrabold">{online ? "조건 입력" : "My list"}</h2>
+          <span className="text-[14px] font-extrabold text-wine">{doneCount}/{total}명</span>
+        </div>
+        <div className="space-y-[9px]">
+          {ordered.map((m, i) => {
+            const mine = m === me;
+            const known = mine || !online || allDone;
+            const ok = mine || allDone || (!online && i < doneCount);
+            return (
+              <div key={m.id}
+                className={`flex h-[35px] items-center justify-between rounded-[6.795px] pl-5 pr-[11px] text-[14px] font-semibold ${
+                  ok ? "bg-wine text-white" : "border border-line text-black"}`}>
+                <span>{m.name}{mine && " (나)"}</span>
+                {ok ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={asset("/ui/check.png")} alt="완료" width={31} height={31} className="-mr-[3px]" />
+                ) : known ? (
+                  <span className="text-[12px] font-medium text-mute-soft">찾는 중</span>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+        {online && !allDone && othersTotal > 0 && (
+          <p className="mt-3 text-[12px] font-medium leading-relaxed text-mute">
+            다른 {othersTotal}명 중 {othersDone}명이 입력을 마쳤어요. 누가 냈는지는 보여주지 않아요.
+          </p>
+        )}
+        {error && <p className="mt-3 text-[12px] leading-relaxed text-wine">{error}</p>}
+        <p className="mt-6 text-[12px] font-medium leading-relaxed text-mute">
+          {allDone && !online
+            ? `${pool.length}곳이 모였어요. 이제 이 중에서 고를 차례예요.`
+            : allDone ? "전원 입력이 끝났어요." : "누가 무엇을 골랐는지는 끝까지 공개되지 않아요."}
+        </p>
+      </div>
+    </Page>
   );
 }
