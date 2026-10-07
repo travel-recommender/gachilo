@@ -49,6 +49,32 @@ class ApiTests(unittest.TestCase):
   fake=dict(b,submissionToken=a['submissionToken']);self.assertEqual(self.submit(room,fake)[0],403)
   code,payload,headers=self.req('GET',path,token=a['submissionToken']);self.assertEqual(code,200);self.assertNotIn('submissions',payload);self.assertEqual(headers['Access-Control-Allow-Origin'],'http://localhost:3000')
   self.assertEqual(self.req('GET',path,token=a['submissionToken'],origin='https://untrusted.example')[0],403)
+ def test_shared_invite_claims_each_name_once(self):
+  room=self.room();rid=room['roomId'];invite=room['inviteToken'];path=f"/rooms/{rid}/join"
+  self.assertEqual(self.req('GET',path)[0],403);self.assertEqual(self.req('GET',path,token=room['ownerToken'])[0],403)
+  code,data,_=self.req('GET',path,token=invite)
+  self.assertEqual(code,200);self.assertEqual([(m['name'],m['claimed']) for m in data['members']],[('조은',True),('윤진',False),('혜인',False)])
+  self.assertNotIn('Token',json.dumps(data))
+  creator,yoonjin=room['members'][:2]
+  self.assertEqual(self.req('POST',path,{'memberId':creator['id']},invite)[0],409)
+  code,seat,_=self.req('POST',path,{'memberId':yoonjin['id']},invite);self.assertEqual(code,200);self.assertEqual(seat['name'],'윤진')
+  self.assertEqual(self.req('POST',path,{'memberId':yoonjin['id']},invite)[0],409)
+  # The claimed seat gets a fresh token; the creator's copy of the old one stops working.
+  self.assertEqual(self.submit(room,dict(yoonjin,submissionToken=seat['submissionToken']))[0],200)
+  self.assertEqual(self.submit(room,yoonjin)[0],403)
+  self.assertTrue([m for m in self.req('GET',path,token=invite)[1]['members'] if m['name']=='윤진'][0]['claimed'])
+ def test_shared_invite_adds_new_name_and_invalidates_result(self):
+  room=self.room();rid=room['roomId'];invite=room['inviteToken'];path=f"/rooms/{rid}/join"
+  self.assertEqual(self.req('POST',path,{'name':'윤진'},invite)[0],409)
+  self.assertEqual(self.req('POST',path,{'name':'민서','memberId':'x'},invite)[0],400)
+  code,seat,_=self.req('POST',path,{'name':' 민서 '},invite);self.assertEqual(code,200);self.assertEqual(seat['name'],'민서')
+  status=self.req('GET',f"/rooms/{rid}/results",token=room['ownerToken'])[1]
+  self.assertEqual((status['memberCount'],status['revision']),(4,1))
+  for n in ('도윤','하린'):self.assertEqual(self.req('POST',path,{'name':n},invite)[0],200)
+  self.assertEqual(self.req('POST',path,{'name':'일곱'},invite)[0],409)
+  self.assertEqual(self.req('POST',path,{'name':'a'},self.room()['inviteToken'])[0],403)
+ def test_duplicate_names_rejected_at_creation(self):
+  self.assertEqual(self.req('POST','/rooms',{'startDate':'2026-10-01','endDate':'2026-10-02','memberNames':['혜인',' 혜인']})[0],400)
  def test_room_meta_requires_room_token_and_hides_tokens(self):
   room=self.room();a=room['members'][0];path=f"/rooms/{room['roomId']}"
   self.assertEqual(self.req('GET',path)[0],403)
