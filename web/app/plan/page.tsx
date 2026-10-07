@@ -5,6 +5,7 @@ import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
 import { PlanMap } from "@/components/PlanMap";
 import { CATEGORY_MAP, findPlace } from "@/lib/places";
+import { explainPlace } from "@/lib/explain";
 import { Box, MinusButton, NavButtons, Page, PlanHeader, Sheet, TextTabs, asset } from "@/components/gachiro";
 import type { Place } from "@/lib/types";
 
@@ -19,7 +20,7 @@ const HOLD_MS = 450;
  */
 export default function Plan() {
   const router = useRouter();
-  const { state, setExtra, schedule } = useTrip();
+  const { state, setExtra, schedule, consensus } = useTrip();
   const { planEdits, confirmed } = state.extra;
   const days = state.nights + 1;
   const [day, setDay] = useState(1);
@@ -28,6 +29,16 @@ export default function Plan() {
   const base = schedule.plans.find((p) => p.day === day)?.items.map((it) => it.place.id) ?? [];
   const ids = planEdits[day] ?? base;
   const places = ids.map((id) => findPlace(id)).filter((p): p is Place => !!p);
+  /**
+   * 아무도 고르지 않았는데 들어간 곳은 "AI 추천"으로 표시하고 근거를 쓴다.
+   * - 합의 단계에서 모두의 조건에 맞아 채운 곳 (aiAdded)
+   * - 일정 단계에서 빈 식사 시간을 채운 곳 (filled)
+   */
+  const aiReason: Record<string, string> = {};
+  consensus.selections.filter((x) => x.aiAdded)
+    .forEach((x) => { aiReason[x.place.id] = explainPlace(consensus, x.place.id) ?? "AI가 넣은 곳이에요."; });
+  schedule.plans.flatMap((p) => p.items).filter((it) => it.tier === "filled")
+    .forEach((it) => { aiReason[it.place.id] ??= "비어 있던 식사 시간에 동선에서 가장 가까운 곳을 넣었어요."; });
   const save = (next: string[]) => setExtra({ planEdits: { ...planEdits, [day]: next } });
 
   return (
@@ -56,7 +67,7 @@ export default function Plan() {
           </div>
 
           <Box className="h-[261px] overflow-hidden">
-            <Reorder places={places} locked={confirmed}
+            <Reorder places={places} locked={confirmed} aiReason={aiReason}
               onMove={(from, to) => {
                 const next = [...ids];
                 const [m] = next.splice(from, 1);
@@ -92,8 +103,9 @@ function Pin({ n }: { n: number }) {
 }
 
 /** 꾹 눌러 끌어서 순서를 바꾸는 목록 */
-function Reorder({ places, locked, onMove, onRemove }: {
+function Reorder({ places, locked, aiReason, onMove, onRemove }: {
   places: Place[];
+  aiReason: Record<string, string>;
   locked: boolean;
   onMove: (from: number, to: number) => void;
   onRemove: (id: string) => void;
@@ -169,8 +181,14 @@ function Reorder({ places, locked, onMove, onRemove }: {
               <div className="flex items-baseline gap-[6px] text-[14px] leading-4">
                 <span className="truncate font-semibold">{p.name}</span>
                 <span className="shrink-0 font-extrabold text-wine">{CATEGORY_MAP[p.category].label}</span>
+                {aiReason[p.id] && (
+                  <span className="shrink-0 rounded-[20px] bg-line-faint px-[7px] py-[2px] text-[10px] font-bold leading-3 text-wine">AI 추천</span>
+                )}
               </div>
-              <div className="mt-[3px] truncate text-[8px] font-medium leading-3 text-line">{placeLine(p)}</div>
+              {/* AI 추천이면 주소 줄 대신 왜 넣었는지를 쓴다 */}
+              <div className={`mt-[3px] truncate leading-3 ${aiReason[p.id] ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
+                {aiReason[p.id] ?? placeLine(p)}
+              </div>
             </div>
             {!locked && <MinusButton label={`${p.name} 빼기`} onClick={() => onRemove(p.id)} />}
           </li>
