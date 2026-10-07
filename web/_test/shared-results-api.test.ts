@@ -45,3 +45,33 @@ test('JSON error text survives and abort remains recognizable as cancellation', 
   const cancelled=createSharedResultClient('',async()=>{throw abort;});
   await assert.rejects(cancelled.get('room','member'),e=>e===abort);
 });
+
+test('cancelling an in-progress response body preserves the cancellation reason', async () => {
+  for (const [status, reason] of [
+    [200, new DOMException('cancelled body', 'AbortError')],
+    [503, new DOMException('cancelled error body', 'AbortError')],
+    [200, new Error('view unmounted')],
+  ] as const) {
+    const controller=new AbortController();
+    let reading!: () => void;
+    const bodyReading=new Promise<void>(resolve=>{reading=resolve;});
+    const api=createSharedResultClient('',async (_url,init)=>new Response(new ReadableStream({
+      start(stream) {
+        init!.signal!.addEventListener('abort',()=>stream.error(init!.signal!.reason),{once:true});
+      },
+      pull() { reading(); },
+    },{highWaterMark:0}),{status}));
+    const rejected=assert.rejects(api.calculateAll('room','owner',3,controller.signal),error=>error===reason);
+    await bodyReading;
+    controller.abort(reason);
+    await rejected;
+  }
+});
+
+test('AbortError from body reading is preserved even without a supplied signal', async () => {
+  const reason=new DOMException('body cancelled','AbortError');
+  const api=createSharedResultClient('',async()=>new Response(new ReadableStream({
+    pull(stream) { stream.error(reason); },
+  },{highWaterMark:0})));
+  await assert.rejects(api.get('room','member'),error=>error===reason);
+});
