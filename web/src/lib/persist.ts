@@ -5,7 +5,8 @@
  *   localStorage는 모든 탭이 공유하므로 **새 탭·재접속용 마지막 방**으로만 쓴다.
  * - 입력 초안(선택·조건): 탭별 sessionStorage에만. **어느 방·어느 참여자의 초안인지(owner)**를 같이 적고,
  *   복원한 방 세션과 owner가 다르면 버린다. 다른 사람 토큰으로 내 초안이 제출되면 안 된다.
- * 초안이 없는데 제출한 적이 있으면 서버의 본인 입력 조회로 채운다(store.tsx). 초안은 아직 안 낸 수정을 지키는 용도다.
+ * 방에 앉아 있는데 이 탭에 내 초안이 없으면 서버의 본인 입력 조회로 채운다(store.tsx). 초안은 아직 안 낸 수정을 지키는 용도다.
+ * 초안이 있는지는 submitted로 판단하지 않는다. 제출 뒤 고치면 submitted가 풀리지만 서버에는 이전 입력이 남아 있다.
  */
 import type { AppState } from "../components/store";
 import type { Submission } from "./types";
@@ -71,8 +72,9 @@ export function restore(local: KV, session: KV, initial: AppState): AppState {
   if (draft && sameOwner((draft.owner as Owner) ?? null, ownerOf(state.room))) {
     Object.assign(state, pick(draft as Partial<AppState>, DRAFT_FIELDS));
   } else {
-    // 초안이 없거나 다른 자리의 초안이다. 이미 제출했다면 이 기기의 입력은 제출한 입력이 아니다
-    state.inputMissing = state.submitted;
+    // 초안이 없거나 다른 자리의 초안이다. 이 기기의 입력은 내 입력이 아니다.
+    // 서버에 낸 입력이 있는지는 서버에 물어봐야 안다 (submitted는 제출 뒤 고치면 false라 믿을 수 없다)
+    state.inputMissing = state.room !== null;
   }
   // 초안이 없어도 내 입력의 주인은 복원한 방의 내 자리다
   if (state.room) state.mine = { ...state.mine, memberId: state.room.memberId };
@@ -91,7 +93,7 @@ export function hasCustomPlace(mine: Submission) {
 /** 지금 제출하면 안 되는 이유. 없으면 null */
 export function submitBlocker(state: AppState): string | null {
   if (state.inputMissing) {
-    return "이 기기에는 제출했던 입력이 남아 있지 않아요. 가고 싶은 곳 고르기부터 다시 입력하면 새 입력으로 저장돼요.";
+    return "이 기기에 입력이 남아 있지 않고 저장된 입력도 아직 불러오지 못했어요. 가고 싶은 곳 고르기부터 다시 입력하면 새 입력으로 저장돼요.";
   }
   if (state.room && state.mine.memberId !== state.room.memberId) {
     return "입력과 참여자 정보가 맞지 않아요. 초대 링크로 다시 들어와 주세요.";

@@ -49,8 +49,9 @@ export interface AppState {
   /** 사용자가 직접 추가한 장소 */
   customPlaces: Place[];
   /**
-   * 제출은 했는데 이 기기에 그 입력이 없다(초안 없이 재접속).
-   * 이 상태에서 제출하면 기본값이 서버 입력을 덮어쓰므로 막는다. 1차 선택부터 다시 고르면 풀린다.
+   * 방에 앉았는데 이 기기에 내 초안이 없고, 서버의 본인 입력도 아직 못 불러왔다(초안 없이 재접속).
+   * submitted와 별개다 — 제출 뒤 고친 상태(submitted=false)여도 서버에는 이전 입력이 있을 수 있다.
+   * 이 상태에서 제출하면 기본값이 서버 입력을 덮어쓸 수 있으므로 막는다. 서버 조회가 끝나거나 1차 선택부터 다시 고르면 풀린다.
    */
   inputMissing: boolean;
 }
@@ -110,7 +111,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       setState(restored);
     } catch { /* 무시 */ }
     setReady(true);
-    // 이 기기에 제출한 입력이 없으면 서버의 본인 입력으로 채운다. 실패하면 제출 막기(inputMissing)를 유지한다
+    // 이 기기에 내 초안이 없으면 서버의 본인 입력으로 채운다. 실패하면 제출 막기(inputMissing)를 유지한다
     const room = restored.room;
     if (room && restored.inputMissing) {
       roomApi.mySubmission(room.roomId, room.memberId, room.token)
