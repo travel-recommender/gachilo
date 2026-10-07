@@ -1,4 +1,5 @@
 import { allPlaces, findPlace } from "./places.ts";
+import { distanceWeightFor, groupTradeoffs, mustRounds, mustsOf, slotsPerDayFor, spendCapFor, vetoesOf } from "./inputs.ts";
 import type {
   ConsensusResult,
   MemberSatisfaction,
@@ -97,8 +98,14 @@ export function satisfactionOf(
 
   const hit = sub.picks.filter((p) => ids.has(p)).length;
   const pickRate = sub.picks.length ? hit / sub.picks.length : 0;
-  const mustKept = sub.must ? ids.has(sub.must) : true;
-  const vetoKept = sub.veto ? !ids.has(sub.veto) : true;
+  // 꼭 가기가 여러 개면 '하나라도 지켜졌는가'가 아니라 '몇 개나 지켜졌는가'로 본다.
+  // 다만 원리 2(모두가 최소 하나)는 1순위가 지켜졌는지로 따로 본다.
+  const musts = mustsOf(sub);
+  const mustHit = musts.filter((id) => ids.has(id)).length;
+  const mustKept = musts.length === 0 ? true : ids.has(musts[0]) || mustHit > 0;
+  const mustRate = musts.length ? mustHit / musts.length : 1;
+  const vetoes = vetoesOf(sub);
+  const vetoKept = vetoes.every((id) => !ids.has(id));
 
   const budgetUse = sub.budget ? costPerPerson / sub.budget : 1;
   const walkUse = sub.walkLimit ? walkPerDay / sub.walkLimit : 1;
@@ -108,12 +115,13 @@ export function satisfactionOf(
 
   const score =
     WEIGHTS.pick * pickRate +
-    WEIGHTS.must * (mustKept ? 1 : 0) +
+    // 1순위를 지키는 것이 절반, 나머지를 얼마나 더 지켰는지가 절반
+    WEIGHTS.must * (0.5 * (mustKept ? 1 : 0) + 0.5 * mustRate) +
     WEIGHTS.budget * withinScore(budgetUse) +
     WEIGHTS.walk * withinScore(walkUse) +
     WEIGHTS.veto * (vetoKept ? 1 : 0);
 
-  return { memberId: sub.memberId, pickRate, mustKept, budgetUse, walkUse, vetoKept, score };
+  return { memberId: sub.memberId, pickRate, mustKept, mustRate, budgetUse, walkUse, vetoKept, score };
 }
 
 /* ══════════════ 그룹 지표 ══════════════ */
@@ -166,8 +174,11 @@ function categoryTaste(sub: Submission): Partial<Record<string, number>> {
 
 /** 개인 효용 (0~1) */
 export function utilityOf(place: Place, sub: SubmissionView, taste = categoryTaste(sub)): number {
-  if (sub.veto === place.id) return 0;
-  if (sub.must === place.id) return 1;
+  if (vetoesOf(sub).includes(place.id)) return 0;
+  const musts = mustsOf(sub);
+  const rank = musts.indexOf(place.id);
+  // 1순위는 1.0, 뒤로 갈수록 조금씩 낮지만 고른 곳(0.85)보다는 높게 둔다
+  if (rank >= 0) return Math.max(0.86, 1 - rank * 0.03);
 
   // 직접 고른 곳은 높게, 안 고른 곳은 (내 취향 + 장소의 보편적 매력)만큼
   let u = sub.picks.includes(place.id)
@@ -208,19 +219,23 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
   const days = nights + 1;
   // 사용자는 '하루 얼마·몇 보'로 답하지만, 채택 계산은 여행 총액과 km로 한다
   const subs = input.submissions.map((s) => toView(s, days));
-  // 하루에 '고른 장소'를 넣을 자리. 식사·카페는 배치 단계에서 따로 채우므로 적게 잡는다.
-  const slotsPerDay = input.slotsPerDay ?? 3;
-  const capacity = days * slotsPerDay;
 
-  // 1. 예산 하드 제약 — 가장 낮은 상한
-  const groupBudget = Math.min(...subs.map((s) => s.budget));
+  // 0. 트레이드오프 — 자리 수와 예산 상한, 이동 벌점이 여기서 정해진다
+  const tradeoffs = groupTradeoffs(input.submissions);
+  // 하루에 '고른 장소'를 넣을 자리. 식사·카페는 배치 단계에서 따로 채우므로 적게 잡는다.
+  const slotsPerDay = input.slotsPerDay ?? slotsPerDayFor(tradeoffs.pace);
+  const capacity = days * slotsPerDay;
+  const distanceWeight = distanceWeightFor(tradeoffs.distance);
+
+  // 1. 예산 하드 제약 — 가장 낮은 상한에, 쓰고 싶은 정도를 곱한 상한
+  const groupBudget = spendCapFor(Math.min(...subs.map((s) => s.budget)), tradeoffs.spend);
   const groupWalk = Math.min(...subs.map((s) => s.walkLimit));
 
   // 2. 후보 수집 (누군가 고른 곳만)
   const candidateIds = new Set<string>();
   subs.forEach((s) => s.picks.forEach((p) => candidateIds.add(p)));
 
-  const vetoed = new Set(subs.map((s) => s.veto).filter(Boolean) as string[]);
+  const vetoed = new Set(subs.flatMap((s) => vetoesOf(s)));
 
   const selections: Selection[] = [];
   const excluded: Selection[] = [];
@@ -228,7 +243,7 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
   const makeSel = (place: Place, tier: Selection["tier"], participants: string[]): Selection => ({
     place,
     votes: subs.filter((s) => s.picks.includes(place.id)).length,
-    mustOf: subs.find((s) => s.must === place.id)?.memberId ?? null,
+    mustOf: subs.find((s) => mustsOf(s).includes(place.id))?.memberId ?? null,
     tier,
     participants,
   });
@@ -243,23 +258,42 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
 
   const alive = [...candidateIds].filter((id) => !vetoed.has(id)).map((id) => findPlace(id)).filter((p): p is Place => !!p);
 
-  // 4. 각자의 '꼭'을 먼저 확정
+  // 4. 각자의 '꼭'을 확정한다.
+  //    전원의 1순위를 먼저 넣고 그다음 2순위를 도는 식이라(inputs.ts: mustRounds),
+  //    많이 찍은 사람이 자리를 쓸어가지 않는다. 1순위는 자리·예산이 모자라도 반드시 넣는다(원리 2).
+  //    2순위부터는 남은 자리와 예산 안에서만 들어가고, 못 들어가면 옵션으로 돌린다.
   const allIds = new Set<string>();
-  subs.forEach((s) => {
-    if (!s.must || vetoed.has(s.must)) return;
-    const place = findPlace(s.must);
+  let mustCost = 0;
+  mustRounds(input.submissions, vetoed).forEach(({ id, memberId, rank }) => {
+    const place = findPlace(id);
     if (!place || allIds.has(place.id)) return;
+    const coreCount = selections.filter((s) => s.tier === "core").length;
+    const fits = coreCount < capacity && mustCost + place.cost <= groupBudget;
+    if (rank === 0 || fits) {
+      allIds.add(place.id);
+      mustCost += place.cost;
+      selections.push(makeSel(place, "core", subs.map((x) => x.memberId)));
+      return;
+    }
+    // 자리나 예산이 없으면 본인만 가는 일정으로 남긴다
     allIds.add(place.id);
-    selections.push(makeSel(place, "core", subs.map((x) => x.memberId)));
+    selections.push(makeSel(place, "option", [memberId]));
   });
 
   // 5. 나머지를 전략 점수 순으로 채운다
+  // 이미 확정된 곳에서 먼 장소는 그만큼 이동이 늘어난다. distance 축이 낮을수록 더 깎는다.
+  const anchors = selections.filter((s) => s.tier === "core").map((s) => s.place);
+  const farPenalty = (p: Place) => {
+    if (!anchors.length) return 0;
+    const near = Math.min(...anchors.map((a) => distKm(a, p)));
+    return Math.min(0.2, (near / 25) * distanceWeight);
+  };
   const rest = alive
     .filter((p) => !allIds.has(p.id))
-    .map((p) => ({ place: p, score: scorePlace(p, subs, strategy) }))
+    .map((p) => ({ place: p, score: scorePlace(p, subs, strategy) - farPenalty(p) }))
     .sort((a, b) => b.score - a.score);
 
-  let cost = selections.reduce((s, x) => s + x.place.cost, 0);
+  let cost = selections.filter((s) => s.tier === "core").reduce((s, x) => s + x.place.cost, 0);
   const options: Place[] = [];
 
   for (const { place } of rest) {
@@ -301,7 +335,7 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
   const chosenIds = new Set(selections.map((s) => s.place.id));
   const aiPool = allPlaces()
     .filter((p) => !chosenIds.has(p.id) && !vetoed.has(p.id) && !candidateIds.has(p.id))
-    .map((p) => ({ place: p, score: scorePlace(p, subs, strategy) }))
+    .map((p) => ({ place: p, score: scorePlace(p, subs, strategy) - farPenalty(p) }))
     .sort((a, b) => b.score - a.score);
 
   for (const { place, score } of aiPool) {
@@ -342,6 +376,9 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
       gini: gini(scores),
       mustKeptRate: satisfaction.filter((s) => s.mustKept).length / satisfaction.length,
       perPersonCost: coreCost,
+      tradeoffs,
+      slotsPerDay,
+      budgetCap: groupBudget,
     },
   };
 }
