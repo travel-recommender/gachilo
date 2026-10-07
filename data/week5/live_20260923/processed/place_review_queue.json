@@ -1,10 +1,10 @@
 {
-  "reviewed_at": "2026-09-30",
+  "reviewed_at": "2026-10-06",
   "statistics": {
     "records": 150,
     "records_with_value_changes": 150,
-    "null_fields_filled": 852,
-    "non_null_fields_updated": 120,
+    "null_fields_filled": 857,
+    "non_null_fields_updated": 126,
     "missing_before": {
       "place_id": 0,
       "name": 0,
@@ -33,15 +33,15 @@
       "latitude": 0,
       "longitude": 0,
       "opening_hours": 17,
-      "cost": 100,
+      "cost": 99,
       "stay_min": 0,
       "bag_load": 0,
-      "covered": 88,
+      "covered": 85,
       "website": 10,
-      "opening_hours_source": 43,
+      "opening_hours_source": 42,
       "verified_at": 24
     },
-    "records_with_blockers": 46,
+    "records_with_blockers": 48,
     "official_null_fields_filled_before_localization": 316,
     "editorial_korean_names_filled": 110,
     "map_addresses_added": 31
@@ -398,7 +398,8 @@
       "blockers": [],
       "notes": [
         "공원 소재 지역 주소. 상세 출입구와 운영시간은 미확인.",
-        "공식 관광 안내: 공원 내 야외 장미원 포함. 식당 영업시간과 구분."
+        "공식 관광 안내: 공원 내 야외 장미원 포함. 식당 영업시간과 구분.",
+        "2026-10-06: 나카노시마 공원 일반 산책 상시 개방. 별도 장미원 레코드와 중첩 가능; 식당·유람선·행사 제외. 일반 공원 입장료 명시가 없어 기존 cost null 유지."
       ],
       "source_urls": [
         "https://osaka-info.jp/spot/nakanoshima-park/",
@@ -585,9 +586,9 @@
     {
       "place_id": "osaka_025",
       "name": "かに道楽",
-      "name_ko": "카니도라쿠",
+      "name_ko": "카니도라쿠 도톤보리 본점",
       "address": "大阪府大阪市中央区道頓堀1-6-18",
-      "opening_hours": "Mo-Su 11:00-23:00",
+      "opening_hours": "11:00–23:00; 최종입장22:00; 12월31일 휴무; 점심 특별코스16:00까지",
       "address_status": "verified",
       "hours_status": "unverified",
       "blockers": [],
@@ -613,7 +614,7 @@
     {
       "place_id": "osaka_026",
       "name": "一蘭 道頓堀店別館",
-      "name_ko": "이치란 도톤보리점",
+      "name_ko": "이치란 도톤보리 별관",
       "address": "大阪市中央区道頓堀1-4-16",
       "opening_hours": "카운터 24시간; 테이블석 08:00–23:00; 임시 변경 가능",
       "address_status": "verified",
@@ -667,7 +668,8 @@
       "notes": [
         "사용자 지정 지점으로 150개 목록에 편입. 기존 지점 ID는 재사용하지 않음.",
         "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
-        "2026-10-01: 센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+        "2026-10-01: 센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-06: 본점 주소·08:00–23:00·실내 좌석 안내 재확인. 공식 페이지에서 음료 가격 확인 안 됨. 외부 목록의 블렌드 630엔을 공식 검증 가격으로 승격하지 않음."
       ],
       "source_urls": [
         "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
@@ -814,21 +816,19 @@
       "opening_hours": "차우스야마 공원 구역 07:00–22:00, 연중무휴; 다리 통제·공사 별도 확인",
       "address_status": "verified",
       "hours_status": "missing",
-      "blockers": [
-        "identity_unconfirmed"
-      ],
+      "blockers": [],
       "notes": [
         "ワケ橋와 和気橋 명칭 대조 및 정확한 지점 확인 필요.",
         "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.9m. 주소만 확인했으며 영업시간 검증 아님.",
-        "2026-09-30: 오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존."
+        "2026-09-30: 오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존.",
+        "2026-10-06: 오사카시 본문은 차우스야마·和気橋·河底池를 함께 명시한다. 기존 9월 지도 대조(원본 OSM과 1.9m 차이)와 이름·공원 위치를 결합해 ワケ橋/和気橋를 동일 대상으로 판단하여 identity_unconfirmed를 해제. 지도는 오늘 재조회한 것이 아니며 현재 통제·공사 및 실제 접근 경로 보장은 별도."
       ],
       "source_urls": [
         "https://maps.google.com/?cid=4275703018452935561",
-        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+        "https://www.openstreetmap.org/node/12781301802"
       ],
-      "missing_fields": [
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -968,11 +968,15 @@
       "opening_hours": "10:00–21:30",
       "address_status": "verified",
       "hours_status": "verified",
-      "blockers": [],
+      "blockers": [
+        "entry_time_reservation_required",
+        "driving_eligibility_confirmation_required"
+      ],
       "notes": [
         "체험 예약과 참가 조건은 별도 확인.",
         "2026-10-01: 공공 도로를 주행하는 야외 카트 투어 기준.",
-        "2026-10-01: 1인 1시간 코스, 16시 이전 주간 요금 7,000 JPY(세금 포함). 16시 이후 8,000 JPY와 구분. 예약·유효 면허·참가 조건 확인 필요. 팀 체류시간 120분을 1시간 상품으로 오인하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+        "2026-10-01: 1인 1시간 코스, 16시 이전 주간 요금 7,000 JPY(세금 포함). 16시 이후 8,000 JPY와 구분. 예약·유효 면허·참가 조건 확인 필요. 팀 체류시간 120분을 1시간 상품으로 오인하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
+        "2026-10-06: 1시간 코스 7000엔(세금 포함)은 16시 이전 출발에만 적용. 16시 이후 8000엔. 예약 회차와 일본에서 인정되는 운전 자격 확인이 필요하므로 연속 10:00–21:30 방문처럼 자동 배치하지 않음. 120분 팀 체류 추정과 실제 1시간 주행은 구별."
       ],
       "source_urls": [
         "https://osakakart.com/en/access/",
@@ -1056,7 +1060,8 @@
       "blockers": [],
       "notes": [
         "2026-10-01: OAP아트코트1F의 갤러리 실내 전시 관람 범위. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
-        "2026-10-01: Autumn Show 2026 전시9/24~10/17,일·월·공휴일 휴관 안내를 확인. 공식 입장료 공개 근거는 찾지 못했으며 날짜의 요일 표기 불일치도 있어 자동 투입은 계속 보류."
+        "2026-10-01: Autumn Show 2026 전시9/24~10/17,일·월·공휴일 휴관 안내를 확인. 공식 입장료 공개 근거는 찾지 못했으며 날짜의 요일 표기 불일치도 있어 자동 투입은 계속 보류.",
+        "2026-10-06: ACG eyes: Autumn Show 전시 기간 2026-09-24~10-17, 평일 11:00–18:00·토요일 11:00–17:00, 일·월·공휴일 휴관. 공통 11:00–17:00만 사용하고 10/17 이후는 이 전시 근거로 배치하지 않음. 일반 입장료는 페이지에 명시되지 않아 무료라고 추정하지 않음."
       ],
       "source_urls": [
         "https://www.artcourtgallery.com/eng/access/",
@@ -1138,7 +1143,9 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-06: 미쓰 하치만구 개문 07:00–18:00만 사용. 사무소 09:00–17:00와 구분. 일반 참배 요금의 명시 근거가 없어 null 유지; 기도·축제·행사 별도."
+      ],
       "source_urls": [
         "https://mitsugu.org/"
       ],
@@ -1492,7 +1499,8 @@
       "blockers": [],
       "notes": [
         "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
-        "시청 공식 안내의 쇼와산·산책로 등 주요 야외 공간 기준. 공원 안 체육관은 별도."
+        "시청 공식 안내의 쇼와산·산책로 등 주요 야외 공간 기준. 공원 안 체육관은 별도.",
+        "2026-10-06: 지시마 공원 상시 개방, 부속 시설 별도. 가격 공지가 없어 cost null을 무료로 바꾸지 않음."
       ],
       "source_urls": [
         "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
@@ -1553,24 +1561,23 @@
       "name": "淀川河川公園 長柄地区",
       "name_ko": "요도가와 하천공원 나가라 지구",
       "address": "2 Chome-13-１３地先 Nagaranishi, Kita Ward, Osaka, 531-0061 일본",
-      "opening_hours": "24/7",
+      "opening_hours": "매일 09:00–17:00; 5월17일–8월16일 09:00–19:00 (재해·공사 통제 별도)",
       "address_status": "verified",
-      "hours_status": "unverified",
-      "blockers": [
-        "hours_conflict"
-      ],
+      "hours_status": "verified_with_conditions",
+      "blockers": [],
       "notes": [
         "기존 24시간 표기와 공원 공개 이용시간 자료가 다름. 대상 구역·최신 규정 확인 필요.",
         "나가라 지구 공식 안내의 기타구와 야외 잔디광장 확인. 관리사무소 소재지 모리구치시는 이 장소 주소로 사용하지 않음. 계절별 개원시간은 기존 충돌 표시 유지.",
-        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 58.2m. 주소만 확인했으며 영업시간 검증 아님."
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 58.2m. 주소만 확인했으며 영업시간 검증 아님.",
+        "2026-10-06: 현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도."
       ],
       "source_urls": [
         "https://maps.google.com/?cid=249497854434163876",
-        "https://www.yodogawa-park.jp/annai/nagara-kahan/"
+        "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+        "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
       ],
       "missing_fields": [
-        "cost",
-        "opening_hours_source"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -1648,20 +1655,20 @@
       "name": "うめきた公園 サウスパーク",
       "name_ko": "우메키타 공원 사우스 파크",
       "address": "大阪市北区大深町5番",
-      "opening_hours": "상시 개방; 부속 시설은 별도 운영",
+      "opening_hours": "매일 24시간 (사우스 파크 일반 산책 공간; 시설·점포·행사 별도)",
       "address_status": "verified",
-      "hours_status": "verified",
+      "hours_status": "verified_with_conditions",
       "blockers": [],
       "notes": [
-        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+        "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+        "2026-10-06: UR 공식 운영 안내에서 공원 24시간·입장 무료를 확인. 사우스 파크 일반 야외 산책만 대상으로 하며 유료 시설·행사·음식점은 제외. 북쪽 미개방 구역을 포함하지 않음."
       ],
       "source_urls": [
-        "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/"
+        "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+        "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+        "https://umekita.com/"
       ],
-      "missing_fields": [
-        "cost",
-        "covered"
-      ],
+      "missing_fields": [],
       "schedule_ready": false
     },
     {
@@ -1842,7 +1849,7 @@
       "name": "アルデ新大阪",
       "name_ko": "아르데 신오사카",
       "address": "大阪市淀川区西中島5-16-1 JR新大阪駅2F",
-      "opening_hours": "점포별 상이; 시설 연중무휴",
+      "opening_hours": "일반 패션·잡화 판매장 공통10:00–21:00; 서점·유니클로·약국·음식점·서비스는 개별 시간, 시설 연중무휴",
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
@@ -2078,11 +2085,14 @@
       "opening_hours": "공원 07:00–22:00; 이나 구역 점포·활동시설은 개별 시간 확인",
       "address_status": "verified",
       "hours_status": "verified",
-      "blockers": [],
+      "blockers": [
+        "tenant_scope_confirmation_required"
+      ],
       "notes": [
         "텐시바 전체와 i:na 시설 구분, 점포별 시간 확인 필요.",
         "공식 안내에서 텐시바 이나 별도 구역 확인. 개별 유료 시설 이용시간·요금은 별도.",
-        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 2.9m. 주소만 확인했으며 영업시간 검증 아님."
+        "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 2.9m. 주소만 확인했으며 영업시간 검증 아님.",
+        "2026-10-06: 텐시바 공원 07:00–22:00를 INA 입점 상점들의 공통 영업시간으로 복사하지 않음. 방문 점포·유료 활동 범위 확인 필요."
       ],
       "source_urls": [
         "https://maps.google.com/?cid=2093338456744825032",
@@ -2195,7 +2205,8 @@
       "blockers": [],
       "notes": [
         "2026-09-30 일정 규칙 보완: 판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 공통 11~19시만 정규화. 비정기 휴무 확인 전 자동 일정에서는 보류.",
-        "2026-10-01: 브리제 브리제 층별 실내 상업시설. 비정기 휴무 확인 조건 유지. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+        "2026-10-01: 브리제 브리제 층별 실내 상업시설. 비정기 휴무 확인 조건 유지. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-06: 일반 판매장 월~토 11:00–20:00, 일·공휴일 11:00–19:00 등 안내가 있으나 비정기 휴무. 기존 방문일 확인 필요 조건 유지."
       ],
       "source_urls": [
         "https://www.breeze-breeze.jp/info/",
@@ -2258,11 +2269,16 @@
       "address": "大阪市北区中津3-12-15",
       "opening_hours": "08:00–17:00; 수요일 08:00–12:00; 목요일 휴무; 음료 주문 종료 30분 전, 식사 1시간 전",
       "address_status": "verified",
-      "hours_status": "verified",
-      "blockers": [],
-      "notes": [],
+      "hours_status": "conflict",
+      "blockers": [
+        "hours_conflict"
+      ],
+      "notes": [
+        "2026-10-06: 공식 첫 화면은 수요일 08:00–12:00·목요일 휴무지만 메뉴 페이지 하단은 매주 수요일·둘째 목요일 휴무로 서로 다름. 게시 시점으로 우선순위를 확정할 수 없어 hours_conflict 추가. 기존 원문 시간은 남기되 일정 배치 보류. 메뉴명은 있으나 확인한 페이지에는 가격이 없어 cost null 유지."
+      ],
       "source_urls": [
-        "https://42195coffee.wixsite.com/toppage"
+        "https://42195coffee.wixsite.com/toppage",
+        "https://42195coffee.wixsite.com/toppage/menu"
       ],
       "missing_fields": [
         "cost",
@@ -2308,7 +2324,8 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "2026-10-01: 공식 우메다차야마치 메뉴 링크의 인증서 오류로 가격 확인 불가. 보안 경고를 우회하지 않았으며 비용 null 유지."
+        "2026-10-01: 공식 우메다차야마치 메뉴 링크의 인증서 오류로 가격 확인 불가. 보안 경고를 우회하지 않았으며 비용 null 유지.",
+        "2026-10-06: 우메다 차야마치 매장 안내는 확인했으나 공식 메뉴 링크는 조회 실패(502/인증서 호스트 불일치). 원두 판매가격·가격 인상액만으로 음료 정가를 만들지 않음."
       ],
       "source_urls": [
         "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
@@ -2471,10 +2488,12 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "기존 주소 1-1-8을 공식 점포 주소 1-1-18로 정정."
+        "기존 주소 1-1-8을 공식 점포 주소 1-1-18로 정정.",
+        "2026-10-06: 페이지는 이미지 중심이며 공식 메뉴 이미지 판독을 완료하지 못함. 미확인 금액은 채우지 않음."
       ],
       "source_urls": [
-        "http://www.grandafamilio.com/store.html"
+        "http://www.grandafamilio.com/store.html",
+        "https://www.grandafamilio.com/"
       ],
       "missing_fields": [
         "cost",
@@ -2539,9 +2558,9 @@
       "name": "Sub Jazz Cafe",
       "name_ko": "서브 재즈 카페",
       "address": "大阪市中央区上汐2丁目4-6 上六センタービルB1F",
-      "opening_hours": "월–토 17:00–23:00; 일요일 휴무; 공연 일정 별도 확인",
+      "opening_hours": null,
       "address_status": "verified",
-      "hours_status": "verified",
+      "hours_status": "conflict",
       "blockers": [
         "hours_conflict"
       ],
@@ -2572,7 +2591,8 @@
       "blockers": [],
       "notes": [
         "오사카 덴마바시점 기준.",
-        "2026-10-01: SOT 덴마바시점 1F 30석·2F 20석 및 점내 좌석 안내. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+        "2026-10-01: SOT 덴마바시점 1F 30석·2F 20석 및 점내 좌석 안내. 외부 대기 제외. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+        "2026-10-06: 오테도리 매장 08:00–19:00 및 층별 좌석 안내 확인. 온라인 원두 가격은 현장 음료 가격과 다르므로 cost null 유지."
       ],
       "source_urls": [
         "https://www.sotcoffee.com/en/pages/shop-osaka"
@@ -2665,10 +2685,13 @@
       "blockers": [],
       "notes": [
         "공식 공지가 과거 연도 자료여서 현재 시간으로 확정하지 않음.",
-        "보나본 공식 매장 안내. 2024년 메뉴 개편 공지가 있어 오래된 메뉴 가격은 사용하지 않음."
+        "보나본 공식 매장 안내. 2024년 메뉴 개편 공지가 있어 오래된 메뉴 가격은 사용하지 않음.",
+        "2026-10-06: 확인 가능한 메뉴 공지는 2024년 자료로 현재 메뉴·가격 여부를 확정하지 못함. 과거 한정 크레페 금액을 대표 비용으로 적용하지 않음."
       ],
       "source_urls": [
-        "https://bonandbon.jp/company/"
+        "https://bonandbon.jp/company/",
+        "https://bonandbon.jp/",
+        "https://bonandbon.jp/product/"
       ],
       "missing_fields": [
         "cost",
@@ -2708,7 +2731,7 @@
       "address": "大阪府大阪市東淀川区西淡路1-17-3 MURAKAMI1F",
       "opening_hours": null,
       "address_status": "verified",
-      "hours_status": "conflicting",
+      "hours_status": "conflict",
       "blockers": [
         "hours_conflict"
       ],
@@ -2831,7 +2854,7 @@
       "name_ko": "버블 넷",
       "address": "大阪市西区新町2-12-19 グラントピア新町1F",
       "opening_hours": "Mo-Su 18:00-28:00",
-      "address_status": "verified",
+      "address_status": "conflict",
       "hours_status": "unverified",
       "blockers": [
         "address_conflict"
@@ -2971,19 +2994,22 @@
       "name_ko": "머시 비건 팩토리",
       "address": "大阪市中央区瓦屋町2-4-15 1階西側",
       "opening_hours": "08:00–17:00, 18:00–21:00; 점심 주문 16:00·저녁 20:00까지; 토요일 휴무",
-      "address_status": "verified",
+      "address_status": "conflict",
       "hours_status": "verified",
-      "blockers": [],
+      "blockers": [
+        "address_conflict"
+      ],
       "notes": [
-        "2026-10-01: 오사카 본점 운영시간 확인. 온라인 상품 가격을 매장 식사 가격으로 적용하지 않음."
+        "2026-10-01: 오사카 본점 운영시간 확인. 온라인 상품 가격을 매장 식사 가격으로 적용하지 않음.",
+        "2026-10-06: 공식 매장·서비스 본문은 瓦屋町2-4-5, 공식 쇼핑몰과 공통 하단은 2-4-15로 주소가 충돌하여 address_conflict 추가. 어느 번지가 맞는지 임의 선택하지 않음. 쇼핑몰의 냉동 제품 가격을 식당 메뉴 가격으로 쓰지 않음. 공식 서비스 설명의 밝은 실내 공간만 covered 분류."
       ],
       "source_urls": [
         "https://shop.mercy-vegan.jp/",
-        "https://www.mercy-vegan.jp/restaurants/"
+        "https://www.mercy-vegan.jp/restaurants/",
+        "https://www.mercy-vegan.jp/service/"
       ],
       "missing_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "schedule_ready": false
     },
@@ -3014,7 +3040,7 @@
       "name": "natural kitchen めだか2号店",
       "name_ko": "내추럴 키친 메다카 2호점",
       "address": "大阪市北区兎我野町3-20 雁木ビル1F",
-      "opening_hours": "평일 11:00–20:30; 토·일·공휴일 11:00–20:00",
+      "opening_hours": "평일 11:00–20:30(주문20시); 토·일·공휴일 11:00–20:00(주문19:30); 점심·카페11:00–16:30, 저녁16:30부터; 비정기 휴무·연말연시",
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
@@ -3042,9 +3068,12 @@
       "address_status": "verified",
       "hours_status": "verified",
       "blockers": [],
-      "notes": [],
+      "notes": [
+        "2026-10-06: 공식 사이트 조회 실패. 과거 리뷰나 다른 지점 메뉴로 가격을 대체하지 않음."
+      ],
       "source_urls": [
-        "http://papalina68.web.fc2.com/access.html"
+        "http://papalina68.web.fc2.com/access.html",
+        "https://papalina68.web.fc2.com/"
       ],
       "missing_fields": [
         "cost",
@@ -3205,7 +3234,8 @@
       "notes": [
         "공식 페이지 본문이 이미지 위주. 해당 지점 상세 안내 확인 필요.",
         "중앙시장점 확인. 같은 페이지 방콕점과 구분.",
-        "2026-10-01: 공식 상마제5개 메뉴 설명과 사진은 있으나 현재 가격 미공개. 과거 제3자1100엔을 확정값으로 채우지 않음."
+        "2026-10-01: 공식 상마제5개 메뉴 설명과 사진은 있으나 현재 가격 미공개. 과거 제3자1100엔을 확정값으로 채우지 않음.",
+        "2026-10-06: 공식 메뉴에서 오마카세 접시 설명을 확인했으나 가격 텍스트를 확인하지 못함. 이미지 메뉴 금액은 판독하지 못했으므로 미확인 유지."
       ],
       "source_urls": [
         "https://www.endo-sushi.com/1243312435123931235812395123881235612390.html",
@@ -3227,10 +3257,13 @@
       "hours_status": "unverified",
       "blockers": [],
       "notes": [
-        "영업시간은 운영사 UNCHI의 최신 지점 안내 추가 확인 필요."
+        "영업시간은 운영사 UNCHI의 최신 지점 안내 추가 확인 필요.",
+        "2026-10-06: 브랜드 홈페이지는 운영 회사로 시간 안내를 연결하지만 후속 조회가 완료되지 않음. 기존 OSM 시간을 새 공식 검증 시간으로 바꾸지 않음."
       ],
       "source_urls": [
-        "http://www.jinrui-minamenrui.com/"
+        "http://www.jinrui-minamenrui.com/",
+        "https://www.jinrui-minamenrui.com/",
+        "https://www.unchi-co.com/"
       ],
       "missing_fields": [
         "cost",
@@ -3380,7 +3413,8 @@
       "hours_status": "verified",
       "blockers": [],
       "notes": [
-        "2026-10-01: 점심 오늘의 파스타 단품 1인 1,150 JPY. +300 JPY 세트·저녁 커버차지와 심야 가산 제외. 페이지상 세금 표시 미확인; 최종 결제 총액으로 확정하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류."
+        "2026-10-01: 점심 오늘의 파스타 단품 1인 1,150 JPY. +300 JPY 세트·저녁 커버차지와 심야 가산 제외. 페이지상 세금 표시 미확인; 최종 결제 총액으로 확정하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
+        "2026-10-06: 공식 오늘의 파스타 단품 1150엔과 점심 운영시간 확인. 코스는 2~2.5시간·사전 예약이며 이 단품과 다름. 모든 영업일의 공통 점심 구간 12:00–14:00, 최종 입장 13:00만 사용. 월·화 및 공휴일 운영 충돌 가능일 제외. 추가 세트·저녁 주문 제외; 세금 포함 여부는 페이지에 명시되지 않아 가격 표기 그대로 사용한 모델 참고값이며 최종 예산 확정 전 확인 필요."
       ],
       "source_urls": [
         "https://comfortzone8kyoitarian.com/",
@@ -3542,7 +3576,7 @@
       "address": "大阪府大阪市中央区宗右衛門町7-18",
       "opening_hours": null,
       "address_status": "verified",
-      "hours_status": "not_applicable_closed",
+      "hours_status": "missing",
       "blockers": [
         "permanently_closed"
       ],
@@ -3588,5 +3622,5 @@
       "verified_at": 62
     }
   },
-  "latest_enrichment_revision": "official_menu_followup_20261001"
+  "latest_enrichment_revision": "official_followup_20261006"
 }

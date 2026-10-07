@@ -1,11 +1,11 @@
 {
-  "reviewed_at": "2026-10-01",
+  "reviewed_at": "2026-10-06",
   "audited_date": "2026-10-01",
-  "source_sha256": "914f750d8e42b19153e51834b2a75e7ac178991cb7e2304c578dea53961d6c9a",
-  "profiles_sha256": "6844c18e59278c01d3a706e204ea0c58384df39e841fc02bd57809b90182aa96",
+  "source_sha256": "a1ec46ba9f3a834481a1ccb1c37dc198cf860136536b0a1781bc6fbbd5a4f2fd",
+  "profiles_sha256": "f206eb0924d0f7464a24a01a68e5024cc9602d071fff3360b8ffd6c5e90c5ae0",
   "summary": {
     "total_records": 150,
-    "with_date_profile": 68,
+    "with_date_profile": 75,
     "eligible_for_offline_model": 34,
     "production_schedule_ready": 0,
     "scenarios_passed": 4,
@@ -265,12 +265,18 @@
       "name_ko": "나카노시마 공원",
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
-      "window": null,
+      "window": [
+        0,
+        1440,
+        1440
+      ],
       "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화.",
+      "source_urls": [
+        "https://osaka-info.jp/spot/nakanoshima-park/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -576,7 +582,7 @@
       "place_id": "osaka_draft_f0f97440bedc",
       "name_ko": "와케 다리",
       "reasons": [
-        "identity_unconfirmed"
+        "outside_place_reviewed_date_range"
       ],
       "window": [
         420,
@@ -584,9 +590,11 @@
         1320
       ],
       "cost_jpy": 0,
-      "cost_basis": "차우스야마 공원 안 와케 다리 주변 야외 관람 무료. 공식 공원 개방시간 범위만 적용. 임시 다리 통제·공사는 별도 확인.",
+      "cost_basis": "차우스야마 무료 공원 안 다리 주변 산책. 유료 게이타쿠엔·미술관 제외.",
       "source_urls": [
-        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+        "https://maps.google.com/?cid=4275703018452935561",
+        "https://www.openstreetmap.org/node/12781301802"
       ],
       "eligible_for_model": false,
       "schedule_ready": false
@@ -677,6 +685,8 @@
       "place_id": "osaka_draft_300825840acb",
       "name_ko": "아키바 카트 오사카",
       "reasons": [
+        "entry_time_reservation_required",
+        "driving_eligibility_confirmation_required",
         "structured_date_profile_missing"
       ],
       "window": null,
@@ -742,12 +752,19 @@
       "name_ko": "아트코트 갤러리",
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
-      "window": null,
+      "window": [
+        660,
+        1020,
+        1020
+      ],
       "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "cost_basis": "입장료 미확인으로 일정 제외. 해당 전시 기간의 시간만 정규화.",
+      "source_urls": [
+        "https://www.artcourtgallery.com/exhibitions/17306/",
+        "https://www.artcourtgallery.com/access/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -809,12 +826,18 @@
       "name_ko": "미쓰 하치만구",
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
-      "window": null,
+      "window": [
+        420,
+        1080,
+        1080
+      ],
       "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화.",
+      "source_urls": [
+        "https://mitsugu.org/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1053,12 +1076,18 @@
       "name_ko": "지시마 공원",
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
-      "window": null,
+      "window": [
+        0,
+        1440,
+        1440
+      ],
       "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화.",
+      "source_urls": [
+        "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1094,14 +1123,20 @@
       "place_id": "osaka_draft_e102a263e5a8",
       "name_ko": "요도가와 하천공원 나가라 지구",
       "reasons": [
-        "hours_conflict",
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
-      "window": null,
+      "window": [
+        540,
+        1020,
+        1020
+      ],
       "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "cost_basis": "일반 입장 비용 근거 미확인으로 일정 제외. 10~11월 개방시간만 정규화.",
+      "source_urls": [
+        "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+        "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1155,13 +1190,20 @@
       "place_id": "osaka_draft_2941efc9ac2d",
       "name_ko": "우메키타 공원 사우스 파크",
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
-      "window": null,
-      "cost_jpy": null,
-      "cost_basis": null,
-      "source_urls": [],
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "cost_jpy": 0,
+      "cost_basis": "일반 야외 산책 입장 무료. 시설·유료 행사·음식점 비용 제외.",
+      "source_urls": [
+        "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+        "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+        "https://umekita.com/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1453,6 +1495,7 @@
       "place_id": "osaka_draft_391fae83b26c",
       "name_ko": "덴시바 이나",
       "reasons": [
+        "tenant_scope_confirmation_required",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -1592,6 +1635,7 @@
       "place_id": "osaka_draft_f22cfa23d646",
       "name_ko": "42195 커피",
       "reasons": [
+        "hours_conflict",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -2077,6 +2121,7 @@
       "place_id": "osaka_draft_c341bbd2440a",
       "name_ko": "머시 비건 팩토리",
       "reasons": [
+        "address_conflict",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -2360,12 +2405,18 @@
       "place_id": "osaka_draft_8cb9705b2793",
       "name_ko": "컴포트 존 에이트 교토 이탈리안",
       "reasons": [
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
-      "window": null,
+      "window": [
+        720,
+        840,
+        780
+      ],
       "cost_jpy": 1150,
-      "cost_basis": null,
-      "source_urls": [],
+      "cost_basis": "오늘의 파스타 단품 표시가 1150 JPY. 세금 표시 미확인, 추가 세트·코스·저녁 제외.",
+      "source_urls": [
+        "https://comfortzone8kyoitarian.com/lunch-menu/"
+      ],
       "eligible_for_model": false,
       "schedule_ready": false
     },

@@ -1,4 +1,5 @@
 """Offline integrity checks for reviewed official-source additions."""
+import csv
 import json
 import unittest
 from pathlib import Path
@@ -75,6 +76,22 @@ class OfficialEnrichmentTests(unittest.TestCase):
                 self.assertGreaterEqual(p['cost'], 0)
         self.assertIsNone(self.records['osaka_draft_5fa8876a4657']['place']['cost'])
         self.assertIsNone(self.records['osaka_draft_74dbaeea6a02']['place']['opening_hours'])
+
+    def test_review_csv_preserves_all_fields_nulls_booleans_and_provenance(self):
+        with (P / 'osaka_places_150_review.csv').open(encoding='utf-8-sig', newline='') as f:
+            reader = csv.DictReader(f)
+            rows = list(reader)
+            self.assertEqual(len(reader.fieldnames), 31)
+        self.assertEqual(len(rows), len(self.records))
+        self.assertEqual({r['place_id'] for r in rows}, set(self.records))
+        for row in rows:
+            r = self.records[row['place_id']]
+            for field, value in r['place'].items():
+                expected = '' if value is None else str(value).lower() if type(value) is bool else str(value)
+                self.assertEqual(row[field], expected, (row['place_id'], field))
+            self.assertEqual(json.loads(row['field_sources_json']), r['field_sources'])
+            self.assertEqual(row['recommendation_blockers'], ' | '.join(r['review']['recommendation_blockers']))
+            self.assertEqual(row['remaining_null_fields'], ' | '.join(r['review']['missing_fields']))
 
 if __name__ == '__main__':
     unittest.main()
