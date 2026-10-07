@@ -49,6 +49,14 @@ class ApiTests(unittest.TestCase):
   fake=dict(b,submissionToken=a['submissionToken']);self.assertEqual(self.submit(room,fake)[0],403)
   code,payload,headers=self.req('GET',path,token=a['submissionToken']);self.assertEqual(code,200);self.assertNotIn('submissions',payload);self.assertEqual(headers['Access-Control-Allow-Origin'],'http://localhost:3000')
   self.assertEqual(self.req('GET',path,token=a['submissionToken'],origin='https://untrusted.example')[0],403)
+ def test_room_meta_requires_room_token_and_hides_tokens(self):
+  room=self.room();a=room['members'][0];path=f"/rooms/{room['roomId']}"
+  self.assertEqual(self.req('GET',path)[0],403)
+  self.assertEqual(self.req('GET',path,token=self.room()['ownerToken'])[0],403)
+  code,data,_=self.req('GET',path,token=a['submissionToken'])
+  self.assertEqual(code,200);self.assertEqual((data['startDate'],data['endDate']),('2026-10-01','2026-10-02'))
+  self.assertEqual([m['name'] for m in data['members']],['조은','윤진','혜인'])
+  self.assertNotIn('Token',json.dumps(data));self.assertNotIn('ownerToken',data)
  def test_validation_and_concurrent_writes(self):
   self.assertEqual(self.req('POST','/rooms',{'startDate':'2026-10-02','endDate':'2026-10-01','memberNames':['a','b']})[0],400)
   room=self.room()

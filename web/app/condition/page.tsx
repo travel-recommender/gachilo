@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
 import { Body, Card, Footer, Notice, Screen, SectionTitle, Slider, TopBar, won } from "@/components/ui";
@@ -14,21 +15,38 @@ const STEP_VALUE = [5000, 8000, 12000, 18000];
 
 export default function Condition() {
   const router = useRouter();
-  const { state, set, setMine } = useTrip();
+  const { state, set, setMine, submitMine } = useTrip();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { budgetPerDay, stepLimit } = state.mine;
   const days = state.nights + 1;
   const idx = STEP_VALUE.indexOf(stepLimit);
   const stepIdx = idx >= 0 ? idx : 1;
 
-  const submit = () => {
-    set({ submitted: true });
-    router.push("/result");
+  /** 서버에 내 입력을 저장하고 결과로 간다. 방이 없으면(데모 모드) 그냥 넘어간다 */
+  const submit = async () => {
+    setBusy(true);
+    setError(null);
+    try {
+      await submitMine();
+      set({ submitted: true });
+      router.push(state.room ? "/waiting" : "/result");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "입력을 저장하지 못했어요.");
+      setBusy(false);
+    }
   };
 
   return (
     <Screen>
       <TopBar title="내 조건 입력" subtitle="이것도 다른 사람에게 안 보여요" back="/shortlist" />
       <Body>
+        {state.inputMissing && (
+          <Notice tone="warn">
+            이 기기에 입력이 남아 있지 않고 저장된 입력도 아직 불러오지 못했어요. 여기서 저장하면 기본값이 저장된 입력을 덮어써서
+            저장하지 않아요. <b>가고 싶은 곳 고르기부터 다시</b> 입력해 주세요.
+          </Notice>
+        )}
         <Notice tone="info">
           예산과 체력은 <b>말하기 어려운 정보</b>라 비공개로 받아요.
           결과에는 반영되지만 누가 얼마를 적었는지는 끝까지 공개되지 않아요.
@@ -73,7 +91,12 @@ export default function Condition() {
         </Card>
       </Body>
       <Footer>
-        <button onClick={submit} className="btn-primary w-full">입력 마치고 결과 보기</button>
+        {error && (
+          <p className="mb-2 text-[11.5px] leading-relaxed text-coral-500">{error}</p>
+        )}
+        <button onClick={submit} disabled={busy} className="btn-primary w-full disabled:opacity-50">
+          {busy ? "저장하는 중…" : state.room ? "입력 마치기" : "입력 마치고 결과 보기"}
+        </button>
       </Footer>
     </Screen>
   );
