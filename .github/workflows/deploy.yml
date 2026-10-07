@@ -37,6 +37,9 @@ jobs:
         # 프로젝트 페이지는 /<repo>/ 아래에 붙으므로 basePath가 필요하다.
         # 레포 이름이 바뀌어도 따라가도록 GITHUB_REPOSITORY에서 직접 뽑는다
         # (github.event.repository는 이벤트 종류에 따라 비어 있을 수 있다)
+        # 지도 키는 저장소 비밀값에서 받는다. 없으면 지도 대신 동선 그림이 나온다
+        env:
+          NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
         run: |
           export NEXT_PUBLIC_BASE_PATH="/${GITHUB_REPOSITORY#*/}"
           echo "basePath = $NEXT_PUBLIC_BASE_PATH"
