@@ -1,0 +1,4031 @@
+{
+  "checked_at": "2026-10-06",
+  "dates": [
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-10",
+    "2026-10-11",
+    "2026-10-12",
+    "2026-10-13"
+  ],
+  "source_sha256": "a1ec46ba9f3a834481a1ccb1c37dc198cf860136536b0a1781bc6fbbd5a4f2fd",
+  "profiles_sha256": "f206eb0924d0f7464a24a01a68e5024cc9602d071fff3360b8ffd6c5e90c5ae0",
+  "summary": {
+    "total": 150,
+    "pass_on_20261007": 54,
+    "pass_at_least_one_day": 55,
+    "held_all_dates": 95,
+    "promotion_complete": 0
+  },
+  "overlapping_hold_reasons": {
+    "public_viewpoint_unconfirmed": 1,
+    "cost_unknown_or_not_applicable": 69,
+    "structured_date_profile_missing": 75,
+    "entry_time_reservation_required": 4,
+    "event_access_required": 1,
+    "seasonal_event_date_confirmation_required": 1,
+    "visit_confirmation_required": 9,
+    "closed_on_visit_date": 6,
+    "google_maps_temporarily_closed": 1,
+    "opening_hours_missing": 17,
+    "identity_unconfirmed": 2,
+    "address_unconfirmed": 2,
+    "address_missing": 2,
+    "reservation_required": 4,
+    "access_conditions_unconfirmed": 2,
+    "driving_eligibility_confirmation_required": 1,
+    "temporary_closure": 2,
+    "website_mismatch": 2,
+    "google_maps_permanently_closed": 8,
+    "reservation_or_exhibition_required": 1,
+    "operating_status_unconfirmed": 2,
+    "gallery_exhibitions_suspended": 1,
+    "worship_attendance_required": 1,
+    "exhibition_schedule_required": 1,
+    "parent_facility_address": 1,
+    "city_boundary_unconfirmed": 1,
+    "outside_osaka_city": 2,
+    "category_mismatch": 1,
+    "location_history_conflict": 1,
+    "tenant_scope_required": 1,
+    "tenant_scope_confirmation_required": 1,
+    "hours_conflict": 3,
+    "branch_unconfirmed": 6,
+    "physical_store_unconfirmed": 1,
+    "address_conflict": 2,
+    "meal_scenario_required": 1,
+    "price_not_applicable_on_visit_date": 1,
+    "address_location_conflict": 1,
+    "price_conflict": 1,
+    "date_specific_hours_required": 1,
+    "permanently_closed": 1
+  },
+  "limitations": [
+    "각 장소를 따로 계산한 합성 검사. 모든 통과 장소가 하나의 여행 일정에 함께 들어간다는 뜻은 아님.",
+    "환율 9.5는 테스트용 가정값. 실제 하나은행 고시 환율이 아님.",
+    "입장료·대표 메뉴만 계산. 쇼핑 구매비 null은 비산정이며 모르는 가격을 0으로 채우지 않음.",
+    "운영 중임·가격 변동·외부 동선·실제 입구·임시휴업의 현장 확인이나 실서비스 승격은 별도."
+  ],
+  "places": [
+    {
+      "place_id": "osaka_001",
+      "name_ko": "도톤보리 글리코 사인",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "public_viewpoint_unconfirmed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区道頓堀1丁目10-4",
+      "opening_hours": "점등: 일몰 후~24:00 (상황에 따라 단축 가능; 관람 가능 시간과 별개)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "public_viewpoint_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_002",
+      "name_ko": "쓰텐카쿠",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "entry_time_reservation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区恵美須東1-18-6",
+      "opening_hours": "09:00-21:45 (일반 전망대 최종입장 21:15)",
+      "cost_jpy": 1500,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "entry_time_reservation_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_003",
+      "name_ko": "신세카이",
+      "category": "명소",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区恵美須東",
+      "opening_hours": "매일 24시간 (거리 통행 공간 기준; 개별 점포·전망대 영업시간 별도)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_004",
+      "name_ko": "아메리카무라",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区西心斎橋1丁目～2丁目付近",
+      "opening_hours": "점포별 상이",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_005",
+      "name_ko": "구로몬시장",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区日本橋2丁目（黒門市場一帯）",
+      "opening_hours": "점포별 영업시간·휴무일 상이; 방문 점포별 확인 필요",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_006",
+      "name_ko": "신사이바시스지 상점가",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区心斎橋筋1丁目～2丁目",
+      "opening_hours": "개별 점포별 상이",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_007",
+      "name_ko": "우메다 공중정원 전망대",
+      "category": "명소",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区大淀中1-1-88 梅田スカイビル",
+      "opening_hours": "09:30-22:30 (최종입장 22:00; 특별 영업일 별도)",
+      "cost_jpy": 2000,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_008",
+      "name_ko": "HEP FIVE 관람차",
+      "category": "명소",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市北区角田町5-15",
+      "opening_hours": "11:00-23:00 (최종탑승 22:45; 휴관 공지 별도)",
+      "cost_jpy": 1000,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_009",
+      "name_ko": "오사카성",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区大阪城1-1",
+      "opening_hours": "09:00-18:00 (최종입장 17:30; 12월 28일~1월 1일 휴관)",
+      "cost_jpy": 1200,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_010",
+      "name_ko": "오사카 텐만구",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区天神橋2丁目1番8号",
+      "opening_hours": "관광국 참배 안내 09:00–17:00, 연중무휴; 별도 개문 안내 05:30–18:30(계절·행사 시 재확인)",
+      "cost_jpy": 0,
+      "cost_basis": "오사카 관광국의 일반 참배 무료 안내. 유료 기도·결혼식 제외. 과거 여름 개문 공지를 연중 시간으로 적용하지 않음.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_011",
+      "name_ko": "시텐노지",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市天王寺区四天王寺1丁目11番18号",
+      "opening_hours": "중심가람·정원: 4–9월 08:30–16:30, 10–3월 08:30–16:00; 21일·회일 및 행사일 예외",
+      "cost_jpy": 500,
+      "cost_basis": "성인 개인 중심가람 관람 기준 500엔. 정원 300엔·보물관 500엔 별도. 매월 21·22일 및 춘추 피안회 중심가람 무료 개방 예외.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_012",
+      "name_ko": "오사카 역사박물관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区大手前4丁目1-32",
+      "opening_hours": "09:30-17:00 (최종입장 16:30; 화요일 휴관, 공휴일이면 다음 날; 12월 28일~1월 4일 휴관)",
+      "cost_jpy": 600,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_013",
+      "name_ko": "오사카 나카노시마 미술관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市北区中之島4-3-1",
+      "opening_hours": "10:00–17:00(입장 16:30까지); 월요일 휴관, 공휴일이면 다음 평일; 전시별 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_014",
+      "name_ko": "오사카 시립과학관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区中之島4-2-1",
+      "opening_hours": "전시장 09:30-17:00 (최종입장 16:30; 월요일 휴관, 공휴일이면 다음 평일; 연말연시·설비점검 휴관 별도)",
+      "cost_jpy": 400,
+      "cost_basis": "성인 전시장 관람료 JPY. 플라네타륨 600엔은 별도이며 45분은 플라네타륨만의 시간이라 전체 stay_min에 넣지 않음.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_015",
+      "name_ko": "오사카성 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区大阪城",
+      "opening_hours": "상시 개방; 공원 내 개별 시설은 별도 운영",
+      "cost_jpy": 0,
+      "cost_basis": "공원 일반 산책 무료·야외 기준. 천수각·니시노마루 및 개별 시설 이용료 제외.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_016",
+      "name_ko": "나카노시마 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区中之島1丁目",
+      "opening_hours": "상시 개방; 행사·관리 통제는 별도 확인",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": false,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_017",
+      "name_ko": "나카노시마 공원 장미원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区中之島1（中之島公園内バラ園）",
+      "opening_hours": "상시 개방; 행사·관리 통제는 별도 확인",
+      "cost_jpy": 0,
+      "cost_basis": "오사카 관광국 장미원 무료 관람 안내. 인근 유람선 등 유료 활동 제외.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_018",
+      "name_ko": "덴노지 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市天王寺区茶臼山町1-108",
+      "opening_hours": "입구 텐시바 구역 07:00–22:00; 공원 내 개별 시설은 별도",
+      "cost_jpy": 0,
+      "cost_basis": "공원 입구 광장 기준 무료. 동물원·미술관·게이타쿠엔은 별도 유료이며 동일 시간 적용 불가.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_019",
+      "name_ko": "우츠보 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市西区靱本町",
+      "opening_hours": "상시 개방; 부속 시설은 별도 운영",
+      "cost_jpy": 0,
+      "cost_basis": "공식 관리 사이트의 무료 야외 장미원 산책 기준. 공원 전체의 테니스장 등 유료 체육시설은 제외.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_020",
+      "name_ko": "난바 파크스",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区難波中2-10-70",
+      "opening_hours": "쇼핑 11:00–21:00; 음식점 11:00–22:00; 일부 점포 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_021",
+      "name_ko": "다카시마야 오사카점",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区難波5丁目1番5号",
+      "opening_hours": "판매장 10:00–20:00; 7층 등 일부 매장 단축·별도 운영",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_022",
+      "name_ko": "다이마루 신사이바시점",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区心斎橋筋1-7-1",
+      "opening_hours": "10:00-20:00 (본관 10층 식당 11:00-22:00; 1월 1~2일 휴무; 일부 매장 별도)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_023",
+      "name_ko": "한신 우메다 본점",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区梅田1丁目13番13号",
+      "opening_hours": "판매장 10:00–20:00; 음식점·일부 매장 별도 운영",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_024",
+      "name_ko": "신사이바시 PARCO",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区心斎橋筋1丁目8-3",
+      "opening_hours": "판매·서비스 10:00–20:00; 음식점 13F 11:00–22:00, B2F 11:00–23:00; 일부 점포 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_025",
+      "name_ko": "카니도라쿠 도톤보리 본점",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区道頓堀1-6-18",
+      "opening_hours": "11:00–23:00; 최종입장22:00; 12월31일 휴무; 점심 특별코스16:00까지",
+      "cost_jpy": 3740,
+      "cost_basis": "도톤보리 본점 점심 코스 호시(ほし)1인3740 JPY 세금 포함. 오후16시까지 점심 메뉴. 제3자 제안값을 본점 공식 메뉴로 재확인했으며 저녁/추가 주문에는 적용하지 않음.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_026",
+      "name_ko": "이치란 도톤보리 별관",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区道頓堀1-4-16",
+      "opening_hours": "카운터 24시간; 테이블석 08:00–23:00; 임시 변경 가능",
+      "cost_jpy": 1180,
+      "cost_basis": "도톤보리 별관 천연 돈코츠 라멘 1그릇 1,180 JPY. 추가 주문 제외. 22:00~06:00 심야 할증에는 적용하지 않음. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_028",
+      "name_ko": "소다이쇼",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区浮田2-4-16",
+      "opening_hours": "매일 11:00–24:00",
+      "cost_jpy": 950,
+      "cost_basis": "기준 메뉴: 흑대장 간장라멘 1인 950엔(세금 포함). 추가 주문·세트 제외.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osm_node_2296903605",
+      "name_ko": "마루후쿠 커피 센니치마에 본점",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区千日前1-9-1",
+      "opening_hours": "08:00-23:00 (공식 지점 페이지 안내; 임시 변경 가능)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osm_node_9875632529",
+      "name_ko": "브루클린 로스팅 컴퍼니 난바",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区敷津東1-1-21 なんばEKIKAN",
+      "opening_hours": "평일 09:00-20:00; 토·일·일본 공휴일 08:00-20:00 (부정기 휴무)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2e4698946819",
+      "name_ko": "엘레메카 연구소",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "일본 〒530-0015 Osaka, Kita Ward, Nakazakinishi, 4 Chome−3 1F",
+      "opening_hours": "Mo-Su 12:00-17:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_73505422b2e6",
+      "name_ko": "도톤보리 교",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "10 Dotonbori, Chuo Ward, Osaka, 542-0071 일본",
+      "opening_hours": "매일 24시간 (다리 통행 공간 기준; 주변 점포·시설 영업시간 별도)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_a270504b6cd8",
+      "name_ko": "호쇼안 다실",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "event_access_required",
+        "seasonal_event_date_confirmation_required",
+        "visit_confirmation_required",
+        "closed_on_visit_date"
+      ],
+      "failed_schedule_checks": [],
+      "address": "2 Osakajo, Chuo Ward, Osaka, 540-0002 일본",
+      "opening_hours": "2026년 9~11월 목요일 10:00~16:00 (최종 입장 15:30); 다도 행사 예약 시 휴업, 다른 기간 별도 확인",
+      "cost_jpy": 1500,
+      "cost_basis": "2026 공개 다도 체험 1인 1,500 JPY. 니시노마루 정원 입장료 별도이므로 전체 방문 비용이 아님.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "event_access_required",
+        "seasonal_event_date_confirmation_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_bdd1ec5175d0",
+      "name_ko": "오에이피 항구",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "google_maps_temporarily_closed",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "1 Chome-8-40 Tenmabashi, Kita Ward, 大阪府 Osaka 530-0042 일본",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "google_maps_temporarily_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_f0f97440bedc",
+      "name_ko": "와케 다리",
+      "category": "명소",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "1 Chausuyamacho, Tennoji Ward, Osaka, 543-0063 일본",
+      "opening_hours": "차우스야마 공원 구역 07:00–22:00, 연중무휴; 다리 통제·공사 별도 확인",
+      "cost_jpy": 0,
+      "cost_basis": "오사카시 차우스야마 안내가 和気橋(와케 다리)를 명시하고 공원 구역 07:00–22:00·연중무휴·무료를 안내. 기존 지도 대조 주소·좌표와 결합한 시설 범위 적용이며 다리 자체의 별도 영업시간 공지가 아님. 기존 ワケ橋 명칭·OSM ID·좌표 보존.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_1c4a0fd86b91",
+      "name_ko": "쓰쓰미 교자 포토존",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "identity_unconfirmed",
+        "address_unconfirmed",
+        "address_missing",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": null,
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "area",
+        "address",
+        "opening_hours",
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "identity_unconfirmed",
+        "address_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_85b3463e84b9",
+      "name_ko": "다이코 하수도 견학시설",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "reservation_required",
+        "opening_hours_missing",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区農人橋1-3-3",
+      "opening_hours": null,
+      "cost_jpy": 0,
+      "cost_basis": "오사카시 지하 견학은 무료, 약 20분, 사전 신청 필요. 지상 관찰창과 지하 견학을 구분. 평일 09:00~17:30은 담당 부서 연락 시간으로 방문 영업시간에 입력하지 않음. 체류시간은 이동·대기 포함 기존 팀 추정값 유지.",
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "reservation_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_5a243c3857f7",
+      "name_ko": "쇼에이도",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区本町3-6-4 1F",
+      "opening_hours": "평일 10:00–19:00; 토·일·공휴일 10:00–18:00; 연말연시 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_84378ff5ba08",
+      "name_ko": "게마 갑문",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "access_conditions_unconfirmed",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "3 Chome-7-8 Kemacho, Miyakojima Ward, Osaka, 534-0001 일본",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "access_conditions_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_0cc625078422",
+      "name_ko": "미나토마치 리버플레이스",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区湊町1-3-1",
+      "opening_hours": "10:00–22:00; 점포별 예외; 1월 1–3일 휴관",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_300825840acb",
+      "name_ko": "아키바 카트 오사카",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "entry_time_reservation_required",
+        "driving_eligibility_confirmation_required",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区日本橋5-5-2 森本ビルII",
+      "opening_hours": "10:00–21:30",
+      "cost_jpy": 7000,
+      "cost_basis": "1시간 코스 7000엔(세금 포함)은 16시 이전 출발에만 적용. 16시 이후 8000엔. 예약 회차와 일본에서 인정되는 운전 자격 확인이 필요하므로 연속 10:00–21:30 방문처럼 자동 배치하지 않음. 120분 팀 체류 추정과 실제 1시간 주행은 구별.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [
+        "entry_time_reservation_required",
+        "driving_eligibility_confirmation_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_7c98da5a96f9",
+      "name_ko": "오사카 주택박물관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "temporary_closure",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区天神橋6丁目4-20 住まい情報センタービル8階",
+      "opening_hours": "2026-09-01~2027-01-05 휴관(대규모 보수공사); 재개관 이후 시간은 별도 확인",
+      "cost_jpy": 600,
+      "cost_basis": "성인 개인 일반 관람료 600엔, 실내 전시장 기준. 기존 임시휴관 경고는 유지하며 방문일 운영 여부 별도 확인. 특별전·유료 짐 보관료 제외.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [
+        "temporary_closure"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_1cbe7e7894c8",
+      "name_ko": "약의 도쇼마치 자료관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区道修町2-1-8 少彦名神社社務所ビル3F",
+      "opening_hours": "월–토 10:00–16:00(입장 15:30까지); 일·공휴일, 8월 11–16일, 12월 28일–1월 4일 휴관",
+      "cost_jpy": 0,
+      "cost_basis": "무료 입장, 신사 사무소 건물 3층 자료관의 실내 전시 기준.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_50b7a6cc608f",
+      "name_ko": "보온병 기념관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "reservation_required",
+        "entry_time_reservation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区天満1丁目20番5号 象印本社1F",
+      "opening_hours": "평일 10:00–12:00, 13:00–16:00; 사전 예약 필수; 토·일·공휴일 및 회사 휴무일 휴관",
+      "cost_jpy": 0,
+      "cost_basis": "무료 입장, 공식 견학 소요시간 약 50분, 본사 1층 실내. 2일 전 예약 필요; 예약 제한은 유지.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [
+        "reservation_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_c99cbfbd0f92",
+      "name_ko": "아트코트 갤러리",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区天満橋1-8-5 OAPアートコート1F",
+      "opening_hours": "화–금 11:00–18:00; 토 11:00–17:00; 전시 일정 별도 확인",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_6dbd8bbe7f48",
+      "name_ko": "가미가타 우키요에관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区難波1-6-4",
+      "opening_hours": "11:00–18:00(입장 17:30까지); 월요일 휴관(공휴일이면 다음날)",
+      "cost_jpy": 700,
+      "cost_basis": "성인 일반 관람료 JPY. 실내 미술관; 판화 체험 별도.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_ce3b8d452a0e",
+      "name_ko": "국립국제미술관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市北区中之島4-2-55",
+      "opening_hours": "2026-07-19~11-03 컬렉션1: 10:00~17:00, 금요일 20:00까지(입장 30분 전); 월요일 휴관, 10/12·11/2 개관, 10/13 휴관",
+      "cost_jpy": 430,
+      "cost_basis": "일반 컬렉션전 1인 요금 JPY. 특별전 1800엔과 구분; 전시별 비용 재확인 필요. 실내 전시실 기준.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_316598fb77c9",
+      "name_ko": "오사카 시립미술관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "visit_confirmation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市天王寺区茶臼山町1-82 天王寺公園内",
+      "opening_hours": "09:30–17:00(입장 16:30까지); 월요일 휴관(공휴일이면 다음 평일), 연말연시·전시교체 휴관",
+      "cost_jpy": 500,
+      "cost_basis": "성인 1인 기획전 관람료 JPY. 특별전·특별진열은 별도 요금. covered는 실내 전시 관람 기준.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2780be08a88e",
+      "name_ko": "미쓰 하치만구",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区西心斎橋2-10-7",
+      "opening_hours": "개문 07:00–18:00; 사무소 09:00–17:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_7675eb0bab46",
+      "name_ko": "난바 야사카 신사",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区元町2-9-19",
+      "opening_hours": "경내 06:00–17:00; 사무소 09:00–16:50; 연중무휴",
+      "cost_jpy": 0,
+      "cost_basis": "난바 야사카 신사 일반 경내 참배 무료. 06~17시 개문, 사무소 09~16:50; 기도·물품 구매 제외.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_40d8be797d5b",
+      "name_ko": "디자인 뮤지엄",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "identity_unconfirmed",
+        "website_mismatch",
+        "google_maps_permanently_closed",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "일본 〒530-0005 Osaka, Kita Ward, Nakanoshima, 5 Chome−3−56 中之島バンクス EAST",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "identity_unconfirmed",
+        "website_mismatch",
+        "google_maps_permanently_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_6eda07803129",
+      "name_ko": "갤러리 사사키 상점",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "reservation_or_exhibition_required",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区心斎橋筋1-6-4 佐々木ビル3F",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "reservation_or_exhibition_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_43502b1cfa97",
+      "name_ko": "블룸 갤러리",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "operating_status_unconfirmed",
+        "gallery_exhibitions_suspended",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市淀川区新北野1-11-23 ハイム北野B103",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "operating_status_unconfirmed",
+        "gallery_exhibitions_suspended"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_9cd21dc062f7",
+      "name_ko": "오사카 시립동양도자미술관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "temporary_closure",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区中之島1-1-26",
+      "opening_hours": "정규 09:30–17:00(입장 16:30까지); 월요일 휴관(공휴일이면 다음날), 연말연시 휴관",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [
+        "temporary_closure"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_70d399cfaea8",
+      "name_ko": "일본기독교단 오사카 교회",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "worship_attendance_required",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市西区江戸堀1-23-17",
+      "opening_hours": "일요일 오전·목요일 정오·금요일 저녁 예배에 참석한 뒤 관람 가능; 상시 개방하지 않음",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [
+        "worship_attendance_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_07d2c797a410",
+      "name_ko": "일본성공회 성속주교회 예배당",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "access_conditions_unconfirmed",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市淀川区十三元今里3-1-72",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "access_conditions_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_006a0c207d8c",
+      "name_ko": "하 신사 (치아 신사)",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区角田町2-8",
+      "opening_hours": "무인 소규모 신사로 수시 참배 가능; 부적 수여는 별도 오타비샤에서 진행",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_718edcaf3985",
+      "name_ko": "구라게 문고 아트스페이스",
+      "category": "문화",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "exhibition_schedule_required",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市淀川区木川東3-3-12",
+      "opening_hours": "전시 기간 중 11:00–19:00; 마지막 날 16:00 또는 17:00 종료",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "exhibition_schedule_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_d7da3fdbeaf6",
+      "name_ko": "기누타니 고지 천공미술관",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区大淀中1-1-30 梅田スカイビルタワーウエスト27F",
+      "opening_hours": "10:00–18:00; 금·토·공휴일 전날 10:00–20:00; 입장 종료 30분 전; 화요일 휴관(공휴일이면 다음 평일), 12월 30일–1월 3일·전시교체 휴관",
+      "cost_jpy": 1300,
+      "cost_basis": "성인 일반 입장료 JPY. 타워 웨스트 27층 미술관 전시 기준.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_04b34bc4e6e2",
+      "name_ko": "고즈구 신사",
+      "category": "문화",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区高津1-1-29",
+      "opening_hours": "경내 06:00–18:00; 신전 17:00 닫음; 사무소 09:00–17:00, 기도 접수 16:00까지",
+      "cost_jpy": 0,
+      "cost_basis": "오사카 관광국 고즈구 안내. cost는 일반 참배 기준으로 유료 기도·행사 제외.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_1289b4aecc32",
+      "name_ko": "게이타쿠엔 정원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市天王寺区茶臼山町1 天王寺公園内",
+      "opening_hours": "09:30–17:00(입장 16:30까지); 5·9월 토·일·공휴일 18:00까지(입장 17:30까지); 월요일 휴원(공휴일이면 다음 평일), 12월 29일–1월 1일 휴원",
+      "cost_jpy": 300,
+      "cost_basis": "성인 일반 입장료 JPY. 야외 회유식 정원 기준. 실내 다실 대관은 별도.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_c62644984874",
+      "name_ko": "사쿠라노미야 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区天満1丁目・天満橋1～2丁目",
+      "opening_hours": "24/7",
+      "cost_jpy": 0,
+      "cost_basis": "게마 사쿠라노미야 공원 일반 야외 산책 24시간·입장 무료. 구장·유람선 등 유료 시설은 제외.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_9e900589aec0",
+      "name_ko": "니시노마루 정원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区大阪城2",
+      "opening_hours": "3~10월 09:00~17:00(입장 16:30까지); 11~2월 09:00~16:30(입장 16:00까지); 월요일 휴원, 월요일 공휴일이면 다음날 휴원",
+      "cost_jpy": 300,
+      "cost_basis": "오사카시 고시 제1572호: 2026-04-01부터 1인 1회 300엔. 관광국의 옛 200엔보다 시행일 있는 공식 고시 우선. 시간 충돌은 별도로 보류.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_f72944194ef3",
+      "name_ko": "지시마 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市大正区千島2丁目7",
+      "opening_hours": "상시 개방; 부속 시설은 별도 운영",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": false,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_a66fcd05acfb",
+      "name_ko": "미나미텐마 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区天神橋1丁目・天満2～4丁目",
+      "opening_hours": "24/7",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_03cde684bd96",
+      "name_ko": "게마 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区長柄東1～2丁目・国分寺1丁目",
+      "opening_hours": "24/7",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_e102a263e5a8",
+      "name_ko": "요도가와 하천공원 나가라 지구",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable"
+      ],
+      "failed_schedule_checks": [],
+      "address": "2 Chome-13-１３地先 Nagaranishi, Kita Ward, Osaka, 531-0061 일본",
+      "opening_hours": "매일 09:00–17:00; 5월17일–8월16일 09:00–19:00 (재해·공사 통제 별도)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": false,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_5f8dd9212a0c",
+      "name_ko": "후지타 저택 터 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市都島区網島町10",
+      "opening_hours": "10:00–16:00",
+      "cost_jpy": 0,
+      "cost_basis": "공식 관광 안내의 무료 공개 회유식 야외 정원. 지붕 있는 휴게소와 주요 야외 관람 구역 구분.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_c6de5620d3d0",
+      "name_ko": "난바나카 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "3 Chome-11 Nanbanaka, Naniwa Ward, Osaka, 556-0011 일본",
+      "opening_hours": "08:00-17:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_0cf4fe2e0afe",
+      "name_ko": "신 우메다시티 하나노",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区大淀中1-1-88 梅田スカイビル北側",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": false,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2941efc9ac2d",
+      "name_ko": "우메키타 공원 사우스 파크",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区大深町5番",
+      "opening_hours": "매일 24시간 (사우스 파크 일반 산책 공간; 시설·점포·행사 별도)",
+      "cost_jpy": 0,
+      "cost_basis": "UR 공식 운영 안내에서 공원 24시간·입장 무료를 확인. 사우스 파크 일반 야외 산책만 대상으로 하며 유료 시설·행사·음식점은 제외. 북쪽 미개방 구역을 포함하지 않음.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_f852e8e07cf8",
+      "name_ko": "가스가에 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市都島区都島本通1丁目19",
+      "opening_hours": "매일 24시간 (공원 개방시간; 공사·행사 등 임시 통제 별도 확인)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "website"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_0adb7945fbda",
+      "name_ko": "호타루마치 광장",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "parent_facility_address",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "1 Chome-1-30 Fukushima, Fukushima Ward, Osaka, 553-0003 일본",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "parent_facility_address"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2fc0df9e9f8d",
+      "name_ko": "파크스 가든",
+      "category": "자연",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区難波中2-10-70",
+      "opening_hours": "10:00–24:00; 휴무는 난바 파크스 일정에 따름",
+      "cost_jpy": 0,
+      "cost_basis": "입장 무료인 옥상 공원. 유료 가이드 투어 및 실내 상업시설과 구분.",
+      "covered": false,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_cff5e2720c53",
+      "name_ko": "산와 공원",
+      "category": "자연",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "city_boundary_unconfirmed",
+        "outside_osaka_city",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "1 Kamisucho, Toyonaka, Osaka 561-0823 일본",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "city_boundary_unconfirmed",
+        "outside_osaka_city"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_16f1d28c8bfd",
+      "name_ko": "NU 자야마치",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区茶屋町10-12",
+      "opening_hours": "쇼핑 11:00–21:00; 음식점 11:00–23:00; 일부 점포 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_1b3533415b94",
+      "name_ko": "하비스 플라자",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区梅田2-2-22",
+      "opening_hours": "판매장 11:00–20:00; 음식점·일부 매장은 별도 확인",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_4fb99b053e8b",
+      "name_ko": "화이티 우메다",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市北区小松原町梅田地下街4-2",
+      "opening_hours": "쇼핑 10:00–21:00; 음식점 10:00–22:00, NOMOKA 11:00–23:00; 홀수 달 셋째 목요일·1월 1일 휴관; 일부 점포 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_e51bbe99124a",
+      "name_ko": "아르데 신오사카",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市淀川区西中島5-16-1 JR新大阪駅2F",
+      "opening_hours": "일반 패션·잡화 판매장 공통10:00–21:00; 서점·유니클로·약국·음식점·서비스는 개별 시간, 시설 연중무휴",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_02288187c550",
+      "name_ko": "이온몰 오사카 돔시티",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市西区千代崎三丁目13番1",
+      "opening_hours": "전문점 10:00–21:00; 이온 매장은 별도 운영",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_11050de606b0",
+      "name_ko": "위스테",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市福島区海老江1-1-23",
+      "opening_hours": "전문점 10:00–21:00; 음식점 11:00–22:00; 이온·일부 점포 별도 운영",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_b1eae8a8935b",
+      "name_ko": "아소코 미나미호리에",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "operating_status_unconfirmed",
+        "google_maps_permanently_closed",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "일본 〒550-0015 Osaka, Nishi Ward, Minamihorie, 1 Chome−19−23 前衛的ビルヂング",
+      "opening_hours": "Mo-Su 11:00-20:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "operating_status_unconfirmed",
+        "google_maps_permanently_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_daa353940c61",
+      "name_ko": "긴테쓰 백화점",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市天王寺区上本町6-1-55",
+      "opening_hours": "B2–2F·6F·10F·11F 10:00–20:00; 3–5F·7–9F 10:00–18:30(일부 예외); 12F 음식점 11:00–22:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_dc3ec67cb8d1",
+      "name_ko": "케이한 시티 몰",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区天満橋京町1-1",
+      "opening_hours": "주요 전문점 10:00–21:00; MBF 일부 10:00–20:00; 음식점 11:00–23:00; 식품매장 등 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2b9dd68b687a",
+      "name_ko": "헬로 라이프",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "category_mismatch",
+        "opening_hours_missing",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市西区靭本町1-16-14",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "category_mismatch"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_fa65b053e525",
+      "name_ko": "미하 숍",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "address_unconfirmed",
+        "location_history_conflict",
+        "address_missing",
+        "opening_hours_missing",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": null,
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "area",
+        "address",
+        "opening_hours",
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "address_unconfirmed",
+        "location_history_conflict"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_31878d4960fc",
+      "name_ko": "뷰르 한큐 미쿠니",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "tenant_scope_required",
+        "opening_hours_missing",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市淀川区三国本町3-37-35",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "website",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "tenant_scope_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_391fae83b26c",
+      "name_ko": "덴시바 이나",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "tenant_scope_confirmation_required",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "5-55号 Chausuyamacho, Tennoji Ward, Osaka, 543-0063 일본",
+      "opening_hours": "공원 07:00–22:00; 이나 구역 점포·활동시설은 개별 시간 확인",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "tenant_scope_confirmation_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_a8c6b6985943",
+      "name_ko": "난바 에키칸",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区難波中2-11-1・敷津東1-1-21・1-2-12・2-1-4～5",
+      "opening_hours": "점포별 상이",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_fc7acd992f21",
+      "name_ko": "신오사카 센이시티",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市淀川区西宮原2-2-2",
+      "opening_hours": "월–토 08:00–19:00; 일·공휴일 09:30–19:00; 점포별 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_b6b6dae05ce5",
+      "name_ko": "요도야바시 오도나",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区今橋4-1-1",
+      "opening_hours": "쇼핑 11:00–20:00; 음식점 평일 11:30–22:30, 토·일·공휴일 11:30–21:30; 12월 31일·1월 1일 휴관; 점포별 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_f1ba0aa6ab58",
+      "name_ko": "한큐 백화점 우메다 본점",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市北区角田町8番7号",
+      "opening_hours": "판매장 10:00–20:00; 12·13F 음식점 11:00–22:00; 일부 점포 예외",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_481d9742f9c2",
+      "name_ko": "브리제 브리제",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "visit_confirmation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区梅田2-4-9",
+      "opening_hours": "판매장 월–토 11:00–20:00, 일·공휴일 11:00–19:00(다음날 공휴일이면 20:00까지); 음식점 11:00–22:00; 비정기 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_c85fa26beb80",
+      "name_ko": "난바 마루이",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "visit_confirmation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区難波3丁目8-9",
+      "opening_hours": "11:00–20:00; 비정기 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_35640888fa49",
+      "name_ko": "모토커피",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区北浜2-1-1 北浜ライオンビルディング",
+      "opening_hours": "11:00–18:00(주문 17:30까지); 비정기 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_f22cfa23d646",
+      "name_ko": "42195 커피",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "hours_conflict",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区中津3-12-15",
+      "opening_hours": "08:00–17:00; 수요일 08:00–12:00; 목요일 휴무; 음료 주문 종료 30분 전, 식사 1시간 전",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "hours_conflict"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_b0a5c9b0d460",
+      "name_ko": "안티코 카페 알 아비스",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "website_mismatch",
+        "branch_unconfirmed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区梅田2-2-22 ハービスPLAZA ENT B2",
+      "opening_hours": "평일 08:00–22:00; 토·일·공휴일 10:00–22:00; 주문 마감 21:30",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "website_mismatch",
+        "branch_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_5a3ef73c2b4b",
+      "name_ko": "블루보틀 커피",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区茶屋町15-22 アーバンテラス茶屋町A棟",
+      "opening_hours": "매일 08:00–21:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_3b8f7684482e",
+      "name_ko": "보빈",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "google_maps_permanently_closed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "2 Chome-3-9 Edobori, Nishi Ward, Osaka, 550-0002 일본",
+      "opening_hours": "Mo-Sa 11:00-18:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "google_maps_permanently_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_e3ac280c1575",
+      "name_ko": "카페 디 에스프레소",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "branch_unconfirmed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "일본 〒530-0044 Osaka, Kita Ward, Higashitenma, 2 Chome−6−8 Shinohara Higashi Temma Building, 1F",
+      "opening_hours": "07:00-20:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_9342479ef7d7",
+      "name_ko": "카페 윳테",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "2 Chome-24-18 Kikawanishi, Yodogawa Ward, Osaka, 532-0013 일본",
+      "opening_hours": "Tu-Sa 10:00-18:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_243b34cd6761",
+      "name_ko": "이메이드",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "visit_confirmation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区難波中2-3-6 レディースマンション西山1階",
+      "opening_hours": "월–금 12:00–22:30; 토·일·공휴일 11:00–22:30; 최종 입장 21:40; 비정기 휴무",
+      "cost_jpy": 715,
+      "cost_basis": "일반 핫/아이스 커피 1잔 715 JPY(세금 포함). 1인 1음료 필수, 별도 좌석료 없음. 음식·추가 주문·평균 지출을 뜻하지 않음. 비정기 휴무는 방문일 확인 필요.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_eda93d07ee2b",
+      "name_ko": "하이쿠 커피 로스터스",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区浮田2-4-4",
+      "opening_hours": "12:00–17:00; 정기 휴무일 미확인",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_d52fee5c2304",
+      "name_ko": "홀리스 카페",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "branch_unconfirmed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区本町2-1-6 堺筋本町センタービル1F",
+      "opening_hours": "평일 06:30–23:00; 토·일·공휴일 06:30–21:00; 주문은 폐점 30분 전까지; 비정기 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_11ceb1687dfa",
+      "name_ko": "라 그란다 파밀리오",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区中崎西1-1-18",
+      "opening_hours": "월·수–토 10:30–19:00; 일 10:30–18:00; 화 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2f4886b3a5b6",
+      "name_ko": "멜버른 커피",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "branch_unconfirmed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "三栄ムアビル １Ｆ, 3 Chome-8-7 Minamisenba, Chuo Ward, Osaka, 542-0081 일본",
+      "opening_hours": "09:00-14:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_cdb260bb106a",
+      "name_ko": "리온 카페",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "google_maps_permanently_closed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "3 Chome-12-23 Motomachi, Naniwa Ward, Osaka, 556-0016 일본",
+      "opening_hours": "Mo-Fr 11:30-14:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "google_maps_permanently_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_4af3a5a14578",
+      "name_ko": "서브 재즈 카페",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "hours_conflict",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区上汐2丁目4-6 上六センタービルB1F",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost"
+      ],
+      "recommendation_blockers": [
+        "hours_conflict"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_e5eb4dd70807",
+      "name_ko": "소트 커피",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区大手通1-3-7 ベルヴォア1F・2F",
+      "opening_hours": "매일 08:00–19:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_af11af018972",
+      "name_ko": "고치카제",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市天王寺区空清町2-22",
+      "opening_hours": "11:30-13:30 open \"ランチ\",17:30-21:30 open \"ディナー\" || \"不定休\"",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_19894ad0a123",
+      "name_ko": "아즈안",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "google_maps_permanently_closed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "4 Chome-2-3 Kitakyuhojimachi, Chuo Ward, Osaka, 541-0057 일본",
+      "opening_hours": "Mo-Sa 11:00-19:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "google_maps_permanently_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_c4a30f2620d0",
+      "name_ko": "에뮤리본",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "google_maps_permanently_closed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "일본 〒542-0086 Osaka, Chuo Ward, Nishishinsaibashi, 2 Chome−13−5 リヴィエール 道頓堀 B1F",
+      "opening_hours": "Mo-Fr 18:00-23:00; Sa-Su 16:00-23:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "google_maps_permanently_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_32974d974e62",
+      "name_ko": "케이크 앤 카페 다이닝 보나본",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市淀川区十三東1-20-3 ザ・グランビュー大阪1F",
+      "opening_hours": "일–목 09:00–21:00(주문 20:00까지); 금·토·공휴일 전날 09:00–23:00(주문 22:00까지)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_57eaac2e578d",
+      "name_ko": "보호고양이 카페 노이",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "visit_confirmation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区谷町六丁目17-5",
+      "opening_hours": "2026년 3월부터 고양이방 매일 12:00~21:00 / 비건카페 12:00~16:00; 비정기 휴무",
+      "cost_jpy": 1800,
+      "cost_basis": "비회원 1시간 이용권 기준 1800엔, 연장 15분 300엔. stay_min은 공식 요금제의 60분 시나리오이며 자유 방문 평균 시간 아님.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "visit_confirmation_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_74dbaeea6a02",
+      "name_ko": "찻집 아오이",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "hours_conflict",
+        "opening_hours_missing",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市東淀川区西淡路1-17-3 MURAKAMI1F",
+      "opening_hours": null,
+      "cost_jpy": 550,
+      "cost_basis": "정확한 메뉴 가격 홍차 550 JPY로 근거를 한정. 커피 550엔부터(하한)는 고정가격으로 쓰지 않음. 동일 공식 페이지의 월요일/화요일 휴무 및 종료시간 충돌이 남아 hours=null·제외 유지.",
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "hours_conflict"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_96e588e49f58",
+      "name_ko": "차엔",
+      "category": "카페",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-11"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市淀川区十三元今里2-21-3-102",
+      "opening_hours": "수–일 13:00–19:00경(주문 18:30까지); 월·화 휴무",
+      "cost_jpy": 750,
+      "cost_basis": "기준 메뉴: 센차 또는 우롱차 1인 주문 750엔 JPY. 최대 3회 우림 포함. 3000엔 티 플라이트와 구분; 전체 방문 평균비용 아님.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_f729469c78c5",
+      "name_ko": "삼십사 키친 (34 Kitchen)",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "일본 〒531-0071 Osaka, Kita Ward, Nakatsu, 3 Chome−23−8 １F",
+      "opening_hours": "11:00-23:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_873f1e0cf834",
+      "name_ko": "앙상크 (an39)",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "5 Chome-6-31-102 Fukushima, Fukushima Ward, Osaka, 553-0003 일본",
+      "opening_hours": "Tu-Su 11:00-17:00",
+      "cost_jpy": 1580,
+      "cost_basis": "공식 an39 사이트의 오사카 후쿠시마구 매장. cost는 부다볼+수프 한 메뉴 1580엔 기준으로 평균 식비가 아님. 상세 번지는 공식 확인하지 못해 빈칸 유지.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_94d63b518da4",
+      "name_ko": "비나인",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "physical_store_unconfirmed",
+        "google_maps_permanently_closed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "일본 〒530-0037 Osaka, Kita Ward, Matsugaecho, 6−1 グロウビル 1F",
+      "opening_hours": "Mo-Fr 11:00-17:00; Sa-Su 18:00-23:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "physical_store_unconfirmed",
+        "google_maps_permanently_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_77f869ee706f",
+      "name_ko": "버블 넷",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "address_conflict",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市西区新町2-12-19 グラントピア新町1F",
+      "opening_hours": "Mo-Su 18:00-28:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "address_conflict"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2f89be830b8c",
+      "name_ko": "카페테리아 아고라",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中之島4-3-53 大阪大学中之島センター2階",
+      "opening_hours": "점심 11:00~14:00 / 카페 14:00~17:00; 2027-02-08 전일 휴업",
+      "cost_jpy": 1000,
+      "cost_basis": "공식 카페 메뉴 오므라이스 단품 1000엔(세금 포함), 음료 포함 1200엔과 구분. 해당 메뉴는 카페 시간 14~17시에만 모델 적용하며 점심 메뉴로 가정하지 않음.",
+      "covered": null,
+      "remaining_null_fields": [
+        "area",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_ff20bd4cf6b7",
+      "name_ko": "카사블랑카 난바 리버사이드",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "일본 〒542-0086 Osaka, Chuo Ward, Nishishinsaibashi, 2 Chome−6−7 S-Front 道頓堀 1階",
+      "opening_hours": "11:00-24:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_5f45ffb4d766",
+      "name_ko": "센트럼",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区梅田1-8-8 ヒルトン大阪2F",
+      "opening_hours": "11:30–14:00, 17:30–21:30(주문 21:00까지); 월·화 휴무(공휴일 제외)",
+      "cost_jpy": 4800,
+      "cost_basis": "평일 한정 익스프레스 런치1인4800 JPY,세금·서비스료 포함. 샐러드·기본 메인·커피/차 기준. 4000엔부터라는 예산 표기 대신 명명된 코스 정가를 사용. 주말/공휴일·옵션 제외.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_89de388fac63",
+      "name_ko": "디페랑스",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "reservation_required",
+        "meal_scenario_required",
+        "entry_time_reservation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市西区靱本町1-16-12",
+      "opening_hours": "12:00–15:00(주문 13:00까지), 17:30–22:00(주문 19:30까지); 화요일 휴무; 예약 필요",
+      "cost_jpy": 7500,
+      "cost_basis": "기준 시나리오: 성인 런치 7500엔 코스(세금·서비스 포함), 공식 소요시간 약 2시간. 12000엔 런치 150분, 디너 18000엔 180분은 별도. 자동 저녁 배치에 이 기준값 재사용 금지.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [
+        "reservation_required",
+        "meal_scenario_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_23d3d20ef739",
+      "name_ko": "가브 위크스",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区中之島1-1-29 中之島公園内",
+      "opening_hours": "11:30–22:00; 점심 주문 15:00까지, 저녁 17:30–21:30 주문",
+      "cost_jpy": 1250,
+      "cost_basis": "현재 공식 메뉴 페이지에서 연결한 평일 오늘의 메인 플레이트 1인 1250 JPY(빵 또는 밥). 휴일 메뉴의 1700 JPY와 다르므로 평일 비공휴일 11:30~15:00에만 계산. 15시는 점심 주문 마감이며 이 모델에서는 식사도 그 전에 마치도록 제한. 음료·추가 주문 제외. 최신 PDF에서 세금 포함 문구는 확인하지 못함.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_c341bbd2440a",
+      "name_ko": "머시 비건 팩토리",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "address_conflict",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区瓦屋町2-4-15 1階西側",
+      "opening_hours": "08:00–17:00, 18:00–21:00; 점심 주문 16:00·저녁 20:00까지; 토요일 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [
+        "address_conflict"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_a9bc74861e3f",
+      "name_ko": "몬톰웍스 엠티 카페 앤 디자인 뎁트",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [
+        "closed_on_visit_date"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市淀川区新北野1-11-23 ハイム北野B102",
+      "opening_hours": "점심 11:00–16:00(주문 15:30까지); 토·일 저녁 18:00–21:00(주문 20:00까지); 수 휴무(공휴일이면 목요일 대체 휴무)",
+      "cost_jpy": 1300,
+      "cost_basis": "11:00~15:30 점심 세트(샐러드·메인·커피/차) 1인 1,300 JPY. 저녁·추가 주문 제외. 실내와 테라스 4석이 함께 있어 covered는 미확인 유지. 현재 날짜·가격 적용 프로필이 없어 자동 일정 투입은 계속 보류.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_d580756db04a",
+      "name_ko": "내추럴 키친 메다카 2호점",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "visit_confirmation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市北区兎我野町3-20 雁木ビル1F",
+      "opening_hours": "평일 11:00–20:30(주문20시); 토·일·공휴일 11:00–20:00(주문19:30); 점심·카페11:00–16:30, 저녁16:30부터; 비정기 휴무·연말연시",
+      "cost_jpy": 1250,
+      "cost_basis": "평일 점심 공식 메뉴 이미지의 일일 자연식 정식1250 JPY. 밥130g·주요리·반찬3·된장국 기준. 세금 표기 미확인, 주말/공휴일 가격으로 확대하지 않음. 비정기 휴무로 방문일 확인 필요.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_f8831852f028",
+      "name_ko": "파팔리나",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市東淀川区淡路4-32-16 レジデンスyamaki1F",
+      "opening_hours": "11:30–21:30(주문 21:00까지); 화요일 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_98a4211ed755",
+      "name_ko": "기린지 오사카 총본점",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "branch_unconfirmed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市浪速区日本橋5-11-12",
+      "opening_hours": "11:00–16:30, 18:00–22:00; 연중무휴",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_7d6ecfb032b6",
+      "name_ko": "모리모리 스시",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市西区千代崎3-13-1 イオンモール大阪ドームシティ4F",
+      "opening_hours": "11:00–21:00; 최종 입점 20:00, 주문 20:30까지",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_d0e6cdcb566f",
+      "name_ko": "알바르",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市東淀川区淡路4-11-15 2F",
+      "opening_hours": "평일·공휴일 전날 11:30–16:00(주문 15:30까지), 17:00–22:30(주문 22:00까지); 토·일·공휴일 11:30–22:30(주문 22:00까지); 정기휴무 없음",
+      "cost_jpy": 880,
+      "cost_basis": "아와지점 점심 타라코 파스타(시소 또는 김) 단품 880 JPY 세금 포함. 880엔부터라는 최저가 설명이 아닌 명명된 단품 가격. 추가 세트·곱빼기 제외.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_3b1acd991668",
+      "name_ko": "가도야 식당",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "4 Chome-16-13 Shinmachi, Nishi Ward, Osaka, 550-0013 일본",
+      "opening_hours": "11:00+",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2eb759c40909",
+      "name_ko": "사이제리야",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市淀川区西宮原2-7-8 ヴィラフェニックス1F",
+      "opening_hours": "10:00–다음날 01:00",
+      "cost_jpy": 300,
+      "cost_basis": "공식 표준 메뉴 밀라노풍 도리아 1개 300 JPY(세금 포함). 평균/식사 총액 아님. 일부 점포 상품 예외·품절 가능. 22시 이후 10% 심야요금을 피하도록 모델은 22시 전 종료만 허용.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_1875c31c058c",
+      "name_ko": "레 코콜레",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "address_location_conflict",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市中央区北久宝寺町3丁目4-1 豆庭ビル",
+      "opening_hours": "We-Sa 11:30-22:00; Su-Mo 11:30-18:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "address_location_conflict"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_3d97f36846d0",
+      "name_ko": "중앙시장 엔도 스시",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市福島区野田1-1-86",
+      "opening_hours": "06:00–14:00; 일요일·공휴일 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_1cdebcaa6534",
+      "name_ko": "진루이 미나 멘루이",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市淀川区西中島1-12-15",
+      "opening_hours": "Mo-Su 11:00-23:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_20aa5444aadd",
+      "name_ko": "가부키오멘 덴진바시 본점",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "google_maps_permanently_closed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "4-23 Naniwacho, Kita Ward, Osaka, 530-0022 일본",
+      "opening_hours": "11:30-02:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "google_maps_permanently_closed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_7eda017e1ded",
+      "name_ko": "사이지키 채식요리",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "Tennoji Park Villa, 105号, 1 Chome-1-10 Sanno, Nishinari Ward, Osaka, 557-0001 일본",
+      "opening_hours": "We-Fr 11:00-14:00, 17:00-21:00; Sa-Su 09:00-14:00, 17:00-21:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_3c015925bf31",
+      "name_ko": "이자카야 신",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区島之内2-12-8 TOWビル2F",
+      "opening_hours": "14:00–다음날 03:00; 비정기 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_6789f7f9c22f",
+      "name_ko": "후나야",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "visit_confirmation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市生野区生野西2-1-34",
+      "opening_hours": "매장 식사 11:30–14:30(주문 14:00까지); 목요일 및 월 1회 임시 휴무; 재료 소진 시 종료",
+      "cost_jpy": 2790,
+      "cost_basis": "매장 식사 우나주 우메(梅) 1인분 2790 JPY 세금 포함. 포장용 3290엔과 구분. 재료 소진 및 매월 추가 휴무로 방문일 확인 전 일정 보류.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_89458a1abeda",
+      "name_ko": "비스트로 요시카와",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市淀川区十三本町2-3-13",
+      "opening_hours": "월–금 11:30–14:00, 17:30–22:00; 토 17:30–22:00; 일·공휴일 휴무",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_26a5e809355e",
+      "name_ko": "체리 잼",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-13"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市福島区吉野2-1-8",
+      "opening_hours": "화–일 11:30–15:00, 17:00–22:30; 월 휴무(대관 예외)",
+      "cost_jpy": 980,
+      "cost_basis": "점심 데미글라스 햄버그 150g 정식 980 JPY(세금 포함, 반찬 3종·밥·미소국). 점심 11:30~15:00에만 적용. 저녁·추가 주문·평균 지출을 뜻하지 않음.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_8cb9705b2793",
+      "name_ko": "컴포트 존 에이트 교토 이탈리안",
+      "category": "식사",
+      "passed_individual_model_on_20261007": true,
+      "passed_at_least_one_day": true,
+      "eligible_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11"
+      ],
+      "reasons_on_20261007": [],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市淀川区十三本町1-18-10 ナショナルマンション101",
+      "opening_hours": "수–금 11:30–15:00, 18:00–23:00; 토 12:00–15:00, 18:00–23:00; 일·공휴일 11:00–14:00, 17:00–21:00; 월·화 휴무; 입장 종료 1시간 전",
+      "cost_jpy": 1150,
+      "cost_basis": "공식 오늘의 파스타 단품 1150엔과 점심 운영시간 확인. 코스는 2~2.5시간·사전 예약이며 이 단품과 다름. 모든 영업일의 공통 점심 구간 12:00–14:00, 최종 입장 13:00만 사용. 월·화 및 공휴일 운영 충돌 가능일 제외. 추가 세트·저녁 주문 제외; 세금 포함 여부는 페이지에 명시되지 않아 가격 표기 그대로 사용한 모델 참고값이며 최종 예산 확정 전 확인 필요.",
+      "covered": null,
+      "remaining_null_fields": [
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_d996a4118ab0",
+      "name_ko": "메이윈즈",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "2 Chome-4-1 Funakoshicho, Chuo Ward, Osaka, 540-0036 일본",
+      "opening_hours": "월~금 08:00~21:00; 토 11:00~14:00; 일 휴무 (공휴일 별도 확인)",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered"
+      ],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_2a9b88c21411",
+      "name_ko": "파르페 드 메릴리",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "visit_confirmation_required"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区馬場町3番65号",
+      "opening_hours": "11:00–20:00(주문 19:00까지); 비정기 휴무",
+      "cost_jpy": 2300,
+      "cost_basis": "공식 매장 사이트의 파르페와 메릴리 런치 세트 1인 2300엔 JPY. 시즌·주문 구성에 따라 달라짐. 실내 좌석 안내.",
+      "covered": true,
+      "remaining_null_fields": [],
+      "recommendation_blockers": [],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osaka_draft_5fa8876a4657",
+      "name_ko": "사가노",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "price_conflict",
+        "reservation_required",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪市西区靱本町3-4-15",
+      "opening_hours": "11:30–15:00(주문 13:30까지), 18:00–23:00(입장 20:00까지); 일·공휴일 휴무; 코스 예약 필요",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost"
+      ],
+      "recommendation_blockers": [
+        "price_conflict",
+        "reservation_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osm_way_303446421",
+      "name_ko": "수상버스 타는곳",
+      "category": "명소",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "branch_unconfirmed",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "2 Osakajo, Chuo Ward, Osaka, 540-0002 일본",
+      "opening_hours": "Mo-Su 10:00-17:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "branch_unconfirmed"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osm_way_151816175",
+      "name_ko": "덴포잔 마켓 플레이스",
+      "category": "쇼핑",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "date_specific_hours_required",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市港区海岸通1-1-10",
+      "opening_hours": "Mo-Su 11:00-20:00",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": true,
+      "remaining_null_fields": [
+        "cost",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "date_specific_hours_required"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osm_node_6189996345",
+      "name_ko": "가도데 카페",
+      "category": "카페",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "outside_osaka_city",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "3-chome-3-11 Kamisakabe, Amagasaki, Hyogo 661-0979 일본",
+      "opening_hours": "11:00-17:00; Mo, Su, PH off",
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "cost",
+        "covered",
+        "opening_hours_source",
+        "verified_at"
+      ],
+      "recommendation_blockers": [
+        "outside_osaka_city"
+      ],
+      "schedule_ready": false
+    },
+    {
+      "place_id": "osm_node_2546559085",
+      "name_ko": "이치란라멘",
+      "category": "식사",
+      "passed_individual_model_on_20261007": false,
+      "passed_at_least_one_day": false,
+      "eligible_dates": [],
+      "reasons_on_20261007": [
+        "permanently_closed",
+        "opening_hours_missing",
+        "cost_unknown_or_not_applicable",
+        "structured_date_profile_missing"
+      ],
+      "failed_schedule_checks": [],
+      "address": "大阪府大阪市中央区宗右衛門町7-18",
+      "opening_hours": null,
+      "cost_jpy": null,
+      "cost_basis": null,
+      "covered": null,
+      "remaining_null_fields": [
+        "opening_hours",
+        "cost",
+        "covered",
+        "opening_hours_source"
+      ],
+      "recommendation_blockers": [
+        "permanently_closed"
+      ],
+      "schedule_ready": false
+    }
+  ]
+}

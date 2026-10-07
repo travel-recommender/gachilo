@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-01",
+  "checked_at": "2026-10-06",
   "dates": [
     "2026-10-01",
     "2026-10-02",
@@ -9,12 +9,12 @@
     "2026-10-06",
     "2026-10-07"
   ],
-  "source_sha256": "914f750d8e42b19153e51834b2a75e7ac178991cb7e2304c578dea53961d6c9a",
-  "profiles_sha256": "6844c18e59278c01d3a706e204ea0c58384df39e841fc02bd57809b90182aa96",
+  "source_sha256": "a1ec46ba9f3a834481a1ccb1c37dc198cf860136536b0a1781bc6fbbd5a4f2fd",
+  "profiles_sha256": "f206eb0924d0f7464a24a01a68e5024cc9602d071fff3360b8ffd6c5e90c5ae0",
   "summary": {
     "records": 150,
-    "individual_passed": 52,
-    "needs_followup": 98,
+    "individual_passed": 55,
+    "needs_followup": 95,
     "address_missing": 2,
     "hours_missing": 17
   },
@@ -470,11 +470,11 @@
       ],
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
       "next_actions": [
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "휴관/가격 적용 범위를 벗어나지 않는 방문일을 선택"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -1000,22 +1000,23 @@
       "place_id": "osaka_draft_f0f97440bedc",
       "name_ko": "와케 다리",
       "category": "명소",
-      "passed_individual_model": false,
-      "eligible_dates": [],
-      "remaining_null_fields": [
-        "covered"
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-06",
+        "2026-10-07"
       ],
+      "remaining_null_fields": [],
       "reasons": [
-        "identity_unconfirmed"
+        "outside_place_reviewed_date_range"
       ],
       "next_actions": [
-        "동일 지점·시설 용도·주소·공공 출입 위치를 먼저 확정"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
-        "https://www.openstreetmap.org/node/12781301802",
         "https://maps.google.com/?cid=4275703018452935561",
+        "https://www.openstreetmap.org/node/12781301802",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
       "evidence_scope": "기존 필드 출처와 이번 추가 확인을 함께 표시. 이 파일 생성은 모든 출처의 당일 재조회가 아님.",
@@ -1186,9 +1187,12 @@
       "eligible_dates": [],
       "remaining_null_fields": [],
       "reasons": [
+        "entry_time_reservation_required",
+        "driving_eligibility_confirmation_required",
         "structured_date_profile_missing"
       ],
       "next_actions": [
+        "방문 날짜에 맞는 예약·입장/전시·메뉴 조건과 일반 이용 가능 여부를 확인",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
       "missing_address_hours_note": null,
@@ -1293,11 +1297,12 @@
       ],
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range",
+        "closed_on_visit_date"
       ],
       "next_actions": [
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "휴관/가격 적용 범위를 벗어나지 않는 방문일을 선택"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -1410,11 +1415,11 @@
       ],
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
       "next_actions": [
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "휴관/가격 적용 범위를 벗어나지 않는 방문일을 선택"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -1875,11 +1880,11 @@
       ],
       "reasons": [
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
       "next_actions": [
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "휴관/가격 적용 범위를 벗어나지 않는 방문일을 선택"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -1953,21 +1958,20 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "opening_hours_source"
+        "cost"
       ],
       "reasons": [
-        "hours_conflict",
         "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
       "next_actions": [
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "휴관/가격 적용 범위를 벗어나지 않는 방문일을 선택"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+        "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
         "https://www.openstreetmap.org/way/162156955",
         "https://maps.google.com/?cid=249497854434163876",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -2067,23 +2071,23 @@
       "place_id": "osaka_draft_2941efc9ac2d",
       "name_ko": "우메키타 공원 사우스 파크",
       "category": "자연",
-      "passed_individual_model": false,
-      "eligible_dates": [],
-      "remaining_null_fields": [
-        "cost",
-        "covered"
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-06",
+        "2026-10-07"
       ],
+      "remaining_null_fields": [],
       "reasons": [
-        "cost_unknown_or_not_applicable",
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range"
       ],
       "next_actions": [
-        "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://note.ur-net.go.jp/n/n4a22d34d6b06",
         "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+        "https://umekita.com/",
         "https://www.openstreetmap.org/way/1147393995",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -2614,9 +2618,12 @@
         "covered"
       ],
       "reasons": [
+        "tenant_scope_confirmation_required",
         "structured_date_profile_missing"
       ],
       "next_actions": [
+        "동일 지점·시설 용도·주소·공공 출입 위치를 먼저 확정",
+        "방문 날짜에 맞는 예약·입장/전시·메뉴 조건과 일반 이용 가능 여부를 확인",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
       "missing_address_hours_note": null,
@@ -2838,6 +2845,7 @@
         "covered"
       ],
       "reasons": [
+        "hours_conflict",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -2848,6 +2856,7 @@
       "missing_address_hours_note": null,
       "evidence_urls": [
         "https://42195coffee.wixsite.com/toppage",
+        "https://42195coffee.wixsite.com/toppage/menu",
         "https://www.openstreetmap.org/way/226005126",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -3104,6 +3113,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.grandafamilio.com/",
         "http://www.grandafamilio.com/store.html",
         "http://www.grandafamilio.com/",
         "https://www.openstreetmap.org/node/7477438893",
@@ -3338,6 +3348,8 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://bonandbon.jp/",
+        "https://bonandbon.jp/product/",
         "https://bonandbon.jp/company/",
         "http://www.bonandbon.jp",
         "https://www.openstreetmap.org/node/6984070689",
@@ -3713,14 +3725,15 @@
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
-        "cost",
-        "covered"
+        "cost"
       ],
       "reasons": [
+        "address_conflict",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "next_actions": [
+        "동일 지점·시설 용도·주소·공공 출입 위치를 먼저 확정",
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
@@ -3728,6 +3741,7 @@
       "evidence_urls": [
         "https://www.mercy-vegan.jp/restaurants/",
         "https://shop.mercy-vegan.jp/",
+        "https://www.mercy-vegan.jp/service/",
         "https://www.openstreetmap.org/node/10259462714",
         "https://github.com/travel-recommender/gachilo/issues/1"
       ],
@@ -3812,6 +3826,7 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://papalina68.web.fc2.com/",
         "http://papalina68.web.fc2.com/access.html",
         "http://papalina68.web.fc2.com/",
         "https://www.openstreetmap.org/node/7425697907",
@@ -4048,6 +4063,8 @@
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
+        "https://www.jinrui-minamenrui.com/",
+        "https://www.unchi-co.com/",
         "http://www.jinrui-minamenrui.com/",
         "https://www.openstreetmap.org/node/6423399288",
         "https://github.com/travel-recommender/gachilo/issues/1"
@@ -4230,16 +4247,19 @@
       "place_id": "osaka_draft_8cb9705b2793",
       "name_ko": "컴포트 존 에이트 교토 이탈리안",
       "category": "식사",
-      "passed_individual_model": false,
-      "eligible_dates": [],
+      "passed_individual_model": true,
+      "eligible_dates": [
+        "2026-10-07"
+      ],
       "remaining_null_fields": [
         "covered"
       ],
       "reasons": [
-        "structured_date_profile_missing"
+        "outside_place_reviewed_date_range",
+        "closed_on_visit_date"
       ],
       "next_actions": [
-        "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
+        "방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [

@@ -1,7 +1,7 @@
 {
-  "source_sha256": "914f750d8e42b19153e51834b2a75e7ac178991cb7e2304c578dea53961d6c9a",
-  "profiles_sha256": "6844c18e59278c01d3a706e204ea0c58384df39e841fc02bd57809b90182aa96",
-  "evidence_checked_at": "2026-10-01",
+  "source_sha256": "a1ec46ba9f3a834481a1ccb1c37dc198cf860136536b0a1781bc6fbbd5a4f2fd",
+  "profiles_sha256": "f206eb0924d0f7464a24a01a68e5024cc9602d071fff3360b8ffd6c5e90c5ae0",
+  "evidence_checked_at": "2026-10-06",
   "test_dates": [
     "2026-10-01",
     "2026-10-02",
@@ -12,22 +12,23 @@
     "2026-10-07"
   ],
   "total_records": 150,
-  "individual_passed": 52,
+  "individual_passed": 55,
   "promotion_complete": 0,
   "categories": [
     {
       "category": "명소",
       "collected": 19,
-      "passed_individual_model": 3,
-      "held": 16,
+      "passed_individual_model": 4,
+      "held": 15,
       "promotion_complete": 0,
       "address_missing": 1,
       "hours_missing": 4,
-      "covered_unknown": 17,
+      "covered_unknown": 16,
       "passed_ids": [
         "osaka_003",
         "osaka_007",
-        "osaka_008"
+        "osaka_008",
+        "osaka_draft_f0f97440bedc"
       ],
       "held_ids": [
         "osaka_001",
@@ -39,7 +40,6 @@
         "osaka_draft_73505422b2e6",
         "osaka_draft_a270504b6cd8",
         "osaka_draft_bdd1ec5175d0",
-        "osaka_draft_f0f97440bedc",
         "osaka_draft_1c4a0fd86b91",
         "osaka_draft_85b3463e84b9",
         "osaka_draft_84378ff5ba08",
@@ -61,7 +61,7 @@
           "places": 4
         },
         {
-          "reason": "identity_unconfirmed",
+          "reason": "entry_time_reservation_required",
           "places": 2
         },
         {
@@ -85,7 +85,7 @@
           "places": 1
         },
         {
-          "reason": "entry_time_reservation_required",
+          "reason": "driving_eligibility_confirmation_required",
           "places": 1
         },
         {
@@ -94,6 +94,10 @@
         },
         {
           "reason": "google_maps_temporarily_closed",
+          "places": 1
+        },
+        {
+          "reason": "identity_unconfirmed",
           "places": 1
         },
         {
@@ -154,12 +158,12 @@
       ],
       "blockers": [
         {
-          "reason": "structured_date_profile_missing",
-          "places": 12
-        },
-        {
           "reason": "cost_unknown_or_not_applicable",
           "places": 11
+        },
+        {
+          "reason": "structured_date_profile_missing",
+          "places": 10
         },
         {
           "reason": "opening_hours_missing",
@@ -167,6 +171,10 @@
         },
         {
           "reason": "closed_on_visit_date",
+          "places": 3
+        },
+        {
+          "reason": "outside_place_reviewed_date_range",
           "places": 2
         },
         {
@@ -226,12 +234,12 @@
     {
       "category": "자연",
       "collected": 20,
-      "passed_individual_model": 9,
-      "held": 11,
+      "passed_individual_model": 10,
+      "held": 10,
       "promotion_complete": 0,
       "address_missing": 0,
       "hours_missing": 3,
-      "covered_unknown": 8,
+      "covered_unknown": 7,
       "passed_ids": [
         "osaka_015",
         "osaka_017",
@@ -241,6 +249,7 @@
         "osaka_draft_c62644984874",
         "osaka_draft_9e900589aec0",
         "osaka_draft_5f8dd9212a0c",
+        "osaka_draft_2941efc9ac2d",
         "osaka_draft_2fc0df9e9f8d"
       ],
       "held_ids": [
@@ -251,7 +260,6 @@
         "osaka_draft_e102a263e5a8",
         "osaka_draft_c6de5620d3d0",
         "osaka_draft_0cf4fe2e0afe",
-        "osaka_draft_2941efc9ac2d",
         "osaka_draft_f852e8e07cf8",
         "osaka_draft_0adb7945fbda",
         "osaka_draft_cff5e2720c53"
@@ -259,22 +267,22 @@
       "blockers": [
         {
           "reason": "cost_unknown_or_not_applicable",
-          "places": 11
+          "places": 10
         },
         {
           "reason": "structured_date_profile_missing",
-          "places": 11
+          "places": 7
         },
         {
           "reason": "opening_hours_missing",
           "places": 3
         },
         {
-          "reason": "city_boundary_unconfirmed",
-          "places": 1
+          "reason": "outside_place_reviewed_date_range",
+          "places": 3
         },
         {
-          "reason": "hours_conflict",
+          "reason": "city_boundary_unconfirmed",
           "places": 1
         },
         {
@@ -368,6 +376,10 @@
           "places": 1
         },
         {
+          "reason": "tenant_scope_confirmation_required",
+          "places": 1
+        },
+        {
           "reason": "tenant_scope_required",
           "places": 1
         }
@@ -430,7 +442,7 @@
         },
         {
           "reason": "hours_conflict",
-          "places": 2
+          "places": 3
         },
         {
           "reason": "opening_hours_missing",
@@ -453,12 +465,12 @@
     {
       "category": "식사",
       "collected": 35,
-      "passed_individual_model": 11,
-      "held": 24,
+      "passed_individual_model": 12,
+      "held": 23,
       "promotion_complete": 0,
       "address_missing": 0,
       "hours_missing": 1,
-      "covered_unknown": 24,
+      "covered_unknown": 23,
       "passed_ids": [
         "osaka_025",
         "osaka_026",
@@ -470,7 +482,8 @@
         "osaka_draft_a9bc74861e3f",
         "osaka_draft_d0e6cdcb566f",
         "osaka_draft_2eb759c40909",
-        "osaka_draft_26a5e809355e"
+        "osaka_draft_26a5e809355e",
+        "osaka_draft_8cb9705b2793"
       ],
       "held_ids": [
         "osaka_draft_f729469c78c5",
@@ -492,7 +505,6 @@
         "osaka_draft_3c015925bf31",
         "osaka_draft_6789f7f9c22f",
         "osaka_draft_89458a1abeda",
-        "osaka_draft_8cb9705b2793",
         "osaka_draft_d996a4118ab0",
         "osaka_draft_2a9b88c21411",
         "osaka_draft_5fa8876a4657",
@@ -500,16 +512,20 @@
       ],
       "blockers": [
         {
-          "reason": "structured_date_profile_missing",
-          "places": 20
+          "reason": "cost_unknown_or_not_applicable",
+          "places": 19
         },
         {
-          "reason": "cost_unknown_or_not_applicable",
+          "reason": "structured_date_profile_missing",
           "places": 19
         },
         {
           "reason": "visit_confirmation_required",
           "places": 3
+        },
+        {
+          "reason": "address_conflict",
+          "places": 2
         },
         {
           "reason": "closed_on_visit_date",
@@ -522,10 +538,6 @@
         {
           "reason": "reservation_required",
           "places": 2
-        },
-        {
-          "reason": "address_conflict",
-          "places": 1
         },
         {
           "reason": "address_location_conflict",
@@ -572,8 +584,8 @@
     "카페",
     "명소",
     "자연",
-    "식사",
     "문화",
+    "식사",
     "쇼핑"
   ]
 }
