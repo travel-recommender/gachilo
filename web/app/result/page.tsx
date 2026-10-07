@@ -97,8 +97,8 @@ export default function Result() {
                   </div>
                 )}
                 <p className={`mt-2 text-[11px] leading-[1.45] ${on ? "font-semibold text-white" : "text-mute-soft"}`}>
-                  {c.desc}
-                  {on && c.lines[0] && <><br />{c.lines[0]}</>}
+                  {/* 고르기 전(회색)에는 방법 설명, 고른 뒤(버건디)에는 이 후보의 결과 설명만 */}
+                  {on ? c.lines[0] : c.desc}
                 </p>
               </button>
             );

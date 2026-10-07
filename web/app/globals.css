@@ -5,6 +5,8 @@
 
 :root { color-scheme: light; }
 body { @apply bg-[#e9ebf2] text-ink-900 antialiased; }
+/* 한글은 단어 중간에서 줄을 바꾸지 않는다. 긴 주소·링크만 어쩔 수 없을 때 끊는다 */
+body { word-break: keep-all; overflow-wrap: anywhere; }
 
 @layer components {
   .card { @apply rounded-card bg-white shadow-card; }
