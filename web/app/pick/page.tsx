@@ -29,7 +29,7 @@ export default function Pick() {
     .filter((g) => g.items.length > 0);
 
   return (
-    <Page nav={<NavButtons next={() => router.push("/waiting")} nextDisabled={longlist.length === 0} />}>
+    <Page nav={<NavButtons next={() => router.push("/waiting?step=list")} nextDisabled={longlist.length === 0} />}>
       <PlanHeader />
       <div className="px-5 pt-[59px]">
         <PlaceFinder added={longlist} onPick={add} />
