@@ -27,11 +27,11 @@ class Store(CandidateStore):
             CREATE TABLE IF NOT EXISTS submissions(member_id TEXT PRIMARY KEY,payload TEXT,updated TEXT,FOREIGN KEY(member_id) REFERENCES members(id));
             CREATE TABLE IF NOT EXISTS results(room_id TEXT PRIMARY KEY,revision INTEGER,payload TEXT,updated TEXT,FOREIGN KEY(room_id) REFERENCES rooms(id));
             ''')
+            self.init_candidates(c)
             if 'dataset' not in {row['name'] for row in c.execute('PRAGMA table_info(rooms)')}:
                 c.execute("ALTER TABLE rooms ADD COLUMN dataset TEXT NOT NULL DEFAULT 'prototype_demo_36'")
             if 'planning' not in {row['name'] for row in c.execute('PRAGMA table_info(results)')}:
                 c.execute('ALTER TABLE results ADD COLUMN planning TEXT')
-            self.init_candidates(c)
     @contextmanager
     def connect(self):
         c=sqlite3.connect(self.path,timeout=10)
