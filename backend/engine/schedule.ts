@@ -75,6 +75,13 @@ export interface ScheduleOptions {
   /** 빈 식사 시간을 자동으로 채울 것인가 */
   fillMeals?: boolean;
   vetoed?: Set<string>;
+  /**
+   * 일차별 숙소. 그날 숙소가 있으면 하루가 숙소에서 시작해 숙소로 끝난다.
+   * 숙소 자체는 일정 항목으로 넣지 않고, 이동 거리·시간에만 반영한다.
+   */
+  staysByDay?: (Place | null)[];
+  /** 이동 거리에 매기는 벌점 배수 (inputs.ts의 distanceWeightFor) */
+  distanceWeight?: number;
 }
 
 /**
@@ -84,7 +91,8 @@ export interface ScheduleOptions {
 function buildDay(
   sels: Selection[],
   opts: ScheduleOptions,
-  globalUsed: Set<string>
+  globalUsed: Set<string>,
+  stay: Place | null = null
 ): { items: ScheduleItem[]; dropped: Selection[] } {
   const remaining = [...sels];
   const items: ScheduleItem[] = [];
@@ -93,7 +101,8 @@ function buildDay(
   const vetoed = opts.vetoed ?? new Set<string>();
 
   let clock = DAY_START;
-  let prev: Place | null = null;
+  // 숙소가 있으면 하루의 출발점이 숙소다. 첫 장소까지의 이동이 그만큼 더해진다.
+  let prev: Place | null = stay;
   let load = 0;
   let mealsDone = { lunch: false, dinner: false };
 
@@ -139,7 +148,7 @@ function buildDay(
     const scored = pool.map((s) => {
       const d = prev ? travel(prev, s.place).km : 0;
       const bagPenalty = opts.considerBags ? s.place.bagLoad * 2.5 * (1 - load) : 0;
-      return { sel: s, cost: d + bagPenalty };
+      return { sel: s, cost: d * (opts.distanceWeight ?? 1) + bagPenalty };
     });
     scored.sort((a, b) => a.cost - b.cost);
 
@@ -177,14 +186,19 @@ export function buildSchedule(
 
   const globalUsed = new Set<string>(selections.map((s) => s.place.id));
   buckets.forEach((bucket, i) => {
-    const { items, dropped: d } = buildDay(bucket, opts, globalUsed);
+    const stay = opts.staysByDay?.[i] ?? null;
+    const { items, dropped: d } = buildDay(bucket, opts, globalUsed, stay);
     dropped.push(...d);
 
     let walkKm = 0;
     let totalKm = 0;
     let move = 0;
     let cost = 0;
-    let prev: Place | null = null;
+    // 숙소에서 출발하므로 첫 장소까지의 이동도 하루 합계에 들어간다
+    let prev: Place | null = stay;
+    let stayOutKm: number | undefined;
+    let stayBackKm: number | undefined;
+    if (stay && items.length) stayOutKm = Math.round(travel(stay, items[0].place).km * 10) / 10;
     items.forEach((it) => {
       if (prev) {
         const m = travel(prev, it.place);
@@ -196,6 +210,15 @@ export function buildSchedule(
       prev = it.place;
     });
 
+    // 마지막 장소에서 숙소로 돌아가는 길
+    if (stay && items.length) {
+      const back = travel(items[items.length - 1].place, stay);
+      walkKm += back.walkKm;
+      totalKm += back.km;
+      move += back.min;
+      stayBackKm = Math.round(back.km * 10) / 10;
+    }
+
     plans.push({
       day: i + 1,
       items,
@@ -203,6 +226,7 @@ export function buildSchedule(
       totalKm: Math.round(totalKm * 10) / 10,
       totalMoveMin: move,
       cost,
+      ...(stay ? { stayName: stay.name, stayOutKm, stayBackKm } : {}),
     });
   });
 

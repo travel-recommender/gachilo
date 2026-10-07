@@ -65,10 +65,16 @@ export interface Submission {
   longlist: string[];
   /** 2차 — 그룹 후보 풀에서 다시 고른 가고 싶은 장소 id 목록 */
   picks: string[];
-  /** 꼭 가고 싶은 곳 (picks 중 하나) */
-  must: string | null;
-  /** 가고 싶지 않은 곳 */
-  veto: string | null;
+  /** 꼭 가고 싶은 곳 (picks 중 하나). 7주차부터는 musts를 쓰고, 이 필드는 옛 화면 호환용이다 */
+  must?: string | null;
+  /** 가고 싶지 않은 곳. 7주차부터는 vetoes를 쓴다 */
+  veto?: string | null;
+  /** 꼭 가고 싶은 곳 여러 개. 앞에 있을수록 본인에게 중요하다 */
+  musts?: string[];
+  /** 빼고 싶은 곳 여러 개 */
+  vetoes?: string[];
+  /** 세 축 트레이드오프. 없으면 가운데(0.5)로 본다 */
+  tradeoffs?: Tradeoffs;
   /** 하루에 쓸 수 있는 돈(원). 여행 전체 예산은 일수를 곱해 구한다 */
   budgetPerDay: number;
   /** 하루 걸을 수 있는 걸음 수(보) */
@@ -86,6 +92,30 @@ export interface SubmissionView extends Submission {
   budget: number;
   /** 하루 걷기 한계(km) = stepLimit × 보폭 */
   walkLimit: number;
+}
+
+/**
+ * 세 축 트레이드오프 (각 0~1).
+ * 값이 클수록 오른쪽이다. 어느 쪽도 좋고 나쁨이 아니라 서로 맞바꾸는 관계다.
+ */
+export interface Tradeoffs {
+  /** 0 여유롭게 ~ 1 빡빡하게 */
+  pace: number;
+  /** 0 이동 짧게 ~ 1 멀어도 괜찮게 */
+  distance: number;
+  /** 0 아끼기 ~ 1 편하게 쓰기 */
+  spend: number;
+}
+
+/** 날짜별 숙소. 좌표는 서버가 주소를 변환해 채워 보낸다 */
+export interface Stay {
+  /** YYYY-MM-DD */
+  date: string;
+  name: string;
+  lat: number;
+  lng: number;
+  /** 참여자별로 다른 숙소를 받을 때만 채운다 */
+  memberId?: string;
 }
 
 export type Strategy = "average" | "least_misery" | "fairness";
@@ -111,8 +141,10 @@ export interface MemberSatisfaction {
   memberId: string;
   /** 내가 고른 곳 중 채택된 비율 */
   pickRate: number;
-  /** 내 '꼭'이 지켜졌는가 */
+  /** 내 '꼭' 중 1순위가 지켜졌는가 (원리 2) */
   mustKept: boolean;
+  /** 내 '꼭' 중 지켜진 비율 */
+  mustRate: number;
   /** 내 예산 대비 실제 비용 (1이면 딱 맞음, <1 여유) */
   budgetUse: number;
   /** 내 걷기 한계 대비 실제 (1이면 딱 맞음) */
@@ -138,6 +170,12 @@ export interface ConsensusResult {
     gini: number;
     mustKeptRate: number;
     perPersonCost: number;
+    /** 그룹으로 합친 트레이드오프 값 */
+    tradeoffs?: Tradeoffs;
+    /** 그 값으로 정해진 하루 자리 수 */
+    slotsPerDay?: number;
+    /** 예산 하한에 '쓰고 싶은 정도'를 곱한 실제 상한 */
+    budgetCap?: number;
   };
 }
 
@@ -157,8 +195,14 @@ export interface ScheduleItem {
 export interface DayPlan {
   day: number;
   items: ScheduleItem[];
-  /** 실제로 걷는 거리(km) — 체력 제약은 이 값으로 따진다 */
+  /** 실제로 걷는 거리(km) — 체력 제약은 이 값으로 따진다. 숙소 왕복이 있으면 포함한다 */
   walkKm: number;
+  /** 그날 숙소 이름. 숙소를 받지 않았으면 없다 */
+  stayName?: string;
+  /** 숙소 → 첫 장소 (km) */
+  stayOutKm?: number;
+  /** 마지막 장소 → 숙소 (km) */
+  stayBackKm?: number;
   /** 대중교통 포함 총 이동 거리(km) */
   totalKm: number;
   totalMoveMin: number;
