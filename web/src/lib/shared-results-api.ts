@@ -54,8 +54,13 @@ export function createSharedResultClient(baseUrl: string, fetcher: typeof fetch 
       headers: { Authorization: `Bearer ${token}`, ...(body ? { "Content-Type": "application/json" } : {}) },
       ...(body ? { body: JSON.stringify(body) } : {}),
     });
-    const value = await response.json();
-    if (!response.ok) throw new SharedResultError(value.error ?? "서버 결과를 불러오지 못했습니다.", response.status);
+    const value = await response.json().catch(() => null);
+    if (!response.ok) throw new SharedResultError(
+      typeof value?.error === "string" ? value.error : "서버 결과를 불러오지 못했습니다.", response.status,
+    );
+    if (!value || typeof value !== "object" || Array.isArray(value)) {
+      throw new SharedResultError("서버 응답을 읽을 수 없습니다.", response.status);
+    }
     return value;
   }
   return {

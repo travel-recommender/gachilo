@@ -22,3 +22,26 @@ test('202 remains a polling state; 409 is a typed conflict and does not select a
   const conflict=createSharedResultClient('',async()=>Response.json({error:'입력이 변경되었습니다.'},{status:409}));
   await assert.rejects(conflict.calculateAll('room','owner',2),e=>e instanceof SharedResultError && e.status===409);
 });
+
+test('non-JSON gateway errors retain their HTTP status as SharedResultError', async () => {
+  for (const status of [502, 503, 504]) {
+    const api=createSharedResultClient('',async()=>new Response('<html>Gateway error</html>', {status}));
+    await assert.rejects(api.calculateAll('room','owner',3),e=>
+      e instanceof SharedResultError && e.status===status && !e.message.includes('<html>'));
+  }
+});
+
+test('empty, null and malformed successful bodies become typed errors', async () => {
+  for (const body of ['', 'null', '<html>upstream</html>', '[]', '42']) {
+    const api=createSharedResultClient('',async()=>new Response(body,{status:200}));
+    await assert.rejects(api.get('room','member'),e=>e instanceof SharedResultError && e.status===200);
+  }
+});
+
+test('JSON error text survives and abort remains recognizable as cancellation', async () => {
+  const api=createSharedResultClient('',async()=>Response.json({error:'다시 시도하세요.'},{status:503}));
+  await assert.rejects(api.get('room','member'),e=>e instanceof SharedResultError && e.status===503 && e.message==='다시 시도하세요.');
+  const abort=new DOMException('cancelled','AbortError');
+  const cancelled=createSharedResultClient('',async()=>{throw abort;});
+  await assert.rejects(cancelled.get('room','member'),e=>e===abort);
+});
