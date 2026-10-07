@@ -92,6 +92,43 @@ class ApiTests(unittest.TestCase):
   # 방장 토큰으로 보는 것은 아무 자리도 점유하지 않는다
   self.req('GET',f"/rooms/{rid}",token=room['ownerToken'])
   self.assertEqual(self.req('POST',f"/rooms/{rid}/join",{'memberId':room['members'][2]['id']},room['inviteToken'])[0],200)
+ def test_concurrent_status_reads_by_different_members_never_fail(self):
+  # PR #36 재리뷰: 읽기 트랜잭션 안에서 점유 UPDATE로 올라가면 동시 조회끼리 잠금이 충돌해 503이 났다
+  room=self.room();rid=room['roomId'];path=f"/rooms/{rid}/results"
+  for m in room['members']:self.assertEqual(self.submit(room,m)[0],200)  # 세 자리 모두 점유된 상태
+  tokens=[m['submissionToken'] for m in room['members']]*34
+  with concurrent.futures.ThreadPoolExecutor(3) as e:codes=list(e.map(lambda t:self.req('GET',path,token=t)[0],tokens))
+  self.assertEqual(codes.count(200),len(tokens),codes)
+ def test_concurrent_first_reads_occupy_without_lock_errors(self):
+  # 아직 점유되지 않은 자리들을 각자 처음 조회할 때도 503 없이 모두 점유된다
+  for _ in range(5):
+   room=self.room();rid=room['roomId']
+   calls=[(f"/rooms/{rid}",m['submissionToken']) for m in room['members'][1:]]*6+[(f"/rooms/{rid}/results",m['submissionToken']) for m in room['members'][1:]]*6
+   with concurrent.futures.ThreadPoolExecutor(4) as e:codes=list(e.map(lambda a:self.req('GET',a[0],token=a[1])[0],calls))
+   self.assertEqual(set(codes),{200},codes)
+   self.assertTrue(all(m['claimed'] for m in self.req('GET',f"/rooms/{rid}/join",token=room['inviteToken'])[1]['members']))
+ def test_first_personal_access_and_shared_claim_race(self):
+  # 개인 링크 첫 접속과 공용 링크 선택이 겹쳐도: 잠금 오류가 없고, 둘 다 같은 자리를 계속 쓰는 일은 없다
+  for _ in range(10):
+   room=self.room();rid=room['roomId'];b=room['members'][1]
+   with concurrent.futures.ThreadPoolExecutor(2) as e:
+    read=e.submit(self.req,'GET',f"/rooms/{rid}",None,b['submissionToken'])
+    pick=e.submit(self.req,'POST',f"/rooms/{rid}/join",{'memberId':b['id']},room['inviteToken'])
+    rc,pc=read.result()[0],pick.result()[0]
+   self.assertIn(rc,(200,403));self.assertIn(pc,(200,409))
+   later=self.req('GET',f"/rooms/{rid}",token=b['submissionToken'])[0]
+   # 공용 링크로 자리를 가져갔다면 예전 개인 토큰은 더는 못 쓴다. 못 가져갔다면 개인 토큰이 계속 쓰인다
+   self.assertEqual(later,403 if pc==200 else 200)
+ def test_submit_and_shared_claim_never_both_win(self):
+  # 비공개 입력이 생기는 제출은 같은 쓰기 트랜잭션에서 점유한다. 제출과 공용 선택이 둘 다 성공하면 안 된다
+  for _ in range(10):
+   room=self.room();rid=room['roomId'];b=room['members'][1]
+   with concurrent.futures.ThreadPoolExecutor(2) as e:
+    sub=e.submit(self.submit,room,b)
+    pick=e.submit(self.req,'POST',f"/rooms/{rid}/join",{'memberId':b['id']},room['inviteToken'])
+    sc,pc=sub.result()[0],pick.result()[0]
+   self.assertIn(sc,(200,403));self.assertIn(pc,(200,409))
+   self.assertFalse(sc==200 and pc==200)
  def test_duplicate_names_rejected_at_creation(self):
   self.assertEqual(self.req('POST','/rooms',{'startDate':'2026-10-01','endDate':'2026-10-02','memberNames':['혜인',' 혜인']})[0],400)
  def test_room_meta_requires_room_token_and_hides_tokens(self):

@@ -102,19 +102,27 @@ class Store:
             c.execute('UPDATE rooms SET revision=revision+1 WHERE id=?',(rid,));c.execute('DELETE FROM results WHERE room_id=?',(rid,))
         return {'memberId':mid,'name':name,'submissionToken':fresh}
     def authenticate(self,c,r,token,member_id=None,owner_only=False):
+        # Returns the id of a not-yet-claimed seat this participant token belongs to (else None) without writing,
+        # so read transactions never upgrade to a write lock. Callers occupy it: see occupy / occupy_after_read.
         hashed=digest(token)
         if member_id:
-            m=c.execute('SELECT token_hash FROM members WHERE id=? AND room_id=?',(member_id,r['id'])).fetchone()
-            if m and hmac.compare_digest(m['token_hash'],hashed):return self.occupy(c,member_id)
-        elif hmac.compare_digest(r['owner_hash'],hashed):return
+            m=c.execute('SELECT token_hash,claimed FROM members WHERE id=? AND room_id=?',(member_id,r['id'])).fetchone()
+            if m and hmac.compare_digest(m['token_hash'],hashed):return None if m['claimed'] else member_id
+        elif hmac.compare_digest(r['owner_hash'],hashed):return None
         elif not owner_only:
-            m=c.execute('SELECT id FROM members WHERE room_id=? AND token_hash=?',(r['id'],hashed)).fetchone()
-            if m:return self.occupy(c,m['id'])
+            m=c.execute('SELECT id,claimed FROM members WHERE room_id=? AND token_hash=?',(r['id'],hashed)).fetchone()
+            if m:return None if m['claimed'] else m['id']
         raise ApiError(403,'이 작업의 접근 토큰이 올바르지 않습니다.')
     def occupy(self,c,member_id):
-        # A seat someone already uses through a personal link must not be re-picked from the shared link,
-        # or the new token would read that person's private input. Same transaction as the request.
-        c.execute('UPDATE members SET claimed=1 WHERE id=? AND claimed=0',(member_id,))
+        # A seat someone already uses through a personal link must not be re-picked from the shared link.
+        # Private input only exists after a submit, and submit occupies inside its own BEGIN IMMEDIATE.
+        if member_id:c.execute('UPDATE members SET claimed=1 WHERE id=? AND claimed=0',(member_id,))
+    def occupy_after_read(self,member_id):
+        # Reads (room info, status, own input) occupy in a separate write transaction after the read has finished.
+        # Upgrading a shared read lock inside BEGIN would deadlock with concurrent readers ("database is locked").
+        if not member_id:return
+        with self.connect() as c:
+            c.execute('BEGIN IMMEDIATE');self.occupy(c,member_id)
     def submit(self,rid,mid,token,b):
         require(isinstance(b,dict),'JSON 객체가 필요합니다.')
         for field in ('longlist','picks'):
@@ -127,7 +135,7 @@ class Store:
             require(type(b.get(field)) is int and low<=b[field]<=high,field+' 범위를 확인하세요.')
         payload={k:b.get(k) for k in ['longlist','picks','must','veto','budgetPerDay','stepLimit','activeMin']};payload['memberId']=mid
         with self.connect() as c:
-            c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.authenticate(c,r,token,mid)
+            c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
             ids=b['longlist']+b['picks']+[b[k] for k in ('must','veto') if b.get(k)]
             if allowed is not None:require(all(x in allowed for x in ids),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
@@ -137,23 +145,26 @@ class Store:
         return {'saved':True,'memberId':mid,'revision':revision}
     def result(self,rid,token):
         with self.connect() as c:
-            c.execute('BEGIN');r=self.room(c,rid);self.authenticate(c,r,token)
+            c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token)
             row=c.execute('SELECT * FROM results WHERE room_id=? AND revision=?',(rid,r['revision'])).fetchone()
             count=c.execute('SELECT COUNT(*) FROM members m JOIN submissions s ON m.id=s.member_id WHERE m.room_id=?',(rid,)).fetchone()[0]
             total=c.execute('SELECT COUNT(*) FROM members WHERE room_id=?',(rid,)).fetchone()[0]
+        self.occupy_after_read(seat)
         extra={'dataset':REAL_DATASET,'planning':json.loads(row['planning']) if row and row['planning'] else None} if r['dataset']==REAL_DATASET else {}
         return {**extra,'roomId':rid,'status':('draft' if r['dataset']==REAL_DATASET else 'ready') if row else 'awaiting_result' if count==total else 'collecting','submittedCount':count,'memberCount':total,'revision':r['revision'],'result':json.loads(row['payload']) if row else None}
     def meta(self,rid,token):
         # Same public room shape as the frontend v2 branch; no private inputs.
         with self.connect() as c:
-            c.execute('BEGIN');r=self.room(c,rid);self.authenticate(c,r,token)
+            c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token)
             rows=c.execute('SELECT id,name FROM members WHERE room_id=? ORDER BY rowid',(rid,)).fetchall()
+        self.occupy_after_read(seat)
         return {'roomId':rid,'startDate':r['start'],'endDate':r['end'],'members':[{'id':m['id'],'name':m['name']} for m in rows],**({'dataset':r['dataset']} if r['dataset']==REAL_DATASET else {})}
     def own_submission(self,rid,mid,token):
         # Even the owner token cannot read another participant's choices.
         with self.connect() as c:
-            c.execute('BEGIN');r=self.room(c,rid);self.authenticate(c,r,token,mid)
+            c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token,mid)
             row=c.execute('SELECT payload FROM submissions WHERE member_id=?',(mid,)).fetchone()
+        self.occupy_after_read(seat)
         return {'roomId':rid,'memberId':mid,'revision':r['revision'],'submission':json.loads(row['payload']) if row else None}
     def snapshot(self,rid,token):
         with self.connect() as c:
