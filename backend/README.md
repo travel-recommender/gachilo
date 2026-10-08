@@ -33,10 +33,17 @@ python3 server.py
 |---|---|---|
 | 장소 목록 | GET /places | 없음 |
 | 방 만들기 | POST /rooms | 없음 |
+| 공용 초대 링크 — 이름 목록 | GET /rooms/{roomId}/join | 초대 토큰 |
+| 공용 초대 링크 — 이름 고르기·직접 추가 | POST /rooms/{roomId}/join | 초대 토큰 |
 | 내 입력 저장·수정 | PUT /rooms/{roomId}/submissions/{memberId} | 참여자 토큰 |
 | 실제 계산 후 저장 | POST /rooms/{roomId}/calculate | 방장 토큰 |
 | 저장 결과 조회 | GET /rooms/{roomId}/results | 해당 방 참여자/방장 토큰 |
 | 외부 계산 결과 저장(연결용) | POST /rooms/{roomId}/results | 방장 토큰 |
+
+방을 만들면 응답에 방 공용 `inviteToken`이 함께 옵니다. 단체방에는 `/join/?room={roomId}&k={inviteToken}` 링크 하나만 보내고, 들어온 사람이 이름을 고릅니다.
+- `GET /rooms/{id}/join` → `{roomId,startDate,endDate,members:[{id,name,claimed}]}`. 토큰·입력은 주지 않습니다. 첫 이름(방장)은 처음부터 `claimed`입니다.
+- `POST /rooms/{id}/join` 본문은 `{"memberId":"..."}`(목록에서 고르기) 또는 `{"name":"..."}`(목록에 없는 이름 추가, 6명까지) 중 하나입니다. 응답 `{memberId,name,submissionToken}`의 토큰은 **새로 발급**되므로 방장이 가진 그 자리의 예전 토큰은 더 쓰이지 않습니다. 이미 고른 이름·같은 이름은 409, 이름을 더하면 결과가 무효화됩니다(revision +1).
+- 같은 방에 이름이 겹치면 방 만들기도 400입니다.
 
 토큰은 `Authorization: Bearer ...`로 전달합니다. 같은 서버의 연결 화면과 기본 `http://localhost:3000`을 허용하며, 다른 로컬 프론트 주소는 `--origin`으로 지정합니다.
 

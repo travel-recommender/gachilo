@@ -1,29 +1,53 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useTrip } from "@/components/store";
-import { Body, Card, Footer, Notice, Screen, SectionTitle, Slider, TopBar, won } from "@/components/ui";
+import { useTrip, type TripExtras } from "@/components/store";
+import { stepsToKm } from "@/lib/consensus";
+import { FocusCard, NavButtons, Page, PlanHeader, Sheet, Wheel, WineSlider } from "@/components/gachiro";
 
-/** 걸음 수 단계 — 숫자만 주면 감이 안 오므로 말도 같이 준다 */
-const STEP_LABEL = [
-  "5,000보 · 많이 못 걸어요",
-  "8,000보 · 적당히",
-  "12,000보 · 꽤 걸어도 괜찮아요",
-  "18,000보 · 하루 종일 걸어도 돼요",
+const HOURS = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, "0"));
+const MINUTES = Array.from({ length: 12 }, (_, i) => String(i * 5).padStart(2, "0"));
+const toMin = (t: string) => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+const toHHMM = (min: number) => `${String(Math.floor(min / 60) % 24).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
+
+type Side = "dayStart" | "dayEnd";
+type Trade = keyof TripExtras["tradeoff"];
+
+const TRADES: { key: Trade; left: string; right: string }[] = [
+  { key: "pace", left: "바쁘게", right: "여유롭게" },
+  { key: "distance", left: "이동 짧게", right: "멀어도 괜찮다" },
+  { key: "spend", left: "절약", right: "소비 괜찮" },
 ];
-const STEP_VALUE = [5000, 8000, 12000, 18000];
 
+/**
+ * P6 — 체력 · trade off. 마지막 입력 화면이라 "다음"에서 서버에 제출한다.
+ * 활동 시간은 시작~종료 차이로 activeMin을 정한다. 트레이드오프는 저장만 하고 #35에서 알고리즘에 넣는다.
+ */
 export default function Condition() {
   const router = useRouter();
-  const { state, set, setMine, submitMine } = useTrip();
+  const { state, set, setMine, setExtra, submitMine } = useTrip();
+  const { extra } = state;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { budgetPerDay, stepLimit } = state.mine;
-  const days = state.nights + 1;
-  const idx = STEP_VALUE.indexOf(stepLimit);
-  const stepIdx = idx >= 0 ? idx : 1;
+  const [dial, setDial] = useState<Side | null>(null);
 
-  /** 서버에 내 입력을 저장하고 결과로 간다. 방이 없으면(데모 모드) 그냥 넘어간다 */
+  // 서버에서 복원한 activeMin과 화면 시각이 다르면 시작은 두고 종료를 맞춘다
+  useEffect(() => {
+    if (toMin(extra.dayEnd) - toMin(extra.dayStart) !== state.mine.activeMin) {
+      setExtra({ dayEnd: toHHMM(toMin(extra.dayStart) + state.mine.activeMin) });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const span = toMin(extra.dayEnd) - toMin(extra.dayStart);
+  const setTime = (side: Side, value: string) => {
+    const next = { dayStart: extra.dayStart, dayEnd: extra.dayEnd, [side]: value };
+    setExtra({ [side]: value } as Partial<TripExtras>);
+    const d = toMin(next.dayEnd) - toMin(next.dayStart);
+    if (d > 0) setMine({ activeMin: d });
+  };
+
+  /** 서버에 내 입력을 저장하고 기다리기(방) 또는 결과(데모)로 간다 */
   const submit = async () => {
     setBusy(true);
     setError(null);
@@ -37,67 +61,87 @@ export default function Condition() {
     }
   };
 
+  const timeBox = (side: Side, label: string) => (
+    <button onClick={() => setDial(side)}
+      className="h-[51px] flex-1 rounded-[10px] border border-line-soft px-2 text-left">
+      <span className="block text-[14px] font-black leading-[17px]">{label}</span>
+      <span className="mt-1 block text-center text-[14px] font-semibold leading-[17px]">{extra[side]}</span>
+    </button>
+  );
+
+  const [hh, mm] = dial ? extra[dial].split(":") : ["09", "00"];
+
   return (
-    <Screen>
-      <TopBar title="내 조건 입력" subtitle="이것도 다른 사람에게 안 보여요" back="/shortlist" />
-      <Body>
+    <Page nav={<NavButtons prev="/budget" next={submit} busy={busy} nextDisabled={span <= 0} />}>
+      <PlanHeader title="체력 · trade off" />
+      <div className="space-y-[26px] px-5 pt-[30px]">
         {state.inputMissing && (
-          <Notice tone="warn">
+          <p className="rounded-[10px] bg-wine-50 px-3 py-2 text-[12px] leading-relaxed text-wine">
             이 기기에 입력이 남아 있지 않고 저장된 입력도 아직 불러오지 못했어요. 여기서 저장하면 기본값이 저장된 입력을 덮어써서
             저장하지 않아요. <b>가고 싶은 곳 고르기부터 다시</b> 입력해 주세요.
-          </Notice>
+          </p>
         )}
-        <Notice tone="info">
-          예산과 체력은 <b>말하기 어려운 정보</b>라 비공개로 받아요.
-          결과에는 반영되지만 누가 얼마를 적었는지는 끝까지 공개되지 않아요.
-        </Notice>
 
-        <Card>
-          <SectionTitle hint="항공·숙박 제외">하루에 쓸 수 있는 돈</SectionTitle>
-          <div className="mt-2 text-[26px] font-bold tabular-nums">{won(budgetPerDay)}</div>
-          <p className="mb-2 text-[11.5px] text-ink-500">
-            현지에서 쓸 활동비와 식비예요. {days}일이면 {won(budgetPerDay * days)}이에요.
-          </p>
-          <Slider value={budgetPerDay} min={20000} max={150000} step={5000}
-            onChange={(v) => setMine({ budgetPerDay: v })} left="2만원" right="15만원" />
-          <p className="mt-2 text-[11px] leading-relaxed text-ink-300">
-            그룹 예산은 가장 빠듯한 분에게 맞춰요. 그래야 아무도 무리하지 않아요.
-          </p>
-        </Card>
-
-        <Card>
-          <SectionTitle>하루에 얼마나 걸을 수 있나요</SectionTitle>
-          <div className="mt-2 text-[18px] font-bold">{STEP_LABEL[stepIdx]}</div>
-          <div className="mt-2">
-            <Slider value={stepIdx} min={0} max={3} step={1}
-              onChange={(i) => setMine({ stepLimit: STEP_VALUE[i] })} left="조금만" right="많이" />
+        <FocusCard className="px-[14px] pb-6 pt-[10px]">
+          <div className="mb-3 pl-[3px] text-[17px] font-medium">하루 활동 시간</div>
+          <div className="flex gap-[23px]">
+            {timeBox("dayStart", "시작")}
+            {timeBox("dayEnd", "종료")}
           </div>
-          <p className="mt-2 text-[11px] leading-relaxed text-ink-300">
-            지도 좌표로 실제 걷는 거리를 계산해 걸음 수로 바꿔요(보폭 70cm 기준).
-            한계를 넘으면 일부를 자유 선택으로 돌려요.
-          </p>
-        </Card>
+          {span <= 0 && <p className="mt-2 text-[11.5px] text-wine">종료는 시작보다 늦어야 해요.</p>}
+        </FocusCard>
 
-        <Card>
-          <SectionTitle>하루 활동 시간</SectionTitle>
-          <div className="mt-2 text-[18px] font-bold">{Math.round(state.mine.activeMin / 60)}시간</div>
-          <div className="mt-2">
-            <Slider value={state.mine.activeMin} min={300} max={600} step={60}
-              onChange={(v) => setMine({ activeMin: v })} left="5시간" right="10시간" />
+        <FocusCard className="px-4 pb-3 pt-[14px]">
+          <div className="flex items-baseline justify-between">
+            <span className="text-[17px] font-medium">하루에 걸을 수 있는 양</span>
+            <span className="text-[14px] font-medium text-line">약 {stepsToKm(state.mine.stepLimit).toFixed(1)}KM</span>
           </div>
-          <p className="mt-2 text-[11px] leading-relaxed text-ink-300">
-            숙소에서 나와 돌아올 때까지, 이동을 포함한 시간이에요.
-          </p>
-        </Card>
-      </Body>
-      <Footer>
-        {error && (
-          <p className="mb-2 text-[11.5px] leading-relaxed text-coral-500">{error}</p>
+          <div className="mt-3 text-[29.704px] font-extrabold leading-9">
+            {state.mine.stepLimit.toLocaleString("ko-KR")} 보
+          </div>
+          <div className="mt-2">
+            <WineSlider label="하루에 걸을 수 있는 양" value={state.mine.stepLimit} min={1000} max={40000} step={500}
+              onChange={(v) => setMine({ stepLimit: v })} left="1,000보" right="40,000보" />
+          </div>
+        </FocusCard>
+
+        <FocusCard className="px-[17px] pb-5 pt-[10px]">
+          <div className="text-[17px] font-medium">trade off</div>
+          <div className="mt-[18px] space-y-[18px]">
+            {TRADES.map((t) => (
+              <div key={t.key}>
+                <div className="flex justify-between text-[14px] font-medium">
+                  <span>{t.left}</span><span>{t.right}</span>
+                </div>
+                <WineSlider label={`${t.left} 또는 ${t.right}`} value={Math.round(extra.tradeoff[t.key] * 100)}
+                  min={0} max={100} step={1}
+                  onChange={(v) => setExtra({ tradeoff: { ...extra.tradeoff, [t.key]: v / 100 } })} />
+              </div>
+            ))}
+          </div>
+        </FocusCard>
+
+        {error && <p className="text-[12px] leading-relaxed text-wine">{error}</p>}
+      </div>
+
+      <Sheet title={dial === "dayEnd" ? "종료 시각" : "시작 시각"} open={dial !== null} onClose={() => setDial(null)}>
+        {dial && (
+          <>
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <Wheel label="시" items={HOURS} value={hh} onChange={(h) => setTime(dial, `${h}:${mm}`)} />
+              </div>
+              <span className="text-[22px] font-extrabold">:</span>
+              <div className="flex-1">
+                <Wheel label="분" items={MINUTES} value={MINUTES.includes(mm) ? mm : "00"}
+                  onChange={(m) => setTime(dial, `${hh}:${m}`)} />
+              </div>
+            </div>
+            <button onClick={() => setDial(null)}
+              className="mt-4 h-[50px] w-full rounded-[20px] bg-wine text-[18px] font-extrabold text-white">확인</button>
+          </>
         )}
-        <button onClick={submit} disabled={busy} className="btn-primary w-full disabled:opacity-50">
-          {busy ? "저장하는 중…" : state.room ? "입력 마치기" : "입력 마치고 결과 보기"}
-        </button>
-      </Footer>
-    </Screen>
+      </Sheet>
+    </Page>
   );
 }

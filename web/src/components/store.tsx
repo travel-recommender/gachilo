@@ -14,6 +14,8 @@ import {
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
 import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
 import { editedState, joinedState, restoredFromServer } from "@/lib/room-state";
+import type { TripExtras } from "@/lib/extras";
+import { EXTRAS_DEFAULT } from "@/lib/room-state";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
 /**
@@ -32,7 +34,12 @@ export interface RoomSession {
   ownerToken: string | null;
   /** 방장이 초대 링크를 만들 때만 쓴다 */
   members: RoomMember[];
+  /** 방 공용 초대 토큰. 방장만 가진다 (링크 하나 + 이름 고르기) */
+  inviteToken?: string | null;
 }
+
+export type { Lodging, TripExtras } from "@/lib/extras";
+export { EXTRAS_DEFAULT } from "@/lib/room-state";
 
 export interface AppState {
   nights: number;
@@ -54,6 +61,7 @@ export interface AppState {
    * 이 상태에서 제출하면 기본값이 서버 입력을 덮어쓸 수 있으므로 막는다. 서버 조회가 끝나거나 1차 선택부터 다시 고르면 풀린다.
    */
   inputMissing: boolean;
+  extra: TripExtras;
 }
 
 const INITIAL: AppState = {
@@ -67,16 +75,24 @@ const INITIAL: AppState = {
   allowPartial: true,
   customPlaces: [],
   inputMissing: false,
+  extra: EXTRAS_DEFAULT,
 };
 
 interface Ctx {
   state: AppState;
   set: (p: Partial<AppState>) => void;
   setMine: (p: Partial<Submission>) => void;
+  setExtra: (p: Partial<TripExtras>) => void;
   /** 이름 목록으로 참여자를 다시 만든다 (첫 화면) */
   setMemberNames: (names: string[]) => void;
   /** 서버에 방을 만들고 세션을 저장한다. 방장이 된다 */
   createRoom: (startDate: string, nights: number, names: string[]) => Promise<RoomSession>;
+  /**
+   * 공용 링크에서 이름을 고른 직후, 받은 자리·토큰부터 저장한다.
+   * 서버는 이미 그 자리를 점유하고 예전 토큰을 폐기했으므로, 이후 조회가 실패해도 이 토큰으로 다시 시도해야 한다.
+   */
+  seatRoom: (info: { roomId: string; startDate: string; endDate: string; members: { id: string; name: string }[] },
+    memberId: string, token: string) => void;
   /** 초대 링크로 들어온 사람이 자기 자리에 앉는다 */
   joinRoom: (roomId: string, memberId: string, token: string) => Promise<void>;
   /** 내 입력을 서버에 저장한다 */
@@ -129,6 +145,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   const set = (p: Partial<AppState>) => setState((s) => ({ ...s, ...p }));
   const setMine = (p: Partial<Submission>) => setState((s) => editedState(s, p));
+  const setExtra = (p: Partial<TripExtras>) => setState((s) => ({ ...s, extra: { ...s.extra, ...p } }));
   const setMemberNames = (names: string[]) => setState((s) => ({ ...s, members: makeMembers(names) }));
 
   const createRoom = async (startDate: string, nights: number, names: string[]) => {
@@ -149,6 +166,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       token: me.submissionToken,
       ownerToken: room.ownerToken,
       members: room.members,
+      inviteToken: room.inviteToken ?? null,
     };
     setState((s) => ({
       ...s,
@@ -159,6 +177,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       mine: { ...s.mine, memberId: me.id },
       submitted: false,
       inputMissing: false,
+      // 새 방이다. 이전 방의 꼭 가기·제외·일정 편집을 가져오지 않는다
+      extra: EXTRAS_DEFAULT,
     }));
     return session;
   };
@@ -176,6 +196,15 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     setState((s) => joinedState(
       s, { roomId, memberId, token }, info, members,
       nightsBetween(info.startDate, info.endDate), own.submission, MY_DEFAULT,
+    ));
+  };
+
+  const seatRoom: Ctx["seatRoom"] = (info, memberId, token) => {
+    const colors = makeMembers(info.members.map((m) => m.name));
+    const members = info.members.map((m, i) => ({ id: m.id, name: m.name, color: colors[i].color }));
+    setState((s) => joinedState(
+      s, { roomId: info.roomId, memberId, token }, info, members,
+      nightsBetween(info.startDate, info.endDate), null, MY_DEFAULT,
     ));
   };
 
@@ -258,7 +287,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <C.Provider value={{
-      state, set, setMine, setMemberNames, createRoom, joinRoom, submitMine, fetchStatus,
+      state, set, setMine, setExtra, setMemberNames, createRoom, seatRoom, joinRoom, submitMine, fetchStatus,
       addPlace, reset, ready, submissions, pool, consensus, schedule,
     }}>
       {children}
