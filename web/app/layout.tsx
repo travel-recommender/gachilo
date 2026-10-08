@@ -4,7 +4,7 @@ import { TripProvider } from "@/components/store";
 import PhoneFrame from "@/components/PhoneFrame";
 
 export const metadata: Metadata = {
-  title: "같이가 — 그룹 여행 합의 도구",
+  title: "Gachiro — 그룹 여행 합의 도구",
   description: "각자 가고 싶은 곳과 예산·체력을 비공개로 입력하면, 아무도 무리하지 않는 일정을 만들어 드려요.",
 };
 export const viewport: Viewport = { width: "device-width", initialScale: 1, maximumScale: 1 };

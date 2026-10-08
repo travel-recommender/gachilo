@@ -17,7 +17,7 @@ export const DRAFT_KEY = "gatiga-v5-draft";
 export const LEGACY_KEYS = ["gatiga-v3", "gatiga-v4", "gatiga-v4-draft"];
 
 const SESSION_FIELDS = ["room", "nights", "startDate", "members", "submitted"] as const;
-const DRAFT_FIELDS = ["mine", "customPlaces", "strategy", "allowPartial", "inputMissing"] as const;
+const DRAFT_FIELDS = ["mine", "customPlaces", "strategy", "allowPartial", "inputMissing", "extra"] as const;
 
 /** localStorage·sessionStorage 중 여기서 쓰는 부분 */
 export interface KV {

@@ -2,14 +2,14 @@
 // 실행: cd web && node --test _test/room-state.test.ts  (Node 24 이상)
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { editedState, joinedState, restoredFromServer } from "../src/lib/room-state.ts";
+import { EXTRAS_DEFAULT, editedState, joinedState, restoredFromServer } from "../src/lib/room-state.ts";
 import { restore, save, submitBlocker, type KV } from "../src/lib/persist.ts";
 import type { AppState } from "../src/components/store";
 
 const DEFAULTS = { memberId: "me", longlist: [], picks: [], must: null, veto: null, budgetPerDay: 70000, stepLimit: 9000, activeMin: 480 };
 const INITIAL = {
   nights: 3, room: null, startDate: "", members: [], mine: DEFAULTS, submitted: false,
-  strategy: "fairness", allowPartial: true, customPlaces: [], inputMissing: false,
+  strategy: "fairness", allowPartial: true, customPlaces: [], inputMissing: false, extra: EXTRAS_DEFAULT,
 } as unknown as AppState;
 const INFO = { roomId: "r1", startDate: "2026-10-10", endDate: "2026-10-12", members: [{ id: "a", name: "가" }, { id: "b", name: "나" }] };
 const MEMBERS = [{ id: "a", name: "가", color: "#111" }, { id: "b", name: "나", color: "#222" }];
@@ -127,4 +127,33 @@ test("초안 없는 새 탭인데 서버에도 입력이 없으면 기본값으�
   assert.equal(after.submitted, false);
   assert.equal(submitBlocker(after), null);
   assert.equal(restoredFromServer(restored, null).inputMissing, false);
+});
+
+// PR #36 리뷰 [P2] — 꼭 가기·제외·일정 편집(extra)도 방·참여자마다 따로여야 한다
+const A_EXTRA = { ...EXTRAS_DEFAULT, mustList: ["glico"], vetoList: ["usj"], planEdits: { 1: ["glico"] }, confirmed: true };
+
+test("다른 자리로 들어오면 이전 자리의 꼭 가기·제외·일정 편집을 버리고 그 자리의 서버 입력에서 다시 만든다", () => {
+  const after = join(seated("a", { extra: A_EXTRA }), "b", { ...SAVED, picks: ["osaka_castle"], must: "osaka_castle", veto: "kaiyukan" });
+  assert.deepEqual(after.extra.mustList, ["osaka_castle"]);
+  assert.deepEqual(after.extra.vetoList, ["kaiyukan"]);
+  assert.deepEqual(after.extra.planEdits, {});
+  assert.equal(after.extra.confirmed, false);
+  // 서버 입력이 없는 새 자리는 빈 값이다
+  assert.deepEqual(join(seated("a", { extra: A_EXTRA }), "b", null).extra, EXTRAS_DEFAULT);
+});
+
+test("같은 자리로 다시 들어오면 이 기기의 꼭 가기·제외·일정 편집을 그대로 둔다", () => {
+  assert.deepEqual(join(seated("a", { extra: A_EXTRA }), "a", SAVED).extra, A_EXTRA);
+});
+
+test("다른 방의 같은 memberId도 다른 자리로 본다", () => {
+  const otherRoom = joinedState(seated("a", { extra: A_EXTRA }), { roomId: "r2", memberId: "a", token: "t" },
+    { ...INFO, roomId: "r2" }, MEMBERS, 2, null, DEFAULTS);
+  assert.deepEqual(otherRoom.extra, EXTRAS_DEFAULT);
+});
+
+test("초안 없이 재접속해 서버 입력을 채울 때 extra도 그 입력에서 만든다", () => {
+  const after = restoredFromServer(seated("a", { extra: A_EXTRA, inputMissing: true, submitted: true }), SAVED);
+  assert.deepEqual(after.extra.mustList, FIVE);
+  assert.deepEqual(after.extra.planEdits, {});
 });
