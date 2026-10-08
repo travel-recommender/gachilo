@@ -8,16 +8,13 @@ from engine import Engine, EngineError
 from urllib.parse import urlsplit, parse_qs
 from place_catalog import catalog, exchange_rate, DATA
 from real_engine import RealEngine, REAL_DATASET
-
-class ApiError(Exception):
-    def __init__(self,status,message):self.status,self.message=status,message
-
-def require(ok,message):
-    if not ok:raise ApiError(400,message)
+from api_errors import ApiError, require
+from candidate_results import CandidateStore, STRATEGIES
+from candidate_engine import CandidateEngine
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
 def now():return datetime.now(timezone.utc).isoformat()
 
-class Store:
+class Store(CandidateStore):
     def __init__(self,path,catalog=None):
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
         self.real_ids={r["place"]["place_id"] for r in json.loads(DATA.read_text(encoding="utf-8"))["places"]}
@@ -30,6 +27,7 @@ class Store:
             CREATE TABLE IF NOT EXISTS submissions(member_id TEXT PRIMARY KEY,payload TEXT,updated TEXT,FOREIGN KEY(member_id) REFERENCES members(id));
             CREATE TABLE IF NOT EXISTS results(room_id TEXT PRIMARY KEY,revision INTEGER,payload TEXT,updated TEXT,FOREIGN KEY(room_id) REFERENCES rooms(id));
             ''')
+            self.init_candidates(c)
             if 'dataset' not in {row['name'] for row in c.execute('PRAGMA table_info(rooms)')}:
                 c.execute("ALTER TABLE rooms ADD COLUMN dataset TEXT NOT NULL DEFAULT 'prototype_demo_36'")
             if 'planning' not in {row['name'] for row in c.execute('PRAGMA table_info(results)')}:
@@ -141,6 +139,8 @@ class Store:
             if allowed is not None:require(all(x in allowed for x in ids),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
             c.execute('INSERT INTO submissions VALUES(?,?,?) ON CONFLICT(member_id) DO UPDATE SET payload=excluded.payload,updated=excluded.updated',(mid,json.dumps(payload),now()))
             c.execute('UPDATE rooms SET revision=revision+1 WHERE id=?',(rid,));c.execute('DELETE FROM results WHERE room_id=?',(rid,))
+            c.execute('DELETE FROM candidate_results WHERE room_id=?',(rid,))
+            c.execute('DELETE FROM candidate_jobs WHERE room_id=?',(rid,))
             revision=r['revision']+1
         return {'saved':True,'memberId':mid,'revision':revision}
     def result(self,rid,token):
@@ -149,9 +149,18 @@ class Store:
             row=c.execute('SELECT * FROM results WHERE room_id=? AND revision=?',(rid,r['revision'])).fetchone()
             count=c.execute('SELECT COUNT(*) FROM members m JOIN submissions s ON m.id=s.member_id WHERE m.room_id=?',(rid,)).fetchone()[0]
             total=c.execute('SELECT COUNT(*) FROM members WHERE room_id=?',(rid,)).fetchone()[0]
+            candidate_view,calculating=self.candidate_view(c,r)
         self.occupy_after_read(seat)
         extra={'dataset':REAL_DATASET,'planning':json.loads(row['planning']) if row and row['planning'] else None} if r['dataset']==REAL_DATASET else {}
-        return {**extra,'roomId':rid,'status':('draft' if r['dataset']==REAL_DATASET else 'ready') if row else 'awaiting_result' if count==total else 'collecting','submittedCount':count,'memberCount':total,'revision':r['revision'],'result':json.loads(row['payload']) if row else None}
+        status=('draft' if r['dataset']==REAL_DATASET else 'ready') if row else 'awaiting_result' if count==total else 'collecting'
+        result=json.loads(row['payload']) if row else None
+        if candidate_view['candidates']:
+            selected=next((x for x in candidate_view['candidates'] if x['strategy']==candidate_view['selectedStrategy']),None)
+            status='ready' if selected else 'awaiting_selection'
+            # Preserve the legacy result shape; rich P8 data is the selected candidate.
+            result={'strategy':selected['strategy'],'days':[{'date':d['date'],'placeIds':d['placeIds']} for d in selected['days']], 'summary':selected['summary']} if selected else None
+        elif calculating:status='calculating'
+        return {'dataset':r['dataset'],**extra,**candidate_view,'roomId':rid,'status':status,'submittedCount':count,'memberCount':total,'revision':r['revision'],'result':result}
     def meta(self,rid,token):
         # Same public room shape as the frontend v2 branch; no private inputs.
         with self.connect() as c:
@@ -188,6 +197,8 @@ class Store:
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.authenticate(c,r,token,owner_only=True)
             if r['dataset']==REAL_DATASET and planning is None:raise ApiError(400,'실제 장소 결과는 calculate 경로에서 검증 후 저장하세요.')
             if r['revision']!=b['revision']:raise ApiError(409,'입력이 변경되었습니다. 최신 입력으로 다시 계산하세요.')
+            candidate_view,calculating=self.candidate_view(c,r)
+            if candidate_view['candidates'] or calculating:raise ApiError(409,'후보 묶음 계산을 시작한 입력입니다. 후보 선택 API를 사용하세요.')
             counts=c.execute('SELECT COUNT(*),COUNT(s.member_id) FROM members m LEFT JOIN submissions s ON m.id=s.member_id WHERE m.room_id=?',(rid,)).fetchone()
             if counts[0]!=counts[1]:raise ApiError(409,'모든 참여자의 입력이 필요합니다.')
             seen=set()
@@ -202,6 +213,7 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
     exchange_rate() # Fail at startup for malformed conversion configuration.
     engine=Engine()
     real_engine=RealEngine(engine.node)
+    candidate_engine=CandidateEngine(engine.node)
     store=Store(path,engine.catalog)
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
@@ -241,7 +253,20 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 if self.command=='GET' and path=='/places':return self.send_json(200,{'dataset':'prototype_demo_36','currency':'KRW','places':engine.catalog})
                 m=re.fullmatch(r'/rooms/([\w-]+)/calculate',path)
                 if m and self.command=='POST':
+                    if isinstance(b,dict) and 'strategies' in b:
+                        require(set(b)=={'strategies','revision'} and b['strategies']==list(STRATEGIES),'전략 3개와 revision을 지정하세요.')
+                        state,job=store.begin_candidates(m[1],token,b['revision'])
+                        if state!='started':return self.send_json(202 if state=='busy' else 200,store.result(m[1],token))
+                        try:
+                            snapshot=store.snapshot(m[1],token)
+                            if snapshot['revision']!=b['revision']:raise ApiError(409,'입력이 변경되었습니다. 다시 조회하세요.')
+                            computed=candidate_engine.calculate(snapshot)
+                            store.finish_candidates(m[1],token,b['revision'],job,computed)
+                        finally:store.abandon_candidates(m[1],job)
+                        return self.send_json(200,store.result(m[1],token))
                     require(isinstance(b,dict) and b.get('strategy') in ('average','least_misery','fairness'),'추천 전략을 선택하세요.')
+                    previous=store.result(m[1],token)
+                    if previous['candidates'] or previous['status']=='calculating':raise ApiError(409,'후보 선택 API를 사용하세요.')
                     snapshot=store.snapshot(m[1],token)
                     planning=None
                     if snapshot['dataset']==REAL_DATASET:
@@ -250,6 +275,10 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                         result,planning=computed['result'],computed['planning']
                     else:result=engine.calculate(snapshot,b['strategy'])
                     store.save_result(m[1],token,{'revision':snapshot['revision'],'result':result},planning=planning)
+                    return self.send_json(200,store.result(m[1],token))
+                m=re.fullmatch(r'/rooms/([\w-]+)/selection',path)
+                if m and self.command=='PUT':
+                    store.select_candidate(m[1],token,b)
                     return self.send_json(200,store.result(m[1],token))
                 if self.command=='GET' and path=='/health':return self.send_json(200,{'ok':True})
                 if self.command=='POST' and path=='/rooms':return self.send_json(201,store.create(b))
