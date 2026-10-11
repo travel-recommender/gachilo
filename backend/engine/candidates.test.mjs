@@ -49,7 +49,7 @@ test('optional AI adapter uses the returned final schedule, not a second rule ca
   });
   assert.equal(called,3);
   for (const c of result.candidates) {
-    assert.equal(c.summary,'검증된 설명');
+    assert.ok(c.summary.startsWith('검증된 설명 이동 계산:'));
     assert.equal(c.explanationSource,'ai');
     assert.ok(c.days.flatMap(d=>d.items).every(i=>!i.filled));
   }

@@ -25,7 +25,9 @@ python3 server.py
 
 ## 이번에 연결한 계산
 
-`engine/`은 `web/src/lib/`의 `consensus.ts`, `schedule.ts`, `places.ts`, `types.ts` 복사본입니다. 상대 import에 `.ts`를 붙인 것 외에 알고리즘은 바꾸지 않았습니다. 원본과 해시는 `source_manifest.json`에 기록했습니다. 팀원의 새 알고리즘이 있는지는 별도 확인이 필요합니다.
+`engine/`은 `web/src/lib/`의 `consensus.ts`, `schedule.ts`, `places.ts`, `types.ts`에서 시작했습니다. 서버의 `travel`은 이제 자체 구동 OSRM 도보 경로를 사용하고 실패 시 기존 추정식으로 돌아갑니다. 원본 해시와 변경 범위는 `engine/source_manifest.json`에 기록했습니다. 브라우저 자체 미리보기는 기존 추정식을 유지합니다.
+
+OSRM 실행·환경변수·실패 처리·검사는 [OSRM 연결 문서](../docs/osrm.md)를 참고하세요. `OSRM_FOOT_URL` 미설정 시 외부 호출 없이 기존 추정을 사용합니다. 결과 설명에 실제 사용한 도보 경로/추정 구간 수를 표시합니다.
 
 서버가 DB에서 전원 입력을 읽고 별도 Node 프로세스에 전달합니다. 동시에 여러 방을 계산해도 전역 참여자 목록을 공유하지 않습니다. 계산 중 입력이 바뀌면 이전 revision의 결과 저장을 거절합니다. 실패하면 503으로 알리고 결과를 만들어내지 않습니다. 공개 응답에는 개인 입력 원문과 개인 만족도를 넣지 않습니다.
 

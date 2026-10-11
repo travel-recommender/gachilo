@@ -1,6 +1,9 @@
 import csv
 from pathlib import Path
-import requests
+import json
+import os
+import shutil
+import subprocess
 
 
 # =========================================================
@@ -39,36 +42,18 @@ def find_place(name_ko):
 
 def calculate_walking_route(start, end):
 
-    start_lon = start["longitude"]
-    start_lat = start["latitude"]
-
-    end_lon = end["longitude"]
-    end_lat = end["latitude"]
-
-    url = (
-        "https://routing.openstreetmap.de/routed-foot/route/v1/driving/"
-        f"{start_lon},{start_lat};"
-        f"{end_lon},{end_lat}"
-        "?overview=false"
-    )
-
-    response = requests.get(url, timeout=30)
-
-    if response.status_code != 200:
-        print("경로를 불러오지 못했습니다.")
-        return
-
-    data = response.json()
-    route = data["routes"][0]
-
-    distance_km = route["distance"] / 1000
-    duration_min = route["duration"] / 60
-
-    print()
-    print(f"{start['name_ko']} → {end['name_ko']}")
-    print(f"도보 거리: {distance_km:.2f} km")
-    print(f"예상 시간: {duration_min:.0f}분")
-    return distance_km, duration_min
+    node = os.environ.get("NODE_BINARY") or shutil.which("node")
+    if not node:
+        raise RuntimeError("Node 24 이상을 설치하거나 NODE_BINARY를 설정하세요.")
+    points = [{"lng": float(p["longitude"]), "lat": float(p["latitude"])} for p in (start, end)]
+    script = Path(__file__).with_name("query_walking_route.mjs")
+    result = subprocess.run([node, str(script)], input=json.dumps(points),
+                            capture_output=True, text=True, encoding="utf-8", check=True, timeout=10)
+    route = json.loads(result.stdout)
+    print(f"\n{start['name_ko']} → {end['name_ko']}")
+    print(f"도보 거리: {route['km']:.2f} km / 예상 시간: {route['min']}분")
+    print(f"계산 출처: {route['source']}" + (f" ({route['fallbackReason']})" if route.get('fallbackReason') else ''))
+    return route["km"], route["min"]
 
 # =========================================================
 # 4. 테스트
