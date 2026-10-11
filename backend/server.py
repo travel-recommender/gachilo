@@ -96,8 +96,10 @@ class Store(CandidateStore):
             if len(names)>=6:raise ApiError(409,'동행자는 6명까지예요.')
             mid=secrets.token_urlsafe(12)
             c.execute('INSERT INTO members(id,room_id,name,token_hash,claimed) VALUES(?,?,?,?,1)',(mid,rid,name,digest(fresh)))
-            # A new member changes who must submit, so any saved result is stale.
+            # A new member invalidates saved results and any pending calculation, just like submit.
             c.execute('UPDATE rooms SET revision=revision+1 WHERE id=?',(rid,));c.execute('DELETE FROM results WHERE room_id=?',(rid,))
+            c.execute('DELETE FROM candidate_results WHERE room_id=?',(rid,))
+            c.execute('DELETE FROM candidate_jobs WHERE room_id=?',(rid,))
         return {'memberId':mid,'name':name,'submissionToken':fresh}
     def authenticate(self,c,r,token,member_id=None,owner_only=False):
         # Returns the id of a not-yet-claimed seat this participant token belongs to (else None) without writing,

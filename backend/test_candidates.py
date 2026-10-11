@@ -134,6 +134,50 @@ class SharedCandidatesTests(unittest.TestCase):
         self.assertEqual(self.store.result(self.rid,self.owner)['candidates'],[])
         self.assertEqual(self.calculate()[0],200)
 
+    def test_new_member_clears_saved_candidates_and_selection(self):
+        self.submit_all()
+        self.assertEqual(self.calculate()[0],200)
+        self.assertEqual(self.select()[1]['status'],'ready')
+        code,member=self.req('POST',self.path+'/join',{'name':'New guest'},self.room['inviteToken'])
+        self.assertEqual(code,200)
+        current=self.req('GET',self.path+'/results',token=self.owner)[1]
+        self.assertEqual(current['status'],'collecting')
+        self.assertEqual((current['submittedCount'],current['memberCount'],current['revision']),(3,4,4))
+        self.assertEqual(current['candidates'],[])
+        self.assertIsNone(current['selectedStrategy']);self.assertIsNone(current['result'])
+        self.assertEqual(current['selectionVersion'],0)
+        with self.store.connect() as c:
+            self.assertEqual(c.execute('SELECT COUNT(*) FROM candidate_results WHERE room_id=?',(self.rid,)).fetchone()[0],0)
+        self.assertEqual(self.select()[0],409)
+        self.assertEqual(self.calculate(4)[0],409)
+        self.assertEqual(self.req('PUT',self.path+'/submissions/'+member['memberId'],self.body,member['submissionToken'])[0],200)
+        self.assertEqual(self.calculate(5)[1]['status'],'awaiting_selection')
+
+    def test_new_member_clears_inflight_job_and_rejects_late_result(self):
+        self.submit_all()
+        real=CandidateEngine.calculate;started=threading.Event();release=threading.Event()
+        def slow(engine,snapshot):
+            started.set();self.assertTrue(release.wait(5));return real(engine,snapshot)
+        with patch.object(CandidateEngine,'calculate',autospec=True,side_effect=slow):
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                first=pool.submit(self.calculate)
+                try:
+                    self.assertTrue(started.wait(5))
+                    self.assertEqual(self.req('GET',self.path+'/results',token=self.owner)[1]['status'],'calculating')
+                    code,_=self.req('POST',self.path+'/join',{'name':'New guest'},self.room['inviteToken'])
+                    self.assertEqual(code,200)
+                    current=self.req('GET',self.path+'/results',token=self.owner)[1]
+                    self.assertEqual(current['status'],'collecting')
+                    self.assertEqual(current['revision'],4)
+                    with self.store.connect() as c:
+                        self.assertEqual(c.execute('SELECT COUNT(*) FROM candidate_jobs WHERE room_id=?',(self.rid,)).fetchone()[0],0)
+                finally:release.set()
+                self.assertEqual(first.result()[0],409)
+        current=self.req('GET',self.path+'/results',token=self.owner)[1]
+        self.assertEqual(current['status'],'collecting')
+        self.assertEqual(current['candidates'],[])
+        self.assertIsNone(current['result'])
+
     def test_expired_worker_cannot_overwrite_replacement_and_legacy_cannot_clobber_bundle(self):
         self.submit_all()
         _,old=self.store.begin_candidates(self.rid,self.owner,3)
