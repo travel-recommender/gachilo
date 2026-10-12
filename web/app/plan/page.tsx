@@ -1,13 +1,13 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
 import { PlanMap } from "@/components/PlanMap";
 import { CATEGORY_MAP, findPlace } from "@/lib/places";
 import { explainPlace } from "@/lib/explain";
-import { badgeOf } from "@/lib/shared-flow";
-import { selectedCandidate } from "@/lib/shared-results-api";
+import { badgeOf, hasCandidates } from "@/lib/shared-flow";
+import { selectedCandidate, type SharedStrategy } from "@/lib/shared-results-api";
 import { useSharedResults } from "@/components/useSharedResults";
 import { Box, MinusButton, NavButtons, Page, PlanHeader, Sheet, TextTabs, asset } from "@/components/gachiro";
 import type { Place } from "@/lib/types";
@@ -21,20 +21,37 @@ type Badge = { label: "AI 추천" | "추천"; reason: string };
 
 /**
  * P8 — 일정과 동선.
- * - 여행방: 방장이 확정한 서버 후보의 일정을 전원이 똑같이 본다. 기기마다 고치면 다시 달라지므로
- *   공용 편집 API가 생기기 전까지 삭제·추가·순서 변경을 잠근다 (docs/week6_shared_results_api.md).
+ * - 여행방: P7에서 고른 후보(?s=)의 서버 일정을 본다. 세 후보 모두 들어와 볼 수 있고, 방장이 여기서 확정한다.
+ *   기기마다 고치면 다시 달라지므로 공용 편집 API가 생기기 전까지 삭제·추가·순서 변경을 잠근다
+ *   (docs/week6_shared_results_api.md).
  * - 데모(서버 없음): 버건디 버튼으로 삭제(#15), 꾹 눌러 순서 변경(#16), 장소 추가(#17).
  *   확정하면 같은 화면을 빼기 버튼 없이 보여준다 (10/7 결정).
  */
 export default function Plan() {
+  return (
+    <Suspense fallback={null}>
+      <PlanInner />
+    </Suspense>
+  );
+}
+
+const STRATEGY_LABEL: Record<SharedStrategy, string> = { average: "평균", least_misery: "최소 불만", fairness: "공정성" };
+
+function PlanInner() {
   const router = useRouter();
+  const params = useSearchParams();
   const { state, setExtra, schedule, consensus } = useTrip();
   const shared = useSharedResults();
   const online = shared.online;
-  const final = shared.snap ? selectedCandidate(shared.snap) : null;
+  const snap = shared.snap;
+  const chosen = snap ? selectedCandidate(snap)?.strategy ?? null : null;
+  const asked = params.get("s") as SharedStrategy | null;
+  const viewing = asked && asked in STRATEGY_LABEL ? asked : chosen;
+  const final = hasCandidates(snap) ? snap!.candidates.find((c) => c.strategy === viewing) ?? null : null;
   const { planEdits } = state.extra;
-  // 공용 결과는 방장 확정이 곧 확정이다. 편집은 잠근다
+  // 공용 결과는 편집을 잠근다. 확정은 방장이 이 화면에서 한다
   const confirmed = online ? true : state.extra.confirmed;
+  const isChosen = online && !!viewing && viewing === chosen;
   const days = online ? final?.days.length ?? 0 : state.nights + 1;
   const [day, setDay] = useState(1);
   const [adding, setAdding] = useState(false);
@@ -68,10 +85,10 @@ export default function Plan() {
         <PlanHeader />
         <div className="px-5 pt-[60px]">
           <p className="text-[14px] font-semibold leading-relaxed">
-            {shared.snap ? "아직 방장이 일정을 확정하지 않았어요." : "공용 결과를 불러오는 중이에요."}
+            {snap ? "아직 후보가 준비되지 않았어요." : "공용 결과를 불러오는 중이에요."}
           </p>
           <p className="mt-2 text-[12px] font-medium leading-relaxed text-mute">
-            방장이 후보 3개 중 하나를 확정하면, 모두가 같은 일정을 여기서 봐요.
+            후보 보기에서 평균·최소 불만·공정성 중 하나를 골라 들어오면 그 일정을 볼 수 있어요.
           </p>
           {shared.error && <p className="mt-3 text-[12px] text-wine">{shared.error}</p>}
         </div>
@@ -79,13 +96,25 @@ export default function Plan() {
     );
   }
 
+  // 하단 버튼: 데모는 이 기기에서 확정·수정, 공용 결과는 방장만 보고 있는 후보로 확정한다
+  let next = () => setExtra({ confirmed: !confirmed });
+  let nextLabel = confirmed ? "수정하기" : "확정하기";
+  let nextDisabled = false;
+  if (online) {
+    nextDisabled = true;
+    nextLabel = isChosen ? "확정됨" : "확정 대기 중";
+    if (shared.isOwner && !isChosen && viewing) {
+      nextDisabled = false;
+      nextLabel = chosen ? "이 일정으로 바꾸기" : "이 일정으로 확정";
+      next = () => { void shared.select(viewing); };
+    }
+  }
+
   return (
     <Page nav={
-      <NavButtons prev="/result"
-        next={() => setExtra({ confirmed: !confirmed })}
-        nextLabel={online ? "확정됨" : confirmed ? "수정하기" : "확정하기"} nextDisabled={online} />
+      <NavButtons prev="/result" next={next} nextLabel={nextLabel} nextDisabled={nextDisabled} busy={shared.selecting} />
     }>
-      <PlanHeader />
+      <PlanHeader title={online && viewing ? STRATEGY_LABEL[viewing] : undefined} />
       <div className="pt-[20px]">
         <TextTabs label="여행 날짜" value={day} onChange={setDay}
           items={Array.from({ length: days }, (_, i) => ({ id: i + 1, label: `${i + 1}일차` }))} />
@@ -95,7 +124,10 @@ export default function Plan() {
           <div className="flex h-[38px] items-center justify-between">
             {confirmed
               ? <span className="text-[13px] font-extrabold text-wine">
-                  {online ? "방장이 확정한 일정이에요. 모두 같은 일정을 봐요." : "확정된 일정이에요"}
+                  {!online ? "확정된 일정이에요"
+                    : isChosen ? "방장이 확정한 일정이에요. 모두 같은 일정을 봐요."
+                    : chosen ? `방장은 ${STRATEGY_LABEL[chosen]} 일정으로 확정했어요.`
+                    : shared.isOwner ? "마음에 들면 아래에서 확정해 주세요." : "방장이 확정하기 전이에요."}
                 </span>
               : <span />}
             {!confirmed && (
@@ -119,6 +151,7 @@ export default function Plan() {
           {!confirmed && places.length > 1 && (
             <p className="mt-2 text-right text-[11px] font-medium text-mute-soft">한 칸을 꾹 누르면 순서를 바꿀 수 있어요</p>
           )}
+          {online && shared.error && <p className="mt-2 text-[12px] leading-relaxed text-wine">{shared.error}</p>}
         </div>
       </div>
 

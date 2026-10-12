@@ -21,6 +21,7 @@ function toTime(raw: string) {
 /**
  * P5 — 예산 · 숙소 · 공항.
  * 하루 예산만 알고리즘에 들어간다. 공항·비행 시간·숙소는 저장해 두고 #35에서 연결한다.
+ * 숙소·공항은 방 전체에 하나라서 방장만 정한다. 팀원은 하루 예산만 입력한다 (서버 없는 데모는 방장으로 본다).
  */
 export default function Budget() {
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function Budget() {
   const [airportSheet, setAirportSheet] = useState<"arrivalAirport" | "departureAirport" | null>(null);
   const range = toDateRange(state.startDate || new Date().toISOString().slice(0, 10), state.nights);
   const lodgings = Array.from({ length: state.nights }, (_, i) => extra.lodgings[i]);
+  const isOwner = !state.room || !!state.room.ownerToken;
 
   const setLodging = (i: number, v: { address: string; lat?: number; lng?: number }) => {
     const next = Array.from({ length: state.nights }, (_, k) => extra.lodgings[k] ?? { address: "" });
@@ -60,7 +62,7 @@ export default function Budget() {
 
   return (
     <Page nav={<NavButtons prev="/shortlist" next={() => router.push("/condition")} />}>
-      <PlanHeader title={<>예산 <span className="font-normal">·</span> 숙소 <span className="font-normal">·</span> 공항</>} />
+      <PlanHeader title={isOwner ? <>예산 <span className="font-normal">·</span> 숙소 <span className="font-normal">·</span> 공항</> : "예산"} />
       <div className="space-y-6 px-5 pt-[43px]">
         <FocusCard className="px-4 pb-3 pt-[14px]">
           <div className="flex items-baseline justify-between">
@@ -74,29 +76,35 @@ export default function Budget() {
           </div>
         </FocusCard>
 
-        <FocusCard className="space-y-[14px] px-[19px] py-4">
-          <div className="flex gap-[23px]">
-            {airportBox("arrivalAirport", "도착 공항")}
-            {airportBox("departureAirport", "떠나는 공항")}
-          </div>
-          <div className="flex h-[33px] items-center rounded-[10px] border border-line-soft px-2">
-            {timeField("arrivalTime", range.startDate, "도착", "justify-start")}
-            <span aria-hidden className="mx-1.5 h-[15px] w-[2px] shrink-0 bg-line" />
-            {timeField("departureTime", range.endDate, "출발", "justify-end")}
-          </div>
-        </FocusCard>
+        {isOwner ? (
+          <>
+            <FocusCard className="space-y-[14px] px-[19px] py-4">
+              <div className="flex gap-[23px]">
+                {airportBox("arrivalAirport", "도착 공항")}
+                {airportBox("departureAirport", "떠나는 공항")}
+              </div>
+              <div className="flex h-[33px] items-center rounded-[10px] border border-line-soft px-2">
+                {timeField("arrivalTime", range.startDate, "도착", "justify-start")}
+                <span aria-hidden className="mx-1.5 h-[15px] w-[2px] shrink-0 bg-line" />
+                {timeField("departureTime", range.endDate, "출발", "justify-end")}
+              </div>
+            </FocusCard>
 
-        <div>
-          {lodgings.map((l, i) => (
-            <Fragment key={i}>
-              {i > 0 && <div aria-hidden className="mx-auto h-[15px] w-[2px] bg-line" />}
-              <FocusCard className="px-[14px] pb-[15px] pt-[14px]">
-                <div className="mb-[14px] pl-[5px] text-[14px] font-black leading-[17px]">{nightLabel(i)}</div>
-                <LodgingSearch label={nightLabel(i)} value={l} onChange={(v) => setLodging(i, v)} />
-              </FocusCard>
-            </Fragment>
-          ))}
-        </div>
+            <div>
+              {lodgings.map((l, i) => (
+                <Fragment key={i}>
+                  {i > 0 && <div aria-hidden className="mx-auto h-[15px] w-[2px] bg-line" />}
+                  <FocusCard className="px-[14px] pb-[15px] pt-[14px]">
+                    <div className="mb-[14px] pl-[5px] text-[14px] font-black leading-[17px]">{nightLabel(i)}</div>
+                    <LodgingSearch label={nightLabel(i)} value={l} onChange={(v) => setLodging(i, v)} />
+                  </FocusCard>
+                </Fragment>
+              ))}
+            </div>
+          </>
+        ) : (
+          <p className="text-center text-[12px] font-medium text-mute">숙소와 공항은 방장이 정해요.</p>
+        )}
       </div>
 
       <Sheet title={airportSheet === "departureAirport" ? "떠나는 공항" : "도착 공항"}
