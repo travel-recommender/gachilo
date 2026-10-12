@@ -2,7 +2,8 @@
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTrip } from "@/components/store";
-import { roomApi, type ApiInviteInfo } from "@/lib/room-api";
+import { ApiError, roomApi, type ApiInviteInfo } from "@/lib/room-api";
+import { seatRow } from "@/lib/room-state";
 import { Hero, NavButtons, Page, asset } from "@/components/gachiro";
 import { Splash } from "@/components/Splash";
 import { fmtShort } from "@/components/RangeCalendar";
@@ -31,6 +32,8 @@ function JoinInner() {
   // PIN 시트: set = 처음 고를 때 정하기, enter = 이미 고른 내 이름으로 다시 들어가기
   const [pin, setPin] = useState<{ mode: "set" | "enter"; memberId?: string; name: string } | null>(null);
   const [pinError, setPinError] = useState<string | null>(null);
+  // 이 기기의 자리 토큰이 서버에서 거절됐다 — 다른 기기가 이 이름으로 PIN 재접속해 폐기됐다
+  const [revoked, setRevoked] = useState(false);
 
   const roomId = params.get("room");
   const invite = params.get("k");
@@ -64,8 +67,8 @@ function JoinInner() {
   }, [ready, roomId, invite, memberId, token]);
 
   useEffect(() => {
-    if (seated && !picked) setPicked(seated.memberId);
-  }, [seated, picked]);
+    if (seated && !revoked && !picked) setPicked(seated.memberId);
+  }, [seated, revoked, picked]);
 
   if ((splash || (!info && !error)) && !error) return <Splash />;
 
@@ -74,11 +77,26 @@ function JoinInner() {
     setBusy(true);
     setError(null);
     // 이미 앉은 자리(이전 시도에서 토큰을 받았거나 재접속)는 다시 고르지 않고 같은 토큰으로 이어간다
-    if (seated && !adding && picked === seated.memberId) {
+    if (seated && !revoked && !adding && picked === seated.memberId) {
       try {
         await joinRoom(roomId, seated.memberId, seated.token);
         router.push("/pick");
       } catch (e) {
+        if (e instanceof ApiError && e.status === 403) {
+          // 같은 토큰으로 다시 시도해도 계속 403이다. 이 자리는 PIN으로만 되찾는다
+          const me = info!.members.find((m) => m.id === seated.memberId);
+          setRevoked(true);
+          setPicked(null);
+          setBusy(false);
+          if (me?.hasPin) {
+            setError(`다른 기기에서 ${me.name} 이름으로 다시 들어와 이 기기 연결이 끊겼어요. PIN을 입력하면 다시 들어와요.`);
+            setPinError(null);
+            setPin({ mode: "enter", memberId: me.id, name: me.name });
+          } else {
+            setError("이 기기 연결이 끊겼어요. 방을 만든 사람에게 링크를 다시 받아주세요.");
+          }
+          return;
+        }
         setError(e instanceof Error ? e.message : "방 정보를 불러오지 못했어요. 다음을 눌러 다시 시도해 주세요.");
         setBusy(false);
       }
@@ -132,6 +150,8 @@ function JoinInner() {
       // 조회보다 먼저 받은 토큰을 저장한다 (서버는 이미 이전 토큰을 폐기했다)
       seatRoom(info!, seat.memberId, seat.submissionToken, { ownerToken: seat.ownerToken ?? null, inviteToken: invite });
       sat = true;
+      setRevoked(false);
+      setError(null);
       setPin(null);
       setPicked(seat.memberId);
       const hasInput = await joinRoom(roomId, seat.memberId, seat.submissionToken);
@@ -156,9 +176,9 @@ function JoinInner() {
             <h2 className="mb-[9px] text-[17px] font-extrabold">인원 선택</h2>
             <div role="radiogroup" aria-label="내 이름" className="space-y-[9px]">
               {info.members.map((m) => {
-                const mine = seated?.memberId === m.id;
-                const taken = m.claimed && !mine;
-                const canRejoin = taken && !!m.hasPin;
+                const row = seatRow(m, seated?.memberId ?? null, revoked);
+                const taken = row === "rejoin" || row === "taken";
+                const canRejoin = row === "rejoin";
                 const on = !adding && picked === m.id;
                 return (
                   <button key={m.id} role="radio" aria-checked={on} disabled={taken && !canRejoin}

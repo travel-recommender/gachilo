@@ -142,6 +142,16 @@ class ApiTests(unittest.TestCase):
   # 새 기기 토큰으로 본인 입력이 복원되고, 이전 기기 토큰은 끊긴다
   self.assertEqual(self.req('GET',f"/rooms/{rid}/submissions/{b['id']}",token=again['submissionToken'])[1]['submission']['must'],'glico')
   self.assertEqual(self.req('GET',f"/rooms/{rid}/submissions/{b['id']}",token=seat['submissionToken'])[0],403)
+ def test_rejoin_round_trip_between_two_devices(self):
+  # A에서 고름 → B가 PIN으로 재접속(A 끊김) → A가 PIN으로 다시 재접속(B 끊김)
+  room=self.pin_room();rid=room['roomId'];k=room['inviteToken'];b=room['members'][1];path=f"/rooms/{rid}/submissions/{b['id']}"
+  a1=self.req('POST',f"/rooms/{rid}/join",{'memberId':b['id'],'pin':'4821'},k)[1]['submissionToken']
+  b1=self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'4821'},k)[1]['submissionToken']
+  self.assertEqual(self.req('GET',path,token=a1)[0],403)
+  code,seat,_=self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'4821'},k);self.assertEqual(code,200)
+  self.assertEqual(self.req('GET',path,token=seat['submissionToken'])[0],200)
+  self.assertEqual(self.req('GET',path,token=b1)[0],403)
+  self.assertEqual(self.req('GET',path,token=a1)[0],403)
  def test_rejoin_wrong_pin_counts_down_and_locks(self):
   room=self.pin_room();rid=room['roomId'];k=room['inviteToken'];b=room['members'][1]
   self.req('POST',f"/rooms/{rid}/join",{'memberId':b['id'],'pin':'4821'},k)

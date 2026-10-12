@@ -2,7 +2,7 @@
 // 실행: cd web && node --test _test/room-state.test.ts  (Node 24 이상)
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { EXTRAS_DEFAULT, editedState, joinedState, rejoinedState, restoredFromServer } from "../src/lib/room-state.ts";
+import { EXTRAS_DEFAULT, editedState, joinedState, rejoinedState, restoredFromServer, seatRow } from "../src/lib/room-state.ts";
 import { restore, save, submitBlocker, type KV } from "../src/lib/persist.ts";
 import type { AppState } from "../src/components/store";
 
@@ -165,4 +165,16 @@ test("초안 없이 재접속해 서버 입력을 채울 때 extra도 그 입력
   const after = restoredFromServer(seated("a", { extra: A_EXTRA, inputMissing: true, submitted: true }), SAVED);
   assert.deepEqual(after.extra.mustList, FIVE);
   assert.deepEqual(after.extra.planEdits, {});
+});
+
+// PR #42 리뷰: A에서 앉은 자리를 B가 PIN으로 되찾은 뒤 A로 돌아오면, A의 토큰은 폐기됐다.
+// 로컬 memberId만 보고 '내 자리'로 두면 PIN 창 없이 같은 토큰으로 403만 반복했다.
+test("A→B→A: 토큰이 폐기된 이전 기기도 내 자리를 PIN으로 되찾을 수 있다", () => {
+  const b = { id: "b", claimed: true, hasPin: true };
+  assert.equal(seatRow(b, "b", false), "mine"); // A에서 처음 앉음
+  assert.equal(seatRow(b, null, false), "rejoin"); // B(새 기기)에서는 PIN 재접속
+  assert.equal(seatRow(b, "b", true), "rejoin"); // A로 돌아와 403을 받은 뒤 — 다시 PIN 재접속
+  assert.equal(seatRow({ id: "c", claimed: true }, "b", true), "taken");
+  assert.equal(seatRow({ id: "b", claimed: true }, "b", true), "taken"); // PIN 없는 자리는 되찾을 수 없다
+  assert.equal(seatRow({ id: "d", claimed: false }, "b", true), "open");
 });

@@ -96,6 +96,24 @@ export function rejoinedState(seated: AppState, rejoin: { ownerToken?: string | 
   };
 }
 
+/**
+ * 공용 링크 이름 목록의 한 줄.
+ * - mine: 이 기기가 앉아 있는 자리 (같은 토큰으로 이어간다)
+ * - rejoin: 이미 누가 고른 자리지만 PIN으로 다시 들어올 수 있다
+ * - taken: 다른 사람 자리이고 PIN이 없다
+ * - open: 아직 아무도 안 고른 자리
+ * revoked: 이 기기의 토큰이 폐기됐다(다른 기기가 PIN으로 되찾았다). 그러면 내 자리도 PIN으로만 되찾는다.
+ */
+export function seatRow(
+  m: { id: string; claimed: boolean; hasPin?: boolean },
+  seatedMemberId: string | null,
+  revoked: boolean,
+): "mine" | "rejoin" | "taken" | "open" {
+  if (seatedMemberId === m.id && !revoked) return "mine";
+  if (!m.claimed && seatedMemberId !== m.id) return "open";
+  return m.hasPin ? "rejoin" : "taken";
+}
+
 /** 새로고침 뒤 이 기기에 초안이 없을 때, 서버의 본인 입력으로 채운다 */
 export function restoredFromServer(s: AppState, saved: ApiSubmission | null): AppState {
   if (!s.room || !s.inputMissing) return s;
