@@ -12,7 +12,7 @@ export const loadInputs = () => ({
   dataset: JSON.parse(fs.readFileSync(sourceURL, 'utf8')),
   profiles: JSON.parse(fs.readFileSync(profilesURL, 'utf8')),
 });
-const categories = {명소: 'landmark', 문화: 'culture', 자연: 'nature', 쇼핑: 'shopping', 카페: 'cafe', 식사: 'food'};
+const categories = {명소: 'landmark', 문화: 'culture', 자연: 'nature', 쇼핑: 'shopping', 카페: 'cafe', 식사: 'food', '체험·오락': 'activity'};
 const shoppingRecord = r => r.place.category === '쇼핑'
   || ['구로몬시장', '신사이바시스지 상점가', '아메리카무라', '신세카이'].includes(r.place.name_ko)
   || ['shopping_spend_excluded', 'exclude_personal_shopping_spend'].includes(r.review.planning_cost_policy);

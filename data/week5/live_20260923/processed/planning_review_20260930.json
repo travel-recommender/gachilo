@@ -16306,6 +16306,25 @@
         "revision": "official_followup_20261006",
         "note": "공식 서비스 설명에 명시된 밝고 개방적인 실내 매장 이용에 한정. 포장 픽업·외부 좌석·접근 경로 제외."
       }
+    },
+    {
+      "place_id": "osaka_draft_2e4698946819",
+      "field": "category",
+      "before": "명소",
+      "after": "체험·오락",
+      "previous_source": {
+        "kind": "osm",
+        "url": "https://www.openstreetmap.org/node/13516357601"
+      },
+      "source": {
+        "kind": "team_category_rule",
+        "urls": [
+          "https://www.openstreetmap.org/node/13516357601"
+        ],
+        "checked_at": "2026-10-12",
+        "revision": "category_review_20261012",
+        "note": "2026-10-12 사용자 승인: 게임 이용이 주목적인 엘레메카 연구소를 체험·오락으로 분류. OSM 원본 영문명 Electro-Mechanical Arcade Games와 사용자 설명을 근거로 한 서비스 분류이며 공식 운영시간·가격 검증이 아님."
+      }
     }
   ],
   "attempts": [

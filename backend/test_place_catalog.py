@@ -59,4 +59,15 @@ class CatalogTests(unittest.TestCase):
   env={};exec(compile(ast.Module(body=nodes,type_ignores=[]),str(source),'exec'),env)
   for r in json.loads(DATA.read_text(encoding='utf-8'))['places']:self.assertEqual(get_luggage_score(r['place']),env['get_luggage_score'](r['place']))
 
+ def test_activity_category_search_preserves_unknowns_and_identity(self):
+  found=catalog(query='엘레메카',category='체험·오락',rate='9.5')
+  self.assertEqual(found['total'],1)
+  p=found['places'][0]
+  self.assertEqual(p['place_id'],'osaka_draft_2e4698946819')
+  self.assertIsNone(p['cost_krw']);self.assertEqual(p['cost_status'],'unknown')
+  self.assertIsNone(p['covered'])
+  self.assertFalse(p['planning']['schedule_ready'])
+  self.assertIn('hours_not_verified',p['planning']['review_required'])
+  self.assertEqual(catalog(query='엘레메카',category='명소',rate='9.5')['total'],0)
+
 if __name__=='__main__':unittest.main()
