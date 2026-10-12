@@ -129,6 +129,48 @@ class ApiTests(unittest.TestCase):
     sc,pc=sub.result()[0],pick.result()[0]
    self.assertIn(sc,(200,403));self.assertIn(pc,(200,409))
    self.assertFalse(sc==200 and pc==200)
+ def pin_room(self):
+  return self.req('POST','/rooms',{'startDate':'2026-10-01','endDate':'2026-10-02','memberNames':['조은','윤진','혜인'],'ownerPin':'1234'})[1]
+ def test_rejoin_with_pin_restores_seat_and_signs_out_old_device(self):
+  room=self.pin_room();rid=room['roomId'];k=room['inviteToken'];b=room['members'][1]
+  code,seat,_=self.req('POST',f"/rooms/{rid}/join",{'memberId':b['id'],'pin':'4821'},k);self.assertEqual(code,200)
+  self.assertEqual(self.submit(room,dict(b,submissionToken=seat['submissionToken']))[0],200)
+  info=self.req('GET',f"/rooms/{rid}/join",token=k)[1]
+  self.assertEqual([m['hasPin'] for m in info['members']],[True,True,False]);self.assertNotIn('pin',json.dumps(info).lower().replace('haspin',''))
+  code,again,_=self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'4821'},k)
+  self.assertEqual(code,200);self.assertEqual(again['name'],'윤진');self.assertNotIn('ownerToken',again)
+  # 새 기기 토큰으로 본인 입력이 복원되고, 이전 기기 토큰은 끊긴다
+  self.assertEqual(self.req('GET',f"/rooms/{rid}/submissions/{b['id']}",token=again['submissionToken'])[1]['submission']['must'],'glico')
+  self.assertEqual(self.req('GET',f"/rooms/{rid}/submissions/{b['id']}",token=seat['submissionToken'])[0],403)
+ def test_rejoin_wrong_pin_counts_down_and_locks(self):
+  room=self.pin_room();rid=room['roomId'];k=room['inviteToken'];b=room['members'][1]
+  self.req('POST',f"/rooms/{rid}/join",{'memberId':b['id'],'pin':'4821'},k)
+  for left in (4,3,2,1):
+   code,body,_=self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'0000'},k)
+   self.assertEqual(code,403);self.assertIn(f'{left}번',body['error'])
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'0000'},k)[0],429)
+  # 잠긴 동안에는 맞는 PIN도 막힌다
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'4821'},k)[0],429)
+  from datetime import datetime,timezone,timedelta
+  with Store(self.db).connect() as c:c.execute('UPDATE members SET pin_locked_until=? WHERE id=?',((datetime.now(timezone.utc)-timedelta(seconds=1)).isoformat(),b['id']))
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'4821'},k)[0],200)
+ def test_owner_rejoin_returns_new_owner_token(self):
+  room=self.pin_room();rid=room['roomId'];k=room['inviteToken'];owner=room['members'][0]
+  code,seat,_=self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':owner['id'],'pin':'1234'},k)
+  self.assertEqual(code,200);self.assertIn('ownerToken',seat)
+  path=f"/rooms/{rid}/results"
+  self.assertEqual(self.req('GET',path,token=seat['ownerToken'])[0],200)
+  # 이전 방장 토큰으로는 방장 작업(계산)을 할 수 없다
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/calculate",{'strategies':['average','least_misery','fairness'],'revision':0},room['ownerToken'])[0],403)
+ def test_rejoin_rules_and_pin_format(self):
+  room=self.pin_room();rid=room['roomId'];k=room['inviteToken'];b,c=room['members'][1:]
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'1111'},k)[0],409)  # 아직 아무도 안 고른 이름
+  self.req('POST',f"/rooms/{rid}/join",{'memberId':c['id']},k)  # PIN 없이 고른 자리
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':c['id'],'pin':'1111'},k)[0],409)
+  for bad in ('123','12a4',1234,'12345'):
+   self.assertEqual(self.req('POST',f"/rooms/{rid}/join",{'memberId':b['id'],'pin':bad},k)[0],400)
+  self.assertEqual(self.req('POST','/rooms',{'startDate':'2026-10-01','endDate':'2026-10-02','memberNames':['a','b'],'ownerPin':'12'})[0],400)
+  self.assertEqual(self.req('POST',f"/rooms/{rid}/rejoin",{'memberId':b['id'],'pin':'1111'},room['ownerToken'])[0],403)  # 초대 토큰이 아님
  def test_duplicate_names_rejected_at_creation(self):
   self.assertEqual(self.req('POST','/rooms',{'startDate':'2026-10-01','endDate':'2026-10-02','memberNames':['혜인',' 혜인']})[0],400)
  def test_room_meta_requires_room_token_and_hides_tokens(self):

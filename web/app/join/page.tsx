@@ -6,13 +6,15 @@ import { roomApi, type ApiInviteInfo } from "@/lib/room-api";
 import { Hero, NavButtons, Page, asset } from "@/components/gachiro";
 import { Splash } from "@/components/Splash";
 import { fmtShort } from "@/components/RangeCalendar";
+import { PinSheet } from "@/components/PinSheet";
 
 /** 로딩 화면을 보여주는 최소 시간 */
 const SPLASH_MS = 1600;
 
 /**
  * 초대 링크로 들어오는 화면.
- * - 공용 링크 `?room=&k=` : 로딩(P0) 뒤 이름을 고른다(P2). 고른 이름은 다른 사람이 다시 고를 수 없다.
+ * - 공용 링크 `?room=&k=` : 로딩(P0) 뒤 이름을 고른다(P2). 고를 때 PIN 4자리를 정한다.
+ *   이미 고른 이름은 다른 사람이 고를 수 없고, 본인은 이름 + PIN으로 다시 들어온다 (화면을 닫으면 자리가 사라진다).
  * - 예전 사람별 링크 `?room=&m=&t=` : 바로 그 자리로 들어간다.
  */
 function JoinInner() {
@@ -26,6 +28,9 @@ function JoinInner() {
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState("");
   const [busy, setBusy] = useState(false);
+  // PIN 시트: set = 처음 고를 때 정하기, enter = 이미 고른 내 이름으로 다시 들어가기
+  const [pin, setPin] = useState<{ mode: "set" | "enter"; memberId?: string; name: string } | null>(null);
+  const [pinError, setPinError] = useState<string | null>(null);
 
   const roomId = params.get("room");
   const invite = params.get("k");
@@ -79,9 +84,20 @@ function JoinInner() {
       }
       return;
     }
+    setBusy(false);
+    const name = adding ? newName.trim() : info!.members.find((m) => m.id === picked)?.name ?? "";
+    setPinError(null);
+    setPin({ mode: "set", name });
+  };
+
+  /** 처음 고르기: 정한 PIN과 함께 자리를 받는다 */
+  const claimWith = async (code: string) => {
+    if (!roomId || !invite) return;
+    setPin(null);
+    setBusy(true);
     let seat;
     try {
-      seat = await roomApi.claim(roomId, invite, adding ? { name: newName.trim() } : { memberId: picked! });
+      seat = await roomApi.claim(roomId, invite, adding ? { name: newName.trim(), pin: code } : { memberId: picked!, pin: code });
     } catch (e) {
       setError(e instanceof Error ? e.message : "자리를 잡지 못했어요.");
       // 그 사이 다른 사람이 고른 이름이 있을 수 있으니 목록을 다시 받는다
@@ -105,6 +121,30 @@ function JoinInner() {
     }
   };
 
+  /** 다시 들어가기: 이미 고른 내 이름 + PIN. 새 토큰을 받고 이전 기기는 끊긴다 */
+  const rejoinWith = async (code: string) => {
+    if (!roomId || !invite || !pin?.memberId) return;
+    setBusy(true);
+    setPinError(null);
+    let sat = false;
+    try {
+      const seat = await roomApi.rejoin(roomId, invite, pin.memberId, code);
+      // 조회보다 먼저 받은 토큰을 저장한다 (서버는 이미 이전 토큰을 폐기했다)
+      seatRoom(info!, seat.memberId, seat.submissionToken, { ownerToken: seat.ownerToken ?? null, inviteToken: invite });
+      sat = true;
+      setPin(null);
+      setPicked(seat.memberId);
+      const hasInput = await joinRoom(roomId, seat.memberId, seat.submissionToken);
+      // 이미 낸 입력이 있으면 결과 쪽으로, 아니면 장소 찾기부터
+      router.push(hasInput ? "/waiting" : "/pick");
+    } catch (e) {
+      // PIN 확인 전 실패(틀린 PIN·잠김)는 시트에, 자리를 받은 뒤 조회 실패는 화면에 알린다 — 자리는 이미 저장됐다
+      if (!sat) setPinError(e instanceof Error ? e.message : "다시 들어가지 못했어요.");
+      else setError("자리는 되찾았어요. 방 정보를 불러오지 못했으니 다음을 눌러 다시 시도해 주세요.");
+      setBusy(false);
+    }
+  };
+
   const canNext = adding ? newName.trim().length > 0 : !!picked;
 
   return (
@@ -118,13 +158,19 @@ function JoinInner() {
               {info.members.map((m) => {
                 const mine = seated?.memberId === m.id;
                 const taken = m.claimed && !mine;
+                const canRejoin = taken && !!m.hasPin;
                 const on = !adding && picked === m.id;
                 return (
-                  <button key={m.id} role="radio" aria-checked={on} disabled={taken}
-                    onClick={() => { setPicked(m.id); setAdding(false); }}
+                  <button key={m.id} role="radio" aria-checked={on} disabled={taken && !canRejoin}
+                    onClick={() => {
+                      if (canRejoin) { setPinError(null); setPin({ mode: "enter", memberId: m.id, name: m.name }); return; }
+                      setPicked(m.id); setAdding(false);
+                    }}
                     className={`flex h-[35px] w-full items-center justify-between rounded-[6.795px] pl-5 pr-[11px] text-[14px] font-semibold ${
                       on ? "bg-wine text-white" : taken ? "border border-line bg-line/30 text-mute-soft" : "border border-line bg-white text-black"}`}>
-                    <span>{m.name}{taken && <span className="ml-2 text-[11.5px] font-medium">참여 중</span>}</span>
+                    <span>{m.name}{taken && (
+                      <span className="ml-2 text-[11.5px] font-medium">{canRejoin ? "참여 중 · 내 이름이면 눌러서 다시 들어가기" : "참여 중"}</span>
+                    )}</span>
                     {on ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={asset("/ui/check.png")} alt="" width={31} height={31} className="-mr-[3px]" />
@@ -152,6 +198,9 @@ function JoinInner() {
         )}
         {error && <p className="mt-3 text-[12px] leading-relaxed text-wine">{error}</p>}
       </div>
+      <PinSheet open={!!pin} mode={pin?.mode ?? "set"} name={pin?.name ?? ""} busy={busy && !!pin} error={pinError}
+        onClose={() => { setPin(null); setBusy(false); }}
+        onDone={(code) => (pin?.mode === "enter" ? rejoinWith(code) : claimWith(code))} />
     </Page>
   );
 }

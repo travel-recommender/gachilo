@@ -1,7 +1,7 @@
 """Local week-5 API prototype. SQLite persistence; run: python3 server.py."""
 import argparse, hashlib, hmac, json, re, secrets, sqlite3
 from contextlib import contextmanager
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from engine import Engine, EngineError
@@ -13,6 +13,20 @@ from candidate_results import CandidateStore, STRATEGIES
 from candidate_engine import CandidateEngine
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
 def now():return datetime.now(timezone.utc).isoformat()
+PIN_TRIES=5
+PIN_LOCK=timedelta(minutes=10)
+def read_pin(b,key):
+    # Optional 4-digit PIN. Absent means no re-entry from another device for that seat.
+    v=b.get(key)
+    if v is None:return None
+    require(isinstance(v,str) and re.fullmatch(r'\d{4}',v) is not None,'PIN은 숫자 4자리여야 합니다.')
+    return v
+def pin_hash(pin):
+    salt=secrets.token_bytes(16)
+    return salt.hex()+'$'+hashlib.pbkdf2_hmac('sha256',pin.encode(),salt,100_000).hex()
+def pin_ok(pin,stored):
+    salt,h=stored.split('$',1)
+    return hmac.compare_digest(hashlib.pbkdf2_hmac('sha256',pin.encode(),bytes.fromhex(salt),100_000).hex(),h)
 
 class Store(CandidateStore):
     def __init__(self,path,catalog=None):
@@ -37,6 +51,10 @@ class Store(CandidateStore):
                 c.execute('ALTER TABLE rooms ADD COLUMN invite_hash TEXT')
             if 'claimed' not in {row['name'] for row in c.execute('PRAGMA table_info(members)')}:
                 c.execute('ALTER TABLE members ADD COLUMN claimed INTEGER NOT NULL DEFAULT 0')
+            # Name + 4-digit PIN lets a person get their seat back on another device (no accounts).
+            cols={row['name'] for row in c.execute('PRAGMA table_info(members)')}
+            for col,ddl in (('pin_hash','TEXT'),('pin_fails','INTEGER NOT NULL DEFAULT 0'),('pin_locked_until','TEXT')):
+                if col not in cols:c.execute(f'ALTER TABLE members ADD COLUMN {col} {ddl}')
     @contextmanager
     def connect(self):
         c=sqlite3.connect(self.path,timeout=10)
@@ -53,6 +71,7 @@ class Store(CandidateStore):
         return r
     def create(self,b):
         require(isinstance(b,dict),'JSON 객체가 필요합니다.')
+        owner_pin=read_pin(b,'ownerPin')
         try:start,end=date.fromisoformat(b['startDate']),date.fromisoformat(b['endDate'])
         except (KeyError,TypeError,ValueError):raise ApiError(400,'시작일·종료일을 YYYY-MM-DD로 입력하세요.')
         require(0<=(end-start).days<=29,'여행 기간은 1~30일이어야 합니다.')
@@ -67,7 +86,7 @@ class Store(CandidateStore):
             for i,name in enumerate(names):
                 mid=secrets.token_urlsafe(12);token=secrets.token_urlsafe(32)
                 # The first name is the room creator, so that seat is already taken.
-                c.execute('INSERT INTO members(id,room_id,name,token_hash,claimed) VALUES(?,?,?,?,?)',(mid,rid,name.strip(),digest(token),1 if i==0 else 0))
+                c.execute('INSERT INTO members(id,room_id,name,token_hash,claimed,pin_hash) VALUES(?,?,?,?,?,?)',(mid,rid,name.strip(),digest(token),1 if i==0 else 0,pin_hash(owner_pin) if i==0 and owner_pin else None))
                 members.append({'id':mid,'name':name.strip(),'submissionToken':token})
         return {'roomId':rid,'startDate':start.isoformat(),'endDate':end.isoformat(),'ownerToken':owner,'inviteToken':invite,'members':members,'revision':0,**({'dataset':dataset} if dataset==REAL_DATASET else {})}
     def check_invite(self,r,token):
@@ -76,11 +95,13 @@ class Store(CandidateStore):
         # What the shared link shows: dates and names to pick from. Never tokens or inputs.
         with self.connect() as c:
             c.execute('BEGIN');r=self.room(c,rid);self.check_invite(r,token)
-            rows=c.execute('SELECT id,name,claimed FROM members WHERE room_id=? ORDER BY rowid',(rid,)).fetchall()
-        return {'roomId':rid,'startDate':r['start'],'endDate':r['end'],'members':[{'id':m['id'],'name':m['name'],'claimed':bool(m['claimed'])} for m in rows]}
+            rows=c.execute('SELECT id,name,claimed,pin_hash FROM members WHERE room_id=? ORDER BY rowid',(rid,)).fetchall()
+        # hasPin only says whether "다시 들어오기" is possible for a taken name. Never the PIN or its hash.
+        return {'roomId':rid,'startDate':r['start'],'endDate':r['end'],'members':[{'id':m['id'],'name':m['name'],'claimed':bool(m['claimed']),'hasPin':bool(m['pin_hash'])} for m in rows]}
     def claim(self,rid,token,b):
         # Picking a name issues a fresh submission token, so a seat can be taken only once.
         require(isinstance(b,dict) and isinstance(b.get('memberId'),str)!=isinstance(b.get('name'),str),'memberId 또는 name 중 하나가 필요합니다.')
+        pin=read_pin(b,'pin');ph=pin_hash(pin) if pin else None
         fresh=secrets.token_urlsafe(32)
         with self.connect() as c:
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.check_invite(r,token)
@@ -88,19 +109,48 @@ class Store(CandidateStore):
                 m=c.execute('SELECT id,name,claimed FROM members WHERE id=? AND room_id=?',(b['memberId'],rid)).fetchone()
                 if not m:raise ApiError(404,'이 방에 없는 이름입니다.')
                 if m['claimed']:raise ApiError(409,'이미 다른 사람이 고른 이름이에요.')
-                c.execute('UPDATE members SET token_hash=?,claimed=1 WHERE id=?',(digest(fresh),m['id']))
+                c.execute('UPDATE members SET token_hash=?,claimed=1,pin_hash=? WHERE id=?',(digest(fresh),ph,m['id']))
                 return {'memberId':m['id'],'name':m['name'],'submissionToken':fresh}
             name=b['name'].strip();require(1<=len(name)<=40,'참여자 이름은 1~40자여야 합니다.')
             names=[x['name'] for x in c.execute('SELECT name FROM members WHERE room_id=?',(rid,))]
             if name in names:raise ApiError(409,'이미 있는 이름이에요. 목록에서 골라 주세요.')
             if len(names)>=6:raise ApiError(409,'동행자는 6명까지예요.')
             mid=secrets.token_urlsafe(12)
-            c.execute('INSERT INTO members(id,room_id,name,token_hash,claimed) VALUES(?,?,?,?,1)',(mid,rid,name,digest(fresh)))
+            c.execute('INSERT INTO members(id,room_id,name,token_hash,claimed,pin_hash) VALUES(?,?,?,?,1,?)',(mid,rid,name,digest(fresh),ph))
             # A new member invalidates saved results and any pending calculation, just like submit.
             c.execute('UPDATE rooms SET revision=revision+1 WHERE id=?',(rid,));c.execute('DELETE FROM results WHERE room_id=?',(rid,))
             c.execute('DELETE FROM candidate_results WHERE room_id=?',(rid,))
             c.execute('DELETE FROM candidate_jobs WHERE room_id=?',(rid,))
         return {'memberId':mid,'name':name,'submissionToken':fresh}
+    def rejoin(self,rid,token,b):
+        # Another device takes back a taken seat with its PIN. New tokens are issued, so the old device is signed out.
+        require(isinstance(b,dict) and isinstance(b.get('memberId'),str),'memberId가 필요합니다.')
+        pin=read_pin(b,'pin');require(pin is not None,'PIN 4자리를 입력하세요.')
+        with self.connect() as c:
+            c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.check_invite(r,token)
+            m=c.execute('SELECT id,name,claimed,pin_hash,pin_fails,pin_locked_until FROM members WHERE id=? AND room_id=?',(b['memberId'],rid)).fetchone()
+            if not m:raise ApiError(404,'이 방에 없는 이름입니다.')
+            if not m['claimed']:raise ApiError(409,'아직 아무도 고르지 않은 이름이에요. 이름을 골라 들어와 주세요.')
+            if not m['pin_hash']:raise ApiError(409,'PIN을 정하지 않은 자리라 다시 들어올 수 없어요. 처음 받은 링크로 들어와 주세요.')
+            if m['pin_locked_until'] and m['pin_locked_until']>now():raise ApiError(429,'PIN을 여러 번 틀려서 잠시 잠겼어요. 10분 뒤에 다시 시도해 주세요.')
+            if not pin_ok(pin,m['pin_hash']):
+                fails=m['pin_fails']+1
+                locked=fails>=PIN_TRIES
+                c.execute('UPDATE members SET pin_fails=?,pin_locked_until=? WHERE id=?',(0 if locked else fails,(datetime.now(timezone.utc)+PIN_LOCK).isoformat() if locked else None,m['id']))
+                # Commit the failure count before answering, so guessing in parallel cannot skip it.
+                c.commit()
+                if locked:raise ApiError(429,'PIN을 여러 번 틀려서 잠시 잠겼어요. 10분 뒤에 다시 시도해 주세요.')
+                raise ApiError(403,f'PIN이 맞지 않아요. {PIN_TRIES-fails}번 더 시도할 수 있어요.')
+            fresh=secrets.token_urlsafe(32)
+            c.execute('UPDATE members SET token_hash=?,pin_fails=0,pin_locked_until=NULL WHERE id=?',(digest(fresh),m['id']))
+            seat={'memberId':m['id'],'name':m['name'],'submissionToken':fresh}
+            # The room creator (first name) also gets owner rights back. The old owner token stops working.
+            first=c.execute('SELECT id FROM members WHERE room_id=? ORDER BY rowid LIMIT 1',(rid,)).fetchone()['id']
+            if first==m['id']:
+                owner=secrets.token_urlsafe(32)
+                c.execute('UPDATE rooms SET owner_hash=? WHERE id=?',(digest(owner),rid))
+                seat['ownerToken']=owner
+        return seat
     def authenticate(self,c,r,token,member_id=None,owner_only=False):
         # Returns the id of a not-yet-claimed seat this participant token belongs to (else None) without writing,
         # so read transactions never upgrade to a write lock. Callers occupy it: see occupy / occupy_after_read.
@@ -287,6 +337,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 m=re.fullmatch(r'/rooms/([\w-]+)/join',path)
                 if m and self.command=='GET':return self.send_json(200,store.invite_info(m[1],token))
                 if m and self.command=='POST':return self.send_json(200,store.claim(m[1],token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/rejoin',path)
+                if m and self.command=='POST':return self.send_json(200,store.rejoin(m[1],token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)',path)
                 if self.command=='GET' and m:return self.send_json(200,store.meta(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/submissions/([\w-]+)',path)

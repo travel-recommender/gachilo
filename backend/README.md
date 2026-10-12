@@ -37,6 +37,7 @@ python3 server.py
 | 방 만들기 | POST /rooms | 없음 |
 | 공용 초대 링크 — 이름 목록 | GET /rooms/{roomId}/join | 초대 토큰 |
 | 공용 초대 링크 — 이름 고르기·직접 추가 | POST /rooms/{roomId}/join | 초대 토큰 |
+| 이름 + PIN으로 다시 들어오기 | POST /rooms/{roomId}/rejoin | 초대 토큰 |
 | 내 입력 저장·수정 | PUT /rooms/{roomId}/submissions/{memberId} | 참여자 토큰 |
 | 실제 계산 후 저장 | POST /rooms/{roomId}/calculate | 방장 토큰 |
 | 저장 결과 조회 | GET /rooms/{roomId}/results | 해당 방 참여자/방장 토큰 |
@@ -46,6 +47,10 @@ python3 server.py
 - `GET /rooms/{id}/join` → `{roomId,startDate,endDate,members:[{id,name,claimed}]}`. 토큰·입력은 주지 않습니다. 첫 이름(방장)은 처음부터 `claimed`입니다.
 - `POST /rooms/{id}/join` 본문은 `{"memberId":"..."}`(목록에서 고르기) 또는 `{"name":"..."}`(목록에 없는 이름 추가, 6명까지) 중 하나입니다. 응답 `{memberId,name,submissionToken}`의 토큰은 **새로 발급**되므로 방장이 가진 그 자리의 예전 토큰은 더 쓰이지 않습니다. 이미 고른 이름·같은 이름은 409, 이름을 더하면 결과가 무효화됩니다(revision +1).
 - 같은 방에 이름이 겹치면 방 만들기도 400입니다.
+- **이름 + PIN 재접속(10/12)**: 화면을 닫으면 자리가 사라지므로(브라우저 탭에만 저장) 다른 기기·나중에는 링크 + 이름 + PIN으로 돌아옵니다.
+  - 방 만들기 본문에 `ownerPin`, `POST /join` 본문에 `pin`(숫자 4자리, 선택)을 넣으면 그 자리에 PIN이 생깁니다. 서버는 PBKDF2 해시만 저장합니다.
+  - `GET /join`의 `members[].hasPin`은 그 이름으로 다시 들어올 수 있는지만 알려 줍니다.
+  - `POST /rejoin` `{memberId, pin}` → 새 `submissionToken`(방장이면 새 `ownerToken`도). **이전 기기의 토큰은 끊깁니다.** 아직 안 고른 이름·PIN 없는 자리는 409, 틀리면 403(남은 횟수 안내), 5번 틀리면 10분 동안 429입니다.
 
 토큰은 `Authorization: Bearer ...`로 전달합니다. 같은 서버의 연결 화면과 기본 `http://localhost:3000`을 허용하며, 다른 로컬 프론트 주소는 `--origin`으로 지정합니다.
 

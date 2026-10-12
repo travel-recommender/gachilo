@@ -13,7 +13,7 @@ import {
 } from "@/lib/places";
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
 import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
-import { editedState, joinedState, restoredFromServer } from "@/lib/room-state";
+import { editedState, joinedState, rejoinedState, restoredFromServer } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
@@ -86,15 +86,18 @@ interface Ctx {
   /** 이름 목록으로 참여자를 다시 만든다 (첫 화면) */
   setMemberNames: (names: string[]) => void;
   /** 서버에 방을 만들고 세션을 저장한다. 방장이 된다 */
-  createRoom: (startDate: string, nights: number, names: string[]) => Promise<RoomSession>;
+  createRoom: (startDate: string, nights: number, names: string[], ownerPin?: string) => Promise<RoomSession>;
   /**
    * 공용 링크에서 이름을 고른 직후, 받은 자리·토큰부터 저장한다.
    * 서버는 이미 그 자리를 점유하고 예전 토큰을 폐기했으므로, 이후 조회가 실패해도 이 토큰으로 다시 시도해야 한다.
    */
   seatRoom: (info: { roomId: string; startDate: string; endDate: string; members: { id: string; name: string }[] },
-    memberId: string, token: string) => void;
+    memberId: string, token: string,
+    /** PIN 재접속: 방장 권한·초대 토큰을 되찾고, 이어지는 조회에서 서버의 본인 입력을 불러온다 */
+    rejoin?: { ownerToken?: string | null; inviteToken: string }) => void;
   /** 초대 링크로 들어온 사람이 자기 자리에 앉는다 */
-  joinRoom: (roomId: string, memberId: string, token: string) => Promise<void>;
+  /** 서버에 저장된 본인 입력이 있으면 true */
+  joinRoom: (roomId: string, memberId: string, token: string) => Promise<boolean>;
   /** 내 입력을 서버에 저장한다 */
   submitMine: () => Promise<void>;
   /** 참여 현황·결과를 조회한다 */
@@ -148,9 +151,9 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   const setExtra = (p: Partial<TripExtras>) => setState((s) => ({ ...s, extra: { ...s.extra, ...p } }));
   const setMemberNames = (names: string[]) => setState((s) => ({ ...s, members: makeMembers(names) }));
 
-  const createRoom = async (startDate: string, nights: number, names: string[]) => {
+  const createRoom = async (startDate: string, nights: number, names: string[], ownerPin?: string) => {
     const range = toDateRange(startDate, nights);
-    const room = await roomApi.create(range.startDate, range.endDate, names);
+    const room = await roomApi.create(range.startDate, range.endDate, names, ownerPin);
     // 서버가 만든 참여자 id를 화면 쪽 Member와 맞춰 둔다 (색은 순서대로)
     const members: Member[] = room.members.map((m, i) => ({
       id: m.id,
@@ -197,15 +200,19 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       s, { roomId, memberId, token }, info, members,
       nightsBetween(info.startDate, info.endDate), own.submission, MY_DEFAULT,
     ));
+    return own.submission !== null;
   };
 
-  const seatRoom: Ctx["seatRoom"] = (info, memberId, token) => {
+  const seatRoom: Ctx["seatRoom"] = (info, memberId, token, rejoin) => {
     const colors = makeMembers(info.members.map((m) => m.name));
     const members = info.members.map((m, i) => ({ id: m.id, name: m.name, color: colors[i].color }));
-    setState((s) => joinedState(
-      s, { roomId: info.roomId, memberId, token }, info, members,
-      nightsBetween(info.startDate, info.endDate), null, MY_DEFAULT,
-    ));
+    setState((s) => {
+      const seated = joinedState(
+        s, { roomId: info.roomId, memberId, token }, info, members,
+        nightsBetween(info.startDate, info.endDate), null, MY_DEFAULT,
+      );
+      return rejoin ? rejoinedState(seated, rejoin) : seated;
+    });
   };
 
   const submitMine = async () => {

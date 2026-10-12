@@ -48,6 +48,8 @@ export function joinedState(
       token: join.token,
       // 방장이 자기 초대 링크를 같은 탭에서 열어도 방장 권한은 남긴다
       ownerToken: same ? s.room!.ownerToken : null,
+      // 방장의 공용 초대 링크도 같은 자리면 남긴다 (PIN으로 방장 자리를 되찾은 직후 포함)
+      inviteToken: same ? s.room!.inviteToken ?? null : null,
       members: same ? s.room!.members : [],
     },
   };
@@ -77,6 +79,20 @@ export function editedState(s: AppState, p: Partial<Submission>): AppState {
     submitted: false,
     // 1차 선택을 다시 고르기 시작하면 새 입력이다
     inputMissing: p.longlist !== undefined ? false : s.inputMissing,
+  };
+}
+
+/**
+ * PIN으로 다른 기기에서 자리를 되찾은 직후. 방장이면 방장·초대 토큰도 되찾는다.
+ * 서버에는 다른 기기에서 낸 입력이 있으므로 이 기기 기본값으로 덮어쓰지 않게 막고(inputMissing),
+ * 이어지는 joinedState가 서버 입력으로 채우게 한다.
+ */
+export function rejoinedState(seated: AppState, rejoin: { ownerToken?: string | null; inviteToken: string }): AppState {
+  if (!seated.room) return seated;
+  return {
+    ...seated,
+    room: { ...seated.room, ownerToken: rejoin.ownerToken ?? null, inviteToken: rejoin.ownerToken ? rejoin.inviteToken : null },
+    inputMissing: true,
   };
 }
 

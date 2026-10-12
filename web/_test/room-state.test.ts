@@ -2,7 +2,7 @@
 // 실행: cd web && node --test _test/room-state.test.ts  (Node 24 이상)
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { EXTRAS_DEFAULT, editedState, joinedState, restoredFromServer } from "../src/lib/room-state.ts";
+import { EXTRAS_DEFAULT, editedState, joinedState, rejoinedState, restoredFromServer } from "../src/lib/room-state.ts";
 import { restore, save, submitBlocker, type KV } from "../src/lib/persist.ts";
 import type { AppState } from "../src/components/store";
 
@@ -93,40 +93,49 @@ class Memory implements KV {
   removeItem(k: string) { this.map.delete(k); }
 }
 
-test("서버 제출 → 미제출 수정 → 초안 없는 새 탭 → 같은 링크 — 서버 입력을 되찾고 기본값을 내지 않는다", () => {
+test("서버 제출 → 화면을 닫고 새로 엶 → 링크 + 이름 + PIN — 서버 입력을 되찾고 기본값을 내지 않는다", () => {
   const local = new Memory(), oldTab = new Memory();
-  // 5곳·35,000원 제출 → 50,000원으로 고침(아직 안 냄)
   const submitted = seated("a", { mine: { ...DEFAULTS, memberId: "a", longlist: FIVE, picks: FIVE, budgetPerDay: 35000 }, submitted: true });
-  const edited = editedState(submitted, { budgetPerDay: 50000 });
-  assert.equal(edited.submitted, false);
-  save(edited, local, oldTab);
+  save(editedState(submitted, { budgetPerDay: 50000 }), local, oldTab);
 
-  // 탭을 닫고 새 탭: sessionStorage 비어 있음
-  const restored = restore(local, new Memory(), INITIAL);
-  assert.equal(restored.inputMissing, true, "submitted=false여도 초안이 없으면 서버 확인 전이다");
-  assert.notEqual(submitBlocker(restored), null, "서버 조회 전에는 기본값 PUT을 막는다");
+  // 화면을 닫고 새로 열면 이전 자리는 없다 (10/12 결정)
+  const fresh = restore(local, new Memory(), INITIAL);
+  assert.equal(fresh.room, null);
 
-  // 같은 초대 링크로 joinRoom — 서버 입력으로 채운다
-  const server = { ...SAVED, picks: FIVE, budgetPerDay: 35000 };
-  const after = join(restored, "a", server);
+  // 링크로 들어와 이름 + PIN → 받은 토큰으로 먼저 앉는다. 조회 전에는 기본값 제출을 막는다
+  const sat = rejoinedState(join(fresh, "a", null), { inviteToken: "inv" });
+  assert.equal(sat.room?.memberId, "a");
+  assert.equal(sat.inputMissing, true);
+  assert.notEqual(submitBlocker(sat), null, "서버 입력을 불러오기 전에는 막는다");
+
+  // 이어지는 조회가 서버 입력으로 채운다
+  const after = join(sat, "a", { ...SAVED, picks: FIVE, budgetPerDay: 35000 });
   assert.deepEqual(after.mine.picks, FIVE);
   assert.equal(after.mine.budgetPerDay, 35000);
   assert.equal(after.submitted, true);
   assert.equal(submitBlocker(after), null);
-
-  // 조회에 실패해 joinedState·restoredFromServer가 불리지 않으면 막힌 채로 남는다
-  assert.notEqual(submitBlocker(restored), null);
 });
 
-test("초안 없는 새 탭인데 서버에도 입력이 없으면 기본값으로 새로 시작한다", () => {
-  const local = new Memory();
-  save(seated("a"), local, new Memory());
-  const restored = restore(local, new Memory(), INITIAL);
-  const after = join(restored, "a", null);
+test("방장이 PIN으로 다시 들어오면 방장·초대 토큰을 되찾고, 참여자는 받지 않는다", () => {
+  const fresh = restore(new Memory(), new Memory(), INITIAL);
+  const owner = rejoinedState(join(fresh, "a", null), { ownerToken: "new-owner", inviteToken: "inv" });
+  assert.equal(owner.room?.ownerToken, "new-owner");
+  assert.equal(owner.room?.inviteToken, "inv");
+  // 같은 자리 조회(joinRoom)가 이어져도 방장 토큰은 남는다
+  assert.equal(join(owner, "a", null).room?.ownerToken, "new-owner");
+  assert.equal(join(owner, "a", null).room?.inviteToken, "inv", "P1에서 링크를 다시 보여줄 수 있어야 한다");
+  const member = rejoinedState(join(fresh, "b", null), { inviteToken: "inv" });
+  assert.equal(member.room?.ownerToken, null);
+  assert.equal(member.room?.inviteToken, null);
+});
+
+test("PIN 재접속 자리인데 서버에도 입력이 없으면 기본값으로 새로 시작한다", () => {
+  const sat = rejoinedState(join(restore(new Memory(), new Memory(), INITIAL), "a", null), { inviteToken: "inv" });
+  const after = join(sat, "a", null);
   assert.equal(after.inputMissing, false);
   assert.equal(after.submitted, false);
   assert.equal(submitBlocker(after), null);
-  assert.equal(restoredFromServer(restored, null).inputMissing, false);
+  assert.equal(restoredFromServer(sat, null).inputMissing, false);
 });
 
 // PR #36 리뷰 [P2] — 꼭 가기·제외·일정 편집(extra)도 방·참여자마다 따로여야 한다

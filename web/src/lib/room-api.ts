@@ -63,7 +63,8 @@ export interface ApiInviteInfo {
   roomId: string;
   startDate: string;
   endDate: string;
-  members: { id: string; name: string; claimed: boolean }[];
+  /** hasPin: 이미 고른 이름이어도 PIN으로 다시 들어올 수 있는가 */
+  members: { id: string; name: string; claimed: boolean; hasPin?: boolean }[];
 }
 
 /** 이름을 고르면 받는 그 자리의 새 입력 토큰 */
@@ -71,6 +72,8 @@ export interface ApiSeat {
   memberId: string;
   name: string;
   submissionToken: string;
+  /** PIN으로 방장 자리에 다시 들어왔을 때만 온다 (이전 방장 토큰은 끊긴다) */
+  ownerToken?: string;
 }
 
 export type RoomStatus = "collecting" | "awaiting_result" | "ready";
@@ -157,8 +160,9 @@ export const roomApi = {
     request<{ exchange_rate?: { krw_per_jpy: string | null; as_of: string | null } }>("/api/places?limit=1")
       .then((r) => r.exchange_rate ?? null),
 
-  create: (startDate: string, endDate: string, memberNames: string[]) =>
-    request<ApiRoom>("/rooms", "POST", { startDate, endDate, memberNames }),
+  /** ownerPin: 방장이 다른 기기에서 다시 들어올 때 쓸 4자리 */
+  create: (startDate: string, endDate: string, memberNames: string[], ownerPin?: string) =>
+    request<ApiRoom>("/rooms", "POST", { startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}) }),
 
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>
@@ -169,8 +173,12 @@ export const roomApi = {
     request<ApiInviteInfo>(`/rooms/${encodeURIComponent(roomId)}/join`, "GET", undefined, inviteToken),
 
   /** 이름을 고르거나(memberId) 목록에 없는 이름을 더한다(name) */
-  claim: (roomId: string, inviteToken: string, pick: { memberId: string } | { name: string }) =>
+  claim: (roomId: string, inviteToken: string, pick: ({ memberId: string } | { name: string }) & { pin?: string }) =>
     request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/join`, "POST", pick, inviteToken),
+
+  /** 이미 고른 내 이름에 PIN으로 다시 들어간다. 새 토큰이 나오고 이전 기기는 끊긴다 */
+  rejoin: (roomId: string, inviteToken: string, memberId: string, pin: string) =>
+    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/rejoin`, "POST", { memberId, pin }, inviteToken),
 
   /** 내가 저장한 입력. 그 참여자의 토큰으로만 읽힌다 (방장 토큰도 403) */
   mySubmission: (roomId: string, memberId: string, token: string) =>
