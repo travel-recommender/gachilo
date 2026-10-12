@@ -15,7 +15,7 @@
     "source": "web/src/lib/consensus.ts",
     "file": "consensus.ts",
     "sha256": "66c001cfeaefd97b6d26d4916d8c62ec6e9d1ccb06c3cdabcd429e89e2dacafb",
-    "change": "Relative imports get .ts extension for Node native TypeScript execution; algorithm unchanged."
+    "change": "Relative imports use .ts; server travel delegates to request-scoped foot OSRM with the original distance/transit fallback. Source hash records the original browser implementation, not the modified server file."
   },
   {
     "source": "web/src/lib/schedule.ts",

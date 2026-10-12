@@ -1,0 +1,10 @@
+# Prepare data/osrm/osaka.osrm.* with foot.lua and osrm-contract first (docs/osrm.md).
+services:
+  osrm-foot:
+    image: ghcr.io/project-osrm/osrm-backend:v26.10.0
+    command: [osrm-routed, --algorithm, ch, --max-table-size, "200", /data/osaka.osrm]
+    ports:
+      - "127.0.0.1:5001:5000"
+    volumes:
+      - ../data/osrm:/data:ro
+    restart: unless-stopped

@@ -27,46 +27,10 @@ export function toView(sub: Submission, days: number): SubmissionView {
 
 /* ══════════════ 거리 · 이동 ══════════════ */
 
-/** 두 좌표 사이 직선거리(km). 도심 규모에서는 등장방형 근사로 충분하다 */
-export function distKm(a: Place, b: Place): number {
-  const kx = Math.cos((((a.lat + b.lat) / 2) * Math.PI) / 180);
-  const dx = (a.lng - b.lng) * kx * 111;
-  const dy = (a.lat - b.lat) * 111;
-  return Math.sqrt(dx * dx + dy * dy);
-}
-
-/** 실제 도보 경로는 직선보다 길다. 도심 가로망 보정 계수 */
-const DETOUR = 1.35;
-/** 도보 속도 (km/h) */
-const WALK_KMH = 4.2;
-/** 1.2km를 넘으면 대중교통을 탄다고 본다 */
-const TRANSIT_THRESHOLD_KM = 1.2;
-const TRANSIT_KMH = 18;
-/** 대중교통 이용 시 고정 대기·환승 시간(분) */
-const TRANSIT_OVERHEAD = 8;
-
-export interface Move {
-  km: number;
-  min: number;
-  mode: "walk" | "transit";
-  /** 실제로 걷는 거리 — 체력 제약은 이 값으로 따진다 */
-  walkKm: number;
-}
-
-export function travel(a: Place, b: Place): Move {
-  const km = distKm(a, b) * DETOUR;
-  if (km <= TRANSIT_THRESHOLD_KM) {
-    return { km, min: Math.round((km / WALK_KMH) * 60), mode: "walk", walkKm: km };
-  }
-  // 대중교통을 타도 역까지 걷는 거리는 남는다
-  const accessWalk = 0.7;
-  return {
-    km,
-    min: Math.round((km / TRANSIT_KMH) * 60) + TRANSIT_OVERHEAD,
-    mode: "transit",
-    walkKm: accessWalk,
-  };
-}
+// Server routing is scoped to one calculation; browser preview keeps its independent estimate.
+import { distKm, travel } from "./routing.ts";
+export { distKm, travel };
+export type { Move } from "./routing.ts";
 
 /* ══════════════ 만족도 ══════════════ */
 

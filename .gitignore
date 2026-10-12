@@ -41,3 +41,8 @@ backend/.local/
 *.sqlite3-*
 
 .Rhistory
+
+# Local OSRM routing graph
+data/osrm/
+*.osrm
+*.osrm.*

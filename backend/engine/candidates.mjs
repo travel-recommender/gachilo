@@ -3,7 +3,9 @@ import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {buildConsensus, kmToSteps} from './consensus.ts';
 import {buildSchedule} from './schedule.ts';
-import {setMembers} from './places.ts';
+import {allPlaces, setMembers} from './places.ts';
+
+import {withRouting, routingSummary} from './routing.ts';
 
 export const STRATEGIES = ['average', 'least_misery', 'fairness'];
 const round = n => Math.round(n * 100) / 100;
@@ -22,7 +24,11 @@ function ruleResult(consensus, submissions, days, summary) {
     ai:{used:false, added:[], basis:[]}};
 }
 
-export async function calculateCandidates(request, enrich) {
+export async function calculateCandidates(request, enrich, routingOptions = {}) {
+  return withRouting(allPlaces(), () => calculatePrepared(request, enrich), routingOptions);
+}
+
+async function calculatePrepared(request, enrich) {
   setMembers(request.members);
   const start = Date.parse(request.startDate+'T00:00:00Z');
   const days = Math.round((Date.parse(request.endDate+'T00:00:00Z')-start)/86400000)+1;
@@ -61,7 +67,7 @@ export async function calculateCandidates(request, enrich) {
     candidates.push({strategy,
       metrics:{walkStepsPerDay:Math.round(mean('walkSteps')),
         costKrwPerDay:Math.round(mean('costKrw')), totalKmPerDay:round(mean('totalKm'))},
-      days:projected, summary:enriched.summary,
+      days:projected, summary:enriched.summary + routingSummary(enriched.schedule.plans.map(p=>p.items.map(i=>i.place))),
       explanationSource:enriched.ai.used ? 'ai' : 'rules'});
   }
   return {candidates};
