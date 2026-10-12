@@ -33,7 +33,7 @@ interface Card {
 
 /**
  * P7 — 후보 3개 비교. 카드를 누르면 그 후보가 펼쳐지고 하루 걷는 양·소비·이동이 나온다 (피그마 댓글 #3).
- * - 여행방: 서버가 계산한 공용 후보 3개를 모두가 똑같이 본다. 방장만 하나를 확정한다.
+ * - 여행방: 서버가 계산한 공용 후보 3개를 모두가 똑같이 본다. 누구나 후보를 골라 P8에서 일정을 보고, 방장은 P8에서 확정한다.
  *   전원 제출 전에는 내 입력과 예시 동행자로 만든 미리보기를 보여주고, 확정은 막는다.
  * - 데모(서버 없음): 이 기기에서 계산한다.
  */
@@ -96,18 +96,15 @@ export default function Result() {
     setExtra({ planEdits: {}, confirmed: false });
   };
 
-  // 하단 버튼: 데모는 바로 P8, 공용 결과는 방장 확정 뒤 P8
+  // 하단 버튼: 고른 후보의 일정(P8)으로 간다. 공용 결과는 세 후보 모두 들어가 볼 수 있고, 확정은 P8에서 방장이 한다
   let nextLabel = "다음";
   let nextDisabled = false;
   let next = () => router.push("/plan");
   if (shared.online && !server) {
     nextDisabled = true;
-  } else if (server && shared.isOwner && confirmed !== shown) {
-    nextLabel = confirmed ? "이 후보로 바꾸기" : "이 후보로 확정";
-    next = async () => { if (await shared.select(shown)) router.push("/plan"); };
-  } else if (server && !confirmed) {
-    nextLabel = "확정 대기 중";
-    nextDisabled = true;
+  } else if (server) {
+    nextLabel = "일정 보기";
+    next = () => router.push(`/plan?s=${shown}`);
   }
 
   const intro = !shared.online
@@ -118,7 +115,7 @@ export default function Result() {
 
   return (
     <Page nav={<NavButtons prev={shared.online ? "/waiting" : "/condition"} next={next}
-      nextLabel={nextLabel} nextDisabled={nextDisabled} busy={shared.selecting} />}>
+      nextLabel={nextLabel} nextDisabled={nextDisabled} />}>
       <PlanHeader />
       <div className="px-5 pt-[34px]">
         <div className="mb-[60px] space-y-2">
