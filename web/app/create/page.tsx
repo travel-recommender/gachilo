@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
+import { copyText } from "@/lib/clipboard";
 import { defaultStartDate, inviteUrl, nightsBetween, toDateRange } from "@/lib/room-api";
 import { Hero, NavButtons, Page, Toast, asset } from "@/components/gachiro";
 import { RangeCalendar, fmtDay } from "@/components/RangeCalendar";
@@ -51,12 +52,7 @@ export default function Create() {
 
   const copy = async () => {
     if (!link) return;
-    try {
-      await navigator.clipboard.writeText(link);
-      setToast("복사되었습니다");
-    } catch {
-      setToast("복사하지 못했어요. 링크를 길게 눌러 복사해 주세요");
-    }
+    setToast(await copyText(link) ? "복사되었습니다" : "복사하지 못했어요. 아래 링크를 길게 눌러 복사해 주세요");
   };
 
   // 방을 만들기 전에 방장 PIN을 정한다. 화면을 닫으면 자리가 사라지므로 링크 + 이름 + PIN으로 다시 들어온다
@@ -152,11 +148,15 @@ export default function Create() {
 
         <div className="text-center">
           {link ? (
-            <button onClick={copy} className="mx-auto flex max-w-full items-center gap-2 px-2">
-              <span className="truncate text-[17px] font-semibold text-wine">{link.replace(/^https?:\/\//, "")}</span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset("/ui/copy.jpg")} alt="링크 복사" width={22} height={22} className="shrink-0" />
-            </button>
+            <>
+              <button onClick={copy} className="mx-auto flex items-center gap-2 px-2">
+                <span className="text-[17px] font-semibold text-wine">초대 링크 복사</span>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={asset("/ui/copy.jpg")} alt="" width={22} height={22} className="shrink-0" />
+              </button>
+              {/* 링크가 길어도 잘리지 않게 줄바꿈하고, 길게 누르면 링크 전체가 선택되게 한다 */}
+              <p className="mt-1.5 select-all break-all px-2 text-[13px] font-medium leading-snug text-wine">{link}</p>
+            </>
           ) : (
             <p className="text-[13px] font-medium text-mute-soft">다음을 누르면 초대 링크가 만들어져요</p>
           )}
