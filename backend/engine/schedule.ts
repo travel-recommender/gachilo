@@ -223,6 +223,7 @@ export function buildSchedule(
       day: i + 1,
       items,
       walkKm: Math.round(walkKm * 10) / 10,
+      walkKmRaw: walkKm,
       totalKm: Math.round(totalKm * 10) / 10,
       totalMoveMin: move,
       cost,

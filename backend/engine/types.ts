@@ -197,6 +197,8 @@ export interface DayPlan {
   items: ScheduleItem[];
   /** 실제로 걷는 거리(km) — 체력 제약은 이 값으로 따진다. 숙소 왕복이 있으면 포함한다 */
   walkKm: number;
+  /** 반올림하기 전 도보 합계. 한도 판정은 이 값으로 한다 */
+  walkKmRaw: number;
   /** 그날 숙소 이름. 숙소를 받지 않았으면 없다 */
   stayName?: string;
   /** 숙소 → 첫 장소 (km) */

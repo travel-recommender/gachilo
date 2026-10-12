@@ -25,14 +25,17 @@ import type { ConsensusResult, Place, Selection, Submission } from "./types.ts";
 const hhmm = (m: number) => `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
 const r2 = (n: number) => Math.round(n * 100) / 100;
 
-export function buildEvidence(res: ConsensusResult, submissions: Submission[], days: number, slotsPerDay = 3) {
+export function buildEvidence(res: ConsensusResult, submissions: Submission[], days: number, slotsPerDay?: number) {
   const subs = submissions.map((s) => toView(s, days));
-  const capacity = days * slotsPerDay;
+  // 자리 수와 예산 상한은 트레이드오프를 반영해 규칙이 이미 계산해 둔 값을 쓴다.
+  // 여기서 기본값 3·원래 예산을 쓰면 AI만 더 넉넉한 기준으로 판단하게 된다.
+  const perDay = slotsPerDay ?? res.metrics.slotsPerDay ?? 3;
+  const capacity = days * perDay;
 
   // 규칙이 AI 대신 넣어 둔 곳은 빼고 그 자리를 모델에 돌려준다
   const humanCore = res.core.filter((s) => !s.aiAdded);
   const fixedCost = humanCore.reduce((a, s) => a + s.place.cost, 0);
-  const budget = Math.min(...submissions.map((s) => tripBudget(s, days)));
+  const budget = res.metrics.budgetCap ?? Math.min(...submissions.map((s) => tripBudget(s, days)));
   const remaining = Math.max(0, budget - fixedCost);
 
   const taken = new Set([...res.selections, ...res.excluded].map((s) => s.place.id));
@@ -127,7 +130,7 @@ const REASON_TEXT: Record<string, (name: string) => string> = {
 
 /** 전체 설명. 근거가 있을 때만 쓸 수 있다 */
 const SUMMARY_TEXT: Record<string, (e: Evidence, added: Place[]) => string> = {
-  must_kept: (e) => `${e.fixed.filter((f) => f.reason === "must").length}곳의 '꼭 가고 싶은 곳'은 모두 지켰어요.`,
+  must_kept: (e) => `${e.fixed.filter((f) => f.reason === "must" && f.tier === "core").length}곳의 '꼭 가고 싶은 곳'은 모두 지켰어요.`,
   ai_filled: (_e, a) => `남은 자리에는 ${josa(a.map((p) => p.name).join(", "), "을")} 넣었어요.`,
   no_room: () => `공통 선택만으로 추가 후보 자리가 모두 차서 AI 장소를 더 넣지 않았어요.`,
   slots_filled: (e) => `추가 후보 ${e.ai_slots}곳을 모두 일정에 넣었어요.`,
@@ -139,7 +142,7 @@ const SUMMARY_TEXT: Record<string, (e: Evidence, added: Place[]) => string> = {
 
 /** 각 설명을 쓸 수 있는 조건. 근거와 맞지 않으면 검증에서 걸린다 */
 const SUMMARY_OK: Record<string, (e: Evidence, added: Place[]) => boolean> = {
-  must_kept: (e) => e.fixed.some((f) => f.reason === "must"),
+  must_kept: (e) => e.fixed.some((f) => f.reason === "must" && f.tier === "core"),
   ai_filled: (_e, a) => a.length > 0,
   no_room: (e, a) => e.ai_slots === 0 && a.length === 0,
   slots_filled: (e, a) => a.length > 0 && a.length === e.ai_slots,
@@ -337,7 +340,9 @@ export function validateScheduledPlan(out: PlanOutput, ev: Evidence, schedule: S
   if (errs.length) return errs;
   const items = schedule.plans.flatMap((day) => day.items);
   const ids = new Set(items.map((it) => it.place.id));
-  const musts = ev.fixed.filter((f) => f.reason === "must");
+  // 공통 일정에 반드시 있어야 하는 것은 코어로 확정된 '꼭'뿐이다.
+  // 자리·예산에 밀려 개인 옵션으로 돌아간 '꼭'은 공통 일정에 없는 것이 정상이다.
+  const musts = ev.fixed.filter((f) => f.reason === "must" && f.tier === "core");
   if (musts.some((f) => !ids.has(f.id))) errs.push("최종 일정에서 꼭 가고 싶은 장소 누락");
   if (out.ai_added.some((a) => !ids.has(a.id))) errs.push("최종 일정에서 AI 추가 장소 누락");
   if (items.reduce((sum, it) => sum + it.place.cost, 0) > ev.group_limits.budget_per_person_won)
@@ -348,9 +353,9 @@ export function validateScheduledPlan(out: PlanOutput, ev: Evidence, schedule: S
   if (out.summary.includes("no_room") && ev.fixed.some((f) => f.tier === "core" && !ids.has(f.id)))
     errs.push("no_room: 최종 일정에서 공통 선택 장소 누락");
   if (out.summary.includes("walk_limited")) {
-    // DayPlan.walkKm은 0.1km 반올림값이다. 판정에는 실제 엔진 계산값을 다시 합산한다.
-    const over = schedule.plans.some((day) => day.items.reduce((km, it, i) =>
-      km + (i ? travel(day.items[i - 1].place, it.place).walkKm : 0), 0) > ev.group_limits.walk_km_per_day);
+    // 장소 사이만 더하면 숙소 왕복이 빠진다. 배치가 계산한 반올림 전 합계를 그대로 쓴다.
+    const over = schedule.plans.some((day) =>
+      (day.walkKmRaw ?? day.walkKm) > ev.group_limits.walk_km_per_day);
     if (over) errs.push("walk_limited: 최종 일정의 추정 도보 한도 초과");
   }
   for (const a of out.ai_added.filter((a) => a.reason_code === "near_fixed")) {

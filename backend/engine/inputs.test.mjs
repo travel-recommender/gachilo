@@ -10,6 +10,7 @@ import {
   distanceWeightFor, groupTradeoffs, mustRounds, mustsOf, slotsPerDayFor,
   spendCapFor, staysByDay, validateStays, validateSubmissions, vetoesOf,
 } from "./inputs.ts";
+import { renderSummary } from "./ai.ts";
 
 const sub = (over = {}) => ({
   memberId: "m1", longlist: [], picks: ["glico", "kuromon", "umeda_sky", "nakazaki", "ichiran"],
@@ -216,4 +217,94 @@ test("숙소에 좌표가 없으면 잡는다", () => {
 test("숙소 날짜 형식을 잡는다", () => {
   const issues = validateStays([{ date: "11/1", name: "호텔", lat: 34.7, lng: 135.5 }]);
   assert.ok(issues.some((i) => /YYYY-MM-DD/.test(i.message)));
+});
+
+/* ── 5. 리뷰 #39 회귀 검사 — 규칙 결과가 AI·최종 검증까지 그대로 전달되는가 ── */
+
+import { buildEvidence, buildPlanSchedule, validatePlan, validateScheduledPlan } from "./ai.ts";
+import { staysByDay as staysOf } from "./inputs.ts";
+
+/** pace 0·spend 0 — 자리 2곳/일, 예산 70%로 깎인다 */
+const TIGHT = [
+  sub({ memberId: "m1", picks: ["glico", "kuromon", "ichiran"], musts: ["glico"],
+        tradeoffs: { pace: 0, distance: 0.5, spend: 0 }, budgetPerDay: 20000 }),
+  sub({ memberId: "m2", picks: ["glico", "hozenji", "rikuro"], musts: ["hozenji"],
+        tradeoffs: { pace: 0, distance: 0.5, spend: 0 }, budgetPerDay: 20000 }),
+];
+
+test("[P2-1] AI 근거가 트레이드오프로 깎인 자리 수·예산 상한을 쓴다", () => {
+  const res = buildConsensus({ submissions: TIGHT, nights: 0, strategy: "fairness", allowPartial: true });
+  const ev = buildEvidence(res, TIGHT, 1);
+
+  assert.equal(res.metrics.slotsPerDay, 2, "pace 0이면 하루 2곳");
+  assert.equal(res.metrics.budgetCap, 14000, "spend 0이면 예산의 70%");
+  // 기본값 3곳·원래 예산 20,000원으로 새지 않아야 한다
+  assert.equal(ev.group_limits.budget_per_person_won, res.metrics.budgetCap);
+  assert.ok(ev.ai_slots <= 2 - res.core.filter((s) => !s.aiAdded).length + 2,
+    "자리 수가 pace 기준(2곳/일)에서 나와야 한다");
+  ev.ai_candidates.forEach((c) =>
+    assert.ok(c.cost_won <= ev.group_limits.remaining_budget_won, `후보 ${c.id}가 남은 예산 초과`));
+});
+
+test("[P2-1] 깎인 상한을 넘는 AI 출력은 검증에서 걸린다", () => {
+  const res = buildConsensus({ submissions: TIGHT, nights: 0, strategy: "fairness", allowPartial: true });
+  const ev = buildEvidence(res, TIGHT, 1);
+  const tooMany = { ai_added: Array.from({ length: ev.ai_slots + 1 }, (_, i) =>
+    ({ id: ev.ai_candidates[i]?.id ?? "glico", reason_code: "budget_fits" })), summary: ["must_kept"] };
+  assert.ok(validatePlan(tooMany, ev).some((e) => /자리/.test(e)), "자리 수 초과를 잡아야 한다");
+});
+
+test("[P2-2] 도보 한도 판정이 숙소 왕복을 포함한다", () => {
+  const far = [sub({ memberId: "m1", picks: ["umeda_sky"], musts: ["umeda_sky"], stepLimit: 1000 })];
+  const res = buildConsensus({ submissions: far, nights: 0, strategy: "fairness", allowPartial: true });
+  // 숙소를 멀리 두어 왕복만으로 한도를 넘게 만든다
+  const { byDay } = staysOf([{ date: "2026-11-01", name: "먼 숙소", lat: 34.6655, lng: 135.5012 }], "2026-11-01", 1);
+  const ev = buildEvidence(res, far, 1);
+  const plan = { ai_added: [], summary: ["must_kept", "walk_limited"] };
+  const { schedule } = buildPlanSchedule(plan, res, far, 1, { staysByDay: byDay });
+
+  const day = schedule.plans[0];
+  const between = day.items.reduce((km, it, i) => km + (i ? 0 : 0), 0);
+  assert.ok(day.walkKmRaw > between, "숙소 왕복이 도보 합계에 들어가야 한다");
+  assert.ok(day.walkKmRaw > ev.group_limits.walk_km_per_day, "이 입력은 한도를 넘어야 한다");
+  assert.ok(validateScheduledPlan(plan, ev, schedule).some((e) => /도보 한도 초과/.test(e)),
+    "walk_limited를 말하면서 한도를 넘으면 걸려야 한다");
+});
+
+test("[P2-3] 개인 옵션으로 돌아간 '꼭'을 공통 일정에서 찾지 않는다", () => {
+  const res = buildConsensus({ submissions: TRIO, nights: 1, strategy: "fairness", allowPartial: true, slotsPerDay: 1 });
+  const ev = buildEvidence(res, TRIO, 2, 1);
+  const optionMusts = ev.fixed.filter((f) => f.reason === "must" && f.tier === "option");
+  assert.ok(optionMusts.length > 0, "이 입력은 밀린 '꼭'이 생겨야 한다");
+
+  const plan = { ai_added: [], summary: ["must_kept"] };
+  const { schedule } = buildPlanSchedule(plan, res, TRIO, 2);
+  const errs = validateScheduledPlan(plan, ev, schedule);
+  assert.ok(!errs.some((e) => /꼭 가고 싶은 장소 누락/.test(e)),
+    `옵션 '꼭' 때문에 폴백되면 안 된다: ${errs.join(" / ")}`);
+});
+
+test("[P2-3] must_kept 문장은 코어로 확정된 '꼭'만 센다", () => {
+  const res = buildConsensus({ submissions: TRIO, nights: 1, strategy: "fairness", allowPartial: true, slotsPerDay: 1 });
+  const ev = buildEvidence(res, TRIO, 2, 1);
+  const core = ev.fixed.filter((f) => f.reason === "must" && f.tier === "core").length;
+  const all = ev.fixed.filter((f) => f.reason === "must").length;
+  assert.ok(core < all, "이 입력은 코어 '꼭'이 전체보다 적어야 한다");
+
+  const plan = { ai_added: [], summary: ["must_kept"] };
+  const { schedule } = buildPlanSchedule(plan, res, TRIO, 2);
+  const text = renderSummary(plan, ev, schedule);
+  assert.ok(text.includes(`${core}곳`), `코어 기준 ${core}곳이어야 하는데: ${text}`);
+});
+
+test("[P2-4] allowPartial=false면 밀린 '꼭'을 옵션으로 만들지 않는다", () => {
+  const opts = { submissions: TRIO, nights: 1, strategy: "fairness", slotsPerDay: 1 };
+  const on = buildConsensus({ ...opts, allowPartial: true });
+  const off = buildConsensus({ ...opts, allowPartial: false });
+
+  assert.ok(on.options.length > 0, "켜면 개인 옵션이 생긴다");
+  assert.equal(off.options.length, 0, "끄면 옵션이 하나도 없어야 한다");
+  assert.ok(off.excluded.length >= on.excluded.length, "끈 쪽은 제외로 간다");
+  // 1순위는 어느 쪽이든 코어에 남는다
+  assert.ok(off.satisfaction.every((s) => s.mustKept), "원리 2는 두 조건 모두에서 지켜진다");
 });

@@ -275,9 +275,11 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
       selections.push(makeSel(place, "core", subs.map((x) => x.memberId)));
       return;
     }
-    // 자리나 예산이 없으면 본인만 가는 일정으로 남긴다
+    // 자리나 예산이 없으면 본인만 가는 일정으로 남긴다.
+    // 부분 동행을 끈 실험 조건에서는 다른 옵션 경로와 같게 제외로 보낸다.
     allIds.add(place.id);
-    selections.push(makeSel(place, "option", [memberId]));
+    if (allowPartial) selections.push(makeSel(place, "option", [memberId]));
+    else excluded.push({ ...makeSel(place, "option", []), excluded: "time" });
   });
 
   // 5. 나머지를 전략 점수 순으로 채운다
