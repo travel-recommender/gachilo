@@ -52,10 +52,14 @@ function sameOwner(a: Owner, b: Owner) {
   return a.roomId === b.roomId && a.memberId === b.memberId;
 }
 
+/**
+ * 방·자리는 이 탭(sessionStorage)에만 둔다. 화면을 닫았다 다시 열면 이어지지 않고,
+ * 링크로 들어와 이름 + PIN으로 다시 들어온다 (10/12 결정). 같은 탭 새로고침은 이어진다.
+ * localStorage는 쓰지 않는다 — 예전 판이 남긴 "마지막 방"은 restore에서 지운다.
+ */
 export function save(state: AppState, local: KV, session: KV) {
-  const room = JSON.stringify(pick(state, SESSION_FIELDS));
-  session.setItem(SESSION_KEY, room);
-  local.setItem(SESSION_KEY, room);
+  void local;
+  session.setItem(SESSION_KEY, JSON.stringify(pick(state, SESSION_FIELDS)));
   session.setItem(DRAFT_KEY, JSON.stringify({ owner: ownerOf(state.room), ...pick(state, DRAFT_FIELDS) }));
 }
 
@@ -64,8 +68,9 @@ export function restore(local: KV, session: KV, initial: AppState): AppState {
     local.removeItem(key);
     session.removeItem(key);
   }
-  // 이 탭이 쓰던 방이 먼저다. 다른 탭이 localStorage를 바꿔도 이 탭의 자리는 그대로다
-  const saved = read(session, SESSION_KEY) ?? read(local, SESSION_KEY) ?? {};
+  // 예전 판은 새 탭에서 이어 주려고 localStorage에 마지막 방을 남겼다. 이제는 읽지 않고 지운다
+  local.removeItem(SESSION_KEY);
+  const saved = read(session, SESSION_KEY) ?? {};
   const state: AppState = { ...initial, ...pick(saved as Partial<AppState>, SESSION_FIELDS) };
 
   const draft = read(session, DRAFT_KEY);

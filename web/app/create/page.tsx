@@ -5,6 +5,7 @@ import { useTrip } from "@/components/store";
 import { defaultStartDate, inviteUrl, nightsBetween, toDateRange } from "@/lib/room-api";
 import { Hero, NavButtons, Page, Toast, asset } from "@/components/gachiro";
 import { RangeCalendar, fmtDay } from "@/components/RangeCalendar";
+import { PinSheet } from "@/components/PinSheet";
 
 const MAX_MEMBERS = 6;
 /** 서버가 받는 여행 기간은 1~30일이다 */
@@ -32,6 +33,7 @@ export default function Create() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [pinOpen, setPinOpen] = useState(false);
 
   const filled = names.map((n) => n.trim()).filter(Boolean);
   const unique = new Set(filled).size === filled.length;
@@ -57,13 +59,19 @@ export default function Create() {
     }
   };
 
-  const next = async () => {
+  // 방을 만들기 전에 방장 PIN을 정한다. 화면을 닫으면 자리가 사라지므로 링크 + 이름 + PIN으로 다시 들어온다
+  const next = () => {
     if (owned) { router.push("/pick"); return; }
+    setPinOpen(true);
+  };
+
+  const create = async (pin: string) => {
+    setPinOpen(false);
     setBusy(true);
     setError(null);
     setMemberNames(filled);
     try {
-      await createRoom(start, nightsBetween(start, end), filled);
+      await createRoom(start, nightsBetween(start, end), filled, pin);
       setToast("초대 링크가 만들어졌어요. 복사해서 보내 주세요");
     } catch (e) {
       setError(e instanceof Error ? e.message : "방을 만들지 못했어요.");
@@ -153,6 +161,13 @@ export default function Create() {
             <p className="text-[13px] font-medium text-mute-soft">다음을 누르면 초대 링크가 만들어져요</p>
           )}
           {toast && <Toast text={toast} onDone={() => setToast(null)} />}
+          {link && (
+            <p className="mt-2 text-[11.5px] font-medium leading-relaxed text-mute">
+              이 링크를 꼭 저장해 두세요. 화면을 닫았다 다시 올 때도
+              <br />
+              이 링크로 들어와 <b className="text-wine">{filled[0] || "내 이름"} + PIN</b>을 누르면 방장으로 돌아와요.
+            </p>
+          )}
           {owned && (
             <button onClick={() => { reset(); setNames(["", "", ""]); }}
               className="mt-2 text-[11.5px] font-medium text-mute underline">
@@ -167,6 +182,7 @@ export default function Create() {
           )}
         </div>
       </div>
+      <PinSheet open={pinOpen} mode="set" name={filled[0] || "나"} onClose={() => setPinOpen(false)} onDone={create} />
     </Page>
   );
 }
