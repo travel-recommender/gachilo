@@ -18,7 +18,7 @@ class Engine:
         self.catalog=self.call(None,['--catalog'])
     def call(self,payload,args=()):
         try:
-            p=subprocess.run([self.node,str(self.script),*args],input=json.dumps(payload) if payload is not None else '',capture_output=True,text=True,encoding="utf-8",timeout=20,check=True)
+            p=subprocess.run([self.node,str(self.script),*args],input=json.dumps(payload) if payload is not None else '',capture_output=True,text=True,encoding="utf-8",timeout=int(os.environ.get("ENGINE_TIMEOUT_S","45")),check=True)
             return json.loads(p.stdout)
         except (OSError,ValueError,subprocess.SubprocessError) as e:
             raise EngineError('추천 계산을 완료하지 못했습니다. 실행 환경을 확인한 뒤 다시 시도하세요.') from e

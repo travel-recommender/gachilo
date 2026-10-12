@@ -161,7 +161,7 @@ export function PlaceRow({ place: p, picked, vetoed, isMust, disabled, votes, on
   );
 }
 
-function AddPlaceForm({ initialName, initialCategory, onCancel, onSubmit }: {
+export function AddPlaceForm({ initialName, initialCategory, onCancel, onSubmit }: {
   initialName: string;
   initialCategory: CategoryId | null;
   onCancel: () => void;

@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {buildSchedule} from '../backend/engine/schedule.ts';
+import {hasRoutingContext, routingLimitations} from '../backend/engine/routing.ts';
 import {travel, kmToSteps} from '../backend/engine/consensus.ts';
 
 const sourceURL = new URL('../data/week5/live_20260923/processed/osaka_places_150_fresh.json', import.meta.url);
@@ -156,7 +157,8 @@ export function validateDay(request, dataset, profiles, options = {}) {
       'This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.',
       'Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.',
       'JPY→KRW rate is a caller-supplied simulation value, not a live quote.',
-      'Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.',
+      hasRoutingContext() ? routingLimitations([plan.items.map(item => item.place)])
+        : 'Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.',
       'Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.',
       'Stay times are team estimates. Weather, entry queues and unannounced closures are not verified.',
     ]};

@@ -1,4 +1,5 @@
-import { travel } from "./consensus.ts";
+import { distKm, travel } from "./consensus.ts";
+import { DETOUR } from "./routing.ts";
 import { allPlaces } from "./places.ts";
 import type { DayPlan, Place, ScheduleItem, Selection } from "./types.ts";
 
@@ -66,7 +67,8 @@ function pickFiller(
   );
   if (cands.length === 0) return null;
   if (!from) return cands[0];
-  return cands.reduce((best, p) => (travel(from, p).km < travel(from, best).km ? p : best), cands[0]);
+  // Compare geographic proximity uniformly; travel().km mixes walking routes and transit estimates.
+  return cands.reduce((best, p) => (distKm(from, p) < distKm(from, best) ? p : best), cands[0]);
 }
 
 export interface ScheduleOptions {
@@ -146,7 +148,8 @@ function buildDay(
 
     // 거리 + 짐 부담으로 다음 장소를 고른다
     const scored = pool.map((s) => {
-      const d = prev ? travel(prev, s.place).km : 0;
+      // Keep the original distance/packing score scale without mixing routing sources.
+      const d = prev ? distKm(prev, s.place) * DETOUR : 0;
       const bagPenalty = opts.considerBags ? s.place.bagLoad * 2.5 * (1 - load) : 0;
       return { sel: s, cost: d * (opts.distanceWeight ?? 1) + bagPenalty };
     });

@@ -1,5 +1,7 @@
 # 5주차 백엔드와 추천 연결 초안
 
+6주차 P7/P8 연결용 후보 묶음 계산·방장 확정 API와 프론트 클라이언트를 추가했습니다. 새 요청·응답, 지표 단위, 3대 기기 시험 순서는 [공용 결과 API 문서](../docs/week6_shared_results_api.md)를 참조하세요. 기존 단일 전략 요청은 유지합니다.
+
 [5주차 이슈](https://github.com/travel-recommender/travel-recommender/issues/1)를 기준으로 만든 로컬 통합 초안입니다. 방 생성 → 참여자별 입력 저장 → 기존 프로토타입 계산 → 결과 저장·조회가 연결되어 있습니다. `backend/public`에 로컬 연결 확인 화면을 제공합니다. 기존 두 단계 Next.js 화면은 팀의 별도 작업입니다. 2026-09-30부터 아래의 실제 장소 모드를 추가했습니다.
 
 ## 실행
@@ -23,7 +25,9 @@ python3 server.py
 
 ## 이번에 연결한 계산
 
-`engine/`은 `web/src/lib/`의 `consensus.ts`, `schedule.ts`, `places.ts`, `types.ts` 복사본입니다. 상대 import에 `.ts`를 붙인 것 외에 알고리즘은 바꾸지 않았습니다. 원본과 해시는 `source_manifest.json`에 기록했습니다. 팀원의 새 알고리즘이 있는지는 별도 확인이 필요합니다.
+`engine/`은 `web/src/lib/`의 `consensus.ts`, `schedule.ts`, `places.ts`, `types.ts`에서 시작했습니다. 서버의 `travel`은 이제 자체 구동 OSRM 도보 경로를 사용하고 실패 시 기존 추정식으로 돌아갑니다. 원본 해시와 변경 범위는 `engine/source_manifest.json`에 기록했습니다. 브라우저 자체 미리보기는 기존 추정식을 유지합니다.
+
+OSRM 실행·환경변수·실패 처리·검사는 [OSRM 연결 문서](../docs/osrm.md)를 참고하세요. `OSRM_FOOT_URL` 미설정 시 외부 호출 없이 기존 추정을 사용합니다. 결과 설명에 실제 사용한 도보 경로/추정 구간 수를 표시합니다.
 
 서버가 DB에서 전원 입력을 읽고 별도 Node 프로세스에 전달합니다. 동시에 여러 방을 계산해도 전역 참여자 목록을 공유하지 않습니다. 계산 중 입력이 바뀌면 이전 revision의 결과 저장을 거절합니다. 실패하면 503으로 알리고 결과를 만들어내지 않습니다. 공개 응답에는 개인 입력 원문과 개인 만족도를 넣지 않습니다.
 
@@ -33,10 +37,22 @@ python3 server.py
 |---|---|---|
 | 장소 목록 | GET /places | 없음 |
 | 방 만들기 | POST /rooms | 없음 |
+| 공용 초대 링크 — 이름 목록 | GET /rooms/{roomId}/join | 초대 토큰 |
+| 공용 초대 링크 — 이름 고르기·직접 추가 | POST /rooms/{roomId}/join | 초대 토큰 |
+| 이름 + PIN으로 다시 들어오기 | POST /rooms/{roomId}/rejoin | 초대 토큰 |
 | 내 입력 저장·수정 | PUT /rooms/{roomId}/submissions/{memberId} | 참여자 토큰 |
 | 실제 계산 후 저장 | POST /rooms/{roomId}/calculate | 방장 토큰 |
 | 저장 결과 조회 | GET /rooms/{roomId}/results | 해당 방 참여자/방장 토큰 |
 | 외부 계산 결과 저장(연결용) | POST /rooms/{roomId}/results | 방장 토큰 |
+
+방을 만들면 응답에 방 공용 `inviteToken`이 함께 옵니다. 단체방에는 `/join/?room={roomId}&k={inviteToken}` 링크 하나만 보내고, 들어온 사람이 이름을 고릅니다.
+- `GET /rooms/{id}/join` → `{roomId,startDate,endDate,members:[{id,name,claimed}]}`. 토큰·입력은 주지 않습니다. 첫 이름(방장)은 처음부터 `claimed`입니다.
+- `POST /rooms/{id}/join` 본문은 `{"memberId":"..."}`(목록에서 고르기) 또는 `{"name":"..."}`(목록에 없는 이름 추가, 6명까지) 중 하나입니다. 응답 `{memberId,name,submissionToken}`의 토큰은 **새로 발급**되므로 방장이 가진 그 자리의 예전 토큰은 더 쓰이지 않습니다. 이미 고른 이름·같은 이름은 409, 이름을 더하면 결과가 무효화됩니다(revision +1).
+- 같은 방에 이름이 겹치면 방 만들기도 400입니다.
+- **이름 + PIN 재접속(10/12)**: 화면을 닫으면 자리가 사라지므로(브라우저 탭에만 저장) 다른 기기·나중에는 링크 + 이름 + PIN으로 돌아옵니다.
+  - 방 만들기 본문에 `ownerPin`, `POST /join` 본문에 `pin`(숫자 4자리, 선택)을 넣으면 그 자리에 PIN이 생깁니다. 서버는 PBKDF2 해시만 저장합니다.
+  - `GET /join`의 `members[].hasPin`은 그 이름으로 다시 들어올 수 있는지만 알려 줍니다.
+  - `POST /rejoin` `{memberId, pin}` → 새 `submissionToken`(방장이면 새 `ownerToken`도). **이전 기기의 토큰은 끊깁니다.** 아직 안 고른 이름·PIN 없는 자리는 409, 틀리면 403(남은 횟수 안내), 5번 틀리면 10분 동안 429입니다.
 
 토큰은 `Authorization: Bearer ...`로 전달합니다. 같은 서버의 연결 화면과 기본 `http://localhost:3000`을 허용하며, 다른 로컬 프론트 주소는 `--origin`으로 지정합니다.
 

@@ -1,68 +1,67 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
-import { PlaceSearch } from "@/components/PlaceSearch";
-import { findPlace } from "@/lib/places";
-import { Body, Card, Footer, Notice, Screen, SectionTitle, TopBar } from "@/components/ui";
+import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
+import { CATEGORIES, findPlace } from "@/lib/places";
+import { Box, MinusButton, NavButtons, Page, PlanHeader } from "@/components/gachiro";
 import type { Place } from "@/lib/types";
 
-const LIMIT = 5;
+/** 서버가 받는 1차 목록 최대 개수 */
+const LIMIT = 30;
 
 /**
- * 1차 — 아무 목록 없이, 검색으로 내가 가고 싶은 5곳을 찾는다.
- * 여기서는 '꼭'도 '빼고 싶은 곳'도 고르지 않는다. 그건 모두의 후보가 모인 다음이다.
+ * P3 — 가고 싶은 곳 찾기.
+ * 검색으로 찾아 My list에 담는다. 아직 남의 목록은 보이지 않는다.
  */
 export default function Pick() {
   const router = useRouter();
   const { state, setMine } = useTrip();
   const longlist = state.mine.longlist;
+  const places = longlist.map((id) => findPlace(id)).filter((p): p is Place => !!p);
 
-  const toggle = (id: string) => {
-    if (longlist.includes(id)) setMine({ longlist: longlist.filter((p) => p !== id) });
-    else if (longlist.length < LIMIT) setMine({ longlist: [...longlist, id] });
+  const add = (p: Place) => {
+    if (!longlist.includes(p.id) && longlist.length < LIMIT) setMine({ longlist: [...longlist, p.id] });
   };
+  const remove = (id: string) => setMine({ longlist: longlist.filter((x) => x !== id) });
 
-  const onAdded = (place: Place) => {
-    if (longlist.length < LIMIT) setMine({ longlist: [...longlist, place.id] });
-  };
-
-  const done = longlist.length === LIMIT;
+  const groups = CATEGORIES
+    .map((c) => ({ c, items: places.filter((p) => p.category === c.id) }))
+    .filter((g) => g.items.length > 0);
 
   return (
-    <Screen>
-      <TopBar title="가고 싶은 곳 찾기" subtitle={`검색해서 ${LIMIT}곳`} back="/" />
-      <Body>
-        <Notice tone="info">
-          <b>다른 사람에게 보이지 않아요.</b> 남이 뭘 골랐는지도 아직 안 보여요.
-          지금은 내가 가고 싶은 곳만 생각하세요.
-        </Notice>
+    <Page nav={<NavButtons next={() => router.push("/waiting?step=list")} nextDisabled={longlist.length === 0} />}>
+      <PlanHeader />
+      <div className="px-5 pt-[59px]">
+        <PlaceFinder added={longlist} onPick={add} />
 
-        <PlaceSearch selected={longlist} onToggle={toggle} onAdded={onAdded}
-          disabledAdd={longlist.length >= LIMIT} />
-
-        {longlist.length > 0 && (
-          <Card className="animate-slideup">
-            <SectionTitle hint={`${longlist.length}/${LIMIT}`}>내가 찾은 곳</SectionTitle>
-            <div className="mt-2.5 flex flex-wrap gap-1.5">
-              {longlist.map((id) => {
-                const p = findPlace(id);
-                if (!p) return null;
-                return (
-                  <span key={id} className="chip flex items-center gap-1.5 bg-surface text-ink-700">
-                    {p.name}
-                    <button onClick={() => toggle(id)} aria-label={`${p.name} 빼기`} className="opacity-60">×</button>
-                  </span>
-                );
-              })}
-            </div>
-          </Card>
-        )}
-      </Body>
-      <Footer>
-        <button onClick={() => router.push("/waiting")} disabled={!done} className="btn-primary w-full">
-          {done ? "다 골랐어요" : `${LIMIT - longlist.length}곳 더 찾아주세요`}
-        </button>
-      </Footer>
-    </Screen>
+        <h2 className="mb-[15px] mt-[43px] text-[23.929px] font-extrabold leading-[29px]">My list</h2>
+        <Box className="min-h-[349px] px-[10px] pb-4 pt-[10px]">
+          {groups.length === 0 && (
+            <p className="px-2 py-8 text-center text-[12.5px] font-medium leading-relaxed text-mute">
+              위에서 가고 싶은 곳을 검색해 담아 주세요.
+              <br />
+              다른 사람에게는 보이지 않아요.
+            </p>
+          )}
+          {groups.map(({ c, items }) => (
+            <section key={c.id} className="mb-[15px] last:mb-0">
+              <h3 className="mb-2 pl-[3px] text-[17px] font-extrabold leading-5 text-wine">{c.label}</h3>
+              <ul className="space-y-[7px]">
+                {items.map((p) => (
+                  <li key={p.id}
+                    className="flex h-[49px] items-center gap-2 rounded-[20px] border border-line pl-[13px] pr-[11px]">
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate text-[16.801px] font-medium leading-5">{p.name}</div>
+                      <div className="truncate text-[9px] font-medium leading-3 text-line">{placeLine(p)}</div>
+                    </div>
+                    <MinusButton label={`${p.name} 빼기`} onClick={() => remove(p.id)} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </Box>
+      </div>
+    </Page>
   );
 }

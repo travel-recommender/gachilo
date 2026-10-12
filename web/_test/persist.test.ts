@@ -1,4 +1,4 @@
-// 저장·복원 회귀검사 — 여러 탭이 localStorage를 공유할 때 입력과 자리가 섞이지 않아야 한다.
+// 저장·복원 회귀검사 — 방·자리는 탭에만 남고(화면을 닫으면 사라짐), 탭끼리 섞이지 않아야 한다.
 // 실행: cd web && node --test _test/persist.test.ts  (Node 24 이상)
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -54,42 +54,45 @@ test("같은 방 다른 참여자 두 탭 + 새로고침 — 토큰과 초안이
 });
 
 test("초안의 주인이 복원한 방과 다르면 초안을 버린다", () => {
-  // 탭 세션이 사라지고 초안만 남은 경우 — localStorage의 다른 자리(B)로 복원된다
+  // 같은 탭에서 자리를 바꿨는데 초안이 이전 자리 것으로 남은 경우
   const local = new Memory(), tab = new Memory();
   save(joined("roomA", "a1", ["osaka_castle"]), local, tab);
-  save(joined("roomB", "b1", ["glico"]), local, new Memory());
-  tab.removeItem(SESSION_KEY);
+  const draftA = tab.getItem(DRAFT_KEY)!;
+  save(joined("roomB", "b1", ["glico"]), local, tab);
+  tab.setItem(DRAFT_KEY, draftA);
   const s = restore(local, tab, INITIAL);
   assert.equal(s.room?.memberId, "b1");
   assert.equal(s.mine.memberId, "b1");
   assert.deepEqual(s.mine.longlist, [], "A의 초안이 B 자리로 넘어오면 안 된다");
 });
 
-test("초안 없는 재접속 — 제출한 입력을 기본값으로 덮어쓰지 않는다", () => {
+// 10/12 결정 — 화면을 나갔다 들어오면 자리는 사라지고, 링크 + 이름 + PIN으로 다시 들어온다
+test("화면을 닫았다 새로 열면(새 탭) 이전 방·자리를 이어받지 않는다", () => {
   const local = new Memory();
   save({ ...joined("room", "a1", ["osaka_castle"]), submitted: true }, local, new Memory());
+  assert.equal(local.getItem(SESSION_KEY), null, "localStorage에 마지막 방을 남기지 않는다");
+  const s = restore(local, new Memory(), INITIAL);
+  assert.equal(s.room, null);
+  assert.deepEqual(s.mine.longlist, []);
+});
 
-  const fresh = new Memory(); // 새 탭: sessionStorage 비어 있음
-  const s = restore(local, fresh, INITIAL);
+test("예전 판이 localStorage에 남긴 마지막 방은 읽지 않고 지운다", () => {
+  const local = new Memory();
+  local.setItem(SESSION_KEY, JSON.stringify({ room: joined("room", "a1", []).room }));
+  const s = restore(local, new Memory(), INITIAL);
+  assert.equal(s.room, null);
+  assert.equal(local.getItem(SESSION_KEY), null);
+});
+
+test("같은 탭 새로고침은 이어지고, 초안만 없으면 서버 확인 전까지 제출을 막는다", () => {
+  const local = new Memory(), tab = new Memory();
+  save(joined("room", "a1", ["osaka_castle"]), local, tab);
+  tab.removeItem(DRAFT_KEY);
+  const s = restore(local, tab, INITIAL);
   assert.equal(s.room?.memberId, "a1");
   assert.equal(s.mine.memberId, "a1", "초안이 없어도 내 자리는 복원한 방의 memberId");
   assert.equal(s.inputMissing, true);
   assert.notEqual(submitBlocker(s), null, "기본값 제출을 막는다");
-
-  // 한 번 더 새로고침해도 기본값 초안을 진짜 초안으로 착각하지 않는다
-  save(s, local, fresh);
-  const again = restore(local, fresh, INITIAL);
-  assert.equal(again.inputMissing, true);
-  assert.notEqual(submitBlocker(again), null);
-});
-
-test("초안 없는 재접속은 submitted=false여도 서버 확인 전까지 막는다", () => {
-  // 제출 뒤 고치면 submitted가 풀리므로, submitted만으로는 서버에 입력이 없다고 말할 수 없다
-  const local = new Memory();
-  save(joined("room", "a1", ["osaka_castle"]), local, new Memory());
-  const s = restore(local, new Memory(), INITIAL);
-  assert.equal(s.inputMissing, true);
-  assert.notEqual(submitBlocker(s), null);
 });
 
 test("데모 모드(방 없음) 초안은 그대로 복원된다", () => {

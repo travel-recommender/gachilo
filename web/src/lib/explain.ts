@@ -13,9 +13,11 @@ export function explainResult(res: ConsensusResult, subs: Submission[], days: nu
   const lines: string[] = [];
   const budget = Math.min(...subs.map((s) => tripBudget(s, days)));
 
+  // AI가 채운 곳은 아무도 고르지 않았으므로 "고른 곳 중"에 세지 않는다 (아래 문장에서 따로 말한다)
+  const chosen = (list: typeof res.core) => list.filter((x) => !x.aiAdded).length;
   lines.push(
     `${subs.length}명이 고른 ${new Set(subs.flatMap((s) => s.picks)).size}곳 중 ` +
-      `${res.core.length}곳을 다 같이 가는 일정으로, ${res.options.length}곳을 원하는 사람만 가는 일정으로 나눴어요.`
+      `${chosen(res.core)}곳을 다 같이 가는 일정으로, ${chosen(res.options)}곳을 원하는 사람만 가는 일정으로 나눴어요.`
   );
 
   lines.push(

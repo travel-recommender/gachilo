@@ -4,6 +4,7 @@
 import type { AppState } from "../components/store";
 import type { ApiRoomInfo, ApiSubmission } from "./room-api";
 import type { Member, Submission } from "./types";
+import type { TripExtras } from "./extras";
 
 /** 서버에 저장된 본인 입력을 화면 입력으로 */
 export function fromServer(saved: ApiSubmission, memberId: string): Submission {
@@ -47,6 +48,8 @@ export function joinedState(
       token: join.token,
       // 방장이 자기 초대 링크를 같은 탭에서 열어도 방장 권한은 남긴다
       ownerToken: same ? s.room!.ownerToken : null,
+      // 방장의 공용 초대 링크도 같은 자리면 남긴다 (PIN으로 방장 자리를 되찾은 직후 포함)
+      inviteToken: same ? s.room!.inviteToken ?? null : null,
       members: same ? s.room!.members : [],
     },
   };
@@ -56,6 +59,8 @@ export function joinedState(
     // 다른 사람 자리로 들어왔다면 이전 사람의 선택은 지운다.
     // (같은 브라우저에서 링크를 바꿔 들어가는 시연에서 실제로 섞였다)
     mine: saved ? fromServer(saved, join.memberId) : { ...defaults, memberId: join.memberId },
+    // 꼭 가기·제외·일정 편집도 자리마다 따로다. 이전 자리 값은 버리고 이 자리의 서버 입력에서 다시 만든다
+    extra: extrasFrom(saved),
     customPlaces: [],
     submitted: saved !== null,
     inputMissing: false,
@@ -77,9 +82,62 @@ export function editedState(s: AppState, p: Partial<Submission>): AppState {
   };
 }
 
+/**
+ * PIN으로 다른 기기에서 자리를 되찾은 직후. 방장이면 방장·초대 토큰도 되찾는다.
+ * 서버에는 다른 기기에서 낸 입력이 있으므로 이 기기 기본값으로 덮어쓰지 않게 막고(inputMissing),
+ * 이어지는 joinedState가 서버 입력으로 채우게 한다.
+ */
+export function rejoinedState(seated: AppState, rejoin: { ownerToken?: string | null; inviteToken: string }): AppState {
+  if (!seated.room) return seated;
+  return {
+    ...seated,
+    room: { ...seated.room, ownerToken: rejoin.ownerToken ?? null, inviteToken: rejoin.ownerToken ? rejoin.inviteToken : null },
+    inputMissing: true,
+  };
+}
+
+/**
+ * 공용 링크 이름 목록의 한 줄.
+ * - mine: 이 기기가 앉아 있는 자리 (같은 토큰으로 이어간다)
+ * - rejoin: 이미 누가 고른 자리지만 PIN으로 다시 들어올 수 있다
+ * - taken: 다른 사람 자리이고 PIN이 없다
+ * - open: 아직 아무도 안 고른 자리
+ * revoked: 이 기기의 토큰이 폐기됐다(다른 기기가 PIN으로 되찾았다). 그러면 내 자리도 PIN으로만 되찾는다.
+ */
+export function seatRow(
+  m: { id: string; claimed: boolean; hasPin?: boolean },
+  seatedMemberId: string | null,
+  revoked: boolean,
+): "mine" | "rejoin" | "taken" | "open" {
+  if (seatedMemberId === m.id && !revoked) return "mine";
+  if (!m.claimed && seatedMemberId !== m.id) return "open";
+  return m.hasPin ? "rejoin" : "taken";
+}
+
 /** 새로고침 뒤 이 기기에 초안이 없을 때, 서버의 본인 입력으로 채운다 */
 export function restoredFromServer(s: AppState, saved: ApiSubmission | null): AppState {
   if (!s.room || !s.inputMissing) return s;
   if (!saved) return { ...s, submitted: false, inputMissing: false };
-  return { ...s, mine: fromServer(saved, s.room.memberId), customPlaces: [], submitted: true, inputMissing: false };
+  return { ...s, mine: fromServer(saved, s.room.memberId), extra: extrasFrom(saved), customPlaces: [], submitted: true, inputMissing: false };
+}
+
+export const EXTRAS_DEFAULT: TripExtras = {
+  mustList: [],
+  vetoList: [],
+  arrivalAirport: "KIX",
+  departureAirport: "KIX",
+  arrivalTime: "",
+  departureTime: "",
+  lodgings: [],
+  dayStart: "09:00",
+  dayEnd: "17:00",
+  tradeoff: { pace: 0.5, distance: 0.5, spend: 0.5 },
+  planEdits: {},
+  confirmed: false,
+};
+
+/** 서버에 저장된 입력으로 새 자리의 extra를 만든다. 서버에는 목록이 없어 picks·veto에서 되살린다 */
+export function extrasFrom(saved: Pick<Submission, "picks" | "veto"> | null): TripExtras {
+  if (!saved) return EXTRAS_DEFAULT;
+  return { ...EXTRAS_DEFAULT, mustList: [...saved.picks], vetoList: saved.veto ? [saved.veto] : [] };
 }

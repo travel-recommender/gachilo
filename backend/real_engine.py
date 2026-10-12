@@ -1,4 +1,4 @@
-"""Opt-in real catalogue. No network, AI, popularity or implicit FX defaults."""
+"""Opt-in real catalogue. Optional bounded foot OSRM; no AI, popularity or implicit FX defaults."""
 import json
 import re
 import subprocess
