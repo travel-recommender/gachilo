@@ -25,7 +25,8 @@ export interface RoutingOptions {
 }
 interface Snapshot { routes: Map<string, WalkingRoute>; failure?: Failure }
 const context = new AsyncLocalStorage<Snapshot>();
-const DETOUR = 1.35, WALK_KMH = 4.2, TRANSIT_THRESHOLD_KM = 1.2;
+export const DETOUR = 1.35;
+const WALK_KMH = 4.2, TRANSIT_THRESHOLD_KM = 1.2;
 const MAX_PLACES = 200, SNAP_RADIUS_M = 100;
 const coordinateKey = (p: Coordinate) => `${p.lng},${p.lat}`;
 const pairKey = (a: Coordinate, b: Coordinate) => `${coordinateKey(a)};${coordinateKey(b)}`;
@@ -92,7 +93,8 @@ function waypointValid(p: {distance?: number; location?: number[]}) {
 function decode(distance: unknown, duration: unknown, a: Coordinate, b: Coordinate): WalkingRoute {
   if (distance === null || duration === null) return estimateWalkingRoute(a, b, 'no_route');
   if (typeof distance !== 'number' || typeof duration !== 'number' || !Number.isFinite(distance)
-      || !Number.isFinite(duration) || distance < 0 || duration < 0) return estimateWalkingRoute(a, b, 'invalid_response');
+      || !Number.isFinite(duration) || distance < 0 || duration < 0
+      || (distance === 0) !== (duration === 0)) return estimateWalkingRoute(a, b, 'invalid_response');
   return {km:distance / 1000, min:Math.round(duration / 60), source:'osrm-foot'};
 }
 
@@ -143,9 +145,12 @@ export function travel(a: Coordinate, b: Coordinate): Move {
   const route = snapshot?.routes.get(pairKey(a, b))
     ?? estimateWalkingRoute(a, b, snapshot?.failure ?? (snapshot ? 'outside_snapshot' : 'not_configured'));
   // Decide from the same walking distance that would enter the walking constraint.
-  // Foot OSRM cannot model trains: transit distance/time retain the previous estimate.
-  if (route.km > TRANSIT_THRESHOLD_KM) return {km:estimated.km,
-    min:Math.round(estimated.km / 18 * 60) + 8, mode:'transit', walkKm:0.7, source:'transit-estimate'};
+  // Foot OSRM cannot model trains. Use the larger distance as a transit proxy so a
+  // short straight-line gap cannot erase a known detour (or undercut access walking).
+  if (route.km > TRANSIT_THRESHOLD_KM) {
+    const km = Math.max(estimated.km, route.km);
+    return {km, min:Math.round(km / 18 * 60) + 8, mode:'transit', walkKm:0.7, source:'transit-estimate'};
+  }
   return {...route, mode:'walk', walkKm:route.km};
 }
 

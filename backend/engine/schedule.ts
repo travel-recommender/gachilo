@@ -1,4 +1,5 @@
 import { distKm, travel } from "./consensus.ts";
+import { DETOUR } from "./routing.ts";
 import { allPlaces } from "./places.ts";
 import type { DayPlan, Place, ScheduleItem, Selection } from "./types.ts";
 
@@ -139,7 +140,7 @@ function buildDay(
     // 거리 + 짐 부담으로 다음 장소를 고른다
     const scored = pool.map((s) => {
       // Keep the original distance/packing score scale without mixing routing sources.
-      const d = prev ? distKm(prev, s.place) * 1.35 : 0;
+      const d = prev ? distKm(prev, s.place) * DETOUR : 0;
       const bagPenalty = opts.considerBags ? s.place.bagLoad * 2.5 * (1 - load) : 0;
       return { sel: s, cost: d + bagPenalty };
     });

@@ -42,14 +42,45 @@ test('valid zero-meter and zero-second routes between distinct points remain OSR
     waypoints:data.sources,routes:[{distance:0,duration:0}]}))),{km:0,min:0,source:'osrm-foot'});
 });
 
+test('distance-only or duration-only zero falls back in both Route and Table responses', async()=>{
+  for (const [distance,duration] of [[0,600],[900,0]]) {
+    const data=table([a,b]);data.distances[0][1]=distance;data.durations[0][1]=duration;
+    await withRouting([a,b],()=>{
+      const move=travel(a,b);
+      assert.equal(move.source,'distance-estimate');assert.equal(move.fallbackReason,'invalid_response');
+      assert.ok(move.km>0);assert.ok(move.min>0);
+      assert.equal(travel(b,a).source,'osrm-foot','valid reverse route remains usable');
+    },options(async()=>response(data)));
+    const route=await queryWalkingRoute(a,b,options(async()=>response({code:'Ok',
+      waypoints:data.sources,routes:[{distance,duration}]})));
+    assert.equal(route.source,'distance-estimate');assert.equal(route.fallbackReason,'invalid_response');
+  }
+});
+
+test('short straight-line detours retain a consistent transit distance and schedule duration', async()=>{
+  const data=table([a,b]);data.distances[0][1]=1400;data.durations[0][1]=1080;
+  await withRouting([a,b],()=>{
+    const move=travel(a,b);
+    assert.equal(move.mode,'transit');assert.equal(move.source,'transit-estimate');
+    assert.equal(move.km,1.4);assert.ok(move.walkKm<=move.km);assert.equal(move.min,13);
+    const items=buildSchedule([selection(place('start',a)),selection(place('end',b))],1,
+      {fillMeals:false}).plans[0].items;
+    assert.equal(items[1].moveKm,1.4);assert.equal(items[1].moveMin,13);
+    assert.equal(items[1].startMin-items[0].endMin,13);
+    assert.equal(travel(b,a).mode,'walk','directional OSRM routes need not have the same mode');
+  },options(async()=>response(data)));
+  const old=travel(a,b);
+  assert.equal(old.mode,'walk');assert.equal(old.km,estimateWalkingRoute(a,b).km);
+});
+
 test('mode uses routed walking distance, including detours and both sides of the threshold', async()=>{
   const near=offset(1.15), far=offset(1.25), data=table([a,near,far]);
   data.distances[0][1]=3000;data.distances[0][2]=1300;
   data.distances[1][0]=1200;data.distances[2][0]=1100;
   await withRouting([a,near,far],()=>{
-    for(const p of [near,far]) {
+    for(const [p,routeKm] of [[near,3],[far,1.3]]) {
       assert.equal(travel(a,p).mode,'transit');assert.equal(travel(a,p).walkKm,0.7);
-      assert.equal(travel(a,p).km,estimateWalkingRoute(a,p).km);
+      assert.equal(travel(a,p).km,Math.max(estimateWalkingRoute(a,p).km,routeKm));
     }
     assert.equal(travel(near,a).mode,'walk');assert.equal(travel(near,a).km,1.2);
     assert.equal(travel(far,a).mode,'walk');assert.equal(travel(far,a).km,1.1);
@@ -65,9 +96,9 @@ test('meal filler and next-place proximity use one geographic distance scale', a
   const near=place('near-food',b,'food'), far=place('far-food',c,'food');
   const vetoed=new Set(allPlaces().map(p=>p.id));
   setCustomPlaces([near,far]);t.after(()=>setCustomPlaces([]));
-  const data=table([a,b,c]);data.distances[0][1]=1190;data.distances[0][2]=3000;
+  const data=table([a,b,c]);data.distances[0][1]=1190;data.distances[0][2]=100;
   await withRouting([a,b,c],()=>{
-    assert.ok(travel(a,b).km>travel(a,c).km,'mixed-source km would choose the wrong candidate');
+    assert.ok(travel(a,b).km>travel(a,c).km,'routed km would change geographic proximity ordering');
     const meals=buildSchedule([selection(place('start',a,'landmark',150)),selection(place('end',a))],1,
       {fillMeals:true,vetoed}).plans[0].items;
     assert.equal(meals[1].place.id,'near-food');
