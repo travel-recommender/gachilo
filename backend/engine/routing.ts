@@ -29,7 +29,7 @@ const DETOUR = 1.35, WALK_KMH = 4.2, TRANSIT_THRESHOLD_KM = 1.2;
 const MAX_PLACES = 200, SNAP_RADIUS_M = 100;
 const coordinateKey = (p: Coordinate) => `${p.lng},${p.lat}`;
 const pairKey = (a: Coordinate, b: Coordinate) => `${coordinateKey(a)};${coordinateKey(b)}`;
-const validCoordinate = (p: Coordinate) => Number.isFinite(p.lat) && Number.isFinite(p.lng)
+const validCoordinate = (p: Coordinate) => p != null && Number.isFinite(p.lat) && Number.isFinite(p.lng)
   && Math.abs(p.lat) <= 90 && Math.abs(p.lng) <= 180;
 
 /** Preserve the prototype's city-scale straight-line approximation exactly. */
@@ -54,8 +54,8 @@ function configuration(options: RoutingOptions) {
     if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.search || url.hash
         || ['router.project-osrm.org', 'routing.openstreetmap.de'].includes(url.hostname)) throw Error();
     const requested = options.timeoutMs ?? Number(process.env.OSRM_TIMEOUT_MS || 2000);
-    if (!Number.isFinite(requested) || requested < 1) throw Error();
-    return {url:url.href.replace(/\/$/, ''), timeout:Math.min(requested, 3000)};
+    if (!Number.isFinite(requested) || requested < 1 || requested > 3000) throw Error();
+    return {url:url.href.replace(/\/$/, ''), timeout:requested};
   } catch { return {failure:'invalid_config' as Failure}; }
 }
 
@@ -63,7 +63,9 @@ async function request(service: 'route' | 'table', points: Coordinate[], options
   const config = configuration(options);
   if (config.failure) return {failure:config.failure};
   const query = new URLSearchParams({
-    radiuses:points.map(() => SNAP_RADIUS_M).join(';'), generate_hints:'false',
+    // Let OSRM snap every point, then reject distant waypoints per pair below.
+    // A request-level radius can turn one distant point into a whole-table NoSegment.
+    generate_hints:'false',
     ...(service === 'route' ? {overview:'false', steps:'false'} : {annotations:'distance,duration'}),
   });
   const signal = AbortSignal.timeout(config.timeout!);
@@ -89,10 +91,8 @@ function waypointValid(p: {distance?: number; location?: number[]}) {
 }
 function decode(distance: unknown, duration: unknown, a: Coordinate, b: Coordinate): WalkingRoute {
   if (distance === null || duration === null) return estimateWalkingRoute(a, b, 'no_route');
-  const same = coordinateKey(a) === coordinateKey(b);
   if (typeof distance !== 'number' || typeof duration !== 'number' || !Number.isFinite(distance)
-      || !Number.isFinite(duration) || distance < 0 || duration < 0
-      || !same && (distance === 0 || duration === 0)) return estimateWalkingRoute(a, b, 'invalid_response');
+      || !Number.isFinite(duration) || distance < 0 || duration < 0) return estimateWalkingRoute(a, b, 'invalid_response');
   return {km:distance / 1000, min:Math.round(duration / 60), source:'osrm-foot'};
 }
 
@@ -139,19 +139,20 @@ export async function withRouting<T>(points: Coordinate[], calculate: () => T | 
 
 export function travel(a: Coordinate, b: Coordinate): Move {
   const estimated = estimateWalkingRoute(a, b);
-  // Preserve mode selection and the previous transit heuristic. Foot OSRM cannot model trains.
-  if (estimated.km > TRANSIT_THRESHOLD_KM) return {km:estimated.km,
-    min:Math.round(estimated.km / 18 * 60) + 8, mode:'transit', walkKm:0.7, source:'transit-estimate'};
   const snapshot = context.getStore();
   const route = snapshot?.routes.get(pairKey(a, b))
     ?? estimateWalkingRoute(a, b, snapshot?.failure ?? (snapshot ? 'outside_snapshot' : 'not_configured'));
+  // Decide from the same walking distance that would enter the walking constraint.
+  // Foot OSRM cannot model trains: transit distance/time retain the previous estimate.
+  if (route.km > TRANSIT_THRESHOLD_KM) return {km:estimated.km,
+    min:Math.round(estimated.km / 18 * 60) + 8, mode:'transit', walkKm:0.7, source:'transit-estimate'};
   return {...route, mode:'walk', walkKm:route.km};
 }
 
 export const hasRoutingContext = () => context.getStore() !== undefined;
 
 /** Existing API's summary field records actual final-leg sources without a schema change. */
-export function routingSummary(days: Coordinate[][]): string {
+function routingCounts(days: Coordinate[][]) {
   let osrm = 0, estimated = 0, transit = 0;
   for (const places of days) for (let i = 1; i < places.length; i++) {
     const move = travel(places[i - 1], places[i]);
@@ -159,5 +160,19 @@ export function routingSummary(days: Coordinate[][]): string {
     else if (move.mode === 'transit') transit++;
     else estimated++;
   }
+  return {osrm, estimated, transit};
+}
+
+/** Describe final legs, not merely the presence of a request-scoped context. */
+export function routingLimitations(days: Coordinate[][]): string {
+  const {osrm, estimated, transit} = routingCounts(days);
+  const reason = context.getStore()?.failure;
+  return `Final legs: foot OSRM ${osrm}, distance × 1.35 walking estimate ${estimated}, transit estimate ${transit}.`
+    + (osrm === 0 ? ` No walking legs use OSRM${reason ? ` (${reason})` : ''}.` : '')
+    + ' Transit timetables, lodging access, venue walking, queues and weather are not included.';
+}
+
+export function routingSummary(days: Coordinate[][]): string {
+  const {osrm, estimated, transit} = routingCounts(days);
   return ` 이동 계산: OSRM 도보 ${osrm}구간, 직선거리×1.35 도보 추정 ${estimated}구간, 대중교통 추정 ${transit}구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다.`;
 }

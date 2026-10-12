@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {loadInputs, availability, validateDay} from '../../scripts/validate_real_schedule.mjs';
 
-import {withRouting, routingSummary, hasRoutingContext} from './routing.ts';
+import {withRouting, routingSummary, routingLimitations, hasRoutingContext} from './routing.ts';
 
 export function calculateReal(request, dataset, profiles) {
   const submissions = request.submissions;
@@ -56,12 +56,15 @@ export function calculateReal(request, dataset, profiles) {
   const reasons = {};
   for (const failure of failures) for (const reason of failure.reasons) reasons[reason] = (reasons[reason] || 0) + 1;
   const complete = scheduled.size > 0 && !missingMust && failures.length === 0;
+  const finalCoordinates = days.map(day => day.placeIds.map(id => {
+    const p = byId.get(id).place; return {lat:p.latitude, lng:p.longitude};
+  }));
   return {
     result: {strategy: 'average', days,
       summary: `실제 수집 장소 ${dataset.places.length}곳 중 선택한 장소만 계산한 초안입니다. ${scheduled.size}곳 배치, ${failures.length}곳은 운영·가격·일일 한도 확인으로 미배치했습니다.`
         + (missingMust ? ' 꼭 가는 장소 조건이 충족되지 않았습니다.' : '')
         + ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 이동·걸음 수는 추정입니다.'
-        + (hasRoutingContext() ? routingSummary(days.map(day => day.placeIds.map(id => { const p = byId.get(id).place; return {lat:p.latitude,lng:p.longitude}; }))) : '')},
+        + (hasRoutingContext() ? routingSummary(finalCoordinates) : '')},
     planning: {
       status: complete ? 'model_checks_passed' : 'needs_review', schedule_ready: false,
       selection_policy: 'must_then_selection_count_then_id; selected_only; veto_excluded',
@@ -75,7 +78,7 @@ export function calculateReal(request, dataset, profiles) {
       limitations: ['No popularity scores or unselected places are used.',
         'Validated only within the reviewed date range; unknown prices, hours and reservations are excluded.',
         'Shopping spend is not applicable to the budget subtotal; null never means free admission.',
-        hasRoutingContext() ? 'Walking legs use configured foot OSRM, with distance × 1.35 fallback. Transit is still estimated; lodging access, venue walking, queues and weather are not included.'
+        hasRoutingContext() ? routingLimitations(finalCoordinates)
           : 'Travel uses distance × 1.35 and estimated transit; lodging access, venue walking, queues and weather are not included.',
         'Starts at 09:00 Japan time. Stay estimates use the upper end of the team ranges.'],
     },

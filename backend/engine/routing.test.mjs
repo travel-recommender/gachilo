@@ -16,7 +16,7 @@ const options = fetchImpl => ({baseUrl:'http://localhost:5001', fetchImpl});
 const response = data => new Response(JSON.stringify(data));
 const routeBody = {code:'Ok', waypoints:[waypoint(a),waypoint(b)], routes:[{distance:900, duration:720}]};
 const table = points => ({code:'Ok', sources:points.map(waypoint), destinations:points.map(waypoint),
-  distances:points.map((_,i)=>points.map((_,j)=>i===j?0:900)),
+  distances:points.map((p,i)=>points.map((q,j)=>i===j?0:distKm(p,q)*1.35>1.2?distKm(p,q)*1.35*1000:900)),
   durations:points.map((_,i)=>points.map((_,j)=>i===j?0:720))});
 const matrixFetch = url => {
   const coords = new URL(url).pathname.split('/').at(-1).split(';').map(s=>{
@@ -28,7 +28,7 @@ const matrixFetch = url => {
 test('Route uses longitude,latitude, a foot server and meters/seconds conversion', async () => {
   const result = await queryWalkingRoute(a,b,options(async (url,init) => {
     assert.match(url,/\/route\/v1\/foot\/135.5,34.67;135.501,34.671\?/);
-    assert.equal(new URL(url).searchParams.get('radiuses'),'100;100');
+    assert.equal(new URL(url).searchParams.has('radiuses'),false);
     assert.ok(init.signal); return response(routeBody);
   }));
   assert.deepEqual(result,{km:0.9,min:12,source:'osrm-foot'});
@@ -51,7 +51,7 @@ test('offline, HTTP failure, bad JSON, no route and invalid numbers use the old 
     [async()=>new Response('<html>oops</html>'),'invalid_response'],
     [async()=>response({code:'NoRoute'}),'no_route'],
     [async()=>response({...routeBody,routes:[]}),'invalid_response'],
-    ...[null,-1,'900',0].map(n=>[async()=>response({...routeBody,routes:[{distance:n,duration:720}]}),n===null?'no_route':'invalid_response']),
+    ...[null,-1,'900'].map(n=>[async()=>response({...routeBody,routes:[{distance:n,duration:720}]}),n===null?'no_route':'invalid_response']),
     [async()=>response({...routeBody,waypoints:[{...waypoint(a),distance:500},waypoint(b)]}),'invalid_response'],
   ];
   for (const [fetchImpl,reason] of cases) {

@@ -44,12 +44,26 @@ def calculate_walking_route(start, end):
 
     node = os.environ.get("NODE_BINARY") or shutil.which("node")
     if not node:
-        raise RuntimeError("Node 24 이상을 설치하거나 NODE_BINARY를 설정하세요.")
-    points = [{"lng": float(p["longitude"]), "lat": float(p["latitude"])} for p in (start, end)]
-    script = Path(__file__).with_name("query_walking_route.mjs")
-    result = subprocess.run([node, str(script)], input=json.dumps(points),
-                            capture_output=True, text=True, encoding="utf-8", check=True, timeout=10)
-    route = json.loads(result.stdout)
+        print("Node 24 이상을 설치하거나 NODE_BINARY를 설정하세요.")
+        return None
+    try:
+        points = [{"lng": float(p["longitude"]), "lat": float(p["latitude"])} for p in (start, end)]
+        script = Path(__file__).with_name("query_walking_route.mjs")
+        result = subprocess.run([node, str(script)], input=json.dumps(points),
+                                capture_output=True, text=True, encoding="utf-8", check=True, timeout=10)
+        route = json.loads(result.stdout)
+    except subprocess.CalledProcessError:
+        print("경로 계산을 실행하지 못했습니다. Node 24 이상인지, 장소 좌표가 유효한지 확인하세요.")
+        return None
+    except subprocess.TimeoutExpired:
+        print("경로 계산 시간이 초과됐습니다. Node 실행 환경을 확인하세요.")
+        return None
+    except OSError:
+        print("Node 실행 파일을 열 수 없습니다. NODE_BINARY 경로를 확인하세요.")
+        return None
+    except (ValueError, TypeError, KeyError):
+        print("장소 좌표 또는 경로 응답 형식을 확인하세요.")
+        return None
     print(f"\n{start['name_ko']} → {end['name_ko']}")
     print(f"도보 거리: {route['km']:.2f} km / 예상 시간: {route['min']}분")
     print(f"계산 출처: {route['source']}" + (f" ({route['fallbackReason']})" if route.get('fallbackReason') else ''))
@@ -77,12 +91,12 @@ def main():
 
         if start and end:
             result = calculate_walking_route(start, end)
-
-            if result:
-                distance, duration = result
-
-                total_distance += distance
-                total_duration += duration
+            if result is None:
+                print("전체 이동 합계 계산을 중단했습니다.")
+                return
+            distance, duration = result
+            total_distance += distance
+            total_duration += duration
 
         else:
             print("장소를 찾지 못했습니다.")
