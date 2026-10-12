@@ -15,12 +15,62 @@ export function newer(prev: SharedResults | null, next: SharedResults): SharedRe
   return next;
 }
 
-/** 방장 화면이 이 응답을 보고 후보 계산을 요청해야 하는가. 같은 버전에는 한 번만 (실패해도 폴링마다 다시 부르지 않는다) */
-export function shouldCalculate(snap: SharedResults | null, isOwner: boolean, attempted: ReadonlySet<string>) {
-  return !!snap && isOwner && snap.status === "awaiting_result" && !attempted.has(calcKey(snap));
+export const calcKey = (snap: Pick<SharedResults, "roomId" | "revision">) => `${snap.roomId}:${snap.revision}`;
+
+/** 방·revision별 계산 시도. 화면(훅)이 바뀌어도 남아야 해서 화면 밖(계산기)에 둔다 */
+export type Attempt = { state: "pending" | "failed" | "done"; error?: string };
+
+export interface CalcView {
+  /** 자동으로 계산을 요청할 차례 (방장 · 전원 제출 · 이 버전 처음) */
+  auto: boolean;
+  /** 시도했는데도 서버가 아직 계산 대기다 — 실패했거나, 202를 받은 작업이 실패·만료됐다 */
+  retry: boolean;
+  error: string | null;
 }
 
-export const calcKey = (snap: Pick<SharedResults, "roomId" | "revision">) => `${snap.roomId}:${snap.revision}`;
+/**
+ * 방장 화면의 계산 상태. 같은 버전은 자동으로 한 번만 부르고(폴링마다 재호출하지 않음),
+ * 그 뒤에도 awaiting_result면 화면을 옮겨 다녀도 수동 재시도를 보여준다 (#40 리뷰).
+ */
+export function calcView(snap: SharedResults | null, isOwner: boolean, attempts: ReadonlyMap<string, Attempt>): CalcView {
+  if (!snap || !isOwner || snap.status !== "awaiting_result") return { auto: false, retry: false, error: null };
+  const a = attempts.get(calcKey(snap));
+  if (!a) return { auto: true, retry: false, error: null };
+  if (a.state === "pending") return { auto: false, retry: false, error: null };
+  return { auto: false, retry: true, error: a.error ?? "후보 계산이 끝나지 않았어요. 다시 계산해 주세요." };
+}
+
+/** 계산 시도 기록과 알림. 탭 안에서 하나만 둔다(모듈 전역) */
+export function createCalculator() {
+  const attempts = new Map<string, Attempt>();
+  const listeners = new Set<() => void>();
+  const emit = () => listeners.forEach((l) => l());
+  return {
+    attempts: attempts as ReadonlyMap<string, Attempt>,
+    subscribe(l: () => void) { listeners.add(l); return () => { listeners.delete(l); }; },
+    view: (snap: SharedResults | null, isOwner: boolean) => calcView(snap, isOwner, attempts),
+    /** 계산을 요청한다. 409(그 사이 입력이 바뀜)는 오류로 보지 않는다 — 재조회하면 새 버전이 온다 */
+    async run(snap: SharedResults, call: () => Promise<SharedResults>): Promise<SharedResults | null> {
+      const key = calcKey(snap);
+      attempts.set(key, { state: "pending" });
+      emit();
+      try {
+        const next = await call();
+        attempts.set(key, { state: "done" });
+        return next;
+      } catch (e) {
+        const status = (e as { status?: number }).status;
+        attempts.set(key, status === 409 ? { state: "done" }
+          : { state: "failed", error: e instanceof Error ? e.message : "후보를 계산하지 못했어요." });
+        return null;
+      } finally {
+        emit();
+      }
+    },
+    /** 방장이 누르는 다시 계산하기 — 이 버전의 기록을 지워 자동 요청이 다시 돈다 */
+    retry(snap: SharedResults) { attempts.delete(calcKey(snap)); emit(); },
+  };
+}
 
 /** P7에 서버 후보를 보여줄 수 있는가 */
 export const hasCandidates = (snap: SharedResults | null) =>
