@@ -1,5 +1,5 @@
 {
-  "source_sha256": "8b76d172470c3cc44c9ef10798986a805cbc06fb203a96a23255a052c6ee4c8b",
+  "source_sha256": "6f10790d288bdbc435f26fced123e77f4e7027278523481a1a1de86a48ffd3a6",
   "profiles_sha256": "f206eb0924d0f7464a24a01a68e5024cc9602d071fff3360b8ffd6c5e90c5ae0",
   "purpose": "All 150 source IDs submitted as six synthetic participants; this is not a 150-place production-readiness certificate.",
   "summary": {
@@ -1118,6 +1118,7 @@
               "2026-10-07"
             ],
             "reasons": [
+              "stay_policy_unconfirmed",
               "cost_unknown_or_not_applicable",
               "structured_date_profile_missing"
             ]
@@ -5551,6 +5552,7 @@
       "place_id": "osaka_draft_2e4698946819",
       "name_ko": "엘레메카 연구소",
       "reasons": [
+        "stay_policy_unconfirmed",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -7636,6 +7638,7 @@
       "visit_confirmation_required": 9,
       "date_conditions_vary": 12,
       "category_mismatch": 1,
+      "stay_policy_unconfirmed": 1,
       "requested_place_not_scheduled": 12,
       "branch_unconfirmed": 6,
       "driving_eligibility_confirmation_required": 1,

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {availability, costKrw, loadInputs, makeReport, validateDay} from './validate_real_schedule.mjs';
+import {availability, costKrw, engineCategory, loadInputs, makeReport, validateDay} from './validate_real_schedule.mjs';
 const {dataset, profiles} = loadInputs();
 const record = id => dataset.places.find(r => r.place.place_id === id);
 const request = (place_ids, extra = {}) => ({date: '2026-10-01', place_ids,
@@ -12,6 +12,7 @@ test('activity is schedulable with verified inputs, while Elemeca remains held',
   const fixture = structuredClone(dataset);
   // Reuse a known eligible record only to exercise the new category through the scheduler.
   fixture.places.find(r => r.place.place_id === 'osaka_009').place.category = '체험·오락';
+  assert.equal(engineCategory('체험·오락'), 'activity');
   const result = run(['osaka_009'], {}, fixture);
   assert.equal(result.passed_model_checks, true);
   assert.equal(result.items[0].place_id, 'osaka_009');
@@ -21,6 +22,7 @@ test('activity is schedulable with verified inputs, while Elemeca remains held',
   const check = availability(elemeca, '2026-10-01', profiles);
   assert.ok(!check.reasons.includes('category_unknown'));
   assert.ok(check.reasons.includes('cost_unknown_or_not_applicable'));
+  assert.ok(check.reasons.includes('stay_policy_unconfirmed'));
   assert.equal(check.eligible_for_model, false);
   assert.equal(check.schedule_ready, false);
 });

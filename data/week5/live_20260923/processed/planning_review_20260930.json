@@ -16325,6 +16325,44 @@
         "revision": "category_review_20261012",
         "note": "2026-10-12 사용자 승인: 게임 이용이 주목적인 엘레메카 연구소를 체험·오락으로 분류. OSM 원본 영문명 Electro-Mechanical Arcade Games와 사용자 설명을 근거로 한 서비스 분류이며 공식 운영시간·가격 검증이 아님."
       }
+    },
+    {
+      "place_id": "osaka_draft_2e4698946819",
+      "field": "stay_min",
+      "before": 120,
+      "after": 120,
+      "previous_source": {
+        "kind": "team_rule_estimate",
+        "urls": [
+          "https://github.com/travel-recommender/gachilo/issues/1"
+        ],
+        "checked_at": "2026-09-29",
+        "revision": "team_planning_rules_20260929",
+        "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+      },
+      "source": {
+        "kind": "team_rule_estimate",
+        "urls": [
+          "https://github.com/travel-recommender/gachilo/issues/1"
+        ],
+        "checked_at": "2026-10-13",
+        "revision": "category_review_followup_20261013",
+        "note": "체험·오락 체류시간 미합의. stay_min=120분은 종전 관광 명소(90~120분) 규칙의 추정값을 이력으로 유지한 것이며, 새 분류의 권장시간 또는 공식 소요시간이 아님. 일정 사용 전에 장소별 확인 또는 팀 기준 확정 필요. 이번 변경은 출처 설명 정정이며 현장·공식 웹 재검증이 아님."
+      },
+      "previous_stay_policy": {
+        "type": "관광 명소(문화·자연 포함)",
+        "min": 90,
+        "max": 120,
+        "representative": 120,
+        "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+      },
+      "stay_policy": {
+        "type": "미합의(체험·오락)",
+        "min": null,
+        "max": null,
+        "representative": null,
+        "method": "체험·오락 공통 체류시간 미합의. 장소별 확인 또는 팀 기준 확정 필요; 기존 stay_min은 별도 이력."
+      }
     }
   ],
   "attempts": [
@@ -20481,6 +20519,14 @@
         "osaka_draft_f8831852f028"
       ],
       "notes": "공식 재조회 및 확인 실패 기록. API·좌표·ID·카테고리·팀 체류/짐 기준은 유지."
+    },
+    {
+      "revision": "category_review_followup_20261013",
+      "checked_at": "2026-10-13",
+      "touched_place_ids": [
+        "osaka_draft_2e4698946819"
+      ],
+      "notes": "PR44 리뷰 반영: 미합의 체류 정책을 API/CSV에 명시. 실제값·원본 OSM·ID·좌표 보존. 공식 운영자료 재확인이나 일정 검증 승격 아님."
     }
   ]
 }

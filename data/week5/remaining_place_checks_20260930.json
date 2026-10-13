@@ -9,7 +9,7 @@
     "2026-10-06",
     "2026-10-07"
   ],
-  "source_sha256": "8b76d172470c3cc44c9ef10798986a805cbc06fb203a96a23255a052c6ee4c8b",
+  "source_sha256": "6f10790d288bdbc435f26fced123e77f4e7027278523481a1a1de86a48ffd3a6",
   "profiles_sha256": "f206eb0924d0f7464a24a01a68e5024cc9602d071fff3360b8ffd6c5e90c5ae0",
   "summary": {
     "records": 150,
@@ -888,10 +888,12 @@
         "verified_at"
       ],
       "reasons": [
+        "stay_policy_unconfirmed",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "next_actions": [
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정",
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],
@@ -1484,7 +1486,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
       ],
       "missing_address_hours_note": "폐업 표시 및 웹사이트 대상 불일치. 기존 ID를 다른 박물관으로 바꾸지 않음.",
       "evidence_urls": [
@@ -2435,7 +2437,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -2938,7 +2940,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3172,7 +3174,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3286,7 +3288,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3316,7 +3318,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3525,7 +3527,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -4090,7 +4092,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
+        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [

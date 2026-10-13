@@ -2,7 +2,7 @@ import unittest,json,copy,ast
 from unittest.mock import patch
 from decimal import Decimal
 from pathlib import Path
-from place_catalog import cost_krw,exchange_rate,project,catalog,DATA,get_luggage_score,exchange_rate_metadata
+from place_catalog import cost_krw,exchange_rate,project,catalog,DATA,get_luggage_score,exchange_rate_metadata,stay_policy
 
 class CatalogTests(unittest.TestCase):
  def test_utf8_catalog_with_cp949_default(self):
@@ -69,5 +69,20 @@ class CatalogTests(unittest.TestCase):
   self.assertFalse(p['planning']['schedule_ready'])
   self.assertIn('hours_not_verified',p['planning']['review_required'])
   self.assertEqual(catalog(query='엘레메카',category='명소',rate='9.5')['total'],0)
+
+ def test_activity_stay_policy_does_not_regenerate_landmark_default(self):
+  record=next(r for r in json.loads(DATA.read_text(encoding='utf-8'))['places']
+              if r['place']['place_id']=='osaka_draft_2e4698946819')
+  policy=stay_policy(record)
+  self.assertEqual(policy['type'],'미합의(체험·오락)')
+  for field in ('min','max','representative'):self.assertIsNone(policy[field])
+  self.assertEqual(record['review']['stay_policy'],policy)
+  out=project(record,Decimal('9.5'))
+  self.assertEqual(out['planning']['stay_range'],policy)
+  self.assertEqual(out['stay_min'],120) # History preserved, not a new default.
+  self.assertIn('미합의',out['stay_basis'])
+  self.assertIn('stay_policy_unconfirmed',out['planning']['review_required'])
+  theme=copy.deepcopy(record);theme['source']['tags']['tourism']='theme_park'
+  self.assertEqual(stay_policy(theme)['representative'],480) # Existing agreed subtype unchanged.
 
 if __name__=='__main__':unittest.main()

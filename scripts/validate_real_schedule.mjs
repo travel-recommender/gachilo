@@ -13,6 +13,7 @@ export const loadInputs = () => ({
   profiles: JSON.parse(fs.readFileSync(profilesURL, 'utf8')),
 });
 const categories = {명소: 'landmark', 문화: 'culture', 자연: 'nature', 쇼핑: 'shopping', 카페: 'cafe', 식사: 'food', '체험·오락': 'activity'};
+export const engineCategory = category => categories[category];
 const shoppingRecord = r => r.place.category === '쇼핑'
   || ['구로몬시장', '신사이바시스지 상점가', '아메리카무라', '신세카이'].includes(r.place.name_ko)
   || ['shopping_spend_excluded', 'exclude_personal_shopping_spend'].includes(r.review.planning_cost_policy);
@@ -51,7 +52,7 @@ export function availability(record, date, profiles, {allowShopping = false} = {
   if (![0, 1, 2].includes(p.bag_load)) reasons.push('bag_load_invalid');
   if (!Number.isFinite(p.latitude) || !Number.isFinite(p.longitude)
       || p.latitude < -90 || p.latitude > 90 || p.longitude < -180 || p.longitude > 180) reasons.push('coordinates_invalid');
-  if (!categories[p.category]) reasons.push('category_unknown');
+  if (!engineCategory(p.category)) reasons.push('category_unknown');
   if (!profile) reasons.push('structured_date_profile_missing');
   if (date < profiles.valid_from || date > profiles.valid_through) reasons.push('outside_reviewed_date_range');
   let window = null;
@@ -113,7 +114,7 @@ export function validateDay(request, dataset, profiles, options = {}) {
     visitCosts.set(id, check.cost_jpy);
     const p = r.place;
     accepted.push({place: {
-      id, name: p.name_ko, area: p.area || '', category: categories[p.category],
+      id, name: p.name_ko, area: p.area || '', category: engineCategory(p.category),
       lat: p.latitude, lng: p.longitude, cost: options.allowShopping && shoppingRecord(r) ? 0 : costKrw(check.cost_jpy, request.krw_per_jpy),
       stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1],
       bagLoad: p.bag_load / 2,

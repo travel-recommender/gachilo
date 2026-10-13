@@ -14,6 +14,11 @@ def get_luggage_score(place):
 def stay_policy(record):
     p=record['place'];t=record['source']['tags']
     if t.get('tourism')=='theme_park':kind,lo,hi='테마파크',360,480
+    elif p['category']=='체험·오락':
+        # No general arcade/experience range was agreed. A retained historical
+        # stay_min is not a newly approved category default.
+        return {'type':'미합의(체험·오락)','min':None,'max':None,'representative':None,
+          'method':'체험·오락 공통 체류시간 미합의. 장소별 확인 또는 팀 기준 확정 필요; 기존 stay_min은 별도 이력.'}
     elif t.get('shop') in ('mall','department_store'):kind,lo,hi='쇼핑몰·백화점',90,180
     elif p['category']=='쇼핑' or t.get('shop')=='convenience':kind,lo,hi='간단한 쇼핑',15,30
     elif p['category']=='카페':kind,lo,hi='카페',45,60

@@ -33,7 +33,7 @@
 |소다이쇼|大阪市北区浮田2-4-16|통과|covered||
 |마루후쿠 커피 센니치마에 본점|大阪市中央区千日前1-9-1|보류|cost||
 |브루클린 로스팅 컴퍼니 난바|大阪市浪速区敷津東1-1-21 なんばEKIKAN|보류|cost, covered||
-|엘레메카 연구소|일본 〒530-0015 Osaka, Kita Ward, Nakazakinishi, 4 Chome−3 1F|보류|cost, covered, opening_hours_source, verified_at||
+|엘레메카 연구소|일본 〒530-0015 Osaka, Kita Ward, Nakazakinishi, 4 Chome−3 1F|보류|cost, covered, opening_hours_source, verified_at|stay_policy_unconfirmed|
 |도톤보리 교|10 Dotonbori, Chuo Ward, Osaka, 542-0071 일본|보류|cost, covered||
 |호쇼안 다실|2 Osakajo, Chuo Ward, Osaka, 540-0002 일본|보류|covered|event_access_required, seasonal_event_date_confirmation_required|
 |오에이피 항구|1 Chome-8-40 Tenmabashi, Kita Ward, 大阪府 Osaka 530-0042 일본|보류|opening_hours, cost, covered, opening_hours_source|google_maps_temporarily_closed|
