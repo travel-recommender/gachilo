@@ -45,6 +45,8 @@ export interface Place {
    */
   popularity: number;
   blurb: string;
+  /** 실제 장소(150곳)의 주소. 있으면 목록의 주소 줄에 쓴다 */
+  address?: string;
   /** 사용자가 직접 추가한 장소인가 (좌표·비용이 추정값) */
   custom?: boolean;
 }

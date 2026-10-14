@@ -2,6 +2,7 @@
  * 서버 API 클라이언트.
  * 계약 원본은 backend/README.md 「API 계약」이다. 여기서 임의로 경로를 만들지 않는다.
  */
+import type { ApiCatalogPlace } from "./catalog";
 
 export interface RoomMember {
   id: string;
@@ -163,8 +164,13 @@ export const roomApi = {
       .then((r) => r.exchange_rate ?? null),
 
   /** ownerPin: 방장이 다른 기기에서 다시 들어올 때 쓸 4자리 */
-  create: (startDate: string, endDate: string, memberNames: string[], ownerPin?: string) =>
-    request<ApiRoom>("/rooms", "POST", { startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}) }),
+  create: (startDate: string, endDate: string, memberNames: string[], ownerPin?: string, dataset?: string) =>
+    request<ApiRoom>("/rooms", "POST", {
+      startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}), ...(dataset ? { dataset } : {}),
+    }),
+
+  /** 실제 장소 150곳. 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
+  realPlaces: () => request<{ dataset: string; places: ApiCatalogPlace[] }>("/api/places?limit=150"),
 
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>
