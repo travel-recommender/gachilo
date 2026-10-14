@@ -38,6 +38,8 @@ export interface ApiSubmission {
   stepLimit: number;
   /** 분/하루 */
   activeMin: number;
+  /** 엔진 방향의 trade off 세 축 (0~1). 7주차 전에 낸 입력에는 없다 */
+  tradeoffs?: { pace: number; distance: number; spend: number };
 }
 
 /** 초대받은 사람도 읽는 방 기본 정보. 토큰·입력은 들어 있지 않다 */
@@ -129,7 +131,7 @@ async function request<T>(path: string, method = "GET", body?: unknown, token?: 
   return value as T;
 }
 
-export { defaultStartDate, nightsBetween, toDateRange } from "./dates";
+export { defaultStartDate, nightsBetween, toDateRange, todayDate } from "./dates";
 
 /**
  * 참여자별 초대 링크.

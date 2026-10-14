@@ -10,18 +10,23 @@ import { useRouter } from "next/navigation";
 /** public/ 파일 경로. GitHub Pages에서는 basePath가 붙는다 */
 export const asset = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 
-/** 하단 동덕여대 크레딧 — 모든 화면 공통 (높이 62px) */
+/**
+ * 하단 동덕여대 크레딧 — 모든 화면 공통 (높이 62px).
+ * 휴대폰에서는 아래 브라우저 바·홈 막대에 가리지 않게 같은 색 여백을 아래에 더 둔다.
+ */
 export function Credit() {
   return (
-    <div className="flex h-[62px] shrink-0 items-center justify-between bg-line pl-[9px] pr-[13px]">
-      <div className="text-[12.867px] font-bold leading-[1.2] text-wine">
-        <p>동덕여자대학교</p>
-        <p>
-          2026 캡스톤 디자인 <span className="text-black">엄혜인 이조은 권윤진</span>
-        </p>
+    <div className="shrink-0 bg-line pb-[max(env(safe-area-inset-bottom),44px)] sm:pb-0">
+      <div className="flex h-[62px] items-center justify-between pl-[9px] pr-[13px]">
+        <div className="text-[12.867px] font-bold leading-[1.2] text-wine">
+          <p>동덕여자대학교</p>
+          <p>
+            2026 캡스톤 디자인 <span className="text-black">엄혜인 이조은 권윤진</span>
+          </p>
+        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={asset("/ui/symbol.png")} alt="동덕여자대학교 심볼" width={46} height={39} />
       </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={asset("/ui/symbol.png")} alt="동덕여자대학교 심볼" width={46} height={39} />
     </div>
   );
 }
@@ -113,18 +118,27 @@ export function FocusCard({ children, className = "", radius = "rounded-[20px]" 
   );
 }
 
-/** 디자인 슬라이더 (트랙 10px, 버건디 채움) */
-export function WineSlider({ value, min, max, step, onChange, left, right, label }: {
+/**
+ * 디자인 슬라이더 (트랙 10px, 버건디 채움).
+ * floor가 있으면 그 아래는 연한 버건디로 칠하고 그 밑으로는 내려가지 않는다 (P6 trade off 묶음).
+ */
+export function WineSlider({ value, min, max, step, onChange, left, right, label, floor }: {
   value: number; min: number; max: number; step: number;
   onChange: (v: number) => void;
   left?: string; right?: string; label: string;
+  floor?: number;
 }) {
-  const fill = max > min ? ((value - min) / (max - min)) * 100 : 0;
+  const pct = (v: number) => (max > min ? ((v - min) / (max - min)) * 100 : 0);
+  const fill = pct(value);
+  const lock = floor !== undefined && floor > min ? pct(floor) : 0;
+  const track = lock > 0
+    ? `linear-gradient(to right,#e3bcc6 ${lock}%,#8b2842 ${lock}%,#8b2842 ${fill}%,#d6d6d6 ${fill}%)`
+    : `linear-gradient(to right,#8b2842 ${fill}%,#d6d6d6 ${fill}%)`;
   return (
     <div>
       <input type="range" aria-label={label} min={min} max={max} step={step} value={value}
-        onChange={(e) => onChange(Number(e.target.value))} className="range-wine"
-        style={{ ["--track" as string]: `linear-gradient(to right,#8b2842 ${fill}%,#d6d6d6 ${fill}%)` }} />
+        onChange={(e) => onChange(Math.max(Number(e.target.value), floor ?? min))} className="range-wine"
+        style={{ ["--track" as string]: track }} />
       {(left || right) && (
         <div className="flex justify-between text-[8px] font-medium text-black">
           <span>{left}</span><span>{right}</span>

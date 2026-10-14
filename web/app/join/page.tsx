@@ -5,12 +5,12 @@ import { useTrip } from "@/components/store";
 import { ApiError, roomApi, type ApiInviteInfo } from "@/lib/room-api";
 import { seatRow } from "@/lib/room-state";
 import { Hero, NavButtons, Page, asset } from "@/components/gachiro";
-import { Splash } from "@/components/Splash";
+import { SPLASH_DONE_MS, Splash } from "@/components/Splash";
 import { fmtShort } from "@/components/RangeCalendar";
 import { PinSheet } from "@/components/PinSheet";
 
 /** 로딩 화면을 보여주는 최소 시간 */
-const SPLASH_MS = 1600;
+const SPLASH_MS = SPLASH_DONE_MS;
 
 /**
  * 초대 링크로 들어오는 화면.

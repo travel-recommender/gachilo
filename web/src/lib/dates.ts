@@ -16,10 +16,20 @@ export function nightsBetween(startDate: string, endDate: string) {
   return Math.round((Date.parse(`${endDate}T00:00:00Z`) - Date.parse(`${startDate}T00:00:00Z`)) / 86400000);
 }
 
+/** Date의 **로컬 달력** 날짜 `YYYY-MM-DD` */
+function localDate(d: Date) {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+/** 오늘 날짜. 달력에서 고를 수 있는 첫 날이다 */
+export function todayDate(now = new Date()) {
+  return localDate(now);
+}
+
 /** 오늘 기준 기본 출발일 (일주일 뒤). 사용자의 **로컬 달력** 날짜로 만든다 */
 export function defaultStartDate(now = new Date()) {
   const d = new Date(now);
   d.setDate(d.getDate() + 7);
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  return localDate(d);
 }

@@ -3,7 +3,7 @@
 // 수정 전 구현(로컬 자정 → toISOString)은 Asia/Seoul·Asia/Tokyo에서 여기서 실패한다.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { defaultStartDate, nightsBetween, toDateRange } from "../src/lib/dates.ts";
+import { defaultStartDate, nightsBetween, toDateRange, todayDate } from "../src/lib/dates.ts";
 
 const ZONES = ["Asia/Seoul", "Asia/Tokyo", "UTC", "America/Los_Angeles"];
 
@@ -22,5 +22,10 @@ for (const tz of ZONES) {
     // 로컬 이른 아침 — UTC로 직렬화하면 전날이 되는 시각
     const now = new Date(2026, 9, 1, 1, 30);
     assert.equal(defaultStartDate(now), "2026-10-08");
+  });
+
+  test(`todayDate는 ${tz} 로컬 달력의 오늘이다`, () => {
+    process.env.TZ = tz;
+    assert.equal(todayDate(new Date(2026, 9, 1, 1, 30)), "2026-10-01");
   });
 }

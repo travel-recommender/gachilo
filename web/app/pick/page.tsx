@@ -12,6 +12,7 @@ const LIMIT = 30;
 /**
  * P3 — 가고 싶은 곳 찾기.
  * 검색으로 찾아 My list에 담는다. 아직 남의 목록은 보이지 않는다.
+ * 비워 둬도 다음으로 갈 수 있다 — 다음 화면에서 다른 사람이 찾아온 곳 중에 고르면 된다.
  */
 export default function Pick() {
   const router = useRouter();
@@ -29,7 +30,7 @@ export default function Pick() {
     .filter((g) => g.items.length > 0);
 
   return (
-    <Page nav={<NavButtons next={() => router.push("/waiting?step=list")} nextDisabled={longlist.length === 0} />}>
+    <Page nav={<NavButtons next={() => router.push("/waiting?step=list")}/>}>
       <PlanHeader />
       <div className="px-5 pt-[59px]">
         <PlaceFinder added={longlist} onPick={add} />
@@ -40,7 +41,7 @@ export default function Pick() {
             <p className="px-2 py-8 text-center text-[12.5px] font-medium leading-relaxed text-mute">
               위에서 가고 싶은 곳을 검색해 담아 주세요.
               <br />
-              다른 사람에게는 보이지 않아요.
+              다른 사람에게는 보이지 않아요. 없으면 그냥 넘어가도 돼요.
             </p>
           )}
           {groups.map(({ c, items }) => (

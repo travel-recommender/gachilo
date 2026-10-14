@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MAPS_KEY, newSession, searchAddress, type AddressHit } from "@/lib/gmaps";
 import { asset } from "@/components/gachiro";
+import { LodgingMap } from "@/components/LodgingMap";
 import type { Lodging } from "@/components/store";
 
 /**
@@ -18,6 +19,7 @@ export function LodgingSearch({ value, onChange, label }: {
   const [hits, setHits] = useState<AddressHit[]>([]);
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState<string | null>(null);
+  const [showMap, setShowMap] = useState(false);
   const session = useRef<unknown>(null);
   const input = useRef<HTMLInputElement>(null);
 
@@ -63,7 +65,12 @@ export function LodgingSearch({ value, onChange, label }: {
           onChange={(e) => { setQuery(e.target.value); setOpen(true); onChange({ address: e.target.value }); }}
           onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}
           className="w-full bg-transparent text-[14px] font-semibold text-black outline-none placeholder:text-mute" />
-        {value?.lat !== undefined && <span className="mr-2 shrink-0 text-[11px] font-bold text-wine">위치 확인</span>}
+        {value?.lat !== undefined && (
+          <button onClick={() => setShowMap((v) => !v)} aria-expanded={showMap}
+            className="mr-2 shrink-0 text-[11px] font-bold text-wine underline underline-offset-2">
+            {showMap ? "지도 닫기" : "위치 확인"}
+          </button>
+        )}
         <button onClick={() => input.current?.focus()} aria-label={`${label} 검색`} className="shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={asset("/ui/search.jpg")} alt="" width={26} height={26} />
@@ -80,6 +87,9 @@ export function LodgingSearch({ value, onChange, label }: {
             </button>
           ))}
         </div>
+      )}
+      {showMap && value?.lat !== undefined && value.lng !== undefined && (
+        <LodgingMap lat={value.lat} lng={value.lng} name={query || label} />
       )}
       {note && <p className="mt-1 text-[11px] text-mute">{note}</p>}
     </div>
