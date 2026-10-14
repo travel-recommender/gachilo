@@ -41,6 +41,9 @@ export function availability(record, date, profiles, {allowShopping = false} = {
   if (!validDate(date)) throw Error('date must be a real YYYY-MM-DD date in Japan');
   const p = record.place, profile = profiles.places[p.place_id];
   const reasons = [...(record.review.recommendation_blockers || [])];
+  // Historical stay_min alone cannot confirm a missing or unagreed policy.
+  const representative = record.review.stay_policy?.representative;
+  if (!Number.isSafeInteger(representative) || representative <= 0) reasons.push('stay_policy_unconfirmed');
   if (!p.address) reasons.push('address_missing');
   if (!p.opening_hours) reasons.push('opening_hours_missing');
   const shopping = shoppingRecord(record);

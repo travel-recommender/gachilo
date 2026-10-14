@@ -1486,7 +1486,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
+        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
       ],
       "missing_address_hours_note": "폐업 표시 및 웹사이트 대상 불일치. 기존 ID를 다른 박물관으로 바꾸지 않음.",
       "evidence_urls": [
@@ -2437,7 +2437,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
+        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -2940,7 +2940,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
+        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3174,7 +3174,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
+        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3288,7 +3288,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
+        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3318,7 +3318,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
+        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -3527,7 +3527,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
+        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [
@@ -4092,7 +4092,7 @@
         "structured_date_profile_missing"
       ],
       "next_actions": [
-        "체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정"
+        "폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집"
       ],
       "missing_address_hours_note": null,
       "evidence_urls": [

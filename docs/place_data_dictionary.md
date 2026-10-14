@@ -26,7 +26,7 @@
 
 실제 수집 데이터/API에는 `체험·오락`, 기존 화면·엔진에는 `activity`를 사용한다. 기존 `activity`의 표시명 `체험`을 확장한 것으로 새 엔진 ID를 만들지 않는다. 이번 적용 대상은 레트로 게임 이용 장소인 **엘레메카 연구소**(`osaka_draft_2e4698946819`)다. 장소 ID와 원본 OSM 태그는 유지하고 분류 근거를 `field_sources.category`에 `team_category_rule`로 기록한다.
 
-분류 변경만으로 영업시간·비용·실내 여부를 검증한 것으로 처리하지 않는다. 체험·오락 공통 체류시간은 아직 합의되지 않았다. 엘레메카의 기존 120분은 종전 명소 규칙의 추정값으로 남기고, API `planning.stay_range`의 유형은 `미합의(체험·오락)`, min/max/representative는 null로 표시한다. `stay_basis`에도 이전 추정값임을 적고 `stay_policy_unconfirmed` 보류 사유를 유지한다. 일정 승격 전에 장소별 소요시간 또는 팀 규칙을 확인한다. 이미 합의된 테마파크 360~480분 하위 유형은 유지한다. 데모의 `activity` 기본 비용·시간·covered를 실제 수집 장소에 복사하지 않는다.
+분류 변경만으로 영업시간·비용·실내 여부를 검증한 것으로 처리하지 않는다. 체험·오락 공통 체류시간은 아직 합의되지 않았다. 엘레메카의 기존 120분은 종전 명소 규칙의 추정값으로 남기고, API `planning.stay_range`의 유형은 `미합의(체험·오락)`, min/max/representative는 null로 표시한다. `stay_basis`에도 이전 추정값임을 적고 `stay_policy_unconfirmed` 보류 사유를 유지한다. 일정 승격 전에 장소별 소요시간 또는 팀 규칙을 확인한다. 실제 일정 검증기와 장소 API는 `review.stay_policy.representative`가 없거나 양의 안전 정수가 아니면 `stay_policy_unconfirmed`를 자동으로 추가한다. 따라서 새로운 체험·오락 장소의 수동 blocker가 빠져도 기존 `stay_min`만으로 일정에 들어가지 않는다. 장소별 기준을 확정한 뒤에는 정책 대표값·실제 stay_min·출처를 함께 갱신하고 별도로 남아 있는 수동 보류도 검토해야 한다. 이미 합의된 테마파크 360~480분 하위 유형은 유지한다. 데모의 `activity` 기본 비용·시간·covered를 실제 수집 장소에 복사하지 않는다.
 
 ## 검토 정보
 

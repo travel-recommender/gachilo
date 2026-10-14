@@ -11,7 +11,10 @@ const run = (ids, extra = {}, d = dataset, p = profiles) => validateDay(request(
 test('activity is schedulable with verified inputs, while Elemeca remains held', () => {
   const fixture = structuredClone(dataset);
   // Reuse a known eligible record only to exercise the new category through the scheduler.
-  fixture.places.find(r => r.place.place_id === 'osaka_009').place.category = '체험·오락';
+  const activity = fixture.places.find(r => r.place.place_id === 'osaka_009');
+  activity.place.category = '체험·오락';
+  activity.review.stay_policy = {type: '검사용 장소별 확정 체류시간',
+    min: 120, max: 120, representative: 120, method: '테스트 fixture 전용; 실제 장소 승인 아님'};
   assert.equal(engineCategory('체험·오락'), 'activity');
   const result = run(['osaka_009'], {}, fixture);
   assert.equal(result.passed_model_checks, true);
@@ -165,4 +168,35 @@ test('source data stay unchanged, every profile has evidence, and no demo filler
 test('committed validation report is reproducible from the current source and profiles', () => {
   const saved=JSON.parse(fs.readFileSync(new URL('../data/week5/schedule_validation_20260930.json',import.meta.url),'utf8'));
   assert.deepEqual(makeReport(dataset,profiles),saved);
+});
+
+// A new activity must not inherit eligibility from a leftover historical stay_min.
+test('unconfirmed or missing stay policy blocks scheduling without a manual blocker', () => {
+  for (const policy of [undefined, null, {representative: null}, {representative: 0}, {representative: '120'}]) {
+    const fixture = structuredClone(dataset);
+    const activity = fixture.places.find(r => r.place.place_id === 'osaka_009');
+    activity.place.category = '체험·오락';
+    activity.review.stay_policy = policy;
+    activity.review.recommendation_blockers = [];
+    const check = availability(activity, '2026-10-01', profiles);
+    assert.ok(check.reasons.includes('stay_policy_unconfirmed'));
+    assert.equal(check.eligible_for_model, false);
+    const result = run(['osaka_009'], {}, fixture);
+    assert.equal(result.items.length, 0);
+    assert.equal(result.passed_model_checks, false);
+    assert.deepEqual(activity.review.recommendation_blockers, []);
+  }
+});
+
+test('generated closed-place guidance keeps closure action separate from stay-policy review', () => {
+  const saved = JSON.parse(fs.readFileSync(new URL('../data/week5/remaining_place_checks_20260930.json', import.meta.url)));
+  const closed = saved.places.filter(p => p.reasons.includes('google_maps_permanently_closed'));
+  assert.ok(closed.length > 0);
+  for (const place of closed) {
+    assert.equal(place.next_actions.length, 1);
+    assert.match(place.next_actions[0], /폐업.*일정에서 제외/);
+    assert.doesNotMatch(place.next_actions[0], /체류시간/);
+  }
+  const elemeca = saved.places.find(p => p.place_id === 'osaka_draft_2e4698946819');
+  assert.ok(elemeca.next_actions.some(action => /체류시간/.test(action)));
 });

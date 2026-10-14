@@ -71,6 +71,9 @@ def project(record,rate):
     out['cost_basis']=record['field_sources'].get('cost',{}).get('note')
     out['stay_basis']=record['field_sources'].get('stay_min',{}).get('note')
     reasons=list(record['review']['recommendation_blockers'])
+    representative=(record['review'].get('stay_policy') or {}).get('representative')
+    if type(representative) is not int or not 0<representative<=9007199254740991:
+        reasons.append('stay_policy_unconfirmed')
     for key in ('address','opening_hours'):
         if p[key] is None:reasons.append(key+'_missing')
     if out['cost_status'] in ('unknown','exchange_rate_required'):reasons.append(out['cost_status'])

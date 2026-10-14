@@ -85,4 +85,14 @@ class CatalogTests(unittest.TestCase):
   theme=copy.deepcopy(record);theme['source']['tags']['tourism']='theme_park'
   self.assertEqual(stay_policy(theme)['representative'],480) # Existing agreed subtype unchanged.
 
+ def test_unconfirmed_stay_policy_is_exposed_without_manual_blocker(self):
+  record=copy.deepcopy(next(r for r in json.loads(DATA.read_text(encoding='utf-8'))['places']
+                  if r['place']['place_id']=='osaka_009'))
+  record['place']['category']='체험·오락'
+  record['review']['recommendation_blockers']=[]
+  for policy in (None,{}, {'representative':None}, {'representative':0}, {'representative':'120'}, {'representative':True}):
+   record['review']['stay_policy']=policy
+   self.assertIn('stay_policy_unconfirmed',project(record,Decimal('9.5'))['planning']['review_required'])
+  self.assertEqual(record['review']['recommendation_blockers'],[])
+
 if __name__=='__main__':unittest.main()
