@@ -7,8 +7,8 @@ import { searchPlaces } from "@/lib/search";
 import { asset } from "@/components/gachiro";
 import type { Place } from "@/lib/types";
 
-/** 디자인의 주소 줄 자리. 데모 장소에는 주소가 없어 지역과 소개를 쓴다 */
-export const placeLine = (p: Place) => `${p.area} · ${p.blurb}`;
+/** 디자인의 주소 줄 자리. 실제 장소는 주소, 데모 장소는 주소가 없어 지역과 소개를 쓴다 */
+export const placeLine = (p: Place) => p.address ?? `${p.area} · ${p.blurb}`;
 
 /**
  * 돋보기 검색창 + 추천 목록 (P3, P8 장소 추가).
@@ -19,12 +19,16 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
   onPick: (place: Place) => void;
   placeholder?: string;
 }) {
-  const { state, addPlace } = useTrip();
+  const { state, catalog, addPlace } = useTrip();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [adding, setAdding] = useState(false);
   const input = useRef<HTMLInputElement>(null);
-  const pool = useMemo(() => allPlaces(), [state.customPlaces]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const pool = useMemo(() => allPlaces(), [state.customPlaces, catalog]);
+  // 방의 장소 목록을 확인하기 전에 고르면 방과 맞지 않는 장소가 담길 수 있다
+  const notice = catalog === "loading" ? "장소 목록을 불러오는 중이에요…"
+    : catalog === "error" ? "장소 목록을 불러오지 못했어요. 새로고침해 주세요." : null;
   const results = useMemo(() => searchPlaces(pool, query), [pool, query]);
   // 여행방에서는 서버 장소 목록에 있는 id만 저장된다. 서버 장소 등록이 생기기 전까지 직접 추가를 막는다
   const canAdd = !state.room;
@@ -49,7 +53,9 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
         </button>
       </div>
 
-      {open && query.trim() && !adding && (
+      {notice && <p className="mt-1.5 text-[11.5px] font-medium text-wine">{notice}</p>}
+
+      {open && query.trim() && !adding && !notice && (
         // 목록을 누르는 동안 입력창 포커스가 빠지며 목록이 닫히지 않게 한다
         <div onMouseDown={(e) => e.preventDefault()} className="absolute inset-x-0 top-[50px] z-30 max-h-[300px] overflow-y-auto rounded-[6.795px] border border-line bg-white shadow-card">
           {results.map((p) => {
