@@ -1,7 +1,7 @@
 # Prepare data/osrm/osaka.osrm.* with foot.lua and osrm-contract first (docs/osrm.md).
 services:
   osrm-foot:
-    image: ghcr.io/project-osrm/osrm-backend:v26.10.0-debian
+    image: ghcr.io/project-osrm/osrm-backend:v26.10.0-debian@sha256:55dbfd47d984c2cacd64e32901b4321c86b5ec761438e69aa053dc78698a786f
     command: [osrm-routed, --algorithm, ch, --max-table-size, "200", /data/osaka.osrm]
     ports:
       - "127.0.0.1:5001:5000"

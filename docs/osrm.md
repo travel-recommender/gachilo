@@ -28,23 +28,33 @@ OSRM은 OSM 데이터를 전처리할 때 이동 모드가 결정된다. URL에 
 
 ## 자체 서버 준비
 
-Docker가 설치·실행된 개발 PC 또는 팀 서버에서 진행한다. 공식 OSRM 이미지 태그는 `v26.10.0-debian`으로 고정했다(OSRM 실행 버전 `v26.10.0`). `v26.10.0`만 붙인 태그는 레지스트리에 없어 pull이 실패하므로 전처리와 서버 실행 모두 같은 Debian 태그를 사용한다. [Geofabrik 일본 지역 추출](https://download.geofabrik.de/asia/japan.html) 등에서 오사카와 주변 동선을 포함한 OSM PBF를 준비한다. 전체 지구 데이터 대신 지역 파일을 사용한다. 다운로드한 파일은 `data/osrm/osaka.osm.pbf`에 두며 지도 원본/전처리 그래프는 Git에서 제외된다.
+Docker와 `osmium`이 설치된 개발 PC 또는 팀 서버에서 진행한다. 공식 OSRM `v26.10.0-debian` 이미지의 **digest**를 고정했다(OSRM 실행 버전 `v26.10.0`). `v26.10.0`만 붙인 태그는 레지스트리에 없어 pull이 실패한다. 전처리와 서버 실행 모두 아래 동일한 이미지 digest를 사용한다.
 
-저장소 루트에서 실행:
+먼저 [Geofabrik Kansai PBF](https://download.geofabrik.de/asia/japan/kansai.html)를 내려받고 아래 bbox로 잘라 `data/osrm/osaka.osm.pbf`를 만든다. Kansai·일본 전체 파일을 이름만 바꿔 전처리하면 검증 범위와 메모리 사용량이 달라진다. 지도 원본/전처리 그래프는 Git에서 제외된다. `latest` 파일은 매일 바뀌므로 원본 SHA-256·OSM 시각도 함께 기록한다. 아래 검증 기록과 완전히 같은 결과를 재현하려면 해당 기록의 SHA-256과 일치하는 원본을 보관해 사용해야 한다.
+
+저장소 루트에서 단계별로 실행하고, 각 명령이 성공한 뒤 다음으로 넘어간다. 기존 그래프가 있다면 별도 디렉터리에 보관하고 새 출력 경로에서 진행한다(`osmium extract`는 기존 파일을 덮어쓰지 않는다).
 
 ```sh
 mkdir -p data/osrm
-# 준비한 지역 파일을 data/osrm/osaka.osm.pbf로 배치한 뒤 전처리한다.
-docker run --rm -v "$PWD/data/osrm:/data" ghcr.io/project-osrm/osrm-backend:v26.10.0-debian osrm-extract -p /opt/foot.lua /data/osaka.osm.pbf
-docker run --rm -v "$PWD/data/osrm:/data" ghcr.io/project-osrm/osrm-backend:v26.10.0-debian osrm-contract /data/osaka.osrm
+curl --fail --location --output data/osrm/kansai-latest.osm.pbf https://download.geofabrik.de/asia/japan/kansai-latest.osm.pbf
+# macOS 기준 SHA-256 기록. Linux에서는 sha256sum을 사용할 수 있다.
+shasum -a 256 data/osrm/kansai-latest.osm.pbf > data/osrm/kansai-latest.sha256
+osmium fileinfo -j data/osrm/kansai-latest.osm.pbf > data/osrm/kansai-fileinfo.json
+osmium extract -b 135.4,34.58,135.57,34.78 -s complete_ways data/osrm/kansai-latest.osm.pbf -o data/osrm/osaka.osm.pbf
+osmium check-refs data/osrm/osaka.osm.pbf
+OSRM_IMAGE="ghcr.io/project-osrm/osrm-backend:v26.10.0-debian@sha256:55dbfd47d984c2cacd64e32901b4321c86b5ec761438e69aa053dc78698a786f"
+docker run --rm -v "$PWD/data/osrm:/data" "$OSRM_IMAGE" osrm-extract -t 4 -p /opt/foot.lua /data/osaka.osm.pbf
+docker run --rm -v "$PWD/data/osrm:/data" "$OSRM_IMAGE" osrm-contract -t 4 /data/osaka.osrm
+# data/osrm의 절대 경로로 해석되는 volumes.source와 위 이미지 digest를 확인한다.
+docker compose -f config/osrm-compose.yaml config
 docker compose -f config/osrm-compose.yaml up -d
 source config/osrm_local.sh
 python3 backend/server.py
 ```
 
-전처리 각 단계의 성공을 확인하고 다음 단계로 진행한다. CH를 사용해 거리·시간 행렬을 제공하며 200개 좌표까지 받는다. 기본 포트는 같은 컴퓨터에서만 접속 가능한 `127.0.0.1:5001`이다. 팀 서버에서 앱과 OSRM을 함께 운영하면 이 구성을 그대로 쓴다. 휴대폰은 앱 서버에만 접속하면 된다.
+CH를 사용해 거리·시간 행렬을 제공하며 200개 좌표까지 받는다. 기본 포트는 같은 컴퓨터에서만 접속 가능한 `127.0.0.1:5001`이다. 팀 서버에서 앱과 OSRM을 함께 운영하면 이 구성을 그대로 쓴다. 휴대폰은 앱 서버에만 접속하면 된다.
 
-서버를 준비하지 않은 채 백엔드를 실행해도 동작하지만 결과는 **추정 경로**다. 2026-10-13에는 macOS의 격리된 Lima VM에서 실제 지도 전처리와 OSRM 실행, 서비스 연결을 확인했다. 아래 실서버 검증 기록을 참고한다.
+서버를 준비하지 않은 채 백엔드를 실행해도 동작하지만 결과는 **추정 경로**다. 2026-10-13에는 macOS의 격리된 Lima VM에서 실제 지도 전처리와 OSRM 실행, 서비스 연결을 확인했다. **이 확인은 nerdctl 실행 기준이며 Docker Compose CLI의 config/up, 상대 볼륨 경로 해석과 restart 정책 실행은 미검증이다.** 위 `docker compose ... config`는 팀원이 Compose 실행 전에 수행할 확인 절차다. 아래 실서버 검증 기록을 참고한다.
 
 ## 실행 확인과 검사
 
@@ -67,7 +77,7 @@ Python 예제는 Node 실행 실패·시간 초과·잘못된 경로 응답을 t
 검증 기준 코드는 main `90b0ab422edbb71899a62aa4fac4a7002b4e2182`이다. 계산 엔진과 화면 코드는 바꾸지 않고, 잘못된 컨테이너 태그를 수정해 실제 OSRM을 실행했다.
 
 - 환경: macOS arm64 → Lima 2.2.1 / Ubuntu 26.04 / rootless containerd·nerdctl. VM 4 CPU·6GiB. Docker Compose CLI 자체는 실행하지 않았으며 동일한 공식 이미지·CH 옵션·포트·읽기 전용 지도 마운트로 실행했다.
-- 이미지: `ghcr.io/project-osrm/osrm-backend:v26.10.0-debian`, 실행 버전 `v26.10.0`. `/opt/foot.lua` SHA-256 `74e231f81301d89a10e2bd0e67b787147c761b3ee06f665426e21a9b736372f4`.
+- 이미지: `ghcr.io/project-osrm/osrm-backend:v26.10.0-debian@sha256:55dbfd47d984c2cacd64e32901b4321c86b5ec761438e69aa053dc78698a786f`, 실행 버전 `v26.10.0`. `/opt/foot.lua` SHA-256 `74e231f81301d89a10e2bd0e67b787147c761b3ee06f665426e21a9b736372f4`.
 - 지도: [Geofabrik Kansai](https://download.geofabrik.de/asia/japan/kansai.html), OSM 기준 시각 `2026-10-12T20:21:35Z`. 원본 353,023,218바이트, SHA-256 `c2e07c7e166452317c2652d36c50c2b56ac3708849206998dc9358f11fffc7e6`. © OpenStreetMap contributors, ODbL.
 - 범위: `osmium extract -b 135.4,34.58,135.57,34.78 -s complete_ways`로 추출. 현재 카탈로그 좌표를 포함하며 누락 노드 참조 0건을 확인했다. 이 범위 밖 장소에는 재추출 또는 fallback이 필요하다.
 - 전처리: `osrm-extract -t 4 -p /opt/foot.lua` → `osrm-contract -t 4`, 628,301개 노드. 전처리 완료 후 `osrm-routed --algorithm ch --max-table-size 200`으로 localhost 5001번 포트에서 기동했다.
