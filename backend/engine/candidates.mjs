@@ -4,6 +4,7 @@ import {pathToFileURL} from 'node:url';
 import {buildConsensus, kmToSteps} from './consensus.ts';
 import {buildSchedule} from './schedule.ts';
 import {allPlaces, setMembers} from './places.ts';
+import {distanceWeightFor, groupTradeoffs} from './inputs.ts';
 
 import {withRouting, routingSummary} from './routing.ts';
 
@@ -17,10 +18,10 @@ const reasonText = {
   near_fixed: '같은 날의 공통 선택 장소와 가까운 장소입니다.',
 };
 
-function ruleResult(consensus, submissions, days, summary) {
+function ruleResult(consensus, submissions, days, summary, distanceWeight) {
   const vetoed = new Set(submissions.map(s => s.veto).filter(Boolean));
   return {core: consensus.core, schedule: buildSchedule(consensus.core, days,
-    {considerBags:true, fillMeals:true, vetoed}), summary,
+    {considerBags:true, fillMeals:true, vetoed, distanceWeight}), summary,
     ai:{used:false, added:[], basis:[]}};
 }
 
@@ -34,15 +35,17 @@ async function calculatePrepared(request, enrich) {
   const days = Math.round((Date.parse(request.endDate+'T00:00:00Z')-start)/86400000)+1;
   if (!Number.isInteger(days) || days < 1 || days > 30) throw Error('invalid dates');
   const candidates = [];
+  // P6 '가까이 ↔ 멀리도'. pace·spend는 buildConsensus가 같은 submissions에서 읽는다
+  const distanceWeight = distanceWeightFor(groupTradeoffs(request.submissions).distance);
   // Sequential strategies keep each optional model call bounded and avoid a burst.
   for (const strategy of STRATEGIES) {
     const consensus = buildConsensus({submissions:request.submissions, nights:days-1,
       strategy, allowPartial:true});
     const fallback = `${labels[strategy]} 전략의 시연용 후보입니다. 비용·이동은 추정이며 모든 개인 제약의 충족을 보장하지 않습니다.`;
     let enriched;
-    try { enriched = enrich ? await enrich(consensus, request.submissions, days, fallback) : null; }
+    try { enriched = enrich ? await enrich(consensus, request.submissions, days, fallback, {distanceWeight}) : null; }
     catch { /* An explanation failure must not remove the rule candidates. */ }
-    enriched ??= ruleResult(consensus, request.submissions, days, fallback);
+    enriched ??= ruleResult(consensus, request.submissions, days, fallback, distanceWeight);
     const selected = new Map(enriched.core.map(s => [s.place.id, s]));
     const modelAdded = new Set(enriched.ai.added);
     const basis = new Map(enriched.ai.basis.map(b => [b.id, b.reason_code]));
@@ -56,7 +59,8 @@ async function calculatePrepared(request, enrich) {
         const reason = filled ? '일정의 빈 식사 시간에 규칙으로 추가한 장소입니다.'
           : source === 'ai_added' ? (Object.hasOwn(reasonText, code) ? reasonText[code] : '검증된 AI 제안으로 추가한 장소입니다.')
           : aiAdded ? '선택 장소 이후 남은 자리를 규칙으로 보완한 장소입니다.' : null;
-        return {placeId:id, aiAdded, filled, source, reasonCode:code ?? null, reason};
+        return {placeId:id, aiAdded, filled, source, reasonCode:code ?? null, reason,
+          startMin:item.startMin, endMin:item.endMin};
       });
       return {date:new Date(start+i*86400000).toISOString().slice(0,10),
         placeIds:items.map(x => x.placeId), items,

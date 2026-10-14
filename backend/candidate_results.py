@@ -131,7 +131,9 @@ def validate_candidates(output, room, known_ids):
             check(len(set(ids)) == len(ids) and (known_ids is None or all(x in known_ids for x in ids)))
             check(isinstance(items, list) and len(items) == len(ids))
             for id_, item in zip(ids, items):
-                keys(item, 'placeId aiAdded filled source reasonCode reason')
+                keys(item, 'placeId aiAdded filled source reasonCode reason startMin endMin')
+                # Minutes from local midnight; bars may run until 24:00.
+                check(type(item['startMin']) is int and type(item['endMin']) is int and 0 <= item['startMin'] <= item['endMin'] <= 1440)
                 check(item['placeId'] == id_ and type(item['aiAdded']) is bool and type(item['filled']) is bool)
                 check(item['source'] in ('selected', 'rule_added', 'ai_added', 'meal_fill'))
                 check(item['filled'] == (item['source'] == 'meal_fill'))

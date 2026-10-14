@@ -93,7 +93,8 @@ const place = (id,p,category='landmark',stayMin=30) => ({...p,id,name:id,area:'t
 const selection = p => ({place:p,votes:1,mustOf:null,tier:'core',participants:[]});
 
 test('meal filler and next-place proximity use one geographic distance scale', async t=>{
-  const near=place('near-food',b,'food'), far=place('far-food',c,'food');
+  // 10시에 열어 9시 아침 채우기에서는 빠지고, 점심 채우기만 비교한다
+  const near={...place('near-food',b,'food'),openFrom:600}, far={...place('far-food',c,'food'),openFrom:600};
   const vetoed=new Set(allPlaces().map(p=>p.id));
   setCustomPlaces([near,far]);t.after(()=>setCustomPlaces([]));
   const data=table([a,b,c]);data.distances[0][1]=1190;data.distances[0][2]=100;

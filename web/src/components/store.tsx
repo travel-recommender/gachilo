@@ -16,6 +16,7 @@ import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type Roo
 import { editedState, joinedState, rejoinedState, restoredFromServer } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
+import { toServerTradeoffs } from "@/lib/tradeoff";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
 /**
@@ -229,6 +230,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       budgetPerDay: mine.budgetPerDay,
       stepLimit: mine.stepLimit,
       activeMin: mine.activeMin,
+      tradeoffs: toServerTradeoffs(stateRef.current.extra.tradeoff),
     });
   };
 

@@ -5,8 +5,15 @@ import type { DayPlan, Place, ScheduleItem, Selection } from "./types.ts";
 
 const DAY_START = 9 * 60;
 const DAY_END = 21 * 60;
-const LUNCH: [number, number] = [11 * 60 + 30, 13 * 60 + 30];
-const DINNER: [number, number] = [17 * 60 + 30, 19 * 60 + 30];
+/** 아침은 하루 첫 일정(9시), 점심은 12시, 저녁은 18시에 맞춘다. 창은 '이 시각에 시작하면 그 끼니'로 본다 */
+const BREAKFAST_AT = DAY_START;
+const LUNCH: [number, number] = [12 * 60, 13 * 60 + 30];
+const DINNER: [number, number] = [18 * 60, 19 * 60 + 30];
+/** 끼니 시각 이만큼 전부터 식당을 고르기 시작한다 (그 사이는 기다린다) */
+const MEAL_LEAD = 45;
+/** 술집은 21시 이후, 자정까지만 */
+const BAR_FROM = 21 * 60;
+const NIGHT_END = 24 * 60;
 
 export const fmtTime = (min: number) =>
   `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
@@ -40,13 +47,15 @@ function clusterByDay(sels: Selection[], days: number): Selection[][] {
 }
 
 const inWindow = (t: number, w: [number, number]) => t >= w[0] && t <= w[1];
-const isMeal = (p: Place) => p.category === "food";
+/** 술집은 따로 카테고리가 없어 이름으로 알아본다 */
+export const isBar = (p: Place) => /이자카야|술집|와인바|칵테일|izakaya|\bbar\b|\bpub\b/i.test(p.name);
+const isMeal = (p: Place) => p.category === "food" && !isBar(p);
 
-/** 영업시간 안으로 들어오는 시작 시각. 못 넣으면 null */
+/** 영업시간 안으로 들어오는 시작 시각. 못 넣으면 null. 술집만 자정까지 둔다 */
 function fitOpening(place: Place, arrive: number): number | null {
   const start = Math.max(arrive, place.openFrom);
   if (start + place.stayMin > place.openTo) return null;
-  if (start + place.stayMin > DAY_END) return null;
+  if (start + place.stayMin > (isBar(place) ? NIGHT_END : DAY_END)) return null;
   return start;
 }
 
@@ -56,14 +65,16 @@ function pickFiller(
   clock: number,
   used: Set<string>,
   vetoed: Set<string>,
-  wantCafe = false
+  wantCafe = false,
+  /** 늦게 열어 이 시각에 바로 시작할 수 없는 곳은 뺀다 (아침 식사) */
+  onTime = false
 ): Place | null {
   const cands = allPlaces().filter(
     (p) =>
       !used.has(p.id) &&
       !vetoed.has(p.id) &&
-      (wantCafe ? p.category === "cafe" : p.category === "food") &&
-      fitOpening(p, clock) !== null
+      (wantCafe ? p.category === "cafe" : isMeal(p)) &&
+      (onTime ? fitOpening(p, clock) === clock : fitOpening(p, clock) !== null)
   );
   if (cands.length === 0) return null;
   if (!from) return cands[0];
@@ -89,6 +100,8 @@ export interface ScheduleOptions {
 /**
  * 하루 일정을 시간 순으로 쌓는다.
  * 매 시점에 남은 후보 중 (거리 + 식사 시간대 적합도 + 짐)을 함께 보고 다음 장소를 고른다.
+ * 끼니는 아침 9시·점심 12시·저녁 18시에 맞추고, 식당은 되도록 끼니 시각에만 넣는다.
+ * 술집은 다른 곳을 다 넣은 뒤 21시 이후에 넣는다.
  */
 function buildDay(
   sels: Selection[],
@@ -108,9 +121,10 @@ function buildDay(
   let load = 0;
   let mealsDone = { lunch: false, dinner: false };
 
-  const place = (p: Place, tier: ScheduleItem["tier"], participants: string[]) => {
+  /** notBefore: 끼니·술집처럼 그 시각까지 기다렸다 시작하는 곳 */
+  const place = (p: Place, tier: ScheduleItem["tier"], participants: string[], notBefore = 0) => {
     const move = prev ? travel(prev, p) : { km: 0, min: 0, walkKm: 0, mode: "walk" as const };
-    const start = fitOpening(p, clock + move.min);
+    const start = fitOpening(p, Math.max(clock + move.min, notBefore));
     if (start === null) return false;
     items.push({
       place: p,
@@ -130,20 +144,48 @@ function buildDay(
     return true;
   };
 
-  while (remaining.length) {
-    const nearLunch = inWindow(clock, [LUNCH[0] - 45, LUNCH[1]]) && !mealsDone.lunch;
-    const nearDinner = inWindow(clock, [DINNER[0] - 45, DINNER[1]]) && !mealsDone.dinner;
-    const mealTime = nearLunch || nearDinner;
+  // 아침 — 9시에 바로 여는 가까운 식당·카페를 채운다
+  if (opts.fillMeals) {
+    const b = pickFiller(prev, BREAKFAST_AT, used, vetoed, false, true)
+      ?? pickFiller(prev, BREAKFAST_AT, used, vetoed, true, true);
+    if (b) place(b, "filled", [], BREAKFAST_AT);
+  }
 
-    // 식사 시간이면 남은 후보 중 식당을 우선 고른다
+  // 술집은 맨 뒤로 미룬다
+  const bars = remaining.filter((s) => isBar(s.place));
+  bars.forEach((s) => remaining.splice(remaining.indexOf(s), 1));
+
+  while (remaining.length) {
+    const nearLunch = inWindow(clock, [LUNCH[0] - MEAL_LEAD, LUNCH[1]]) && !mealsDone.lunch;
+    const nearDinner = inWindow(clock, [DINNER[0] - MEAL_LEAD, DINNER[1]]) && !mealsDone.dinner;
+    const mealTime = nearLunch || nearDinner;
+    const mealAt = nearLunch ? LUNCH[0] : nearDinner ? DINNER[0] : 0;
+
+    // 식사 시간이면 남은 후보 중 식당을 우선 고르고, 아니면 식당은 끼니 때로 미룬다
     let pool = remaining;
+    let notBefore = 0;
+    const meals = remaining.filter((s) => isMeal(s.place));
     if (mealTime) {
-      const meals = remaining.filter((s) => isMeal(s.place));
-      if (meals.length) pool = meals;
+      if (meals.length) { pool = meals; notBefore = mealAt; }
       else if (opts.fillMeals) {
-        const filler = pickFiller(prev, clock, used, vetoed);
-        if (filler && place(filler, "filled", [])) continue;
+        const filler = pickFiller(prev, Math.max(clock, mealAt), used, vetoed);
+        if (filler && place(filler, "filled", [], mealAt)) continue;
       }
+    } else if (meals.length < remaining.length) {
+      // 다음 끼니 시각 + MEAL_LEAD 안에 끝나는 곳을 먼저 고른다. 오래 머무는 곳이 끼니를 밀어내지 않게
+      const others = remaining.filter((s) => !isMeal(s.place));
+      const nextMeal = !mealsDone.lunch && clock < LUNCH[0] ? LUNCH[0] : !mealsDone.dinner && clock < DINNER[0] ? DINNER[0] : 0;
+      const fits = others.filter((s) =>
+        !nextMeal || clock + (prev ? travel(prev, s.place).min : 0) + s.place.stayMin <= nextMeal + MEAL_LEAD);
+      if (fits.length) pool = fits;
+      else if (meals.length) {
+        // 끼니 전에 끝낼 곳이 없으면 먼저 먹고 간다
+        pool = meals;
+        notBefore = nextMeal;
+      } else pool = others;
+    } else {
+      // 식당만 남았으면 다음 끼니 시각까지 기다린다
+      notBefore = !mealsDone.lunch && clock < LUNCH[0] ? LUNCH[0] : !mealsDone.dinner && clock < DINNER[0] ? DINNER[0] : 0;
     }
 
     // 거리 + 짐 부담으로 다음 장소를 고른다
@@ -157,7 +199,7 @@ function buildDay(
 
     const chosen = scored[0].sel;
     remaining.splice(remaining.indexOf(chosen), 1);
-    if (!place(chosen.place, chosen.tier, chosen.participants)) {
+    if (!place(chosen.place, chosen.tier, chosen.participants, notBefore)) {
       dropped.push({ ...chosen, excluded: "time" });
     }
   }
@@ -168,12 +210,14 @@ function buildDay(
     if (!mealsDone.dinner && clock < DINNER[1] && DINNER[0] - clock <= 150) {
       const c = Math.max(clock, DINNER[0]);
       const f = pickFiller(prev, c, used, vetoed);
-      if (f) {
-        clock = c;
-        place(f, "filled", []);
-      }
+      if (f) place(f, "filled", [], c);
     }
   }
+
+  // 술집 — 21시 이후
+  bars.forEach((s) => {
+    if (!place(s.place, s.tier, s.participants, BAR_FROM)) dropped.push({ ...s, excluded: "time" });
+  });
 
   return { items: items.sort((a, b) => a.startMin - b.startMin), dropped };
 }

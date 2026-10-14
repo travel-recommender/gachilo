@@ -137,7 +137,13 @@ export const EXTRAS_DEFAULT: TripExtras = {
 };
 
 /** 서버에 저장된 입력으로 새 자리의 extra를 만든다. 서버에는 목록이 없어 picks·veto에서 되살린다 */
-export function extrasFrom(saved: Pick<Submission, "picks" | "veto"> | null): TripExtras {
+export function extrasFrom(saved: Pick<ApiSubmission, "picks" | "veto" | "tradeoffs"> | null): TripExtras {
   if (!saved) return EXTRAS_DEFAULT;
-  return { ...EXTRAS_DEFAULT, mustList: [...saved.picks], vetoList: saved.veto ? [saved.veto] : [] };
+  return {
+    ...EXTRAS_DEFAULT, mustList: [...saved.picks], vetoList: saved.veto ? [saved.veto] : [],
+    // 서버는 엔진 방향이라 pace만 뒤집는다 (tradeoff.ts의 toServerTradeoffs의 역. 값 import 없이 node 검사가 돌게 여기 둔다)
+    tradeoff: saved.tradeoffs
+      ? { pace: Math.round((1 - saved.tradeoffs.pace) * 100) / 100, distance: saved.tradeoffs.distance, spend: saved.tradeoffs.spend }
+      : EXTRAS_DEFAULT.tradeoff,
+  };
 }
