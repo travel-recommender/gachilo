@@ -32,7 +32,7 @@ Docker와 `osmium`이 설치된 개발 PC 또는 팀 서버에서 진행한다. 
 
 먼저 [Geofabrik Kansai PBF](https://download.geofabrik.de/asia/japan/kansai.html)를 내려받고 아래 bbox로 잘라 `data/osrm/osaka.osm.pbf`를 만든다. Kansai·일본 전체 파일을 이름만 바꿔 전처리하면 검증 범위와 메모리 사용량이 달라진다. 지도 원본/전처리 그래프는 Git에서 제외된다. `latest` 파일은 매일 바뀌므로 원본 SHA-256·OSM 시각도 함께 기록한다. 아래 검증 기록과 완전히 같은 결과를 재현하려면 해당 기록의 SHA-256과 일치하는 원본을 보관해 사용해야 한다.
 
-저장소 루트에서 단계별로 실행하고, 각 명령이 성공한 뒤 다음으로 넘어간다. 기존 그래프가 있다면 별도 디렉터리에 보관하고 새 출력 경로에서 진행한다(`osmium extract`는 기존 파일을 덮어쓰지 않는다).
+저장소 루트에서 단계별로 실행하고, 각 명령이 성공한 뒤 다음으로 넘어간다. 기존 `data/osrm/`에 그래프가 있다면 해당 디렉터리를 다른 이름으로 옮겨 보관한 뒤, 비어 있는 같은 `data/osrm/` 경로에서 아래 명령을 실행한다(`osmium extract`는 기존 파일을 덮어쓰지 않는다).
 
 ```sh
 mkdir -p data/osrm
