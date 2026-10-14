@@ -10,6 +10,7 @@ import { badgeOf, hasCandidates } from "@/lib/shared-flow";
 import { selectedCandidate, type SharedStrategy } from "@/lib/shared-results-api";
 import { useSharedResults } from "@/components/useSharedResults";
 import { Box, MinusButton, NavButtons, Page, PlanHeader, Sheet, TextTabs, asset } from "@/components/gachiro";
+import { fmtTime } from "@/lib/schedule";
 import type { Place } from "@/lib/types";
 
 /** 목록 한 줄 높이 — 꾹 눌러 끌 때 몇 칸 움직였는지 이 값으로 센다 */
@@ -57,17 +58,22 @@ function PlanInner() {
   const [adding, setAdding] = useState(false);
 
   const badges: Record<string, Badge> = {};
+  /** 장소별 시작 시각 "09:00". 순서를 고친 날은 계산한 시각이 맞지 않아 비운다 */
+  const times: Record<string, string> = {};
   let ids: string[];
   if (online) {
     const items = final?.days[day - 1]?.items ?? [];
     ids = items.map((it) => it.placeId);
     items.forEach((it) => {
+      if (it.startMin !== undefined) times[it.placeId] = fmtTime(it.startMin);
       const label = badgeOf(it);
       if (label) badges[it.placeId] = { label, reason: it.reason ?? "모두의 조건에 맞아 넣은 곳이에요." };
     });
   } else {
-    const base = schedule.plans.find((p) => p.day === day)?.items.map((it) => it.place.id) ?? [];
+    const dayItems = schedule.plans.find((p) => p.day === day)?.items ?? [];
+    const base = dayItems.map((it) => it.place.id);
     ids = planEdits[day] ?? base;
+    if (!planEdits[day]) dayItems.forEach((it) => { times[it.place.id] = fmtTime(it.startMin); });
     // 이 기기 계산은 규칙 기반이다 — 합의 단계 보완(aiAdded)과 빈 식사 시간 보완(filled)
     consensus.selections.filter((x) => x.aiAdded).forEach((x) => {
       badges[x.place.id] = { label: "추천", reason: explainPlace(consensus, x.place.id) ?? "모두의 조건에 맞아 넣은 곳이에요." };
@@ -139,7 +145,7 @@ function PlanInner() {
           </div>
 
           <Box className="h-[261px] overflow-hidden">
-            <Reorder places={places} locked={confirmed} badges={badges}
+            <Reorder places={places} locked={confirmed} badges={badges} times={times}
               onMove={(from, to) => {
                 const next = [...ids];
                 const [m] = next.splice(from, 1);
@@ -176,9 +182,10 @@ function Pin({ n }: { n: number }) {
 }
 
 /** 꾹 눌러 끌어서 순서를 바꾸는 목록 */
-function Reorder({ places, locked, badges, onMove, onRemove }: {
+function Reorder({ places, locked, badges, times, onMove, onRemove }: {
   places: Place[];
   badges: Record<string, Badge>;
+  times: Record<string, string>;
   locked: boolean;
   onMove: (from: number, to: number) => void;
   onRemove: (id: string) => void;
@@ -249,6 +256,9 @@ function Reorder({ places, locked, badges, onMove, onRemove }: {
             }}
             className={`relative flex h-[58px] select-none items-center gap-[4px] border-b border-line pr-[17px] last:border-0 ${
               isDrag ? "z-10 rounded-[10px] bg-white shadow-card" : "bg-white"}`}>
+            {times[p.id] && (
+              <span className="w-[38px] shrink-0 text-center text-[12px] font-extrabold tabular-nums text-wine">{times[p.id]}</span>
+            )}
             <Pin n={k + 1} />
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline gap-[6px] text-[14px] leading-4">

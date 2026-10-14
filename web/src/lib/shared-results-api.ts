@@ -17,6 +17,9 @@ export interface SharedCandidate {
       source: "selected" | "rule_added" | "ai_added" | "meal_fill";
       reasonCode: string | null;
       reason: string | null;
+      /** 자정부터 분. 시각을 내기 전에 계산된 결과에는 없다 */
+      startMin?: number;
+      endMin?: number;
     }[];
   }[];
 }

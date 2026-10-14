@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip, type TripExtras } from "@/components/store";
 import { stepsToKm } from "@/lib/consensus";
+import { TRADES, moveTrade, spendFloor } from "@/lib/tradeoff";
 import { FocusCard, NavButtons, Page, PlanHeader, Sheet, Wheel, WineSlider } from "@/components/gachiro";
 
 const HOURS = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, "0"));
@@ -11,17 +12,12 @@ const toMin = (t: string) => { const [h, m] = t.split(":").map(Number); return h
 const toHHMM = (min: number) => `${String(Math.floor(min / 60) % 24).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 
 type Side = "dayStart" | "dayEnd";
-type Trade = keyof TripExtras["tradeoff"];
-
-const TRADES: { key: Trade; left: string; right: string }[] = [
-  { key: "pace", left: "바쁘게", right: "여유롭게" },
-  { key: "distance", left: "이동 짧게", right: "멀어도 괜찮다" },
-  { key: "spend", left: "절약", right: "소비 괜찮" },
-];
 
 /**
  * P6 — 체력 · trade off. 마지막 입력 화면이라 "다음"에서 서버에 제출한다.
- * 활동 시간은 시작~종료 차이로 activeMin을 정한다. 트레이드오프는 저장만 하고 #35에서 알고리즘에 넣는다.
+ * 활동 시간은 시작~종료 차이로 activeMin을 정한다.
+ * trade off는 서로 묶여 있다 — 멀리·알차게 쪽으로 갈수록 '아껴서'를 끝까지 못 내린다 (lib/tradeoff.ts).
+ * 제출할 때 엔진 방향으로 바꿔 서버에 보낸다.
  */
 export default function Condition() {
   const router = useRouter();
@@ -70,6 +66,9 @@ export default function Condition() {
   );
 
   const [hh, mm] = dial ? extra[dial].split(":") : ["09", "00"];
+  // 예전에 저장된 값이 묶음을 어겨도 화면·제출은 같은 값을 쓴다 (toServerTradeoffs도 이렇게 맞춘다)
+  const trade = moveTrade(extra.tradeoff, "spend", extra.tradeoff.spend);
+  const spendLimit = spendFloor(trade);
 
   return (
     <Page nav={<NavButtons prev="/budget" next={submit} busy={busy} nextDisabled={span <= 0} />}>
@@ -113,9 +112,13 @@ export default function Condition() {
                 <div className="flex justify-between text-[14px] font-medium">
                   <span>{t.left}</span><span>{t.right}</span>
                 </div>
-                <WineSlider label={`${t.left} 또는 ${t.right}`} value={Math.round(extra.tradeoff[t.key] * 100)}
+                <WineSlider label={`${t.left} 또는 ${t.right}`} value={Math.round(trade[t.key] * 100)}
                   min={0} max={100} step={1}
-                  onChange={(v) => setExtra({ tradeoff: { ...extra.tradeoff, [t.key]: v / 100 } })} />
+                  floor={t.key === "spend" ? Math.round(spendLimit.floor * 100) : undefined}
+                  onChange={(v) => setExtra({ tradeoff: moveTrade(trade, t.key, v / 100) })} />
+                {t.key === "spend" && spendLimit.reason && (
+                  <p className="mt-1 text-[11.5px] font-medium leading-snug text-wine">{spendLimit.reason}</p>
+                )}
               </div>
             ))}
           </div>

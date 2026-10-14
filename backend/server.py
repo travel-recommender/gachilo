@@ -183,7 +183,11 @@ class Store(CandidateStore):
         require(b.get('veto') not in b['picks'],'거부 장소는 picks에 포함할 수 없습니다.')
         for field,low,high in [('budgetPerDay',0,10000000),('stepLimit',0,100000),('activeMin',1,1440)]:
             require(type(b.get(field)) is int and low<=b[field]<=high,field+' 범위를 확인하세요.')
+        # trade off three axes in engine direction (pace 1 = packed). Optional: inputs saved before week 7 have none.
+        t=b.get('tradeoffs')
+        require(t is None or isinstance(t,dict) and set(t)=={'pace','distance','spend'} and all(type(v) in (int,float) and 0<=v<=1 for v in t.values()),'tradeoffs 형식을 확인하세요.')
         payload={k:b.get(k) for k in ['longlist','picks','must','veto','budgetPerDay','stepLimit','activeMin']};payload['memberId']=mid
+        if t is not None:payload['tradeoffs']={k:float(t[k]) for k in ('pace','distance','spend')}
         with self.connect() as c:
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids

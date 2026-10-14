@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
 import { copyText } from "@/lib/clipboard";
-import { defaultStartDate, inviteUrl, nightsBetween, toDateRange } from "@/lib/room-api";
+import { defaultStartDate, inviteUrl, nightsBetween, toDateRange, todayDate } from "@/lib/room-api";
 import { Hero, NavButtons, Page, Toast, asset } from "@/components/gachiro";
 import { RangeCalendar, fmtDay } from "@/components/RangeCalendar";
 import { PinSheet } from "@/components/PinSheet";
@@ -105,7 +105,7 @@ export default function Create() {
             {dateBox("체크 아웃", end)}
           </div>
           {calendar && !owned && (
-            <RangeCalendar start={start} end={end} min={defaultStartDate()} maxNights={MAX_NIGHTS}
+            <RangeCalendar start={start} end={end} min={todayDate()} maxNights={MAX_NIGHTS}
               onChange={(s, e) => { setStart(s); setEnd(e); if (e) setCalendar(false); }} />
           )}
         </section>
