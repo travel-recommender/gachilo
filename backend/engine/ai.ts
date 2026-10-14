@@ -35,7 +35,7 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
   // 규칙이 AI 대신 넣어 둔 곳은 빼고 그 자리를 모델에 돌려준다
   const humanCore = res.core.filter((s) => !s.aiAdded);
   const fixedCost = humanCore.reduce((a, s) => a + s.place.cost, 0);
-  const budget = res.metrics.budgetCap ?? Math.min(...submissions.map((s) => tripBudget(s, days)));
+  const budget = scheduleBudget(res, submissions, days);
   const remaining = Math.max(0, budget - fixedCost);
 
   const taken = new Set([...res.selections, ...res.excluded].map((s) => s.place.id));
@@ -322,11 +322,16 @@ export function buildPlanSchedule(out: PlanOutput, res: ConsensusResult, submiss
     return place ? [{ place, votes: 0, mustOf: null, tier: "core" as const, participants: memberIds, aiAdded: true }] : [];
   });
   const core = [...res.core.filter((s) => !s.aiAdded), ...added];
-  return { core, schedule: scheduleCore(core, submissions, days, extras) };
+  return { core, schedule: scheduleCore(core, submissions, days, extras, scheduleBudget(res, submissions, days)) };
 }
 
-function scheduleCore(core: Selection[], submissions: Submission[], days: number, opts: ScheduleExtras = {}): Schedule {
-  return buildSchedule(core, days, { considerBags: true, fillMeals: true,
+/** 자동 식사도 이 상한 안에서 고른다 — buildEvidence의 budget_per_person_won과 같은 값 */
+function scheduleBudget(res: ConsensusResult, submissions: Submission[], days: number) {
+  return res.metrics.budgetCap ?? Math.min(...submissions.map((s) => tripBudget(s, days)));
+}
+
+function scheduleCore(core: Selection[], submissions: Submission[], days: number, opts: ScheduleExtras = {}, budget?: number): Schedule {
+  return buildSchedule(core, days, { considerBags: true, fillMeals: true, budget,
     vetoed: new Set(submissions.flatMap((s) => vetoesOf(s))),
     staysByDay: opts.staysByDay, distanceWeight: opts.distanceWeight });
 }
@@ -406,7 +411,7 @@ export async function enrich(
   extras: ScheduleExtras = {}
 ): Promise<Enriched> {
   const off = (reason: string, errors: string[] = [], ms = 0): Enriched =>
-    ({ core: res.core, schedule: scheduleCore(res.core, submissions, days, extras), summary: fallbackSummary,
+    ({ core: res.core, schedule: scheduleCore(res.core, submissions, days, extras, scheduleBudget(res, submissions, days)), summary: fallbackSummary,
        ai: { used: false, reason, added: [], errors, ms, basis: [] } });
 
   if (!process.env.SOMSOM_API_KEY && !process.env.AI_MOCK) return off("SOMSOM_API_KEY 없음");

@@ -21,7 +21,7 @@ const reasonText = {
 function ruleResult(consensus, submissions, days, summary, distanceWeight) {
   const vetoed = new Set(submissions.map(s => s.veto).filter(Boolean));
   return {core: consensus.core, schedule: buildSchedule(consensus.core, days,
-    {considerBags:true, fillMeals:true, vetoed, distanceWeight}), summary,
+    {considerBags:true, fillMeals:true, vetoed, distanceWeight, budget:consensus.metrics.budgetCap}), summary,
     ai:{used:false, added:[], basis:[]}};
 }
 

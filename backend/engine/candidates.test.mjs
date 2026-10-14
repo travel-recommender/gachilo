@@ -17,7 +17,7 @@ test('three real strategy computations project only the final shared schedule an
   setMembers(members);
   for (const candidate of result.candidates) {
     const consensus = buildConsensus({submissions,nights:1,strategy:candidate.strategy,allowPartial:true});
-    const schedule = buildSchedule(consensus.core,2,{considerBags:true,fillMeals:true,vetoed:new Set(['usj'])});
+    const schedule = buildSchedule(consensus.core,2,{considerBags:true,fillMeals:true,vetoed:new Set(['usj']),budget:consensus.metrics.budgetCap});
     assert.deepEqual(candidate.days.map(d => d.placeIds), schedule.plans.map(d => d.items.map(i => i.place.id)));
     const costs = schedule.plans.map(d => d.cost);
     assert.equal(candidate.metrics.costKrwPerDay,Math.round(costs.reduce((a,b)=>a+b)/2));

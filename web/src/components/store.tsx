@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { MY_DEFAULT, demoSubmissions } from "@/lib/demo";
-import { buildConsensus } from "@/lib/consensus";
+import { buildConsensus, tripBudget } from "@/lib/consensus";
 import { buildSchedule } from "@/lib/schedule";
 import {
   DEFAULT_MEMBERS,
@@ -291,6 +291,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     const vetoed = new Set(submissions.map((s) => s.veto).filter(Boolean) as string[]);
     return buildSchedule(consensus.selections, state.nights + 1, {
       considerBags: true, fillMeals: true, vetoed,
+      // 자동 식사도 가장 낮은 1인 예산 안에서만 (consensus의 groupBudget과 같은 기준)
+      budget: Math.min(...submissions.map((s) => tripBudget(s, state.nights + 1))),
     });
   }, [consensus, state.nights, submissions]);
 

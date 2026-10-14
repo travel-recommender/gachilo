@@ -62,12 +62,14 @@ function pickFiller(
   used: Set<string>,
   vetoed: Set<string>,
   wantCafe = false,
-  onTime = false
+  onTime = false,
+  maxCost = Infinity
 ): Place | null {
   const cands = allPlaces().filter(
     (p) =>
       !used.has(p.id) &&
       !vetoed.has(p.id) &&
+      p.cost <= maxCost &&
       (wantCafe ? p.category === "cafe" : isMeal(p)) &&
       (onTime ? fitOpening(p, clock) === clock : fitOpening(p, clock) !== null)
   );
@@ -81,6 +83,8 @@ export interface ScheduleOptions {
   considerBags?: boolean;
   /** 빈 식사 시간을 자동으로 채울 것인가 */
   fillMeals?: boolean;
+  /** 1인 여행 전체 예산(원). 자동 추가 식사는 선택 장소 비용을 뺀 나머지 안에서만 고른다 */
+  budget?: number;
   vetoed?: Set<string>;
 }
 
@@ -91,8 +95,9 @@ export interface ScheduleOptions {
 function buildDay(
   sels: Selection[],
   opts: ScheduleOptions,
-  globalUsed: Set<string>
-): { items: ScheduleItem[]; dropped: Selection[] } {
+  globalUsed: Set<string>,
+  mealBudget = Infinity
+): { items: ScheduleItem[]; dropped: Selection[]; mealSpent: number } {
   const remaining = [...sels];
   const items: ScheduleItem[] = [];
   const dropped: Selection[] = [];
@@ -103,6 +108,7 @@ function buildDay(
   let prev: Place | null = null;
   let load = 0;
   let mealsDone = { lunch: false, dinner: false };
+  let mealSpent = 0;
 
   const place = (p: Place, tier: ScheduleItem["tier"], participants: string[], notBefore = 0) => {
     const move = prev ? travel(prev, p) : { km: 0, min: 0, walkKm: 0, mode: "walk" as const };
@@ -121,14 +127,15 @@ function buildDay(
     prev = p;
     used.add(p.id);
     load += p.bagLoad;
+    if (tier === "filled") mealSpent += p.cost;
     if (isMeal(p) && inWindow(start, LUNCH)) mealsDone.lunch = true;
     if (isMeal(p) && inWindow(start, DINNER)) mealsDone.dinner = true;
     return true;
   };
 
   if (opts.fillMeals) {
-    const b = pickFiller(prev, BREAKFAST_AT, used, vetoed, false, true)
-      ?? pickFiller(prev, BREAKFAST_AT, used, vetoed, true, true);
+    const b = pickFiller(prev, BREAKFAST_AT, used, vetoed, false, true, mealBudget)
+      ?? pickFiller(prev, BREAKFAST_AT, used, vetoed, true, true, mealBudget);
     if (b) place(b, "filled", [], BREAKFAST_AT);
   }
 
@@ -147,7 +154,7 @@ function buildDay(
     if (mealTime) {
       if (meals.length) { pool = meals; notBefore = mealAt; }
       else if (opts.fillMeals) {
-        const filler = pickFiller(prev, Math.max(clock, mealAt), used, vetoed);
+        const filler = pickFiller(prev, Math.max(clock, mealAt), used, vetoed, false, false, mealBudget - mealSpent);
         if (filler && place(filler, "filled", [], mealAt)) continue;
       }
     } else if (meals.length < remaining.length) {
@@ -166,17 +173,24 @@ function buildDay(
       notBefore = !mealsDone.lunch && clock < LUNCH[0] ? LUNCH[0] : !mealsDone.dinner && clock < DINNER[0] ? DINNER[0] : 0;
     }
 
+    // 이번 끼니를 넘기면 문을 닫는 식당은 이번 끼니에 먼저 넣는다. 그중에서도 '꼭 가기'가 먼저다
+    const later = notBefore === LUNCH[0] ? DINNER[0] : notBefore === DINNER[0] ? DINNER[1] : 0;
+    const urgency = (s: Selection) =>
+      later && isMeal(s.place) && fitOpening(s.place, later) === null ? (s.mustOf ? 2 : 1) : 0;
+
     // 거리 + 짐 부담으로 다음 장소를 고른다
     const scored = pool.map((s) => {
       const d = prev ? travel(prev, s.place).km : 0;
       const bagPenalty = opts.considerBags ? s.place.bagLoad * 2.5 * (1 - load) : 0;
       return { sel: s, cost: d + bagPenalty };
     });
-    scored.sort((a, b) => a.cost - b.cost);
+    scored.sort((a, b) => urgency(b.sel) - urgency(a.sel) || a.cost - b.cost);
 
     const chosen = scored[0].sel;
     remaining.splice(remaining.indexOf(chosen), 1);
-    if (!place(chosen.place, chosen.tier, chosen.participants, notBefore)) {
+    // 끼니 시각에 못 넣으면 지금 바로 넣어 본 뒤에야 탈락시킨다
+    if (!place(chosen.place, chosen.tier, chosen.participants, notBefore)
+      && !(notBefore && place(chosen.place, chosen.tier, chosen.participants))) {
       dropped.push({ ...chosen, excluded: "time" });
     }
   }
@@ -186,7 +200,7 @@ function buildDay(
     // 마지막 일정이 너무 일찍 끝났으면 저녁까지 억지로 끌지 않는다
     if (!mealsDone.dinner && clock < DINNER[1] && DINNER[0] - clock <= 150) {
       const c = Math.max(clock, DINNER[0]);
-      const f = pickFiller(prev, c, used, vetoed);
+      const f = pickFiller(prev, c, used, vetoed, false, false, mealBudget - mealSpent);
       if (f) place(f, "filled", [], c);
     }
   }
@@ -195,7 +209,7 @@ function buildDay(
     if (!place(s.place, s.tier, s.participants, BAR_FROM)) dropped.push({ ...s, excluded: "time" });
   });
 
-  return { items: items.sort((a, b) => a.startMin - b.startMin), dropped };
+  return { items: items.sort((a, b) => a.startMin - b.startMin), dropped, mealSpent };
 }
 
 export function buildSchedule(
@@ -208,8 +222,12 @@ export function buildSchedule(
   const dropped: Selection[] = [];
 
   const globalUsed = new Set<string>(selections.map((s) => s.place.id));
+  // 자동 식사에 쓸 수 있는 돈 — 선택 장소 비용을 먼저 빼고, 남은 날수로 나눠 앞날이 다 쓰지 않게 한다
+  let mealWallet = (opts.budget ?? Infinity) - selections.reduce((sum, s) => sum + s.place.cost, 0);
   buckets.forEach((bucket, i) => {
-    const { items, dropped: d } = buildDay(bucket, opts, globalUsed);
+    const { items, dropped: d, mealSpent } = buildDay(bucket, opts, globalUsed,
+      Math.max(0, mealWallet / (days - i)));
+    mealWallet -= mealSpent;
     dropped.push(...d);
 
     let walkKm = 0;
