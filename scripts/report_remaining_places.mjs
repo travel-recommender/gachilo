@@ -26,7 +26,7 @@ const nullNotes={
 };
 const closedPlaceAction='폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집';
 const checklist=[
- [r=>r.includes('stay_policy_unconfirmed'),'체류시간은 종전 분류의 추정값이므로 장소별 소요시간 또는 팀 기준을 확정'],
+ [r=>r.includes('stay_policy_unconfirmed'),'체류시간 대표값이 없거나 유효하게 확정되지 않았으므로 장소별 소요시간 또는 팀 기준을 확정'],
  [r=>r.includes('google_maps_permanently_closed'),closedPlaceAction],
  [r=>r.some(x=>/temporary_closure|temporarily_closed|exhibitions_suspended/.test(x)),'공식 재개관·재운항일/전시 일정을 확인'],
  [r=>r.some(x=>/identity|branch|location_history|address_|website_mismatch|category_mismatch|tenant_scope|outside_osaka|city_boundary|public_viewpoint|parent_facility/.test(x)),'동일 지점·시설 용도·주소·공공 출입 위치를 먼저 확정'],
