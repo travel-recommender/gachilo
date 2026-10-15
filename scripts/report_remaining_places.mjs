@@ -24,8 +24,10 @@ const nullNotes={
  '찻집 아오이':'동일 공식 페이지에서 월요일/화요일 휴무·종료시간이 충돌. 날짜 있는 운영자 공지/지도 재확인 필요.',
  '이치란 도톤보리 본점':'구 지점 폐업 표시. 남쪽 별관의 시간·주소로 덮어쓰지 않음.',
 };
+const closedPlaceAction='폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집';
 const checklist=[
- [r=>r.some(x=>x==='google_maps_permanently_closed'),'폐업 표시 장소를 실제 일정에서 제외하고 검증 가능한 다른 후보를 별도 ID로 수집'],
+ [r=>r.includes('stay_policy_unconfirmed'),'체류시간 대표값이 없거나 유효하게 확정되지 않았으므로 장소별 소요시간 또는 팀 기준을 확정'],
+ [r=>r.includes('google_maps_permanently_closed'),closedPlaceAction],
  [r=>r.some(x=>/temporary_closure|temporarily_closed|exhibitions_suspended/.test(x)),'공식 재개관·재운항일/전시 일정을 확인'],
  [r=>r.some(x=>/identity|branch|location_history|address_|website_mismatch|category_mismatch|tenant_scope|outside_osaka|city_boundary|public_viewpoint|parent_facility/.test(x)),'동일 지점·시설 용도·주소·공공 출입 위치를 먼저 확정'],
  [r=>r.some(x=>/reservation|confirmation|access_|attendance|exhibition|event_|ticket_|meal_scenario/.test(x)),'방문 날짜에 맞는 예약·입장/전시·메뉴 조건과 일반 이용 가능 여부를 확인'],
@@ -42,7 +44,7 @@ const places=dataset.places.map(r=>{
  return {place_id:r.place.place_id,name_ko:r.place.name_ko,category:r.place.category,
    passed_individual_model:a.passed_individual_model,eligible_dates:a.eligible_dates,
    remaining_null_fields:r.review.missing_fields,reasons,
-   next_actions:a.passed_individual_model?['방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요']:reasons.includes('google_maps_permanently_closed')?[checklist[0][1]]:checklist.filter(([match])=>match(reasons)).map(([,action])=>action),
+   next_actions:a.passed_individual_model?['방문일 임시휴업·예약 및 실제 출입구/이동경로 확인은 별도 필요']:reasons.includes('google_maps_permanently_closed')?[closedPlaceAction]:checklist.filter(([match])=>match(reasons)).map(([,action])=>action),
    missing_address_hours_note:(!r.place.address||!r.place.opening_hours)?nullNotes[r.place.name_ko]||r.review.notes.at(-1):null,
    evidence_urls:[...new Set([...latest,r.place.opening_hours_source,r.place.website,...sources].filter(Boolean))],
    evidence_scope:'기존 필드 출처와 이번 추가 확인을 함께 표시. 이 파일 생성은 모든 출처의 당일 재조회가 아님.',schedule_ready:false};

@@ -6,7 +6,7 @@ export const CATEGORIES: Category[] = [
   { id: "cafe", label: "카페", color: "#b07a4a" },
   { id: "shopping", label: "쇼핑", color: "#e0498f" },
   { id: "culture", label: "문화", color: "#7a5af5" },
-  { id: "activity", label: "체험", color: "#0ea5e9" },
+  { id: "activity", label: "체험·오락", color: "#0ea5e9" },
   { id: "nature", label: "자연", color: "#12b98c" },
 ];
 

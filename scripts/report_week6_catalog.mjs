@@ -15,7 +15,7 @@ export function categoryReport(dataset, profiles, audit) {
       || audit.individual_validation.places.length !== ids.length || ids.some(id => !checks.has(id))) {
     throw Error('Every unique catalogue ID needs exactly one matching individual audit');
   }
-  const categories = [...new Set(['명소', '문화', '자연', '쇼핑', '카페', '식사',
+  const categories = [...new Set(['명소', '문화', '자연', '쇼핑', '카페', '식사', '체험·오락',
     ...dataset.places.map(r => r.place.category)])].map(category => {
     const rows = dataset.places.filter(r => r.place.category === category);
     const passed = rows.filter(r => checks.get(r.place.place_id).passed_individual_model);

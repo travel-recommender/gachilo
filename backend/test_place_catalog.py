@@ -2,7 +2,7 @@ import unittest,json,copy,ast
 from unittest.mock import patch
 from decimal import Decimal
 from pathlib import Path
-from place_catalog import cost_krw,exchange_rate,project,catalog,DATA,get_luggage_score,exchange_rate_metadata
+from place_catalog import cost_krw,exchange_rate,project,catalog,DATA,get_luggage_score,exchange_rate_metadata,stay_policy
 
 class CatalogTests(unittest.TestCase):
  def test_utf8_catalog_with_cp949_default(self):
@@ -58,5 +58,41 @@ class CatalogTests(unittest.TestCase):
   tree=ast.parse(source.read_text(encoding='utf-8'));nodes=[n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='get_luggage_score' or isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='LIGHT_SHOPPING_PLACES' for t in n.targets)]
   env={};exec(compile(ast.Module(body=nodes,type_ignores=[]),str(source),'exec'),env)
   for r in json.loads(DATA.read_text(encoding='utf-8'))['places']:self.assertEqual(get_luggage_score(r['place']),env['get_luggage_score'](r['place']))
+
+ def test_activity_category_search_preserves_unknowns_and_identity(self):
+  found=catalog(query='엘레메카',category='체험·오락',rate='9.5')
+  self.assertEqual(found['total'],1)
+  p=found['places'][0]
+  self.assertEqual(p['place_id'],'osaka_draft_2e4698946819')
+  self.assertIsNone(p['cost_krw']);self.assertEqual(p['cost_status'],'unknown')
+  self.assertIsNone(p['covered'])
+  self.assertFalse(p['planning']['schedule_ready'])
+  self.assertIn('hours_not_verified',p['planning']['review_required'])
+  self.assertEqual(catalog(query='엘레메카',category='명소',rate='9.5')['total'],0)
+
+ def test_activity_stay_policy_does_not_regenerate_landmark_default(self):
+  record=next(r for r in json.loads(DATA.read_text(encoding='utf-8'))['places']
+              if r['place']['place_id']=='osaka_draft_2e4698946819')
+  policy=stay_policy(record)
+  self.assertEqual(policy['type'],'미합의(체험·오락)')
+  for field in ('min','max','representative'):self.assertIsNone(policy[field])
+  self.assertEqual(record['review']['stay_policy'],policy)
+  out=project(record,Decimal('9.5'))
+  self.assertEqual(out['planning']['stay_range'],policy)
+  self.assertEqual(out['stay_min'],120) # History preserved, not a new default.
+  self.assertIn('미합의',out['stay_basis'])
+  self.assertIn('stay_policy_unconfirmed',out['planning']['review_required'])
+  theme=copy.deepcopy(record);theme['source']['tags']['tourism']='theme_park'
+  self.assertEqual(stay_policy(theme)['representative'],480) # Existing agreed subtype unchanged.
+
+ def test_unconfirmed_stay_policy_is_exposed_without_manual_blocker(self):
+  record=copy.deepcopy(next(r for r in json.loads(DATA.read_text(encoding='utf-8'))['places']
+                  if r['place']['place_id']=='osaka_009'))
+  record['place']['category']='체험·오락'
+  record['review']['recommendation_blockers']=[]
+  for policy in (None,{}, {'representative':None}, {'representative':0}, {'representative':'120'}, {'representative':True}):
+   record['review']['stay_policy']=policy
+   self.assertIn('stay_policy_unconfirmed',project(record,Decimal('9.5'))['planning']['review_required'])
+  self.assertEqual(record['review']['recommendation_blockers'],[])
 
 if __name__=='__main__':unittest.main()

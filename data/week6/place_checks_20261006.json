@@ -9,7 +9,7 @@
     "2026-10-12",
     "2026-10-13"
   ],
-  "source_sha256": "a1ec46ba9f3a834481a1ccb1c37dc198cf860136536b0a1781bc6fbbd5a4f2fd",
+  "source_sha256": "6f10790d288bdbc435f26fced123e77f4e7027278523481a1a1de86a48ffd3a6",
   "profiles_sha256": "f206eb0924d0f7464a24a01a68e5024cc9602d071fff3360b8ffd6c5e90c5ae0",
   "summary": {
     "total": 150,
@@ -23,6 +23,7 @@
     "cost_unknown_or_not_applicable": 69,
     "structured_date_profile_missing": 75,
     "entry_time_reservation_required": 4,
+    "stay_policy_unconfirmed": 1,
     "event_access_required": 1,
     "seasonal_event_date_confirmation_required": 1,
     "visit_confirmation_required": 9,
@@ -825,11 +826,12 @@
     {
       "place_id": "osaka_draft_2e4698946819",
       "name_ko": "엘레메카 연구소",
-      "category": "명소",
+      "category": "체험·오락",
       "passed_individual_model_on_20261007": false,
       "passed_at_least_one_day": false,
       "eligible_dates": [],
       "reasons_on_20261007": [
+        "stay_policy_unconfirmed",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
@@ -845,7 +847,9 @@
         "opening_hours_source",
         "verified_at"
       ],
-      "recommendation_blockers": [],
+      "recommendation_blockers": [
+        "stay_policy_unconfirmed"
+      ],
       "schedule_ready": false
     },
     {
