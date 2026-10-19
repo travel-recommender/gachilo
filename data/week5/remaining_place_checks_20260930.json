@@ -9,7 +9,7 @@
     "2026-10-06",
     "2026-10-07"
   ],
-  "source_sha256": "a1ec46ba9f3a834481a1ccb1c37dc198cf860136536b0a1781bc6fbbd5a4f2fd",
+  "source_sha256": "6f10790d288bdbc435f26fced123e77f4e7027278523481a1a1de86a48ffd3a6",
   "profiles_sha256": "f206eb0924d0f7464a24a01a68e5024cc9602d071fff3360b8ffd6c5e90c5ae0",
   "summary": {
     "records": 150,
@@ -878,7 +878,7 @@
     {
       "place_id": "osaka_draft_2e4698946819",
       "name_ko": "엘레메카 연구소",
-      "category": "명소",
+      "category": "체험·오락",
       "passed_individual_model": false,
       "eligible_dates": [],
       "remaining_null_fields": [
@@ -888,10 +888,12 @@
         "verified_at"
       ],
       "reasons": [
+        "stay_policy_unconfirmed",
         "cost_unknown_or_not_applicable",
         "structured_date_profile_missing"
       ],
       "next_actions": [
+        "체류시간 대표값이 없거나 유효하게 확정되지 않았으므로 장소별 소요시간 또는 팀 기준을 확정",
         "공식 성인 입장권/대표 메뉴의 세금·필수 추가비·적용 시간대를 확인; 미확인 금액을 0으로 넣지 않음",
         "공식 또는 명시한 OSM 영업시간을 요일·휴일·마감입장 규칙으로 정규화"
       ],

@@ -5,7 +5,7 @@ export type CategoryId =
   | "cafe"       // 카페·디저트
   | "shopping"   // 쇼핑
   | "culture"    // 문화·전시
-  | "activity"   // 체험·액티비티
+  | "activity"   // 체험·오락
   | "nature";    // 자연·공원
 
 export interface Category {
