@@ -9,7 +9,7 @@ export const PLACE_NAME_GROUPS: readonly (readonly string[])[] = [
   ["덴포잔 대관람차", "텐포잔 대관람차", "Tempozan Ferris Wheel"],
   ["텐노지 동물원", "덴노지 동물원", "Tennoji Zoo"],
   ["난바 파크스", "남바 파크스", "Namba Parks"],
-  ["우메다 스카이빌딩 공중정원", "우메다 스카이 빌딩", "우메다 공중정원", "Umeda Sky Building"],
+  ["우메다 스카이빌딩 공중정원", "우메다 스카이 빌딩", "우메다 공중정원", "우메다 공중정원 전망대", "Umeda Sky Building"],
   ["그랑프론트 오사카", "그랜드프론트 오사카", "Grand Front Osaka"],
   ["신사이바시스지 상점가", "신사이바시수지 상점가", "Shinsaibashi-suji Shopping Street"],
   ["스미요시타이샤", "스미요시 대사", "Sumiyoshi Taisha"],

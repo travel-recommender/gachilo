@@ -1,3 +1,4 @@
+// Run from web/: node --test _test/*.test.ts _test/search.test.mjs
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -83,4 +84,17 @@ test("the result limit is preserved and catalog objects are not modified", () =>
   assert.equal(searchPlaces(PLACES, "우메다", 2).length, 2);
   searchPlaces(PLACES, "글리고");
   assert.equal(JSON.stringify(PLACES), before);
+});
+
+
+test("the real catalog Umeda observatory name accepts its building aliases", () => {
+  const catalog = JSON.parse(fs.readFileSync(new URL("../../data/week5/live_20260923/processed/osaka_places_150_fresh.json", import.meta.url), "utf8"));
+  const source = catalog.places.find((record) => record.place.place_id === "osaka_007").place;
+  assert.equal(source.name_ko, "우메다 공중정원 전망대");
+  const imported = { ...byId("umeda_sky"), id: source.place_id, name: source.name_ko };
+  for (const query of ["우메다 스카이빌딩", "Umeda Sky Building", "우메다 공중정원 전망대"]) {
+    assert.deepEqual(searchPlaces([imported], query), [imported]);
+  }
+  assert.equal(imported.id, "osaka_007");
+  assert.equal(imported.name, source.name_ko);
 });

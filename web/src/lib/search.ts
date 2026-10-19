@@ -5,7 +5,6 @@ import type { Place } from "./types";
 const CHO = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
 const isCho = (c: string) => CHO.includes(c);
 
-
 /** 완성형 한글 한 글자의 초성. 한글이 아니면 그대로 */
 export function choseong(c: string) {
   const code = c.charCodeAt(0) - 0xac00;
