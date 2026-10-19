@@ -37,7 +37,7 @@ export function searchPlaces(pool: Place[], query: string, limit = 8): Place[] {
     if (at === 0) scored.push({ p, s: 0 });
     else if (at > 0) scored.push({ p, s: 1 });
     else if (![...q].some(isCho)) {
-      const hay = `${p.area} ${CATEGORY_MAP[p.category].label} ${p.blurb}`.toLowerCase();
+      const hay = `${p.area} ${CATEGORY_MAP[p.category].label} ${p.blurb} ${p.address ?? ""}`.toLowerCase();
       if (hay.includes(q)) scored.push({ p, s: 2 });
     }
   }
