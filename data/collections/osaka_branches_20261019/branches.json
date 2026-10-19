@@ -37,7 +37,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "이치란 신사이바시점 | ICHIRAN Shinsaibashi | 一蘭 心斎橋店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_ichiran_namba_midosuji",
@@ -65,7 +70,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "이치란 난바 미도스지점 | 이치란 남바 미도스지점 | ICHIRAN Namba Midosuji",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_ichiran_umeda_hankyu",
@@ -93,7 +103,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "이치란 우메다 한큐 히가시도리점 | ICHIRAN Umeda Hankyu Higashidori",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_ichiran_umeda_shibata",
@@ -121,7 +136,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "이치란 우메다 시바타점 | ICHIRAN Umeda Shibata",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_ichiran_abeno",
@@ -149,7 +169,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "이치란 아베노점 | ICHIRAN Abeno",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_ichiran_dotonbori_south",
@@ -177,7 +202,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "이치란 도톤보리 별관 | 이치란 도톤보리점 별관 | ICHIRAN Dotonbori South",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_donki_dotonbori",
@@ -205,7 +235,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "돈키호테 도톤보리점 | 돈키 도톤보리 | Don Quijote Dotonbori",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_donki_dotonbori_midosuji",
@@ -233,7 +268,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "돈키호테 도톤보리 미도스지점 | Don Quijote Dotonbori Midosuji",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_donki_namba_sennichimae",
@@ -261,7 +301,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "돈키호테 난바 센니치마에점 | 돈키호테 남바 센니치마에점 | Don Quijote Namba Sennichimae",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_donki_umeda",
@@ -289,7 +334,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "돈키호테 우메다 본점 | 돈키 우메다 | Don Quijote Umeda",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_gu_shinsaibashi",
@@ -317,7 +367,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "GU 신사이바시점 | 지유 신사이바시점 | 지유 신사이바시 | GU Shinsaibashi",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_gu_links_umeda",
@@ -345,7 +400,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "GU 링크스 우메다점 | 지유 링크스 우메다점 | GU LINKS UMEDA",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "links_umeda",
+        "facility_name": "LINKS UMEDA",
+        "building_id": "links_umeda",
+        "building_name": "LINKS UMEDA",
+        "floor": "3F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://links-umeda.jp/shop/gu%E3%80%80links-umeda/"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_daiso_shinsaibashi",
@@ -373,7 +446,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "다이소 신사이바시점 | DAISO Shinsaibashi",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_daiso_links_umeda",
@@ -401,7 +479,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "다이소 링크스 우메다점 | DAISO LINKS UMEDA",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "links_umeda",
+        "facility_name": "LINKS UMEDA",
+        "building_id": "links_umeda",
+        "building_name": "LINKS UMEDA",
+        "floor": "5F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_daiso_osaka_umeda",
@@ -429,7 +525,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "다이소 오사카 우메다점 | DAISO Osaka Umeda",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_uniqlo_shinsaibashi",
@@ -457,13 +558,18 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "유니클로 신사이바시점 | UNIQLO SHINSAIBASHI",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_uniqlo_umeda",
       "action": "신규 후보",
       "brand": "유니클로",
-      "name_ko": "유니클로 우메다점 (링크스)",
+      "name_ko": "유니클로 링크스 우메다점",
       "official_name": "ユニクロ UMEDA",
       "area": "우메다",
       "category": "쇼핑",
@@ -484,8 +590,26 @@
       "stay_basis": null,
       "purchase_budget_jpy": null,
       "additional_evidence": null,
-      "aliases": "유니클로 우메다점 | 유니클로 링크스 우메다 | UNIQLO UMEDA",
-      "schedule_ready": false
+      "aliases": "유니클로 우메다점 | 유니클로 링크스 우메다 | UNIQLO UMEDA | 유니클로 우메다점 (링크스)",
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "links_umeda",
+        "facility_name": "LINKS UMEDA",
+        "building_id": "links_umeda",
+        "building_name": "LINKS UMEDA",
+        "floor": "1–2F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://map.uniqlo.com/jp/ja/detail/10101654/1000"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_muji_grandfront",
@@ -513,7 +637,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "무인양품 그랜드프런트 오사카점 | 무지 그랜드프론트 오사카 | MUJI Grand Front Osaka",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "grand_front_north",
+        "facility_name": "グランフロント大阪 北館",
+        "building_id": "grand_front_north",
+        "building_name": "グランフロント大阪 北館",
+        "floor": "2–4F",
+        "parent_place_id": null,
+        "complex_id": "grand_front_osaka",
+        "source_urls": [
+          "https://www.muji.com/jp/ja/shop/detail/045589"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_muji_namba_skyo",
@@ -541,7 +683,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "무인양품 난바 스카이오점 | 무지 남바 스카이오 | MUJI Namba Skyo",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "namba_skyo",
+        "facility_name": "なんばスカイオ",
+        "building_id": "namba_skyo",
+        "building_name": "なんばスカイオ",
+        "floor": "5F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.muji.com/jp/ja/shop/detail/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%B9%E3%82%AB%E3%82%A4%E3%82%AA/046316"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_onitsuka_shinsaibashi",
@@ -569,7 +729,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "오니츠카타이거 신사이바시점 | 오니츠카 타이거 신사이바시 | Onitsuka Tiger Shinsaibashi",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_kiddyland_umeda",
@@ -597,7 +762,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "키디랜드 오사카 우메다점 | キデイランド大阪梅田店 | KIDDY LAND Osaka Umeda | 키데이랜드 우메다",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "hankyu_sanbangai_north",
+        "facility_name": "阪急三番街 北館",
+        "building_id": "hankyu_sanbangai_north",
+        "building_name": "阪急三番街 北館",
+        "floor": null,
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.kiddyland.co.jp/shoplist/umeda/"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_montbell_namba_city",
@@ -625,7 +808,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "몽벨 난바 CITY점 | モンベル なんばCITY店 | 몬벨 난바 시티 | mont-bell Namba CITY",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "namba_city_south",
+        "facility_name": "なんばCITY南館",
+        "building_id": "namba_city_south",
+        "building_name": "なんばCITY南館",
+        "floor": "B1F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://store.montbell.jp/sp/search/shopinfo/?shop_no=678546"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_montbell_umekita",
@@ -653,7 +854,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "몽벨 우메키타점 | モンベル うめきた店 | 몬벨 우메키타 | mont-bell Umekita",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "grand_front_south",
+        "facility_name": "グランフロント大阪 南館",
+        "building_id": "grand_front_south",
+        "building_name": "グランフロント大阪 南館",
+        "floor": "5F",
+        "parent_place_id": null,
+        "complex_id": "grand_front_osaka",
+        "source_urls": [
+          "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_montbell_daimaru_shinsaibashi",
@@ -681,7 +900,26 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "몽벨 다이마루 신사이바시점 | モンベル 大丸心斎橋店 | 몬벨 다이마루 신사이바시",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "daimaru_shinsaibashi_south",
+        "facility_name": "大丸心斎橋店 南館",
+        "building_id": "daimaru_shinsaibashi_south",
+        "building_name": "大丸心斎橋店 南館",
+        "floor": "6F",
+        "parent_place_id": null,
+        "complex_id": "daimaru_shinsaibashi",
+        "source_urls": [
+          "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+          "https://store.montbell.jp/clubshop/"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_stussy_osaka",
@@ -709,7 +947,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "스투시 오사카점 | Stüssy Osaka | Stussy Osaka",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_supreme_osaka",
@@ -737,7 +980,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "슈프림 오사카점 | Supreme Osaka | 수프림 오사카",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_bape_osaka",
@@ -765,7 +1013,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "베이프 스토어 오사카점 | BAPE STORE OSAKA | BAPE 오사카 | 베이프 남호리에",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_bape_hankyu_mens",
@@ -793,17 +1046,36 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "베이프 한큐 맨즈 오사카점 | BAPE STORE HANKYU MEN’S OSAKA",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "hankyu_mens_osaka",
+        "facility_name": "阪急メンズ大阪",
+        "building_id": "hankyu_mens_osaka",
+        "building_name": "阪急メンズ大阪",
+        "floor": "5F",
+        "parent_place_id": "branch_hankyu_mens_osaka",
+        "complex_id": null,
+        "source_urls": [
+          "https://jp.bape.com/pages/store-list",
+          "https://jp.bape.com/blogs/news/bapestore-hankyumens"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_bape_cdg_osaka",
       "action": "신규 후보",
       "brand": "베이프",
-      "name_ko": "베이프 꼼데가르송 오사카점",
+      "name_ko": "베이프 스토어 (꼼데가르송 오사카 내)",
       "official_name": "BAPE STORE COMME DES GARCONS OSAKA",
       "area": "미나미센바",
       "category": "쇼핑",
-      "subtype": "스트리트 의류·협업 매장",
+      "subtype": "스트리트 의류",
       "address": "大阪府大阪市中央区南船場4-4-21",
       "hours": "11:00~20:00",
       "exceptions": "꼼데가르송 건물 안의 BAPE 매장. 신상품 입장 추첨은 발매일별 확인.",
@@ -821,7 +1093,26 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "베이프 꼼데가르송 오사카점 | BAPE STORE COMME DES GARCONS OSAKA",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "cdg_osaka",
+        "facility_name": "COMME des GARCONS OSAKA",
+        "building_id": "cdg_osaka",
+        "building_name": "COMME des GARCONS OSAKA",
+        "floor": null,
+        "parent_place_id": "branch_cdg_osaka",
+        "complex_id": null,
+        "source_urls": [
+          "https://jp.bape.com/pages/store-list/cdg-osaka",
+          "https://jp.bape.com/blogs/news/cdg-osaka-5th"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_humanmade_shinsaibashi",
@@ -849,7 +1140,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "휴먼메이드 신사이바시 PARCO점 | HUMAN MADE SHINSAIBASHI PARCO | 휴먼 메이드 신사이바시 파르코",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "shinsaibashi_parco",
+        "facility_name": "心斎橋PARCO",
+        "building_id": "shinsaibashi_parco",
+        "building_name": "心斎橋PARCO",
+        "floor": "1F",
+        "parent_place_id": "osaka_024",
+        "complex_id": null,
+        "source_urls": [
+          "https://shinsaibashi.parco.jp/shop/detail/?cd=028077"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_porter_osaka",
@@ -877,7 +1186,26 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "포터 오사카점 | PORTER OSAKA",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "grand_front_south",
+        "facility_name": "グランフロント大阪 南館",
+        "building_id": "grand_front_south",
+        "building_name": "グランフロント大阪 南館",
+        "floor": "3F",
+        "parent_place_id": null,
+        "complex_id": "grand_front_osaka",
+        "source_urls": [
+          "https://www.gfo-sc.jp/shop-detail/porter/",
+          "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_porter_cloakroom_hankyu",
@@ -905,7 +1233,26 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "클로크룸 바이 포터 한큐 우메다점 | CLOAKROOM by PORTER HANKYU UMEDA",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "hankyu_umeda",
+        "facility_name": "阪急うめだ本店",
+        "building_id": "hankyu_umeda",
+        "building_name": "阪急うめだ本店",
+        "floor": "8F",
+        "parent_place_id": "osaka_draft_f1ba0aa6ab58",
+        "complex_id": null,
+        "source_urls": [
+          "https://website.hankyu-dept.co.jp/honten/cat/mens/h/with_local/",
+          "https://www.hankyu-dept.co.jp/honten/map/index.html"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_zara_shinsaibashi",
@@ -933,7 +1280,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "자라 신사이바시점 | ZARA 心斎橋店 | ZARA Shinsaibashi",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_zara_man_shinsaibashi",
@@ -961,7 +1313,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "자라 맨 신사이바시스지점 | ZARA MAN 心斎橋筋店 | ZARA MAN Shinsaibashi",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_cdg_osaka",
@@ -989,7 +1346,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "꼼데가르송 오사카점 | Comme des Garçons 大阪店 | 꼼 데 가르송 오사카 | 콤데가르송 오사카",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_matsukiyo_dotonbori1",
@@ -1017,7 +1379,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "마츠모토키요시 도톤보리 1초메점 | 薬 マツモトキヨシ 道頓堀一丁目店 | 마츠키요 도톤보리 1초메",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_matsukiyo_shinsaibashi_chuo",
@@ -1045,7 +1412,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "마츠모토키요시 신사이바시 중앙점 | 薬 マツモトキヨシ 心斎橋中央店 | 마츠키요 신사이바시 중앙",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_daikoku_dotonbori",
@@ -1073,7 +1445,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "다이코쿠 드럭 도톤보리점 | ダイコクドラッグ 道頓堀店 | 다이코쿠 드러그 도톤보리 | Daikoku Drug Dotonbori",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_daimaru_shinsaibashi",
@@ -1101,7 +1478,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "다이마루 신사이바시점 본관 | 大丸 心斎橋店 本館",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_daimaru_umeda",
@@ -1129,7 +1511,26 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "다이마루 우메다점 | 大丸 梅田店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "daimaru_umeda",
+        "facility_name": "大丸梅田店",
+        "building_id": "south_gate_building",
+        "building_name": "サウスゲートビルディング",
+        "floor": "B2–9F（운영 범위, 일부 층 공사 휴업은 별도 확인）",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.daimaru.co.jp/umedamise/hours.html",
+          "https://www.daimaru.co.jp/umedamise/topics/260120information.html"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_hankyu_umeda",
@@ -1157,7 +1558,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "한큐 우메다 본점 | 阪急うめだ本店 | 한큐 백화점 우메다 본점",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_hankyu_mens_osaka",
@@ -1185,7 +1591,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "한큐 맨즈 오사카 | 阪急メンズ大阪",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_pokemon_osaka",
@@ -1213,7 +1624,26 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "포켓몬센터 오사카 | ポケモンセンターオーサカ | 포켓몬 센터 오사카 | Pokemon Center Osaka",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "lucua_south",
+        "facility_name": "ルクア サウス",
+        "building_id": "south_gate_building",
+        "building_name": "サウスゲートビルディング",
+        "floor": "13F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/",
+          "https://www.daimaru.co.jp/umedamise/topics/260120information.html"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_pokemon_osaka_dx",
@@ -1241,7 +1671,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "포켓몬센터 오사카 DX | ポケモンセンターオーサカDX | 포켓몬 센터 오사카 디엑스 | Pokemon Center Osaka DX",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "daimaru_shinsaibashi_main",
+        "facility_name": "大丸心斎橋店 本館",
+        "building_id": "daimaru_shinsaibashi_main",
+        "building_name": "大丸心斎橋店 本館",
+        "floor": "9F",
+        "parent_place_id": "osaka_022",
+        "complex_id": "daimaru_shinsaibashi",
+        "source_urls": [
+          "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osakadx/"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_nintendo_osaka",
@@ -1269,13 +1717,32 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "닌텐도 오사카 | Nintendo OSAKA | 닌텐도 스토어 오사카",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": {
+        "facility_id": "lucua_south",
+        "facility_name": "ルクア サウス",
+        "building_id": "south_gate_building",
+        "building_name": "サウスゲートビルディング",
+        "floor": "13F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.nintendo.com/jp/officialstore/index.html",
+          "https://www.daimaru.co.jp/umedamise/topics/260120information.html"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_jam_americamura",
       "action": "신규 후보",
       "brand": "JAM",
-      "name_ko": "빈티지 JAM 아메리카무라점",
+      "name_ko": "JAM 아메리카무라점",
       "official_name": "古着屋JAM VINTAGE&SELECT アメリカ村店",
       "area": "아메리카무라",
       "category": "쇼핑",
@@ -1297,13 +1764,18 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "빈티지 JAM 아메리카무라점 | 古着屋JAM VINTAGE&SELECT アメリカ村店 | 빈티지 잼 아메리카무라 | 후루기야 JAM 아메리카무라",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_jam_shinsaibashi",
       "action": "신규 후보",
       "brand": "JAM",
-      "name_ko": "빈티지 JAM 신사이바시점",
+      "name_ko": "JAM 신사이바시점",
       "official_name": "古着屋JAM VINTAGE&SELECT 心斎橋店",
       "area": "아메리카무라",
       "category": "쇼핑",
@@ -1325,7 +1797,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "빈티지 JAM 신사이바시점 | 古着屋JAM VINTAGE&SELECT 心斎橋店 | JAM 아메리카무라 2호점 | 古着屋JAM アメリカ村2号店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "shopping",
+      "meal_role": null,
+      "within": null
     },
     {
       "collection_id": "branch_girlsmignon_shinsaibashi",
@@ -1353,7 +1830,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "걸즈 미뇽 신사이바시 GATE점 | girls mignon 心斎橋GATE店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "activity",
+      "meal_role": null,
+      "within": {
+        "facility_id": "shinsaibashi_gate",
+        "facility_name": "Shinsaibashi GATE",
+        "building_id": "shinsaibashi_gate",
+        "building_name": "Shinsaibashi GATE",
+        "floor": "7F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.puri.furyu.jp/mignon/gm/"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_petitmignon_daimaru",
@@ -1381,7 +1876,26 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "프티 미뇽 다이마루 신사이바시점 | petit mignon 大丸心斎橋店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "activity",
+      "meal_role": null,
+      "within": {
+        "facility_id": "daimaru_shinsaibashi_south",
+        "facility_name": "大丸心斎橋店 南館",
+        "building_id": "daimaru_shinsaibashi_south",
+        "building_name": "大丸心斎橋店 南館",
+        "floor": "5F",
+        "parent_place_id": null,
+        "complex_id": "daimaru_shinsaibashi",
+        "source_urls": [
+          "https://www.puri.furyu.jp/mignon/gm/",
+          "https://www.daimaru.co.jp/shinsaibashi/hours.html"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_551_honten",
@@ -1391,7 +1905,7 @@
       "official_name": "551HORAI 本店",
       "area": "난바·도톤보리",
       "category": "식사",
-      "subtype": "중화요리·부타만 / 식당",
+      "subtype": "중화요리·부타만",
       "address": "大阪府大阪市中央区難波3-6-3",
       "hours": "식당11:00부터 / 주문 마감21:30",
       "exceptions": "판매점10:00~21:30. 첫째·셋째 화요일 정기휴무;12월 등 예외 공지 확인. 식당 폐점시간은 추가 확인.",
@@ -1409,7 +1923,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "551 호라이 본점 | 551HORAI 本店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_551_namba_walk",
@@ -1419,7 +1938,7 @@
       "official_name": "551HORAI なんばウォーク店",
       "area": "난바·도톤보리",
       "category": "식사",
-      "subtype": "중화요리·부타만 / 식당",
+      "subtype": "중화요리·부타만",
       "address": "大阪府大阪市中央区難波2 なんばウォーク1番街北通り-4",
       "hours": "식당11:00~22:00 / 주문 마감21:30",
       "exceptions": "포장10:00~21:30. 홀수 달 셋째 수요일 휴무(난바워크 기준).",
@@ -1437,7 +1956,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "551 호라이 난바워크점 | 551HORAI なんばウォーク店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": {
+        "facility_id": "namba_walk_1_north",
+        "facility_name": "なんばウォーク1番街北通り",
+        "building_id": "namba_walk_1_north",
+        "building_name": "なんばウォーク1番街北通り",
+        "floor": null,
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.551horai.co.jp/shop/list/20/"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_551_takashimaya_osaka",
@@ -1447,7 +1984,7 @@
       "official_name": "551HORAI 大阪高島屋店",
       "area": "난바·도톤보리",
       "category": "식사",
-      "subtype": "부타만·중화식품 / 포장 구매",
+      "subtype": "부타만·중화식품",
       "address": "大阪府大阪市中央区難波5-1-5 大阪高島屋B1F",
       "hours": "10:00~20:00",
       "exceptions": "백화점 일정에 따라 부정기 휴무. 과거8/19 휴점은 반복 휴일로 미적용.",
@@ -1465,7 +2002,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "551 호라이 오사카 다카시마야점 | 551HORAI 大阪高島屋店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "takeout",
+      "within": {
+        "facility_id": "osaka_takashimaya",
+        "facility_name": "大阪高島屋",
+        "building_id": "osaka_takashimaya",
+        "building_name": "大阪高島屋",
+        "floor": "B1F",
+        "parent_place_id": "osaka_021",
+        "complex_id": null,
+        "source_urls": [
+          "https://www.551horai.co.jp/shop/list/18/"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_daruma_dotonbori",
@@ -1493,7 +2048,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "쿠시카츠 다루마 도톤보리점 | 串かつだるま 道頓堀店 | 쿠시카쓰 다루마 도톤보리 | 구시카츠 다루마 도톤보리",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_daruma_shinsekai",
@@ -1521,7 +2081,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "쿠시카츠 다루마 신세카이 총본점 | 串かつだるま 新世界総本店 | 쿠시카쓰 다루마 신세카이 본점",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_fukutaro_honten",
@@ -1549,7 +2114,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "후쿠타로 본점 | 福太郎 本店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": null
     },
     {
       "collection_id": "branch_fukutaro_umeda",
@@ -1577,7 +2147,25 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "후쿠타로 우메다점 | 福太郎 梅田店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "meal",
+      "within": {
+        "facility_id": "grand_front_south",
+        "facility_name": "グランフロント大阪 南館",
+        "building_id": "grand_front_south",
+        "building_name": "グランフロント大阪 南館",
+        "floor": "7F",
+        "parent_place_id": null,
+        "complex_id": "grand_front_osaka",
+        "source_urls": [
+          "https://2951.jp/"
+        ],
+        "checked_at": "2026-10-19",
+        "scheduling_policy": "unconfirmed"
+      }
     },
     {
       "collection_id": "branch_wanaka_sennichimae",
@@ -1587,7 +2175,7 @@
       "official_name": "たこ焼道楽わなか 千日前本店",
       "area": "난바·도톤보리",
       "category": "식사",
-      "subtype": "타코야키·간식",
+      "subtype": "타코야키",
       "address": "大阪府大阪市中央区難波千日前11-19",
       "hours": "월~금10:30~21:00 / 토·일·공휴일09:30~21:00",
       "exceptions": "정기휴무·주문 마감 별도 확인. 한정 행사·옛 연말연시 시간을 상시 규칙에 적용하지 않음.",
@@ -1605,7 +2193,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "와나카 센니치마에 본점 | たこ焼道楽わなか 千日前本店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "snack",
+      "within": null
     },
     {
       "collection_id": "branch_wanaka_dotonbori",
@@ -1615,7 +2208,7 @@
       "official_name": "たこ焼道楽わなか 道頓堀店",
       "area": "난바·도톤보리",
       "category": "식사",
-      "subtype": "타코야키·간식",
+      "subtype": "타코야키",
       "address": "大阪府大阪市中央区道頓堀1-6-7",
       "hours": "10:30~21:00",
       "exceptions": "정기휴무·주문 마감 별도 확인. 센니치마에점의 주말 개점시간과 다름.",
@@ -1633,7 +2226,12 @@
       "purchase_budget_jpy": null,
       "additional_evidence": null,
       "aliases": "와나카 도톤보리점 | たこ焼道楽わなか 道頓堀店",
-      "schedule_ready": false
+      "schedule_ready": false,
+      "area_scheme": "tourism_editorial_v1",
+      "area_basis": "manual_editorial_boundary_unconfirmed",
+      "engine_category_id": "food",
+      "meal_role": "snack",
+      "within": null
     }
   ],
   "held": [
@@ -1652,8 +2250,17 @@
       "status": "기존 영업·지점 확인 보류",
       "address": "大阪府大阪市中央区宗右衛門町7-18",
       "reason": "기존 ID osm_node_2546559085 보존. 공식 목록에 없는 것만으로 폐업 확정하지 않음. 별관과 합치지 않음.",
-      "next": "현재 운영 여부·정확한 지점·입구를 확인한 뒤 기존 기록 보완.",
+      "next": "현재 운영 여부·정확한 지점·입구를 확인한 뒤 기존 ID를 유지하여 보완. 본관 동일성 확인 및 보류 해제 시 표시 이름을 이치란 도톤보리 본관으로 변경 제안하고 별도 검토.",
       "url": "https://ichiran.com/shop/area-kinki.html"
     }
-  ]
+  ],
+  "metadata_contract": {
+    "version": 1,
+    "scope": "collection_review_only",
+    "area_scheme": "tourism_editorial_v1",
+    "area_basis": "manual_editorial_boundary_unconfirmed",
+    "category_contract_url": "https://github.com/travel-recommender/gachilo/pull/44",
+    "facility_policy": "Facility/building containment is evidence, not permission to merge visits or assume zero travel.",
+    "meal_policy": "meal is a provisional visit role; takeout/snack must retain a dedicated scheduler blocker."
+  }
 }

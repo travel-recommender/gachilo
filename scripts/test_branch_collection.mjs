@@ -26,5 +26,15 @@ test('branch preview is readable by the existing validator and cannot enter a sc
     const stillHeld = availability(numeric, '2026-10-19', profiles, {allowShopping: true});
     assert.equal(stillHeld.eligible_for_model, false);
     assert.ok(stillHeld.reasons.includes('branch_collection_review_required'));
+    assert.ok(stillHeld.reasons.includes('area_scheme_unconfirmed'));
+    for (const reason of ['meal_role_not_full_meal', 'facility_relation_unconfirmed']) {
+      if (record.review.recommendation_blockers.includes(reason)) {
+        const isolated = structuredClone(numeric);
+        isolated.review.recommendation_blockers = [reason];
+        const result = availability(isolated, '2026-10-19', profiles, {allowShopping: true});
+        assert.equal(result.eligible_for_model, false);
+        assert.ok(result.reasons.includes(reason));
+      }
+    }
   }
 });

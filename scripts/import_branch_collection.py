@@ -22,7 +22,12 @@ FIELDS = ('place_id', 'name', 'name_ko', 'category', 'area', 'address',
           'latitude', 'longitude', 'opening_hours', 'cost', 'stay_min',
           'bag_load', 'covered', 'website', 'opening_hours_source', 'verified_at')
 KINDS = {'official_web_review', 'official_mall_listing', 'official_shopping_street_listing'}
-CATEGORIES = {'명소', '문화', '자연', '쇼핑', '카페', '식사', '체험·오락', '복합문화'}
+# Stable engine IDs; labels follow the category contract in PR #44.
+CATEGORY_IDS = {'명소': 'landmark', '문화': 'culture', '자연': 'nature', '쇼핑': 'shopping',
+                '카페': 'cafe', '식사': 'food', '체험·오락': 'activity'}
+CATEGORIES = set(CATEGORY_IDS)
+AREA_SCHEME = 'tourism_editorial_v1'
+AREA_BASIS = 'manual_editorial_boundary_unconfirmed'
 
 
 def require(condition, message):
@@ -31,10 +36,28 @@ def require(condition, message):
 
 
 def url(value):
-    if not isinstance(value, str):
+    if not isinstance(value, str) or re.search(r'\s', value):
         return False
     p = urlparse(value)
     return p.scheme in ('http', 'https') and bool(p.hostname) and not p.username and not p.password
+
+
+def source_urls(row):
+    value = row.get('source_url')
+    return value.split() if isinstance(value, str) else []
+
+
+def area_scheme(record):
+    if record.get('review', {}).get('area_scheme') == AREA_SCHEME:
+        return AREA_SCHEME
+    area = record['place'].get('area')
+    if not area:
+        return 'missing'
+    if re.fullmatch(r'大阪市[^市区]+区', area):
+        return 'administrative_ward'
+    if re.fullmatch(r'[^市区]+市', area):
+        return 'administrative_city'
+    return 'unclassified_legacy'
 
 
 def validate(base, collection):
@@ -45,6 +68,8 @@ def validate(base, collection):
     rows = collection.get('rows')
     require(isinstance(rows, list) and rows, 'Collection must have nonempty rows.')
     seen, updated = set(), set()
+    new_ids = {r.get('collection_id') for r in rows if r.get('action') == '신규 후보'}
+    parents = {}
     for row in rows:
         cid = row.get('collection_id')
         require(isinstance(cid, str) and re.fullmatch(r'branch_[a-z0-9_]+', cid), 'Invalid collection ID.')
@@ -62,7 +87,27 @@ def validate(base, collection):
             require(target in ('', None), f'{cid}: new candidate cannot target an existing place')
         require(row.get('schedule_ready') is False, f'{cid}: this importer cannot promote places')
         require(row.get('category') in CATEGORIES, f'{cid}: invalid category')
-        require(row.get('source_kind') in KINDS and url(row.get('source_url')), f'{cid}: invalid source')
+        require(row.get('engine_category_id') == CATEGORY_IDS[row['category']], f'{cid}: invalid engine category')
+        require('meal_role' in row, f'{cid}: missing meal_role')
+        role = row.get('meal_role')
+        require(role in ('meal', 'takeout', 'snack') if row['category'] == '식사' else role is None,
+                f'{cid}: invalid meal_role')
+        require(row.get('area_scheme') == AREA_SCHEME and row.get('area_basis') == AREA_BASIS,
+                f'{cid}: invalid area scheme/basis')
+        urls = source_urls(row)
+        require(row.get('source_kind') in KINDS and urls and all(url(u) for u in urls), f'{cid}: invalid source')
+        within = row.get('within')
+        require('within' in row and (within is None or isinstance(within, dict)), f'{cid}: invalid within')
+        if within is not None:
+            for key in ('facility_id', 'facility_name', 'building_id', 'building_name'):
+                require(isinstance(within.get(key), str) and within[key].strip(), f'{cid}: invalid {key}')
+            parent = within.get('parent_place_id')
+            require(parent is None or (parent in set(ids) | new_ids and parent != cid), f'{cid}: invalid facility parent')
+            require(within.get('floor') is None or isinstance(within['floor'], str), f'{cid}: invalid floor')
+            require(within.get('scheduling_policy') == 'unconfirmed', f'{cid}: facility policy is not approved')
+            links = within.get('source_urls')
+            require(isinstance(links, list) and links and all(url(u) for u in links), f'{cid}: invalid facility source')
+            parents[cid] = parent
         try:
             require(date.fromisoformat(row['checked_at']).isoformat() == row['checked_at'], f'{cid}: invalid date')
         except (KeyError, TypeError, ValueError) as error:
@@ -74,6 +119,12 @@ def validate(base, collection):
                     and value >= 0 and (key != 'stay_min' or value > 0)), f'{cid}: invalid {key}')
         require(row.get('space_type') in (None, '', '실내', '야외', '혼합', '미확인'), f'{cid}: invalid space_type')
         require(not row.get('entrance_map_url') or url(row['entrance_map_url']), f'{cid}: invalid entrance URL')
+    for cid in parents:
+        visited, cursor = set(), cid
+        while cursor in parents:
+            require(cursor not in visited, f'{cid}: cyclic facility parent')
+            visited.add(cursor)
+            cursor = parents[cursor]
     require(isinstance(collection.get('held', []), list), 'held must be a list.')
 
 
@@ -84,7 +135,7 @@ def candidate(row):
                  category=row['category'], area=row['area'], address=row['address'],
                  opening_hours=row.get('hours'), verified_at=row['checked_at'],
                  opening_hours_source=row['source_url'] if row.get('hours') else None)
-    evidence = {'kind': row['source_kind'], 'urls': [row['source_url']], 'checked_at': row['checked_at']}
+    evidence = {'kind': row['source_kind'], 'urls': source_urls(row), 'checked_at': row['checked_at']}
     sources = {k: copy.deepcopy(evidence) for k in ('name', 'address')}
     if row.get('hours'):
         sources.update({k: copy.deepcopy(evidence) for k in ('opening_hours', 'opening_hours_source')})
@@ -97,9 +148,13 @@ def candidate(row):
     sources['cost'] = {'kind': 'pending_cost_review', 'note': row['cost_basis']}
     blockers = ['branch_collection_review_required', 'entrance_coordinates_unconfirmed',
                 'stay_policy_unconfirmed', 'covered_unconfirmed', 'bag_load_unconfirmed',
-                'structured_date_profile_missing']
-    if row['category'] in ('체험·오락', '복합문화'):
+                'structured_date_profile_missing', 'area_scheme_unconfirmed']
+    if row['category'] == '체험·오락':
         blockers.append('category_contract_review_required')
+    if row['meal_role'] in ('takeout', 'snack'):
+        blockers.append('meal_role_not_full_meal')
+    if row['within'] is not None:
+        blockers.append('facility_relation_unconfirmed')
     return {
         'place': place,
         'field_sources': sources,
@@ -111,6 +166,9 @@ def candidate(row):
             'notes': [row.get('exceptions') or '', row['remaining'], row['cost_basis'],
                       '수집표의 기준 가격·추정 체류시간·공간 표시는 자동 확정하지 않음. 포장/간식은 한 끼 식당으로 승격하지 않음.'],
             'stay_policy': None,
+            'area_scheme': row['area_scheme'], 'area_basis': row['area_basis'],
+            'engine_category_id': row['engine_category_id'], 'meal_role': row['meal_role'],
+            'within': copy.deepcopy(row['within']),
             'branch_collection': copy.deepcopy(row),
         },
     }
@@ -123,8 +181,12 @@ def build_preview(base, collection):
     updates, added, unchanged = [], 0, 0
     for row in collection['rows']:
         if row['action'] == '보완':
+            old_name = by_id[row['existing_place_id']]['place']['name_ko']
+            name_changed = old_name != row['name_ko']
             updates.append({'place_id': row['existing_place_id'], 'applied': False,
                             'current_place': copy.deepcopy(by_id[row['existing_place_id']]['place']),
+                            'name_change': {'from': old_name, 'to': row['name_ko'],
+                                            'changed': name_changed, 'requires_review': name_changed},
                             'proposed_collection': copy.deepcopy(row)})
             continue
         record = candidate(row)
@@ -138,7 +200,10 @@ def build_preview(base, collection):
         added += 1
     # Avoid copying base-only OSM hashes, quotas or statistics as if they cover new branches.
     preview = {'schema_version': base.get('schema_version'), 'dataset_status': 'branch_collection_review_preview',
-               'scope': 'Review only. Runtime data and scheduler profiles are not changed.', 'places': records}
+               'scope': 'Review only. Runtime data and scheduler profiles are not changed.',
+               'area_scheme': 'mixed_review_only',
+               'area_schemes_by_place_id': {r['place']['place_id']: area_scheme(r) for r in records},
+               'places': records}
     summary = {'base_count': len(base['places']), 'collection_count': len(collection['rows']),
                'added_count': added, 'unchanged_candidate_count': unchanged, 'update_proposal_count': len(updates),
                'preview_count': len(records), 'held_count': len(collection.get('held', [])),
