@@ -213,6 +213,8 @@ class Store(CandidateStore):
         if candidate_view['candidates']:
             selected=next((x for x in candidate_view['candidates'] if x['strategy']==candidate_view['selectedStrategy']),None)
             status='ready' if selected else 'awaiting_selection'
+            if r['dataset']==REAL_DATASET:
+                extra['planning']={'status':'draft','schedule_ready':False}
             # Preserve the legacy result shape; rich P8 data is the selected candidate.
             result={'strategy':selected['strategy'],'days':[{'date':d['date'],'placeIds':d['placeIds']} for d in selected['days']], 'summary':selected['summary']} if selected else None
         elif calculating:status='calculating'

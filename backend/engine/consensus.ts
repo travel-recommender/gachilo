@@ -147,7 +147,7 @@ export function utilityOf(place: Place, sub: SubmissionView, taste = categoryTas
   // 직접 고른 곳은 높게, 안 고른 곳은 (내 취향 + 장소의 보편적 매력)만큼
   let u = sub.picks.includes(place.id)
     ? 0.85
-    : 0.08 + 0.42 * (taste[place.category] ?? 0) + 0.38 * place.popularity;
+    : 0.08 + 0.42 * (taste[place.category] ?? 0) + 0.38 * (place.popularity ?? 0);
 
   // 1인 예산에서 이 장소 하나가 차지하는 비중이 크면 부담스럽다
   const share = sub.budget ? place.cost / sub.budget : 0;

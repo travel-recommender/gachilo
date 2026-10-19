@@ -124,7 +124,7 @@ export function validateDay(request, dataset, profiles, options = {}) {
       // No invented popularity/exposure/arcade values: the scheduling function does not use them.
     }, votes: 1, mustOf: null, tier: 'core', participants: []});
   }
-  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: true});
+  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: true, distanceWeight: options.distanceWeight});
   const plan = built.plans[0];
   const violations = rejected.map(r => ({code: 'place_not_eligible', place_id: r.place_id, reasons: r.reasons}));
   let walkingKm = 0, previous = null;
@@ -156,7 +156,8 @@ export function validateDay(request, dataset, profiles, options = {}) {
   return {date: request.date, passed_model_checks: violations.length === 0, schedule_ready: false,
     input: request, items, rejected, dropped: built.dropped.map(r => r.place.id), violations,
     totals: {selected_admission_and_menu_krw: plan.cost, estimated_walking_km: walkingKm,
-      estimated_steps: steps, elapsed_from_0900_min: elapsed},
+      estimated_steps: steps, elapsed_from_0900_min: elapsed,
+      ...(options.candidateMetrics ? {estimated_total_km: plan.totalKm} : {})},
     limitations: [
       'This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.',
       'Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.',

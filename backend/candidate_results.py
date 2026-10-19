@@ -6,6 +6,7 @@ import time
 from datetime import date, timedelta
 from api_errors import ApiError, require
 from engine import EngineError
+from real_engine import REAL_DATASET
 
 STRATEGIES = ('average', 'least_misery', 'fairness')
 
@@ -37,8 +38,7 @@ class CandidateStore:
             c.execute('BEGIN IMMEDIATE')
             room = self.room(c, rid)
             self.authenticate(c, room, token, owner_only=True)
-            if room['dataset'] != 'prototype_demo_36':
-                raise ApiError(400, '후보 3개 계산은 현재 데모 36곳만 지원합니다. 실제 장소 모드는 strategy=average를 사용하세요.')
+            require(room['dataset'] in ('prototype_demo_36', REAL_DATASET), '지원하지 않는 장소 데이터 모드입니다.')
             if room['revision'] != revision:
                 raise ApiError(409, '입력이 변경되었습니다. 현황을 다시 조회하세요.')
             counts = c.execute('SELECT COUNT(*),COUNT(s.member_id) FROM members m LEFT JOIN submissions s ON m.id=s.member_id WHERE m.room_id=?', (rid,)).fetchone()
@@ -64,7 +64,8 @@ class CandidateStore:
             if (room['revision'] != revision or not current or current['revision'] != revision
                     or current['job_token'] != job):
                 raise ApiError(409, '입력이 변경되었거나 계산이 교체되었습니다. 현황을 다시 조회하세요.')
-            validate_candidates(output, room, self.catalog_ids)
+            known_ids = self.real_ids if room['dataset'] == REAL_DATASET else self.catalog_ids
+            validate_candidates(output, room, known_ids)
             c.execute('INSERT OR REPLACE INTO candidate_results(room_id,revision,payload) VALUES(?,?,?)',
                       (rid, revision, json.dumps(output['candidates'], ensure_ascii=False)))
             c.execute('DELETE FROM results WHERE room_id=?', (rid,))
@@ -122,6 +123,7 @@ def validate_candidates(output, room, known_ids):
         check(candidate['explanationSource'] in ('rules', 'ai'))
         days = candidate['days']
         check(isinstance(days, list) and len(days) == len(dates))
+        seen_ids = set()
         for expected_date, day in zip(dates, days):
             keys(day, 'date placeIds items metrics')
             check(day['date'] == expected_date)
@@ -129,14 +131,22 @@ def validate_candidates(output, room, known_ids):
             ids, items = day['placeIds'], day['items']
             check(isinstance(ids, list) and len(ids) <= 30 and all(isinstance(x, str) for x in ids))
             check(len(set(ids)) == len(ids) and (known_ids is None or all(x in known_ids for x in ids)))
+            check(not seen_ids.intersection(ids))
+            seen_ids.update(ids)
             check(isinstance(items, list) and len(items) == len(ids))
+            previous_end = 0
             for id_, item in zip(ids, items):
                 keys(item, 'placeId aiAdded filled source reasonCode reason startMin endMin')
                 # Minutes from local midnight; bars may run until 24:00.
                 check(type(item['startMin']) is int and type(item['endMin']) is int and 0 <= item['startMin'] <= item['endMin'] <= 1440)
+                check(item['startMin'] >= previous_end)
+                previous_end = item['endMin']
                 check(item['placeId'] == id_ and type(item['aiAdded']) is bool and type(item['filled']) is bool)
                 check(item['source'] in ('selected', 'rule_added', 'ai_added', 'meal_fill'))
                 check(item['filled'] == (item['source'] == 'meal_fill'))
                 check(item['aiAdded'] == (item['source'] in ('rule_added', 'ai_added')))
                 check(item['reasonCode'] is None or isinstance(item['reasonCode'], str) and len(item['reasonCode']) <= 100)
                 check(item['reason'] is None or isinstance(item['reason'], str) and len(item['reason']) <= 1000)
+
+        if room['dataset'] == REAL_DATASET:
+            check(bool(seen_ids))  # An empty real schedule is a retryable failure, not a candidate.

@@ -2,7 +2,7 @@
 
 2026-10-07 구현안. 조은 서버 담당 / 혜인 P7·P8 연결 검토 / 윤진 AI 근거 검토.
 사용자 결정: 방장이 후보를 확정하고 전원이 같은 결과를 본다. 우선 데모 36곳으로 연결을 검증한다.
-실제 150곳의 세 전략·데이터 검증 완료를 뜻하지 않는다. 이 문서의 추가 계약은 PR 리뷰에서 팀이 확인한다.
+2026-10-19: 이슈 #3 10-b에서 실제 장소 방도 같은 후보 계약을 지원한다. 장소 150곳 전체의 여행 가능 검증 완료를 뜻하지 않는다.
 
 ## 연결 순서
 
@@ -28,7 +28,7 @@ Content-Type: application/json
 ```
 
 전략 배열은 위 순서·3개 그대로. 전원 제출 전이나 낡은 revision은 409, 참여자 토큰은 403이다.
-현재 `prototype_demo_36`만 지원한다. `osaka_review_150` 방은 400으로 명확히 거절하며 기존 `{ "strategy":"average" }` 경로를 계속 쓴다. 같은 결과를 세 전략으로 복사하지 않는다.
+`prototype_demo_36`과 `osaka_review_150` 모두 지원한다. 방의 dataset으로 계산기를 선택하고, 결과 ID도 그 dataset의 목록으로 검증한다. 실제 장소는 [10-b 연결·제한 사항](week8_real_candidates.md)을 따른다. 기존 `{ "strategy":"average" }` 단일 계산은 그대로 유지한다. 같은 결과를 세 전략으로 복사하지 않는다.
 
 ## 현황·결과 (해당 방 참여자 또는 방장 토큰)
 
@@ -57,7 +57,7 @@ Authorization: Bearer <submissionToken 또는 ownerToken>
       "days": [{
         "date": "2026-10-07",
         "placeIds": ["glico"],
-        "items": [{"placeId":"glico","aiAdded":false,"filled":false,"source":"selected","reasonCode":null,"reason":null}],
+        "items": [{"placeId":"glico","aiAdded":false,"filled":false,"source":"selected","reasonCode":null,"reason":null,"startMin":540,"endMin":600}],
         "metrics": {"walkSteps": 2000, "costKrw": 20000, "totalKm": 4.5}
       }],
       "summary": "평균 전략의 시연용 후보입니다.",
@@ -97,10 +97,10 @@ Content-Type: application/json
 ## 지표·근거 의미
 
 - `walkStepsPerDay`: 최종 각 날짜의 추정 도보 km를 0.7m 보폭으로 환산한 걸음 수의 일평균. 기기 걸음 센서 값이 아니다.
-- `costKrwPerDay`: 최종 일정의 장소 비용(식사 보완 포함) **1인·1일 평균 KRW**. 데모 가격이며 교통·숙박·개인 쇼핑비는 포함하지 않는다. 실제 150곳 JPY를 여기 섞지 않는다.
+- `costKrwPerDay`: 최종 일정의 장소 비용(식사 보완 포함) **1인·1일 평균 KRW**. 데모 방은 데모 가격, 실제 장소 방은 출처가 설정된 JPY→KRW 환율로 계산한 확인된 입장권·대표 메뉴 합계다. 교통·숙박·개인 쇼핑비는 제외하며, 원본 JPY를 KRW 필드에 넣지 않는다.
 - `totalKmPerDay`: 도보·대중교통을 합친 장소 간 추정 이동 거리의 일평균 km. 출발·귀가·숙소 동선은 포함하지 않는다.
 - 날짜별 지표는 `days[].metrics`. 비어 있는 날도 여행 일수에 포함한다. 평균값은 모든 날의 개인 한도 충족을 뜻하지 않는다.
-- 장소 순서는 `days[].items` 및 동일 순서의 `placeIds`. `aiAdded`는 합의 단계 자동 보완, `filled`는 식사 시간 보완이다.
+- 장소 순서는 `days[].items` 및 동일 순서의 `placeIds`. `startMin/endMin`은 일본 현지 자정부터의 분(0~1440)이며 시작 ≤ 종료, 앞 장소 종료 ≤ 다음 장소 시작이다. `aiAdded`는 합의 단계 자동 보완, `filled`는 식사 시간 보완이다.
 - **규칙 보완을 실제 AI 호출로 표시하지 않는다.** `source=rule_added/meal_fill`은 규칙 추천, `source=ai_added`만 AI 추천이다. `selected`는 선택 장소이며 개인 선택자 정보는 공개하지 않는다.
 - `reasonCode/reason`은 최종 장소의 공개 근거다. `participants`, `mustOf`, 개인 점수·입력·예산은 응답에서 제외한다.
 - `explanationSource=ai`이면 #37의 검증된 설명, `rules`이면 규칙 설명이다. #37 미병합·키 없음·AI 실패 시에도 규칙 후보 3개가 나온다. AI 내부 오류와 키는 응답에 넣지 않는다.
