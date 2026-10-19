@@ -8,6 +8,10 @@ const ROOT = new URL('../../backend/engine', import.meta.url).href;
 const { buildConsensus } = await import(`${ROOT}/consensus.ts`);
 const { setCustomPlaces, PLACES: BASE36 } = await import(`${ROOT}/places.ts`);
 const raw = JSON.parse(fs.readFileSync(new URL('./places150.json', import.meta.url), 'utf8'));
+// places150.json의 cost는 엔화다. 엔진은 원화 기준이므로 환산한다.
+// 환율은 시뮬레이션용 가정값(1엔=9.5원, backend/README.md의 테스트 예시와 같음). 하나은행 고시값이 아니다.
+// 비용이 비어 있는 곳은 기존대로 15,000원으로 가정한다.
+const KRW_PER_JPY = 9.5;
 
 const mul = (s) => { let a = s >>> 0; return () => { a |= 0; a = (a + 0x6d2b79f5) | 0;
   let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
@@ -18,12 +22,13 @@ const errors = [];
 
 const places139 = raw.map((o) => ({
   id: o.id, name: o.name, area: o.area || '미상', category: o.category,
-  lat: o.lat, lng: o.lng, cost: o.cost ?? 15000, stayMin: o.stayMin,
+  lat: o.lat, lng: o.lng, cost: o.cost == null ? 15000 : Math.round(o.cost * KRW_PER_JPY), stayMin: o.stayMin,
   openFrom: 9 * 60, openTo: 21 * 60, exposure: 0.6,
   covered: o.covered ?? false, bagLoad: o.bagLoad,
   popularity: 0.5, blurb: '', custom: true,
 }));
-const places36 = BASE36.map((p) => ({ ...p, popularity: 0.5 }));
+BASE36.forEach((p) => { p.popularity = 0.5; }); // findPlace가 원본 객체를 돌려주므로 원본에 고정
+const places36 = BASE36;
 
 function groups(pool, seed, n = 300) {
   const rnd = mul(seed); const out = [];
@@ -43,10 +48,15 @@ function groups(pool, seed, n = 300) {
   return out;
 }
 
+// allPlaces()는 [...PLACES, ...CUSTOM]이다. 36곳을 CUSTOM에 다시 넣으면 두 번 들어가고(코어 중복 id),
+// 139곳 실행 때 PLACES를 비우지 않으면 AI 채움 후보에 데모 36곳이 섞인다. (PR #50 혜인 리뷰)
+const DEMO = [...BASE36];
 function run(label, pool, seed) {
-  setCustomPlaces(pool);
+  BASE36.length = 0;
+  if (pool === places36) { BASE36.push(...DEMO); setCustomPlaces([]); }
+  else setCustomPlaces(pool);
   const gs = groups(pool, seed);
-  let differ = 0, allThree = 0, empty = 0;
+  let differ = 0, allThree = 0, empty = 0, aiFilled = 0, dupCore = 0;
   const agg = Object.fromEntries(STRATS.map((s) => [s, { mean: [], min: [], gini: [], must: [], cost: [] }]));
   const jaccard = [];
 
@@ -57,6 +67,8 @@ function run(label, pool, seed) {
       try { r = buildConsensus({ submissions: subs, nights: 2, strategy: st, allowPartial: true }); }
       catch (e) { errors.push(`[${label}] 그룹${gi} ${st}: ${e.message}`); return; }
       const ids = r.core.map((c) => c.place.id);
+      aiFilled += r.core.filter((c) => c.aiAdded).length;
+      if (new Set(ids).size !== ids.length) dupCore++;
       cores[st] = ids.slice().sort().join('|');
       if (!ids.length) empty++;
       const m = r.metrics;
@@ -78,6 +90,7 @@ function run(label, pool, seed) {
   const avg = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : NaN);
   console.log(`\n■ ${label}  (장소 ${pool.length}곳 · 그룹 300개 · 3~5인 · 각 5곳 찜 + 1곳 거부)`);
   console.log(`  전략별 결과가 갈린 그룹   ${differ}/300  (${(differ / 3).toFixed(1)}%)`);
+  console.log(`  (확인용) AI가 채운 코어 ${aiFilled}곳 · 코어에 같은 id가 두 번 든 결과 ${dupCore}건`);
   console.log(`  셋 다 서로 다른 그룹      ${allThree}/300  (${(allThree / 3).toFixed(1)}%)`);
   console.log(`  average vs least_misery 코어 겹침  ${(avg(jaccard) * 100).toFixed(1)}%`);
   if (empty) console.log(`  코어가 빈 결과            ${empty}건`);

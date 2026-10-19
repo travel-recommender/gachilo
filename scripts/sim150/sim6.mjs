@@ -2,11 +2,18 @@
 import fs from 'node:fs';
 const ROOT = new URL('../../backend/engine', import.meta.url).href;
 const {utilityOf}=await import(`${ROOT}/consensus.ts`);
-const {setCustomPlaces,allPlaces}=await import(`${ROOT}/places.ts`);
+const { setCustomPlaces,allPlaces, PLACES } = await import(`${ROOT}/places.ts`);
+// 데모 36곳(PLACES)을 비운다. allPlaces()는 [...PLACES, ...CUSTOM]이라, 비우지 않으면
+// AI 채움 후보(aiPool)에 데모 36곳이 섞인다. (PR #50 혜인 리뷰)
+PLACES.length = 0;
 const raw=JSON.parse(fs.readFileSync(new URL('./places150.json', import.meta.url),'utf8'));
+// places150.json의 cost는 엔화다. 엔진은 원화 기준이므로 환산한다.
+// 환율은 시뮬레이션용 가정값(1엔=9.5원, backend/README.md의 테스트 예시와 같음). 하나은행 고시값이 아니다.
+// 비용이 비어 있는 곳은 기존대로 15,000원으로 가정한다.
+const KRW_PER_JPY = 9.5;
 const mul=(s)=>{let a=s>>>0;return()=>{a|=0;a=(a+0x6d2b79f5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;}};
 setCustomPlaces(raw.map(o=>({id:o.id,name:o.name,area:o.area||'미상',category:o.category,lat:o.lat,lng:o.lng,
-  cost:o.cost??15000,stayMin:o.stayMin,openFrom:540,openTo:1260,exposure:0.6,covered:o.covered??false,
+  cost: o.cost == null ? 15000 : Math.round(o.cost * KRW_PER_JPY),stayMin:o.stayMin,openFrom:540,openTo:1260,exposure:0.6,covered:o.covered??false,
   bagLoad:o.bagLoad,popularity:0.5,blurb:'',custom:true})));
 const stdev=xs=>{const m=xs.reduce((a,b)=>a+b,0)/xs.length;return Math.sqrt(xs.reduce((a,b)=>a+(b-m)**2,0)/xs.length)};
 const SC={average:u=>u.reduce((a,b)=>a+b,0)/u.length,
