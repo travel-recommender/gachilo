@@ -64,7 +64,7 @@ export const PLACES: Place[] = [
     exposure: 0, covered: false, bagLoad: 0, popularity: 0.3, blurb: "지하로 내려가는 독특한 구조의 현대미술관." },
 
   // ── 난바 · 신사이바시 · 도톤보리 ──
-  { id: "glico", name: "도톤보리 글리코사인", area: "난바", category: "landmark",
+  { id: "glico", name: "도톤보리 글리코 사인", area: "난바", category: "landmark",
     lat: 34.6687, lng: 135.5013, cost: 0, stayMin: 40, openFrom: ALLDAY[0], openTo: ALLDAY[1],
     exposure: 1, covered: false, bagLoad: 0, popularity: 1.0, blurb: "오사카 인증샷 필수 코스. 밤 네온이 매력." },
   { id: "shinsaibashi", name: "신사이바시스지 상점가", area: "신사이바시", category: "shopping",
@@ -105,7 +105,7 @@ export const PLACES: Place[] = [
     exposure: 0, covered: true, bagLoad: 0.3, popularity: 0.3, blurb: "주방용품 전문 아케이드. 기념품 찾기 좋아요." },
 
   // ── 신세카이 · 텐노지 ──
-  { id: "tsutenkaku", name: "츠텐카쿠", area: "신세카이", category: "landmark",
+  { id: "tsutenkaku", name: "쓰텐카쿠", area: "신세카이", category: "landmark",
     lat: 34.6524, lng: 135.5063, cost: 12000, stayMin: 50, openFrom: t(10), openTo: t(20),
     exposure: 0.3, covered: false, bagLoad: 0, popularity: 0.7, blurb: "쇼와 시대 분위기의 전망탑." },
   { id: "shitennoji", name: "시텐노지", area: "텐노지", category: "culture",
@@ -128,7 +128,7 @@ export const PLACES: Place[] = [
   { id: "tempozan", name: "덴포잔 대관람차", area: "베이", category: "activity",
     lat: 34.6540, lng: 135.4295, cost: 8000, stayMin: 30, openFrom: t(10), openTo: t(22),
     exposure: 0.3, covered: false, bagLoad: 0, popularity: 0.5, blurb: "높이 112m 관람차. 오사카만 전망." },
-  { id: "usj", name: "유니버설 스튜디오 재팬", area: "베이", category: "activity",
+  { id: "usj", name: "유니버셜 스튜디오 재팬", area: "베이", category: "activity",
     lat: 34.6656, lng: 135.4323, cost: 85000, stayMin: 480, openFrom: t(9), openTo: t(21),
     exposure: 1, covered: false, bagLoad: 0, popularity: 0.95, blurb: "하루를 통째로 써야 하는 테마파크." },
   { id: "kuishinbo", name: "나니와 쿠이신보 요코초", area: "베이", category: "food",
