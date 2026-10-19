@@ -262,7 +262,27 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
   let cost = selections.filter((s) => s.tier === "core").reduce((s, x) => s + x.place.cost, 0);
   const options: Place[] = [];
 
-  for (const { place } of rest) {
+  // least_misery는 고정된 점수 순서 대신, 매번 '지금 찜이 가장 덜 반영된 멤버'의 찜부터 챙긴다.
+  // 장소별 최저 효용(scorePlace)만으로는 가장 불만인 '사람'이 누구인지 알 수 없기 때문이다.
+  const pickRateNow = (m: SubmissionView) =>
+    m.picks.filter((id) => selections.some((s) => s.place.id === id && (s.tier === "core" || s.participants.includes(m.memberId)))).length /
+    Math.max(1, m.picks.length);
+  function* inOrder() {
+    const left = [...rest];
+    while (left.length) {
+      let i = 0;
+      if (strategy === "least_misery") {
+        const rates = subs.map(pickRateNow);
+        const low = Math.min(...rates);
+        const worst = subs.filter((_, k) => rates[k] === low);
+        const j = left.findIndex((c) => worst.some((m) => m.picks.includes(c.place.id)));
+        if (j >= 0) i = j;
+      }
+      yield left.splice(i, 1)[0];
+    }
+  }
+
+  for (const { place } of inOrder()) {
     // 자리가 찼으면 코어로는 못 넣지만, 원하는 사람이 있으면 자유시간 일정으로 돌린다
     if (selections.filter((s) => s.tier === "core").length >= capacity) {
       const wants = subs.filter((s) => s.picks.includes(place.id) && place.cost <= s.budget * 0.5);
