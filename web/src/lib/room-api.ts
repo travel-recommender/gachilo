@@ -32,6 +32,8 @@ export interface ApiSubmission {
   picks: string[];
   must: string | null;
   veto: string | null;
+  /** 전체 제외 목록. 없을 때만 기존 veto 한 개를 사용한다. */
+  vetoes?: string[];
   /** 원/하루 */
   budgetPerDay: number;
   /** 보/하루 */

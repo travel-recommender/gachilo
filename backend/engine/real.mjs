@@ -18,7 +18,7 @@ export function calculateReal(request, dataset, profiles) {
     active_min: Math.min(...submissions.map(s => s.activeMin)),
     krw_per_jpy: request.exchange_rate.krw_per_jpy,
   };
-  const vetoed = new Set(submissions.map(s => s.veto).filter(Boolean));
+  const vetoed = new Set(submissions.flatMap(s => s.vetoes ?? (s.veto ? [s.veto] : [])));
   const must = new Set(submissions.map(s => s.must).filter(Boolean));
   const picked = [...new Set(submissions.flatMap(s => s.picks))];
   const candidates = picked.filter(id => !vetoed.has(id));

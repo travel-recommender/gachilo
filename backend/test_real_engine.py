@@ -113,6 +113,14 @@ class RealRoomTests(unittest.TestCase):
         self.assertEqual(data['planning']['status'],'needs_review')
         self.assertEqual(data['planning']['days'][0]['totals']['selected_admission_and_menu_krw'],0)
 
+    def test_multiple_vetoes_use_real_catalog_ids_without_demo_lookup(self):
+        room=self.room(start='2026-10-01',end='2026-10-01');a,b=room['members']
+        self.assertEqual(self.save(room,a,['osaka_009','osaka_015'],must='osaka_015')[0],200)
+        self.assertEqual(self.save(room,b,[],veto='osaka_009',vetoes=['osaka_009','osaka_015'])[0],200)
+        code,data,_=self.calculate(room)
+        self.assertEqual(code,200)
+        self.assertFalse({id for day in data['result']['days'] for id in day['placeIds']} & {'osaka_009','osaka_015'})
+
     def test_input_change_invalidates_planning_and_rejects_stale_calculation(self):
         room=self.room()
         for m in room['members']:self.save(room,m,['osaka_009'])
