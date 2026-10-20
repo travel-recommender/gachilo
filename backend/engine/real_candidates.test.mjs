@@ -149,3 +149,22 @@ test('least_misery remembers earlier days: the member left out on day 1 is serve
   const keptAvg=new Set(avg.days.flatMap(d=>d.placeIds));
   assert.ok(minRate>=Math.min(...picks.map(p=>p.filter(id=>keptAvg.has(id)).length/p.length)));
 });
+
+test('each member\'s first must is tried even when it exceeds the pace slot count (checks still apply)',async()=>{
+  // #53 리뷰(조은) 사례: 1일·3명·pace=0(2자리), 각자 picks=[A]/[B]/[C], must=A/B/C.
+  // validateDay([A,B,C])가 통과하면 세 곳 모두 남아야 한다. 자리 수가 1순위 꼭 가기를 잘라내지 않는다.
+  const {records,fixtureProfiles}=fixture(['문화','문화','문화']);
+  const r=request([]);r.exchange_rate.krw_per_jpy='1';
+  r.submissions.forEach((s,i)=>Object.assign(s,{picks:[String(i)],must:String(i),activeMin:300,tradeoffs:{pace:0,distance:0.5,spend:1}}));
+  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
+  for(const c of candidates){
+    assert.deepEqual([...c.days[0].placeIds].sort(),['0','1','2'],c.strategy);
+    assert.doesNotMatch(c.summary,/꼭 가는 장소 조건이 충족되지/);
+  }
+  // 검사는 우회하지 않는다: 활동시간이 모자라면 1순위라도 빠진다.
+  r.submissions.forEach(s=>s.activeMin=60);
+  for(const c of (await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''})).candidates){
+    assert.ok(c.days[0].placeIds.length<3,c.strategy);
+    assert.match(c.summary,/꼭 가는 장소 조건이 충족되지/);
+  }
+});

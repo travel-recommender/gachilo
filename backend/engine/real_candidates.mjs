@@ -28,6 +28,11 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
   const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
   const vetoes = new Set(request.submissions.flatMap(s => s.vetoes ?? (s.veto ? [s.veto] : [])));
   const musts = new Set(request.submissions.flatMap(s => s.musts ?? (s.must ? [s.must] : [])));
+  // 각 참여자의 1순위 꼭 가기(거부된 곳은 건너뛰고 다음 순위가 이어받음). inputs.ts의 mustRounds와 같은 규칙이다.
+  // pace 자리 수가 이것을 잘라내지 않는다. 운영·예산·걷기·활동시간 검사는 그대로 적용한다.
+  const firstMusts = new Set(request.submissions
+    .map(s => (s.musts ?? (s.must ? [s.must] : [])).find(id => !vetoes.has(id)))
+    .filter(Boolean));
   const tradeoffs = groupTradeoffs(request.submissions);
   // pace 축으로 정한 하루 자리 수. 합의 단계가 아니라 검증을 통과한 장소 수에 적용한다.
   const slots = slotsPerDayFor(tradeoffs.pace);
@@ -75,6 +80,10 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
       // least_misery는 날짜마다 따로 계산하면 어제까지 누가 손해 봤는지 모른다.
       // 그래서 여행 전체(앞 날짜 + 오늘 통과분)에서 찜이 가장 덜 반영된 멤버의 찜을 먼저 시도한다.
       const keptRate = m => m.picks.filter(id => scheduled.has(id) || accepted.includes(id)).length / Math.max(1, m.picks.length);
+      // 1) 1순위 꼭 가기는 자리 수와 상관없이 먼저 시도한다 (기존 consensus의 '전원 1순위는 코어' 정책과 같음).
+      for (const id of queue.filter(id => firstMusts.has(id))) tryAdd(id);
+      queue.splice(0, queue.length, ...queue.filter(id => !firstMusts.has(id)));
+      // 2) 나머지는 pace 자리 수까지만 채운다.
       while (queue.length && accepted.length < slots) {
         let i = 0;
         if (strategy === 'least_misery' && !musts.has(queue[0])) {
