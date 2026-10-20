@@ -1,6 +1,7 @@
 """Revision-scoped shared candidates, atomic publication and owner selection."""
 import json
 import math
+import re
 import secrets
 import time
 from datetime import date, timedelta
@@ -117,7 +118,7 @@ def validate_candidates(output, room, known_ids):
     start, end = date.fromisoformat(room['start']), date.fromisoformat(room['end'])
     dates = [(start+timedelta(days=i)).isoformat() for i in range((end-start).days+1)]
     for candidate in cs:
-        keys(candidate, 'strategy metrics days summary explanationSource')
+        keys(candidate, 'strategy metrics days summary explanationSource' + (' planning' if room['dataset'] == REAL_DATASET else ''))
         metrics(candidate['metrics'])
         check(isinstance(candidate['summary'], str) and 0 < len(candidate['summary']) <= 10000)
         check(candidate['explanationSource'] in ('rules', 'ai'))
@@ -150,3 +151,33 @@ def validate_candidates(output, room, known_ids):
 
         if room['dataset'] == REAL_DATASET:
             check(bool(seen_ids))  # An empty real schedule is a retryable failure, not a candidate.
+            p = candidate['planning']
+            keys(p, 'status schedule_ready exchange_rate catalog_count scheduled_count unplaced_count must_satisfied must_veto_conflict_count empty_day_count reason_aggregation exclusion_reason_counts')
+            check(p['schedule_ready'] is False and type(p['must_satisfied']) is bool)
+            for name in ('catalog_count', 'scheduled_count', 'unplaced_count', 'must_veto_conflict_count', 'empty_day_count'):
+                check(type(p[name]) is int and 0 <= p[name] <= 100000)
+            check(known_ids is None or p['catalog_count'] == len(known_ids))
+            check(p['scheduled_count'] == len(seen_ids))
+            check(p['scheduled_count'] + p['unplaced_count'] + p['must_veto_conflict_count'] <= p['catalog_count'])
+            check(p['empty_day_count'] == sum(not d['placeIds'] for d in days))
+            check(not p['must_veto_conflict_count'] or not p['must_satisfied'])
+            needs_review = p['unplaced_count'] or not p['must_satisfied'] or p['empty_day_count']
+            check(p['status'] == ('needs_review' if needs_review else 'model_checks_passed'))
+            check(p['reason_aggregation'] == 'common_across_dates')
+            reasons = p['exclusion_reason_counts']
+            check(isinstance(reasons, dict) and len(reasons) <= 100)
+            check(bool(reasons) == bool(p['unplaced_count']))
+            for code, count in reasons.items():
+                check(isinstance(code, str) and re.fullmatch(r'[a-z][a-z_]{0,99}', code) is not None)
+                check(type(count) is int and 0 < count <= p['unplaced_count'])
+            fx = p['exchange_rate']
+            keys(fx, 'krw_per_jpy rounding as_of source provenance_status live_quote')
+            check(isinstance(fx['krw_per_jpy'], str) and re.fullmatch(r'\d{1,6}(\.\d{1,6})?', fx['krw_per_jpy']) is not None)
+            check(float(fx['krw_per_jpy']) > 0)
+            check(fx['rounding'] == 'ROUND_HALF_UP to integer KRW' and fx['provenance_status'] == 'documented' and fx['live_quote'] is False)
+            check(isinstance(fx['as_of'], str))
+            try:
+                check(date.fromisoformat(fx['as_of']).isoformat() == fx['as_of'])
+            except ValueError:
+                check(False)
+            check(isinstance(fx['source'], str) and 0 < len(fx['source']) <= 10000)

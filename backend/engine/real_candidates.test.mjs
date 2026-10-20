@@ -50,7 +50,12 @@ test('veto, zero budget and the weakest time/step limit remain hard constraints'
   r.submissions[1]={...r.submissions[1],picks:['osaka_015'],must:null,veto:'osaka_009'};
   for(const c of (await run(r)).candidates){
     assert.deepEqual(c.days[0].placeIds,['osaka_015']);assert.equal(c.metrics.costKrwPerDay,0);
-    assert.match(c.summary,/꼭 가는 장소 조건이 충족되지/);
+    assert.match(c.summary,/꼭 가기.*거부.*충돌/);
+    assert.doesNotMatch(c.summary,/꼭 가는 장소 조건이 충족되지/);
+    assert.equal(c.planning.must_veto_conflict_count,1);
+    assert.equal(c.planning.must_satisfied,false);
+    assert.equal(c.planning.status,'needs_review');
+    assert.ok(!JSON.stringify(c).includes('osaka_009'));
   }
   r.submissions[1].activeMin=1;
   await assert.rejects(run(r),/NO_SCHEDULABLE_REAL_CANDIDATE/);

@@ -2,12 +2,13 @@
 import copy
 import json
 import os
+import subprocess
 import unittest
 from unittest.mock import patch
 import test_server
 import test_real_engine
 from candidate_engine import CandidateEngine
-from engine import Engine
+from engine import Engine, EngineError
 from server import Store, ApiError
 
 STRATEGIES=['average','least_misery','fairness']
@@ -39,13 +40,18 @@ class RealCandidatesTests(unittest.TestCase):
         code,result,_=self.calculate(room)
         self.assertEqual(code,200);self.assertEqual(result['dataset'],'osaka_review_150')
         self.assertEqual(result['status'],'awaiting_selection')
-        self.assertEqual(result['planning'],{'status':'draft','schedule_ready':False})
+        self.assertIsNone(result['planning'])
+        for c in result['candidates']:
+            self.assertEqual(c['planning']['scheduled_count'],sum(len(d['placeIds']) for d in c['days']))
+            self.assertEqual(c['planning']['exchange_rate']['source'],test_real_engine.FX['JPY_TO_KRW_SOURCE'])
         self.assertEqual([c['strategy'] for c in result['candidates']],STRATEGIES)
         self.assertEqual(self.calculate(room)[1],result)
         selected={'strategy':'fairness','revision':3,'selectionVersion':0}
         self.assertEqual(self.req('PUT',path+'/selection',selected,room['members'][1]['submissionToken'])[0],403)
         code,result,_=self.req('PUT',path+'/selection',selected,room['ownerToken'])
         self.assertEqual(code,200);self.assertEqual(result['status'],'ready')
+        self.assertEqual(result['planning'],result['candidates'][2]['planning'])
+        self.assertIn(result['planning']['status'],('model_checks_passed','needs_review'))
         self.assertEqual(result['result']['days'],[{'date':d['date'],'placeIds':d['placeIds']} for d in result['candidates'][2]['days']])
         for member in room['members']:
             self.assertEqual(self.req('GET',path+'/results',token=member['submissionToken'])[1],result)
@@ -79,7 +85,9 @@ class RealCandidatesTests(unittest.TestCase):
         bad=copy.deepcopy(good);day=next(d for d in bad['candidates'][0]['days'] if d['placeIds'])
         day['placeIds'][0]=day['items'][0]['placeId']='glico'
         bad_time=copy.deepcopy(good);bad_time['candidates'][0]['days'][0]['items'][0]['endMin']=1441
-        for output in [bad,bad_time,{'candidates':good['candidates'][:2]}]:
+        private=copy.deepcopy(good);private['candidates'][0]['planning']['submissions']=['private']
+        wrong_count=copy.deepcopy(good);wrong_count['candidates'][0]['planning']['scheduled_count']=999
+        for output in [bad,bad_time,private,wrong_count,{'candidates':good['candidates'][:2]}]:
             with patch.object(CandidateEngine,'calculate',return_value=output):
                 self.assertEqual(self.calculate(room)[0],503)
             self.assertEqual(store.result(room['roomId'],room['ownerToken'])['candidates'],[])
@@ -106,3 +114,17 @@ class RealCandidatesTests(unittest.TestCase):
         with self.assertRaises(ApiError) as failure:store.finish_candidates(rid,token,3,job,output)
         self.assertEqual(failure.exception.status,409)
         self.assertEqual(store.result(rid,token)['candidates'],[])
+
+
+class CandidateFailureTests(unittest.TestCase):
+    def test_marker_survives_node_warnings_without_matching_substrings_or_demo(self):
+        with patch.dict(os.environ,test_real_engine.FX):
+            for dataset,stderr,actionable in [
+                ('osaka_review_150','(node:1) Warning: example\nNO_SCHEDULABLE_REAL_CANDIDATE\n',True),
+                ('osaka_review_150','NO_SCHEDULABLE_REAL_CANDIDATE\nWarning: example\n',True),
+                ('osaka_review_150','prefix_NO_SCHEDULABLE_REAL_CANDIDATE_suffix',False),
+                ('prototype_demo_36','NO_SCHEDULABLE_REAL_CANDIDATE',False),
+            ]:
+                with self.subTest(dataset=dataset,stderr=stderr), patch('candidate_engine.subprocess.run',side_effect=subprocess.CalledProcessError(1,['node'],stderr=stderr)):
+                    with self.assertRaises(EngineError) as failure:CandidateEngine('node').calculate({'dataset':dataset})
+                    self.assertEqual('방문 날짜' in str(failure.exception),actionable)

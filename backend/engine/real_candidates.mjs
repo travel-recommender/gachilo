@@ -1,7 +1,7 @@
 /** Real catalogue → the same shared-candidate contract as the demo, without inventing data. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
-import {loadInputs, availability, costKrw, engineCategory, validateDay} from '../../scripts/validate_real_schedule.mjs';
+import {loadInputs, availability, toEnginePlace, validateDay} from '../../scripts/validate_real_schedule.mjs';
 import {buildConsensus} from './consensus.ts';
 import {distanceWeightFor, groupTradeoffs, spendCapFor} from './inputs.ts';
 import {withPlaceCatalog} from './places.ts';
@@ -40,12 +40,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
     const record = byId.get(id);
     const check = record && availability(record, date, profiles, {allowShopping: true});
     if (!check?.eligible_for_model) return [];
-    const p = record.place;
-    return [{id, name: p.name_ko, area: p.area || '', category: engineCategory(p.category),
-      lat: p.latitude, lng: p.longitude,
-      // Internal budget subtotal only. Shopping purchase spend is excluded, never labelled free.
-      cost: check.cost_jpy === null ? 0 : costKrw(check.cost_jpy, limits.krw_per_jpy),
-      stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1], bagLoad: p.bag_load / 2}];
+    return [toEnginePlace(record, check, limits.krw_per_jpy)];
   }));
   const candidates = STRATEGIES.map(strategy => {
     const scheduled = new Set();
@@ -77,17 +72,42 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
       }};
     });
     if (!scheduled.size) throw Error('NO_SCHEDULABLE_REAL_CANDIDATE');
-    const omitted = [...picked].filter(id => !vetoes.has(id) && !scheduled.has(id)).length;
-    const missingMust = [...musts].some(id => !scheduled.has(id));
+    const unplaced = [...picked].filter(id => !vetoes.has(id) && !scheduled.has(id));
+    const omitted = unplaced.length;
+    const conflicts = [...musts].filter(id => vetoes.has(id)).length;
+    const missingMust = [...musts].some(id => !vetoes.has(id) && !scheduled.has(id));
     const emptyDays = days.filter(day => !day.placeIds.length).length;
+    // Explain whether each omitted choice could extend the final schedule on any date.
+    // Keep only reasons shared across all dates, never private IDs or member conditions.
+    const exclusionReasons = {};
+    for (const id of unplaced) {
+      const attempts = days.map(day => {
+        const record = byId.get(id);
+        if (!record) return ['unknown_place'];
+        const check = availability(record, day.date, profiles, {allowShopping: true});
+        if (!check.eligible_for_model) return check.reasons;
+        const trial = validateDay({...limits, date: day.date, place_ids: [...day.placeIds, id]}, dataset, profiles, validationOptions);
+        return trial.passed_model_checks ? ['strategy_selection_or_capacity'] : [...new Set(trial.violations.map(v => v.code))];
+      });
+      const common = attempts[0].filter(code => attempts.every(reasons => reasons.includes(code)));
+      for (const code of common.length ? common : ['date_conditions_vary']) exclusionReasons[code] = (exclusionReasons[code] ?? 0) + 1;
+    }
+    const planning = {
+      status: omitted || missingMust || conflicts || emptyDays ? 'needs_review' : 'model_checks_passed',
+      schedule_ready: false, exchange_rate: request.exchange_rate, catalog_count: dataset.places.length,
+      scheduled_count: scheduled.size, unplaced_count: omitted, must_satisfied: !missingMust && !conflicts,
+      must_veto_conflict_count: conflicts, empty_day_count: emptyDays,
+      reason_aggregation: 'common_across_dates', exclusion_reason_counts: exclusionReasons,
+    };
     const mean = key => days.reduce((total, day) => total + day.metrics[key], 0) / days.length;
     const routes = days.map(day => day.placeIds.map(id => {
       const p = byId.get(id).place; return {lat: p.latitude, lng: p.longitude};
     }));
-    return {strategy, days, metrics: {
+    return {strategy, days, planning, metrics: {
       walkStepsPerDay: Math.round(mean('walkSteps')), costKrwPerDay: Math.round(mean('costKrw')), totalKmPerDay: roundKm(mean('totalKm')),
     }, explanationSource: 'rules', summary: `${LABELS[strategy]} 전략으로 실제 선택 장소 ${scheduled.size}곳을 배치한 초안입니다.`
       + (omitted ? ` 운영·일일 한도·전략 선택 조건으로 ${omitted}곳은 미배치했습니다.` : '')
+      + (conflicts ? ` 꼭 가기와 거부 조건이 충돌한 장소가 ${conflicts}곳 있어 거부 조건을 우선 적용했습니다.` : '')
       + (missingMust ? ' 꼭 가는 장소 조건이 충족되지 않았습니다.' : '')
       + (emptyDays ? ` 일정이 비어 있는 날짜가 ${emptyDays}일입니다.` : '')
       + ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다.'

@@ -8,7 +8,10 @@
 - 세 후보가 모두 생성·검증돼야 저장한다. 실제 방에 데모 ID, 다른 날짜, 중복 장소, 잘못된 시각, 부분 묶음, 빈 후보가 나오면 저장하지 않는다. 실패 후 작업 잠금이 해제되어 재시도할 수 있다.
 - 같은 revision의 계산은 실행 중 202, 완료 후 캐시 200이다. 재제출·새 참여자·늦은 작업의 덮어쓰기 방지, 방장만 확정, 선택 버전 충돌 409는 기존 규칙을 유지한다.
 - `days[].items`에 `startMin/endMin`, `source/reason`, `aiAdded/filled`를 제공한다. 지표는 그 **최종 날짜별 일정**에서 계산하고, 빈 날짜를 포함한 여행 일수로 일평균을 구한다.
-- 모든 후보가 여행 가능 판정을 뜻하지는 않는다. `ready`는 방장 확정 상태이며, 실제 후보의 `planning={status: draft, schedule_ready: false}`와 요약의 제한 사항을 함께 읽는다.
+- 모든 후보가 여행 가능 판정을 뜻하지는 않는다. `ready`는 방장 확정 상태이며, 모든 실제 후보의 `planning.schedule_ready`는 false다. `candidates[].planning`은 후보와 함께 저장하고, 확정 전 최상위 `planning`은 null, 확정 후에는 선택 후보의 planning을 그대로 반환한다.
+- `planning.status`는 `model_checks_passed` / `needs_review`다. `catalog_count`, `scheduled_count`, `unplaced_count`, `must_satisfied`, `must_veto_conflict_count`, `empty_day_count`, `exchange_rate`(값·기준일·출처·반올림·비실시간 표시), `reason_aggregation`, `exclusion_reason_counts`를 제공한다. 날짜별 시각·비용은 해당 후보의 `days[].items/metrics`를 읽는다. 단일 전략 호환 경로의 `planning.days`와 혼동하지 않는다.
+- 미배치 집계는 거부 장소와 다른 날 배치된 장소를 제외한다. 각 미배치 장소를 최종 날짜별 일정에 추가할 때의 운영·일일 한도 사유 중 모든 날짜에 공통인 것만 집계한다. 조건을 통과해도 전략/수용량 선택으로 빠진 경우는 `strategy_selection_or_capacity`, 공통 사유가 없으면 `date_conditions_vary`다. 과거 선택 시도 로그가 아니라 **최종 일정 기준 설명**이다. 거부·꼭 가기 충돌은 별도 개수와 문장으로 알리고 장소 ID·사람·개인 한도를 공개하지 않는다.
+- 기존 저장 후보에 planning이 없다면 최상위 planning은 null이다. 입력을 다시 제출해 revision을 갱신한 뒤 계산해야 진단 정보가 생긴다. 기존 캐시를 임의로 검증 완료로 표시하지 않는다.
 - 환율은 기존 하나은행 출처 설정 세 항목이 모두 필요하다. 누락 시 안내를 포함한 503. 유효한 장소가 하나도 배치되지 않으면 날짜·장소·한도를 다시 확인하도록 503을 반환한다. 빈 후보를 성공으로 저장하지 않는다.
 
 ## 실제 장소 계산 경계
