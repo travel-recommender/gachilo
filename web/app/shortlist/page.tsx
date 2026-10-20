@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { vetoFields } from "@/lib/room-state";
 import { useTrip } from "@/components/store";
 import { placeLine } from "@/components/PlaceFinder";
 import { CATEGORIES, findPlace } from "@/lib/places";
@@ -21,11 +22,11 @@ export default function Shortlist() {
   const { mustList, vetoList } = state.extra;
   const [open, setOpen] = useState<string | null>(null);
 
-  // 서버에서 복원한 입력에는 목록이 없고 picks·veto만 있다. 그때는 거기서 목록을 만든다
+  // 복원한 입력에서 목록을 만든다. 옛 입력은 단일 veto로 되살린다
   useEffect(() => {
     if (mustList.length || vetoList.length) return;
-    const { picks, veto } = state.mine;
-    if (picks.length || veto) setExtra({ mustList: picks, vetoList: veto ? [veto] : [] });
+    const { picks, veto, vetoes } = state.mine;
+    if (picks.length || veto || vetoes?.length) setExtra({ mustList: picks, vetoList: vetoes ?? (veto ? [veto] : []) });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -51,8 +52,7 @@ export default function Shortlist() {
     mustList.includes(id) ? "must" : vetoList.includes(id) ? "veto" : null;
 
   /**
-   * 서버·알고리즘은 아직 must·veto를 하나씩만 받는다(#35에서 목록으로 바꾼다).
-   * 그때까지 꼭 가기 전체를 picks로, 첫 꼭 가기를 must로, 첫 제외를 veto로 보낸다.
+   * 전체 제외 목록은 vetoes로 보내고, veto는 이전 입력과의 호환용으로 유지한다.
    */
   const choose = (id: string, c: Choice) => {
     const was = choiceOf(id);
@@ -60,7 +60,7 @@ export default function Shortlist() {
     const nextVeto = vetoList.filter((x) => x !== id);
     if (was !== c) (c === "must" ? nextMust : nextVeto).push(id);
     setExtra({ mustList: nextMust, vetoList: nextVeto });
-    setMine({ picks: nextMust, must: nextMust[0] ?? null, veto: nextVeto[0] ?? null });
+    setMine({ picks: nextMust, must: nextMust[0] ?? null, ...vetoFields(nextVeto) });
     setOpen(null);
   };
 

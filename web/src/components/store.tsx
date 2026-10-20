@@ -13,7 +13,7 @@ import {
 } from "@/lib/places";
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
 import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
-import { editedState, joinedState, rejoinedState, restoredFromServer } from "@/lib/room-state";
+import { editedState, joinedState, rejoinedState, restoredFromServer, vetoFields } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
 import { toServerTradeoffs } from "@/lib/tradeoff";
@@ -226,7 +226,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       longlist: mine.longlist,
       picks: mine.picks,
       must: mine.must,
-      veto: mine.veto,
+      ...vetoFields(mine.vetoes ?? (stateRef.current.extra.vetoList.length ? stateRef.current.extra.vetoList : (mine.veto ? [mine.veto] : []))),
       budgetPerDay: mine.budgetPerDay,
       stepLimit: mine.stepLimit,
       activeMin: mine.activeMin,
@@ -288,7 +288,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   );
 
   const schedule = useMemo(() => {
-    const vetoed = new Set(submissions.map((s) => s.veto).filter(Boolean) as string[]);
+    const vetoed = new Set(submissions.flatMap((s) => s.vetoes ?? (s.veto ? [s.veto] : [])));
     return buildSchedule(consensus.selections, state.nights + 1, {
       considerBags: true, fillMeals: true, vetoed,
       // 자동 식사도 가장 낮은 1인 예산 안에서만 (consensus의 groupBudget과 같은 기준)
