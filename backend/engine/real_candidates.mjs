@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {loadInputs, availability, toEnginePlace, validateDay} from '../../scripts/validate_real_schedule.mjs';
 import {buildConsensus} from './consensus.ts';
-import {distanceWeightFor, groupTradeoffs, spendCapFor} from './inputs.ts';
+import {distanceWeightFor, groupTradeoffs, slotsPerDayFor, spendCapFor} from './inputs.ts';
 import {withPlaceCatalog} from './places.ts';
 import {withRouting, routingSummary} from './routing.ts';
 
@@ -28,7 +28,14 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
   const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
   const vetoes = new Set(request.submissions.flatMap(s => s.vetoes ?? (s.veto ? [s.veto] : [])));
   const musts = new Set(request.submissions.flatMap(s => s.musts ?? (s.must ? [s.must] : [])));
+  // 각 참여자의 1순위 꼭 가기(거부된 곳은 건너뛰고 다음 순위가 이어받음). inputs.ts의 mustRounds와 같은 규칙이다.
+  // pace 자리 수가 이것을 잘라내지 않는다. 운영·예산·걷기·활동시간 검사는 그대로 적용한다.
+  const firstMusts = new Set(request.submissions
+    .map(s => (s.musts ?? (s.must ? [s.must] : [])).find(id => !vetoes.has(id)))
+    .filter(Boolean));
   const tradeoffs = groupTradeoffs(request.submissions);
+  // pace 축으로 정한 하루 자리 수. 합의 단계가 아니라 검증을 통과한 장소 수에 적용한다.
+  const slots = slotsPerDayFor(tradeoffs.pace);
   const limits = {
     budget_krw: spendCapFor(Math.min(...request.submissions.map(s => s.budgetPerDay)), tradeoffs.spend),
     step_limit: Math.min(...request.submissions.map(s => s.stepLimit)),
@@ -46,17 +53,41 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
     const scheduled = new Set();
     const days = dates.map((date, index) => {
       const catalogue = eligibleByDate[index].filter(p => !scheduled.has(p.id));
+      // 전략에게 그날 후보 전체의 순서를 받는다. 자리 수(slotsPerDay)를 후보 수만큼 열어 두어
+      // 앞 순위가 시간·예산 검사에서 떨어져도 다음 순위로 빈자리를 채울 수 있게 한다.
       const consensus = withPlaceCatalog(catalogue, () => buildConsensus({
         submissions: request.submissions, nights: 0, strategy, allowPartial: false,
+        slotsPerDay: Math.max(1, catalogue.length),
       }));
+      const ranked = [...consensus.core, ...consensus.excluded.filter(s => s.excluded === 'time' || s.excluded === 'budget')]
+        .map(s => s.place.id);
+      // 꼭 가기는 전략과 무관하게 먼저 시도한다. 검사(운영·예산·걷기·활동시간)는 우회하지 않는다.
+      const queue = [...ranked.filter(id => musts.has(id)), ...ranked.filter(id => !musts.has(id))];
       let accepted = [], trial = null;
-      for (const selection of consensus.core) {
-        const next = validateDay({...limits, date, place_ids: [...accepted, selection.place.id]}, dataset, profiles, validationOptions);
+      const tryAdd = id => {
+        const next = validateDay({...limits, date, place_ids: [...accepted, id]}, dataset, profiles, validationOptions);
         // Must-places do not bypass date, cost, last-entry, walking or active-time checks.
         if (next.passed_model_checks) {
           trial = next;
           accepted = next.items.map(item => item.place_id);
         }
+      };
+      // least_misery는 날짜마다 따로 계산하면 어제까지 누가 손해 봤는지 모른다.
+      // 그래서 여행 전체(앞 날짜 + 오늘 통과분)에서 찜이 가장 덜 반영된 멤버의 찜을 먼저 시도한다.
+      const keptRate = m => m.picks.filter(id => scheduled.has(id) || accepted.includes(id)).length / Math.max(1, m.picks.length);
+      // 1) 1순위 꼭 가기는 자리 수와 상관없이 먼저 시도한다 (기존 consensus의 '전원 1순위는 코어' 정책과 같음).
+      for (const id of queue.filter(id => firstMusts.has(id))) tryAdd(id);
+      queue.splice(0, queue.length, ...queue.filter(id => !firstMusts.has(id)));
+      // 2) 나머지는 pace 자리 수까지만 채운다.
+      while (queue.length && accepted.length < slots) {
+        let i = 0;
+        if (strategy === 'least_misery' && !musts.has(queue[0])) {
+          const rates = request.submissions.map(keptRate);
+          const low = Math.min(...rates);
+          const worst = request.submissions.filter((_, k) => rates[k] === low);
+          i = Math.max(0, queue.findIndex(id => worst.some(m => m.picks.includes(id))));
+        }
+        tryAdd(queue.splice(i, 1)[0]);
       }
       accepted.forEach(id => scheduled.add(id));
       return {date, placeIds: accepted, items: (trial?.items ?? []).map(item => ({
