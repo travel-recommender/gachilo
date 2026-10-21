@@ -8,6 +8,7 @@ from unittest.mock import patch
 import test_server
 import test_real_engine
 from candidate_engine import CandidateEngine
+from candidate_results import validate_candidates
 from engine import Engine, EngineError
 from server import Store, ApiError
 
@@ -92,6 +93,23 @@ class RealCandidatesTests(unittest.TestCase):
                 self.assertEqual(self.calculate(room)[0],503)
             self.assertEqual(store.result(room['roomId'],room['ownerToken'])['candidates'],[])
         self.assertEqual(self.calculate(room)[0],200)
+
+    def test_data_reason_codes_accept_ascii_letters_digits_but_not_free_text(self):
+        room=self.ready_room();store=Store(self.db,Engine().catalog)
+        good=CandidateEngine(Engine().node).calculate(store.snapshot(room['roomId'],room['ownerToken']))
+        metadata={'dataset':'osaka_review_150','start':'2026-10-01','end':'2026-10-02'}
+        ids={p['place_id'] for p in self.req('GET','/api/places?limit=150')[1]['places']}
+        for code in ('price_2027_unconfirmed','OAP_reopening_unconfirmed','regular_closure','A'*100,
+                     '', 'price unconfirmed', 'member@example.com', 'price-2027', 'A'*101, 'a\n'):
+            with self.subTest(code=code):
+                output=copy.deepcopy(good)
+                for candidate in output['candidates']:
+                    candidate['planning'].update(status='needs_review',unplaced_count=1,
+                                                  exclusion_reason_counts={code:1})
+                if code in ('price_2027_unconfirmed','OAP_reopening_unconfirmed','regular_closure','A'*100):
+                    validate_candidates(output,metadata,ids)
+                else:
+                    with self.assertRaises(EngineError):validate_candidates(output,metadata,ids)
 
     def test_missing_fx_and_empty_candidates_fail_cleanly_then_retry(self):
         room=self.ready_room()

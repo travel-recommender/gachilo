@@ -168,7 +168,7 @@ def validate_candidates(output, room, known_ids):
             check(isinstance(reasons, dict) and len(reasons) <= 100)
             check(bool(reasons) == bool(p['unplaced_count']))
             for code, count in reasons.items():
-                check(isinstance(code, str) and re.fullmatch(r'[a-z][a-z_]{0,99}', code) is not None)
+                check(isinstance(code, str) and re.fullmatch(r'[A-Za-z][A-Za-z0-9_]{0,99}', code) is not None)
                 check(type(count) is int and 0 < count <= p['unplaced_count'])
             fx = p['exchange_rate']
             keys(fx, 'krw_per_jpy rounding as_of source provenance_status live_quote')
