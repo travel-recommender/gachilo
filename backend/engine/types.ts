@@ -42,8 +42,9 @@ export interface Place {
    * 직접 고르지 않은 사람에게도 어느 정도 효용을 주는 값으로,
    * '아무도 1순위는 아니지만 모두 무난한' 후보를 만든다.
    * 실제 구현에서는 리뷰 수·평점으로 산출한다.
+   * 실제 장소에서 미확인인 경우 생략하며 인기도 보너스를 적용하지 않는다.
    */
-  popularity: number;
+  popularity?: number;
   blurb: string;
   /** 사용자가 직접 추가한 장소인가 (좌표·비용이 추정값) */
   custom?: boolean;

@@ -3,19 +3,19 @@
     "source": "web/src/lib/types.ts",
     "file": "types.ts",
     "sha256": "c5d81c7098ab84f74949492e93ce1c6a3c68555cccf3344ce6175340a1cab4ff",
-    "change": "Relative imports get .ts extension for Node native TypeScript execution; algorithm unchanged."
+    "change": "Relative imports use .ts for Node. Server Place.popularity is optional because the real catalogue has no measured popularity; do not fabricate popularity during a future browser sync. sha256 records the original browser source, not the modified server file."
   },
   {
     "source": "web/src/lib/places.ts",
     "file": "places.ts",
     "sha256": "305b1db0182e54e318b81f3ff0f2573cad06dfd092c5cf1cbf1e85bc5e0303f3",
-    "change": "Relative imports get .ts extension for Node native TypeScript execution; algorithm unchanged."
+    "change": "Relative imports use .ts. Server withPlaceCatalog uses AsyncLocalStorage to isolate each real catalogue per request and restore the demo registry outside that scope; preserve this isolation when syncing browser sources. sha256 records the original browser source, not the modified server file."
   },
   {
     "source": "web/src/lib/consensus.ts",
     "file": "consensus.ts",
     "sha256": "66c001cfeaefd97b6d26d4916d8c62ec6e9d1ccb06c3cdabcd429e89e2dacafb",
-    "change": "Relative imports use .ts; server travel delegates to request-scoped foot OSRM with the original distance/transit fallback. Source hash records the original browser implementation, not the modified server file."
+    "change": "Relative imports use .ts. Server travel delegates to request-scoped foot OSRM with the original distance/transit fallback. Missing popularity uses ?? 0 for real records. Preserve routing and optional-popularity support when syncing browser sources. sha256 records the original browser source, not the modified server file."
   },
   {
     "source": "web/src/lib/schedule.ts",

@@ -87,7 +87,7 @@ class SharedCandidatesTests(unittest.TestCase):
         self.assertEqual(self.calculate(token='')[0],403)
         self.assertEqual(self.req('GET',self.path+'/results',token='wrong')[0],403)
         self.assertEqual(self.calculate(2)[0],409)
-        with self.store.connect() as c:c.execute("UPDATE rooms SET dataset='osaka_review_150' WHERE id=?",(self.rid,))
+        with self.store.connect() as c:c.execute("UPDATE rooms SET dataset='unknown_dataset' WHERE id=?",(self.rid,))
         self.assertEqual(self.calculate()[0],400)
 
     def test_auto_calculation_concurrency_coalesces_and_caches(self):
