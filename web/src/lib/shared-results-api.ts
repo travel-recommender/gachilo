@@ -1,3 +1,4 @@
+import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS } from "./network-request.mjs";
 /** P7/P8 shared-result contract. Separate from the legacy single-strategy client. */
 export type SharedStrategy = "average" | "least_misery" | "fairness";
 export const SHARED_STRATEGIES: SharedStrategy[] = ["average", "least_misery", "fairness"];
@@ -52,15 +53,18 @@ export function createSharedResultClient(baseUrl: string, fetcher: typeof fetch 
   const base = baseUrl.replace(/\/$/, "");
   async function request(roomId: string, path: string, token: string, method: string,
     body?: object, signal?: AbortSignal): Promise<SharedResults> {
-    const response = await fetcher(`${base}/rooms/${encodeURIComponent(roomId)}/${path}`, {
-      method, cache: "no-store", signal,
-      headers: { Authorization: `Bearer ${token}`, ...(body ? { "Content-Type": "application/json" } : {}) },
-      ...(body ? { body: JSON.stringify(body) } : {}),
-    });
-    const value = await response.json().catch((error: unknown) => {
-      if (signal?.aborted || (error instanceof DOMException && error.name === "AbortError")) throw error;
-      return null;
-    });
+    let received;
+    try {
+      received = await requestJson(`${base}/rooms/${encodeURIComponent(roomId)}/${path}`, {
+        method, cache: "no-store", signal,
+        headers: { Authorization: `Bearer ${token}`, ...(body ? { "Content-Type": "application/json" } : {}) },
+        ...(body ? { body: JSON.stringify(body) } : {}),
+      }, { fetcher, ...(path === "calculate" ? { timeoutMs: CALCULATE_TIMEOUT_MS } : {}) });
+    } catch (error) {
+      if (error instanceof NetworkRequestError) throw new SharedResultError(error.message, 0);
+      throw error;
+    }
+    const { response, value } = received;
     if (!response.ok) throw new SharedResultError(
       typeof value?.error === "string" ? value.error : "서버 결과를 불러오지 못했습니다.", response.status,
     );

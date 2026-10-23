@@ -1,3 +1,4 @@
+import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS } from "./network-request.mjs";
 /**
  * 서버 API 클라이언트.
  * 계약 원본은 backend/README.md 「API 계약」이다. 여기서 임의로 경로를 만들지 않는다.
@@ -108,9 +109,9 @@ export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0
 const BASE = API_BASE;
 
 async function request<T>(path: string, method = "GET", body?: unknown, token?: string): Promise<T> {
-  let response: Response;
+  let received;
   try {
-    response = await fetch(BASE + path, {
+    received = await requestJson(BASE + path, {
       method,
       cache: "no-store",
       headers: {
@@ -118,15 +119,14 @@ async function request<T>(path: string, method = "GET", body?: unknown, token?: 
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       ...(body === undefined ? {} : { body: JSON.stringify(body) }),
-    });
-  } catch {
-    // 서버가 안 떠 있는 경우 — 화면에서 안내 문구로 바꿔 쓴다
-    throw new ApiError("서버에 연결하지 못했어요. 로컬 서버가 켜져 있는지 확인해 주세요.", 0);
+    }, path.endsWith("/calculate") ? { timeoutMs: CALCULATE_TIMEOUT_MS } : {});
+  } catch (error) {
+    if (error instanceof NetworkRequestError) throw new ApiError(error.message, 0);
+    throw error;
   }
-
-  const value = await response.json().catch(() => ({}));
+  const { response, value } = received;
   if (!response.ok) {
-    throw new ApiError(value.error ?? "서버 요청을 처리하지 못했습니다.", response.status);
+    throw new ApiError(value?.error ?? "서버 요청을 처리하지 못했습니다.", response.status);
   }
   return value as T;
 }
