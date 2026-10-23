@@ -1,0 +1,9 @@
+{
+  "status": "ready",
+  "selectedStrategy": "fairness",
+  "revision": 2,
+  "selectionVersion": 1,
+  "submittedCount": 2,
+  "same_after_process_restart": true,
+  "sha256": "68f23b22feac071f51f4c855864b55aa829d3a09d22e0987fbdd2740f30977be"
+}
