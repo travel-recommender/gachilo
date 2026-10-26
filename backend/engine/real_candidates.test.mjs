@@ -107,8 +107,69 @@ test('real strategy selection is not three renamed average results; pace also ch
   r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],budgetPerDay:[11000,10000,17000][i],tradeoffs:{pace:0,distance:0.5,spend:1}}));
   const runFixture=()=>calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
   const low=await runFixture();
-  assert.deepEqual(low.candidates.map(c=>c.days[0].placeIds),[['1','4'],['1','0'],['1','4']]);
+  // least_misery는 찜이 하나도 안 들어간 멤버(picks 2·5·6)의 찜 5를 넣는다. 예전 ['1','0']은 그 멤버가 0/3이었다.
+  assert.deepEqual(low.candidates.map(c=>c.days[0].placeIds),[['1','4'],['1','5'],['1','4']]);
   r.submissions.forEach(s=>s.tradeoffs.pace=1);
   const high=await runFixture();
   assert.ok(high.candidates[0].days[0].placeIds.length>low.candidates[0].days[0].placeIds.length);
+});
+
+// 10-c: 합성 장소 픽스처. 실제 카탈로그로 승격하지 않는다.
+const fixture=(cats,opts={})=>{
+  const records=cats.map((category,i)=>{
+    const r=structuredClone(dataset.places.find(r=>r.place.place_id==='osaka_015'));
+    const stay=opts.stay?.[i]??30;
+    Object.assign(r.place,{place_id:String(i),name_ko:'fixture-'+i,category,cost:0,latitude:34.6,longitude:135.5,stay_min:stay});
+    r.review.stay_policy.representative=stay;return r;
+  });
+  const fixtureProfiles={...profiles,places:Object.fromEntries(records.map(r=>[r.place.place_id,{window:[540,1260,1230]}]))};
+  return {records,fixtureProfiles};
+};
+
+test('a higher-ranked place that fails the day checks leaves its slot to the next-ranked pick',async()=>{
+  // 0번은 모두가 골라 순위가 높지만 체류가 활동시간보다 길다. 그 자리를 비워 두지 않고 다음 순위(2번)로 채운다.
+  const {records,fixtureProfiles}=fixture(['문화','문화','문화'],{stay:{0:400}});
+  const r=request([]);r.exchange_rate.krw_per_jpy='1';
+  const picks=[['0','1'],['0','1'],['0','1','2']];
+  r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],activeMin:300,tradeoffs:{pace:0,distance:0.5,spend:1}}));
+  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
+  for(const c of candidates){
+    assert.ok(!c.days[0].placeIds.includes('0'));
+    assert.deepEqual([...c.days[0].placeIds].sort(),['1','2']);
+  }
+});
+
+test('least_misery remembers earlier days: the member left out on day 1 is served first on day 2',async()=>{
+  // 탐색으로 찾은 최소 예시. 첫날은 두 방식 모두 [5,3]이고, 둘째 날 예전 방식은 [1,2]로 멤버 m1(4·3·0)을 1/3에 둔다.
+  const {records,fixtureProfiles}=fixture(['명소','카페','문화','명소','문화','명소']);
+  const r=request([]);r.exchange_rate.krw_per_jpy='1';r.endDate='2026-10-02';
+  const picks=[['2','5','1'],['4','3','0'],['1','5']];
+  r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],tradeoffs:{pace:0,distance:0.5,spend:1}}));
+  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
+  const lm=candidates.find(c=>c.strategy==='least_misery');
+  const kept=new Set(lm.days.flatMap(d=>d.placeIds));
+  const minRate=Math.min(...picks.map(p=>p.filter(id=>kept.has(id)).length/p.length));
+  assert.ok(minRate>=2/3,`least_misery 최저 반영률 ${minRate}`);
+  const avg=candidates.find(c=>c.strategy==='average');
+  const keptAvg=new Set(avg.days.flatMap(d=>d.placeIds));
+  assert.ok(minRate>=Math.min(...picks.map(p=>p.filter(id=>keptAvg.has(id)).length/p.length)));
+});
+
+test('each member\'s first must is tried even when it exceeds the pace slot count (checks still apply)',async()=>{
+  // #53 리뷰(조은) 사례: 1일·3명·pace=0(2자리), 각자 picks=[A]/[B]/[C], must=A/B/C.
+  // validateDay([A,B,C])가 통과하면 세 곳 모두 남아야 한다. 자리 수가 1순위 꼭 가기를 잘라내지 않는다.
+  const {records,fixtureProfiles}=fixture(['문화','문화','문화']);
+  const r=request([]);r.exchange_rate.krw_per_jpy='1';
+  r.submissions.forEach((s,i)=>Object.assign(s,{picks:[String(i)],must:String(i),activeMin:300,tradeoffs:{pace:0,distance:0.5,spend:1}}));
+  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
+  for(const c of candidates){
+    assert.deepEqual([...c.days[0].placeIds].sort(),['0','1','2'],c.strategy);
+    assert.doesNotMatch(c.summary,/꼭 가는 장소 조건이 충족되지/);
+  }
+  // 검사는 우회하지 않는다: 활동시간이 모자라면 1순위라도 빠진다.
+  r.submissions.forEach(s=>s.activeMin=60);
+  for(const c of (await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''})).candidates){
+    assert.ok(c.days[0].placeIds.length<3,c.strategy);
+    assert.match(c.summary,/꼭 가는 장소 조건이 충족되지/);
+  }
 });
