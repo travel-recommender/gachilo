@@ -13,7 +13,7 @@ import {
   type CustomPlaceInput,
 } from "@/lib/places";
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
-import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
+import { ApiError, nightsBetween, roomApi, toDateRange, type ApiPool, type ApiResult, type RoomMember } from "@/lib/room-api";
 import { editedState, joinedState, rejoinedState, restoredFromServer } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
@@ -118,6 +118,10 @@ interface Ctx {
   submitMine: () => Promise<void>;
   /** 참여 현황·결과를 조회한다 */
   fetchStatus: () => Promise<ApiResult | null>;
+  /** P3 목록을 서버에 저장한다 (방이 없으면 아무것도 안 한다) */
+  saveLonglist: () => Promise<void>;
+  /** 모두가 찾아온 곳을 서버에서 다시 받는다. 방이 없으면 null */
+  fetchPool: () => Promise<ApiPool | null>;
   /** 직접 추가한 장소를 등록하고 만들어진 장소를 돌려준다 */
   addPlace: (input: CustomPlaceInput) => Place;
   reset: () => void;
@@ -255,6 +259,26 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     return roomApi.result({ roomId: room.roomId, ownerToken: room.ownerToken ?? room.token });
   };
 
+  // 서버 방에서 받은 모두의 1차 목록. 받기 전이면 null — 그때는 내 목록만 보인다
+  const [serverPool, setServerPool] = useState<string[] | null>(null);
+  useEffect(() => setServerPool(null), [state.room?.roomId]);
+
+  const saveLonglist = async () => {
+    const room = stateRef.current.room;
+    if (!room) return;
+    // 직접 추가한 장소는 서버 장소 목록에 없어서 거절된다. 그런 곳은 내 화면에만 남긴다
+    const ids = stateRef.current.mine.longlist.filter((id) => !id.startsWith("custom_"));
+    await roomApi.saveLonglist(room.roomId, room.memberId, room.token, ids);
+  };
+
+  const fetchPool = async () => {
+    const room = stateRef.current.room;
+    if (!room) return null;
+    const got = await roomApi.pool(room.roomId, room.ownerToken ?? room.token);
+    if (stateRef.current.room?.roomId === got.roomId) setServerPool(got.placeIds);
+    return got;
+  };
+
   const addPlace = (input: CustomPlaceInput) => {
     const place = makeCustomPlace(input);
     setState((s) => ({ ...s, customPlaces: [...s.customPlaces, place] }));
@@ -294,7 +318,6 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     })();
     return () => { live = false; };
   }, [roomId, roomToken]);
-  const real = catalog === "real";
 
   // 추가된 장소·참여자는 계산과 설명 생성이 id로 찾을 수 있어야 하므로 계산 전에 등록한다.
   setCustomPlaces(state.customPlaces);
@@ -308,16 +331,26 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   /**
    * 1차 — 전원이 검색으로 찾아온 곳을 합친 그룹 후보 풀.
-   * 다른 사람 목록은 아직 서버에서 받지 않아 데모 데이터(36곳 id)다. 150곳 방에는 그 id가 없으므로 넣지 않는다.
+   * 서버 방이면 서버가 모은 전원의 목록이고, 데모 동행자 입력은 섞지 않는다 (P7·P8은 서버가 전원의 실제 입력으로 계산한다).
    */
-  const companions = useMemo(() => (real ? [] : companionIds), [real, companionIds]);
+  const companions = useMemo(() => (state.room ? [] : companionIds), [state.room, companionIds]);
   const pool = useMemo(() => {
-    const ids = [...state.mine.longlist];
-    demoSubmissions(companions, []).forEach((s) =>
-      s.longlist.forEach((id) => { if (!ids.includes(id)) ids.push(id); })
-    );
-    return ids;
-  }, [state.mine.longlist, companions]);
+    // 서버 방: 각 사람이 P3에서 실제로 담은 곳 (여러 명이 올린 곳부터). 아직 안 낸 내 목록도 붙인다
+    if (state.room) {
+      const ids = [...(serverPool ?? [])];
+      state.mine.longlist.forEach((id) => { if (!ids.includes(id)) ids.push(id); });
+      return ids;
+    }
+    // 서버 없는 데모: 데모 동행자 목록을 섞고, 여러 명이 올린 곳을 위로
+    const lists = [state.mine.longlist, ...demoSubmissions(companions, []).map((s) => s.longlist)];
+    const votes: Record<string, number> = {};
+    const ids: string[] = [];
+    lists.forEach((l) => l.forEach((id) => {
+      if (!(id in votes)) ids.push(id);
+      votes[id] = (votes[id] ?? 0) + 1;
+    }));
+    return ids.sort((a, b) => votes[b] - votes[a]);
+  }, [state.room, serverPool, state.mine.longlist, companions]);
 
   const submissions = useMemo(
     () => [state.mine, ...demoSubmissions(companions, pool)],
@@ -344,6 +377,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   return (
     <C.Provider value={{
       state, catalog, set, setMine, setExtra, setMemberNames, createRoom, seatRoom, joinRoom, submitMine, fetchStatus,
+      saveLonglist, fetchPool,
       addPlace, reset, ready, submissions, pool, consensus, schedule,
     }}>
       {children}

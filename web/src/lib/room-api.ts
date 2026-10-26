@@ -96,6 +96,15 @@ export interface ApiResult {
       };
 }
 
+/** P4 풀 — 전원의 1차 목록 합집합. 여러 명이 올린 곳부터 온다. 누가 올렸는지는 없다 */
+export interface ApiPool {
+  roomId: string;
+  /** 1차 목록(또는 전체 입력)을 낸 사람 수 */
+  listedCount: number;
+  memberCount: number;
+  placeIds: string[];
+}
+
 /** 서버가 준 상태 코드를 화면이 구분할 수 있게 담아 둔다 */
 export class ApiError extends Error {
   constructor(message: string, readonly status: number) {
@@ -210,6 +219,19 @@ export const roomApi = {
       input,
       member.submissionToken
     ),
+
+  /** P3에서 담은 1차 목록만 먼저 저장한다. 결과 revision은 바뀌지 않는다 */
+  saveLonglist: (roomId: string, memberId: string, token: string, longlist: string[]) =>
+    request<unknown>(
+      `/rooms/${encodeURIComponent(roomId)}/longlists/${encodeURIComponent(memberId)}`,
+      "PUT",
+      { longlist },
+      token
+    ),
+
+  /** 모두가 찾아온 곳 (P4). 방 참여자·방장 토큰이면 읽는다 */
+  pool: (roomId: string, token: string) =>
+    request<ApiPool>(`/rooms/${encodeURIComponent(roomId)}/pool`, "GET", undefined, token),
 
   /** 참여 현황·결과 조회. 참여자 토큰으로도 읽을 수 있다 */
   result: (room: Pick<ApiRoom, "roomId" | "ownerToken">) =>
