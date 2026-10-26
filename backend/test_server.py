@@ -57,6 +57,16 @@ class ApiTests(unittest.TestCase):
   # A full submission counts as a list too, and step-1 lists never change the result revision
   self.assertEqual(self.req('GET',f"/rooms/{rid}/results",token=room['ownerToken'])[1]['revision'],0)
   self.submit(room,c);self.assertEqual(self.req('GET',pool,token=c['submissionToken'])[1]['listedCount'],3)
+ def test_schedulable_lists_only_places_the_real_engine_can_use_on_trip_dates(self):
+  real=self.req('POST','/rooms',{'startDate':'2026-10-01','endDate':'2026-10-03','memberNames':['조은','윤진'],'dataset':'osaka_review_150'})[1]
+  path=f"/rooms/{real['roomId']}/schedulable"
+  self.assertEqual(self.req('GET',path)[0],403)
+  status,got,_=self.req('GET',path,token=real['members'][1]['submissionToken'])
+  self.assertEqual(status,200);ids=set(got['placeIds'])
+  self.assertIn('osaka_009',ids)  # 오사카성: 검토·운영 확인됨
+  self.assertNotIn('osaka_draft_cdb260bb106a',ids)  # Google 지도상 폐업
+  self.assertTrue(0<len(ids)<150)
+  demo=self.room();self.assertIsNone(self.req('GET',f"/rooms/{demo['roomId']}/schedulable",token=demo['ownerToken'])[1]['placeIds'])
  def test_private_access_and_origin(self):
   room=self.room();a,b=room['members'][:2];path=f"/rooms/{room['roomId']}/results"
   self.assertEqual(self.req('GET',path)[0],403)

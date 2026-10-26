@@ -29,7 +29,8 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
   // 방의 장소 목록을 확인하기 전에 고르면 방과 맞지 않는 장소가 담길 수 있다
   const notice = catalog === "loading" ? "장소 목록을 불러오는 중이에요…"
     : catalog === "error" ? "장소 목록을 불러오지 못했어요. 새로고침해 주세요." : null;
-  const results = useMemo(() => searchPlaces(pool, query), [pool, query]);
+  // 150곳에서는 "공원"·"카페"처럼 흔한 말에 걸리는 곳이 많다. 목록은 스크롤되므로 넉넉히 보여준다
+  const results = useMemo(() => searchPlaces(pool, query, 40), [pool, query]);
   // 여행방에서는 서버 장소 목록에 있는 id만 저장된다. 서버 장소 등록이 생기기 전까지 직접 추가를 막는다
   const canAdd = !state.room;
 

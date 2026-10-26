@@ -1,5 +1,5 @@
 """Local week-5 API prototype. SQLite persistence; run: python3 server.py."""
-import argparse, hashlib, hmac, json, re, secrets, sqlite3
+import argparse, hashlib, hmac, json, re, secrets, sqlite3, subprocess
 from collections import Counter
 from contextlib import contextmanager
 from datetime import date, datetime, timedelta, timezone
@@ -227,6 +227,11 @@ class Store(CandidateStore):
                 votes[x]+=1
         listed=sum(1 for row in rows if row['ids'] is not None or row['payload'])
         return {'roomId':rid,'listedCount':listed,'memberCount':len(rows),'placeIds':sorted(order,key=lambda x:-votes[x])}
+    def room_dates(self,rid,token):
+        with self.connect() as c:
+            c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token)
+        self.occupy_after_read(seat)
+        return r['dataset'],r['start'],r['end']
     def result(self,rid,token):
         with self.connect() as c:
             c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token)
@@ -300,6 +305,19 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
     engine=Engine()
     real_engine=RealEngine(engine.node)
     candidate_engine=CandidateEngine(engine.node)
+    schedulable_cache={}
+    def schedulable(rid,token):
+        # Real places that pass the engine's date checks on at least one trip date, so P3/P4 offer only places P8 can use.
+        dataset,start,end=store.room_dates(rid,token)
+        if dataset!=REAL_DATASET:return {'roomId':rid,'placeIds':None}
+        if (start,end) not in schedulable_cache:
+            d0,d1=date.fromisoformat(start),date.fromisoformat(end)
+            dates=[(d0+timedelta(days=i)).isoformat() for i in range((d1-d0).days+1)]
+            try:
+                out=subprocess.run([engine.node,str(Path(__file__).parent/'engine/schedulable.mjs')],input=json.dumps({'dates':dates}),capture_output=True,text=True,encoding='utf-8',timeout=60,check=True)
+                schedulable_cache[(start,end)]=json.loads(out.stdout)['placeIds']
+            except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('일정에 넣을 수 있는 장소를 확인하지 못했습니다. 다시 시도하세요.')
+        return {'roomId':rid,'placeIds':schedulable_cache[(start,end)]}
     store=Store(path,engine.catalog)
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
@@ -380,6 +398,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 if self.command=='PUT' and m:return self.send_json(200,store.submit(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/longlists/([\w-]+)',path)
                 if self.command=='PUT' and m:return self.send_json(200,store.save_longlist(*m.groups(),token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/schedulable',path)
+                if self.command=='GET' and m:return self.send_json(200,schedulable(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
                 if self.command=='GET' and m:return self.send_json(200,store.pool(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/results',path)

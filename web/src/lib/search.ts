@@ -34,7 +34,9 @@ export function searchPlaces(pool: Place[], query: string, limit = 8): Place[] {
   if (!q) return [];
   const scored: { p: Place; s: number }[] = [];
   for (const p of pool) {
-    const matches = searchablePlaceNames(p.name).map((name) => nameHas(name, q)).filter((at) => at >= 0);
+    // 원래 이름(일본어·영어)으로 찾아도 나온다 — 간판·지도에 보이는 이름으로 검색하는 경우가 많다
+    const names = p.originalName ? [...searchablePlaceNames(p.name), normalizePlaceName(p.originalName)] : searchablePlaceNames(p.name);
+    const matches = names.map((name) => nameHas(name, q)).filter((at) => at >= 0);
     const at = matches.length ? Math.min(...matches) : -1;
     if (at === 0) scored.push({ p, s: 0 });
     else if (at > 0) scored.push({ p, s: 1 });
