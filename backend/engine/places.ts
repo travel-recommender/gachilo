@@ -1,3 +1,4 @@
+import { AsyncLocalStorage } from "node:async_hooks";
 import type { Category, CategoryId, Member, Place } from "./types.ts";
 
 export const CATEGORIES: Category[] = [
@@ -265,10 +266,18 @@ export function setCustomPlaces(list: Place[]) {
   CUSTOM = list;
 }
 
+const catalogContext = new AsyncLocalStorage<Place[]>();
+
+/** Per-calculation catalogue replacement, including an empty catalogue. Never mixes in demo IDs. */
+export function withPlaceCatalog<T>(places: Place[], calculate: () => T): T {
+  return catalogContext.run(places, calculate);
+}
+
 export function allPlaces(): Place[] {
-  return CUSTOM.length ? [...PLACES, ...CUSTOM] : PLACES;
+  return catalogContext.getStore() ?? (CUSTOM.length ? [...PLACES, ...CUSTOM] : PLACES);
 }
 
 export function findPlace(id: string): Place | undefined {
-  return PLACE_MAP[id] ?? CUSTOM.find((p) => p.id === id);
+  const scoped = catalogContext.getStore();
+  return scoped ? scoped.find((p) => p.id === id) : PLACE_MAP[id] ?? CUSTOM.find((p) => p.id === id);
 }
