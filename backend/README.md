@@ -41,6 +41,8 @@ OSRM 실행·환경변수·실패 처리·검사는 [OSRM 연결 문서](../docs
 | 공용 초대 링크 — 이름 고르기·직접 추가 | POST /rooms/{roomId}/join | 초대 토큰 |
 | 이름 + PIN으로 다시 들어오기 | POST /rooms/{roomId}/rejoin | 초대 토큰 |
 | 내 입력 저장·수정 | PUT /rooms/{roomId}/submissions/{memberId} | 참여자 토큰 |
+| 1차 목록(My list) 저장 | PUT /rooms/{roomId}/longlists/{memberId} | 참여자 토큰 |
+| 모두가 찾아온 곳(P4 풀) | GET /rooms/{roomId}/pool | 해당 방 참여자/방장 토큰 |
 | 실제 계산 후 저장 | POST /rooms/{roomId}/calculate | 방장 토큰 |
 | 저장 결과 조회 | GET /rooms/{roomId}/results | 해당 방 참여자/방장 토큰 |
 | 외부 계산 결과 저장(연결용) | POST /rooms/{roomId}/results | 방장 토큰 |
@@ -53,6 +55,9 @@ OSRM 실행·환경변수·실패 처리·검사는 [OSRM 연결 문서](../docs
   - 방 만들기 본문에 `ownerPin`, `POST /join` 본문에 `pin`(숫자 4자리, 선택)을 넣으면 그 자리에 PIN이 생깁니다. 서버는 PBKDF2 해시만 저장합니다.
   - `GET /join`의 `members[].hasPin`은 그 이름으로 다시 들어올 수 있는지만 알려 줍니다.
   - `POST /rejoin` `{memberId, pin}` → 새 `submissionToken`(방장이면 새 `ownerToken`도). **이전 기기의 토큰은 끊깁니다.** 아직 안 고른 이름·PIN 없는 자리는 409, 틀리면 403(남은 횟수 안내), 5번 틀리면 10분 동안 429입니다.
+
+**1차 목록과 P4 풀(10/26)**: P3에서 담은 목록을 `PUT /longlists/{memberId}` `{"longlist":[...]}`로 먼저 저장합니다(30곳까지, 방 장소 목록 밖 ID는 400). revision은 바뀌지 않습니다 — 결과는 전체 입력(submissions)만 씁니다.
+- `GET /pool` → `{roomId,listedCount,memberCount,placeIds}`. 전원 목록의 합집합을 여러 명이 올린 곳부터 줍니다. 누가 올렸는지·몇 명이 올렸는지는 주지 않습니다. 전체 입력을 낸 사람은 그 입력의 longlist로 셉니다.
 
 토큰은 `Authorization: Bearer ...`로 전달합니다. 같은 서버의 연결 화면과 기본 `http://localhost:3000`을 허용하며, 다른 로컬 프론트 주소는 `--origin`으로 지정합니다.
 

@@ -1,5 +1,6 @@
 """Local week-5 API prototype. SQLite persistence; run: python3 server.py."""
 import argparse, hashlib, hmac, json, re, secrets, sqlite3
+from collections import Counter
 from contextlib import contextmanager
 from datetime import date, datetime, timedelta, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -40,6 +41,7 @@ class Store(CandidateStore):
             CREATE TABLE IF NOT EXISTS members(id TEXT PRIMARY KEY,room_id TEXT,name TEXT,token_hash TEXT,FOREIGN KEY(room_id) REFERENCES rooms(id));
             CREATE TABLE IF NOT EXISTS submissions(member_id TEXT PRIMARY KEY,payload TEXT,updated TEXT,FOREIGN KEY(member_id) REFERENCES members(id));
             CREATE TABLE IF NOT EXISTS results(room_id TEXT PRIMARY KEY,revision INTEGER,payload TEXT,updated TEXT,FOREIGN KEY(room_id) REFERENCES rooms(id));
+            CREATE TABLE IF NOT EXISTS longlists(member_id TEXT PRIMARY KEY,ids TEXT,updated TEXT,FOREIGN KEY(member_id) REFERENCES members(id));
             ''')
             self.init_candidates(c)
             if 'dataset' not in {row['name'] for row in c.execute('PRAGMA table_info(rooms)')}:
@@ -199,6 +201,32 @@ class Store(CandidateStore):
             c.execute('DELETE FROM candidate_jobs WHERE room_id=?',(rid,))
             revision=r['revision']+1
         return {'saved':True,'memberId':mid,'revision':revision}
+    def save_longlist(self,rid,mid,token,b):
+        # Step 1 (P3) list on its own, before the full input. It does not touch revision: results only use full submissions.
+        require(isinstance(b,dict),'JSON 객체가 필요합니다.')
+        v=b.get('longlist');require(isinstance(v,list) and len(v)<=30 and all(isinstance(x,str) and 1<=len(x)<=100 for x in v),'longlist 형식을 확인하세요.')
+        require(len(set(v))==len(v),'longlist에 중복 장소가 있습니다.')
+        with self.connect() as c:
+            c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
+            allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
+            if allowed is not None:require(all(x in allowed for x in v),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
+            c.execute('INSERT INTO longlists VALUES(?,?,?) ON CONFLICT(member_id) DO UPDATE SET ids=excluded.ids,updated=excluded.updated',(mid,json.dumps(v),now()))
+        return {'saved':True,'memberId':mid}
+    def pool(self,rid,token):
+        # Union of everyone's step-1 lists for P4. Never says who added what: ids only, most-shared first.
+        with self.connect() as c:
+            c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token)
+            rows=c.execute('SELECT l.ids,s.payload FROM members m LEFT JOIN longlists l ON m.id=l.member_id LEFT JOIN submissions s ON m.id=s.member_id WHERE m.room_id=? ORDER BY m.rowid',(rid,)).fetchall()
+        self.occupy_after_read(seat)
+        votes,order=Counter(),[]
+        for row in rows:
+            ids=json.loads(row['ids']) if row['ids'] is not None else json.loads(row['payload'])['longlist'] if row['payload'] else None
+            if ids is None:continue
+            for x in ids:
+                if x not in votes:order.append(x)
+                votes[x]+=1
+        listed=sum(1 for row in rows if row['ids'] is not None or row['payload'])
+        return {'roomId':rid,'listedCount':listed,'memberCount':len(rows),'placeIds':sorted(order,key=lambda x:-votes[x])}
     def result(self,rid,token):
         with self.connect() as c:
             c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token)
@@ -350,6 +378,10 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 m=re.fullmatch(r'/rooms/([\w-]+)/submissions/([\w-]+)',path)
                 if self.command=='GET' and m:return self.send_json(200,store.own_submission(*m.groups(),token))
                 if self.command=='PUT' and m:return self.send_json(200,store.submit(*m.groups(),token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/longlists/([\w-]+)',path)
+                if self.command=='PUT' and m:return self.send_json(200,store.save_longlist(*m.groups(),token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
+                if self.command=='GET' and m:return self.send_json(200,store.pool(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/results',path)
                 if m and self.command=='GET':return self.send_json(200,store.result(m[1],token))
                 if m and self.command=='POST':return self.send_json(200,store.save_result(m[1],token,b))

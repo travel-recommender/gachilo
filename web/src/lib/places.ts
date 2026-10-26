@@ -265,10 +265,21 @@ export function setCustomPlaces(list: Place[]) {
   CUSTOM = list;
 }
 
+/**
+ * 실제 장소 방(150곳)의 목록. 있으면 데모 36곳 대신 이것만 본다 — 서버가 이 방에서
+ * 받는 장소 id가 150곳뿐이라, 36곳 id가 섞이면 제출이 거절된다. null이면 데모 36곳이다.
+ */
+let CATALOG: { list: Place[]; map: Record<string, Place> } | null = null;
+
+export function setCatalog(list: Place[] | null) {
+  CATALOG = list ? { list, map: Object.fromEntries(list.map((p) => [p.id, p])) } : null;
+}
+
 export function allPlaces(): Place[] {
-  return CUSTOM.length ? [...PLACES, ...CUSTOM] : PLACES;
+  const base = CATALOG?.list ?? PLACES;
+  return CUSTOM.length ? [...base, ...CUSTOM] : base;
 }
 
 export function findPlace(id: string): Place | undefined {
-  return PLACE_MAP[id] ?? CUSTOM.find((p) => p.id === id);
+  return (CATALOG ? CATALOG.map[id] : PLACE_MAP[id]) ?? CUSTOM.find((p) => p.id === id);
 }

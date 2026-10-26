@@ -42,6 +42,21 @@ class ApiTests(unittest.TestCase):
   self.assertEqual(Store(self.db).result(room['roomId'],token)['result'],body['result'])
   self.submit(room,room['members'][0]);self.assertIsNone(self.req('GET',path,token=token)[1]['result'])
   self.assertEqual(self.req('POST',path,body,token)[0],409)
+ def test_pool_merges_step_one_lists_without_names_or_revision(self):
+  room=self.room();a,b,c=room['members'];rid=room['roomId'];pool=f"/rooms/{rid}/pool"
+  put=lambda m,ids,token=None:self.req('PUT',f"/rooms/{rid}/longlists/{m['id']}",{'longlist':ids},token or m['submissionToken'])
+  self.assertEqual(self.req('GET',pool,token=a['submissionToken'])[1]['listedCount'],0)
+  self.assertEqual(put(a,['glico','kuromon'])[0],200);self.assertEqual(put(b,['umeda_sky','glico'])[0],200)
+  self.assertEqual(put(c,['glico'],a['submissionToken'])[0],403)
+  self.assertEqual(put(a,['no_such_place'])[0],400)
+  got=self.req('GET',pool,token=b['submissionToken'])[1]
+  self.assertEqual(got['listedCount'],2);self.assertEqual(got['memberCount'],3)
+  self.assertEqual(got['placeIds'][0],'glico');self.assertEqual(set(got['placeIds']),{'glico','kuromon','umeda_sky'})
+  self.assertEqual(set(got),{'roomId','listedCount','memberCount','placeIds'})
+  self.assertEqual(self.req('GET',pool)[0],403)
+  # A full submission counts as a list too, and step-1 lists never change the result revision
+  self.assertEqual(self.req('GET',f"/rooms/{rid}/results",token=room['ownerToken'])[1]['revision'],0)
+  self.submit(room,c);self.assertEqual(self.req('GET',pool,token=c['submissionToken'])[1]['listedCount'],3)
  def test_private_access_and_origin(self):
   room=self.room();a,b=room['members'][:2];path=f"/rooms/{room['roomId']}/results"
   self.assertEqual(self.req('GET',path)[0],403)
