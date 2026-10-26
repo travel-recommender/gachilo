@@ -1,4 +1,5 @@
 import { CATEGORY_MAP } from "./places";
+import { normalizePlaceName, searchablePlaceNames } from "./place-aliases";
 import type { Place } from "./types";
 
 const CHO = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
@@ -29,15 +30,16 @@ function nameHas(name: string, q: string) {
  * 이름이 앞에서부터 맞는 곳을 먼저, 그다음 이름 중간, 마지막으로 지역·카테고리·소개문에서 찾는다.
  */
 export function searchPlaces(pool: Place[], query: string, limit = 8): Place[] {
-  const q = query.trim().toLowerCase().replace(/\s+/g, "");
+  const q = normalizePlaceName(query);
   if (!q) return [];
   const scored: { p: Place; s: number }[] = [];
   for (const p of pool) {
-    const at = nameHas(p.name.replace(/\s+/g, ""), q);
+    const matches = searchablePlaceNames(p.name).map((name) => nameHas(name, q)).filter((at) => at >= 0);
+    const at = matches.length ? Math.min(...matches) : -1;
     if (at === 0) scored.push({ p, s: 0 });
     else if (at > 0) scored.push({ p, s: 1 });
     else if (![...q].some(isCho)) {
-      const hay = `${p.area} ${CATEGORY_MAP[p.category].label} ${p.blurb} ${p.address ?? ""}`.toLowerCase();
+      const hay = normalizePlaceName(`${p.area} ${CATEGORY_MAP[p.category].label} ${p.blurb} ${p.address ?? ""}`);
       if (hay.includes(q)) scored.push({ p, s: 2 });
     }
   }

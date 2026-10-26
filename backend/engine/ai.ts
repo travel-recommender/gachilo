@@ -211,7 +211,7 @@ const SHOT_IN = {
     { id: "castle_park", name: "오사카성 공원", area: "오사카성", category: "nature", cost_won: 0, stay_min: 60, open: "05:00-23:00", fit_min: 0.41, fit_avg: 0.47, taste_match: 1, near_fixed_ids: ["osaka_castle"] },
     { id: "nakazaki", name: "나카자키초 카페거리", area: "우메다", category: "cafe", cost_won: 9000, stay_min: 60, open: "11:00-19:00", fit_min: 0.33, fit_avg: 0.38, taste_match: 1, near_fixed_ids: [] },
   ],
-  excluded: [{ id: "usj", name: "유니버설 스튜디오 재팬", reason: "veto" }],
+  excluded: [{ id: "usj", name: "유니버셜 스튜디오 재팬", reason: "veto" }],
   area_km: { "난바|오사카성": 3.1, "난바|우메다": 3.6, "오사카성|우메다": 3.2 },
 };
 
