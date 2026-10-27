@@ -4,7 +4,18 @@ from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from datetime import date
 from pathlib import Path
 
-DATA=Path(__file__).resolve().parents[1]/'data/week5/live_20260923/processed/osaka_places_150_fresh.json'
+ROOT=Path(__file__).resolve().parents[1]
+
+def runtime_paths():
+    """The API and Node entry points share data/runtime_catalog.json."""
+    overrides=[os.environ.get(k) for k in ('REAL_CATALOG_PATH','REAL_PROFILES_PATH')]
+    if any(overrides) and not all(overrides):
+        raise ValueError('REAL_CATALOG_PATH와 REAL_PROFILES_PATH를 함께 설정하세요.')
+    manifest=json.loads((ROOT/'data/runtime_catalog.json').read_text(encoding='utf-8'))
+    return tuple(Path(value).resolve() if value else ROOT/'data'/manifest[key]
+                 for value,key in zip(overrides,('catalog','profiles')))
+
+DATA,PROFILES=runtime_paths()
 LIGHT_SHOPPING_PLACES={'구로몬시장','신사이바시스지 상점가','아메리카무라','신세카이'}
 
 def get_luggage_score(place):
@@ -80,15 +91,30 @@ def project(record,rate):
     if not p['opening_hours_source']:reasons.append('hours_not_verified')
     # A human-readable opening-hours string is not a travel-date calendar.
     reasons.append('visit_date_hours_review_required')
+    final=record['review'].get('final_csv',{})
+    branch=record['review'].get('branch_collection',{})
+    verified=record['review'].get('branch_verification',{})
+    out['record_status']=final.get('record_status') or ('추가 수집·일정 조건 확인 필요' if branch else '방문일 조건 확인 필요')
+    out['record_status_reason']=final.get('record_status_reason') or branch.get('remaining') or ''
+    if verified:
+        out['record_status']='일정 조건 확인 · 방문일 검사' if verified['status']=='eligible_for_dated_demo' else '일정 보류 · 추가 확인 필요'
+        out['record_status_reason']='; '.join(verified['conditions'])
+        out['visit_conditions']=verified['conditions']
+        out['coordinate_basis']=verified['coordinates']['kind']
+        if verified['cost_kind']=='official_budget_estimate':out['cost_status']='estimate'
+
+    out['search_names']=list(dict.fromkeys(filter(None,[p['name'],p['name_ko'],branch.get('brand'),branch.get('official_name')])))
+    out['selection_disabled_reason']='제외된 장소예요: '+out['record_status_reason'] if final.get('record_status')=='제외' else None
     out['planning']={'schedule_ready':False,'review_required':list(dict.fromkeys(reasons)),
       'shopping_spend_excluded':shopping,'stay_range':record['review'].get('stay_policy'),
       'source_currency':'JPY','api_currency':'KRW'}
     return out
 
-def catalog(query='',category=None,limit=150,path=DATA,rate=None):
+def catalog(query='',category=None,limit=150,path=DATA,rate=None,offset=0):
     rate=exchange_rate(rate);raw=json.loads(Path(path).read_text(encoding='utf-8'))['places']
     matches=[r for r in raw if (not category or r['place']['category']==category) and
       (not query or query.casefold() in (' '.join(str(r['place'].get(k) or '') for k in ('name','name_ko','area'))).casefold())]
     return {'dataset':'osaka_review_150','total':len(matches),'currency':'KRW',
       'exchange_rate':exchange_rate_metadata(rate),
-      'places':[project(r,rate) for r in matches[:limit]]}
+      'offset':offset,'next_offset':offset+limit if offset+limit<len(matches) else None,
+      'places':[project(r,rate) for r in matches[offset:offset+limit]]}

@@ -1,3 +1,6 @@
+> 2026-10-27: 실제 장소 방은 `data/runtime_catalog.json`의 최종 205곳을 기본으로 사용합니다.
+> [팀원 실행·데이터 확인 방법](../docs/final_catalog_team_setup.md). `osaka_review_150`은 기존 방 호환용 ID이며 개수 제한이 아닙니다.
+
 # 5주차 백엔드와 추천 연결 초안
 
 6주차 P7/P8 연결용 후보 묶음 계산·방장 확정 API와 프론트 클라이언트를 추가했습니다. 새 요청·응답, 지표 단위, 3대 기기 시험 순서는 [공용 결과 API 문서](../docs/week6_shared_results_api.md)를 참조하세요. 기존 단일 전략 요청은 유지합니다.

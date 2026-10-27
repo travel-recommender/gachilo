@@ -1,7 +1,7 @@
 /** Real catalogue → the same shared-candidate contract as the demo, without inventing data. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
-import {loadInputs, availability, toEnginePlace, validateDay} from '../../scripts/validate_real_schedule.mjs';
+import {loadRuntimeInputs, availability, toEnginePlace, validateDay} from '../../scripts/validate_real_schedule.mjs';
 import {buildConsensus} from './consensus.ts';
 import {distanceWeightFor, groupTradeoffs, slotsPerDayFor, spendCapFor} from './inputs.ts';
 import {withPlaceCatalog} from './places.ts';
@@ -94,7 +94,8 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
         placeId: item.place_id, aiAdded: false, filled: false, source: 'selected',
         reasonCode: 'reviewed_date_and_limits',
         reason: '선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.'
-          + (item.cost_status === 'not_applicable_shopping' ? ' 쇼핑 구매액은 비용 합계에서 제외됩니다.' : ''),
+          + (item.cost_status === 'not_applicable_shopping' ? ' 쇼핑 구매액은 비용 합계에서 제외됩니다.' : '')
+          + (item.cost_status === 'estimate' ? ' 비용은 공식 평균예산을 이용한 추정입니다.' : ''),
         startMin: item.start_min, endMin: item.end_min,
       })), metrics: {
         walkSteps: trial?.totals.estimated_steps ?? 0,
@@ -132,8 +133,10 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
     };
     const mean = key => days.reduce((total, day) => total + day.metrics[key], 0) / days.length;
     const routes = days.map(day => day.placeIds.map(id => {
-      const p = byId.get(id).place; return {lat: p.latitude, lng: p.longitude};
+      const r = byId.get(id), p = r.place;
+      return {id, lat: p.latitude, lng: p.longitude, buildingId: r.review.building_id ?? r.review.within?.building_id};
     }));
+    const estimatedCost = [...scheduled].some(id => byId.get(id).field_sources.cost?.kind === 'official_budget_estimate');
     return {strategy, days, planning, metrics: {
       walkStepsPerDay: Math.round(mean('walkSteps')), costKrwPerDay: Math.round(mean('costKrw')), totalKmPerDay: roundKm(mean('totalKm')),
     }, explanationSource: 'rules', summary: `${LABELS[strategy]} 전략으로 실제 선택 장소 ${scheduled.size}곳을 배치한 초안입니다.`
@@ -141,7 +144,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
       + (conflicts ? ` 꼭 가기와 거부 조건이 충돌한 장소가 ${conflicts}곳 있어 거부 조건을 우선 적용했습니다.` : '')
       + (missingMust ? ' 꼭 가는 장소 조건이 충족되지 않았습니다.' : '')
       + (emptyDays ? ` 일정이 비어 있는 날짜가 ${emptyDays}일입니다.` : '')
-      + ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다.'
+      + (estimatedCost ? ' 비용에는 공식 평균예산 추정이 포함됩니다. 쇼핑·교통·숙박은 제외합니다.'
+        : ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다.')
+      + ' 걸음 수는 장소 사이 이동만 계산한 추정입니다.'
       + ` 환율: 1엔=${request.exchange_rate.krw_per_jpy}원 (${request.exchange_rate.as_of ?? '기준일 미지정'}).`
       + ' 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다.' + routingSummary(routes)};
   });
@@ -160,7 +165,7 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     const request = JSON.parse(fs.readFileSync(0, 'utf8'));
-    const {dataset, profiles} = loadInputs();
+    const {dataset, profiles} = loadRuntimeInputs();
     process.stdout.write(JSON.stringify(await calculateRealCandidates(request, dataset, profiles)) + '\n');
   } catch (error) { process.stderr.write(error.message + '\n'); process.exitCode = 1; }
 }

@@ -152,7 +152,7 @@ export function PlaceRow({ place: p, picked, vetoed, isMust, disabled, votes, on
             <p className="mt-1 text-[11.5px] leading-relaxed text-ink-500">{p.blurb}</p>
           </div>
           <div className="shrink-0 text-right">
-            <div className="text-[12px] font-semibold tabular-nums">{p.cost ? won(p.cost) : "무료"}</div>
+            <div className="text-[12px] font-semibold tabular-nums">{p.costKnown === false ? "비용 확인 필요" : p.cost ? `${p.costEstimated ? "예산 추정 " : ""}${won(p.cost)}` : "무료"}</div>
             {vetoed && <div className="mt-1 text-[10.5px] font-bold text-coral-500">제외</div>}
           </div>
         </div>

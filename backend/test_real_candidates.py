@@ -98,7 +98,7 @@ class RealCandidatesTests(unittest.TestCase):
         room=self.ready_room();store=Store(self.db,Engine().catalog)
         good=CandidateEngine(Engine().node).calculate(store.snapshot(room['roomId'],room['ownerToken']))
         metadata={'dataset':'osaka_review_150','start':'2026-10-01','end':'2026-10-02'}
-        ids={p['place_id'] for p in self.req('GET','/api/places?limit=150')[1]['places']}
+        ids=store.real_ids # Validation needs the full catalog, not just its first page.
         for code in ('price_2027_unconfirmed','OAP_reopening_unconfirmed','regular_closure','A'*100,
                      '', 'price unconfirmed', 'member@example.com', 'price-2027', 'A'*101, 'a\n'):
             with self.subTest(code=code):

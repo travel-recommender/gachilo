@@ -1,7 +1,7 @@
 /** Actual catalogue adapter: selected IDs only, no popularity or automatic fillers. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
-import {loadInputs, availability, validateDay} from '../../scripts/validate_real_schedule.mjs';
+import {loadRuntimeInputs, availability, validateDay} from '../../scripts/validate_real_schedule.mjs';
 
 import {withRouting, routingSummary, routingLimitations, hasRoutingContext} from './routing.ts';
 
@@ -57,7 +57,7 @@ export function calculateReal(request, dataset, profiles) {
   for (const failure of failures) for (const reason of failure.reasons) reasons[reason] = (reasons[reason] || 0) + 1;
   const complete = scheduled.size > 0 && !missingMust && failures.length === 0;
   const finalCoordinates = days.map(day => day.placeIds.map(id => {
-    const p = byId.get(id).place; return {lat:p.latitude, lng:p.longitude};
+    const r = byId.get(id), p = r.place; return {id, lat:p.latitude, lng:p.longitude, buildingId:r.review.building_id ?? r.review.within?.building_id};
   }));
   return {
     result: {strategy: 'average', days,
@@ -96,7 +96,7 @@ export async function calculateRealWithRouting(request, dataset, profiles, routi
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     const request = JSON.parse(fs.readFileSync(0, 'utf8'));
-    const {dataset, profiles} = loadInputs();
+    const {dataset, profiles} = loadRuntimeInputs();
     process.stdout.write(JSON.stringify(await calculateRealWithRouting(request, dataset, profiles)) + '\n');
   } catch (error) { process.stderr.write(error.message + '\n'); process.exitCode = 1; }
 }

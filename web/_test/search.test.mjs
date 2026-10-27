@@ -98,3 +98,24 @@ test("the real catalog Umeda observatory name accepts its building aliases", () 
   assert.equal(imported.id, "osaka_007");
   assert.equal(imported.name, source.name_ko);
 });
+
+
+test("expanded final catalog searches all 205 records, including original Japanese and English names", () => {
+  const {toPlace}=require("../src/lib/catalog.ts");
+  const rows=Array.from({length:205},(_,i)=>toPlace({place_id:`branch_${i}`,name:`GU JAPAN ${i}`,name_ko:`지유 지점 ${i}`,category:"쇼핑",area:null,address:null,latitude:null,longitude:null,stay_min:null,bag_load:null,covered:null,cost_krw:null}));
+  assert.equal(searchPlaces(rows,"GU",rows.length).length,205);
+  assert.equal(searchPlaces(rows,"지유 지점 204",rows.length)[0].id,"branch_204");
+  const cultural={...rows[0],category:"culture",categoryLabel:"복합문화",searchNames:["天王寺公園"]};
+  assert.equal(searchPlaces([cultural],"복합문화")[0].id,cultural.id);
+  assert.equal(searchPlaces([cultural],"天王寺公園")[0].id,cultural.id);
+});
+
+
+test("published branch data finds the missing Ichiran branches in the actual UI search", () => {
+  const {toPlace}=require("../src/lib/catalog.ts");
+  const data=JSON.parse(fs.readFileSync(new URL("../../data/final/osaka_catalog_20261026.json",import.meta.url),"utf8"));
+  const places=data.places.map(r=>toPlace({...r.place,cost_krw:null}));
+  for(const [q,id] of [["이치란 아베노","branch_ichiran_abeno"],["이치란 신사이바시","branch_ichiran_shinsaibashi"]])
+    assert.ok(searchPlaces(places,q,places.length).some(p=>p.id===id),q);
+  assert.equal(searchPlaces(places,"이치란",places.length).length,7);
+});

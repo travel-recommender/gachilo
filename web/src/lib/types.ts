@@ -49,6 +49,12 @@ export interface Place {
   address?: string;
   /** 사용자가 직접 추가한 장소인가 (좌표·비용이 추정값) */
   custom?: boolean;
+  categoryLabel?: string;
+  searchNames?: string[];
+  catalogStatus?: string;
+  selectionDisabledReason?: string | null;
+  costKnown?: boolean;
+  costEstimated?: boolean;
 }
 
 export interface Member {

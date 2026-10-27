@@ -2,7 +2,7 @@
  * 서버 API 클라이언트.
  * 계약 원본은 backend/README.md 「API 계약」이다. 여기서 임의로 경로를 만들지 않는다.
  */
-import type { ApiCatalogPlace } from "./catalog";
+import { loadCatalogPages, type CatalogPage } from "./catalog-pages";
 
 export interface RoomMember {
   id: string;
@@ -178,8 +178,8 @@ export const roomApi = {
       startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}), ...(dataset ? { dataset } : {}),
     }),
 
-  /** 실제 장소 150곳. 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
-  realPlaces: () => request<{ dataset: string; places: ApiCatalogPlace[] }>("/api/places?limit=150"),
+  /** 실제 장소 전체(현재 205곳). 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
+  realPlaces: () => loadCatalogPages((offset) => request<CatalogPage>(`/api/places?limit=150&offset=${offset}`)),
 
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>

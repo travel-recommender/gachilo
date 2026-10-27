@@ -33,7 +33,7 @@ class RealRoomTests(unittest.TestCase):
             self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25]])[0],200)
         code,data,_=self.calculate(room)
         self.assertEqual(code,200);self.assertEqual(data['status'],'draft')
-        self.assertEqual(data['planning']['catalog_count'],150)
+        self.assertEqual(data['planning']['catalog_count'],self.req('GET','/api/places?limit=1')[1]['total'])
         self.assertEqual(data['planning']['status'],'needs_review')
         ids={id for d in data['result']['days'] for id in d['placeIds']}
         self.assertTrue(ids);self.assertTrue(ids <= {p['place_id'] for p in places})

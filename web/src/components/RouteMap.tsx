@@ -28,7 +28,7 @@ function project(items: ScheduleItem[]) {
 }
 
 export function RouteMap({ plan }: { plan: DayPlan }) {
-  const items = plan.items;
+  const items = plan.items.filter((i) => Number.isFinite(i.place.lat) && Number.isFinite(i.place.lng));
   if (items.length === 0) {
     return <p className="py-8 text-center text-[12px] text-ink-300">표시할 장소가 없어요.</p>;
   }

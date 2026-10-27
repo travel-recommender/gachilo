@@ -332,10 +332,12 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     self.send_response(200);self.send_header('Content-Type',mime+'; charset=utf-8');self.send_header('Cache-Control','no-store');self.send_header('Referrer-Policy','no-referrer');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw);return
                 if self.command=='GET' and path=='/api/places':
                     qs=parse_qs(urlsplit(self.path).query)
-                    try:limit=int(qs.get('limit',['150'])[0])
+                    try:
+                        limit=int(qs.get('limit',['150'])[0]);offset=int(qs.get('offset',['0'])[0])
                     except ValueError:raise ApiError(400,'limit는 1~150 정수여야 합니다.')
                     require(1<=limit<=150,'limit는 1~150 정수여야 합니다.')
-                    return self.send_json(200,catalog(qs.get('q',[''])[0],qs.get('category',[None])[0],limit))
+                    require(offset>=0,'offset은 0 이상의 정수여야 합니다.')
+                    return self.send_json(200,catalog(qs.get('q',[''])[0],qs.get('category',[None])[0],limit,offset=offset))
                 if self.command=='GET' and path=='/places':return self.send_json(200,{'dataset':'prototype_demo_36','currency':'KRW','places':engine.catalog})
                 m=re.fullmatch(r'/rooms/([\w-]+)/calculate',path)
                 if m and self.command=='POST':

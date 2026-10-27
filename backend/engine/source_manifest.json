@@ -3,7 +3,7 @@
     "source": "web/src/lib/types.ts",
     "file": "types.ts",
     "sha256": "c5d81c7098ab84f74949492e93ce1c6a3c68555cccf3344ce6175340a1cab4ff",
-    "change": "Relative imports use .ts for Node. Server Place.popularity is optional because the real catalogue has no measured popularity; do not fabricate popularity during a future browser sync. sha256 records the original browser source, not the modified server file."
+    "change": "Relative imports use .ts for Node. Server Place.popularity is optional because the real catalogue has no measured popularity; do not fabricate popularity during a future browser sync. sha256 records the original browser source, not the modified server file. Server-only optional mealRole, buildingId, openingWindows and lastEntry carry verified branch planning constraints; do not remove during browser sync."
   },
   {
     "source": "web/src/lib/places.ts",
@@ -21,6 +21,6 @@
     "source": "web/src/lib/schedule.ts",
     "file": "schedule.ts",
     "sha256": "2e4b6a8b8a88a29f194b1186e9e2866b139b242d1590fc686ab17dee4cc5a3c5",
-    "change": "Relative imports get .ts extension for Node native TypeScript execution; algorithm unchanged."
+    "change": "Relative imports use .ts for Node. Server-only mealRole keeps snack/takeout out of meal slots; fitOpening enforces split openingWindows and lastEntry. Preserve these date-validated branch constraints when syncing browser sources. sha256 records the original browser source, not this modified server file."
   }
 ]

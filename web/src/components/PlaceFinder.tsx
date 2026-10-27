@@ -29,7 +29,7 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
   // 방의 장소 목록을 확인하기 전에 고르면 방과 맞지 않는 장소가 담길 수 있다
   const notice = catalog === "loading" ? "장소 목록을 불러오는 중이에요…"
     : catalog === "error" ? "장소 목록을 불러오지 못했어요. 새로고침해 주세요." : null;
-  const results = useMemo(() => searchPlaces(pool, query), [pool, query]);
+  const results = useMemo(() => query.trim() ? searchPlaces(pool, query, pool.length) : pool, [pool, query]);
   // 여행방에서는 서버 장소 목록에 있는 id만 저장된다. 서버 장소 등록이 생기기 전까지 직접 추가를 막는다
   const canAdd = !state.room;
 
@@ -55,20 +55,24 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
 
       {notice && <p className="mt-1.5 text-[11.5px] font-medium text-wine">{notice}</p>}
 
-      {open && query.trim() && !adding && !notice && (
+      {!notice && <p className="mt-1.5 text-[11.5px] text-mute">전체 {pool.length}곳 · 검색창을 누르면 전체 목록을 볼 수 있어요. 확인 중인 곳은 자동 일정에서 빠질 수 있어요.</p>}
+
+      {open && !adding && !notice && (
         // 목록을 누르는 동안 입력창 포커스가 빠지며 목록이 닫히지 않게 한다
         <div onMouseDown={(e) => e.preventDefault()} className="absolute inset-x-0 top-[50px] z-30 max-h-[300px] overflow-y-auto rounded-[6.795px] border border-line bg-white shadow-card">
+          <p className="sticky top-0 bg-white px-4 py-2 text-[12px] text-mute">전체 {pool.length}곳 · {query.trim() ? "검색 결과" : "목록"} {results.length}곳</p>
           {results.map((p) => {
             const done = added.includes(p.id);
             return (
-              <button key={p.id} disabled={done} onClick={() => pick(p)}
+              <button key={p.id} disabled={done || !!p.selectionDisabledReason} title={p.selectionDisabledReason ?? undefined} onClick={() => pick(p)}
                 className="flex w-full items-center justify-between gap-3 border-b border-line-faint px-4 py-2.5 text-left last:border-0 disabled:opacity-50">
                 <span className="min-w-0">
                   <span className="block truncate text-[15px] font-medium">{p.name}</span>
                   <span className="block truncate text-[10px] font-medium text-mute-soft">{placeLine(p)}</span>
+                  {p.catalogStatus && <span className="block text-[10px] text-mute">{p.catalogStatus}{p.costEstimated ? " · 예산 추정" : ""}{!Number.isFinite(p.lat) || !Number.isFinite(p.lng) ? " · 좌표 확인 필요" : ""}</span>}
                 </span>
                 <span className="shrink-0 text-[12px] font-extrabold text-wine">
-                  {done ? "추가됨" : CATEGORY_MAP[p.category].label}
+                  {done ? "추가됨" : p.categoryLabel ?? CATEGORY_MAP[p.category].label}
                 </span>
               </button>
             );
