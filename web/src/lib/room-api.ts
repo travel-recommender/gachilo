@@ -181,6 +181,10 @@ export const roomApi = {
   /** 실제 장소 150곳. 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
   realPlaces: () => request<{ dataset: string; places: ApiCatalogPlace[] }>("/api/places?limit=150"),
 
+  /** 150곳 중 이 방 날짜에 일정 검사를 통과할 수 있는 곳 (36곳 방이면 null) */
+  schedulable: (roomId: string, token: string) =>
+    request<{ roomId: string; placeIds: string[] | null }>(`/rooms/${encodeURIComponent(roomId)}/schedulable`, "GET", undefined, token),
+
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>
     request<ApiRoomInfo>(`/rooms/${encodeURIComponent(roomId)}`, "GET", undefined, token),

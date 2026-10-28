@@ -23,8 +23,10 @@ function datesFor(request) {
 /** Call the existing strategy implementation separately for each date/strategy.
  * Only picked, date-eligible real places enter its registry, so neither consensus nor scheduling
  * can introduce a demo place or an unreviewed filler. Missing popularity is left missing.
+ * listed: places someone put in their step-1 list (P3) without marking 꼭 가기. They are tried
+ * after the picks to fill empty slots — still only places a member chose, never the rest of the catalogue.
  */
-function calculatePrepared(request, dataset, profiles, dates, picked) {
+function calculatePrepared(request, dataset, profiles, dates, picked, listed = []) {
   const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
   const vetoes = new Set(request.submissions.flatMap(s => s.vetoes ?? (s.veto ? [s.veto] : [])));
   const musts = new Set(request.submissions.flatMap(s => s.musts ?? (s.must ? [s.must] : [])));
@@ -43,7 +45,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
     krw_per_jpy: request.exchange_rate.krw_per_jpy,
   };
   const validationOptions = {allowShopping: true, candidateMetrics: true, distanceWeight: distanceWeightFor(tradeoffs.distance)};
-  const eligibleByDate = dates.map(date => [...picked].filter(id => !vetoes.has(id)).flatMap(id => {
+  const eligibleByDate = dates.map(date => [...picked, ...listed].filter(id => !vetoes.has(id)).flatMap(id => {
     const record = byId.get(id);
     const check = record && availability(record, date, profiles, {allowShopping: true});
     if (!check?.eligible_for_model) return [];
@@ -52,7 +54,10 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
   const candidates = STRATEGIES.map(strategy => {
     const scheduled = new Set();
     const days = dates.map((date, index) => {
-      const catalogue = eligibleByDate[index].filter(p => !scheduled.has(p.id));
+      const catalogue = eligibleByDate[index].filter(p => !scheduled.has(p.id) && picked.has(p.id));
+      // 남은 날짜에 고르게 나눈다. 첫날에 자리 수만큼 몰아 넣으면 장소가 적을 때 뒷날이 빈다.
+      const remaining = new Set(eligibleByDate.slice(index).flat().map(p => p.id).filter(id => !scheduled.has(id)));
+      const share = Math.min(slots, Math.max(1, Math.ceil(remaining.size / (dates.length - index))));
       // 전략에게 그날 후보 전체의 순서를 받는다. 자리 수(slotsPerDay)를 후보 수만큼 열어 두어
       // 앞 순위가 시간·예산 검사에서 떨어져도 다음 순위로 빈자리를 채울 수 있게 한다.
       const consensus = withPlaceCatalog(catalogue, () => buildConsensus({
@@ -62,7 +67,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
       const ranked = [...consensus.core, ...consensus.excluded.filter(s => s.excluded === 'time' || s.excluded === 'budget')]
         .map(s => s.place.id);
       // 꼭 가기는 전략과 무관하게 먼저 시도한다. 검사(운영·예산·걷기·활동시간)는 우회하지 않는다.
-      const queue = [...ranked.filter(id => musts.has(id)), ...ranked.filter(id => !musts.has(id))];
+      // My list에만 있는 곳은 전략 순위 뒤에, 여러 명이 담은 곳부터 시도한다.
+      const fillers = listed.filter(id => !scheduled.has(id) && eligibleByDate[index].some(p => p.id === id));
+      const queue = [...ranked.filter(id => musts.has(id)), ...ranked.filter(id => !musts.has(id)), ...fillers];
       let accepted = [], trial = null;
       const tryAdd = id => {
         const next = validateDay({...limits, date, place_ids: [...accepted, id]}, dataset, profiles, validationOptions);
@@ -78,8 +85,8 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
       // 1) 1순위 꼭 가기는 자리 수와 상관없이 먼저 시도한다 (기존 consensus의 '전원 1순위는 코어' 정책과 같음).
       for (const id of queue.filter(id => firstMusts.has(id))) tryAdd(id);
       queue.splice(0, queue.length, ...queue.filter(id => !firstMusts.has(id)));
-      // 2) 나머지는 pace 자리 수까지만 채운다.
-      while (queue.length && accepted.length < slots) {
+      // 2) 나머지는 pace 자리 수와 고르게 나눈 몫(share)까지만 채운다.
+      while (queue.length && accepted.length < share) {
         let i = 0;
         if (strategy === 'least_misery' && !musts.has(queue[0])) {
           const rates = request.submissions.map(keptRate);
@@ -92,8 +99,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
       accepted.forEach(id => scheduled.add(id));
       return {date, placeIds: accepted, items: (trial?.items ?? []).map(item => ({
         placeId: item.place_id, aiAdded: false, filled: false, source: 'selected',
-        reasonCode: 'reviewed_date_and_limits',
-        reason: '선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.'
+        reasonCode: picked.has(item.place_id) ? 'reviewed_date_and_limits' : 'listed_reviewed_date_and_limits',
+        reason: (picked.has(item.place_id) ? '선택 장소' : '모두가 찾아온 곳')
+          + ' 중 방문일 운영 조건과 일일 한도 검사 통과.'
           + (item.cost_status === 'not_applicable_shopping' ? ' 쇼핑 구매액은 비용 합계에서 제외됩니다.' : ''),
         startMin: item.start_min, endMin: item.end_min,
       })), metrics: {
@@ -143,7 +151,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
       + (emptyDays ? ` 일정이 비어 있는 날짜가 ${emptyDays}일입니다.` : '')
       + ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다.'
       + ` 환율: 1엔=${request.exchange_rate.krw_per_jpy}원 (${request.exchange_rate.as_of ?? '기준일 미지정'}).`
-      + ' 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다.' + routingSummary(routes)};
+      + ' 누구도 찾아오지 않은 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다.' + routingSummary(routes)};
   });
   return {candidates};
 }
@@ -151,10 +159,15 @@ function calculatePrepared(request, dataset, profiles, dates, picked) {
 export async function calculateRealCandidates(request, dataset, profiles, routingOptions = {}) {
   const dates = datesFor(request);
   const picked = new Set(request.submissions.flatMap(s => s.picks));
-  const points = dataset.places.filter(r => picked.has(r.place.place_id))
+  // 각자 1차 목록에 담은 곳. 여러 명이 담은 곳부터 (같으면 처음 담긴 순서)
+  const votes = new Map();
+  request.submissions.forEach(s => (s.longlist ?? []).forEach(id => { if (!picked.has(id)) votes.set(id, (votes.get(id) ?? 0) + 1); }));
+  const listed = [...votes.keys()].sort((a, b) => votes.get(b) - votes.get(a));
+  const routed = new Set([...picked, ...listed]);
+  const points = dataset.places.filter(r => routed.has(r.place.place_id))
     .map(r => ({lat: r.place.latitude, lng: r.place.longitude}));
   // One routing snapshot is reused by every strategy so OSRM work is bounded, not tripled.
-  return withRouting(points, () => calculatePrepared(request, dataset, profiles, dates, picked), routingOptions);
+  return withRouting(points, () => calculatePrepared(request, dataset, profiles, dates, picked, listed), routingOptions);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

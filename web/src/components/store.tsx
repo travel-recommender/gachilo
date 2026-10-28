@@ -85,7 +85,7 @@ const INITIAL: AppState = {
  * 이 방이 보는 장소 목록.
  * - demo: 서버 없는 데모이거나 36곳 방 (웹 안의 places.ts)
  * - loading: 방에 들어왔고 어느 목록인지 확인하는 중 — 이때 고른 장소는 방과 맞지 않을 수 있어 검색을 막는다
- * - real: 실제 장소 150곳
+ * - real: 실제 장소 150곳 중 이 방 날짜에 일정에 넣을 수 있는 곳
  * - error: 목록을 못 불러왔다
  */
 export type CatalogStatus = "demo" | "loading" | "real" | "error";
@@ -310,8 +310,13 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
           if (live) { setCatalog(null); setCatalogStatus("demo"); }
           return;
         }
-        const { places } = await roomApi.realPlaces();
-        if (live) { setCatalog(places.map(toPlace)); setCatalogStatus("real"); }
+        // 폐업·검토 전·방문일 휴무처럼 일정에 못 넣는 곳은 고를 수 없게 처음부터 뺀다 (P8이 비는 원인이었다)
+        const [{ places }, { placeIds }] = await Promise.all([
+          roomApi.realPlaces(), roomApi.schedulable(roomId, roomToken),
+        ]);
+        const usable = placeIds ? new Set(placeIds) : null;
+        const list = places.filter((p) => !usable || usable.has(p.place_id)).map(toPlace);
+        if (live) { setCatalog(list); setCatalogStatus("real"); }
       } catch {
         if (live) setCatalogStatus("error");
       }

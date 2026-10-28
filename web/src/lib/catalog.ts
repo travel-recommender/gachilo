@@ -48,5 +48,6 @@ export function toPlace(p: ApiCatalogPlace): Place {
     popularity: 0.5,
     blurb: "",
     address: p.address ?? undefined,
+    originalName: p.name_ko?.trim() && p.name !== p.name_ko.trim() ? p.name : undefined,
   };
 }
