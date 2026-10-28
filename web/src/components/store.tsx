@@ -17,7 +17,7 @@ import { ApiError, nightsBetween, roomApi, toDateRange, type ApiPool, type ApiRe
 import { editedState, joinedState, rejoinedState, restoredFromServer } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
-import { REAL_DATASET, toPlace } from "@/lib/catalog";
+import { REAL_DATASET, roomCatalog } from "@/lib/catalog";
 import { toServerTradeoffs } from "@/lib/tradeoff";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
@@ -85,7 +85,7 @@ const INITIAL: AppState = {
  * 이 방이 보는 장소 목록.
  * - demo: 서버 없는 데모이거나 36곳 방 (웹 안의 places.ts)
  * - loading: 방에 들어왔고 어느 목록인지 확인하는 중 — 이때 고른 장소는 방과 맞지 않을 수 있어 검색을 막는다
- * - real: 실제 장소 150곳
+ * - real: 실제 장소 150곳 중 이 방 날짜에 일정에 넣을 수 있는 곳
  * - error: 목록을 못 불러왔다
  */
 export type CatalogStatus = "demo" | "loading" | "real" | "error";
@@ -310,8 +310,12 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
           if (live) { setCatalog(null); setCatalogStatus("demo"); }
           return;
         }
-        const { places } = await roomApi.realPlaces();
-        if (live) { setCatalog(places.map(toPlace)); setCatalogStatus("real"); }
+        // 전체를 검색하되 방문일 검사에서 탈락한 장소는 사유를 표시하고 선택을 막는다.
+        const [{ places }, { placeIds }] = await Promise.all([
+          roomApi.realPlaces(), roomApi.schedulable(roomId, roomToken),
+        ]);
+        const list = roomCatalog(places, placeIds);
+        if (live) { setCatalog(list); setCatalogStatus("real"); }
       } catch {
         if (live) setCatalogStatus("error");
       }

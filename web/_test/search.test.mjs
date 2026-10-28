@@ -119,3 +119,39 @@ test("published branch data finds the missing Ichiran branches in the actual UI 
     assert.ok(searchPlaces(places,q,places.length).some(p=>p.id===id),q);
   assert.equal(searchPlaces(places,"이치란",places.length).length,7);
 });
+
+test("real places can be found by their original Japanese or English name", () => {
+  const { toPlace } = require("../src/lib/catalog.ts");
+  const base = { area: "大阪市中央区", address: null, latitude: 34.66, longitude: 135.5, stay_min: 60, bag_load: 0, covered: null, cost_krw: null };
+  const pool = [
+    toPlace({ ...base, place_id: "osaka_001", name: "道頓堀グリコサイン", name_ko: "도톤보리 글리코 사인", category: "명소" }),
+    toPlace({ ...base, place_id: "osaka_008", name: "HEP FIVE観覧車", name_ko: "HEP FIVE 관람차", category: "명소" }),
+    toPlace({ ...base, place_id: "osm_node_9875632529", name: "Brooklyn Roasting Company", name_ko: "브루클린 로스팅 컴퍼니", category: "카페" }),
+  ];
+  assert.deepEqual(searchPlaces(pool, "グリコ").map((p) => p.id), ["osaka_001"]);
+  assert.deepEqual(searchPlaces(pool, "brooklyn").map((p) => p.id), ["osm_node_9875632529"]);
+  assert.deepEqual(searchPlaces(pool, "観覧車").map((p) => p.id), ["osaka_008"]);
+  assert.deepEqual(toPlace({ ...base, place_id: "x", name: "道頓堀", name_ko: null, category: "명소" }).searchNames, ["道頓堀"]);
+});
+
+
+test("unknown coordinates cannot contaminate local preview or schedule metrics",()=>{
+ const {setCatalog}=require("../src/lib/places.ts");
+ const {buildConsensus,estimateWalkPerDay,distKm}=require("../src/lib/consensus.ts");
+ const {buildSchedule}=require("../src/lib/schedule.ts");
+ const bad={...PLACES[0],id:"unknown",lat:NaN,lng:NaN};
+ const good=PLACES[1];
+ setCatalog([bad,good]);
+ try {
+  const sub={memberId:"m",longlist:[bad.id,good.id],picks:[bad.id,good.id],must:bad.id,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720};
+  const result=buildConsensus({submissions:[sub],nights:0,strategy:"average"});
+  assert.ok(result.selections.every(s=>s.place.id!==bad.id));
+  assert.ok(Object.values(result.metrics).every(Number.isFinite));
+  assert.equal(estimateWalkPerDay([bad,good],1),0);
+  assert.equal(distKm(bad,good),Infinity);
+  const sel=p=>({place:p,votes:1,mustOf:null,tier:"core",participants:[]});
+  const scheduled=buildSchedule([sel(bad),sel(good)],1,{fillMeals:false});
+  assert.ok(scheduled.plans.every(p=>p.items.every(i=>i.place.id!==bad.id)&&Number.isFinite(p.totalKm)));
+  assert.ok(scheduled.dropped.some(s=>s.place.id===bad.id));
+ } finally {setCatalog(null);}
+});

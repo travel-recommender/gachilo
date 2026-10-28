@@ -25,12 +25,12 @@ class RealRoomTests(unittest.TestCase):
         with patch.dict(os.environ,FX):
             return self.req('POST',f"/rooms/{room['roomId']}/calculate",{'strategy':'average',**kwargs},room['ownerToken'])
 
-    def test_all_150_ids_can_be_saved_but_blocked_places_are_not_scheduled(self):
+    def test_nonexcluded_ids_can_be_saved_but_dated_blockers_are_not_scheduled(self):
         room=self.room(count=6)
         places=self.req('GET','/api/places?limit=150')[1]['places']
         self.assertEqual(len(places),150)
         for i,m in enumerate(room['members']):
-            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25]])[0],200)
+            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25] if not p.get('selection_disabled_reason')])[0],200)
         code,data,_=self.calculate(room)
         self.assertEqual(code,200);self.assertEqual(data['status'],'draft')
         self.assertEqual(data['planning']['catalog_count'],self.req('GET','/api/places?limit=1')[1]['total'])

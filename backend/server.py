@@ -1,5 +1,5 @@
 """Local week-5 API prototype. SQLite persistence; run: python3 server.py."""
-import argparse, hashlib, hmac, json, re, secrets, sqlite3
+import argparse, hashlib, hmac, json, re, secrets, sqlite3, subprocess
 from collections import Counter
 from contextlib import contextmanager
 from datetime import date, datetime, timedelta, timezone
@@ -32,7 +32,10 @@ def pin_ok(pin,stored):
 class Store(CandidateStore):
     def __init__(self,path,catalog=None):
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
-        self.real_ids={r["place"]["place_id"] for r in json.loads(DATA.read_text(encoding="utf-8"))["places"]}
+        real_records=json.loads(DATA.read_text(encoding="utf-8"))["places"]
+        self.real_ids={r["place"]["place_id"] for r in real_records}
+        self.excluded_real_ids={r["place"]["place_id"] for r in real_records
+            if r["review"].get("final_csv",{}).get("record_status")=="제외"}
         self.path=str(path)
         Path(path).parent.mkdir(parents=True,exist_ok=True)
         with self.connect() as c:
@@ -195,6 +198,8 @@ class Store(CandidateStore):
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
             ids=b['longlist']+b['picks']+[b[k] for k in ('must','veto') if b.get(k)]
             if allowed is not None:require(all(x in allowed for x in ids),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
+            if r['dataset']==REAL_DATASET:
+                require(not self.excluded_real_ids.intersection(b['longlist']+b['picks']),'제외된 장소를 목록에서 지운 뒤 다시 제출하세요.')
             c.execute('INSERT INTO submissions VALUES(?,?,?) ON CONFLICT(member_id) DO UPDATE SET payload=excluded.payload,updated=excluded.updated',(mid,json.dumps(payload),now()))
             c.execute('UPDATE rooms SET revision=revision+1 WHERE id=?',(rid,));c.execute('DELETE FROM results WHERE room_id=?',(rid,))
             c.execute('DELETE FROM candidate_results WHERE room_id=?',(rid,))
@@ -210,6 +215,8 @@ class Store(CandidateStore):
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
             if allowed is not None:require(all(x in allowed for x in v),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
+            if r['dataset']==REAL_DATASET:
+                require(not self.excluded_real_ids.intersection(v),'제외된 장소는 새 목록에 담을 수 없습니다.')
             c.execute('INSERT INTO longlists VALUES(?,?,?) ON CONFLICT(member_id) DO UPDATE SET ids=excluded.ids,updated=excluded.updated',(mid,json.dumps(v),now()))
         return {'saved':True,'memberId':mid}
     def pool(self,rid,token):
@@ -223,10 +230,16 @@ class Store(CandidateStore):
             ids=json.loads(row['ids']) if row['ids'] is not None else json.loads(row['payload'])['longlist'] if row['payload'] else None
             if ids is None:continue
             for x in ids:
+                if r['dataset']==REAL_DATASET and x in self.excluded_real_ids:continue
                 if x not in votes:order.append(x)
                 votes[x]+=1
         listed=sum(1 for row in rows if row['ids'] is not None or row['payload'])
         return {'roomId':rid,'listedCount':listed,'memberCount':len(rows),'placeIds':sorted(order,key=lambda x:-votes[x])}
+    def room_dates(self,rid,token):
+        with self.connect() as c:
+            c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token)
+        self.occupy_after_read(seat)
+        return r['dataset'],r['start'],r['end']
     def result(self,rid,token):
         with self.connect() as c:
             c.execute('BEGIN');r=self.room(c,rid);seat=self.authenticate(c,r,token)
@@ -300,6 +313,19 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
     engine=Engine()
     real_engine=RealEngine(engine.node)
     candidate_engine=CandidateEngine(engine.node)
+    schedulable_cache={}
+    def schedulable(rid,token):
+        # Real places that pass the engine's date checks on at least one trip date, so P3/P4 offer only places P8 can use.
+        dataset,start,end=store.room_dates(rid,token)
+        if dataset!=REAL_DATASET:return {'roomId':rid,'placeIds':None}
+        if (start,end) not in schedulable_cache:
+            d0,d1=date.fromisoformat(start),date.fromisoformat(end)
+            dates=[(d0+timedelta(days=i)).isoformat() for i in range((d1-d0).days+1)]
+            try:
+                out=subprocess.run([engine.node,str(Path(__file__).parent/'engine/schedulable.mjs')],input=json.dumps({'dates':dates}),capture_output=True,text=True,encoding='utf-8',timeout=60,check=True)
+                schedulable_cache[(start,end)]=json.loads(out.stdout)['placeIds']
+            except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('일정에 넣을 수 있는 장소를 확인하지 못했습니다. 다시 시도하세요.')
+        return {'roomId':rid,'placeIds':schedulable_cache[(start,end)]}
     store=Store(path,engine.catalog)
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
@@ -332,9 +358,10 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     self.send_response(200);self.send_header('Content-Type',mime+'; charset=utf-8');self.send_header('Cache-Control','no-store');self.send_header('Referrer-Policy','no-referrer');self.send_header('Content-Length',str(len(raw)));self.end_headers();self.wfile.write(raw);return
                 if self.command=='GET' and path=='/api/places':
                     qs=parse_qs(urlsplit(self.path).query)
-                    try:
-                        limit=int(qs.get('limit',['150'])[0]);offset=int(qs.get('offset',['0'])[0])
+                    try:limit=int(qs.get('limit',['150'])[0])
                     except ValueError:raise ApiError(400,'limit는 1~150 정수여야 합니다.')
+                    try:offset=int(qs.get('offset',['0'])[0])
+                    except ValueError:raise ApiError(400,'offset은 0 이상의 정수여야 합니다.')
                     require(1<=limit<=150,'limit는 1~150 정수여야 합니다.')
                     require(offset>=0,'offset은 0 이상의 정수여야 합니다.')
                     return self.send_json(200,catalog(qs.get('q',[''])[0],qs.get('category',[None])[0],limit,offset=offset))
@@ -382,6 +409,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 if self.command=='PUT' and m:return self.send_json(200,store.submit(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/longlists/([\w-]+)',path)
                 if self.command=='PUT' and m:return self.send_json(200,store.save_longlist(*m.groups(),token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/schedulable',path)
+                if self.command=='GET' and m:return self.send_json(200,schedulable(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
                 if self.command=='GET' and m:return self.send_json(200,store.pool(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/results',path)

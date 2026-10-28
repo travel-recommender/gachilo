@@ -27,3 +27,20 @@ test("verified branch conditions and budget estimates remain visible",()=>{
  assert.match(p.blurb,/평균예산/);assert.match(p.blurb,/15~17시/);
  assert.equal(p.lat,34.7042542);
 });
+
+
+test("shopping purchase exclusions remain distinct from unknown prices",()=>{
+ const shopping=toPlace({...place(1),cost_status:"not_applicable_shopping"});
+ assert.equal(shopping.shoppingSpendExcluded,true);
+ assert.equal(shopping.costKnown,false);
+ assert.equal(toPlace(place(2)).shoppingSpendExcluded,false);
+});
+test("room date checks preserve all 205 searchable entries but disable unavailable ones",async()=>{
+ const {roomCatalog}=await import("../src/lib/catalog.ts");
+ const rows=Array.from({length:205},(_,i)=>place(i));
+ const list=roomCatalog(rows,["branch_204"]);
+ assert.equal(list.length,205);
+ assert.equal(list[204].selectionDisabledReason,null);
+ assert.ok(list[0].selectionDisabledReason);
+ assert.equal(roomCatalog([{...rows[0],selection_disabled_reason:"폐업"}],["branch_0"])[0].selectionDisabledReason,"폐업");
+});

@@ -21,3 +21,39 @@ class RuntimeCatalogTests(unittest.TestCase):
         for catalog_path,profiles_path in [('custom.json',''),('','custom.json')]:
             with patch.dict('os.environ',{'REAL_CATALOG_PATH':catalog_path,'REAL_PROFILES_PATH':profiles_path}):
                 with self.assertRaisesRegex(ValueError,'함께'):runtime_paths()
+
+    def test_query_searches_the_same_names_exposed_to_web(self):
+        import tempfile
+        from decimal import Decimal
+        raw=json.loads(DATA.read_text(encoding='utf-8'))
+        record=raw['places'][-1]
+        record['review']['branch_collection']={'brand':'UniqueReviewBrand','official_name':'OfficialReviewName'}
+        with tempfile.TemporaryDirectory() as tmp:
+            path=__import__('pathlib').Path(tmp)/'catalog.json'
+            path.write_text(json.dumps({'places':[record]}))
+            for query in ['uniquereviewbrand','officialreviewname']:
+                self.assertEqual(catalog(query=query,path=path,rate=Decimal('9.2'))['total'],1)
+
+    def test_excluded_ids_rejected_without_erasing_existing_data(self):
+        import tempfile
+        from pathlib import Path
+        from server import Store
+        from api_errors import ApiError
+        with tempfile.TemporaryDirectory() as tmp:
+            store=Store(Path(tmp)/'db.sqlite3')
+            room=store.create({'dataset':'osaka_review_150','startDate':'2026-11-02','endDate':'2026-11-04','memberNames':['A','B']})
+            member=room['members'][0];rid=room['roomId'];mid=member['id'];token=member['submissionToken']
+            excluded=next(iter(store.excluded_real_ids));valid='branch_ichiran_shinsaibashi'
+            store.save_longlist(rid,mid,token,{'longlist':[valid]})
+            with self.assertRaises(ApiError):store.save_longlist(rid,mid,token,{'longlist':[excluded]})
+            self.assertEqual(store.pool(rid,token)['placeIds'],[valid])
+            body={'longlist':[valid],'picks':[valid],'must':valid,'veto':excluded,'budgetPerDay':50000,'stepLimit':15000,'activeMin':600}
+            store.submit(rid,mid,token,body)  # old/excluded places may still be vetoed
+            before=store.result(rid,token)['revision']
+            with self.assertRaises(ApiError):store.submit(rid,mid,token,{**body,'picks':[excluded],'must':excluded,'veto':None})
+            self.assertEqual(store.result(rid,token)['revision'],before)
+            with store.connect() as c:
+                c.execute('UPDATE longlists SET ids=? WHERE member_id=?',(json.dumps([valid,excluded]),mid))
+            self.assertEqual(store.pool(rid,token)['placeIds'],[valid])
+            with store.connect() as c:
+                self.assertIn(excluded,json.loads(c.execute('SELECT ids FROM longlists WHERE member_id=?',(mid,)).fetchone()['ids']))

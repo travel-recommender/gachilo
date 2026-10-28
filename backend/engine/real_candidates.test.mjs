@@ -173,3 +173,27 @@ test('each member\'s first must is tried even when it exceeds the pace slot coun
     assert.match(c.summary,/꼭 가는 장소 조건이 충족되지/);
   }
 });
+
+test('places only in someone\'s My list fill empty slots after the picks, never other catalogue places',async()=>{
+  // 꼭 가기는 한 곳뿐이고 나머지는 1차 목록에만 있다. 예전에는 꼭 가기 1곳만 넣고 남은 날짜를 비웠다.
+  const r=request([]);r.endDate='2026-10-03';
+  const lists=[['osaka_009','osaka_010','osaka_011'],['osaka_014','osaka_015'],['osaka_017','osaka_018']];
+  r.submissions.forEach((s,i)=>Object.assign(s,{longlist:lists[i],picks:i?[]:['osaka_009'],must:i?null:'osaka_009'}));
+  r.submissions[2].veto='osaka_018';
+  for(const c of (await run(r)).candidates){
+    const ids=c.days.flatMap(d=>d.placeIds);
+    assert.ok(ids.includes('osaka_009'),c.strategy);
+    assert.ok(ids.every(id=>lists.flat().includes(id)),c.strategy);
+    assert.ok(!ids.includes('osaka_018'),c.strategy);
+    assert.equal(c.planning.empty_day_count,0,c.strategy);
+    const filled=c.days.flatMap(d=>d.items).filter(i=>i.placeId!=='osaka_009');
+    assert.ok(filled.length&&filled.every(i=>i.source==='selected'&&!i.aiAdded&&!i.filled&&i.reasonCode==='listed_reviewed_date_and_limits'));
+  }
+});
+
+test('a few places are spread over the trip instead of all landing on day 1',async()=>{
+  const r=request(['osaka_009','osaka_010','osaka_011']);r.endDate='2026-10-03';
+  for(const c of (await run(r)).candidates){
+    assert.deepEqual(c.days.map(d=>d.placeIds.length),[1,1,1],c.strategy);
+  }
+});

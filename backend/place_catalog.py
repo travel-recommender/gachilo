@@ -74,6 +74,10 @@ def cost_krw(cost,rate):
     if rate is None:return None
     return int((n*rate).quantize(Decimal('1'),rounding=ROUND_HALF_UP))
 
+def search_names(record):
+    p=record['place'];branch=record['review'].get('branch_collection',{})
+    return list(dict.fromkeys(filter(None,[p['name'],p['name_ko'],branch.get('brand'),branch.get('official_name')])))
+
 def project(record,rate):
     p=record['place'];out={k:v for k,v in p.items() if k not in ('cost','opening_hours_source','verified_at')}
     shopping=p['category']=='쇼핑' or p['name_ko'] in LIGHT_SHOPPING_PLACES
@@ -103,7 +107,7 @@ def project(record,rate):
         out['coordinate_basis']=verified['coordinates']['kind']
         if verified['cost_kind']=='official_budget_estimate':out['cost_status']='estimate'
 
-    out['search_names']=list(dict.fromkeys(filter(None,[p['name'],p['name_ko'],branch.get('brand'),branch.get('official_name')])))
+    out['search_names']=search_names(record)
     out['selection_disabled_reason']='제외된 장소예요: '+out['record_status_reason'] if final.get('record_status')=='제외' else None
     out['planning']={'schedule_ready':False,'review_required':list(dict.fromkeys(reasons)),
       'shopping_spend_excluded':shopping,'stay_range':record['review'].get('stay_policy'),
@@ -113,7 +117,7 @@ def project(record,rate):
 def catalog(query='',category=None,limit=150,path=DATA,rate=None,offset=0):
     rate=exchange_rate(rate);raw=json.loads(Path(path).read_text(encoding='utf-8'))['places']
     matches=[r for r in raw if (not category or r['place']['category']==category) and
-      (not query or query.casefold() in (' '.join(str(r['place'].get(k) or '') for k in ('name','name_ko','area'))).casefold())]
+      (not query or query.casefold() in (' '.join(search_names(r)+[r['place'].get('area') or '',r['place'].get('address') or ''])).casefold())]
     return {'dataset':'osaka_review_150','total':len(matches),'currency':'KRW',
       'exchange_rate':exchange_rate_metadata(rate),
       'offset':offset,'next_offset':offset+limit if offset+limit<len(matches) else None,

@@ -115,6 +115,8 @@ export function availability(record, date, profiles, {allowShopping = false} = {
     if (!Array.isArray(window) || window.length !== 3 || !window.every(Number.isInteger)
         || window[0] < 0 || window[1] > 1440 || window[0] >= window[1]
         || window[2] < window[0] || window[2] > window[1]) reasons.push('invalid_time_window');
+    if (profile.windows && (profile.weekday_window || profile.extended_window)
+        && !override?.windows && !override?.window) reasons.push('split_window_rule_conflict');
     windows = override?.windows ?? (override?.window ? [window] : profile.windows ?? [window]);
     if (!Array.isArray(windows) || !windows.length || windows.some((w,i) => !Array.isArray(w) || w.length !== 3
         || !w.every(Number.isInteger) || w[0] < 0 || w[1] > 1440 || w[0] >= w[1]

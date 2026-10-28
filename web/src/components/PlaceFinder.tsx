@@ -21,6 +21,7 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
 }) {
   const { state, catalog, addPlace } = useTrip();
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(40);
   const [open, setOpen] = useState(false);
   const [adding, setAdding] = useState(false);
   const input = useRef<HTMLInputElement>(null);
@@ -29,7 +30,7 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
   // 방의 장소 목록을 확인하기 전에 고르면 방과 맞지 않는 장소가 담길 수 있다
   const notice = catalog === "loading" ? "장소 목록을 불러오는 중이에요…"
     : catalog === "error" ? "장소 목록을 불러오지 못했어요. 새로고침해 주세요." : null;
-  const results = useMemo(() => query.trim() ? searchPlaces(pool, query, pool.length) : pool, [pool, query]);
+  const results = useMemo(() => query.trim() ? searchPlaces(pool, query, pool.length) : catalog === "real" ? pool : [], [pool, query]);
   // 여행방에서는 서버 장소 목록에 있는 id만 저장된다. 서버 장소 등록이 생기기 전까지 직접 추가를 막는다
   const canAdd = !state.room;
 
@@ -43,8 +44,8 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
     <div className="relative">
       <div className="flex h-[46px] items-center rounded-[6.795px] border border-line bg-white pl-[23px] pr-[19px]">
         <input ref={input} value={query} placeholder={placeholder} aria-label={placeholder}
-          onChange={(e) => { setQuery(e.target.value); setOpen(true); setAdding(false); }}
-          onFocus={() => setOpen(true)}
+          onChange={(e) => { setQuery(e.target.value); setVisibleCount(40); setOpen(true); setAdding(false); }}
+          onFocus={() => { setVisibleCount(40); setOpen(true); }}
           onBlur={() => setOpen(false)}
           className="w-full bg-transparent text-[14px] font-semibold text-black outline-none placeholder:text-mute" />
         <button onClick={() => input.current?.focus()} aria-label="검색" className="shrink-0">
@@ -55,13 +56,13 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
 
       {notice && <p className="mt-1.5 text-[11.5px] font-medium text-wine">{notice}</p>}
 
-      {!notice && <p className="mt-1.5 text-[11.5px] text-mute">전체 {pool.length}곳 · 검색창을 누르면 전체 목록을 볼 수 있어요. 확인 중인 곳은 자동 일정에서 빠질 수 있어요.</p>}
+      {!notice && <p className="mt-1.5 text-[11.5px] text-mute">전체 {pool.length}곳 · 이름으로 검색하거나 목록을 더 볼 수 있어요. 방문일 조건이 확인되지 않은 곳은 선택할 수 없어요.</p>}
 
       {open && !adding && !notice && (
         // 목록을 누르는 동안 입력창 포커스가 빠지며 목록이 닫히지 않게 한다
         <div onMouseDown={(e) => e.preventDefault()} className="absolute inset-x-0 top-[50px] z-30 max-h-[300px] overflow-y-auto rounded-[6.795px] border border-line bg-white shadow-card">
           <p className="sticky top-0 bg-white px-4 py-2 text-[12px] text-mute">전체 {pool.length}곳 · {query.trim() ? "검색 결과" : "목록"} {results.length}곳</p>
-          {results.map((p) => {
+          {results.slice(0, visibleCount).map((p) => {
             const done = added.includes(p.id);
             return (
               <button key={p.id} disabled={done || !!p.selectionDisabledReason} title={p.selectionDisabledReason ?? undefined} onClick={() => pick(p)}
@@ -69,7 +70,7 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
                 <span className="min-w-0">
                   <span className="block truncate text-[15px] font-medium">{p.name}</span>
                   <span className="block truncate text-[10px] font-medium text-mute-soft">{placeLine(p)}</span>
-                  {p.catalogStatus && <span className="block text-[10px] text-mute">{p.catalogStatus}{p.costEstimated ? " · 예산 추정" : ""}{!Number.isFinite(p.lat) || !Number.isFinite(p.lng) ? " · 좌표 확인 필요" : ""}</span>}
+                  {p.catalogStatus && <span className="block text-[10px] text-mute">{p.selectionDisabledReason || p.catalogStatus}{p.costEstimated ? " · 예산 추정" : ""}{!Number.isFinite(p.lat) || !Number.isFinite(p.lng) ? " · 좌표 확인 필요" : ""}</span>}
                 </span>
                 <span className="shrink-0 text-[12px] font-extrabold text-wine">
                   {done ? "추가됨" : p.categoryLabel ?? CATEGORY_MAP[p.category].label}
@@ -77,7 +78,12 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
               </button>
             );
           })}
-          {results.length === 0 && (
+          {results.length > visibleCount && (
+            <button onClick={() => setVisibleCount(n => n + 40)} className="w-full border-t border-line p-3 text-[13px] font-bold text-wine">
+              더 보기 ({Math.min(visibleCount, results.length)}/{results.length}곳)
+            </button>
+          )}
+          {results.length === 0 && query.trim() && (
             <p className="px-4 py-3 text-[12.5px] text-mute">&quot;{query.trim()}&quot; 검색 결과가 없어요.</p>
           )}
           {canAdd && (

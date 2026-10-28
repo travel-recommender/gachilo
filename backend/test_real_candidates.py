@@ -71,7 +71,7 @@ class RealCandidatesTests(unittest.TestCase):
         places=self.req('GET','/api/places?limit=150')[1]['places'];self.assertEqual(len(places),150)
         ids={p['place_id'] for p in places}
         for i,m in enumerate(room['members']):
-            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25]])[0],200)
+            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25] if not p.get('selection_disabled_reason')])[0],200)
         code,result,_=self.calculate(room,revision=6)
         self.assertEqual(code,200)
         for c in result['candidates']:

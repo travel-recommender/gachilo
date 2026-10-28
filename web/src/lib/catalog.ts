@@ -50,6 +50,7 @@ export function toPlace(p: ApiCatalogPlace): Place {
     selectionDisabledReason: p.selection_disabled_reason,
     costKnown: p.cost_krw !== null,
     costEstimated: p.cost_status === "estimate",
+    shoppingSpendExcluded: p.cost_status === "not_applicable_shopping",
     cost: p.cost_krw ?? 0,
     stayMin: p.stay_min ?? 60,
     openFrom: 0,
@@ -61,4 +62,11 @@ export function toPlace(p: ApiCatalogPlace): Place {
     blurb: [p.cost_basis, ...(p.visit_conditions ?? [])].filter(Boolean).join(" · "),
     address: p.address ?? undefined,
   };
+}
+
+/** Keep every record searchable; unavailable records explain why they cannot be selected. */
+export function roomCatalog(places: ApiCatalogPlace[], placeIds: string[] | null): Place[] {
+  const usable = placeIds ? new Set(placeIds) : null;
+  return places.map(p => ({ ...toPlace(p), selectionDisabledReason: p.selection_disabled_reason
+    || (usable && !usable.has(p.place_id) ? "방문일 운영 조건이 확인되지 않아 일정에 담을 수 없어요." : null) }));
 }
