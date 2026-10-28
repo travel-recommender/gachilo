@@ -1,3 +1,4 @@
+import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS, CREATE_TIMEOUT_MS, CREATE_UNCERTAIN, JOIN_UNCERTAIN } from "./network-request.mjs";
 /**
  * 서버 API 클라이언트.
  * 계약 원본은 backend/README.md 「API 계약」이다. 여기서 임의로 경로를 만들지 않는다.
@@ -117,10 +118,10 @@ export class ApiError extends Error {
 export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
 const BASE = API_BASE;
 
-async function request<T>(path: string, method = "GET", body?: unknown, token?: string): Promise<T> {
-  let response: Response;
+async function request<T>(path: string, method = "GET", body?: unknown, token?: string, options: { timeoutMs?: number; uncertainMessage?: string } = {}): Promise<T> {
+  let received;
   try {
-    response = await fetch(BASE + path, {
+    received = await requestJson(BASE + path, {
       method,
       cache: "no-store",
       headers: {
@@ -128,15 +129,17 @@ async function request<T>(path: string, method = "GET", body?: unknown, token?: 
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       ...(body === undefined ? {} : { body: JSON.stringify(body) }),
-    });
-  } catch {
-    // 서버가 안 떠 있는 경우 — 화면에서 안내 문구로 바꿔 쓴다
-    throw new ApiError("서버에 연결하지 못했어요. 로컬 서버가 켜져 있는지 확인해 주세요.", 0);
+    }, options);
+  } catch (error) {
+    if (error instanceof NetworkRequestError) throw new ApiError(error.message, 0);
+    throw error;
   }
-
-  const value = await response.json().catch(() => ({}));
+  const { response, value } = received;
   if (!response.ok) {
-    throw new ApiError(value.error ?? "서버 요청을 처리하지 못했습니다.", response.status);
+    throw new ApiError(typeof value?.error === "string" ? value.error : "서버 요청을 처리하지 못했습니다.", response.status);
+  }
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new ApiError(options.uncertainMessage || "서버 응답을 읽을 수 없습니다.", response.status);
   }
   return value as T;
 }
@@ -176,7 +179,7 @@ export const roomApi = {
   create: (startDate: string, endDate: string, memberNames: string[], ownerPin?: string, dataset?: string) =>
     request<ApiRoom>("/rooms", "POST", {
       startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}), ...(dataset ? { dataset } : {}),
-    }),
+    }, undefined, { timeoutMs: CREATE_TIMEOUT_MS, uncertainMessage: CREATE_UNCERTAIN }),
 
   /** 실제 장소 150곳. 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
   realPlaces: () => request<{ dataset: string; places: ApiCatalogPlace[] }>("/api/places?limit=150"),
@@ -195,11 +198,11 @@ export const roomApi = {
 
   /** 이름을 고르거나(memberId) 목록에 없는 이름을 더한다(name) */
   claim: (roomId: string, inviteToken: string, pick: ({ memberId: string } | { name: string }) & { pin?: string }) =>
-    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/join`, "POST", pick, inviteToken),
+    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/join`, "POST", pick, inviteToken, { timeoutMs: CREATE_TIMEOUT_MS, uncertainMessage: JOIN_UNCERTAIN }),
 
   /** 이미 고른 내 이름에 PIN으로 다시 들어간다. 새 토큰이 나오고 이전 기기는 끊긴다 */
   rejoin: (roomId: string, inviteToken: string, memberId: string, pin: string) =>
-    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/rejoin`, "POST", { memberId, pin }, inviteToken),
+    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/rejoin`, "POST", { memberId, pin }, inviteToken, { timeoutMs: CREATE_TIMEOUT_MS, uncertainMessage: JOIN_UNCERTAIN }),
 
   /** 내가 저장한 입력. 그 참여자의 토큰으로만 읽힌다 (방장 토큰도 403) */
   mySubmission: (roomId: string, memberId: string, token: string) =>
@@ -252,6 +255,7 @@ export const roomApi = {
       `/rooms/${encodeURIComponent(room.roomId)}/calculate`,
       "POST",
       { strategy },
-      room.ownerToken
+      room.ownerToken,
+      { timeoutMs: CALCULATE_TIMEOUT_MS }
     ),
 };

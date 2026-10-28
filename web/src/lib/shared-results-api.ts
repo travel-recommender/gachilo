@@ -1,3 +1,4 @@
+import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS } from "./network-request.mjs";
 /** P7/P8 shared-result contract. Separate from the legacy single-strategy client. */
 export type SharedStrategy = "average" | "least_misery" | "fairness";
 export const SHARED_STRATEGIES: SharedStrategy[] = ["average", "least_misery", "fairness"];
@@ -51,16 +52,19 @@ export function selectedCandidate(snapshot: SharedResults): SharedCandidate | nu
 export function createSharedResultClient(baseUrl: string, fetcher: typeof fetch = fetch) {
   const base = baseUrl.replace(/\/$/, "");
   async function request(roomId: string, path: string, token: string, method: string,
-    body?: object, signal?: AbortSignal): Promise<SharedResults> {
-    const response = await fetcher(`${base}/rooms/${encodeURIComponent(roomId)}/${path}`, {
-      method, cache: "no-store", signal,
-      headers: { Authorization: `Bearer ${token}`, ...(body ? { "Content-Type": "application/json" } : {}) },
-      ...(body ? { body: JSON.stringify(body) } : {}),
-    });
-    const value = await response.json().catch((error: unknown) => {
-      if (signal?.aborted || (error instanceof DOMException && error.name === "AbortError")) throw error;
-      return null;
-    });
+    body?: object, signal?: AbortSignal, timeoutMs?: number): Promise<SharedResults> {
+    let received;
+    try {
+      received = await requestJson(`${base}/rooms/${encodeURIComponent(roomId)}/${path}`, {
+        method, cache: "no-store", signal,
+        headers: { Authorization: `Bearer ${token}`, ...(body ? { "Content-Type": "application/json" } : {}) },
+        ...(body ? { body: JSON.stringify(body) } : {}),
+      }, { fetcher, timeoutMs });
+    } catch (error) {
+      if (error instanceof NetworkRequestError) throw new SharedResultError(error.message, 0);
+      throw error;
+    }
+    const { response, value } = received;
     if (!response.ok) throw new SharedResultError(
       typeof value?.error === "string" ? value.error : "서버 결과를 불러오지 못했습니다.", response.status,
     );
@@ -73,7 +77,7 @@ export function createSharedResultClient(baseUrl: string, fetcher: typeof fetch 
     get: (roomId: string, roomToken: string, signal?: AbortSignal) =>
       request(roomId, "results", roomToken, "GET", undefined, signal),
     calculateAll: (roomId: string, ownerToken: string, revision: number, signal?: AbortSignal) =>
-      request(roomId, "calculate", ownerToken, "POST", { strategies: SHARED_STRATEGIES, revision }, signal),
+      request(roomId, "calculate", ownerToken, "POST", { strategies: SHARED_STRATEGIES, revision }, signal, CALCULATE_TIMEOUT_MS),
     select: (roomId: string, ownerToken: string, snapshot: Pick<SharedResults, "revision" | "selectionVersion">,
       strategy: SharedStrategy, signal?: AbortSignal) =>
       request(roomId, "selection", ownerToken, "PUT", {

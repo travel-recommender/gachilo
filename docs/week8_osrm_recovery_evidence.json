@@ -1,0 +1,614 @@
+[
+  {
+    "phase": "osrm_running",
+    "revision": 2,
+    "candidates": [
+      {
+        "strategy": "average",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 313,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 313,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "평균 만족 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 1구간, 직선거리×1.35 도보 추정 0구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      },
+      {
+        "strategy": "least_misery",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 313,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 313,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "최소 불만 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 1구간, 직선거리×1.35 도보 추정 0구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      },
+      {
+        "strategy": "fairness",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 313,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 313,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "공정성 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 1구간, 직선거리×1.35 도보 추정 0구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      }
+    ]
+  },
+  {
+    "phase": "osrm_stopped",
+    "revision": 3,
+    "candidates": [
+      {
+        "strategy": "average",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 290,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 290,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "평균 만족 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 0구간, 직선거리×1.35 도보 추정 1구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      },
+      {
+        "strategy": "least_misery",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 290,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 290,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "최소 불만 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 0구간, 직선거리×1.35 도보 추정 1구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      },
+      {
+        "strategy": "fairness",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 290,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 290,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "공정성 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 0구간, 직선거리×1.35 도보 추정 1구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      }
+    ]
+  },
+  {
+    "phase": "osrm_recovered",
+    "revision": 4,
+    "candidates": [
+      {
+        "strategy": "average",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 313,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 313,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "평균 만족 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 1구간, 직선거리×1.35 도보 추정 0구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      },
+      {
+        "strategy": "least_misery",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 313,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 313,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "최소 불만 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 1구간, 직선거리×1.35 도보 추정 0구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      },
+      {
+        "strategy": "fairness",
+        "days": [
+          {
+            "date": "2026-10-30",
+            "placeIds": [
+              "osaka_009",
+              "osaka_015"
+            ],
+            "items": [
+              {
+                "placeId": "osaka_009",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 540,
+                "endMin": 660
+              },
+              {
+                "placeId": "osaka_015",
+                "aiAdded": false,
+                "filled": false,
+                "source": "selected",
+                "reasonCode": "reviewed_date_and_limits",
+                "reason": "선택 장소 중 방문일 운영 조건과 일일 한도 검사 통과.",
+                "startMin": 663,
+                "endMin": 783
+              }
+            ],
+            "metrics": {
+              "walkSteps": 313,
+              "costKrw": 10350,
+              "totalKm": 0.2
+            }
+          }
+        ],
+        "planning": {
+          "status": "model_checks_passed",
+          "schedule_ready": false,
+          "exchange_rate": {
+            "krw_per_jpy": "8.6253",
+            "rounding": "ROUND_HALF_UP to integer KRW",
+            "as_of": "2026-09-30",
+            "source": "하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp",
+            "provenance_status": "documented",
+            "live_quote": false
+          },
+          "catalog_count": 150,
+          "scheduled_count": 2,
+          "unplaced_count": 0,
+          "must_satisfied": true,
+          "must_veto_conflict_count": 0,
+          "empty_day_count": 0,
+          "reason_aggregation": "common_across_dates",
+          "exclusion_reason_counts": {}
+        },
+        "metrics": {
+          "walkStepsPerDay": 313,
+          "costKrwPerDay": 10350,
+          "totalKmPerDay": 0.2
+        },
+        "explanationSource": "rules",
+        "summary": "공정성 전략으로 실제 선택 장소 2곳을 배치한 초안입니다. 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 걸음 수는 장소 사이 이동만 계산한 추정입니다. 환율: 1엔=8.6253원 (2026-09-30). 미선택 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다. 이동 계산: OSRM 도보 1구간, 직선거리×1.35 도보 추정 0구간, 대중교통 추정 0구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다."
+      }
+    ]
+  }
+]
