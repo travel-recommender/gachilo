@@ -2,10 +2,12 @@
 """Local rehearsal launcher. Keeps SQLite; stops only its own verified processes."""
 import argparse, json, os, shutil, signal, socket, subprocess, sys, time, urllib.request
 from pathlib import Path
+from demo_runtime import settings, executable
 ROOT=Path(__file__).resolve().parents[1]
-STATE=ROOT/'.local/demo'; STATE.mkdir(parents=True,exist_ok=True)
+STATE=ROOT/'.local/demo'
+CONFIG=settings(ROOT)
 WEB_PORT=3048; API_PORT=8048
-NODE=shutil.which('node') or str(Path.home()/'.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node')
+NODE=executable(CONFIG.get('NODE_BINARY'), 'node')
 ENV={**os.environ,'NODE_BINARY':NODE,'NEXT_TELEMETRY_DISABLED':'1',
  'NEXT_PUBLIC_API_BASE_URL':f'http://localhost:{API_PORT}','NEXT_PUBLIC_DATASET':os.environ.get('DEMO_DATASET','prototype_demo_36'),
  'NEXT_PUBLIC_BASE_PATH':'','NEXT_PUBLIC_GOOGLE_MAPS_API_KEY':'','SOMSOM_API_KEY':'','AI_MOCK':'',
@@ -23,7 +25,7 @@ def record(name):
 def owned(name):
  r=record(name)
  if not r:return None
- q=subprocess.run(['ps','-p',str(r['pid']),'-o','command='],capture_output=True,text=True)
+ q=subprocess.run(['ps','-ww','-p',str(r['pid']),'-o','command='],capture_output=True,text=True)
  return r if q.returncode==0 and r['marker'] in q.stdout and str(ROOT) in q.stdout else None
 
 def occupied(port):
@@ -38,6 +40,7 @@ def start(name,cmd,port,url,marker):
  if owned(name):
   print(name+': 이미 실행 중');return
  if occupied(port):raise SystemExit(f'{port} 포트가 다른 실행에 사용 중입니다. 자동 종료하지 않았습니다.')
+ STATE.mkdir(parents=True,exist_ok=True)
  with (STATE/(name+'.log')).open('a') as log:
   p=subprocess.Popen(cmd,cwd=ROOT,env=ENV,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
  (STATE/(name+'.json')).write_text(json.dumps({'pid':p.pid,'marker':marker}))
@@ -50,11 +53,16 @@ def start(name,cmd,port,url,marker):
 def stop(name):
  r=owned(name)
  if not r:print(name+': 이 실행기가 시작한 프로세스 없음');return
- os.killpg(r['pid'],signal.SIGTERM)
+ try:os.killpg(r['pid'],signal.SIGTERM)
+ except ProcessLookupError:pass
+ port=API_PORT if name=='api' else WEB_PORT
  for _ in range(40):
-  if not occupied(API_PORT if name=='api' else WEB_PORT):break
+  if not owned(name) and not occupied(port):break
   time.sleep(.1)
- print(name+': 중지 (입력·결과 DB 유지)')
+ if owned(name) or occupied(port):
+  raise SystemExit(f'{name}: 종료를 확인하지 못했습니다. 상태·로그를 확인하세요. 프로세스 기록과 DB는 보존했습니다.')
+ (STATE/(name+'.json')).unlink(missing_ok=True)
+ print(name+': 중지 확인 (입력·결과 DB 유지)')
 
 def api():
  cmd=[sys.executable,str(ROOT/'backend/server.py'),'--host','127.0.0.1','--port',str(API_PORT),'--origin',f'http://localhost:{WEB_PORT}','--db',str(ROOT/'.local/demo.sqlite3')]
@@ -69,11 +77,13 @@ def main():
   print('OSRM: '+('포트 열림 (경로 정상 여부는 별도 확인)' if occupied(5001) else '중지 — 직선거리 추정으로 대체'))
   return
  if sys.version_info<(3,10):raise SystemExit('Python 3.10 이상이 필요합니다.')
- if not Path(NODE).is_file():raise SystemExit('Node.js 24 이상을 설치하세요.')
+ # api-start also loads Engine(), which requires Node 24 to load and calculate the catalogue.
+ if not NODE:raise SystemExit('Node.js 24 이상을 PATH에 설치하거나 NODE_BINARY를 지정하세요.')
  v=subprocess.check_output([NODE,'-p','process.versions.node'],text=True).strip()
  if int(v.split('.')[0])<24:raise SystemExit('Node.js 24 이상이 필요합니다: '+v)
  if args.action=='api-start':api();return
  build_config={k:ENV[k] for k in ('NEXT_PUBLIC_API_BASE_URL','NEXT_PUBLIC_DATASET','NEXT_PUBLIC_BASE_PATH','NEXT_PUBLIC_GOOGLE_MAPS_API_KEY')}
+ STATE.mkdir(parents=True,exist_ok=True)
  stamp=STATE/'build.json'
  previous=json.loads(stamp.read_text()) if stamp.exists() else None
  if args.rebuild or previous!=build_config or not (ROOT/'web/out/index.html').exists():
@@ -85,6 +95,6 @@ def main():
  directory=str(ROOT/'web/out')
  start('web',[sys.executable,'-m','http.server',str(WEB_PORT),'--bind','127.0.0.1','--directory',directory],WEB_PORT,f'http://localhost:{WEB_PORT}/',directory)
  print(f'크롬에서 http://localhost:{WEB_PORT}/ 접속 · 종료: python3 scripts/demo_server.py stop')
- print(f"장소 모드: {ENV['NEXT_PUBLIC_DATASET']} (실제 장소 모드는 #47/#52/#53 통합 후 사용)")
+ print(f"장소 모드: {ENV['NEXT_PUBLIC_DATASET']}")
  print('환율은 시연용 고정값입니다. 기본 실행은 구글지도·유료AI 키를 사용하지 않습니다.')
 if __name__=='__main__':main()

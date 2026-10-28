@@ -1,8 +1,9 @@
-import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS } from "./network-request.mjs";
+import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS, CREATE_TIMEOUT_MS, CREATE_UNCERTAIN, JOIN_UNCERTAIN } from "./network-request.mjs";
 /**
  * 서버 API 클라이언트.
  * 계약 원본은 backend/README.md 「API 계약」이다. 여기서 임의로 경로를 만들지 않는다.
  */
+import type { ApiCatalogPlace } from "./catalog";
 
 export interface RoomMember {
   id: string;
@@ -96,6 +97,15 @@ export interface ApiResult {
       };
 }
 
+/** P4 풀 — 전원의 1차 목록 합집합. 여러 명이 올린 곳부터 온다. 누가 올렸는지는 없다 */
+export interface ApiPool {
+  roomId: string;
+  /** 1차 목록(또는 전체 입력)을 낸 사람 수 */
+  listedCount: number;
+  memberCount: number;
+  placeIds: string[];
+}
+
 /** 서버가 준 상태 코드를 화면이 구분할 수 있게 담아 둔다 */
 export class ApiError extends Error {
   constructor(message: string, readonly status: number) {
@@ -108,7 +118,7 @@ export class ApiError extends Error {
 export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
 const BASE = API_BASE;
 
-async function request<T>(path: string, method = "GET", body?: unknown, token?: string): Promise<T> {
+async function request<T>(path: string, method = "GET", body?: unknown, token?: string, options: { timeoutMs?: number; uncertainMessage?: string } = {}): Promise<T> {
   let received;
   try {
     received = await requestJson(BASE + path, {
@@ -119,14 +129,17 @@ async function request<T>(path: string, method = "GET", body?: unknown, token?: 
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       ...(body === undefined ? {} : { body: JSON.stringify(body) }),
-    }, path.endsWith("/calculate") ? { timeoutMs: CALCULATE_TIMEOUT_MS } : {});
+    }, options);
   } catch (error) {
     if (error instanceof NetworkRequestError) throw new ApiError(error.message, 0);
     throw error;
   }
   const { response, value } = received;
   if (!response.ok) {
-    throw new ApiError(value?.error ?? "서버 요청을 처리하지 못했습니다.", response.status);
+    throw new ApiError(typeof value?.error === "string" ? value.error : "서버 요청을 처리하지 못했습니다.", response.status);
+  }
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    throw new ApiError(options.uncertainMessage || "서버 응답을 읽을 수 없습니다.", response.status);
   }
   return value as T;
 }
@@ -163,8 +176,17 @@ export const roomApi = {
       .then((r) => r.exchange_rate ?? null),
 
   /** ownerPin: 방장이 다른 기기에서 다시 들어올 때 쓸 4자리 */
-  create: (startDate: string, endDate: string, memberNames: string[], ownerPin?: string) =>
-    request<ApiRoom>("/rooms", "POST", { startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}) }),
+  create: (startDate: string, endDate: string, memberNames: string[], ownerPin?: string, dataset?: string) =>
+    request<ApiRoom>("/rooms", "POST", {
+      startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}), ...(dataset ? { dataset } : {}),
+    }, undefined, { timeoutMs: CREATE_TIMEOUT_MS, uncertainMessage: CREATE_UNCERTAIN }),
+
+  /** 실제 장소 150곳. 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
+  realPlaces: () => request<{ dataset: string; places: ApiCatalogPlace[] }>("/api/places?limit=150"),
+
+  /** 150곳 중 이 방 날짜에 일정 검사를 통과할 수 있는 곳 (36곳 방이면 null) */
+  schedulable: (roomId: string, token: string) =>
+    request<{ roomId: string; placeIds: string[] | null }>(`/rooms/${encodeURIComponent(roomId)}/schedulable`, "GET", undefined, token),
 
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>
@@ -176,11 +198,11 @@ export const roomApi = {
 
   /** 이름을 고르거나(memberId) 목록에 없는 이름을 더한다(name) */
   claim: (roomId: string, inviteToken: string, pick: ({ memberId: string } | { name: string }) & { pin?: string }) =>
-    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/join`, "POST", pick, inviteToken),
+    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/join`, "POST", pick, inviteToken, { timeoutMs: CREATE_TIMEOUT_MS, uncertainMessage: JOIN_UNCERTAIN }),
 
   /** 이미 고른 내 이름에 PIN으로 다시 들어간다. 새 토큰이 나오고 이전 기기는 끊긴다 */
   rejoin: (roomId: string, inviteToken: string, memberId: string, pin: string) =>
-    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/rejoin`, "POST", { memberId, pin }, inviteToken),
+    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/rejoin`, "POST", { memberId, pin }, inviteToken, { timeoutMs: CREATE_TIMEOUT_MS, uncertainMessage: JOIN_UNCERTAIN }),
 
   /** 내가 저장한 입력. 그 참여자의 토큰으로만 읽힌다 (방장 토큰도 403) */
   mySubmission: (roomId: string, memberId: string, token: string) =>
@@ -205,6 +227,19 @@ export const roomApi = {
       member.submissionToken
     ),
 
+  /** P3에서 담은 1차 목록만 먼저 저장한다. 결과 revision은 바뀌지 않는다 */
+  saveLonglist: (roomId: string, memberId: string, token: string, longlist: string[]) =>
+    request<unknown>(
+      `/rooms/${encodeURIComponent(roomId)}/longlists/${encodeURIComponent(memberId)}`,
+      "PUT",
+      { longlist },
+      token
+    ),
+
+  /** 모두가 찾아온 곳 (P4). 방 참여자·방장 토큰이면 읽는다 */
+  pool: (roomId: string, token: string) =>
+    request<ApiPool>(`/rooms/${encodeURIComponent(roomId)}/pool`, "GET", undefined, token),
+
   /** 참여 현황·결과 조회. 참여자 토큰으로도 읽을 수 있다 */
   result: (room: Pick<ApiRoom, "roomId" | "ownerToken">) =>
     request<ApiResult>(
@@ -220,6 +255,7 @@ export const roomApi = {
       `/rooms/${encodeURIComponent(room.roomId)}/calculate`,
       "POST",
       { strategy },
-      room.ownerToken
+      room.ownerToken,
+      { timeoutMs: CALCULATE_TIMEOUT_MS }
     ),
 };

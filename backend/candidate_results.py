@@ -1,11 +1,13 @@
 """Revision-scoped shared candidates, atomic publication and owner selection."""
 import json
 import math
+import re
 import secrets
 import time
 from datetime import date, timedelta
 from api_errors import ApiError, require
 from engine import EngineError
+from real_engine import REAL_DATASET
 
 STRATEGIES = ('average', 'least_misery', 'fairness')
 
@@ -37,8 +39,7 @@ class CandidateStore:
             c.execute('BEGIN IMMEDIATE')
             room = self.room(c, rid)
             self.authenticate(c, room, token, owner_only=True)
-            if room['dataset'] != 'prototype_demo_36':
-                raise ApiError(400, '후보 3개 계산은 현재 데모 36곳만 지원합니다. 실제 장소 모드는 strategy=average를 사용하세요.')
+            require(room['dataset'] in ('prototype_demo_36', REAL_DATASET), '지원하지 않는 장소 데이터 모드입니다.')
             if room['revision'] != revision:
                 raise ApiError(409, '입력이 변경되었습니다. 현황을 다시 조회하세요.')
             counts = c.execute('SELECT COUNT(*),COUNT(s.member_id) FROM members m LEFT JOIN submissions s ON m.id=s.member_id WHERE m.room_id=?', (rid,)).fetchone()
@@ -64,7 +65,8 @@ class CandidateStore:
             if (room['revision'] != revision or not current or current['revision'] != revision
                     or current['job_token'] != job):
                 raise ApiError(409, '입력이 변경되었거나 계산이 교체되었습니다. 현황을 다시 조회하세요.')
-            validate_candidates(output, room, self.catalog_ids)
+            known_ids = self.real_ids if room['dataset'] == REAL_DATASET else self.catalog_ids
+            validate_candidates(output, room, known_ids)
             c.execute('INSERT OR REPLACE INTO candidate_results(room_id,revision,payload) VALUES(?,?,?)',
                       (rid, revision, json.dumps(output['candidates'], ensure_ascii=False)))
             c.execute('DELETE FROM results WHERE room_id=?', (rid,))
@@ -116,12 +118,13 @@ def validate_candidates(output, room, known_ids):
     start, end = date.fromisoformat(room['start']), date.fromisoformat(room['end'])
     dates = [(start+timedelta(days=i)).isoformat() for i in range((end-start).days+1)]
     for candidate in cs:
-        keys(candidate, 'strategy metrics days summary explanationSource')
+        keys(candidate, 'strategy metrics days summary explanationSource' + (' planning' if room['dataset'] == REAL_DATASET else ''))
         metrics(candidate['metrics'])
         check(isinstance(candidate['summary'], str) and 0 < len(candidate['summary']) <= 10000)
         check(candidate['explanationSource'] in ('rules', 'ai'))
         days = candidate['days']
         check(isinstance(days, list) and len(days) == len(dates))
+        seen_ids = set()
         for expected_date, day in zip(dates, days):
             keys(day, 'date placeIds items metrics')
             check(day['date'] == expected_date)
@@ -129,14 +132,52 @@ def validate_candidates(output, room, known_ids):
             ids, items = day['placeIds'], day['items']
             check(isinstance(ids, list) and len(ids) <= 30 and all(isinstance(x, str) for x in ids))
             check(len(set(ids)) == len(ids) and (known_ids is None or all(x in known_ids for x in ids)))
+            check(not seen_ids.intersection(ids))
+            seen_ids.update(ids)
             check(isinstance(items, list) and len(items) == len(ids))
+            previous_end = 0
             for id_, item in zip(ids, items):
                 keys(item, 'placeId aiAdded filled source reasonCode reason startMin endMin')
                 # Minutes from local midnight; bars may run until 24:00.
                 check(type(item['startMin']) is int and type(item['endMin']) is int and 0 <= item['startMin'] <= item['endMin'] <= 1440)
+                check(item['startMin'] >= previous_end)
+                previous_end = item['endMin']
                 check(item['placeId'] == id_ and type(item['aiAdded']) is bool and type(item['filled']) is bool)
                 check(item['source'] in ('selected', 'rule_added', 'ai_added', 'meal_fill'))
                 check(item['filled'] == (item['source'] == 'meal_fill'))
                 check(item['aiAdded'] == (item['source'] in ('rule_added', 'ai_added')))
                 check(item['reasonCode'] is None or isinstance(item['reasonCode'], str) and len(item['reasonCode']) <= 100)
                 check(item['reason'] is None or isinstance(item['reason'], str) and len(item['reason']) <= 1000)
+
+        if room['dataset'] == REAL_DATASET:
+            check(bool(seen_ids))  # An empty real schedule is a retryable failure, not a candidate.
+            p = candidate['planning']
+            keys(p, 'status schedule_ready exchange_rate catalog_count scheduled_count unplaced_count must_satisfied must_veto_conflict_count empty_day_count reason_aggregation exclusion_reason_counts')
+            check(p['schedule_ready'] is False and type(p['must_satisfied']) is bool)
+            for name in ('catalog_count', 'scheduled_count', 'unplaced_count', 'must_veto_conflict_count', 'empty_day_count'):
+                check(type(p[name]) is int and 0 <= p[name] <= 100000)
+            check(known_ids is None or p['catalog_count'] == len(known_ids))
+            check(p['scheduled_count'] == len(seen_ids))
+            check(p['scheduled_count'] + p['unplaced_count'] + p['must_veto_conflict_count'] <= p['catalog_count'])
+            check(p['empty_day_count'] == sum(not d['placeIds'] for d in days))
+            check(not p['must_veto_conflict_count'] or not p['must_satisfied'])
+            needs_review = p['unplaced_count'] or not p['must_satisfied'] or p['empty_day_count']
+            check(p['status'] == ('needs_review' if needs_review else 'model_checks_passed'))
+            check(p['reason_aggregation'] == 'common_across_dates')
+            reasons = p['exclusion_reason_counts']
+            check(isinstance(reasons, dict) and len(reasons) <= 100)
+            check(bool(reasons) == bool(p['unplaced_count']))
+            for code, count in reasons.items():
+                check(isinstance(code, str) and re.fullmatch(r'[A-Za-z][A-Za-z0-9_]{0,99}', code) is not None)
+                check(type(count) is int and 0 < count <= p['unplaced_count'])
+            fx = p['exchange_rate']
+            keys(fx, 'krw_per_jpy rounding as_of source provenance_status live_quote')
+            check(isinstance(fx['krw_per_jpy'], str) and re.fullmatch(r'\d{1,6}(\.\d{1,6})?', fx['krw_per_jpy']) is not None)
+            check(float(fx['krw_per_jpy']) > 0)
+            check(fx['rounding'] == 'ROUND_HALF_UP to integer KRW' and fx['provenance_status'] == 'documented' and fx['live_quote'] is False)
+            check(isinstance(fx['as_of'], str))
+            try:
+                check(date.fromisoformat(fx['as_of']).isoformat() == fx['as_of'])
+            except ValueError:
+                check(False)
+            check(isinstance(fx['source'], str) and 0 < len(fx['source']) <= 10000)

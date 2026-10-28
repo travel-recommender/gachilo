@@ -52,14 +52,14 @@ export function selectedCandidate(snapshot: SharedResults): SharedCandidate | nu
 export function createSharedResultClient(baseUrl: string, fetcher: typeof fetch = fetch) {
   const base = baseUrl.replace(/\/$/, "");
   async function request(roomId: string, path: string, token: string, method: string,
-    body?: object, signal?: AbortSignal): Promise<SharedResults> {
+    body?: object, signal?: AbortSignal, timeoutMs?: number): Promise<SharedResults> {
     let received;
     try {
       received = await requestJson(`${base}/rooms/${encodeURIComponent(roomId)}/${path}`, {
         method, cache: "no-store", signal,
         headers: { Authorization: `Bearer ${token}`, ...(body ? { "Content-Type": "application/json" } : {}) },
         ...(body ? { body: JSON.stringify(body) } : {}),
-      }, { fetcher, ...(path === "calculate" ? { timeoutMs: CALCULATE_TIMEOUT_MS } : {}) });
+      }, { fetcher, timeoutMs });
     } catch (error) {
       if (error instanceof NetworkRequestError) throw new SharedResultError(error.message, 0);
       throw error;
@@ -77,7 +77,7 @@ export function createSharedResultClient(baseUrl: string, fetcher: typeof fetch 
     get: (roomId: string, roomToken: string, signal?: AbortSignal) =>
       request(roomId, "results", roomToken, "GET", undefined, signal),
     calculateAll: (roomId: string, ownerToken: string, revision: number, signal?: AbortSignal) =>
-      request(roomId, "calculate", ownerToken, "POST", { strategies: SHARED_STRATEGIES, revision }, signal),
+      request(roomId, "calculate", ownerToken, "POST", { strategies: SHARED_STRATEGIES, revision }, signal, CALCULATE_TIMEOUT_MS),
     select: (roomId: string, ownerToken: string, snapshot: Pick<SharedResults, "revision" | "selectionVersion">,
       strategy: SharedStrategy, signal?: AbortSignal) =>
       request(roomId, "selection", ownerToken, "PUT", {

@@ -17,7 +17,7 @@ type Choice = "must" | "veto";
  */
 export default function Shortlist() {
   const router = useRouter();
-  const { state, setMine, setExtra, pool, submissions } = useTrip();
+  const { state, catalog, setMine, setExtra, pool, fetchPool } = useTrip();
   const { mustList, vetoList } = state.extra;
   const [open, setOpen] = useState<string | null>(null);
 
@@ -29,17 +29,17 @@ export default function Shortlist() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const votesOf = useMemo(() => {
-    const m: Record<string, number> = {};
-    submissions.forEach((s) => s.longlist.forEach((id) => (m[id] = (m[id] ?? 0) + 1)));
-    return m;
-  }, [submissions]);
+  // 서버 방이면 들어올 때 모두의 목록을 다시 받는다 (기다리는 화면을 건너뛰고 들어온 경우 등)
+  useEffect(() => {
+    if (state.room) fetchPool().catch(() => { /* 받은 목록이 없으면 내 목록만 보인다 */ });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.room?.roomId]);
 
+  // pool은 여러 사람이 올린 곳부터 온다 — 누가 올렸는지는 감춘다
   const places = useMemo(
-    () => pool.map((id) => findPlace(id)).filter((p): p is Place => !!p)
-      // 여러 사람이 올린 곳을 위로 — 누가 올렸는지는 감춘다
-      .sort((a, b) => (votesOf[b.id] ?? 0) - (votesOf[a.id] ?? 0)),
-    [pool, votesOf]
+    () => pool.map((id) => findPlace(id)).filter((p): p is Place => !!p),
+    // catalog: 150곳 목록이 늦게 오면 그때 다시 찾는다
+    [pool, catalog]
   );
   const tabs = CATEGORIES.filter((c) => places.some((p) => p.category === c.id))
     .map((c) => ({ id: c.id, label: c.label }));

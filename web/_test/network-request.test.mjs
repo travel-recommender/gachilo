@@ -39,3 +39,9 @@ test('real TCP connection with no HTTP response expires, then the server recover
   const {value}=await requestJson(url,{}, {timeoutMs:2000});assert.equal(value.recovered,true);
  } finally {server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });
+
+
+test('write timeout preserves outcome-unknown recovery guidance instead of blind retry text',async()=>{
+ const {CREATE_UNCERTAIN}=await import('../src/lib/network-request.mjs');
+ await assert.rejects(requestJson('http://test.invalid',{method:'POST'},{fetcher:async()=>new Promise(()=>{}),timeoutMs:10,uncertainMessage:CREATE_UNCERTAIN}),e=>e.message===CREATE_UNCERTAIN);
+});
