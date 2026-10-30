@@ -18,6 +18,7 @@ class ApiTests(unittest.TestCase):
   self.assertNotIn('cost',data['places'][0]);self.assertIn('cost_krw',data['places'][0])
   self.assertTrue(all(p['stay_min'] and p['bag_load'] is not None for p in data['places']))
   self.assertEqual(self.req('GET','/api/places?limit=0')[0],400)
+  self.assertIn('offset',self.req('GET','/api/places?offset=abc')[1]['error'])
   self.assertEqual(self.req('GET','/places')[1]['dataset'],'prototype_demo_36')
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.db=Path(self.tmp.name)/'db.sqlite3';self.server=make_server(self.db,port=0);self.thread=threading.Thread(target=self.server.serve_forever,daemon=True);self.thread.start();self.base=f'http://127.0.0.1:{self.server.server_port}'

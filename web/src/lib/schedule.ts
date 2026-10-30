@@ -1,4 +1,4 @@
-import { travel } from "./consensus";
+import { travel, canPreviewPlace } from "./consensus";
 import { allPlaces } from "./places";
 import type { DayPlan, Place, ScheduleItem, Selection } from "./types";
 
@@ -65,7 +65,7 @@ function pickFiller(
   onTime = false,
   maxCost = Infinity
 ): Place | null {
-  const cands = allPlaces().filter(
+  const cands = allPlaces().filter(canPreviewPlace).filter(
     (p) =>
       !used.has(p.id) &&
       !vetoed.has(p.id) &&
@@ -217,9 +217,11 @@ export function buildSchedule(
   days: number,
   opts: ScheduleOptions = {}
 ): { plans: DayPlan[]; dropped: Selection[] } {
+  const unavailable = selections.filter(s => !canPreviewPlace(s.place));
+  selections = selections.filter(s => canPreviewPlace(s.place));
   const buckets = clusterByDay(selections, days);
   const plans: DayPlan[] = [];
-  const dropped: Selection[] = [];
+  const dropped: Selection[] = unavailable;
 
   const globalUsed = new Set<string>(selections.map((s) => s.place.id));
   // 자동 식사에 쓸 수 있는 돈 — 선택 장소 비용을 먼저 빼고, 남은 날수로 나눠 앞날이 다 쓰지 않게 한다

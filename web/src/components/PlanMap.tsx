@@ -42,9 +42,10 @@ export function PlanMap({ day, places }: { day: number; places: Place[] }) {
   function draw(g: Google) {
     drawn.current.forEach((o) => o.setMap(null));
     drawn.current = [];
-    if (!places.length) return;
+    const located = places.filter((p) => Number.isFinite(p.lat) && Number.isFinite(p.lng));
+    if (!located.length) return;
     const bounds = new g.maps.LatLngBounds();
-    places.forEach((p, i) => {
+    located.forEach((p, i) => {
       const pos = { lat: p.lat, lng: p.lng };
       bounds.extend(pos);
       drawn.current.push(new g.maps.Marker({
@@ -58,10 +59,10 @@ export function PlanMap({ day, places }: { day: number; places: Place[] }) {
       }));
     });
     drawn.current.push(new g.maps.Polyline({
-      map: map.current, path: places.map((p) => ({ lat: p.lat, lng: p.lng })),
+      map: map.current, path: located.map((p) => ({ lat: p.lat, lng: p.lng })),
       strokeColor: "#8b2842", strokeOpacity: 0.7, strokeWeight: 3,
     }));
-    if (places.length === 1) { map.current.setCenter(bounds.getCenter()); map.current.setZoom(15); }
+    if (located.length === 1) { map.current.setCenter(bounds.getCenter()); map.current.setZoom(15); }
     else map.current.fitBounds(bounds, 32);
   }
 

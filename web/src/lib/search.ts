@@ -34,14 +34,12 @@ export function searchPlaces(pool: Place[], query: string, limit = 8): Place[] {
   if (!q) return [];
   const scored: { p: Place; s: number }[] = [];
   for (const p of pool) {
-    // 원래 이름(일본어·영어)으로 찾아도 나온다 — 간판·지도에 보이는 이름으로 검색하는 경우가 많다
-    const names = p.originalName ? [...searchablePlaceNames(p.name), normalizePlaceName(p.originalName)] : searchablePlaceNames(p.name);
-    const matches = names.map((name) => nameHas(name, q)).filter((at) => at >= 0);
+    const matches = [p.name, ...(p.searchNames ?? [])].flatMap(searchablePlaceNames).map((name) => nameHas(name, q)).filter((at) => at >= 0);
     const at = matches.length ? Math.min(...matches) : -1;
     if (at === 0) scored.push({ p, s: 0 });
     else if (at > 0) scored.push({ p, s: 1 });
     else if (![...q].some(isCho)) {
-      const hay = normalizePlaceName(`${p.area} ${CATEGORY_MAP[p.category].label} ${p.blurb} ${p.address ?? ""}`);
+      const hay = normalizePlaceName(`${p.area} ${p.categoryLabel ?? CATEGORY_MAP[p.category].label} ${p.blurb} ${p.address ?? ""}`);
       if (hay.includes(q)) scored.push({ p, s: 2 });
     }
   }

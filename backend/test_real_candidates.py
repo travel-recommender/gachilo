@@ -71,7 +71,7 @@ class RealCandidatesTests(unittest.TestCase):
         places=self.req('GET','/api/places?limit=150')[1]['places'];self.assertEqual(len(places),150)
         ids={p['place_id'] for p in places}
         for i,m in enumerate(room['members']):
-            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25]])[0],200)
+            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25] if not p.get('selection_disabled_reason')])[0],200)
         code,result,_=self.calculate(room,revision=6)
         self.assertEqual(code,200)
         for c in result['candidates']:
@@ -98,7 +98,7 @@ class RealCandidatesTests(unittest.TestCase):
         room=self.ready_room();store=Store(self.db,Engine().catalog)
         good=CandidateEngine(Engine().node).calculate(store.snapshot(room['roomId'],room['ownerToken']))
         metadata={'dataset':'osaka_review_150','start':'2026-10-01','end':'2026-10-02'}
-        ids={p['place_id'] for p in self.req('GET','/api/places?limit=150')[1]['places']}
+        ids=store.real_ids # Validation needs the full catalog, not just its first page.
         for code in ('price_2027_unconfirmed','OAP_reopening_unconfirmed','regular_closure','A'*100,
                      '', 'price unconfirmed', 'member@example.com', 'price-2027', 'A'*101, 'a\n'):
             with self.subTest(code=code):

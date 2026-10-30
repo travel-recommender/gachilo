@@ -2,7 +2,11 @@ import unittest,json,copy,ast
 from unittest.mock import patch
 from decimal import Decimal
 from pathlib import Path
-from place_catalog import cost_krw,exchange_rate,project,catalog,DATA,get_luggage_score,exchange_rate_metadata,stay_policy
+from place_catalog import cost_krw,exchange_rate,project,catalog as runtime_catalog,get_luggage_score,exchange_rate_metadata,stay_policy
+
+from functools import partial
+DATA=Path(__file__).resolve().parents[1]/'data/week5/live_20260923/processed/osaka_places_150_fresh.json'
+catalog=partial(runtime_catalog,path=DATA) # Historical 150-record policy fixtures.
 
 class CatalogTests(unittest.TestCase):
  def test_utf8_catalog_with_cp949_default(self):

@@ -99,6 +99,27 @@ test("the real catalog Umeda observatory name accepts its building aliases", () 
   assert.equal(imported.name, source.name_ko);
 });
 
+
+test("expanded final catalog searches all 205 records, including original Japanese and English names", () => {
+  const {toPlace}=require("../src/lib/catalog.ts");
+  const rows=Array.from({length:205},(_,i)=>toPlace({place_id:`branch_${i}`,name:`GU JAPAN ${i}`,name_ko:`지유 지점 ${i}`,category:"쇼핑",area:null,address:null,latitude:null,longitude:null,stay_min:null,bag_load:null,covered:null,cost_krw:null}));
+  assert.equal(searchPlaces(rows,"GU",rows.length).length,205);
+  assert.equal(searchPlaces(rows,"지유 지점 204",rows.length)[0].id,"branch_204");
+  const cultural={...rows[0],category:"culture",categoryLabel:"복합문화",searchNames:["天王寺公園"]};
+  assert.equal(searchPlaces([cultural],"복합문화")[0].id,cultural.id);
+  assert.equal(searchPlaces([cultural],"天王寺公園")[0].id,cultural.id);
+});
+
+
+test("published branch data finds the missing Ichiran branches in the actual UI search", () => {
+  const {toPlace}=require("../src/lib/catalog.ts");
+  const data=JSON.parse(fs.readFileSync(new URL("../../data/final/osaka_catalog_20261026.json",import.meta.url),"utf8"));
+  const places=data.places.map(r=>toPlace({...r.place,cost_krw:null}));
+  for(const [q,id] of [["이치란 아베노","branch_ichiran_abeno"],["이치란 신사이바시","branch_ichiran_shinsaibashi"]])
+    assert.ok(searchPlaces(places,q,places.length).some(p=>p.id===id),q);
+  assert.equal(searchPlaces(places,"이치란",places.length).length,7);
+});
+
 test("real places can be found by their original Japanese or English name", () => {
   const { toPlace } = require("../src/lib/catalog.ts");
   const base = { area: "大阪市中央区", address: null, latitude: 34.66, longitude: 135.5, stay_min: 60, bag_load: 0, covered: null, cost_krw: null };
@@ -110,5 +131,27 @@ test("real places can be found by their original Japanese or English name", () =
   assert.deepEqual(searchPlaces(pool, "グリコ").map((p) => p.id), ["osaka_001"]);
   assert.deepEqual(searchPlaces(pool, "brooklyn").map((p) => p.id), ["osm_node_9875632529"]);
   assert.deepEqual(searchPlaces(pool, "観覧車").map((p) => p.id), ["osaka_008"]);
-  assert.equal(toPlace({ ...base, place_id: "x", name: "道頓堀", name_ko: null, category: "명소" }).originalName, undefined);
+  assert.deepEqual(toPlace({ ...base, place_id: "x", name: "道頓堀", name_ko: null, category: "명소" }).searchNames, ["道頓堀"]);
+});
+
+
+test("unknown coordinates cannot contaminate local preview or schedule metrics",()=>{
+ const {setCatalog}=require("../src/lib/places.ts");
+ const {buildConsensus,estimateWalkPerDay,distKm}=require("../src/lib/consensus.ts");
+ const {buildSchedule}=require("../src/lib/schedule.ts");
+ const bad={...PLACES[0],id:"unknown",lat:NaN,lng:NaN};
+ const good=PLACES[1];
+ setCatalog([bad,good]);
+ try {
+  const sub={memberId:"m",longlist:[bad.id,good.id],picks:[bad.id,good.id],must:bad.id,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720};
+  const result=buildConsensus({submissions:[sub],nights:0,strategy:"average"});
+  assert.ok(result.selections.every(s=>s.place.id!==bad.id));
+  assert.ok(Object.values(result.metrics).every(Number.isFinite));
+  assert.equal(estimateWalkPerDay([bad,good],1),0);
+  assert.equal(distKm(bad,good),Infinity);
+  const sel=p=>({place:p,votes:1,mustOf:null,tier:"core",participants:[]});
+  const scheduled=buildSchedule([sel(bad),sel(good)],1,{fillMeals:false});
+  assert.ok(scheduled.plans.every(p=>p.items.every(i=>i.place.id!==bad.id)&&Number.isFinite(p.totalKm)));
+  assert.ok(scheduled.dropped.some(s=>s.place.id===bad.id));
+ } finally {setCatalog(null);}
 });

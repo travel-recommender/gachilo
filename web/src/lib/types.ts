@@ -48,9 +48,15 @@ export interface Place {
   /** 실제 장소(150곳)의 주소. 있으면 목록의 주소 줄에 쓴다 */
   address?: string;
   /** 실제 장소의 원래 이름(일본어·영어). 화면에는 한국어 이름을 쓰고, 검색은 이 이름으로도 된다 */
-  originalName?: string;
   /** 사용자가 직접 추가한 장소인가 (좌표·비용이 추정값) */
   custom?: boolean;
+  categoryLabel?: string;
+  searchNames?: string[];
+  catalogStatus?: string;
+  selectionDisabledReason?: string | null;
+  costKnown?: boolean;
+  costEstimated?: boolean;
+  shoppingSpendExcluded?: boolean;
 }
 
 export interface Member {

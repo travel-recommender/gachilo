@@ -17,7 +17,7 @@ import { ApiError, nightsBetween, roomApi, toDateRange, type ApiPool, type ApiRe
 import { editedState, joinedState, rejoinedState, restoredFromServer } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
-import { REAL_DATASET, toPlace } from "@/lib/catalog";
+import { REAL_DATASET, roomCatalog } from "@/lib/catalog";
 import { toServerTradeoffs } from "@/lib/tradeoff";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
@@ -310,12 +310,11 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
           if (live) { setCatalog(null); setCatalogStatus("demo"); }
           return;
         }
-        // 폐업·검토 전·방문일 휴무처럼 일정에 못 넣는 곳은 고를 수 없게 처음부터 뺀다 (P8이 비는 원인이었다)
+        // 전체를 검색하되 방문일 검사에서 탈락한 장소는 사유를 표시하고 선택을 막는다.
         const [{ places }, { placeIds }] = await Promise.all([
           roomApi.realPlaces(), roomApi.schedulable(roomId, roomToken),
         ]);
-        const usable = placeIds ? new Set(placeIds) : null;
-        const list = places.filter((p) => !usable || usable.has(p.place_id)).map(toPlace);
+        const list = roomCatalog(places, placeIds);
         if (live) { setCatalog(list); setCatalogStatus("real"); }
       } catch {
         if (live) setCatalogStatus("error");
