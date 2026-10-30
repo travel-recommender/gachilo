@@ -69,13 +69,13 @@ class RealCandidatesTests(unittest.TestCase):
     def test_forecast_summary_is_shared_saved_and_not_refetched_for_cached_revision(self):
         room=self.ready_room();path=f"/rooms/{room['roomId']}"
         forecast=dict(source='Open-Meteo',status='forecast',fetched_at='2026-10-01T09:00:00+09:00',
-                      days=[dict(date='2026-10-01',status='forecast',probability=0.8),
-                            dict(date='2026-10-02',status='forecast',probability=0)])
+                      days=[dict(date='2026-10-01',status='forecast',probability=0.8,max_temperature_c=36),
+                            dict(date='2026-10-02',status='forecast',probability=0,max_temperature_c=25)])
         with patch('weather.client.snapshot',return_value=forecast) as fetch:
             code,result,_=self.calculate(room);self.assertEqual(code,200)
             for c in result['candidates']:
                 self.assertIn('2026-10-01 80%',c['summary']);self.assertIn('2026-10-02 0%',c['summary'])
-                self.assertIn('지붕 미확인',c['summary'])
+                self.assertIn('지붕 미확인',c['summary']);self.assertIn('2026-10-01 36°C',c['summary'])
             self.assertEqual(self.calculate(room)[1],result);self.assertEqual(fetch.call_count,1)
         selected=self.req('PUT',path+'/selection',{'strategy':'average','revision':3,'selectionVersion':0},room['ownerToken'])[1]
         for m in room['members']:

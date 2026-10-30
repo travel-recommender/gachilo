@@ -1,4 +1,4 @@
-import {withTripConditions} from './conditions.ts';
+import {withTripConditions, withShelterPreference, hasShelterWeather} from './conditions.ts';
 /** Actual catalogue adapter: selected IDs only, no popularity or automatic fillers. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
@@ -93,7 +93,15 @@ export async function calculateRealWithRouting(request, dataset, profiles, routi
   const points = dataset.places.filter(r => selected.has(r.place.place_id))
     .map(r => ({lat:r.place.latitude, lng:r.place.longitude}));
   return withTripConditions(request.weather, request.startDate, () =>
-    withRouting(points, () => calculateReal(request, dataset, profiles), routingOptions));
+    withRouting(points, () => {
+      const run=()=>calculateReal(request,dataset,profiles);
+      const wet=run();
+      if(!hasShelterWeather()) return wet;
+      const plain=withShelterPreference(false,run);
+      const a=wet.planning,b=plain.planning;
+      return (!a.must_satisfied&&b.must_satisfied)
+        || (a.must_satisfied===b.must_satisfied&&b.scheduled_count>a.scheduled_count) ? plain : wet;
+    }, routingOptions));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

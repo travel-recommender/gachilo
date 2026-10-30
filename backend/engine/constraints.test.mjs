@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {withTripConditions,withConditionDay,withConditionDate,rainProbability,bagExtraCost,weatherDescription} from './conditions.ts';
+import {withTripConditions,withConditionDay,withConditionDate,rainProbability,routingExposureWeight,hasShelterWeather,routingColdPreference,bagExtraCost,weatherDescription} from './conditions.ts';
 import {withRouting,travel,travelBurdenTotals,conditionSummary,distKm} from './routing.ts';
 import {roofEdges,annotateRoute,selectShelteredRoute,loadShelterData,prepareShelteredRoutes,pair} from './sheltered-routing.ts';
 import {buildSchedule} from './schedule.ts';
@@ -49,7 +49,9 @@ test('only exact OSM edge evidence counts; venue indoor flags and unmatched node
  const edges=roofEdges(data);const r=annotateRoute(raw(true),edges);
  assert.equal(r.coveredKm,0.4);assert.equal(r.unknownKm,0.2);assert.deepEqual(r.coveredWayIds,[123]);
  assert.equal(annotateRoute(raw(true),new Map()).coveredKm,0);
- assert.equal(roofEdges({...data,ways:data.ways.map(w=>({...w,tags:{indoor:'yes',highway:'footway'}}))}).size,0);
+ assert.equal(roofEdges({...data,ways:data.ways.map(w=>({...w,tags:{indoor:'yes',tourism:'museum'}}))}).size,0);
+ assert.equal(roofEdges({...data,ways:data.ways.map(w=>({...w,tags:{indoor:'yes',highway:'footway'}}))}).size,1);
+ assert.equal(roofEdges({...data,ways:data.ways.map(w=>({...w,tags:{indoor:'yes',highway:'footway',access:'private'}}))}).size,0);
  const bad=raw(true);bad.legs[0].annotation.distance.pop();assert.equal(annotateRoute(bad,edges),null);
  const short=raw(true);short.distance=1000;assert.equal(annotateRoute(short,edges),null);
 });
@@ -89,14 +91,55 @@ test('real three-strategy API includes auditable conditions while keeping hard l
  for(const c of out.candidates){assert.match(c.summary,/2026-10-01 80%/);assert.match(c.summary,/지붕 미확인/);assert.ok(c.days[0].metrics.walkSteps<=20000);assert.equal(c.planning.schedule_ready,false);assert.ok(!('weather' in c));}
 });
 
-test('roof detour is included in real hard step limits instead of hiding extra walking',async()=>{
+test('soft rain preference falls back to feasible base routes instead of losing required visits',async()=>{
  const {dataset:source,profiles}=loadInputs();const dataset=structuredClone(source);
  const ids=['osaka_009','osaka_015'];
  ids.forEach((id,i)=>Object.assign(dataset.places.find(r=>r.place.place_id===id).place,{latitude:[a,b][i].lat,longitude:[a,b][i].lng}));
  const req={startDate:date,endDate:date,exchange_rate:{krw_per_jpy:'9.5'},
  submissions:ids.map((id,i)=>({memberId:String(i),longlist:ids,picks:ids,must:id,veto:null,budgetPerDay:100000,stepLimit:750,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};
  const dry=await calculateRealCandidates({...req,weather:weather(0)},dataset,profiles,options);
- const rain=await calculateRealCandidates({...req,weather:weather(1)},dataset,profiles,options);
+ const results=await Promise.all([weather(1),hotWeather(38)].map(w=>calculateRealCandidates({...req,weather:w},dataset,profiles,options)));
  assert.ok(dry.candidates.every(c=>c.days[0].placeIds.length===2));
- assert.ok(rain.candidates.every(c=>c.days[0].placeIds.length===1&&c.days[0].metrics.walkSteps<=750&&!c.planning.must_satisfied));
+ for(const rain of results) assert.ok(rain.candidates.every(c=>c.days[0].placeIds.length===2&&c.days[0].metrics.walkSteps<=750&&c.planning.must_satisfied));
+ for(const rain of results) assert.ok(rain.candidates.every(c=>c.summary.includes('실내·지붕 우회 선호를 적용하지 않았습니다')));
+});
+
+const hotWeather=(temperature,p=0)=>({...weather(p),days:[{date,status:'forecast',probability:p,max_temperature_c:temperature},{date:'2026-10-02',status:'forecast',probability:0,max_temperature_c:25}]});
+test('heat without rain triggers sheltered detours, date isolation and honest added-time notice',async()=>{
+ for(const p of [0,null])await withTripConditions(hotWeather(35,p),date,()=>withRouting([a,b],()=>{
+  assert.equal(routingExposureWeight(),1);assert.equal(travel(a,b).km,0.6);
+  withConditionDay(1,()=>assert.equal(travel(a,b).km,0.5));
+  const summary=conditionSummary([{date,points:[a,b]}]);
+  assert.match(summary,/날씨 경로 안내: 폭염/);assert.match(summary,/추가 약 1분/);
+  assert.match(summary,/이 시간은 일정에 반영/);assert.match(summary,/냉난방 여부는 알 수 없/);
+  assert.match(summary,/35°C/);
+ },options));
+ await withTripConditions(hotWeather(38,0.8),date,()=>withRouting([a,b],()=>{
+  assert.equal(routingExposureWeight(),1);assert.match(conditionSummary([{date,points:[a,b]}]),/날씨 경로 안내: 비·폭염/);
+ },options));
+});
+test('subthreshold, invalid or missing heat and missing shelter data retain original route without a detour notice',async()=>{
+ for(const t of [34.9,null,NaN,Infinity,100,'38'])await withTripConditions(hotWeather(t),date,()=>withRouting([a,b],()=>{
+  assert.equal(hasShelterWeather(),false);assert.equal(travel(a,b).km,0.5);
+  assert.doesNotMatch(conditionSummary([{date,points:[a,b]}]),/날씨 경로 안내:/);
+ },options));
+ for(const t of [35,40])await withTripConditions(hotWeather(t),date,()=>withRouting([a,b],()=>{
+  assert.equal(travel(a,b).km,0.5);assert.doesNotMatch(conditionSummary([{date,points:[a,b]}]),/날씨 경로 안내:/);
+ },{...options,shelterData:null}));
+});
+
+test('cold prefers proven indoor passage, not an open-sided roof; absent indoor data keeps baseline',async()=>{
+ const indoor={...data,ways:data.ways.map(w=>({...w,tags:{highway:'footway',indoor:'yes'}}))};
+ await withTripConditions(hotWeather(5),date,()=>withRouting([a,b],()=>{
+  assert.equal(routingColdPreference(),true);assert.equal(travel(a,b).km,0.6);assert.equal(travel(a,b).indoorKm,0.4);
+  assert.match(conditionSummary([{date,points:[a,b]}]),/날씨 경로 안내: 추위/);
+  withConditionDay(1,()=>assert.equal(travel(a,b).km,0.5));
+ },{...options,shelterData:indoor}));
+ await withTripConditions(hotWeather(-2,0.9),date,()=>withRouting([a,b],()=>{
+  assert.equal(travel(a,b).km,0.5);
+  assert.doesNotMatch(conditionSummary([{date,points:[a,b]}]),/날씨 경로 안내:/);
+ },options));
+ await withTripConditions(hotWeather(5.1),date,()=>withRouting([a,b],()=>{
+  assert.equal(travel(a,b).km,0.5);assert.equal(routingColdPreference(),false);
+ },{...options,shelterData:indoor}));
 });

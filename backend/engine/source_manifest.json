@@ -21,7 +21,7 @@
     "source": "web/src/lib/schedule.ts",
     "file": "schedule.ts",
     "sha256": "2e4b6a8b8a88a29f194b1186e9e2866b139b242d1590fc686ab17dee4cc5a3c5",
-    "change": "Relative imports use .ts for Node. Server also adds nonnegative accumulated bag burden with a same-visit baseline guard, day-local forecasts and roof-aware routing. Server-only mealRole keeps snack/takeout out of meal slots; fitOpening enforces split openingWindows and lastEntry. Preserve these date-validated branch constraints when syncing browser sources. sha256 records the original browser source, not this modified server file."
+    "change": "Relative imports use .ts for Node. Server also adds nonnegative accumulated bag burden with a same-visit baseline guard, day-local rain/heat/cold forecasts and indoor/roof-aware routing. Server-only mealRole keeps snack/takeout out of meal slots; fitOpening enforces split openingWindows and lastEntry. Preserve these date-validated branch constraints when syncing browser sources. sha256 records the original browser source, not this modified server file."
 
   }
 ]

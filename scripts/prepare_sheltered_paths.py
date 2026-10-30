@@ -1,4 +1,4 @@
-"""Normalize a bounded Overpass response; preserve way/node evidence and unknown coverage."""
+"""Extract sheltered pedestrian ways; preserve exact node evidence and unknown coverage."""
 import argparse
 import hashlib
 import json
@@ -13,7 +13,7 @@ def prepare(raw, query):
         tags = way.get('tags', {})
         if way.get('type') != 'way' or tags.get('highway') not in ('footway', 'pedestrian', 'path'):
             continue
-        if tags.get('covered') not in ('yes', 'arcade', 'colonnade'):
+        if tags.get('covered') not in ('yes', 'arcade', 'colonnade') and tags.get('indoor') != 'yes':
             continue
         if any(tags.get(k) in ('no', 'private', 'customers', 'permit', 'delivery') for k in ('access', 'foot')):
             continue
@@ -35,7 +35,7 @@ def prepare(raw, query):
                 license='ODbL-1.0', attribution_url='https://www.openstreetmap.org/copyright',
                 osm_timestamp=raw.get('osm3s',{}).get('timestamp_osm_base'),
                 query=query, query_sha256=hashlib.sha256(query.encode()).hexdigest(),
-                semantics='OSM-tagged roof coverage of pedestrian way segments; not venue indoor status. Unmatched route edges stay unknown.',
+                semantics='OSM-tagged covered/indoor pedestrian way segments; not venue indoor status. Unmatched route edges stay unknown.',
                 limitations=['Map evidence, not field inspection or live passage availability.',
                              'Bounded Osaka-area map extract; absence of a roof tag is unknown, not proof of exposure.',
                              'Restricted/timed ways omitted; ground access, closures and step-free access need on-site confirmation.'],
@@ -51,13 +51,13 @@ def from_pbf(path, timestamp):
             self.elements = []
         def way(self, way):
             tags = dict(way.tags)
-            if tags.get('highway') not in ('footway', 'pedestrian', 'path') or tags.get('covered') not in ('yes', 'arcade', 'colonnade'):
+            if tags.get('highway') not in ('footway', 'pedestrian', 'path') or (tags.get('covered') not in ('yes', 'arcade', 'colonnade') and tags.get('indoor') != 'yes'):
                 return
             self.elements.append(dict(type='way', id=way.id, tags=tags,
                 nodes=[n.ref for n in way.nodes], geometry=[dict(lat=n.lat,lon=n.lon) for n in way.nodes]))
     collector = Collector()
     collector.apply_file(str(path), locations=True)
-    result = prepare(dict(elements=collector.elements), 'local OSRM source PBF; pedestrian covered ways')
+    result = prepare(dict(elements=collector.elements), 'local OSRM source PBF; pedestrian covered or indoor=yes ways')
     result.update(source='OpenStreetMap contributors; Geofabrik Kansai extract used by local foot OSRM',
         source_url='https://download.geofabrik.de/asia/japan/kansai.html',
         osm_timestamp=timestamp, source_pbf_name=path.name,
@@ -75,4 +75,4 @@ if __name__ == '__main__':
     result=from_pbf(args.pbf, args.osm_timestamp)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
-    print(f"{len(result['ways'])} supported covered ways")
+    print(f"{len(result['ways'])} supported sheltered ways")

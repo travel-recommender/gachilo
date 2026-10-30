@@ -1,4 +1,5 @@
 /** Seeded offline comparison; --osrm additionally uses the caller's own foot server. */
+import {withTripConditions,routingExposureWeight} from '../backend/engine/conditions.ts';
 import {buildSchedule} from '../backend/engine/schedule.ts';
 import {travelBurdenTotals,distKm} from '../backend/engine/routing.ts';
 import {prepareShelteredRoutes,selectShelteredRoute,pair,loadShelterData} from '../backend/engine/sheltered-routing.ts';
@@ -34,5 +35,8 @@ if(process.argv.includes('--osrm')){
  const summarize=r=>({km:r.km,min:r.min,coveredKm:round(r.coveredKm),unknownKm:round(r.unknownKm),coveredWayIds:r.coveredWayIds,via:r.via??null});
  output.weather={scenario:'Same actual OSRM pair, p=0 versus p=1 (controlled forecast, not a forecast claim)',
  mapTimestamp:data.osm_timestamp,pbfSha256:data.source_pbf_sha256,from:points[0],to:points[1],dry:summarize(dry),rain:summarize(rain)};
+ const heat=withTripConditions({source:'controlled test',status:'forecast',fetched_at:null,days:[{date:'2026-08-01',status:'forecast',probability:0,max_temperature_c:35}]},'2026-08-01',()=>selectShelteredRoute(options,routingExposureWeight()));
+ output.weather.heat=summarize(heat);
+ output.weather.scenario+='; heat case uses synthetic daily max 35°C with 0% rain (not a summer forecast)';
 }
 console.log(JSON.stringify(output,null,2));

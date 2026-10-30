@@ -4,7 +4,7 @@
   "license": "ODbL-1.0",
   "attribution_url": "https://www.openstreetmap.org/copyright",
   "osm_timestamp": "2026-10-12T20:21:35Z",
-  "semantics": "OSM-tagged roof coverage of pedestrian way segments; not venue indoor status. Unmatched route edges stay unknown.",
+  "semantics": "OSM-tagged covered/indoor pedestrian way segments; not venue indoor status. Unmatched route edges stay unknown.",
   "limitations": [
     "Map evidence, not field inspection or live passage availability.",
     "Bounded Osaka-area map extract; absence of a roof tag is unknown, not proof of exposure.",
@@ -10729,6 +10729,35 @@
       ]
     },
     {
+      "osm_way_id": 590405778,
+      "source_url": "https://www.openstreetmap.org/way/590405778",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "layer": "1",
+        "level": "1"
+      },
+      "nodes": [
+        5636975603,
+        5636975602,
+        5636975607
+      ],
+      "geometry": [
+        {
+          "lat": 34.6614907,
+          "lng": 135.4491561
+        },
+        {
+          "lat": 34.6615388,
+          "lng": 135.4491865
+        },
+        {
+          "lat": 34.6615443,
+          "lng": 135.4491737
+        }
+      ]
+    },
+    {
       "osm_way_id": 590405781,
       "source_url": "https://www.openstreetmap.org/way/590405781",
       "tags": {
@@ -10755,6 +10784,36 @@
       ]
     },
     {
+      "osm_way_id": 590405782,
+      "source_url": "https://www.openstreetmap.org/way/590405782",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "layer": "1",
+        "level": "1",
+        "source": "Bing"
+      },
+      "nodes": [
+        5636975609,
+        5636975603,
+        5636975608
+      ],
+      "geometry": [
+        {
+          "lat": 34.6614962,
+          "lng": 135.4491435
+        },
+        {
+          "lat": 34.6614907,
+          "lng": 135.4491561
+        },
+        {
+          "lat": 34.6614502,
+          "lng": 135.4492504
+        }
+      ]
+    },
+    {
       "osm_way_id": 590405785,
       "source_url": "https://www.openstreetmap.org/way/590405785",
       "tags": {
@@ -10777,6 +10836,30 @@
         {
           "lat": 34.6614962,
           "lng": 135.4491435
+        }
+      ]
+    },
+    {
+      "osm_way_id": 590405788,
+      "source_url": "https://www.openstreetmap.org/way/590405788",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "layer": "1",
+        "level": "1"
+      },
+      "nodes": [
+        5636975600,
+        5636977643
+      ],
+      "geometry": [
+        {
+          "lat": 34.6600642,
+          "lng": 135.4484044
+        },
+        {
+          "lat": 34.6601247,
+          "lng": 135.4482655
         }
       ]
     },
@@ -12971,6 +13054,33 @@
       ]
     },
     {
+      "osm_way_id": 722896196,
+      "source_url": "https://www.openstreetmap.org/way/722896196",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        6780753632,
+        6780753634,
+        2055586133
+      ],
+      "geometry": [
+        {
+          "lat": 34.7510235,
+          "lng": 135.424788
+        },
+        {
+          "lat": 34.7510498,
+          "lng": 135.4247817
+        },
+        {
+          "lat": 34.751047,
+          "lng": 135.4247602
+        }
+      ]
+    },
+    {
       "osm_way_id": 723735633,
       "source_url": "https://www.openstreetmap.org/way/723735633",
       "tags": {
@@ -13169,6 +13279,28 @@
         {
           "lat": 34.7501131,
           "lng": 135.5113108
+        }
+      ]
+    },
+    {
+      "osm_way_id": 749110503,
+      "source_url": "https://www.openstreetmap.org/way/749110503",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7005413734,
+        7005413733
+      ],
+      "geometry": [
+        {
+          "lat": 34.7394661,
+          "lng": 135.5167608
+        },
+        {
+          "lat": 34.7394471,
+          "lng": 135.5167945
         }
       ]
     },
@@ -14652,6 +14784,34 @@
       ]
     },
     {
+      "osm_way_id": 816872447,
+      "source_url": "https://www.openstreetmap.org/way/816872447",
+      "tags": {
+        "bicycle": "no",
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7393913545,
+        7393913544,
+        8678942274
+      ],
+      "geometry": [
+        {
+          "lat": 34.7392091,
+          "lng": 135.5175233
+        },
+        {
+          "lat": 34.7392331,
+          "lng": 135.5174819
+        },
+        {
+          "lat": 34.7392924,
+          "lng": 135.5173712
+        }
+      ]
+    },
+    {
       "osm_way_id": 817181817,
       "source_url": "https://www.openstreetmap.org/way/817181817",
       "tags": {
@@ -15141,6 +15301,595 @@
         {
           "lat": 34.7342084,
           "lng": 135.5028086
+        }
+      ]
+    },
+    {
+      "osm_way_id": 842164904,
+      "source_url": "https://www.openstreetmap.org/way/842164904",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7394043261,
+        7897042441,
+        7394043259
+      ],
+      "geometry": [
+        {
+          "lat": 34.7408502,
+          "lng": 135.5196457
+        },
+        {
+          "lat": 34.7409068,
+          "lng": 135.51974
+        },
+        {
+          "lat": 34.7409578,
+          "lng": 135.5198249
+        }
+      ]
+    },
+    {
+      "osm_way_id": 845731250,
+      "source_url": "https://www.openstreetmap.org/way/845731250",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7947460352,
+        7890394732
+      ],
+      "geometry": [
+        {
+          "lat": 34.7393521,
+          "lng": 135.5167773
+        },
+        {
+          "lat": 34.7393647,
+          "lng": 135.5167543
+        }
+      ]
+    },
+    {
+      "osm_way_id": 845731252,
+      "source_url": "https://www.openstreetmap.org/way/845731252",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7890394733,
+        7890394730,
+        7890394729,
+        7890394731,
+        7890394734
+      ],
+      "geometry": [
+        {
+          "lat": 34.7392685,
+          "lng": 135.5166739
+        },
+        {
+          "lat": 34.7392405,
+          "lng": 135.5166507
+        },
+        {
+          "lat": 34.7392266,
+          "lng": 135.5166767
+        },
+        {
+          "lat": 34.7391815,
+          "lng": 135.5166391
+        },
+        {
+          "lat": 34.7391878,
+          "lng": 135.5166277
+        }
+      ]
+    },
+    {
+      "osm_way_id": 845731253,
+      "source_url": "https://www.openstreetmap.org/way/845731253",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7890394746,
+        8678942276,
+        7947460352,
+        7890394736
+      ],
+      "geometry": [
+        {
+          "lat": 34.7394523,
+          "lng": 135.5168602
+        },
+        {
+          "lat": 34.7394238,
+          "lng": 135.5168367
+        },
+        {
+          "lat": 34.7393521,
+          "lng": 135.5167773
+        },
+        {
+          "lat": 34.7393379,
+          "lng": 135.5167656
+        }
+      ]
+    },
+    {
+      "osm_way_id": 845731257,
+      "source_url": "https://www.openstreetmap.org/way/845731257",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "layer": "-1",
+        "tunnel": "yes"
+      },
+      "nodes": [
+        7890394737,
+        7947460351,
+        7890394738,
+        7890394741
+      ],
+      "geometry": [
+        {
+          "lat": 34.7392654,
+          "lng": 135.5167057
+        },
+        {
+          "lat": 34.7392451,
+          "lng": 135.5166886
+        },
+        {
+          "lat": 34.7392033,
+          "lng": 135.5167618
+        },
+        {
+          "lat": 34.7391303,
+          "lng": 135.5168897
+        }
+      ]
+    },
+    {
+      "osm_way_id": 845731261,
+      "source_url": "https://www.openstreetmap.org/way/845731261",
+      "tags": {
+        "highway": "footway",
+        "incline": "up",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7890394747,
+        7890394760,
+        8678942273
+      ],
+      "geometry": [
+        {
+          "lat": 34.7393638,
+          "lng": 135.5171731
+        },
+        {
+          "lat": 34.7392648,
+          "lng": 135.5173458
+        },
+        {
+          "lat": 34.7392788,
+          "lng": 135.5173581
+        }
+      ]
+    },
+    {
+      "osm_way_id": 845731262,
+      "source_url": "https://www.openstreetmap.org/way/845731262",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "layer": "-1",
+        "tunnel": "yes"
+      },
+      "nodes": [
+        7890394748,
+        7890394749,
+        7890394752
+      ],
+      "geometry": [
+        {
+          "lat": 34.7393951,
+          "lng": 135.5171169
+        },
+        {
+          "lat": 34.7394082,
+          "lng": 135.5171276
+        },
+        {
+          "lat": 34.7394165,
+          "lng": 135.5171128
+        }
+      ]
+    },
+    {
+      "osm_way_id": 845731263,
+      "source_url": "https://www.openstreetmap.org/way/845731263",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "layer": "-1",
+        "tunnel": "yes"
+      },
+      "nodes": [
+        7890394750,
+        7890394751,
+        7890394753
+      ],
+      "geometry": [
+        {
+          "lat": 34.7394651,
+          "lng": 135.5169913
+        },
+        {
+          "lat": 34.7394755,
+          "lng": 135.5170006
+        },
+        {
+          "lat": 34.7394814,
+          "lng": 135.5169907
+        }
+      ]
+    },
+    {
+      "osm_way_id": 845731264,
+      "source_url": "https://www.openstreetmap.org/way/845731264",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "layer": "-1",
+        "tunnel": "yes"
+      },
+      "nodes": [
+        7890394747,
+        7890394748,
+        7890394742,
+        7890394750,
+        7890394744,
+        7890394761
+      ],
+      "geometry": [
+        {
+          "lat": 34.7393638,
+          "lng": 135.5171731
+        },
+        {
+          "lat": 34.7393951,
+          "lng": 135.5171169
+        },
+        {
+          "lat": 34.7393978,
+          "lng": 135.517112
+        },
+        {
+          "lat": 34.7394651,
+          "lng": 135.5169913
+        },
+        {
+          "lat": 34.7394671,
+          "lng": 135.5169877
+        },
+        {
+          "lat": 34.7395117,
+          "lng": 135.5169093
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437262,
+      "source_url": "https://www.openstreetmap.org/way/846437262",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7897042433,
+        7897042429,
+        7897042442
+      ],
+      "geometry": [
+        {
+          "lat": 34.7407486,
+          "lng": 135.5199571
+        },
+        {
+          "lat": 34.740758,
+          "lng": 135.5199729
+        },
+        {
+          "lat": 34.7407363,
+          "lng": 135.5199919
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437263,
+      "source_url": "https://www.openstreetmap.org/way/846437263",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7897042434,
+        7897042430,
+        7897042443
+      ],
+      "geometry": [
+        {
+          "lat": 34.7406856,
+          "lng": 135.5198509
+        },
+        {
+          "lat": 34.7406772,
+          "lng": 135.5198367
+        },
+        {
+          "lat": 34.7406604,
+          "lng": 135.5198514
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437264,
+      "source_url": "https://www.openstreetmap.org/way/846437264",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "0.5"
+      },
+      "nodes": [
+        7897042450,
+        7897042426,
+        7897042425,
+        7897042431
+      ],
+      "geometry": [
+        {
+          "lat": 34.7407153,
+          "lng": 135.5199864
+        },
+        {
+          "lat": 34.7407121,
+          "lng": 135.5199892
+        },
+        {
+          "lat": 34.740722,
+          "lng": 135.5200058
+        },
+        {
+          "lat": 34.740719,
+          "lng": 135.5200085
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437265,
+      "source_url": "https://www.openstreetmap.org/way/846437265",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "0.5"
+      },
+      "nodes": [
+        7897042452,
+        7897042427,
+        7897042428,
+        7897042432
+      ],
+      "geometry": [
+        {
+          "lat": 34.7406532,
+          "lng": 135.5198794
+        },
+        {
+          "lat": 34.7406509,
+          "lng": 135.5198814
+        },
+        {
+          "lat": 34.740642,
+          "lng": 135.5198665
+        },
+        {
+          "lat": 34.74064,
+          "lng": 135.5198683
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437266,
+      "source_url": "https://www.openstreetmap.org/way/846437266",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7897042451,
+        7897042433,
+        7897042435,
+        7897042434,
+        7897042453
+      ],
+      "geometry": [
+        {
+          "lat": 34.7407428,
+          "lng": 135.5199622
+        },
+        {
+          "lat": 34.7407486,
+          "lng": 135.5199571
+        },
+        {
+          "lat": 34.7407183,
+          "lng": 135.519906
+        },
+        {
+          "lat": 34.7406856,
+          "lng": 135.5198509
+        },
+        {
+          "lat": 34.7406806,
+          "lng": 135.5198553
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437267,
+      "source_url": "https://www.openstreetmap.org/way/846437267",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7897042439,
+        7897042436,
+        7897042447
+      ],
+      "geometry": [
+        {
+          "lat": 34.7407292,
+          "lng": 135.51981
+        },
+        {
+          "lat": 34.7407219,
+          "lng": 135.5197978
+        },
+        {
+          "lat": 34.7407333,
+          "lng": 135.5197878
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437268,
+      "source_url": "https://www.openstreetmap.org/way/846437268",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7897042437,
+        9190310158,
+        9190310157
+      ],
+      "geometry": [
+        {
+          "lat": 34.7407937,
+          "lng": 135.5199188
+        },
+        {
+          "lat": 34.7408008,
+          "lng": 135.5199312
+        },
+        {
+          "lat": 34.7408118,
+          "lng": 135.5199219
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437269,
+      "source_url": "https://www.openstreetmap.org/way/846437269",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7897042456,
+        7897042439,
+        7897042440,
+        7897042437,
+        7897042449
+      ],
+      "geometry": [
+        {
+          "lat": 34.7407394,
+          "lng": 135.519801
+        },
+        {
+          "lat": 34.7407292,
+          "lng": 135.51981
+        },
+        {
+          "lat": 34.7407629,
+          "lng": 135.5198669
+        },
+        {
+          "lat": 34.7407937,
+          "lng": 135.5199188
+        },
+        {
+          "lat": 34.7408048,
+          "lng": 135.5199091
+        }
+      ]
+    },
+    {
+      "osm_way_id": 846437270,
+      "source_url": "https://www.openstreetmap.org/way/846437270",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        8678942277,
+        7897042440,
+        7897042435,
+        7897042422
+      ],
+      "geometry": [
+        {
+          "lat": 34.7408493,
+          "lng": 135.5197906
+        },
+        {
+          "lat": 34.7407629,
+          "lng": 135.5198669
+        },
+        {
+          "lat": 34.7407183,
+          "lng": 135.519906
+        },
+        {
+          "lat": 34.7406792,
+          "lng": 135.5199403
+        }
+      ]
+    },
+    {
+      "osm_way_id": 852014458,
+      "source_url": "https://www.openstreetmap.org/way/852014458",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7890394731,
+        7947460349,
+        7947460350
+      ],
+      "geometry": [
+        {
+          "lat": 34.7391815,
+          "lng": 135.5166391
+        },
+        {
+          "lat": 34.7391377,
+          "lng": 135.5166031
+        },
+        {
+          "lat": 34.7391461,
+          "lng": 135.5165894
         }
       ]
     },
@@ -17467,6 +18216,100 @@
       ]
     },
     {
+      "osm_way_id": 936645156,
+      "source_url": "https://www.openstreetmap.org/way/936645156",
+      "tags": {
+        "highway": "footway",
+        "incline": "up",
+        "indoor": "yes"
+      },
+      "nodes": [
+        8678942273,
+        8678942274,
+        6180271195
+      ],
+      "geometry": [
+        {
+          "lat": 34.7392788,
+          "lng": 135.5173581
+        },
+        {
+          "lat": 34.7392924,
+          "lng": 135.5173712
+        },
+        {
+          "lat": 34.739302,
+          "lng": 135.5173801
+        }
+      ]
+    },
+    {
+      "osm_way_id": 936645157,
+      "source_url": "https://www.openstreetmap.org/way/936645157",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7005413733,
+        8678942275
+      ],
+      "geometry": [
+        {
+          "lat": 34.7394471,
+          "lng": 135.5167945
+        },
+        {
+          "lat": 34.7394405,
+          "lng": 135.5168066
+        }
+      ]
+    },
+    {
+      "osm_way_id": 936645158,
+      "source_url": "https://www.openstreetmap.org/way/936645158",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        8678942275,
+        8678942276
+      ],
+      "geometry": [
+        {
+          "lat": 34.7394405,
+          "lng": 135.5168066
+        },
+        {
+          "lat": 34.7394238,
+          "lng": 135.5168367
+        }
+      ]
+    },
+    {
+      "osm_way_id": 936645159,
+      "source_url": "https://www.openstreetmap.org/way/936645159",
+      "tags": {
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        7897042441,
+        8678942277
+      ],
+      "geometry": [
+        {
+          "lat": 34.7409068,
+          "lng": 135.51974
+        },
+        {
+          "lat": 34.7408493,
+          "lng": 135.5197906
+        }
+      ]
+    },
+    {
       "osm_way_id": 943256774,
       "source_url": "https://www.openstreetmap.org/way/943256774",
       "tags": {
@@ -19005,6 +19848,34 @@
         {
           "lat": 34.7330565,
           "lng": 135.4997511
+        }
+      ]
+    },
+    {
+      "osm_way_id": 1046378441,
+      "source_url": "https://www.openstreetmap.org/way/1046378441",
+      "tags": {
+        "bicycle": "dismount",
+        "highway": "footway",
+        "indoor": "yes"
+      },
+      "nodes": [
+        9622725166,
+        13387916001,
+        9622725165
+      ],
+      "geometry": [
+        {
+          "lat": 34.7126998,
+          "lng": 135.4690845
+        },
+        {
+          "lat": 34.7126233,
+          "lng": 135.4689321
+        },
+        {
+          "lat": 34.7125377,
+          "lng": 135.4687616
         }
       ]
     },
@@ -22576,6 +23447,42 @@
         {
           "lat": 34.7020821,
           "lng": 135.4976805
+        }
+      ]
+    },
+    {
+      "osm_way_id": 1320007648,
+      "source_url": "https://www.openstreetmap.org/way/1320007648",
+      "tags": {
+        "covered": "building_arcade",
+        "highway": "footway",
+        "indoor": "yes",
+        "level": "0",
+        "lit": "yes",
+        "name": "水の路",
+        "name:en": "Water Path",
+        "name:es": "Camino del Agua",
+        "name:ja": "水の路",
+        "name:ja-Hira": "みずのみち",
+        "name:ja-Latn": "Mizu no Michi"
+      },
+      "nodes": [
+        12215302905,
+        12215302908,
+        12215302910
+      ],
+      "geometry": [
+        {
+          "lat": 34.7019708,
+          "lng": 135.4934688
+        },
+        {
+          "lat": 34.7019858,
+          "lng": 135.4934567
+        },
+        {
+          "lat": 34.7020115,
+          "lng": 135.4934358
         }
       ]
     },

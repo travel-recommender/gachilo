@@ -25,7 +25,7 @@ class WeatherTests(unittest.TestCase):
     def get(self,start='2026-10-30',end='2026-11-01'):return self.client.snapshot(start,end)
     def test_zero_missing_and_percent_conversion_are_distinct(self):
         r=self.get();self.assertEqual([d['probability'] for d in r['days']],[1,0,None])
-        self.assertEqual(r['days'][2]['status'],'missing_probability')
+        self.assertEqual(r['days'][2]['status'],'missing_weather')
         self.assertEqual(self.calls[0][1],3);self.assertIn('forecast_days=16',self.calls[0][0])
     def test_horizon_and_disabled_make_no_requests(self):
         for a,b in [('2026-10-01','2026-10-02'),('2026-11-15','2026-11-16')]:
@@ -61,3 +61,21 @@ class WeatherTests(unittest.TestCase):
     def test_range_validation(self):
         for end in ['2026-10-29','2026-11-30']:
             with self.assertRaises(ValueError):self.get(end=end)
+
+    def test_heat_forecast_is_independent_of_rain_and_never_assumes_missing_means_cool(self):
+        self.payload=body((0,None,0))
+        self.payload['daily']['temperature_2m_max']=[35,38,None]
+        self.payload['daily_units']['temperature_2m_max']='°C'
+        r=self.get()
+        self.assertEqual([d['max_temperature_c'] for d in r['days']],[35,38,None])
+        self.assertEqual(r['days'][1]['status'],'forecast')
+        self.assertIsNone(r['days'][1]['probability'])
+        self.assertIn('temperature_2m_max',self.calls[0][0])
+        self.assertIn('temperature_unit=celsius',self.calls[0][0])
+    def test_invalid_temperature_unit_values_or_shape_do_not_create_heat_forecast(self):
+        for unit,values in [('°F',[100,100,100]),('°C',[35]),('°C',[True,100,float('nan')])]:
+            self.payload=body();self.payload['daily']['temperature_2m_max']=values
+            self.payload['daily_units']['temperature_2m_max']=unit;self.client.until=0
+            r=self.get()
+            self.assertTrue(all(d['max_temperature_c'] is None for d in r['days']))
+            self.assertEqual(r['days'][0]['probability'],1)

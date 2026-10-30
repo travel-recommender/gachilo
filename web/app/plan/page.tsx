@@ -3,6 +3,7 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
+import { WeatherRouteNotice } from "@/components/WeatherRouteNotice";
 import { PlanMap } from "@/components/PlanMap";
 import { CATEGORY_MAP, findPlace } from "@/lib/places";
 import { explainPlace } from "@/lib/explain";
@@ -126,6 +127,7 @@ function PlanInner() {
           items={Array.from({ length: days }, (_, i) => ({ id: i + 1, label: `${i + 1}일차` }))} />
         <div className="px-5 pt-[20px]">
           <PlanMap day={day} places={places} />
+          {online && <WeatherRouteNotice summary={final?.summary} />}
 
           <div className="flex h-[38px] items-center justify-between">
             {confirmed

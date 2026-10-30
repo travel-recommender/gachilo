@@ -1,4 +1,4 @@
-import {withTripConditions} from './conditions.ts';
+import {withTripConditions, withShelterPreference, hasShelterWeather} from './conditions.ts';
 /** Real catalogue → the same shared-candidate contract as the demo, without inventing data. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
@@ -176,7 +176,25 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
     .map(r => ({lat: r.place.latitude, lng: r.place.longitude}));
   // One routing snapshot is reused by every strategy so OSRM work is bounded, not tripled.
   return withTripConditions(request.weather, request.startDate, () =>
-    withRouting(points, () => calculatePrepared(request, dataset, profiles, dates, picked, listed), routingOptions));
+    withRouting(points, () => {
+      const run=()=>calculatePrepared(request,dataset,profiles,dates,picked,listed);
+      let wet;
+      try { wet=run(); } catch(error) {
+        if(!hasShelterWeather() || error.message!=='NO_SCHEDULABLE_REAL_CANDIDATE') throw error;
+        return withShelterPreference(false,run);
+      }
+      if(!hasShelterWeather()) return wet;
+      // A roof detour is a soft preference. Do not lose a must-place or otherwise
+      // feasible visits merely because extra walking/time exceeds a hard limit.
+      let plain;
+      try { plain=withShelterPreference(false,run); } catch { return wet; }
+      return {candidates:wet.candidates.map((candidate,i)=>{
+        const a=candidate.planning,b=plain.candidates[i].planning;
+        return (!a.must_satisfied && b.must_satisfied)
+          || (a.must_satisfied===b.must_satisfied && b.scheduled_count>a.scheduled_count)
+          ? plain.candidates[i] : candidate;
+      })};
+    }, routingOptions));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

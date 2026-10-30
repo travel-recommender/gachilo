@@ -15,7 +15,8 @@ from zoneinfo import ZoneInfo
 API = 'https://api.open-meteo.com/v1/forecast'
 TOKYO = ZoneInfo('Asia/Tokyo')
 PARAMS = dict(latitude=34.6937, longitude=135.5023,
-              daily='precipitation_probability_max', timezone='Asia/Tokyo', forecast_days=16)
+              daily='precipitation_probability_max,temperature_2m_max', temperature_unit='celsius',
+              timezone='Asia/Tokyo', forecast_days=16)
 
 
 def open_forecast(url, timeout):
@@ -56,11 +57,13 @@ class WeatherClient:
                 data, fetched, status = self.cached
         rows = []
         for day in dates:
-            value = data.get(day.isoformat()) if today <= day <= today+timedelta(days=15) else None
-            day_status = ('forecast' if value is not None else
+            values = data.get(day.isoformat(), {}) if today <= day <= today+timedelta(days=15) else {}
+            probability, temperature = values.get('probability'), values.get('max_temperature_c')
+            day_status = ('forecast' if probability is not None or temperature is not None else
                           'outside_forecast_range' if not today <= day <= today+timedelta(days=15) else
-                          'missing_probability' if status == 'forecast' else status)
-            rows.append(dict(date=day.isoformat(), probability=value, status=day_status))
+                          'missing_weather' if status == 'forecast' else status)
+            rows.append(dict(date=day.isoformat(), probability=probability,
+                             max_temperature_c=temperature, status=day_status))
         return dict(source='Open-Meteo', source_url=API, timezone='Asia/Tokyo',
                     location='Osaka city forecast grid', fetched_at=fetched, status=status, days=rows)
 
@@ -81,12 +84,21 @@ class WeatherClient:
                 raise ValueError('unexpected forecast timezone')
             if not isinstance(dates, list) or not isinstance(values, list) or len(dates) != len(values) or not 1 <= len(dates) <= 16:
                 raise ValueError('invalid forecast shape')
+            # Rain and heat are independent. Missing/invalid temperature must not
+            # invent a cool day or discard an otherwise valid rain forecast.
+            temperatures = daily.get('temperature_2m_max')
+            if (data.get('daily_units', {}).get('temperature_2m_max') != '°C'
+                    or not isinstance(temperatures, list) or len(temperatures) != len(dates)):
+                temperatures = [None] * len(dates)
             result = {}
-            for date, value in zip(dates, values):
+            for date, value, temperature in zip(dates, values, temperatures):
                 parsed = datetime.strptime(date, '%Y-%m-%d').date()
                 if parsed.isoformat() != date or date in result:
                     raise ValueError('invalid forecast date')
-                result[date] = value/100 if type(value) in (int, float) and math.isfinite(value) and 0 <= value <= 100 else None
+                result[date] = dict(
+                    probability=value/100 if type(value) in (int, float) and math.isfinite(value) and 0 <= value <= 100 else None,
+                    max_temperature_c=temperature if type(temperature) in (int, float)
+                    and math.isfinite(temperature) and -90 <= temperature <= 60 else None)
             return result, now.isoformat(timespec='seconds'), 'forecast'
         except (OSError, ValueError, KeyError, TypeError, OverflowError):
             # Errors are cached briefly; an expired forecast is never relabelled current.
