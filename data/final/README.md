@@ -1,9 +1,10 @@
-# 시연용 최종 장소 목록 (2026-10-26)
+# 시연용 최종 장소 목록 (2026-10-30)
 
-최종 통합 CSV 150곳과 지점별 추가 수집 55곳을 합친 205개 검색 목록이다.
+최종 CSV 150곳 + 기존 추가 55곳 + 카페·식당·간식·관광 보완 20곳 = **225개 검색 목록**이다.
+새 20곳의 공식 정보·지도 후보/OSRM 11곳 대조와 보관/역/휴식 보조자료 5건은 [10/30 수집 기록](../collections/osaka_traveler_expansion_20261030/README.md)에 있다. 새 20곳은 자동 일정 검증 전이며 보조자료 5건은 화면 미연동이다.
 기존 150곳 ID를 유지하며, 추가 수집표의 기존 장소 보완 3건은 자동 덮어쓰지 않고 update_proposals로 보존한다.
 
-- 서비스 기본값은 `data/runtime_catalog.json`이다. Python API와 Node의 단일/세 후보 계산이 같은 205곳과 날짜 규칙을 읽는다.
+- 서비스 기본값은 `data/runtime_catalog.json`이다. Python API와 Node의 단일/세 후보 계산이 같은 225곳과 날짜 규칙을 읽는다.
 - 팀원 실행 방법: [최종 데이터 테스트 안내](../../docs/final_catalog_team_setup.md). 기존처럼 `backend`에서 `python3 server.py`, `web`에서 `npm run dev`로 실행한다.
 - API: `http://localhost:8000/api/places?limit=150&offset=0`. 다음 페이지는 `next_offset`을 사용하며 화면은 모든 페이지를 읽는다.
 - `REAL_CATALOG_PATH`·`REAL_PROFILES_PATH`를 함께 지정하면 다른 검증본을 시험할 수 있다. 오래된 개인 설정이 있으면 둘 다 해제한다.
@@ -28,11 +29,11 @@
 
 ## 재생성
 
-`python3 scripts/build_final_catalog.py` (저장소의 `reviewed_places_20261014.csv` 사용; 원본과 같은 SHA-256)
+`python3 scripts/build_expanded_catalog.py` (저장소의 `reviewed_places_20261014.csv` 사용; 원본과 같은 SHA-256)
 
 CSV를 읽기만 하며 원본은 수정하지 않는다. 입력 파일 이름과 SHA-256은 catalog의 input_provenance에 기록한다. 수집표는 data/collections/osaka_branches_20261019/branches.json을 사용하며 검증 overlay의 collection SHA와 모든 ID가 일치해야 한다. 검토 근거 URL, 확인일, 좌표 종류, 남은 항목은 overlay에서 확인할 수 있다.
 
-검증: `python3 scripts/test_final_catalog.py`, `node --test scripts/test_verified_branches.mjs`, `NODE_BINARY=/path/to/node python3 scripts/test_final_catalog_flow.py`. 신규51곳 각각의 실제 세 전략 계산, 보류4곳 차단, 날짜 예외·휴식·포장·건물 이동, 205페이지 로딩 및 방장 확정·전원 동일 결과·DB 재조회를 확인한다. Node24이상 필요.
+검증: `python3 scripts/test_expanded_catalog.py`, `python3 scripts/test_final_catalog.py`, `node --test scripts/test_verified_branches.mjs`, `NODE_BINARY=/path/to/node python3 scripts/test_final_catalog_flow.py`. 신규51곳 각각의 실제 세 전략 계산, 보류4곳 차단, 날짜 예외·휴식·포장·건물 이동, 225곳 페이지 로딩 및 방장 확정·전원 동일 결과·DB 재조회를 확인한다. Node24이상 필요.
 
 과거 감사용 `loadInputs()`는 150곳 정본을 유지한다. 서비스의 `loadRuntimeInputs()`만 최종 목록을 읽는다. 기존 보고서 정본은 이 변경에 포함하지 않는다.
 

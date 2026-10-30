@@ -76,7 +76,10 @@ def cost_krw(cost,rate):
 
 def search_names(record):
     p=record['place'];branch=record['review'].get('branch_collection',{})
-    return list(dict.fromkeys(filter(None,[p['name'],p['name_ko'],branch.get('brand'),branch.get('official_name')])))
+    aliases=branch.get('aliases','')
+    aliases=aliases.split('|') if isinstance(aliases,str) else []
+    names=[p['name'],p['name_ko'],branch.get('brand'),branch.get('official_name'),*aliases]
+    return list(dict.fromkeys(n.strip() for n in names if isinstance(n,str) and n.strip()))
 
 def project(record,rate):
     p=record['place'];out={k:v for k,v in p.items() if k not in ('cost','opening_hours_source','verified_at')}

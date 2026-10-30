@@ -8,7 +8,7 @@ class RuntimeCatalogTests(unittest.TestCase):
         with patch.dict('os.environ',{'REAL_CATALOG_PATH':'','REAL_PROFILES_PATH':''}):
             paths=runtime_paths()
         self.assertEqual(paths,(DATA,PROFILES))
-        self.assertEqual(catalog()['total'],205)
+        self.assertEqual(catalog()['total'],225)
         for q,pid in [('이치란 아베노','branch_ichiran_abeno'),('이치란 신사이바시','branch_ichiran_shinsaibashi')]:
             self.assertIn(pid,{p['place_id'] for p in catalog(query=q)['places']})
         profiles=json.loads(PROFILES.read_text(encoding='utf-8'))['places']
@@ -27,12 +27,15 @@ class RuntimeCatalogTests(unittest.TestCase):
         from decimal import Decimal
         raw=json.loads(DATA.read_text(encoding='utf-8'))
         record=raw['places'][-1]
-        record['review']['branch_collection']={'brand':'UniqueReviewBrand','official_name':'OfficialReviewName'}
+        record['review']['branch_collection']={'brand':'UniqueReviewBrand','official_name':'OfficialReviewName','aliases':' Alias One | AliasTwo | Alias One || '}
         with tempfile.TemporaryDirectory() as tmp:
             path=__import__('pathlib').Path(tmp)/'catalog.json'
             path.write_text(json.dumps({'places':[record]}))
-            for query in ['uniquereviewbrand','officialreviewname']:
+            for query in ['uniquereviewbrand','officialreviewname','alias one','aliastwo']:
                 self.assertEqual(catalog(query=query,path=path,rate=Decimal('9.2'))['total'],1)
+            names=catalog(path=path,rate=Decimal('9.2'))['places'][0]['search_names']
+            self.assertEqual(names.count('Alias One'),1)
+            self.assertNotIn('',names)
 
     def test_excluded_ids_rejected_without_erasing_existing_data(self):
         import tempfile

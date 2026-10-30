@@ -12,9 +12,10 @@ test('split windows cannot silently override weekday/extended rules',()=>{
   assert.ok(!availability(record,'2026-11-02',copy,{allowShopping:true}).reasons.includes('split_window_rule_conflict'));
  }
 });
-test('schedulable uses the shared 205 runtime and respects held branches',()=>{
+test('schedulable uses the shared runtime and respects held branches',()=>{
  const ids=schedulableIds(['2026-11-02','2026-11-03'],dataset,profiles);
  assert.ok(ids.includes('branch_ichiran_abeno'));
  assert.ok(ids.includes('branch_ichiran_shinsaibashi'));
  assert.ok(!ids.includes('branch_wanaka_dotonbori'));
+ for (const row of dataset.places.slice(205)) assert.ok(!ids.includes(row.place.place_id));
 });

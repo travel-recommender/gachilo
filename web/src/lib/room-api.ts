@@ -178,7 +178,7 @@ export const roomApi = {
       startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}), ...(dataset ? { dataset } : {}),
     }),
 
-  /** 실제 장소 전체(현재 205곳). 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
+  /** 서버가 게시한 실제 장소 전체. 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
   realPlaces: () => loadCatalogPages((offset) => request<CatalogPage>(`/api/places?limit=150&offset=${offset}`)),
 
   /** 150곳 중 이 방 날짜에 일정 검사를 통과할 수 있는 곳 (36곳 방이면 null) */
