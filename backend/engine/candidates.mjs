@@ -4,7 +4,7 @@ import {pathToFileURL} from 'node:url';
 import {buildConsensus, kmToSteps} from './consensus.ts';
 import {buildSchedule} from './schedule.ts';
 import {allPlaces, setMembers} from './places.ts';
-import {distanceWeightFor, groupTradeoffs} from './inputs.ts';
+import {distanceWeightFor, groupTradeoffs, vetoesOf} from './inputs.ts';
 
 import {withRouting, routingSummary} from './routing.ts';
 
@@ -19,7 +19,7 @@ const reasonText = {
 };
 
 function ruleResult(consensus, submissions, days, summary, distanceWeight) {
-  const vetoed = new Set(submissions.map(s => s.veto).filter(Boolean));
+  const vetoed = new Set(submissions.flatMap(s => vetoesOf(s)));
   return {core: consensus.core, schedule: buildSchedule(consensus.core, days,
     {considerBags:true, fillMeals:true, vetoed, distanceWeight, budget:consensus.metrics.budgetCap}), summary,
     ai:{used:false, added:[], basis:[]}};

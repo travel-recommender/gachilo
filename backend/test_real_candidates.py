@@ -35,6 +35,50 @@ class RealCandidatesTests(unittest.TestCase):
     def calculate(self,room,revision=3,token=None):
         return self.req('POST',f"/rooms/{room['roomId']}/calculate",{'strategies':STRATEGIES,'revision':revision},room['ownerToken'] if token is None else token)
 
+    def test_shared_pool_multiple_vetoes_selection_reload_and_clear(self):
+        room=self.room(count=2);a,b=room['members'];path=f"/rooms/{room['roomId']}"
+        ids=['osaka_009','osaka_015','osaka_017'];vetoes=ids[:2]
+        for member in (a,b):
+            self.assertEqual(self.req('PUT',path+'/longlists/'+member['id'],{'longlist':ids},member['submissionToken'])[0],200)
+            self.assertEqual(self.save(room,member,ids,must='osaka_015')[0],200)
+        code,before,_=self.calculate(room,revision=2)
+        self.assertEqual(code,200)
+        # Both veto targets were genuinely schedulable before being excluded.
+        for candidate in before['candidates']:
+            self.assertEqual({pid for day in candidate['days'] for pid in day['placeIds']},set(ids))
+
+        self.assertEqual(self.save(room,b,['osaka_017'],longlist=ids,veto=vetoes[0],vetoes=vetoes)[0],200)
+        pool=self.req('GET',path+'/pool',token=a['submissionToken'])[1]
+        self.assertEqual(set(pool['placeIds']),set(ids))
+        self.assertEqual(pool['listedCount'],2)
+        own=self.req('GET',path+'/submissions/'+b['id'],token=b['submissionToken'])[1]['submission']
+        self.assertEqual(own['vetoes'],vetoes)
+        with Store(self.db).connect() as connection:
+            saved=json.loads(connection.execute('SELECT payload FROM submissions WHERE member_id=?',(b['id'],)).fetchone()[0])
+        self.assertEqual(saved['vetoes'],vetoes)
+        self.assertEqual(self.req('GET',path+'/results',token=room['ownerToken'])[1]['candidates'],[])
+        code,result,_=self.calculate(room,revision=3)
+        self.assertEqual(code,200)
+        self.assertEqual([candidate['strategy'] for candidate in result['candidates']],STRATEGIES)
+        for candidate in result['candidates']:
+            self.assertEqual({pid for day in candidate['days'] for pid in day['placeIds']},{'osaka_017'})
+            self.assertEqual(candidate['planning']['must_veto_conflict_count'],1)
+            choice={'strategy':candidate['strategy'],'revision':3,'selectionVersion':result['selectionVersion']}
+            code,result,_=self.req('PUT',path+'/selection',choice,room['ownerToken'])
+            self.assertEqual(code,200)
+            self.assertEqual({pid for day in result['result']['days'] for pid in day['placeIds']},{'osaka_017'})
+            for member in (a,b):
+                self.assertEqual(self.req('GET',path+'/results',token=member['submissionToken'])[1],result)
+                self.assertEqual(Store(self.db).result(room['roomId'],member['submissionToken']),result)
+
+        # Clearing the list overrides a stale legacy veto and invalidates the selected result.
+        self.assertEqual(self.save(room,b,['osaka_017'],longlist=ids,veto=vetoes[0],vetoes=[])[0],200)
+        self.assertIsNone(self.req('GET',path+'/results',token=a['submissionToken'])[1]['result'])
+        code,cleared,_=self.calculate(room,revision=4)
+        self.assertEqual(code,200)
+        for candidate in cleared['candidates']:
+            self.assertEqual({pid for day in candidate['days'] for pid in day['placeIds']},set(ids))
+
     def test_three_clients_select_persist_and_cache_same_real_candidates(self):
         room=self.ready_room();path=f"/rooms/{room['roomId']}"
         self.assertEqual(self.calculate(room,token=room['members'][1]['submissionToken'])[0],403)
