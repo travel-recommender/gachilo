@@ -2,6 +2,7 @@
  * 서버 API 클라이언트.
  * 계약 원본은 backend/README.md 「API 계약」이다. 여기서 임의로 경로를 만들지 않는다.
  */
+import type { ApiCatalogPlace } from "./catalog";
 
 export interface RoomMember {
   id: string;
@@ -97,6 +98,15 @@ export interface ApiResult {
       };
 }
 
+/** P4 풀 — 전원의 1차 목록 합집합. 여러 명이 올린 곳부터 온다. 누가 올렸는지는 없다 */
+export interface ApiPool {
+  roomId: string;
+  /** 1차 목록(또는 전체 입력)을 낸 사람 수 */
+  listedCount: number;
+  memberCount: number;
+  placeIds: string[];
+}
+
 /** 서버가 준 상태 코드를 화면이 구분할 수 있게 담아 둔다 */
 export class ApiError extends Error {
   constructor(message: string, readonly status: number) {
@@ -165,8 +175,17 @@ export const roomApi = {
       .then((r) => r.exchange_rate ?? null),
 
   /** ownerPin: 방장이 다른 기기에서 다시 들어올 때 쓸 4자리 */
-  create: (startDate: string, endDate: string, memberNames: string[], ownerPin?: string) =>
-    request<ApiRoom>("/rooms", "POST", { startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}) }),
+  create: (startDate: string, endDate: string, memberNames: string[], ownerPin?: string, dataset?: string) =>
+    request<ApiRoom>("/rooms", "POST", {
+      startDate, endDate, memberNames, ...(ownerPin ? { ownerPin } : {}), ...(dataset ? { dataset } : {}),
+    }),
+
+  /** 실제 장소 150곳. 이 방의 P3 검색·P4 목록·P8 지도가 쓴다 */
+  realPlaces: () => request<{ dataset: string; places: ApiCatalogPlace[] }>("/api/places?limit=150"),
+
+  /** 150곳 중 이 방 날짜에 일정 검사를 통과할 수 있는 곳 (36곳 방이면 null) */
+  schedulable: (roomId: string, token: string) =>
+    request<{ roomId: string; placeIds: string[] | null }>(`/rooms/${encodeURIComponent(roomId)}/schedulable`, "GET", undefined, token),
 
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>
@@ -206,6 +225,19 @@ export const roomApi = {
       input,
       member.submissionToken
     ),
+
+  /** P3에서 담은 1차 목록만 먼저 저장한다. 결과 revision은 바뀌지 않는다 */
+  saveLonglist: (roomId: string, memberId: string, token: string, longlist: string[]) =>
+    request<unknown>(
+      `/rooms/${encodeURIComponent(roomId)}/longlists/${encodeURIComponent(memberId)}`,
+      "PUT",
+      { longlist },
+      token
+    ),
+
+  /** 모두가 찾아온 곳 (P4). 방 참여자·방장 토큰이면 읽는다 */
+  pool: (roomId: string, token: string) =>
+    request<ApiPool>(`/rooms/${encodeURIComponent(roomId)}/pool`, "GET", undefined, token),
 
   /** 참여 현황·결과 조회. 참여자 토큰으로도 읽을 수 있다 */
   result: (room: Pick<ApiRoom, "roomId" | "ownerToken">) =>

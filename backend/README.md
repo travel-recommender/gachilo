@@ -41,6 +41,8 @@ OSRM 실행·환경변수·실패 처리·검사는 [OSRM 연결 문서](../docs
 | 공용 초대 링크 — 이름 고르기·직접 추가 | POST /rooms/{roomId}/join | 초대 토큰 |
 | 이름 + PIN으로 다시 들어오기 | POST /rooms/{roomId}/rejoin | 초대 토큰 |
 | 내 입력 저장·수정 | PUT /rooms/{roomId}/submissions/{memberId} | 참여자 토큰 |
+| 1차 목록(My list) 저장 | PUT /rooms/{roomId}/longlists/{memberId} | 참여자 토큰 |
+| 모두가 찾아온 곳(P4 풀) | GET /rooms/{roomId}/pool | 해당 방 참여자/방장 토큰 |
 | 실제 계산 후 저장 | POST /rooms/{roomId}/calculate | 방장 토큰 |
 | 저장 결과 조회 | GET /rooms/{roomId}/results | 해당 방 참여자/방장 토큰 |
 | 외부 계산 결과 저장(연결용) | POST /rooms/{roomId}/results | 방장 토큰 |
@@ -53,6 +55,9 @@ OSRM 실행·환경변수·실패 처리·검사는 [OSRM 연결 문서](../docs
   - 방 만들기 본문에 `ownerPin`, `POST /join` 본문에 `pin`(숫자 4자리, 선택)을 넣으면 그 자리에 PIN이 생깁니다. 서버는 PBKDF2 해시만 저장합니다.
   - `GET /join`의 `members[].hasPin`은 그 이름으로 다시 들어올 수 있는지만 알려 줍니다.
   - `POST /rejoin` `{memberId, pin}` → 새 `submissionToken`(방장이면 새 `ownerToken`도). **이전 기기의 토큰은 끊깁니다.** 아직 안 고른 이름·PIN 없는 자리는 409, 틀리면 403(남은 횟수 안내), 5번 틀리면 10분 동안 429입니다.
+
+**1차 목록과 P4 풀(10/26)**: P3에서 담은 목록을 `PUT /longlists/{memberId}` `{"longlist":[...]}`로 먼저 저장합니다(30곳까지, 방 장소 목록 밖 ID는 400). revision은 바뀌지 않습니다 — 결과는 전체 입력(submissions)만 씁니다.
+- `GET /pool` → `{roomId,listedCount,memberCount,placeIds}`. 전원 목록의 합집합을 여러 명이 올린 곳부터 줍니다. 누가 올렸는지·몇 명이 올렸는지는 주지 않습니다. 전체 입력을 낸 사람은 그 입력의 longlist로 셉니다.
 
 토큰은 `Authorization: Bearer ...`로 전달합니다. 같은 서버의 연결 화면과 기본 `http://localhost:3000`을 허용하며, 다른 로컬 프론트 주소는 `--origin`으로 지정합니다.
 
@@ -141,10 +146,10 @@ HTTP 통합검사로 저장·조회, 권한·출처 제한, 동시 입력, 재�
 ```
 
 - 생성 응답에 `dataset`이 추가됩니다. 이 모드의 입력은 `/api/places`의 `place_id`를 사용합니다. 150개 ID 모두 저장 가능하며 `glico` 같은 데모 ID는 400입니다. 데모 방에 실제 ID를 보내는 것도 400입니다.
-- 같은 제출 경로로 전원 입력을 저장한 뒤 `POST /rooms/{id}/calculate`에 `{"strategy":"average"}`를 보냅니다. 이 모드는 **must → 선택 수 → ID 순서**로 배치를 시도하며 average는 선택 여부 0/1의 집계입니다. 데모의 인기도 기반 만족도와 같은 모델이 아닙니다. 다른 전략은 400입니다.
+- 같은 제출 경로로 전원 입력을 저장한 뒤 `POST /rooms/{id}/calculate`에 `{"strategy":"average"}`를 보냅니다. 이 단일 전략 호환 경로는 **must → 선택 수 → ID 순서**로 배치를 시도하며 average는 선택 여부 0/1의 집계입니다. 데모의 인기도 기반 만족도와 같은 모델이 아닙니다. 단일 요청에서 다른 전략은 400입니다. P7/P8은 `{"strategies":["average","least_misery","fairness"],"revision":현재버전}`으로 세 후보를 요청할 수 있습니다. [10-b 연결 문서](../docs/week8_real_candidates.md)를 참고하세요.
 - 거부 장소를 제외하고 사용자가 선택한 후보만 계산합니다. 인기도·자동 식당·미선택 후보를 추가하지 않습니다. 꼭 갈 곳도 운영시간·금액·한도 조건을 통과해야 합니다. 실패하면 `must_satisfied=false`입니다.
 - 각 날짜를 검토해 일일 예산·걸음 수·활동시간은 그룹의 최솟값을 상한으로 적용합니다. 알려지지 않은 가격·시간·예약은 미배치합니다. 쇼핑은 검증된 일반 판매장·상점가 구역에 한해 배치하며 `cost_krw=null`, `cost_status=not_applicable_shopping`으로 표시합니다. 개인 구매액은 예산 합계에 넣지 않습니다.
-- 결과의 기존 `strategy/days/summary`를 유지하고, 응답 바깥에 `planning`을 추가합니다. 실제 모드의 저장 후 상태는 항상 `status=draft`입니다. `planning.status`는 `model_checks_passed` 또는 `needs_review`, `schedule_ready`는 항상 false입니다. 배치 수, 미배치 수, 이유별 개수, 날짜별 시간·확인된 비용 합계, 환율 출처를 저장합니다. 개인 이름·토큰·개별 선택·개인 조건·거부 장소 ID는 응답에 포함하지 않습니다.
+- 결과의 기존 `strategy/days/summary`를 유지하고, 응답 바깥에 `planning`을 추가합니다. 단일 전략 호환 경로의 저장 후 상태는 `status=draft`입니다. 후보 묶음은 확정 전 `awaiting_selection`, 방장 확정 후 `ready`이지만 `planning.schedule_ready=false`인 검토용 초안입니다. `planning.status`는 `model_checks_passed` 또는 `needs_review`, `schedule_ready`는 항상 false입니다. 배치 수, 미배치 수, 이유별 개수, 환율 출처를 저장합니다. 세 후보 경로는 후보마다 planning을 저장하며 최상위 planning은 확정 전 null, 확정 후 선택 후보의 값입니다. 날짜별 시간·확인된 비용은 후보의 days[].items/metrics에서 읽습니다(단일 전략 경로는 planning.days). 개인 이름·토큰·개별 선택·개인 조건·거부 장소 ID는 응답에 포함하지 않습니다.
 - `planning.exclusion_reason_counts`는 미배치 장소별로 **모든 여행일에 공통인 사유**만 셉니다. 공통 사유가 없고 날짜마다 실패 조건이 다르면 `date_conditions_vary`로 한 번 집계합니다. 일부 날짜의 휴무나 검증 범위 초과를 여행 전체의 원인으로 표시하지 않습니다. 여러 공통 사유가 있으면 같은 장소가 중복 집계될 수 있어 합계는 미배치 장소 수와 다릅니다. 화면은 시간·마감·하루 장소 수 한도를 각각 안내하고, 나머지 미매핑 사유는 장소 수가 아닌 중복 포함 사유 건수로 한 줄에 표시합니다. 기존 저장 결과는 재계산해야 새 집계가 적용됩니다.
 - 실제 모드의 수동 `POST /results`는 거부합니다. 검증된 `calculate` 결과만 저장합니다. 입력 변경 시 결과와 planning을 함께 폐기하고 이전 revision 계산은 409입니다.
 - 기존 SQLite에 dataset과 planning 열을 추가하는 비파괴 마이그레이션입니다. 기존 방·결과·토큰은 유지됩니다. 별도 프로세스가 스키마를 직접 쓴다면 열 이름을 명시해야 합니다.

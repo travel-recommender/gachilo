@@ -7,15 +7,17 @@ import {
   DEFAULT_MEMBERS,
   makeCustomPlace,
   makeMembers,
+  setCatalog,
   setCustomPlaces,
   setMembers,
   type CustomPlaceInput,
 } from "@/lib/places";
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
-import { ApiError, nightsBetween, roomApi, toDateRange, type ApiResult, type RoomMember } from "@/lib/room-api";
+import { ApiError, nightsBetween, roomApi, toDateRange, type ApiPool, type ApiResult, type RoomMember } from "@/lib/room-api";
 import { editedState, joinedState, rejoinedState, restoredFromServer, vetoFields } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
+import { REAL_DATASET, toPlace } from "@/lib/catalog";
 import { toServerTradeoffs } from "@/lib/tradeoff";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
@@ -79,8 +81,21 @@ const INITIAL: AppState = {
   extra: EXTRAS_DEFAULT,
 };
 
+/**
+ * 이 방이 보는 장소 목록.
+ * - demo: 서버 없는 데모이거나 36곳 방 (웹 안의 places.ts)
+ * - loading: 방에 들어왔고 어느 목록인지 확인하는 중 — 이때 고른 장소는 방과 맞지 않을 수 있어 검색을 막는다
+ * - real: 실제 장소 150곳 중 이 방 날짜에 일정에 넣을 수 있는 곳
+ * - error: 목록을 못 불러왔다
+ */
+export type CatalogStatus = "demo" | "loading" | "real" | "error";
+
+/** 새로 만드는 방의 장소 데이터. 시연은 150곳으로 한다 (issue #3). 36곳으로 돌리려면 prototype_demo_36 */
+const NEW_ROOM_DATASET = process.env.NEXT_PUBLIC_DATASET || REAL_DATASET;
+
 interface Ctx {
   state: AppState;
+  catalog: CatalogStatus;
   set: (p: Partial<AppState>) => void;
   setMine: (p: Partial<Submission>) => void;
   setExtra: (p: Partial<TripExtras>) => void;
@@ -103,6 +118,10 @@ interface Ctx {
   submitMine: () => Promise<void>;
   /** 참여 현황·결과를 조회한다 */
   fetchStatus: () => Promise<ApiResult | null>;
+  /** P3 목록을 서버에 저장한다 (방이 없으면 아무것도 안 한다) */
+  saveLonglist: () => Promise<void>;
+  /** 모두가 찾아온 곳을 서버에서 다시 받는다. 방이 없으면 null */
+  fetchPool: () => Promise<ApiPool | null>;
   /** 직접 추가한 장소를 등록하고 만들어진 장소를 돌려준다 */
   addPlace: (input: CustomPlaceInput) => Place;
   reset: () => void;
@@ -154,7 +173,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   const createRoom = async (startDate: string, nights: number, names: string[], ownerPin?: string) => {
     const range = toDateRange(startDate, nights);
-    const room = await roomApi.create(range.startDate, range.endDate, names, ownerPin);
+    const room = await roomApi.create(range.startDate, range.endDate, names, ownerPin, NEW_ROOM_DATASET);
     // 서버가 만든 참여자 id를 화면 쪽 Member와 맞춰 둔다 (색은 순서대로)
     const members: Member[] = room.members.map((m, i) => ({
       id: m.id,
@@ -240,6 +259,26 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     return roomApi.result({ roomId: room.roomId, ownerToken: room.ownerToken ?? room.token });
   };
 
+  // 서버 방에서 받은 모두의 1차 목록. 받기 전이면 null — 그때는 내 목록만 보인다
+  const [serverPool, setServerPool] = useState<string[] | null>(null);
+  useEffect(() => setServerPool(null), [state.room?.roomId]);
+
+  const saveLonglist = async () => {
+    const room = stateRef.current.room;
+    if (!room) return;
+    // 직접 추가한 장소는 서버 장소 목록에 없어서 거절된다. 그런 곳은 내 화면에만 남긴다
+    const ids = stateRef.current.mine.longlist.filter((id) => !id.startsWith("custom_"));
+    await roomApi.saveLonglist(room.roomId, room.memberId, room.token, ids);
+  };
+
+  const fetchPool = async () => {
+    const room = stateRef.current.room;
+    if (!room) return null;
+    const got = await roomApi.pool(room.roomId, room.ownerToken ?? room.token);
+    if (stateRef.current.room?.roomId === got.roomId) setServerPool(got.placeIds);
+    return got;
+  };
+
   const addPlace = (input: CustomPlaceInput) => {
     const place = makeCustomPlace(input);
     setState((s) => ({ ...s, customPlaces: [...s.customPlaces, place] }));
@@ -255,6 +294,36 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     } catch { /* 무시 */ }
   };
 
+  // 방에 들어오면 그 방의 장소 목록을 정한다. 36곳 방·데모는 웹 안의 목록, 150곳 방은 서버 목록이다
+  const [catalog, setCatalogStatus] = useState<CatalogStatus>("demo");
+  const roomId = state.room?.roomId ?? null;
+  const roomToken = state.room ? state.room.ownerToken ?? state.room.token : null;
+  useEffect(() => {
+    if (!roomId || !roomToken) { setCatalog(null); setCatalogStatus("demo"); return; }
+    let live = true;
+    setCatalogStatus("loading");
+    (async () => {
+      try {
+        // 공용 초대 링크 응답에는 dataset이 없어서 방 정보로 확인한다
+        const info = await roomApi.info(roomId, roomToken);
+        if (info.dataset !== REAL_DATASET) {
+          if (live) { setCatalog(null); setCatalogStatus("demo"); }
+          return;
+        }
+        // 폐업·검토 전·방문일 휴무처럼 일정에 못 넣는 곳은 고를 수 없게 처음부터 뺀다 (P8이 비는 원인이었다)
+        const [{ places }, { placeIds }] = await Promise.all([
+          roomApi.realPlaces(), roomApi.schedulable(roomId, roomToken),
+        ]);
+        const usable = placeIds ? new Set(placeIds) : null;
+        const list = places.filter((p) => !usable || usable.has(p.place_id)).map(toPlace);
+        if (live) { setCatalog(list); setCatalogStatus("real"); }
+      } catch {
+        if (live) setCatalogStatus("error");
+      }
+    })();
+    return () => { live = false; };
+  }, [roomId, roomToken]);
+
   // 추가된 장소·참여자는 계산과 설명 생성이 id로 찾을 수 있어야 하므로 계산 전에 등록한다.
   setCustomPlaces(state.customPlaces);
   setMembers(state.members);
@@ -265,18 +334,32 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
     [state.members, state.mine.memberId]
   );
 
-  /** 1차 — 전원이 검색으로 찾아온 곳을 합친 그룹 후보 풀 */
+  /**
+   * 1차 — 전원이 검색으로 찾아온 곳을 합친 그룹 후보 풀.
+   * 서버 방이면 서버가 모은 전원의 목록이고, 데모 동행자 입력은 섞지 않는다 (P7·P8은 서버가 전원의 실제 입력으로 계산한다).
+   */
+  const companions = useMemo(() => (state.room ? [] : companionIds), [state.room, companionIds]);
   const pool = useMemo(() => {
-    const ids = [...state.mine.longlist];
-    demoSubmissions(companionIds, []).forEach((s) =>
-      s.longlist.forEach((id) => { if (!ids.includes(id)) ids.push(id); })
-    );
-    return ids;
-  }, [state.mine.longlist, companionIds]);
+    // 서버 방: 각 사람이 P3에서 실제로 담은 곳 (여러 명이 올린 곳부터). 아직 안 낸 내 목록도 붙인다
+    if (state.room) {
+      const ids = [...(serverPool ?? [])];
+      state.mine.longlist.forEach((id) => { if (!ids.includes(id)) ids.push(id); });
+      return ids;
+    }
+    // 서버 없는 데모: 데모 동행자 목록을 섞고, 여러 명이 올린 곳을 위로
+    const lists = [state.mine.longlist, ...demoSubmissions(companions, []).map((s) => s.longlist)];
+    const votes: Record<string, number> = {};
+    const ids: string[] = [];
+    lists.forEach((l) => l.forEach((id) => {
+      if (!(id in votes)) ids.push(id);
+      votes[id] = (votes[id] ?? 0) + 1;
+    }));
+    return ids.sort((a, b) => votes[b] - votes[a]);
+  }, [state.room, serverPool, state.mine.longlist, companions]);
 
   const submissions = useMemo(
-    () => [state.mine, ...demoSubmissions(companionIds, pool)],
-    [state.mine, companionIds, pool]
+    () => [state.mine, ...demoSubmissions(companions, pool)],
+    [state.mine, companions, pool]
   );
 
   const consensus = useMemo(
@@ -298,7 +381,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <C.Provider value={{
-      state, set, setMine, setExtra, setMemberNames, createRoom, seatRoom, joinRoom, submitMine, fetchStatus,
+      state, catalog, set, setMine, setExtra, setMemberNames, createRoom, seatRoom, joinRoom, submitMine, fetchStatus,
+      saveLonglist, fetchPool,
       addPlace, reset, ready, submissions, pool, consensus, schedule,
     }}>
       {children}

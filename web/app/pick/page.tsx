@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
@@ -12,11 +13,14 @@ const LIMIT = 30;
 /**
  * P3 — 가고 싶은 곳 찾기.
  * 검색으로 찾아 My list에 담는다. 아직 남의 목록은 보이지 않는다.
+ * 서버 방이면 '다음'에서 목록을 서버에 저장한다 — P4는 서버가 모은 전원의 목록이다.
  * 비워 둬도 다음으로 갈 수 있다 — 다음 화면에서 다른 사람이 찾아온 곳 중에 고르면 된다.
  */
 export default function Pick() {
   const router = useRouter();
-  const { state, setMine } = useTrip();
+  const { state, setMine, saveLonglist } = useTrip();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const longlist = state.mine.longlist;
   const places = longlist.map((id) => findPlace(id)).filter((p): p is Place => !!p);
 
@@ -25,16 +29,31 @@ export default function Pick() {
   };
   const remove = (id: string) => setMine({ longlist: longlist.filter((x) => x !== id) });
 
+  // 서버 방이면 내 목록을 먼저 저장해야 다른 사람의 P4에 보인다
+  const next = async () => {
+    setBusy(true);
+    setError(null);
+    try {
+      await saveLonglist();
+      router.push("/waiting?step=list");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "목록을 저장하지 못했어요.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const groups = CATEGORIES
     .map((c) => ({ c, items: places.filter((p) => p.category === c.id) }))
     .filter((g) => g.items.length > 0);
 
   return (
-    <Page nav={<NavButtons next={() => router.push("/waiting?step=list")}/>}>
+    <Page nav={<NavButtons next={next} busy={busy} />}>
       <PlanHeader />
       <div className="px-5 pt-[59px]">
         <PlaceFinder added={longlist} onPick={add} />
 
+        {error && <p className="mt-3 text-[12px] leading-relaxed text-wine">{error}</p>}
         <h2 className="mb-[15px] mt-[43px] text-[23.929px] font-extrabold leading-[29px]">My list</h2>
         <Box className="min-h-[349px] px-[10px] pb-4 pt-[10px]">
           {groups.length === 0 && (

@@ -98,3 +98,17 @@ test("the real catalog Umeda observatory name accepts its building aliases", () 
   assert.equal(imported.id, "osaka_007");
   assert.equal(imported.name, source.name_ko);
 });
+
+test("real places can be found by their original Japanese or English name", () => {
+  const { toPlace } = require("../src/lib/catalog.ts");
+  const base = { area: "大阪市中央区", address: null, latitude: 34.66, longitude: 135.5, stay_min: 60, bag_load: 0, covered: null, cost_krw: null };
+  const pool = [
+    toPlace({ ...base, place_id: "osaka_001", name: "道頓堀グリコサイン", name_ko: "도톤보리 글리코 사인", category: "명소" }),
+    toPlace({ ...base, place_id: "osaka_008", name: "HEP FIVE観覧車", name_ko: "HEP FIVE 관람차", category: "명소" }),
+    toPlace({ ...base, place_id: "osm_node_9875632529", name: "Brooklyn Roasting Company", name_ko: "브루클린 로스팅 컴퍼니", category: "카페" }),
+  ];
+  assert.deepEqual(searchPlaces(pool, "グリコ").map((p) => p.id), ["osaka_001"]);
+  assert.deepEqual(searchPlaces(pool, "brooklyn").map((p) => p.id), ["osm_node_9875632529"]);
+  assert.deepEqual(searchPlaces(pool, "観覧車").map((p) => p.id), ["osaka_008"]);
+  assert.equal(toPlace({ ...base, place_id: "x", name: "道頓堀", name_ko: null, category: "명소" }).originalName, undefined);
+});

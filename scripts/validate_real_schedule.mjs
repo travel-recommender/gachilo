@@ -37,6 +37,17 @@ export function costKrw(jpy, rate) {
   return won;
 }
 
+/** One conversion policy for strategy ranking and final day validation.
+ * availability must have accepted this record first; shopping spend is an excluded subtotal,
+ * never a claim that the visit or personal purchases are free.
+ */
+export function toEnginePlace(record, check, rate) {
+  const p = record.place;
+  return {id: p.place_id, name: p.name_ko, area: p.area || '', category: engineCategory(p.category),
+    lat: p.latitude, lng: p.longitude, cost: shoppingRecord(record) ? 0 : costKrw(check.cost_jpy, rate),
+    stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1], bagLoad: p.bag_load / 2};
+}
+
 export function availability(record, date, profiles, {allowShopping = false} = {}) {
   if (!validDate(date)) throw Error('date must be a real YYYY-MM-DD date in Japan');
   const p = record.place, profile = profiles.places[p.place_id];
@@ -115,16 +126,10 @@ export function validateDay(request, dataset, profiles, options = {}) {
     if (!check.eligible_for_model) { rejected.push(check); continue; }
     windows.set(id, check.window);
     visitCosts.set(id, check.cost_jpy);
-    const p = r.place;
-    accepted.push({place: {
-      id, name: p.name_ko, area: p.area || '', category: engineCategory(p.category),
-      lat: p.latitude, lng: p.longitude, cost: options.allowShopping && shoppingRecord(r) ? 0 : costKrw(check.cost_jpy, request.krw_per_jpy),
-      stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1],
-      bagLoad: p.bag_load / 2,
-      // No invented popularity/exposure/arcade values: the scheduling function does not use them.
-    }, votes: 1, mustOf: null, tier: 'core', participants: []});
+    accepted.push({place: toEnginePlace(r, check, request.krw_per_jpy),
+      votes: 1, mustOf: null, tier: 'core', participants: []});
   }
-  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: true});
+  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: true, distanceWeight: options.distanceWeight});
   const plan = built.plans[0];
   const violations = rejected.map(r => ({code: 'place_not_eligible', place_id: r.place_id, reasons: r.reasons}));
   let walkingKm = 0, previous = null;
@@ -156,7 +161,8 @@ export function validateDay(request, dataset, profiles, options = {}) {
   return {date: request.date, passed_model_checks: violations.length === 0, schedule_ready: false,
     input: request, items, rejected, dropped: built.dropped.map(r => r.place.id), violations,
     totals: {selected_admission_and_menu_krw: plan.cost, estimated_walking_km: walkingKm,
-      estimated_steps: steps, elapsed_from_0900_min: elapsed},
+      estimated_steps: steps, elapsed_from_0900_min: elapsed,
+      ...(options.candidateMetrics ? {estimated_total_km: plan.totalKm} : {})},
     limitations: [
       'This day-validator result is an experiment; the opt-in real catalogue server wraps it in a saved draft.',
       'Costs cover the stated adult admission/menu only; transport, lodging, extra meals and shopping are excluded.',
