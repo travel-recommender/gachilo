@@ -1,5 +1,7 @@
 /** Server-only walking routes. One bounded table request per calculation, no retries. */
 import { AsyncLocalStorage } from 'node:async_hooks';
+import {hasShelterWeather, hasColdForecast, hasRainOrHeatForecast, rainProbability, isHeatDay, isColdDay, routingColdPreference, routingExposureWeight, shelterFallbackDescription, withConditionDate, weatherDescription, bagIncrement, bagExtraCost} from './conditions.ts';
+import {prepareShelteredRoutes, selectShelteredRoute, type ShelteredRoute, type ShelterData} from './sheltered-routing.ts';
 
 export interface Coordinate { lat: number; lng: number; id?: string; buildingId?: string }
 type Failure = 'not_configured' | 'invalid_config' | 'unavailable' | 'timeout'
@@ -9,6 +11,10 @@ export interface WalkingRoute {
   min: number;
   source: 'osrm-foot' | 'distance-estimate';
   fallbackReason?: Failure;
+  coveredKm?: number;
+  unknownKm?: number;
+  indoorKm?: number;
+  coveredWayIds?: number[];
 }
 export interface Move {
   km: number;
@@ -16,14 +22,19 @@ export interface Move {
   mode: 'walk' | 'transit';
   walkKm: number;
   source: WalkingRoute['source'] | 'transit-estimate' | 'indoor-estimate';
+  coveredKm?: number;
+  unknownKm?: number;
+  indoorKm?: number;
+
   fallbackReason?: Failure;
 }
 export interface RoutingOptions {
   baseUrl?: string;
   timeoutMs?: number;
   fetchImpl?: typeof fetch;
+  shelterData?: ShelterData | null;
 }
-interface Snapshot { routes: Map<string, WalkingRoute>; failure?: Failure }
+interface Snapshot { routes: Map<string, WalkingRoute>; failure?: Failure; sheltered?: Map<string,ShelteredRoute[]> }
 const context = new AsyncLocalStorage<Snapshot>();
 export const DETOUR = 1.35;
 const WALK_KMH = 4.2, TRANSIT_THRESHOLD_KM = 1.2;
@@ -136,6 +147,13 @@ async function prepare(points: Coordinate[], options: RoutingOptions): Promise<S
 /** Request-scoped cache covers selection, scheduling, AI checks and final metrics. */
 export async function withRouting<T>(points: Coordinate[], calculate: () => T | Promise<T>, options: RoutingOptions = {}): Promise<T> {
   const snapshot = await prepare(points, options);
+  const config = configuration(options);
+  if (hasShelterWeather() && !snapshot.failure && config.url) {
+    const unique=[...new Map(points.filter(validCoordinate).map(p=>[coordinateKey(p),p])).values()];
+    snapshot.sheltered=await prepareShelteredRoutes(unique,snapshot.routes,
+      {baseUrl:config.url,fetchImpl:options.fetchImpl,data:options.shelterData,
+        kinds:[...(hasColdForecast()?['indoor' as const]:[]),...(hasRainOrHeatForecast()?['covered' as const]:[])]},distKm);
+  }
   return context.run(snapshot, calculate);
 }
 
@@ -147,8 +165,11 @@ export function travel(a: Coordinate, b: Coordinate): Move {
   }
   const estimated = estimateWalkingRoute(a, b);
   const snapshot = context.getStore();
-  const route = snapshot?.routes.get(pairKey(a, b))
+  let route = snapshot?.routes.get(pairKey(a, b))
     ?? estimateWalkingRoute(a, b, snapshot?.failure ?? (snapshot ? 'outside_snapshot' : 'not_configured'));
+  const alternatives=snapshot?.sheltered?.get(pairKey(a,b));
+  const probability=routingExposureWeight();
+  if(alternatives) route=selectShelteredRoute(alternatives,probability ?? 0,routingColdPreference());
   // Decide from the same walking distance that would enter the walking constraint.
   // Foot OSRM cannot model trains. Use the larger distance as a transit proxy so a
   // short straight-line gap cannot erase a known detour (or undercut access walking).
@@ -181,11 +202,51 @@ export function routingLimitations(days: Coordinate[][]): string {
   return `Final legs: foot OSRM ${osrm}, distance × 1.35 walking estimate ${estimated}, transit estimate ${transit}.`
     + (osrm === 0 ? ` No walking legs use OSRM${reason ? ` (${reason})` : ''}.` : '')
     + (indoor ? ` Same-building transfer estimate: ${indoor} legs × 5 min; indoor distance excluded.` : '')
-    + ' Transit timetables, lodging access, venue walking, queues and weather are not included.';
+    + ' Transit timetables, lodging access, venue walking, queues and actual weather effects on speed are not included.';
+
 }
 
 export function routingSummary(days: Coordinate[][]): string {
   const {osrm, estimated, transit, indoor} = routingCounts(days);
   return ` 이동 계산: OSRM 도보 ${osrm}구간, 직선거리×1.35 도보 추정 ${estimated}구간, 대중교통 추정 ${transit}구간. 교통 시간표·숙소 왕복·시설 내부 ${indoor ? '보행 거리' : '이동'}은 포함하지 않습니다.`
     + (indoor ? ` 같은 건물 내부 이동 ${indoor}구간은 각 5분 추정이며 내부 보행 거리는 제외됩니다.` : "");
+}
+
+/** Public aggregate only; private choices and route geometry stay inside the calculation. */
+export function shelterSummary(days:{date:string;points:Coordinate[]}[]):string {
+  let covered=0,unknown=0,detours=0,extraMin=0,rainDetour=false,heatDetour=false,coldDetour=false,otherDetour=false,indoor=0;
+  for(const day of days) withConditionDate(day.date,()=>{
+    for(let i=1;i<day.points.length;i++){
+      const a=day.points[i-1],b=day.points[i];const m=travel(a,b);
+      covered+=m.coveredKm??0;indoor+=m.indoorKm??0;
+      unknown+=m.unknownKm??m.walkKm;
+      const options=context.getStore()?.sheltered?.get(pairKey(a,b));
+      if(m.source==='osrm-foot' && options && routingExposureWeight()>0 && selectShelteredRoute(options,routingExposureWeight(),routingColdPreference()).via){
+        detours++;extraMin+=Math.max(0,m.min-options[0].min);
+        rainDetour ||= (rainProbability()??0)>0; heatDetour ||= isHeatDay(); coldDetour ||= isColdDay(); otherDetour ||= !isColdDay();
+      }
+    }
+  });
+  const reason=[rainDetour?'비':'',heatDetour?'폭염':'',coldDetour?'추위':''].filter(Boolean).join('·');
+  const notice=detours ? `\n날씨 경로 안내: ${reason} 예보를 고려해 ${coldDetour?(otherDetour?'추운 날은 실내 통로, 비·폭염에는 실내·지붕 구간':'실내 통로'):'실내·지붕 구간'}을 우선한 경로예요. 기존 경로보다 예상 이동 시간이 조금 더 걸릴 수 있어요(여행 전체 추가 약 ${extraMin}분). 이 시간은 일정에 반영했어요. 실내·지붕 정보만으로 냉난방 여부는 알 수 없어요.\n` : '';
+  return ` 실내·지붕 경로: 날씨 예보에 따른 우회 ${detours}구간, OSM 실내·지붕 태그와 일치 ${covered.toFixed(2)}km(실내 ${indoor.toFixed(2)}km 포함), 실내·지붕 미확인 도보 ${unknown.toFixed(2)}km. 지도 정보이며 현장 개방 여부·안전·무장애 통행을 보장하지 않습니다.` + notice;
+}
+
+export type ConditionPoint = Coordinate & {bagLoad?:number};
+export function travelBurdenTotals(points:ConditionPoint[]) {
+  let load=0, extra=0, walk=0, covered=0, unknown=0;
+  for(let i=0;i<points.length;i++) {
+    if(i) {
+      const m=travel(points[i-1],points[i]);
+      walk+=m.walkKm; extra+=bagExtraCost(m.walkKm,load);
+      covered+=m.coveredKm??0; unknown+=m.unknownKm??m.walkKm;
+    }
+    load+=bagIncrement(points[i].bagLoad);
+  }
+  return {walkKm:walk,bagExtra:extra,carryingCost:walk+extra,coveredKm:covered,unknownKm:unknown};
+}
+export function conditionSummary(days:{date:string;points:ConditionPoint[]}[]):string {
+  const extra=days.reduce((sum,d)=>sum+withConditionDate(d.date,()=>travelBurdenTotals(d.points).bagExtra),0);
+  return ` 짐 누적 운반 부담 +${extra.toFixed(2)}(상대점수; 무게·거리·요금 아님).`
+    + weatherDescription() + shelterFallbackDescription() + shelterSummary(days);
 }

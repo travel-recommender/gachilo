@@ -1,3 +1,4 @@
+import {withConditionDate} from '../backend/engine/conditions.ts';
 /** Week 5 day validator, also reused by the opt-in real catalogue server adapter. Node 24+. */
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -130,6 +131,9 @@ export function availability(record, date, profiles, {allowShopping = false} = {
 
 /** One Japan-local day. All requested IDs must be kept; omissions fail validation. */
 export function validateDay(request, dataset, profiles, options = {}) {
+  return withConditionDate(request.date, () => validatePreparedDay(request, dataset, profiles, options));
+}
+function validatePreparedDay(request, dataset, profiles, options) {
   if (!validDate(request.date)) throw Error('date must be a real YYYY-MM-DD date in Japan');
   if (!Array.isArray(request.place_ids) || request.place_ids.length === 0
       || request.place_ids.some(id => typeof id !== 'string')
@@ -150,7 +154,7 @@ export function validateDay(request, dataset, profiles, options = {}) {
     accepted.push({place: toEnginePlace(r, check, request.krw_per_jpy),
       votes: 1, mustOf: null, tier: 'core', participants: []});
   }
-  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: true, distanceWeight: options.distanceWeight});
+  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: options.considerBags ?? true, distanceWeight: options.distanceWeight});
   const plan = built.plans[0];
   const violations = rejected.map(r => ({code: 'place_not_eligible', place_id: r.place_id, reasons: r.reasons}));
   let walkingKm = 0, previous = null;
@@ -191,7 +195,7 @@ export function validateDay(request, dataset, profiles, options = {}) {
       hasRoutingContext() ? routingLimitations([plan.items.map(item => item.place)])
         : 'Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.',
       'Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.',
-      'Stay times are team estimates. Weather, entry queues and unannounced closures are not verified.',
+      'Stay times are team estimates. Forecast rain probability is a preference, not a live safety or weather guarantee; entry queues and unannounced closures are not verified.',
     ]};
 }
 

@@ -1,0 +1,119 @@
+{
+  "scenario": "300 synthetic 6-place groups, 3 purchases; seed 1030; no empirical fatigue claim",
+  "baggage": {
+    "groups": 300,
+    "keptAll": 300,
+    "orderChanged": 199,
+    "improved": 199,
+    "worse": 0,
+    "equal": 101,
+    "means": {
+      "off": 2.1724,
+      "on": 1.8932,
+      "walkOff": 1.4593,
+      "walkOn": 1.4222,
+      "extraOff": 0.7131,
+      "extraOn": 0.471
+    }
+  },
+  "limitations": [
+    "Experimental coefficient 0.35 with relative bag points; not kg, fare, or measured fatigue.",
+    "Same-visit baseline guard rejects worsening trip cost; global optimality is not claimed.",
+    "No rain-speed reduction, transit timetable, safe passage, or navigation UI guarantee."
+  ],
+  "weather": {
+    "scenario": "Same actual OSRM pair, p=0 versus p=1 (controlled forecast, not a forecast claim); heat case uses synthetic daily max 35°C with 0% rain (not a summer forecast)",
+    "mapTimestamp": "2026-10-12T20:21:35Z",
+    "pbfSha256": "ca0e1b06c2f99518fe52d5b075bb74ef1b8c19e1397f146ba15c1ecc661ba2c8",
+    "from": {
+      "lat": 34.6695,
+      "lng": 135.502
+    },
+    "to": {
+      "lat": 34.673,
+      "lng": 135.502
+    },
+    "dry": {
+      "km": 0.4275,
+      "min": 5,
+      "coveredKm": 0,
+      "unknownKm": 0.4275,
+      "coveredWayIds": [],
+      "via": null
+    },
+    "rain": {
+      "km": 0.49060000000000004,
+      "min": 6,
+      "coveredKm": 0.351,
+      "unknownKm": 0.1396,
+      "coveredWayIds": [
+        895630634,
+        410957183
+      ],
+      "via": {
+        "lat": 34.6703673,
+        "lng": 135.5013178
+      }
+    },
+    "heat": {
+      "km": 0.49060000000000004,
+      "min": 6,
+      "coveredKm": 0.351,
+      "unknownKm": 0.1396,
+      "coveredWayIds": [
+        895630634,
+        410957183
+      ],
+      "via": {
+        "lat": 34.6703673,
+        "lng": 135.5013178
+      }
+    }
+  },
+  "live_weather": {
+    "source": "Open-Meteo",
+    "source_url": "https://api.open-meteo.com/v1/forecast",
+    "timezone": "Asia/Tokyo",
+    "location": "Osaka city forecast grid",
+    "fetched_at": "2026-10-30T14:31:40+09:00",
+    "status": "forecast",
+    "days": [
+      {
+        "date": "2026-10-30",
+        "probability": 1.0,
+        "max_temperature_c": 19.9,
+        "status": "forecast"
+      },
+      {
+        "date": "2026-10-31",
+        "probability": 0.43,
+        "max_temperature_c": 21.9,
+        "status": "forecast"
+      }
+    ]
+  },
+  "validation": {
+    "base": "PR57 42f2a40d51393f7a7e33e954766399b5a7fd98d7",
+    "python_tests": 92,
+    "engine_tests": 104,
+    "web_tests": 94,
+    "typecheck": "pass",
+    "production_build": "pass",
+    "paid_api_calls": 0,
+    "existing_demo_modified": false,
+    "runtime_http": "225-place runtime; live Open-Meteo and local OSRM; 3 candidates, owner selection, 3 clients and SQLite equal",
+    "ui": "Chrome isolated notice component: rain, heat, cold and missing shelter; not a new three-device field test"
+  },
+  "shelter_data": {
+    "ways": 773,
+    "covered": 742,
+    "indoor": 31
+  },
+  "cold_validation": {
+    "method": "Deterministic route/forecast fixtures, not live winter weather or field observation",
+    "daily_max_temperature_c": 5,
+    "above_threshold": 5.1,
+    "indoor_preferred": true,
+    "roof_only_retains_original": true
+  }
+}
