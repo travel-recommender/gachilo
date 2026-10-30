@@ -2,6 +2,7 @@ import json
 import subprocess
 from pathlib import Path
 from engine import EngineError
+from weather import with_weather
 from real_engine import REAL_DATASET, documented_exchange_rate
 
 
@@ -11,6 +12,7 @@ class CandidateEngine:
         self.script = Path(__file__).parent / 'engine/candidates.mjs'
 
     def calculate(self, snapshot):
+        snapshot = with_weather(snapshot)
         real = snapshot.get('dataset') == REAL_DATASET
         script = self.script.with_name('real_candidates.mjs') if real else self.script
         if real:

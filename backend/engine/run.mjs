@@ -1,8 +1,9 @@
+import {withTripConditions} from './conditions.ts';
 import {buildConsensus} from './consensus.ts';
 import {allPlaces, setMembers} from './places.ts';
 import {enrich} from './ai.ts';
 import {staysByDay, validateStays, validateSubmissions, groupTradeoffs, distanceWeightFor} from './inputs.ts';
-import {withRouting, routingSummary} from './routing.ts';
+import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 if (process.argv.includes('--catalog')) {
   process.stdout.write(JSON.stringify(allPlaces().map(p=>({id:p.id,name:p.name,category:p.category}))));
 } else {
@@ -13,7 +14,7 @@ if (process.argv.includes('--catalog')) {
   // 경로 조회(withRouting)보다 먼저 거른다. 잘못된 입력으로 OSRM을 부를 이유가 없다.
   const issues=[...validateSubmissions(request.submissions),...validateStays(request.stays)];
   if(issues.length){process.stdout.write(JSON.stringify({error:'invalid_input',issues}));process.exit(0);}
-  await withRouting(allPlaces(), async () => {
+  await withTripConditions(request.weather, request.startDate, () => withRouting(allPlaces(), async () => {
     setMembers(request.members);
     const days=Math.round((Date.parse(request.endDate+'T00:00:00Z')-Date.parse(request.startDate+'T00:00:00Z'))/86400000)+1;
     const consensus=buildConsensus({submissions:request.submissions,nights:days-1,strategy:request.strategy,allowPartial:true});
@@ -28,6 +29,6 @@ if (process.argv.includes('--catalog')) {
     const schedule=enriched.schedule;
     const dates=schedule.plans.map((plan,i)=>({date:new Date(Date.parse(request.startDate+'T00:00:00Z')+i*86400000).toISOString().slice(0,10),placeIds:plan.items.map(item=>item.place.id)}));
     // Publish group itinerary only; never expose individual preferences or satisfaction.
-    process.stdout.write(JSON.stringify({strategy:request.strategy,days:dates,summary:enriched.summary + routingSummary(schedule.plans.map(p=>p.items.map(i=>i.place)))}));
-  });
+    process.stdout.write(JSON.stringify({strategy:request.strategy,days:dates,summary:enriched.summary + routingSummary(schedule.plans.map(p=>p.items.map(i=>i.place))) + conditionSummary(schedule.plans.map((p,i)=>({date:dates[i].date,points:[...(stays.byDay[i]?[stays.byDay[i]]:[]),...p.items.map(it=>it.place),...(stays.byDay[i]?[stays.byDay[i]]:[])]})))}));
+  }));
 }

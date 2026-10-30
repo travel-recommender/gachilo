@@ -1,9 +1,10 @@
+import {withTripConditions} from './conditions.ts';
 /** Actual catalogue adapter: selected IDs only, no popularity or automatic fillers. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {loadRuntimeInputs, availability, validateDay} from '../../scripts/validate_real_schedule.mjs';
 
-import {withRouting, routingSummary, routingLimitations, hasRoutingContext} from './routing.ts';
+import {withRouting, conditionSummary, routingSummary, routingLimitations, hasRoutingContext} from './routing.ts';
 
 export function calculateReal(request, dataset, profiles) {
   const submissions = request.submissions;
@@ -57,14 +58,15 @@ export function calculateReal(request, dataset, profiles) {
   for (const failure of failures) for (const reason of failure.reasons) reasons[reason] = (reasons[reason] || 0) + 1;
   const complete = scheduled.size > 0 && !missingMust && failures.length === 0;
   const finalCoordinates = days.map(day => day.placeIds.map(id => {
-    const r = byId.get(id), p = r.place; return {id, lat:p.latitude, lng:p.longitude, buildingId:r.review.building_id ?? r.review.within?.building_id};
+    const r = byId.get(id), p = r.place; return {id, lat:p.latitude, lng:p.longitude, bagLoad:p.bag_load/2, buildingId:r.review.building_id ?? r.review.within?.building_id};
+
   }));
   return {
     result: {strategy: 'average', days,
       summary: `실제 수집 장소 ${dataset.places.length}곳 중 선택한 장소만 계산한 초안입니다. ${scheduled.size}곳 배치, ${failures.length}곳은 운영·가격·일일 한도 확인으로 미배치했습니다.`
         + (missingMust ? ' 꼭 가는 장소 조건이 충족되지 않았습니다.' : '')
         + ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다. 이동·걸음 수는 추정입니다.'
-        + (hasRoutingContext() ? routingSummary(finalCoordinates) : '')},
+        + (hasRoutingContext() ? routingSummary(finalCoordinates) : '') + conditionSummary(days.map((d,i)=>({date:d.date,points:finalCoordinates[i]})))},
     planning: {
       status: complete ? 'model_checks_passed' : 'needs_review', schedule_ready: false,
       selection_policy: 'must_then_selection_count_then_id; selected_only; veto_excluded',
@@ -90,7 +92,8 @@ export async function calculateRealWithRouting(request, dataset, profiles, routi
   const selected = new Set(request.submissions.flatMap(s => s.picks));
   const points = dataset.places.filter(r => selected.has(r.place.place_id))
     .map(r => ({lat:r.place.latitude, lng:r.place.longitude}));
-  return withRouting(points, () => calculateReal(request, dataset, profiles), routingOptions);
+  return withTripConditions(request.weather, request.startDate, () =>
+    withRouting(points, () => calculateReal(request, dataset, profiles), routingOptions));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

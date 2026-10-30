@@ -1,5 +1,6 @@
 import { distKm, travel } from "./consensus.ts";
-import { DETOUR } from "./routing.ts";
+import { DETOUR, travelBurdenTotals } from "./routing.ts";
+import {bagIncrement, bagExtraCost, withConditionDay} from "./conditions.ts";
 import { allPlaces } from "./places.ts";
 import type { DayPlan, Place, ScheduleItem, Selection } from "./types.ts";
 
@@ -147,7 +148,7 @@ function buildDay(
     clock = start + p.stayMin;
     prev = p;
     used.add(p.id);
-    load += p.bagLoad;
+    load += bagIncrement(p.bagLoad);
     if (tier === "filled") mealSpent += p.cost;
     if (isMeal(p) && inWindow(start, LUNCH)) mealsDone.lunch = true;
     if (isMeal(p) && inWindow(start, DINNER)) mealsDone.dinner = true;
@@ -207,7 +208,16 @@ function buildDay(
     const scored = pool.map((s) => {
       // Keep the original distance/packing score scale without mixing routing sources.
       const d = prev ? distKm(prev, s.place) * DETOUR : 0;
-      const bagPenalty = opts.considerBags ? s.place.bagLoad * 2.5 * (1 - load) : 0;
+      // Carry accumulated bags on this leg. Buying now also adds burden to the
+      // next leg: use the mean remaining walking distance as a bounded lookahead.
+      // The old (1-load) term became negative and rewarded shopping after load>1.
+      const onward = remaining.filter(other => other !== s).map(other => travel(s.place,other.place).walkKm);
+      if (!onward.length && stay) onward.push(travel(s.place,stay).walkKm);
+      const nextWalk = onward.length ? onward.reduce((a,b)=>a+b,0)/onward.length : 0;
+      const incoming = prev ? travel(prev,s.place) : null;
+      const incomingWalk = incoming?.walkKm ?? 0;
+      const bagPenalty = opts.considerBags
+        ? bagExtraCost(incomingWalk,load) + bagExtraCost(nextWalk,bagIncrement(s.place.bagLoad)) : 0;
       return { sel: s, cost: d * (opts.distanceWeight ?? 1) + bagPenalty };
     });
     scored.sort((a, b) => urgency(b.sel) - urgency(a.sel) || a.cost - b.cost);
@@ -239,7 +249,7 @@ function buildDay(
   return { items: items.sort((a, b) => a.startMin - b.startMin), dropped, mealSpent };
 }
 
-export function buildSchedule(
+function buildSchedulePrepared(
   selections: Selection[],
   days: number,
   opts: ScheduleOptions = {}
@@ -251,7 +261,7 @@ export function buildSchedule(
   const globalUsed = new Set<string>(selections.map((s) => s.place.id));
   // 자동 식사에 쓸 수 있는 돈 — 선택 장소 비용을 먼저 빼고, 남은 날수로 나눠 앞날이 다 쓰지 않게 한다
   let mealWallet = (opts.budget ?? Infinity) - selections.reduce((sum, s) => sum + s.place.cost, 0);
-  buckets.forEach((bucket, i) => {
+  buckets.forEach((bucket, i) => withConditionDay(i, () => {
     const stay = opts.staysByDay?.[i] ?? null;
     const { items, dropped: d, mealSpent } = buildDay(bucket, opts, globalUsed, stay,
       Math.max(0, mealWallet / (days - i)));
@@ -297,7 +307,24 @@ export function buildSchedule(
       cost,
       ...(stay ? { stayName: stay.name, stayOutKm, stayBackKm } : {}),
     });
-  });
+  }));
 
   return { plans, dropped };
+}
+
+/** Compare the two feasible visit orders when they keep exactly the same daily
+ * places. A local greedy bag preference must not increase its own trip cost.
+ * This is a baseline guard, not a global route optimizer or a new hard limit.
+ */
+export function buildSchedule(selections:Selection[], days:number, opts:ScheduleOptions={}) {
+  const weighted=buildSchedulePrepared(selections,days,opts);
+  if(!opts.considerBags) return weighted;
+  const baseline=buildSchedulePrepared(selections,days,{...opts,considerBags:false});
+  const sameVisits=weighted.plans.every((p,i)=>
+    p.items.map(x=>x.place.id).sort().join('\0')===baseline.plans[i].items.map(x=>x.place.id).sort().join('\0'));
+  const score=(result:typeof weighted)=>result.plans.reduce((sum,p,i)=>sum+withConditionDay(i,()=>{
+    const stay=opts.staysByDay?.[i];
+    return travelBurdenTotals([...(stay?[stay]:[]),...p.items.map(x=>x.place),...(stay?[stay]:[])]).carryingCost;
+  }),0);
+  return sameVisits && score(baseline)<score(weighted) ? baseline : weighted;
 }

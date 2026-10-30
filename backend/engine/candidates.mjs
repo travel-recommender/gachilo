@@ -1,3 +1,4 @@
+import {withTripConditions} from './conditions.ts';
 /** Shared P7/P8 projection. Never publish member inputs or per-member scores. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
@@ -6,7 +7,7 @@ import {buildSchedule} from './schedule.ts';
 import {allPlaces, setMembers} from './places.ts';
 import {distanceWeightFor, groupTradeoffs} from './inputs.ts';
 
-import {withRouting, routingSummary} from './routing.ts';
+import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 
 export const STRATEGIES = ['average', 'least_misery', 'fairness'];
 const round = n => Math.round(n * 100) / 100;
@@ -26,7 +27,8 @@ function ruleResult(consensus, submissions, days, summary, distanceWeight) {
 }
 
 export async function calculateCandidates(request, enrich, routingOptions = {}) {
-  return withRouting(allPlaces(), () => calculatePrepared(request, enrich), routingOptions);
+  return withTripConditions(request.weather, request.startDate, () =>
+    withRouting(allPlaces(), () => calculatePrepared(request, enrich), routingOptions));
 }
 
 async function calculatePrepared(request, enrich) {
@@ -71,7 +73,7 @@ async function calculatePrepared(request, enrich) {
     candidates.push({strategy,
       metrics:{walkStepsPerDay:Math.round(mean('walkSteps')),
         costKrwPerDay:Math.round(mean('costKrw')), totalKmPerDay:round(mean('totalKm'))},
-      days:projected, summary:enriched.summary + routingSummary(enriched.schedule.plans.map(p=>p.items.map(i=>i.place))),
+      days:projected, summary:enriched.summary + routingSummary(enriched.schedule.plans.map(p=>p.items.map(i=>i.place))) + conditionSummary(enriched.schedule.plans.map((p,i)=>({date:projected[i].date,points:p.items.map(it=>it.place)}))),
       explanationSource:enriched.ai.used ? 'ai' : 'rules'});
   }
   return {candidates};

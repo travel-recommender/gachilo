@@ -1,3 +1,4 @@
+import {withTripConditions} from './conditions.ts';
 /** Real catalogue → the same shared-candidate contract as the demo, without inventing data. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
@@ -5,7 +6,7 @@ import {loadRuntimeInputs, availability, toEnginePlace, validateDay} from '../..
 import {buildConsensus} from './consensus.ts';
 import {distanceWeightFor, groupTradeoffs, slotsPerDayFor, spendCapFor} from './inputs.ts';
 import {withPlaceCatalog} from './places.ts';
-import {withRouting, routingSummary} from './routing.ts';
+import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 
 const STRATEGIES = ['average', 'least_misery', 'fairness'];
 const LABELS = {average: '평균 만족', least_misery: '최소 불만', fairness: '공정성'};
@@ -144,7 +145,8 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     const mean = key => days.reduce((total, day) => total + day.metrics[key], 0) / days.length;
     const routes = days.map(day => day.placeIds.map(id => {
       const r = byId.get(id), p = r.place;
-      return {id, lat: p.latitude, lng: p.longitude, buildingId: r.review.building_id ?? r.review.within?.building_id};
+      return {id, lat: p.latitude, lng: p.longitude, bagLoad: p.bag_load/2, buildingId: r.review.building_id ?? r.review.within?.building_id};
+
     }));
     return {strategy, days, planning, metrics: {
       walkStepsPerDay: Math.round(mean('walkSteps')), costKrwPerDay: Math.round(mean('costKrw')), totalKmPerDay: roundKm(mean('totalKm')),
@@ -157,7 +159,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         : ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다.')
       + ' 걸음 수는 장소 사이 이동만 계산한 추정입니다.'
       + ` 환율: 1엔=${request.exchange_rate.krw_per_jpy}원 (${request.exchange_rate.as_of ?? '기준일 미지정'}).`
-      + ' 누구도 찾아오지 않은 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다.' + routingSummary(routes)};
+      + ' 누구도 찾아오지 않은 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다.' + routingSummary(routes) + conditionSummary(days.map((d,i)=>({date:d.date,points:routes[i]})))};
   });
   return {candidates};
 }
@@ -173,7 +175,8 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
   const points = dataset.places.filter(r => routed.has(r.place.place_id))
     .map(r => ({lat: r.place.latitude, lng: r.place.longitude}));
   // One routing snapshot is reused by every strategy so OSRM work is bounded, not tripled.
-  return withRouting(points, () => calculatePrepared(request, dataset, profiles, dates, picked, listed), routingOptions);
+  return withTripConditions(request.weather, request.startDate, () =>
+    withRouting(points, () => calculatePrepared(request, dataset, profiles, dates, picked, listed), routingOptions));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
