@@ -14,6 +14,7 @@ export function fromServer(saved: ApiSubmission, memberId: string): Submission {
     picks: saved.picks,
     must: saved.must,
     veto: saved.veto,
+    vetoes: saved.vetoes ?? (saved.veto ? [saved.veto] : []),
     budgetPerDay: saved.budgetPerDay,
     stepLimit: saved.stepLimit,
     activeMin: saved.activeMin,
@@ -136,14 +137,19 @@ export const EXTRAS_DEFAULT: TripExtras = {
   confirmed: false,
 };
 
-/** 서버에 저장된 입력으로 새 자리의 extra를 만든다. 서버에는 목록이 없어 picks·veto에서 되살린다 */
-export function extrasFrom(saved: Pick<ApiSubmission, "picks" | "veto" | "tradeoffs"> | null): TripExtras {
+/** 서버에 저장된 입력으로 새 자리의 extra를 만든다. 제외 목록이 없는 옛 입력은 veto에서 되살린다 */
+export function extrasFrom(saved: Pick<ApiSubmission, "picks" | "veto" | "vetoes" | "tradeoffs"> | null): TripExtras {
   if (!saved) return EXTRAS_DEFAULT;
   return {
-    ...EXTRAS_DEFAULT, mustList: [...saved.picks], vetoList: saved.veto ? [saved.veto] : [],
+    ...EXTRAS_DEFAULT, mustList: [...saved.picks], vetoList: [...(saved.vetoes ?? (saved.veto ? [saved.veto] : []))],
     // 서버는 엔진 방향이라 pace만 뒤집는다 (tradeoff.ts의 toServerTradeoffs의 역. 값 import 없이 node 검사가 돌게 여기 둔다)
     tradeoff: saved.tradeoffs
       ? { pace: Math.round((1 - saved.tradeoffs.pace) * 100) / 100, distance: saved.tradeoffs.distance, spend: saved.tradeoffs.spend }
       : EXTRAS_DEFAULT.tradeoff,
   };
+}
+
+/** P4와 최종 제출이 공유하는 계약. 빈 목록도 명시해 이전 제외를 해제한다. */
+export function vetoFields(vetoes: string[]): Pick<Submission, "veto" | "vetoes"> {
+  return { veto: vetoes[0] ?? null, vetoes: [...vetoes] };
 }

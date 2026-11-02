@@ -98,7 +98,7 @@ export function satisfactionOf(
   const hit = sub.picks.filter((p) => ids.has(p)).length;
   const pickRate = sub.picks.length ? hit / sub.picks.length : 0;
   const mustKept = sub.must ? ids.has(sub.must) : true;
-  const vetoKept = sub.veto ? !ids.has(sub.veto) : true;
+  const vetoKept = (sub.vetoes ?? (sub.veto ? [sub.veto] : [])).every(id => !ids.has(id));
 
   const budgetUse = sub.budget ? costPerPerson / sub.budget : 1;
   const walkUse = sub.walkLimit ? walkPerDay / sub.walkLimit : 1;
@@ -166,7 +166,7 @@ function categoryTaste(sub: Submission): Partial<Record<string, number>> {
 
 /** 개인 효용 (0~1) */
 export function utilityOf(place: Place, sub: SubmissionView, taste = categoryTaste(sub)): number {
-  if (sub.veto === place.id) return 0;
+  if ((sub.vetoes ?? (sub.veto ? [sub.veto] : [])).includes(place.id)) return 0;
   if (sub.must === place.id) return 1;
 
   // 직접 고른 곳은 높게, 안 고른 곳은 (내 취향 + 장소의 보편적 매력)만큼
@@ -220,7 +220,7 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
   const candidateIds = new Set<string>();
   subs.forEach((s) => s.picks.forEach((p) => candidateIds.add(p)));
 
-  const vetoed = new Set(subs.map((s) => s.veto).filter(Boolean) as string[]);
+  const vetoed = new Set(subs.flatMap((s) => s.vetoes ?? (s.veto ? [s.veto] : [])));
 
   const selections: Selection[] = [];
   const excluded: Selection[] = [];

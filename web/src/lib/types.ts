@@ -73,6 +73,8 @@ export interface Submission {
   must: string | null;
   /** 가고 싶지 않은 곳 */
   veto: string | null;
+  /** 전체 제외 목록. 없을 때만 기존 veto 한 개를 사용한다. */
+  vetoes?: string[];
   /** 하루에 쓸 수 있는 돈(원). 여행 전체 예산은 일수를 곱해 구한다 */
   budgetPerDay: number;
   /** 하루 걸을 수 있는 걸음 수(보) */
