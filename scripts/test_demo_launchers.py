@@ -34,7 +34,7 @@ class DemoLauncherTests(unittest.TestCase):
    path.write_text(json.dumps({'LIMA_HOME':str(vm),'LIMACTL':None,'OSRM_LIMA_LINK':None}))
    with patch.dict(os.environ,{},clear=True):config=settings(root)
    self.assertNotIn('LIMACTL',config);self.assertNotIn('OSRM_LIMA_LINK',config)
-   with patch.object(osrm,'settings',return_value=config),patch.object(osrm,'executable',return_value='/bin/limactl') as tool,patch.object(osrm,'lima_home',wraps=lima_home) as home,patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
+   with patch.object(osrm,'ROOT',root),patch.object(osrm,'settings',return_value=config),patch.object(osrm,'executable',return_value='/bin/limactl') as tool,patch.object(osrm,'lima_home',wraps=lima_home) as home,patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
     osrm.main()
    tool.assert_called_once_with(None,'limactl');home.assert_called_once_with(vm.resolve(),None,'start')
    self.assertEqual(run.call_count,2)
@@ -123,6 +123,60 @@ class DemoLauncherTests(unittest.TestCase):
   import demo_osrm as osrm
   with tempfile.TemporaryDirectory() as tmp:
    vm=Path(tmp);(vm/'gachilo-osrm').mkdir();(vm/'gachilo-osrm/lima.yaml').write_text('{}')
-   with patch.object(osrm,'settings',return_value={'LIMA_HOME':tmp}),patch.object(osrm,'executable',return_value='/bin/limactl'),patch('sys.argv',['demo_osrm.py','status']),patch.object(osrm.subprocess,'run',side_effect=osrm.subprocess.CalledProcessError(1,['limactl'])):
+   with patch.object(osrm,'ROOT',vm),patch.object(osrm,'settings',return_value={'LIMA_HOME':tmp}),patch.object(osrm,'executable',return_value='/bin/limactl'),patch('sys.argv',['demo_osrm.py','status']),patch.object(osrm.subprocess,'run',side_effect=osrm.subprocess.CalledProcessError(1,['limactl'])):
     with self.assertRaisesRegex(SystemExit,'OSRM status 실행을 확인하지 못했습니다'):osrm.main()
+ def test_osrm_control_ignores_unrelated_invalid_settings(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   vm=root/'vm';(vm/'custom-osrm').mkdir(parents=True);(vm/'custom-osrm/lima.yaml').write_text('{}')
+   path.write_text(json.dumps({'NODE_BINARY':1,'OSRM_CONTAINER_NAME':False,'LIMA_HOME':str(vm),'OSRM_VM_NAME':'custom-osrm'}))
+   for action in ['stop','status']:
+    with self.subTest(action=action),patch.dict(os.environ,{},clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm,'executable',return_value='/bin/limactl'),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py',action]):
+     osrm.main()
+     self.assertEqual(run.call_args.args[0],['/bin/limactl','stop' if action=='stop' else 'list','custom-osrm'])
+     self.assertEqual(run.call_args.kwargs['env']['LIMA_HOME'],str(vm.resolve()))
+   self.assertFalse((root/'.local/demo/osrm.json').exists())
+ def test_osrm_saved_target_survives_bad_runtime_and_ignores_retargeting(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   vm=root/'vm';(vm/'custom-osrm').mkdir(parents=True);(vm/'custom-osrm/lima.yaml').write_text('{}')
+   link=root/'short-link'
+   path.write_text(json.dumps({'LIMACTL':'/configured/limactl','LIMA_HOME':str(vm),'OSRM_VM_NAME':'custom-osrm','OSRM_LIMA_LINK':str(link)}))
+   with patch.dict(os.environ,{},clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm,'executable',return_value='/configured/limactl'),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
+    osrm.main();self.assertEqual(run.call_count,2)
+   self.assertTrue((root/'.local/demo/osrm.json').is_file())
+   for invalid in ['{bad json', '{"NODE_BINARY":1}', '{"LIMA_HOME":"/unrelated"}']:
+    path.write_text(invalid)
+    for action in ['stop','status']:
+     with self.subTest(config=invalid,action=action),patch.object(osrm,'ROOT',root),patch.object(osrm,'executable',return_value='/configured/limactl'),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py',action]),patch.object(osrm,'settings') as read:
+      osrm.main();read.assert_not_called()
+      self.assertEqual(run.call_args.args[0],['/configured/limactl','stop' if action=='stop' else 'list','custom-osrm'])
+      self.assertEqual(run.call_args.kwargs['env']['LIMA_HOME'],str(link))
+   link.unlink();link.symlink_to(root/'unrelated')
+   with patch.object(osrm,'ROOT',root),patch.object(osrm,'executable',return_value='/configured/limactl'),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','stop']):
+    with self.assertRaisesRegex(SystemExit,'링크가 깨졌거나'):osrm.main()
+    run.assert_not_called()
+ def test_osrm_corrupt_config_without_record_requires_explicit_target(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True);path.write_text('{bad json')
+   vm=root/'vm';(vm/'custom-osrm').mkdir(parents=True);(vm/'custom-osrm/lima.yaml').write_text('{}')
+   for action in ['stop','status']:
+    with self.subTest(action=action),patch.dict(os.environ,{},clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py',action]):
+     with self.assertRaisesRegex(SystemExit,'LIMACTL.*LIMA_HOME.*OSRM_VM_NAME'):osrm.main()
+     run.assert_not_called()
+    env={'LIMACTL':'/configured/limactl','LIMA_HOME':str(vm),'OSRM_VM_NAME':'custom-osrm'}
+    with patch.dict(os.environ,env,clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm,'executable',return_value='/configured/limactl'),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py',action]):
+     osrm.main();self.assertEqual(run.call_args.args[0][-1],'custom-osrm')
+ def test_osrm_invalid_saved_target_never_falls_back_to_other_vm(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/osrm.json';path.parent.mkdir(parents=True)
+   for invalid in ['{bad', '{}', '{"LIMACTL":true}']:
+    path.write_text(invalid)
+    with self.subTest(config=invalid),patch.object(osrm,'ROOT',root),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','stop']):
+     with self.assertRaisesRegex(SystemExit,'실행 기록'):osrm.main()
+     run.assert_not_called()
 if __name__=='__main__':unittest.main()

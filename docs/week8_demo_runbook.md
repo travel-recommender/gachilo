@@ -97,7 +97,7 @@ OSRM은 `LIMA_HOME`(기본 `~/.lima`)의 기존 `gachilo-osrm` VM을 사용한�
 `JPY_TO_KRW: 9.5`, `OSRM_TIMEOUT_MS: 2000`처럼 JSON 숫자로 설정해도 실행기는 자식 프로세스에 문자열로 전달한다. 같은 이름의 환경변수가 있으면 환경변수가 우선한다.
 `null`은 미설정으로 취급해 기본값을 사용한다. 불리언 값은 `true`/`false` 문자열로 전달하지만, 경로·실행 파일·VM/컨테이너 이름은 문자열 또는 `null`만 받는다. 예를 들어 `OSRM_LIMA_LINK: null`은 링크 없이 실행하며, `false`는 경로로 만들지 않고 설정 오류를 안내한다.
 
-`demo_server.py`의 `stop`·`api-stop`·`status`는 runtime.json을 읽지 않으므로 설정이 잘못돼도 종료·상태 확인을 할 수 있다. `start`·`api-start`에서만 설정을 검증하고, JSON 형식 오류는 한국어로 안내한다. OSRM 명령은 VM 위치를 알아야 하므로 설정을 수정한 뒤 실행한다.
+`demo_server.py`의 `stop`·`api-stop`·`status`는 runtime.json을 읽지 않으므로 설정이 잘못돼도 종료·상태 확인을 할 수 있다. `start`·`api-start`에서만 설정을 검증하고, JSON 형식 오류는 한국어로 안내한다. OSRM 시작은 확인한 VM 위치를 `.local/demo/osrm.json`에 기록한다. `demo_osrm.py stop/status`는 이 기록을 우선하므로 runtime.json이 깨지거나 다른 경로로 바뀌어도 원래 VM을 대상으로 한다. 이전 실행 기록이 없으면 OSRM 관련 키만 읽는다. JSON 자체가 깨졌다면 LIMACTL·LIMA_HOME·OSRM_VM_NAME(짧은 링크를 썼으면 OSRM_LIMA_LINK도)을 환경변수로 명시한다. 대상이 불명확하거나 실행 기록/링크가 깨졌으면 다른 VM을 추측해 종료하지 않고 안내한다. 기록을 지우거나 설정을 변경해도 실행 중인 VM이 자동으로 옮겨지지는 않는다.
 
 짧은 경로가 필요한 기존 VM만 `OSRM_LIMA_LINK`를 지정한다. start는 빈 위치에만 링크를 만든다. 깨진 링크나 다른 대상은 임의 교체하지 않고 설정 확인을 요청한다. status/stop은 링크를 만들지 않는다.
 종료 명령은 프로세스·포트가 닫힌 것을 확인한 경우에만 성공을 표시한다. 종료가 지연되면 기록을 유지하며 실패를 알리고, 임의로 강제 종료하지 않는다.

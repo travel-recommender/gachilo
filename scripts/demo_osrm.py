@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Control an existing Lima OSRM VM; never create a VM or replace unrelated paths."""
-import argparse, os, subprocess
+import argparse, json, os, subprocess, tempfile
 from pathlib import Path
 from demo_runtime import settings, executable
 ROOT=Path(__file__).resolve().parents[1]
@@ -19,9 +19,47 @@ def lima_home(vm, link, action):
         raise SystemExit('OSRM 임시 링크가 없습니다. 설정을 확인한 뒤 start로 복구하세요. 조회/중지는 링크를 생성하지 않습니다.')
     return link
 
+
+CONTROL_KEYS = {'LIMACTL', 'LIMA_HOME', 'OSRM_LIMA_LINK', 'OSRM_VM_NAME'}
+REQUIRED_TARGET = {'LIMACTL', 'LIMA_HOME', 'OSRM_VM_NAME'}
+
+def control_settings(root):
+    record=root/'.local/demo/osrm.json'
+    if record.exists():
+        try:
+            config=json.loads(record.read_text())
+            if (not isinstance(config,dict) or set(config)!=CONTROL_KEYS
+                or any(not isinstance(config[k],str) or not config[k] for k in REQUIRED_TARGET)
+                or config['OSRM_LIMA_LINK'] is not None and not isinstance(config['OSRM_LIMA_LINK'],str)):
+                raise ValueError('invalid OSRM target')
+            return config
+        except (OSError,ValueError,UnicodeError):
+            raise SystemExit('OSRM 실행 기록을 읽지 못했습니다. .local/demo/osrm.json을 확인하세요. 다른 VM을 추측해서 조작하지 않았습니다.') from None
+    try:
+        # Older launches have no record. Ignore settings unrelated to stop/status.
+        return settings(root,only=CONTROL_KEYS)
+    except SystemExit as error:
+        # Malformed JSON cannot reveal a custom target: require an explicit one instead of guessing.
+        if all(os.environ.get(k) for k in REQUIRED_TARGET):
+            return {k:os.environ[k] for k in CONTROL_KEYS if k in os.environ}
+        raise SystemExit(f'{error} 이전 OSRM 실행 기록이 없으므로 LIMACTL·LIMA_HOME·OSRM_VM_NAME을 환경변수로 명시하세요. 짧은 링크를 썼다면 OSRM_LIMA_LINK도 지정하세요.') from None
+
+def remember_target(root,tool,vm,link,name):
+    directory=root/'.local/demo';directory.mkdir(parents=True,exist_ok=True)
+    config={'LIMACTL':tool,'LIMA_HOME':str(vm),'OSRM_LIMA_LINK':str(link) if link else None,'OSRM_VM_NAME':name}
+    temporary=None
+    try:
+        with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=directory,delete=False) as file:
+            temporary=Path(file.name);json.dump(config,file,ensure_ascii=False)
+        temporary.replace(directory/'osrm.json')
+    except OSError:
+        raise SystemExit('OSRM 실행 기록을 저장하지 못해 시작하지 않았습니다. .local/demo의 쓰기 권한을 확인하세요.') from None
+    finally:
+        if temporary is not None:temporary.unlink(missing_ok=True)
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('action',choices=['start','stop','status']);a=p.parse_args()
-    config=settings(ROOT)
+    config=settings(ROOT) if a.action=='start' else control_settings(ROOT)
     tool=executable(config.get('LIMACTL'),'limactl')
     vm=Path(config.get('LIMA_HOME',str(Path.home()/'.lima'))).expanduser().resolve()
     name=config.get('OSRM_VM_NAME','gachilo-osrm')
@@ -34,6 +72,8 @@ def main():
     env={**os.environ,'LIMA_HOME':str(home)}
     try:
         if a.action=='start':
+            # Record the checked existing target before starting, including partial-start failures.
+            remember_target(ROOT,tool,vm,link,name)
             subprocess.run([tool,'start','--tty=false',name],env=env,check=True)
             subprocess.run([tool,'shell','--workdir=/mnt/osrm-data',name,'nerdctl','start',container],env=env,check=True)
         else:

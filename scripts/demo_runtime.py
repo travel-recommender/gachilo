@@ -5,7 +5,7 @@ from pathlib import Path
 PATH_SETTINGS = {'NODE_BINARY', 'LIMACTL', 'LIMA_HOME', 'OSRM_LIMA_LINK',
                  'OSRM_VM_NAME', 'OSRM_CONTAINER_NAME'}
 
-def settings(root):
+def settings(root, *, only=None):
     path=root/'.local/demo/runtime.json'
     try:
         config=json.loads(path.read_text()) if path.is_file() else {}
@@ -17,6 +17,8 @@ def settings(root):
         raise SystemExit('runtime.json은 설정 이름과 값을 가진 JSON 객체여야 합니다.')
     env = {}
     for key, value in config.items():
+        if only is not None and key not in only:
+            continue
         # null means unset: use the normal default or an explicit environment override.
         if value is None or key in os.environ:
             continue
