@@ -49,14 +49,17 @@ function clusterByDay(sels: Selection[], days: number): Selection[][] {
 const inWindow = (t: number, w: [number, number]) => t >= w[0] && t <= w[1];
 /** 술집은 따로 카테고리가 없어 이름으로 알아본다 */
 export const isBar = (p: Place) => /이자카야|술집|와인바|칵테일|izakaya|\bbar\b|\bpub\b/i.test(p.name);
-const isMeal = (p: Place) => p.category === "food" && !isBar(p);
+export const isMeal = (p: Place) => p.category === "food" && !isBar(p) && (!p.mealRole || p.mealRole === "meal");
 
 /** 영업시간 안으로 들어오는 시작 시각. 못 넣으면 null. 술집만 자정까지 둔다 */
 function fitOpening(place: Place, arrive: number): number | null {
-  const start = Math.max(arrive, place.openFrom);
-  if (start + place.stayMin > place.openTo) return null;
-  if (start + place.stayMin > (isBar(place) ? NIGHT_END : DAY_END)) return null;
-  return start;
+  const windows = place.openingWindows ?? [[place.openFrom, place.openTo, place.lastEntry ?? place.openTo]];
+  for (const [open, close, lastEntry] of windows) {
+    const start = Math.max(arrive, open);
+    if (start <= lastEntry && start + place.stayMin <= close
+        && start + place.stayMin <= (isBar(place) ? NIGHT_END : DAY_END)) return start;
+  }
+  return null;
 }
 
 /** 빈 식사 시간을 채울 가까운 식당·카페를 고른다 */

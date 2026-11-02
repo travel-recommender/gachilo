@@ -1,7 +1,7 @@
 /** Server-only walking routes. One bounded table request per calculation, no retries. */
 import { AsyncLocalStorage } from 'node:async_hooks';
 
-export interface Coordinate { lat: number; lng: number }
+export interface Coordinate { lat: number; lng: number; id?: string; buildingId?: string }
 type Failure = 'not_configured' | 'invalid_config' | 'unavailable' | 'timeout'
   | 'http_error' | 'no_route' | 'invalid_response' | 'outside_snapshot' | 'too_many_places';
 export interface WalkingRoute {
@@ -15,7 +15,7 @@ export interface Move {
   min: number;
   mode: 'walk' | 'transit';
   walkKm: number;
-  source: WalkingRoute['source'] | 'transit-estimate';
+  source: WalkingRoute['source'] | 'transit-estimate' | 'indoor-estimate';
   fallbackReason?: Failure;
 }
 export interface RoutingOptions {
@@ -140,6 +140,11 @@ export async function withRouting<T>(points: Coordinate[], calculate: () => T | 
 }
 
 export function travel(a: Coordinate, b: Coordinate): Move {
+  // Store-map POIs are not indoor routing. Keep an explicit 5-minute transfer
+  // estimate between distinct destinations in the SAME building, not adjacent wings.
+  if (a.id && b.id && a.id !== b.id && a.buildingId && a.buildingId === b.buildingId) {
+    return {km:0, min:5, mode:'walk', walkKm:0, source:'indoor-estimate'};
+  }
   const estimated = estimateWalkingRoute(a, b);
   const snapshot = context.getStore();
   const route = snapshot?.routes.get(pairKey(a, b))
@@ -158,26 +163,29 @@ export const hasRoutingContext = () => context.getStore() !== undefined;
 
 /** Existing API's summary field records actual final-leg sources without a schema change. */
 function routingCounts(days: Coordinate[][]) {
-  let osrm = 0, estimated = 0, transit = 0;
+  let osrm = 0, estimated = 0, transit = 0, indoor = 0;
   for (const places of days) for (let i = 1; i < places.length; i++) {
     const move = travel(places[i - 1], places[i]);
     if (move.source === 'osrm-foot') osrm++;
+    else if (move.source === 'indoor-estimate') indoor++;
     else if (move.mode === 'transit') transit++;
     else estimated++;
   }
-  return {osrm, estimated, transit};
+  return {osrm, estimated, transit, indoor};
 }
 
 /** Describe final legs, not merely the presence of a request-scoped context. */
 export function routingLimitations(days: Coordinate[][]): string {
-  const {osrm, estimated, transit} = routingCounts(days);
+  const {osrm, estimated, transit, indoor} = routingCounts(days);
   const reason = context.getStore()?.failure;
   return `Final legs: foot OSRM ${osrm}, distance × 1.35 walking estimate ${estimated}, transit estimate ${transit}.`
     + (osrm === 0 ? ` No walking legs use OSRM${reason ? ` (${reason})` : ''}.` : '')
+    + (indoor ? ` Same-building transfer estimate: ${indoor} legs × 5 min; indoor distance excluded.` : '')
     + ' Transit timetables, lodging access, venue walking, queues and weather are not included.';
 }
 
 export function routingSummary(days: Coordinate[][]): string {
-  const {osrm, estimated, transit} = routingCounts(days);
-  return ` 이동 계산: OSRM 도보 ${osrm}구간, 직선거리×1.35 도보 추정 ${estimated}구간, 대중교통 추정 ${transit}구간. 교통 시간표·숙소 왕복·시설 내부 이동은 포함하지 않습니다.`;
+  const {osrm, estimated, transit, indoor} = routingCounts(days);
+  return ` 이동 계산: OSRM 도보 ${osrm}구간, 직선거리×1.35 도보 추정 ${estimated}구간, 대중교통 추정 ${transit}구간. 교통 시간표·숙소 왕복·시설 내부 ${indoor ? '보행 거리' : '이동'}은 포함하지 않습니다.`
+    + (indoor ? ` 같은 건물 내부 이동 ${indoor}구간은 각 5분 추정이며 내부 보행 거리는 제외됩니다.` : "");
 }

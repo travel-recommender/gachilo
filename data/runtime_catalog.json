@@ -1,0 +1,11 @@
+{
+  "version": "2026-10-30",
+  "catalog": "final/osaka_catalog_20261030.json",
+  "profiles": "final/osaka_profiles_20261026.json",
+  "searchable_count": 225,
+  "new_branch_count": 75,
+  "new_branch_dated_eligible_count": 51,
+  "supplemental_search_only_count": 20,
+  "travel_support": "collections/osaka_traveler_expansion_20261030/travel_support.json",
+  "travel_support_count": 5
+}

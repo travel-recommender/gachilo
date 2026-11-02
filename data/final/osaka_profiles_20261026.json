@@ -1,0 +1,1948 @@
+{
+  "schema_version": 2,
+  "checked_at": "2026-10-06",
+  "valid_from": "2026-10-01",
+  "valid_through": "2026-11-30",
+  "status": "reviewed_model_profiles",
+  "japan_holidays": [
+    "2026-10-12",
+    "2026-11-03",
+    "2026-11-23"
+  ],
+  "holiday_source": "https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html",
+  "notes": [
+    "일반 영업 및 확인된 예외의 정규화. 미래 임시휴업·좌석·입장 예약의 보장이 아니다.",
+    "window=[개시,종료,최종입장]이며 일본 현지 자정부터 분. 식당의 명시적 최종입장이 없으면 영업종료를 상한으로 두고 체류시간 전부가 창 안에 들어가야 한다.",
+    "HEP FIVE 10/15(목) 공지는 연도 생략. 2026-10-15를 확정 휴업으로 단정하지 않고 확인 전 제외한다.",
+    "공원 가격·시간은 명시한 무료 일반 이용 구역에만 적용한다. 좌표는 수집 원본으로 실제 출입구가 아니며 경로 정확도 검증에 쓰지 않는다.",
+    "2026-09-30 후속: 실제 장소 서버 모드에서 재사용. 쇼핑 5곳은 allowShopping 옵션에서만 배치하고 소비 비용은 null/비산정으로 표시. 150곳 전체 검증 완료가 아님.",
+    "2026-09-30 추가 확인: 쇼핑층 공통 시간·무료 참배/공원·찻집을 정규화. Whity 11/19 정기휴관, 위스테 10/8·차엔 10/10 확인 전 제외. 비정기 휴무 브리제는 여전히 보류.",
+    "2026-09-30 후속: 장소별 검증 유효기간과 날짜별 무료요금 적용. 일반 가격은 원본에 보존. 명시한 공통 시간대만 사용하며 가격·방문일 미확인은 계속 제외한다.",
+    "2026-10-01: 위스테 공식 정정 공지 반영. 앞선 10/8 제외 기록은 10/15로 대체. 다른 장소의 과거 검토일은 유지.",
+    "2026-10-01: 공식 지점 메뉴5개·시간대 적용9개 추가. 점심·심야할증·비정기휴무를 구분하고 Sub Jazz 공식 시간 충돌은 추가 보류한다.",
+    "2026-10-06: 공식 자료 재검토 범위와 신규 날짜 규칙은 별도 official_followup_20261006.json 참조. 새 규칙은 10/6부터 적용하며 전시 종료일·점심 범위·가격 미확인·주소/시간 충돌을 유지. 모든 출처를 당일 재조회한 것은 아님.",
+    "Final CSV corrections invalidate stale profiles; no missing facts are inferred.",
+    "2026-10-26 branch review: map reference coordinates, explicit model estimates and dated restrictions; raw collection unchanged."
+  ],
+  "places": {
+    "osaka_007": {
+      "window": [
+        570,
+        1350,
+        1320
+      ],
+      "exceptions": {
+        "2026-11-08": {
+          "window": [
+            570,
+            1140,
+            1110
+          ]
+        }
+      },
+      "cost_basis": "성인 일반 공중정원 입장료 2,000 JPY",
+      "source_urls": [
+        "https://www.skybldg.co.jp/observatory/information/"
+      ]
+    },
+    "osaka_009": {
+      "window": [
+        540,
+        1080,
+        1050
+      ],
+      "cost_basis": "성인 천수각 일반 입장료 1,200 JPY",
+      "source_urls": [
+        "https://www.osakacastle.net/guide/"
+      ]
+    },
+    "osaka_012": {
+      "window": [
+        570,
+        1020,
+        990
+      ],
+      "closed_weekdays": [
+        2
+      ],
+      "holiday_moves_closure": true,
+      "cost_basis": "성인 상설전 입장료 600 JPY; 특별전 별도",
+      "source_urls": [
+        "https://www.osakamushis.jp/visit/fee.html"
+      ]
+    },
+    "osaka_015": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "cost_basis": "공원 일반 야외 산책 무료; 천수각·니시노마루·유료시설 제외",
+      "source_urls": [
+        "https://osaka-info.jp/spot/osaka-castle-park/"
+      ]
+    },
+    "osaka_017": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "cost_basis": "공원 장미원 야외 관람 무료; 유람선·음식점 제외",
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/244",
+        "https://osaka-info.jp/spot/nakanoshima-park/"
+      ]
+    },
+    "osaka_018": {
+      "window": [
+        420,
+        1320,
+        1320
+      ],
+      "cost_basis": "텐시바 입구 광장만 무료; 동물원·미술관·게이타쿠엔 제외",
+      "source_urls": [
+        "https://osaka-info.jp/spot/tennoji-park-entrance-area-ten-shiba/"
+      ]
+    },
+    "osaka_019": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "cost_basis": "공원 야외 장미원 산책 무료; 유료 체육시설 제외",
+      "source_urls": [
+        "https://utsubotennis.osaka/rose_garden/",
+        "https://parksgreenery.city.osaka.lg.jp/article/parks-utsubo/"
+      ]
+    },
+    "osaka_028": {
+      "window": [
+        660,
+        1440,
+        1440
+      ],
+      "cost_basis": "흑대장 간장라멘 1인 950 JPY 세금 포함. 추가 주문·세트 제외",
+      "source_urls": [
+        "https://www.soudaisyou.com/access.html"
+      ]
+    },
+    "osaka_draft_243b34cd6761": {
+      "window": [
+        660,
+        1350,
+        1300
+      ],
+      "weekday_window": [
+        720,
+        1350,
+        1300
+      ],
+      "requires_visit_confirmation": true,
+      "cost_basis": "일반 아이스/핫 커피 1잔 715 JPY 세금 포함; 1인 1음료, 별도 좌석료 없음, 추가 음식·음료 제외. 비정기 휴무 확인 전 제외.",
+      "source_urls": [
+        "https://www.e-maid.net/menu.html",
+        "https://www.e-maid.net/concept.html",
+        "https://www.e-maid.net/"
+      ]
+    },
+    "osaka_draft_26a5e809355e": {
+      "window": [
+        690,
+        900,
+        900
+      ],
+      "closed_weekdays": [
+        1
+      ],
+      "cost_basis": "점심 데미글라스 햄버그 150g 정식 980 JPY 세금 포함. 점심 창에만 적용; 저녁·추가 주문 제외",
+      "source_urls": [
+        "https://cherryjam.owst.jp/"
+      ]
+    },
+    "osaka_014": {
+      "window": [
+        570,
+        1020,
+        990
+      ],
+      "cost_basis": "성인 전시장 입장료 400 JPY; 플라네타륨 제외",
+      "source_urls": [
+        "https://www.sci-museum.jp/info/"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true
+    },
+    "osaka_draft_1cbe7e7894c8": {
+      "window": [
+        600,
+        960,
+        930
+      ],
+      "cost_basis": "자료관 일반 입장 무료",
+      "source_urls": [
+        "https://www.sinnosan.jp/kusuri/"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        0
+      ],
+      "closed_holidays": true
+    },
+    "osaka_draft_d7da3fdbeaf6": {
+      "window": [
+        600,
+        1080,
+        1050
+      ],
+      "cost_basis": "성인 일반 입장료 1300 JPY; 카페 제외",
+      "source_urls": [
+        "https://www.kinutani-tenku.jp/"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        2
+      ],
+      "holiday_moves_closure": true,
+      "extended_weekdays": [
+        5,
+        6
+      ],
+      "extend_before_holiday": true,
+      "extended_window": [
+        600,
+        1200,
+        1170
+      ]
+    },
+    "osaka_draft_1289b4aecc32": {
+      "window": [
+        570,
+        1020,
+        990
+      ],
+      "cost_basis": "성인 정원 입장료 300 JPY; 다실·미술관 제외",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true
+    },
+    "osaka_020": {
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "cost_basis": "일반 쇼핑 구역 방문. 개인 구매·음식·유료 행사는 예산 합계에서 제외",
+      "source_urls": [
+        "https://nambaparks.com/facilities"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_021": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_basis": "일반 판매장 방문. 일부 단축 영업 매장 제외; 개인 쇼핑 지출 미산정",
+      "source_urls": [
+        "https://www.takashimaya.co.jp/osaka/businesshours/"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_022": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_basis": "본관 일반 판매장 방문. 음식점·별도 운영 매장 제외; 개인 쇼핑 지출 미산정",
+      "source_urls": [
+        "https://www.daimaru.co.jp/shinsaibashi/hours.html"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_023": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_basis": "일반 판매장 방문. 음식점·일부 점포 제외; 개인 쇼핑 지출 미산정",
+      "source_urls": [
+        "https://www.hanshin-dept.jp/hshonten/map/index.html"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_024": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "cost_basis": "일반 판매·서비스 구역 방문. 전시·영화·음식점 제외; 개인 쇼핑 지출 미산정",
+      "source_urls": [
+        "https://shinsaibashi.parco.jp/info/"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_f0f97440bedc": {
+      "window": [
+        420,
+        1320,
+        1320
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html",
+        "https://maps.google.com/?cid=4275703018452935561",
+        "https://www.openstreetmap.org/node/12781301802"
+      ],
+      "cost_basis": "차우스야마 무료 공원 안 다리 주변 산책. 유료 게이타쿠엔·미술관 제외."
+    },
+    "osaka_draft_16f1d28c8bfd": {
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://nu-chayamachi.com/info/openclose/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 쇼핑 11~21시. 공식 2026년 휴관 달력에서 10·11월 정기휴관 없음.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_1b3533415b94": {
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.herbis.jp/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). ENT 일반 판매장 11~20시. 음식점·개별 매장 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_02288187c550": {
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.aeon.jp/sc/osakadomecity/info/time.html"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 몰 전문점 10~21시. 이온 슈퍼·개별 예외점 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_daa353940c61": {
+      "window": [
+        600,
+        1110,
+        1110
+      ],
+      "source_urls": [
+        "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 판매층 공통 구간인 10~18:30만 일정에 사용. 원본의 층별 영업시간은 보존.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_dc3ec67cb8d1": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://citymall.jp/access/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). MBF 단축 운영을 고려해 전문점 공통 구간인 10~20시만 사용.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_b6b6dae05ce5": {
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://mitsui-shopping-park.com/odona/top.html"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 11~20시. 정기 휴관 12/31·1/1은 검토 날짜 범위 밖.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_f1ba0aa6ab58": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.hankyu-dept.co.jp/honten/map/index.html"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 일반 판매장 10~20시. 식당·특별 운영 구역 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_4fb99b053e8b": {
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://whity.osaka-chikagai.jp/",
+        "https://osaka-info.jp/spot/whity-umeda/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 쇼핑 10~21시. 홀수 달 셋째 목요일 휴관 규칙의 범위 내 날짜 2026-11-19 제외.",
+      "checked_at": "2026-09-30",
+      "exceptions": {
+        "2026-11-19": {
+          "closed": true
+        }
+      }
+    },
+    "osaka_draft_11050de606b0": {
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.wiste.jp/"
+      ],
+      "cost_basis": "실내 판매장 방문만 계산. 개인 구매·음식·유료 행사비 미산정(null). 전문점 10~21시. 최신 휴관 공지는 10/8에서 10/15(목)로 변경; 연도 생략으로 2026-10-15는 확인 전 제외.",
+      "checked_at": "2026-10-01",
+      "uncertain_dates": [
+        "2026-10-15"
+      ]
+    },
+    "osaka_draft_481d9742f9c2": {
+      "window": [
+        660,
+        1140,
+        1140
+      ],
+      "source_urls": [
+        "https://www.breeze-breeze.jp/info/"
+      ],
+      "cost_basis": "판매장 방문만 계산하며 개인 구매·음식·유료 행사비는 미산정(null). 공통 11~19시만 정규화. 비정기 휴무 확인 전 자동 일정에서는 보류.",
+      "checked_at": "2026-09-30",
+      "requires_visit_confirmation": true
+    },
+    "osaka_draft_6dbd8bbe7f48": {
+      "window": [
+        660,
+        1080,
+        1050
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/special/coolosaka/cool-spot/1186/"
+      ],
+      "cost_basis": "성인 일반 관람 700 JPY; 판화 체험 제외. 월요일 휴관, 공휴일이면 다음날.",
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true
+    },
+    "osaka_draft_04b34bc4e6e2": {
+      "window": [
+        360,
+        1020,
+        1020
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/529"
+      ],
+      "cost_basis": "고즈구 경내 일반 참배 무료. 신전 폐문 17시 전에 마치는 보수적 구간; 기도·행사 참가비 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_5f8dd9212a0c": {
+      "window": [
+        600,
+        960,
+        960
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/617"
+      ],
+      "cost_basis": "후지타 저택 터 공원 무료 일반 공개 10~16시. 후지타 미술관 입장료와 구분.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_2fc0df9e9f8d": {
+      "window": [
+        600,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://nambaparks.com/garden"
+      ],
+      "cost_basis": "무료 옥상정원 10~24시. 쇼핑·음식 제외; 임시 휴관은 난바 파크스 운영 공지 재확인.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_7675eb0bab46": {
+      "window": [
+        360,
+        1020,
+        1020
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/246",
+        "https://osaka-info.jp/special/dc/event/detail12/"
+      ],
+      "cost_basis": "난바 야사카 신사 일반 경내 참배 무료. 06~17시 개문, 사무소 09~16:50; 기도·물품 구매 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_c62644984874": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://osaka-info.jp/experience/ja/osaka/spot/458"
+      ],
+      "cost_basis": "게마 사쿠라노미야 공원 일반 야외 산책 24시간·입장 무료. 구장·유람선 등 유료 시설은 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_96e588e49f58": {
+      "window": [
+        780,
+        1140,
+        1110
+      ],
+      "source_urls": [
+        "https://chaenjin.jimdofree.com/"
+      ],
+      "cost_basis": "센차·우롱차 1인 한 주문 750 JPY(최대 3회 우림). 수~일 13~19시경, 주문 18:30까지. 10/10 행사 공지의 일반 영업 여부·연도 확인 전 해당 날짜 제외.",
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1,
+        2
+      ],
+      "uncertain_dates": [
+        "2026-10-10"
+      ]
+    },
+    "osaka_010": {
+      "window": [
+        540,
+        1020,
+        1020
+      ],
+      "source_urls": [
+        "https://discover.osaka-info.jp/jp/articles/tenjin-matsuri-festivals",
+        "https://osaka-info.jp/special/dc/event/detail369/"
+      ],
+      "cost_basis": "관광국 2026년 안내의 참배 09~17시와 별도 시설 소개의 개문 05:30~18:30을 구분. 일정은 두 안내에 공통으로 포함되는 09~17시 경내 참배만 사용; 기도·행사·물품 제외.",
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_23d3d20ef739": {
+      "window": [
+        690,
+        900,
+        900
+      ],
+      "source_urls": [
+        "https://garbweeks.com/menu/",
+        "https://garbweeks.com/menu/lunch.pdf?2026092802=",
+        "https://garbweeks.com/menu/lunch_h.pdf?2026092802=",
+        "https://garbweeks.com/shop/"
+      ],
+      "cost_basis": "현재 공식 메뉴 페이지에서 연결한 평일 오늘의 메인 플레이트 1인 1250 JPY(빵 또는 밥). 휴일 메뉴의 1700 JPY와 다르므로 평일 비공휴일 11:30~15:00에만 계산. 15시는 점심 주문 마감이며 이 모델에서는 식사도 그 전에 마치도록 제한. 음료·추가 주문 제외. 최신 PDF에서 세금 포함 문구는 확인하지 못함.",
+      "checked_at": "2026-09-30",
+      "price_unavailable_weekdays": [
+        0,
+        6
+      ],
+      "price_unavailable_holidays": true
+    },
+    "osaka_draft_5a243c3857f7": {
+      "window": [
+        600,
+        1080,
+        1080
+      ],
+      "cost_basis": "향 판매점 쇼핑 구매비 비산정(null). 별도 유료 체험 제외.",
+      "source_urls": [
+        "https://www.shoyeido.co.jp/shop-info/osaka.html"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_011": {
+      "window": [
+        510,
+        960,
+        960
+      ],
+      "cost_basis": "성인 개인 중심가람 500 JPY, 매월 21·22일 0 JPY; 정원·보물관 별도. 10~11월 공통 08:30~16:00만 사용.",
+      "source_urls": [
+        "https://www.shitennoji.or.jp/admission.html",
+        "https://www.shitennoji.or.jp/map.html"
+      ],
+      "checked_at": "2026-09-30",
+      "exceptions": {
+        "2026-10-21": {
+          "cost_jpy": 0
+        },
+        "2026-10-22": {
+          "cost_jpy": 0
+        },
+        "2026-11-21": {
+          "cost_jpy": 0
+        },
+        "2026-11-22": {
+          "cost_jpy": 0
+        }
+      }
+    },
+    "osaka_draft_ce3b8d452a0e": {
+      "window": [
+        600,
+        1020,
+        990
+      ],
+      "cost_basis": "2026 컬렉션1 성인 주간 430 JPY; 공식 무료일 0 JPY. 특별전·음성안내·금요일 야간 별도.",
+      "source_urls": [
+        "https://www.nmao.go.jp/events/event/collection20260719/"
+      ],
+      "checked_at": "2026-09-30",
+      "valid_from": "2026-07-19",
+      "valid_through": "2026-11-03",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true,
+      "exceptions": {
+        "2026-10-03": {
+          "cost_jpy": 0
+        },
+        "2026-10-16": {
+          "cost_jpy": 0
+        },
+        "2026-10-17": {
+          "cost_jpy": 0
+        },
+        "2026-10-23": {
+          "cost_jpy": 0
+        },
+        "2026-10-24": {
+          "cost_jpy": 0
+        },
+        "2026-11-03": {
+          "cost_jpy": 0
+        },
+        "2026-11-02": {
+          "closed": false
+        }
+      }
+    },
+    "osaka_draft_9e900589aec0": {
+      "window": [
+        540,
+        990,
+        960
+      ],
+      "cost_basis": "성인 일반 정원 300 JPY. 10~11월 공통 09:00~16:30만 사용, 야간행사·찻집 별도.",
+      "source_urls": [
+        "https://osaka-chushin.jp/en/routes/33146",
+        "https://www.osakacastlepark.jp/news/?lang=ja"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_moves_closure": true
+    },
+    "osaka_draft_fc7acd992f21": {
+      "window": [
+        570,
+        1140,
+        1140
+      ],
+      "cost_basis": "쇼핑 구매비 비산정(null). 일반 입점 쇼핑 구역 공통 시간, 개별 점포 예외 별도.",
+      "source_urls": [
+        "https://page.line.me/hvk0696d"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_873f1e0cf834": {
+      "window": [
+        660,
+        1020,
+        1020
+      ],
+      "cost_basis": "부다볼+수프 1580 JPY 한 메뉴; 평균 식비 아님. 운영시간은 기존 OSM 자료로 공식 재확인과 구분.",
+      "source_urls": [
+        "https://superfoodcafe-an39.jp/menu/",
+        "https://www.openstreetmap.org/node/9468409531"
+      ],
+      "checked_at": "2026-09-30",
+      "closed_weekdays": [
+        1
+      ],
+      "holiday_hours_unconfirmed": true,
+      "evidence_level": "official_menu_and_osm_hours"
+    },
+    "osaka_draft_2f89be830b8c": {
+      "window": [
+        840,
+        1020,
+        1020
+      ],
+      "cost_basis": "카페 시간 오므라이스 단품 1000 JPY(세금 포함); 14~17시만 적용. 단체/케이터링·음료 별도.",
+      "source_urls": [
+        "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_2eb759c40909": {
+      "window": [
+        600,
+        1320,
+        1320
+      ],
+      "cost_basis": "밀라노풍 도리아 단품 300 JPY(세금 포함). 공식 체인 메뉴 기준, 지점 품절 보장 아님. 22시 이후 10% 가산·추가 주문 제외.",
+      "source_urls": [
+        "https://www.saizeriya.co.jp/menu-popular/2101/",
+        "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_57eaac2e578d": {
+      "window": [
+        720,
+        1260,
+        1260
+      ],
+      "cost_basis": "고양이방 일반 1시간 1800 JPY. 양말 지참; 미지참 구매165엔·연장비 제외. 비정기 휴무 확인 필요.",
+      "source_urls": [
+        "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
+        "https://neu-catcafe.com/price"
+      ],
+      "checked_at": "2026-09-30",
+      "requires_visit_confirmation": true
+    },
+    "osm_node_2296903605": {
+      "window": [
+        480,
+        1380,
+        1380
+      ],
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_e5eb4dd70807": {
+      "window": [
+        480,
+        1140,
+        1140
+      ],
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://www.sotcoffee.com/en/pages/shop-osaka"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_5a3ef73c2b4b": {
+      "window": [
+        480,
+        1260,
+        1260
+      ],
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
+      ],
+      "checked_at": "2026-09-30"
+    },
+    "osaka_draft_c85fa26beb80": {
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "source_urls": [
+        "https://osaka-info.jp/spot/o1o1-namba-marui/"
+      ],
+      "checked_at": "2026-09-30",
+      "requires_visit_confirmation": true
+    },
+    "osaka_draft_2a9b88c21411": {
+      "window": [
+        660,
+        1200,
+        1140
+      ],
+      "cost_basis": "공식 매장 사이트의 파르페와 메릴리 런치 세트 1인 2300엔 JPY. 시즌·주문 구성에 따라 달라짐. 실내 좌석 안내.",
+      "source_urls": [
+        "https://parfait-de-merrily.owst.jp/"
+      ],
+      "checked_at": "2026-09-30",
+      "requires_visit_confirmation": true
+    },
+    "osaka_draft_d0e6cdcb566f": {
+      "window": [
+        690,
+        900,
+        900
+      ],
+      "source_urls": [
+        "https://albar-awaji.owst.jp/lunches",
+        "https://albar-awaji.owst.jp/"
+      ],
+      "cost_basis": "타라코 파스타 단품 880 JPY(세금 포함). 공통 점심 11:30~15:00 안에 식사를 마치는 보수적 창; 저녁·추가 주문 제외. 정기휴무 없음.",
+      "checked_at": "2026-10-01"
+    },
+    "osaka_draft_6789f7f9c22f": {
+      "window": [
+        690,
+        870,
+        840
+      ],
+      "source_urls": [
+        "https://www.funaya.co.jp/menu/",
+        "https://www.funaya.co.jp/"
+      ],
+      "cost_basis": "매장 우나주 우메 2790 JPY. 매장 식사 11:30~14:30/주문14시, 목요일+월1회 임시휴무, 매진 종료. 포장10~20시와 구분. 10~11월 추가 휴무일 미확인.",
+      "checked_at": "2026-10-01",
+      "closed_weekdays": [
+        4
+      ],
+      "requires_visit_confirmation": true
+    },
+    "osaka_026": {
+      "window": [
+        480,
+        1320,
+        1320
+      ],
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/dotonbori-south/"
+      ],
+      "cost_basis": "별관 천연 돈코츠 라멘 1그릇 1180 JPY. 22~06시 심야 할증을 피하고 카운터·테이블 공통 이용 가능 시간 중 08~22시에 체류 전체를 제한. 추가 주문 제외.",
+      "checked_at": "2026-10-01"
+    },
+    "osaka_draft_a9bc74861e3f": {
+      "window": [
+        660,
+        930,
+        930
+      ],
+      "source_urls": [
+        "https://montomworks.com/"
+      ],
+      "cost_basis": "11~15:30 점심 세트(샐러드·메인·커피/차) 표시가격1300 JPY. 세금 표기 별도 미확인, 최종 결제 총액 보장 아님. 토·일 저녁과 추가 주문 제외. 수요일 휴무, 공휴일이면 목요일 대체 휴무.",
+      "checked_at": "2026-10-01",
+      "closed_weekdays": [
+        3
+      ],
+      "holiday_moves_closure": true
+    },
+    "osaka_draft_d580756db04a": {
+      "window": [
+        660,
+        990,
+        990
+      ],
+      "source_urls": [
+        "https://shin-medaka.com/menu/weekdays-lunch-menu/",
+        "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
+        "https://shin-medaka.com/access/"
+      ],
+      "cost_basis": "평일 점심 일일 자연식 정식 표시가격1250 JPY, 세금 표기 미확인. 11~16:30 범위이며 주말/공휴일에는 이 가격을 적용하지 않음. 비정기 휴무 확인 전 보류.",
+      "checked_at": "2026-10-01",
+      "requires_visit_confirmation": true,
+      "price_unavailable_weekdays": [
+        0,
+        6
+      ],
+      "price_unavailable_holidays": true
+    },
+    "osaka_025": {
+      "window": [
+        660,
+        960,
+        960
+      ],
+      "source_urls": [
+        "https://douraku.co.jp/kansai/honten/",
+        "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
+      ],
+      "cost_basis": "점심 호시1인3740 JPY 세금 포함,11~16시 안에 식사 완료. 정규영업23시까지라는 정보를 점심 가격에 적용하지 않음. 12/31휴무는 현재검토기간 밖.",
+      "checked_at": "2026-10-01"
+    },
+    "osaka_draft_e51bbe99124a": {
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.arde-shinosaka.jp/access",
+        "https://www.arde-shinosaka.jp/shopguide?category%5B0%5D=1"
+      ],
+      "cost_basis": "신오사카역2F 일반 패션·잡화 실내 판매장 공통10~21시. 개인 구매비 null/비산정. 처방약·식당·별도 서비스는 범위 밖.",
+      "checked_at": "2026-10-01"
+    },
+    "osaka_003": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://shinsekaiofficial.com/",
+        "https://maps.google.com/?cid=3941168473429300987"
+      ],
+      "cost_basis": "이미 확인한 거리 통행공간24시간만 정규화. 개별 점포·전망대·음식점 영업과 입장료를 포함하지 않음. 상점가 개인 구매비는 팀 규칙에 따라 null/비산정.",
+      "checked_at": "2026-10-01"
+    },
+    "osaka_draft_5f45ffb4d766": {
+      "window": [
+        690,
+        840,
+        840
+      ],
+      "source_urls": [
+        "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
+        "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
+      ],
+      "cost_basis": "평일 익스프레스 런치4800 JPY 세금·서비스료 포함,11:30~14시 안에 식사 완료. 주말/공휴일에는 이 가격 미적용. 월·화휴무(공휴일예외).",
+      "checked_at": "2026-10-01",
+      "closed_weekdays": [
+        1,
+        2
+      ],
+      "price_unavailable_weekdays": [
+        0,
+        6
+      ],
+      "price_unavailable_holidays": true
+    },
+    "osaka_draft_2941efc9ac2d": {
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://note.ur-net.go.jp/n/n4a22d34d6b06",
+        "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
+        "https://umekita.com/"
+      ],
+      "cost_basis": "일반 야외 산책 입장 무료. 시설·유료 행사·음식점 비용 제외."
+    },
+    "osaka_draft_8cb9705b2793": {
+      "window": [
+        720,
+        840,
+        780
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://comfortzone8kyoitarian.com/lunch-menu/"
+      ],
+      "cost_basis": "오늘의 파스타 단품 표시가 1150 JPY. 세금 표시 미확인, 추가 세트·코스·저녁 제외.",
+      "closed_weekdays": [
+        1,
+        2
+      ],
+      "holiday_hours_unconfirmed": true
+    },
+    "osaka_draft_c99cbfbd0f92": {
+      "window": [
+        660,
+        1020,
+        1020
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-10-17",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://www.artcourtgallery.com/exhibitions/17306/",
+        "https://www.artcourtgallery.com/access/"
+      ],
+      "cost_basis": "입장료 미확인으로 일정 제외. 해당 전시 기간의 시간만 정규화.",
+      "closed_weekdays": [
+        0,
+        1
+      ],
+      "closed_holidays": true
+    },
+    "osaka_draft_2780be08a88e": {
+      "window": [
+        420,
+        1080,
+        1080
+      ],
+      "valid_from": "2026-10-06",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-10-06",
+      "source_urls": [
+        "https://mitsugu.org/"
+      ],
+      "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화."
+    },
+    "branch_ichiran_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1440,
+        1425
+      ],
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/shinsaibashi/"
+      ],
+      "exceptions": {},
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1180엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+    },
+    "branch_ichiran_namba_midosuji": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        540,
+        1320,
+        1305
+      ],
+      "source_urls": [
+        "https://ichiran.com/np/shop/kinki/namba-midosuji.html"
+      ],
+      "exceptions": {},
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1280엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+    },
+    "branch_ichiran_umeda_hankyu": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1440,
+        1425
+      ],
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/umeda-hankyu/"
+      ],
+      "exceptions": {},
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+    },
+    "branch_ichiran_umeda_shibata": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1380,
+        1365
+      ],
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/umeda-shibata/"
+      ],
+      "exceptions": {},
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+    },
+    "branch_ichiran_abeno": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1380,
+        1335
+      ],
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/abeno/"
+      ],
+      "exceptions": {},
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+    },
+    "branch_donki_dotonbori": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://www.donki.com/store/shop_detail.php?shop_id=110"
+      ],
+      "exceptions": {
+        "2026-11-06": {
+          "window": [
+            540,
+            1440,
+            1440
+          ]
+        }
+      },
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_donki_dotonbori_midosuji": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://www.donki.com/store/shop_detail.php?shop_id=373"
+      ],
+      "exceptions": {
+        "2026-11-19": {
+          "window": [
+            540,
+            1440,
+            1440
+          ]
+        }
+      },
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_donki_namba_sennichimae": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        540,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://www.donki.com/store/shop_detail.php?shop_id=419"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_donki_umeda": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        0,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://www.donki.com/store/shop_detail.php?shop_id=275"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_gu_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.gu-global.com/jp/ja/feature/contents/tax-free/all"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_gu_links_umeda": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://links-umeda.jp/shop/gu%E3%80%80links-umeda/",
+        "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_daiso_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        570,
+        1320,
+        1320
+      ],
+      "source_urls": [
+        "https://www.daiso-sangyo.co.jp/shop/detail/008646"
+      ],
+      "exceptions": {},
+      "weekday_window": [
+        540,
+        1320,
+        1320
+      ],
+      "holiday_hours_unconfirmed": true,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_daiso_links_umeda": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_daiso_osaka_umeda": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        540,
+        1320,
+        1320
+      ],
+      "source_urls": [
+        "https://www.daiso-sangyo.co.jp/shop/detail/008952"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_uniqlo_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/stores/show/27"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_uniqlo_umeda": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://map.uniqlo.com/jp/ja/detail/10101654/1000",
+        "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_muji_grandfront": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.muji.com/jp/ja/shop/detail/045589",
+        "https://mapfan.com/future-info/details/N2J0"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_muji_namba_skyo": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.muji.com/jp/ja/shop/detail/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%B9%E3%82%AB%E3%82%A4%E3%82%AA/046316",
+        "https://nambaskyo.com/shopresearch/479",
+        "https://nambaskyo.com/access"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_onitsuka_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/stores/show/233/index"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_kiddyland_umeda": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.kiddyland.co.jp/shoplist/umeda/"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_montbell_namba_city": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://store.montbell.jp/sp/search/shopinfo/?shop_no=678546"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_montbell_umekita": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_montbell_daimaru_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+        "https://store.montbell.jp/clubshop/",
+        "https://store.montbell.jp/search/shopinfo/?shop_no=678624"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_stussy_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1140,
+        1140
+      ],
+      "source_urls": [
+        "https://www.stussy.com/blogs/chapters/stussy-osaka"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_supreme_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://supreme.com/stores"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_bape_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://jp.bape.com/pages/store-list/osaka"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_bape_hankyu_mens": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://jp.bape.com/pages/store-list",
+        "https://jp.bape.com/blogs/news/bapestore-hankyumens",
+        "https://jp.bape.com/pages/store-list/hankyu-mens-osaka"
+      ],
+      "exceptions": {},
+      "weekday_window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_bape_cdg_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://jp.bape.com/pages/store-list/cdg-osaka"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_humanmade_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://shinsaibashi.parco.jp/shop/detail/?cd=028077"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_porter_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.gfo-sc.jp/shop-detail/porter/",
+        "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_porter_cloakroom_hankyu": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://website.hankyu-dept.co.jp/honten/cat/mens/h/with_local/",
+        "https://www.hankyu-dept.co.jp/honten/map/index.html"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_zara_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1320,
+        1320
+      ],
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/stores/show/280/ZARA"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_zara_man_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        630,
+        1320,
+        1320
+      ],
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/stores/show/842/ZARA%20MAN%20%E5%BF%83%E6%96%8E%E6%A9%8B%E7%AD%8B%E5%BA%97",
+        "https://namba.keizai.biz/mapnews/5759/"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_cdg_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.comme-des-garcons.com/stores/",
+        "https://www.comme-des-garcons.com/stores/jpen.html",
+        "https://jp.bape.com/pages/store-list/cdg-osaka",
+        "https://kansai-sanpo.com/comme-des-garcons-osaka/"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_matsukiyo_dotonbori1": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1440,
+        1440
+      ],
+      "source_urls": [
+        "https://www.matsukiyococokara-online.com/map/?kid=10001629",
+        "https://goo.gl/maps/gwjRHJmUn1ofKuKVA"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_matsukiyo_shinsaibashi_chuo": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1380,
+        1380
+      ],
+      "source_urls": [
+        "https://www.matsukiyococokara-online.com/map/?kid=10001671",
+        "https://mapfan.com/spots/SCWA3%2C1DD%2CXQ0"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_daikoku_dotonbori": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        605,
+        1400,
+        1400
+      ],
+      "source_urls": [
+        "https://daikokudrug.com/store/604/"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_daimaru_umeda": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.daimaru.co.jp/umedamise/hours.html",
+        "https://www.daimaru.co.jp/umedamise/access.html"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_hankyu_mens_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://web.hh-online.jp/hankyu-mens/contents/osaka/",
+        "https://jp.bape.com/pages/store-list/hankyu-mens-osaka"
+      ],
+      "exceptions": {},
+      "weekday_window": [
+        660,
+        1200,
+        1200
+      ],
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_pokemon_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/",
+        "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/news/202610/000609.html",
+        "https://www.lucua.jp/special/south-open/"
+      ],
+      "exceptions": {
+        "2026-11-17": {
+          "closed": true
+        },
+        "2026-11-18": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-19": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-20": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-21": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-22": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-23": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-24": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-25": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-26": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-27": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-28": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-29": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-30": {
+          "requires_visit_confirmation": true
+        }
+      },
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_pokemon_osaka_dx": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osakadx/"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_nintendo_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.nintendo.com/jp/officialstore/index.html",
+        "https://www.lucua.jp/special/south-open/"
+      ],
+      "exceptions": {
+        "2026-11-17": {
+          "closed": true
+        },
+        "2026-11-18": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-19": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-20": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-21": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-22": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-23": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-24": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-25": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-26": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-27": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-28": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-29": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-30": {
+          "requires_visit_confirmation": true
+        }
+      },
+      "confirmation_weekdays": [
+        0,
+        6
+      ],
+      "confirmation_holidays": true,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_jam_americamura": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://jamtrading.jp/f/shop-list/shop-05"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_jam_shinsaibashi": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://jamtrading.jp/f/shop-list/shop-11",
+        "https://jamtrading.jp/company_site/about.html"
+      ],
+      "exceptions": {},
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+    },
+    "branch_551_honten": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1290,
+        1290
+      ],
+      "source_urls": [
+        "https://www.551horai.co.jp/shop/list/13/",
+        "https://www.551horai.co.jp/wp/wp-content/uploads/2026/08/%E6%9C%AC%E5%BA%97202609.pdf"
+      ],
+      "exceptions": {
+        "2026-11-10": {
+          "closed": true
+        },
+        "2026-11-17": {
+          "closed": true
+        }
+      },
+      "cost_basis": "공식 2026-09 본점 식당 메뉴 PDF 2쪽: 감초단자 정식(甘酢団子定食) 1,550엔. 1층 포장 가격과 구분."
+    },
+    "branch_551_namba_walk": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1320,
+        1290
+      ],
+      "source_urls": [
+        "https://www.551horai.co.jp/shop/list/20/",
+        "https://www.551horai.co.jp/wp/wp-content/uploads/2026/08/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AF202609.pdf"
+      ],
+      "exceptions": {
+        "2026-11-18": {
+          "closed": true
+        }
+      },
+      "cost_basis": "공식 2026-09 난바워크 식당 메뉴 PDF 3쪽: 해물 야키소바 1,300엔, 세금 포함. 추가 세트 제외."
+    },
+    "branch_551_takashimaya_osaka": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "source_urls": [
+        "https://www.551horai.co.jp/shop/list/18/",
+        "https://www.551horai.co.jp/menu/butaman/"
+      ],
+      "exceptions": {},
+      "cost_basis": "공식 판매 상품 가격: 따뜻한 부타만 2개입 500엔. 택배·냉장품·매장 내 식사 가격과 다름."
+    },
+    "branch_daruma_dotonbori": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        630,
+        1350,
+        1320
+      ],
+      "source_urls": [
+        "https://www.kushikatu-daruma.com/location/doutonbori",
+        "https://www.kushikatu-daruma.com/files/user/%E9%81%93%E9%A0%93%E5%A0%80%E5%BA%97HP.pdf"
+      ],
+      "exceptions": {},
+      "weekday_window": [
+        660,
+        1350,
+        1320
+      ],
+      "cost_basis": "지점 공식 메뉴 PDF: 꼬치9개+도테야키 세트 1,793엔(세금 포함). 음료·별도 추가품 제외."
+    },
+    "branch_daruma_shinsekai": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        630,
+        1350,
+        1320
+      ],
+      "source_urls": [
+        "https://www.kushikatu-daruma.com/location/shinsekai",
+        "https://www.kushikatu-daruma.com/files/user/HP%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf"
+      ],
+      "exceptions": {},
+      "weekday_window": [
+        660,
+        1350,
+        1320
+      ],
+      "cost_basis": "지점 공식 메뉴 PDF: 꼬치9개+도테야키 세트 1,793엔(세금 포함). 음료·별도 추가품 제외."
+    },
+    "branch_fukutaro_honten": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        720,
+        1410,
+        1365
+      ],
+      "source_urls": [
+        "https://2951.jp/",
+        "https://2951.jp/menu.html"
+      ],
+      "exceptions": {},
+      "weekday_window": [
+        1020,
+        1410,
+        1365
+      ],
+      "cost_basis": "공식 본점 전용 메뉴: 돼지고기 오코노미야키1장 1,080엔(세금 포함). 우메다점에 전용하지 않음."
+    },
+    "branch_fukutaro_umeda": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        660,
+        1380,
+        1320
+      ],
+      "source_urls": [
+        "https://2951.jp/",
+        "https://www.gfo-sc.jp/shop-detail/hukutaro/"
+      ],
+      "exceptions": {},
+      "windows": [
+        [
+          660,
+          900,
+          900
+        ],
+        [
+          1020,
+          1380,
+          1320
+        ]
+      ],
+      "cost_basis": "공식 그랜드프런트 안내 평균예산 점심1,500/저녁2,500엔 중 높은2,500엔을 시연 예산에 사용. 확정 메뉴 가격 아님."
+    },
+    "branch_wanaka_sennichimae": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        570,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+      ],
+      "exceptions": {},
+      "weekday_window": [
+        630,
+        1260,
+        1260
+      ],
+      "cost_basis": null
+    },
+    "branch_wanaka_dotonbori": {
+      "valid_from": "2026-10-26",
+      "valid_through": "2026-11-30",
+      "window": [
+        630,
+        1260,
+        1260
+      ],
+      "source_urls": [
+        "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+      ],
+      "exceptions": {},
+      "cost_basis": null
+    }
+  }
+}

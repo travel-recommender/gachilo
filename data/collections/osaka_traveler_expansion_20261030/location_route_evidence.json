@@ -1,0 +1,502 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-30",
+  "scope": "공식 지도 핀 후보와 자체 OSRM 도보 경로 참고. 출입구/일정 적격 검증과 구분.",
+  "osm_attribution": "© OpenStreetMap contributors, ODbL https://www.openstreetmap.org/copyright",
+  "osm_snapshot_sha256": "7019a33a976ac75d715ca3c580cc30f12628c8d72c8130705d4cc0c449aa6aa8",
+  "places": {
+    "branch_starbucks_ebisubashi": {
+      "latitude": 34.6686601266,
+      "longitude": 135.501465004,
+      "coordinate_kind": "official_store_map_config",
+      "source_url": "https://store.starbucks.co.jp/detail-2005/",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "osaka_025",
+        "name_ko": "카니도라쿠 도톤보리 본점",
+        "latitude": 34.6688634,
+        "longitude": 135.5015017
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 39.5,
+        "duration_s": 28.2,
+        "waypoint_snap_m": [
+          9.165435603,
+          7.433185625
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.501402,
+            34.668862
+          ],
+          [
+            135.501466,
+            34.668727
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    },
+    "branch_starbucks_namba_nankai": {
+      "latitude": 34.6649685885,
+      "longitude": 135.502123175,
+      "coordinate_kind": "official_store_map_config",
+      "source_url": "https://store.starbucks.co.jp/detail-4555/",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "osaka_021",
+        "name_ko": "다카시마야 오사카점",
+        "latitude": 34.6646286,
+        "longitude": 135.5017961
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 157.6,
+        "duration_s": 113.3,
+        "waypoint_snap_m": [
+          16.54019918,
+          9.619883108
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.501972,
+            34.664662
+          ],
+          [
+            135.502039,
+            34.664917
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    },
+    "branch_doutor_shinsaibashi_station": {
+      "latitude": 34.674173,
+      "longitude": 135.500361,
+      "coordinate_kind": "official_store_map_wgs84",
+      "source_url": "https://shop.doutor.co.jp/doutor/spot/detail?code=2012424",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "osaka_024",
+        "name_ko": "신사이바시 PARCO",
+        "latitude": 34.6739227,
+        "longitude": 135.5009716
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 136.7,
+        "duration_s": 98.5,
+        "waypoint_snap_m": [
+          36.65972831,
+          14.86778365
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.501372,
+            34.673921
+          ],
+          [
+            135.500364,
+            34.674307
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    },
+    "branch_doutor_umeda_city": {
+      "latitude": 34.704726,
+      "longitude": 135.490743,
+      "coordinate_kind": "official_store_map_wgs84",
+      "source_url": "https://shop.doutor.co.jp/doutor/spot/detail?code=2010347",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "osaka_007",
+        "name_ko": "우메다 공중정원 전망대",
+        "latitude": 34.7053004,
+        "longitude": 135.4901397
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 123.3,
+        "duration_s": 88.7,
+        "waypoint_snap_m": [
+          29.44411337,
+          12.56043019
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.490122,
+            34.705035
+          ],
+          [
+            135.490606,
+            34.704731
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    },
+    "branch_tullys_namba_parks": {
+      "latitude": 34.6613851,
+      "longitude": 135.502238,
+      "coordinate_kind": "official_store_jsonld",
+      "source_url": "https://shop.tullys.co.jp/detail/1000897",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "osaka_draft_2fc0df9e9f8d",
+        "name_ko": "파크스 가든",
+        "latitude": 34.6615247,
+        "longitude": 135.5019821
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 23,
+        "duration_s": 16.5,
+        "waypoint_snap_m": [
+          1.997596398,
+          27.69181271
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.501972,
+            34.661541
+          ],
+          [
+            135.501936,
+            34.661377
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    },
+    "branch_tullys_grandfront_south": {
+      "latitude": 34.7040701,
+      "longitude": 135.4947252,
+      "coordinate_kind": "official_store_jsonld",
+      "source_url": "https://shop.tullys.co.jp/detail/1003053",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "branch_fukutaro_umeda",
+        "name_ko": "후쿠타로 우메다점",
+        "latitude": 34.7042542,
+        "longitude": 135.494773
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 18.7,
+        "duration_s": 13.5,
+        "waypoint_snap_m": [
+          39.40562045,
+          22.87945441
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.494415,
+            34.704057
+          ],
+          [
+            135.494545,
+            34.703927
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    },
+    "branch_sushiro_namba_amza": {
+      "latitude": 34.666643,
+      "longitude": 135.503473,
+      "coordinate_kind": "official_google_maps_query",
+      "source_url": "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2225",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "osm_node_2296903605",
+        "name_ko": "마루후쿠 커피 센니치마에 본점",
+        "latitude": 34.6676233,
+        "longitude": 135.5041516
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 233,
+        "duration_s": 167.7,
+        "waypoint_snap_m": [
+          4.105604568,
+          21.78101271
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.504151,
+            34.66766
+          ],
+          [
+            135.503459,
+            34.666447
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ],
+      "osm_comparison": {
+        "source_url": "https://www.openstreetmap.org/node/13478334301",
+        "snapshot_at": "2026-09-23T04:14:35Z",
+        "latitude": 34.6667623,
+        "longitude": 135.5034753,
+        "offset_from_official_pin_m": 13.3,
+        "identity_note": "지점명 일치"
+      }
+    },
+    "branch_sushiro_umeda_chayamachi": {
+      "latitude": 34.705851,
+      "longitude": 135.499183,
+      "coordinate_kind": "official_google_maps_query",
+      "source_url": "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2369",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "branch_kiddyland_umeda",
+        "name_ko": "키디랜드 오사카 우메다점",
+        "latitude": 34.7060219,
+        "longitude": 135.4982621
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 79.6,
+        "duration_s": 57.3,
+        "waypoint_snap_m": [
+          42.45196164,
+          21.81338871
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.498707,
+            34.706129
+          ],
+          [
+            135.498954,
+            34.705797
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    },
+    "branch_yayoiken_nippombashi": {
+      "latitude": 34.66739443010213,
+      "longitude": 135.5064311111111,
+      "coordinate_kind": "official_map_link_conflicts_with_schema_metadata",
+      "source_url": "https://store.yayoiken.com/b/yayoiken/info/1083/",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "osm_node_2296903605",
+        "name_ko": "마루후쿠 커피 센니치마에 본점",
+        "latitude": 34.6676233,
+        "longitude": 135.5041516
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 250.8,
+        "duration_s": 180.5,
+        "waypoint_snap_m": [
+          4.105604568,
+          18.23923031
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.504151,
+            34.66766
+          ],
+          [
+            135.506232,
+            34.667396
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정",
+        "공식 지도 링크와 메타데이터 좌표 불일치. OSM 인접 위치와 비교해도 입구 확정은 보류."
+      ],
+      "conflicting_schema_coordinates": {
+        "latitude": 34.67064622471967,
+        "longitude": 135.50359777777777
+      },
+      "osm_comparison": {
+        "source_url": "https://www.openstreetmap.org/node/2023047053",
+        "snapshot_at": "2026-09-23T04:14:35Z",
+        "latitude": 34.6673923,
+        "longitude": 135.5062872,
+        "offset_from_official_pin_m": 13.2,
+        "identity_note": "브랜드명·공식 주소 인근 대조; 입구 아님"
+      }
+    },
+    "branch_marugame_umeda": {
+      "latitude": 34.70355660416765,
+      "longitude": 135.50078991063785,
+      "coordinate_kind": "official_store_jsonld",
+      "source_url": "https://stores.marugame.com/111094",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "branch_donki_umeda",
+        "name_ko": "돈키호테 우메다 본점",
+        "latitude": 34.70322662,
+        "longitude": 135.50094008
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 66.4,
+        "duration_s": 47.6,
+        "waypoint_snap_m": [
+          17.03910228,
+          3.633782816
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.500814,
+            34.70334
+          ],
+          [
+            135.500817,
+            34.703533
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    },
+    "branch_kaiyukan": {
+      "latitude": 34.654518,
+      "longitude": 135.428964,
+      "coordinate_kind": "official_access_google_maps_place_pin",
+      "source_url": "https://www.kaiyukan.com/info/access/",
+      "checked_at": "2026-10-30",
+      "entrance_verified": false,
+      "runtime_coordinate_applied": false,
+      "anchor": {
+        "place_id": "osaka_draft_02288187c550",
+        "name_ko": "이온몰 오사카 돔시티",
+        "latitude": 34.6703688,
+        "longitude": 135.477939
+      },
+      "osrm": {
+        "endpoint": "self_hosted_local_5001",
+        "requested_profile": "foot",
+        "code": "Ok",
+        "distance_m": 5212,
+        "duration_s": 3754.8,
+        "waypoint_snap_m": [
+          46.00069938,
+          26.99994181
+        ],
+        "snapped_locations_lng_lat": [
+          [
+            135.477488,
+            34.670187
+          ],
+          [
+            135.429186,
+            34.654678
+          ]
+        ],
+        "snap_within_100m": true
+      },
+      "limits": [
+        "도로망 연결만 확인; 실제 입구·실내 층간 이동·영업·예약·안전성을 보증하지 않음",
+        "도보 속도는 서버 프로필 모델값; 현장 실측 아님",
+        "일정 프로필과 대표 비용은 아직 미확정"
+      ]
+    }
+  },
+  "held_geometry": [
+    {
+      "place_id": "branch_usj",
+      "osm_url": "https://www.openstreetmap.org/relation/5695002",
+      "reason": "테마파크 다각형 중심을 출입구로 간주하지 않음. 입구 재확인 후 경로 조회.",
+      "latitude": 34.6657375,
+      "longitude": 135.432598,
+      "runtime_coordinate_applied": false
+    }
+  ]
+}

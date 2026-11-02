@@ -30,9 +30,13 @@ def pin_ok(pin,stored):
     return hmac.compare_digest(hashlib.pbkdf2_hmac('sha256',pin.encode(),bytes.fromhex(salt),100_000).hex(),h)
 
 class Store(CandidateStore):
-    def __init__(self,path,catalog=None):
+    def __init__(self,path,catalog=None,*,date_availability=None):
+        self.date_availability=date_availability
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
-        self.real_ids={r["place"]["place_id"] for r in json.loads(DATA.read_text(encoding="utf-8"))["places"]}
+        real_records=json.loads(DATA.read_text(encoding="utf-8"))["places"]
+        self.real_ids={r["place"]["place_id"] for r in real_records}
+        self.excluded_real_ids={r["place"]["place_id"] for r in real_records
+            if r["review"].get("final_csv",{}).get("record_status")=="제외"}
         self.path=str(path)
         Path(path).parent.mkdir(parents=True,exist_ok=True)
         with self.connect() as c:
@@ -196,11 +200,22 @@ class Store(CandidateStore):
         payload={k:b.get(k) for k in ['longlist','picks','must','veto','budgetPerDay','stepLimit','activeMin']};payload['memberId']=mid
         if 'vetoes' in b:payload['vetoes']=list(vetoes)
         if t is not None:payload['tradeoffs']={k:float(t[k]) for k in ('pace','distance','spend')}
+        # Validate new real-place choices before taking a write lock. Existing saved inputs stay readable.
+        usable=None
+        if self.date_availability is not None:
+            with self.connect() as c:
+                r=self.room(c,rid);self.authenticate(c,r,token,mid)
+                dataset,start,end=r['dataset'],r['start'],r['end']
+            if dataset==REAL_DATASET and b['picks']:
+                usable=set(self.date_availability(start,end))
         with self.connect() as c:
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
             ids=b['longlist']+b['picks']+[b[k] for k in ('must','veto') if b.get(k)]+vetoes
             if allowed is not None:require(all(x in allowed for x in ids),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
+            if r['dataset']==REAL_DATASET:
+                require(not self.excluded_real_ids.intersection(b['longlist']+b['picks']),'제외된 장소를 목록에서 지운 뒤 다시 제출하세요.')
+                if usable is not None:require(all(x in usable for x in b['picks']),'방문일에 갈 수 없는 장소를 선택·꼭 가기 목록에서 빼고 다시 제출하세요.')
             c.execute('INSERT INTO submissions VALUES(?,?,?) ON CONFLICT(member_id) DO UPDATE SET payload=excluded.payload,updated=excluded.updated',(mid,json.dumps(payload),now()))
             c.execute('UPDATE rooms SET revision=revision+1 WHERE id=?',(rid,));c.execute('DELETE FROM results WHERE room_id=?',(rid,))
             c.execute('DELETE FROM candidate_results WHERE room_id=?',(rid,))
@@ -216,6 +231,8 @@ class Store(CandidateStore):
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
             if allowed is not None:require(all(x in allowed for x in v),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
+            if r['dataset']==REAL_DATASET:
+                require(not self.excluded_real_ids.intersection(v),'제외된 장소는 새 목록에 담을 수 없습니다.')
             c.execute('INSERT INTO longlists VALUES(?,?,?) ON CONFLICT(member_id) DO UPDATE SET ids=excluded.ids,updated=excluded.updated',(mid,json.dumps(v),now()))
         return {'saved':True,'memberId':mid}
     def pool(self,rid,token):
@@ -229,6 +246,7 @@ class Store(CandidateStore):
             ids=json.loads(row['ids']) if row['ids'] is not None else json.loads(row['payload'])['longlist'] if row['payload'] else None
             if ids is None:continue
             for x in ids:
+                if r['dataset']==REAL_DATASET and x in self.excluded_real_ids:continue
                 if x not in votes:order.append(x)
                 votes[x]+=1
         listed=sum(1 for row in rows if row['ids'] is not None or row['payload'])
@@ -312,19 +330,23 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
     real_engine=RealEngine(engine.node)
     candidate_engine=CandidateEngine(engine.node)
     schedulable_cache={}
-    def schedulable(rid,token):
-        # Real places that pass the engine's date checks on at least one trip date, so P3/P4 offer only places P8 can use.
-        dataset,start,end=store.room_dates(rid,token)
-        if dataset!=REAL_DATASET:return {'roomId':rid,'placeIds':None}
+    def available_ids(start,end):
+        # Shared by P3/P4 reads and new submissions; eligible on at least one trip date.
         if (start,end) not in schedulable_cache:
             d0,d1=date.fromisoformat(start),date.fromisoformat(end)
             dates=[(d0+timedelta(days=i)).isoformat() for i in range((d1-d0).days+1)]
             try:
                 out=subprocess.run([engine.node,str(Path(__file__).parent/'engine/schedulable.mjs')],input=json.dumps({'dates':dates}),capture_output=True,text=True,encoding='utf-8',timeout=60,check=True)
-                schedulable_cache[(start,end)]=json.loads(out.stdout)['placeIds']
+                value=json.loads(out.stdout)
+                ids=value.get('placeIds') if isinstance(value,dict) else None
+                if not isinstance(ids,list) or not all(isinstance(x,str) for x in ids):raise ValueError('invalid placeIds')
+                schedulable_cache[(start,end)]=ids
             except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('일정에 넣을 수 있는 장소를 확인하지 못했습니다. 다시 시도하세요.')
-        return {'roomId':rid,'placeIds':schedulable_cache[(start,end)]}
-    store=Store(path,engine.catalog)
+        return schedulable_cache[(start,end)]
+    def schedulable(rid,token):
+        dataset,start,end=store.room_dates(rid,token)
+        return {'roomId':rid,'placeIds':available_ids(start,end) if dataset==REAL_DATASET else None}
+    store=Store(path,engine.catalog,date_availability=available_ids)
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
             origin=self.headers.get('Origin')
@@ -358,8 +380,11 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     qs=parse_qs(urlsplit(self.path).query)
                     try:limit=int(qs.get('limit',['150'])[0])
                     except ValueError:raise ApiError(400,'limit는 1~150 정수여야 합니다.')
+                    try:offset=int(qs.get('offset',['0'])[0])
+                    except ValueError:raise ApiError(400,'offset은 0 이상의 정수여야 합니다.')
                     require(1<=limit<=150,'limit는 1~150 정수여야 합니다.')
-                    return self.send_json(200,catalog(qs.get('q',[''])[0],qs.get('category',[None])[0],limit))
+                    require(offset>=0,'offset은 0 이상의 정수여야 합니다.')
+                    return self.send_json(200,catalog(qs.get('q',[''])[0],qs.get('category',[None])[0],limit,offset=offset))
                 if self.command=='GET' and path=='/places':return self.send_json(200,{'dataset':'prototype_demo_36','currency':'KRW','places':engine.catalog})
                 m=re.fullmatch(r'/rooms/([\w-]+)/calculate',path)
                 if m and self.command=='POST':
@@ -407,7 +432,14 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 m=re.fullmatch(r'/rooms/([\w-]+)/schedulable',path)
                 if self.command=='GET' and m:return self.send_json(200,schedulable(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
-                if self.command=='GET' and m:return self.send_json(200,store.pool(m[1],token))
+                if self.command=='GET' and m:
+                    result=store.pool(m[1],token)
+                    try:usable=schedulable(m[1],token)['placeIds']
+                    except EngineError:usable=None # Preserve the readable pool; new submissions still require validation.
+                    if usable is not None:
+                        usable=set(usable)
+                        result['placeIds']=[x for x in result['placeIds'] if x in usable]
+                    return self.send_json(200,result)
                 m=re.fullmatch(r'/rooms/([\w-]+)/results',path)
                 if m and self.command=='GET':return self.send_json(200,store.result(m[1],token))
                 if m and self.command=='POST':return self.send_json(200,store.save_result(m[1],token,b))
