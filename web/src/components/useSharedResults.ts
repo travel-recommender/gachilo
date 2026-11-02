@@ -34,12 +34,15 @@ export function useSharedResults(enabled = true) {
   }, []);
 
   const refresh = useCallback(async () => {
-    if (!room) return;
+    if (!room) return null;
     try {
-      accept(await api.get(room.roomId, room.token));
-      setError(null);
+      const next = await api.get(room.roomId, room.token);
+      accept(next);
+      if (live.current) setError(null);
+      return next;
     } catch (e) {
       if (live.current) setError(e instanceof Error ? e.message : "결과를 불러오지 못했어요.");
+      return null;
     }
   }, [room, accept]);
 
@@ -66,7 +69,7 @@ export function useSharedResults(enabled = true) {
   /** 계산 실패·미완료 뒤 방장이 누르는 다시 시도 */
   const retryCalculate = useCallback(() => { if (snap) calculator.retry(snap); }, [snap]);
 
-  /** 방장 확정. 다른 사람이 그 사이 다시 냈거나 확정이 바뀌었으면(409) 최신 상태로 다시 불러온다 */
+  /** 방장 확정. 충돌·응답 유실 뒤에는 쓰기를 반복하지 않고 서버 상태를 먼저 확인한다. */
   const select = useCallback(async (strategy: SharedStrategy) => {
     if (!room?.ownerToken || !snap) return null;
     setSelecting(true);
@@ -75,9 +78,15 @@ export function useSharedResults(enabled = true) {
       accept(next);
       return next;
     } catch (e) {
-      if (e instanceof SharedResultError && e.status === 409) {
-        setError("그 사이 입력이나 확정이 바뀌었어요. 최신 후보로 다시 불러왔어요.");
-        refresh();
+      if (e instanceof SharedResultError && (e.status === 0 || e.status === 409)) {
+        setError("서버에서 최신 확정 상태를 확인하고 있어요.");
+        // Keep the button busy until this read completes; the write may already have succeeded.
+        const next = await refresh();
+        if (live.current && next && next.status !== "ready") {
+          setError(e.status === 0
+            ? "현재 일정이 확정되지 않았어요. 최신 후보를 확인한 뒤 다시 확정해 주세요."
+            : "그 사이 입력이나 확정이 바뀌었어요. 최신 후보를 확인해 주세요.");
+        }
       } else {
         setError(e instanceof Error ? e.message : "확정하지 못했어요.");
       }

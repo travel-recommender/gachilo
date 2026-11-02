@@ -6,6 +6,15 @@ from demo_osrm import lima_home
 from demo_runtime import settings, executable
 
 class DemoLauncherTests(unittest.TestCase):
+ def test_numeric_runtime_values_reach_child_process_as_strings(self):
+  import runpy, subprocess, sys
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   path.write_text(json.dumps({'JPY_TO_KRW':9.5,'OSRM_TIMEOUT_MS':2000,'DEMO_DATASET':'prototype_demo_36'}))
+   with patch.dict(os.environ,{},clear=True),patch('demo_runtime.settings',side_effect=lambda _:settings(root)),patch('demo_runtime.executable',return_value=''):
+    env=runpy.run_path(str(Path(server.__file__)))['ENV']
+   result=subprocess.run([sys.executable,'-c','import os; print(os.environ["JPY_TO_KRW"], os.environ["OSRM_TIMEOUT_MS"])'],env=env,capture_output=True,text=True,check=True)
+   self.assertEqual(result.stdout.strip(),'9.5 2000')
  def test_config_paths_and_environment_precedence(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)

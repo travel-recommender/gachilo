@@ -6,8 +6,8 @@ export const CALCULATE_TIMEOUT_MS = 150000;
 export const CREATE_TIMEOUT_MS = 60000;
 export const SCHEDULABLE_TIMEOUT_MS = 70000;
 export const REJOIN_UNCERTAIN = 'PIN 재접속 결과를 확인하지 못했어요. 서버 실행·연결 상태를 확인한 뒤 PIN 재접속을 다시 시도해 주세요.';
-export const CREATE_UNCERTAIN = '방 생성 결과를 확인하지 못했어요. 이미 생성되었을 수 있으니 새 방을 만들기 전에 기존 방 화면·초대 링크를 확인해 주세요.';
-export const JOIN_UNCERTAIN = '참여 결과를 확인하지 못했어요. 초대 링크에서 내 이름의 참여 상태를 확인하고, PIN을 정했다면 PIN으로 다시 들어와 주세요. PIN을 정하지 않았다면 이 자리로 재접속할 수 없으니 방장에게 문의해 주세요.';
+export const CREATE_UNCERTAIN = '방 생성 결과를 확인하지 못했어요. 서버 연결을 확인하고, 이미 생성된 방 화면·초대 링크가 있는지 살펴본 뒤 다시 시도해 주세요.';
+export const JOIN_UNCERTAIN = '참여 결과를 확인하지 못했어요. 서버 연결 후 초대 링크에서 내 상태를 확인해 주세요. 참여 중이면 PIN으로 재접속하고, PIN이 없으면 방장이 새 방을 만들어야 해요.';
 export class NetworkRequestError extends Error {
   constructor(message) { super(message); this.name = 'NetworkRequestError'; }
 }
@@ -44,7 +44,7 @@ export async function requestJson(url, init = {}, options = {}) {
         if (controller.signal.aborted) throw controller.signal.reason;
         if (error?.name === 'AbortError') throw error;
         // Fetch rejection cannot distinguish refusal from a lost response after a write.
-        throw new NetworkRequestError('서버 응답을 받지 못했어요. 서버가 실행 중인지와 연결 상태를 확인해 주세요.' + (uncertainMessage ? ' ' + uncertainMessage : ' 연결이 돌아오면 다시 시도해 주세요.'));
+        throw new NetworkRequestError(uncertainMessage || '서버 응답을 받지 못했어요. 서버가 실행 중인지와 연결 상태를 확인해 주세요. 연결이 돌아오면 다시 시도해 주세요.');
       }
     })()]);
   } finally {

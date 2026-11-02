@@ -5,7 +5,8 @@ from pathlib import Path
 def settings(root):
     path=root/'.local/demo/runtime.json'
     config=json.loads(path.read_text()) if path.is_file() else {}
-    return {**config,**os.environ}
+    # JSON permits numbers, but subprocess environments require string values.
+    return {**{key:str(value) for key,value in config.items()},**os.environ}
 
 def executable(value, name):
     candidate=str(Path(value).expanduser()) if value else name

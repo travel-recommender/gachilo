@@ -2,6 +2,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS, REQUEST_TIMEOUT_MS} from '../src/lib/network-request.mjs';
 
+test('uncertain writes show one complete recovery message, without a duplicated connection prefix',async()=>{
+ const {CREATE_UNCERTAIN,JOIN_UNCERTAIN,REJOIN_UNCERTAIN}=await import('../src/lib/network-request.mjs');
+ for(const message of [CREATE_UNCERTAIN,JOIN_UNCERTAIN,REJOIN_UNCERTAIN]) {
+  let calls=0;
+  await assert.rejects(requestJson('http://test.invalid',{method:'POST'},{fetcher:async()=>{calls++;throw new TypeError('response lost');},uncertainMessage:message}),e=>e.message===message);
+  assert.match(message,/서버.*연결/);
+  assert.equal(calls,1);
+ }
+ assert.match(JOIN_UNCERTAIN,/참여 중/);
+ assert.match(JOIN_UNCERTAIN,/PIN.*없.*새 방/);
+});
+
 test('unreachable API is a Korean connection error, with no automatic replay', async () => {
  let count=0;
  await assert.rejects(requestJson('http://test.invalid',{method:'PUT'},{fetcher:async()=>{count++;throw new TypeError('Failed to fetch')}}),e=>e instanceof NetworkRequestError && e.message.includes('연결'));
