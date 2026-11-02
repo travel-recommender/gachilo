@@ -60,3 +60,52 @@ test('a real 409 conflict reloads the authoritative selection; a 403 does not tr
   assert.equal(render().snap.selectedStrategy,status===409?'least_misery':null);
  }
 });
+
+test('polling preserves unconfirmed-selection guidance until the result state changes',async()=>{
+ let current=snapshot();let offline=false;const calls=[];
+ const render=mount(async(url,init)=>{calls.push(init.method);if(offline||init.method==='PUT')throw new TypeError('offline');return Response.json(current);});
+ await render().refresh();await render().select('average');
+ const notice=render().error;assert.match(notice,/확정되지 않았/);
+ // refresh is also the callback used by the three-second polling interval.
+ for(let i=0;i<3;i++){await render().refresh();assert.equal(render().error,notice);}
+ offline=true;await render().refresh();assert.match(render().error,/연결/);
+ offline=false;await render().refresh();assert.equal(render().error,notice);
+ current=snapshot({revision:4,status:'collecting'});await render().refresh();
+ assert.equal(render().error,null);assert.equal(calls.filter(m=>m==='PUT').length,1);
+});
+
+test('409 guidance survives polling and clears when the owner explicitly retries successfully',async()=>{
+ let writes=0,current=snapshot();
+ const render=mount(async(url,init)=>{
+  if(init.method==='PUT'){
+   if(++writes===1)return Response.json({error:'conflict'},{status:409});
+   current=snapshot({status:'ready',selectionVersion:1,selectedStrategy:'average'});
+  }
+  return Response.json(current);
+ });
+ await render().refresh();await render().select('average');
+ assert.match(render().error,/그 사이/);
+ await render().refresh();assert.match(render().error,/그 사이/);
+ const retry=render().select('average');assert.equal(render().error,null);
+ await retry;assert.equal(render().error,null);assert.equal(render().snap.status,'ready');assert.equal(writes,2);
+});
+
+test('a different confirmed candidate is explained after a 409 or lost response and remains visible on polls',async()=>{
+ for(const status of [409,0]){
+  let current=snapshot();const calls=[];
+  const render=mount(async(url,init)=>{
+   calls.push(init.method);
+   if(init.method==='PUT'){
+    current=snapshot({status:'ready',selectionVersion:1,selectedStrategy:'average'});
+    if(status===0)throw new TypeError('response lost');
+    return Response.json({error:'conflict'},{status});
+   }
+   return Response.json(current);
+  });
+  await render().refresh();await render().select('fairness');
+  assert.equal(render().snap.selectedStrategy,'average');assert.match(render().error,/이미 다른 후보로 확정/);
+  const notice=render().error;await render().refresh();assert.equal(render().error,notice);
+  current=snapshot({status:'ready',selectionVersion:2,selectedStrategy:'fairness'});await render().refresh();
+  assert.equal(render().error,null);assert.equal(calls.filter(m=>m==='PUT').length,1);
+ }
+});

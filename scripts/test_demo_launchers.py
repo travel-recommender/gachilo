@@ -6,6 +6,28 @@ from demo_osrm import lima_home
 from demo_runtime import settings, executable
 
 class DemoLauncherTests(unittest.TestCase):
+ def test_null_runtime_paths_use_defaults_without_creating_none_link(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   vm=root/'vm';(vm/'gachilo-osrm').mkdir(parents=True);(vm/'gachilo-osrm/lima.yaml').write_text('{}')
+   path.write_text(json.dumps({'LIMA_HOME':str(vm),'LIMACTL':None,'OSRM_LIMA_LINK':None}))
+   with patch.dict(os.environ,{},clear=True):config=settings(root)
+   self.assertNotIn('LIMACTL',config);self.assertNotIn('OSRM_LIMA_LINK',config)
+   with patch.object(osrm,'settings',return_value=config),patch.object(osrm,'executable',return_value='/bin/limactl') as tool,patch.object(osrm,'lima_home',wraps=lima_home) as home,patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
+    osrm.main()
+   tool.assert_called_once_with(None,'limactl');home.assert_called_once_with(vm.resolve(),None,'start')
+   self.assertEqual(run.call_count,2)
+   self.assertEqual(run.call_args.kwargs['env']['LIMA_HOME'],str(vm.resolve()))
+ def test_boolean_runtime_flags_are_lowercase_but_path_booleans_are_rejected(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   path.write_text(json.dumps({'FLAG_ON':True,'FLAG_OFF':False}))
+   with patch.dict(os.environ,{},clear=True):
+    self.assertEqual(settings(root),{'FLAG_ON':'true','FLAG_OFF':'false'})
+    for key in ['NODE_BINARY','LIMACTL','LIMA_HOME','OSRM_LIMA_LINK','OSRM_VM_NAME','OSRM_CONTAINER_NAME']:
+     path.write_text(json.dumps({key:False}))
+     with self.assertRaisesRegex(SystemExit,key):settings(root)
  def test_numeric_runtime_values_reach_child_process_as_strings(self):
   import runpy, subprocess, sys
   with tempfile.TemporaryDirectory() as tmp:
