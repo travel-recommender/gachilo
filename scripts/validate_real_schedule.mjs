@@ -1,4 +1,4 @@
-import {withConditionDate} from '../backend/engine/conditions.ts';
+import {withConditionStart} from '../backend/engine/conditions.ts';
 /** Week 5 day validator, also reused by the opt-in real catalogue server adapter. Node 24+. */
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -131,7 +131,7 @@ export function availability(record, date, profiles, {allowShopping = false} = {
 
 /** One Japan-local day. All requested IDs must be kept; omissions fail validation. */
 export function validateDay(request, dataset, profiles, options = {}) {
-  return withConditionDate(request.date, () => validatePreparedDay(request, dataset, profiles, options));
+  return withConditionStart(request.date, () => validatePreparedDay(request, dataset, profiles, options));
 }
 function validatePreparedDay(request, dataset, profiles, options) {
   if (!validDate(request.date)) throw Error('date must be a real YYYY-MM-DD date in Japan');

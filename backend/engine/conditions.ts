@@ -15,10 +15,15 @@ export function withConditionDate<T>(date: string, fn: () => T): T {
   const current = context.getStore();
   return current ? context.run({...current,date},fn) : fn();
 }
+/** Explicit anchor for validating a dated sub-schedule; nested day indices stay stable. */
+export function withConditionStart<T>(start: string, fn: () => T): T {
+  const current = context.getStore();
+  return current ? context.run({...current,start,date:start},fn) : fn();
+}
 export function withConditionDay<T>(index: number, fn: () => T): T {
   const current = context.getStore();
   if (!current) return fn();
-  const date = new Date(Date.parse(current.date+'T00:00:00Z')+index*86400000).toISOString().slice(0,10);
+  const date = new Date(Date.parse(current.start+'T00:00:00Z')+index*86400000).toISOString().slice(0,10);
   return withConditionDate(date, fn);
 }
 type ForecastDay = WeatherSnapshot['days'][number];

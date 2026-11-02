@@ -73,31 +73,45 @@ export function selectShelteredRoute(routes:ShelteredRoute[], exposureWeight:num
 
 export async function prepareShelteredRoutes(points:Point[], base:Map<string,{km:number;source:string}>,
   options:{baseUrl:string;fetchImpl?:typeof fetch;data?:ShelterData|null;kinds?:('covered'|'indoor')[]}, distance:(a:Point,b:Point)=>number) {
+  const deadline=performance.now()+2500;
+  const signal=AbortSignal.timeout(2500);
+  const expired=()=>performance.now()>=deadline || signal.aborted;
   const data=options.data===undefined?loadShelterData():options.data;
   const result=new Map<string,ShelteredRoute[]>();
   if (!data) return result;
   const edges=roofEdges(data);
   if (!edges.size) return result;
   const ways=data.ways.filter(validWay);
-  const jobs:{a:Point;b:Point;via:Point;score:number}[]=[];
-  for (const a of points) for (const b of points) {
+  const midpoints=(options.kinds??['covered']).map(kind=>ways
+    .filter(w=>kind!=='indoor'||w.tags.indoor==='yes')
+    .map(w=>w.geometry[Math.floor(w.geometry.length/2)]));
+  // Bound CPU work as well as I/O. Check the nearest 128 directed Table pairs;
+  // all unexamined pairs retain their original routes.
+  const pairs:{a:Point;b:Point;km:number}[]=[];
+  outer: for(const a of points) for(const b of points) {
+    if(expired()) break outer;
     const route=base.get(pair(a,b));
-    if (!route || route.source!=='osrm-foot' || route.km<=0 || route.km>1.2) continue;
+    if(route?.source==='osrm-foot' && route.km>0 && route.km<=1.2) pairs.push({a,b,km:route.km});
+  }
+  const jobs:{a:Point;b:Point;via:Point;score:number}[]=[];
+  candidates: for(const {a,b,km} of pairs.sort((x,y)=>x.km-y.km).slice(0,128)) {
     const seen=new Set<string>();
-    for(const kind of options.kinds??['covered']){
-    const midpoints=ways.filter(w=>kind!=='indoor'||w.tags.indoor==='yes').map(w=>w.geometry[Math.floor(w.geometry.length/2)]);
-    const via=midpoints
-      .filter(p=>p && distance(a,p)>0.015 && distance(b,p)>0.015)
-      .map(p=>({p,d:distance(a,p)+distance(p,b)})).filter(p=>p.d<=route.km*1.3)
-      .sort((x,y)=>x.d-y.d)[0];
-    if(via && !seen.has(key(via.p))) {seen.add(key(via.p));jobs.push({a,b,via:via.p,score:via.d});}
+    for(const points of midpoints) {
+      let via:{p:Point;d:number}|undefined;
+      for(const p of points) {
+        if(expired()) break candidates;
+        const da=distance(a,p),db=distance(p,b),d=da+db;
+        if(da>0.015 && db>0.015 && d<=km*1.3 && (!via || d<via.d)) via={p,d};
+      }
+      if(via && !seen.has(key(via.p))) {seen.add(key(via.p));jobs.push({a,b,via:via.p,score:via.d});}
     }
   }
-  // Bound latency and work even for 150 selected places. Unexamined pairs keep Table routes.
   const queue=jobs.sort((a,b)=>a.score-b.score).slice(0,16);
-  const signal=AbortSignal.timeout(2500);
+  // A→B is distinct from B→A. Reuse only identical directed normal queries.
+  const normals=new Map<string,Promise<ShelteredRoute|null>>();
   async function query(points:Point[]) {
     try {
+      if(expired())return null;
       const q=new URLSearchParams({overview:'full',geometries:'geojson',annotations:'nodes,distance',steps:'false',generate_hints:'false'});
       const response=await (options.fetchImpl??fetch)(`${options.baseUrl}/route/v1/foot/${points.map(key).join(';')}?${q}`,
         {signal,redirect:'error',headers:{Accept:'application/json'}});
@@ -111,10 +125,12 @@ export async function prepareShelteredRoutes(points:Point[], base:Map<string,{km
     } catch {return null;}
   }
   await Promise.all(Array.from({length:4},async()=>{
-    while(queue.length && !signal.aborted) {
+    while(queue.length && !expired()) {
       const job=queue.shift()!;
-      const normal=await query([job.a,job.b]);
-      if(!normal || signal.aborted)continue;
+      const id=pair(job.a,job.b);
+      if(!normals.has(id))normals.set(id,query([job.a,job.b]));
+      const normal=await normals.get(id)!;
+      if(!normal || expired())continue;
       const detour=await query([job.a,job.via,job.b]);
       if(detour)detour.via=job.via;
       // A detour is useful only if it demonstrably adds covered walking distance.

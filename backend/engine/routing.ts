@@ -20,6 +20,7 @@ export interface Move {
   km: number;
   min: number;
   mode: 'walk' | 'transit';
+  via?: Coordinate;
   walkKm: number;
   source: WalkingRoute['source'] | 'transit-estimate' | 'indoor-estimate';
   coveredKm?: number;
@@ -169,7 +170,11 @@ export function travel(a: Coordinate, b: Coordinate): Move {
     ?? estimateWalkingRoute(a, b, snapshot?.failure ?? (snapshot ? 'outside_snapshot' : 'not_configured'));
   const alternatives=snapshot?.sheltered?.get(pairKey(a,b));
   const probability=routingExposureWeight();
-  if(alternatives) route=selectShelteredRoute(alternatives,probability ?? 0,routingColdPreference());
+  if(alternatives && probability>0) {
+    const chosen=selectShelteredRoute(alternatives,probability,routingColdPreference());
+    // Table is the baseline, including dry dates and constraint fallback.
+    if(chosen!==alternatives[0] && chosen.via && chosen.km<=route.km*1.35 && chosen.min<=route.min+5) route=chosen;
+  }
   // Decide from the same walking distance that would enter the walking constraint.
   // Foot OSRM cannot model trains. Use the larger distance as a transit proxy so a
   // short straight-line gap cannot erase a known detour (or undercut access walking).
@@ -220,9 +225,9 @@ export function shelterSummary(days:{date:string;points:Coordinate[]}[]):string 
       const a=day.points[i-1],b=day.points[i];const m=travel(a,b);
       covered+=m.coveredKm??0;indoor+=m.indoorKm??0;
       unknown+=m.unknownKm??m.walkKm;
-      const options=context.getStore()?.sheltered?.get(pairKey(a,b));
-      if(m.source==='osrm-foot' && options && routingExposureWeight()>0 && selectShelteredRoute(options,routingExposureWeight(),routingColdPreference()).via){
-        detours++;extraMin+=Math.max(0,m.min-options[0].min);
+      if(m.source==='osrm-foot' && m.via){
+        const baseline=context.getStore()?.routes.get(pairKey(a,b));
+        detours++;extraMin+=Math.max(0,m.min-(baseline?.min??m.min));
         rainDetour ||= (rainProbability()??0)>0; heatDetour ||= isHeatDay(); coldDetour ||= isColdDay(); otherDetour ||= !isColdDay();
       }
     }

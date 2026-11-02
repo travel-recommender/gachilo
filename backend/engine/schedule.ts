@@ -166,6 +166,18 @@ function buildDay(
   const bars = remaining.filter((s) => isBar(s.place));
   bars.forEach((s) => remaining.splice(remaining.indexOf(s), 1));
 
+  // Directed walking distances are stable inside this dated buildDay. Maintain
+  // row sums as candidates leave, instead of repeating an O(n²) scan per choice.
+  const onward = new Map<Selection,Map<Selection,number>>();
+  const onwardSums = new Map<Selection,number>();
+  if (opts.considerBags) for (const s of remaining) {
+    const row=new Map<Selection,number>();let sum=0;
+    for(const other of remaining) if(other!==s) {
+      const km=travel(s.place,other.place).walkKm;row.set(other,km);sum+=km;
+    }
+    onward.set(s,row);onwardSums.set(s,sum);
+  }
+
   while (remaining.length) {
     const nearLunch = inWindow(clock, [LUNCH[0] - MEAL_LEAD, LUNCH[1]]) && !mealsDone.lunch;
     const nearDinner = inWindow(clock, [DINNER[0] - MEAL_LEAD, DINNER[1]]) && !mealsDone.dinner;
@@ -211,19 +223,22 @@ function buildDay(
       // Carry accumulated bags on this leg. Buying now also adds burden to the
       // next leg: use the mean remaining walking distance as a bounded lookahead.
       // The old (1-load) term became negative and rewarded shopping after load>1.
-      const onward = remaining.filter(other => other !== s).map(other => travel(s.place,other.place).walkKm);
-      if (!onward.length && stay) onward.push(travel(s.place,stay).walkKm);
-      const nextWalk = onward.length ? onward.reduce((a,b)=>a+b,0)/onward.length : 0;
-      const incoming = prev ? travel(prev,s.place) : null;
-      const incomingWalk = incoming?.walkKm ?? 0;
-      const bagPenalty = opts.considerBags
-        ? bagExtraCost(incomingWalk,load) + bagExtraCost(nextWalk,bagIncrement(s.place.bagLoad)) : 0;
+      let bagPenalty=0;
+      if(opts.considerBags) {
+        const nextWalk=remaining.length>1 ? (onwardSums.get(s)??0)/(remaining.length-1)
+          : stay ? travel(s.place,stay).walkKm : 0;
+        const incomingWalk=prev ? travel(prev,s.place).walkKm : 0;
+        bagPenalty=bagExtraCost(incomingWalk,load)+bagExtraCost(nextWalk,bagIncrement(s.place.bagLoad));
+      }
       return { sel: s, cost: d * (opts.distanceWeight ?? 1) + bagPenalty };
     });
     scored.sort((a, b) => urgency(b.sel) - urgency(a.sel) || a.cost - b.cost);
 
     const chosen = scored[0].sel;
     remaining.splice(remaining.indexOf(chosen), 1);
+    if(opts.considerBags) for(const s of remaining) {
+      onwardSums.set(s,Math.max(0,(onwardSums.get(s)??0)-(onward.get(s)?.get(chosen)??0)));
+    }
     // 끼니 시각에 못 넣으면 지금 바로 넣어 본 뒤에야 탈락시킨다
     if (!place(chosen.place, chosen.tier, chosen.participants, notBefore)
       && !(notBefore && place(chosen.place, chosen.tier, chosen.participants))) {

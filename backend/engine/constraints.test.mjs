@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {withTripConditions,withConditionDay,withConditionDate,rainProbability,routingExposureWeight,hasShelterWeather,routingColdPreference,bagExtraCost,weatherDescription} from './conditions.ts';
+import {withTripConditions,withConditionDay,withConditionDate,withConditionStart,withShelterPreference,rainProbability,routingExposureWeight,hasShelterWeather,routingColdPreference,bagExtraCost,weatherDescription} from './conditions.ts';
 import {withRouting,travel,travelBurdenTotals,conditionSummary,distKm} from './routing.ts';
 import {roofEdges,annotateRoute,selectShelteredRoute,loadShelterData,prepareShelteredRoutes,pair} from './sheltered-routing.ts';
 import {buildSchedule} from './schedule.ts';
@@ -39,7 +39,9 @@ test('request-local weather uses each Japan date, nesting and concurrent trips d
  await Promise.all([0.2,0.9].map(p=>withTripConditions(weather(p),date,async()=>{
   await new Promise(r=>setTimeout(r,2));assert.equal(rainProbability(),p);
   withConditionDay(1,()=>assert.equal(rainProbability(),0));
-  withConditionDate('2026-10-02',()=>withConditionDay(0,()=>assert.equal(rainProbability(),0)));
+  withConditionDay(1,()=>withConditionDay(1,()=>assert.equal(rainProbability(),0)));
+  withConditionDate('2026-10-02',()=>withConditionDay(0,()=>assert.equal(rainProbability(),p)));
+  withConditionStart('2026-10-02',()=>withConditionDay(0,()=>assert.equal(rainProbability(),0)));
   assert.equal(rainProbability(),p);
  })));
  assert.equal(rainProbability(),null);
@@ -142,4 +144,57 @@ test('cold prefers proven indoor passage, not an open-sided roof; absent indoor 
  await withTripConditions(hotWeather(5.1),date,()=>withRouting([a,b],()=>{
   assert.equal(travel(a,b).km,0.5);assert.equal(routingColdPreference(),false);
  },{...options,shelterData:indoor}));
+});
+
+test('dry dates and disabled/unsuitable shelter preference preserve Table values when Route differs',async()=>{
+ const differing={...options,fetchImpl:async url=>{
+  const response=await fixture(url);const d=await response.json();
+  if(url.includes('/table/')){d.distances=[[0,450],[450,0]];d.durations=[[0,360],[360,0]];}
+  return Response.json(d);
+ }};
+ await withTripConditions(weather(1),date,()=>withRouting([a,b],()=>{
+  assert.equal(travel(a,b).km,0.6);
+  assert.match(conditionSummary([{date,points:[a,b]}]),/추가 약 2분/);
+  for(const run of [fn=>withConditionDay(1,fn),fn=>withShelterPreference(false,fn)])run(()=>{
+   const move=travel(a,b);assert.equal(move.km,0.45);assert.equal(move.min,6);assert.equal(move.via,undefined);
+  });
+  withShelterPreference(false,()=>assert.doesNotMatch(conditionSummary([{date,points:[a,b]}]),/날씨 경로 안내:/));
+ },differing));
+ await withTripConditions(hotWeather(0),date,()=>withRouting([a,b],()=>{
+  assert.equal(travel(a,b).km,0.45);assert.equal(travel(a,b).min,6);
+ },differing)); // roof alone is unsuitable on a cold day
+});
+test('normal queries are reused across roof/indoor kinds while opposite directions remain distinct',async()=>{
+ const indoorVia={lat:via.lat,lng:via.lng-0.0002};
+ const mixed={...data,ways:[...data.ways,{...data.ways[0],osm_way_id:124,nodes:[5,6],
+  geometry:[indoorVia,indoorVia],tags:{highway:'footway',indoor:'yes'}}]};
+ const calls=[];
+ const routes=new Map([[pair(a,b),{km:0.5,source:'osrm-foot'}],[pair(b,a),{km:0.5,source:'osrm-foot'}]]);
+ await prepareShelteredRoutes([a,b],routes,{baseUrl:options.baseUrl,data:mixed,kinds:['covered','indoor'],fetchImpl:async url=>{
+  calls.push(new URL(url).pathname.split('/').at(-1));return fixture(url);
+ }},distKm);
+ assert.equal(calls.filter(p=>p===pair(a,b)).length,1);
+ assert.equal(calls.filter(p=>p===pair(b,a)).length,1);
+ assert.equal(calls.filter(p=>p.split(';').length===3).length,4);
+ assert.ok(calls.length<=32);
+});
+test('candidate generation bounds distance work before any Route requests',async()=>{
+ const points=Array.from({length:20},(_,i)=>({...a,lat:a.lat+i*0.00001}));
+ const routes=new Map(points.flatMap(a=>points.filter(b=>a!==b).map(b=>[pair(a,b),{km:0.5,source:'osrm-foot'}])));
+ let distanceCalls=0,requests=0;
+ await prepareShelteredRoutes(points,routes,{baseUrl:options.baseUrl,data,fetchImpl:async()=>{requests++;throw Error('offline');}},(a,b)=>{distanceCalls++;return distKm(a,b);});
+ assert.ok(distanceCalls<=128*data.ways.length*2);
+ assert.ok(requests<=16);
+});
+
+test('a shelter detour must also stay within the Table baseline allowance',async()=>{
+ const opts={...options,fetchImpl:async url=>{
+  const d=await (await fixture(url)).json();
+  if(url.includes('/table/')){d.distances=[[0,400],[400,0]];d.durations=[[0,300],[300,0]];}
+  return Response.json(d);
+ }};
+ await withTripConditions(weather(1),date,()=>withRouting([a,b],()=>{
+  assert.equal(travel(a,b).km,0.4);assert.equal(travel(a,b).via,undefined);
+  assert.doesNotMatch(conditionSummary([{date,points:[a,b]}]),/날씨 경로 안내:/);
+ },opts));
 });

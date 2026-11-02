@@ -79,3 +79,31 @@ class WeatherTests(unittest.TestCase):
             r=self.get()
             self.assertTrue(all(d['max_temperature_c'] is None for d in r['days']))
             self.assertEqual(r['days'][0]['probability'],1)
+
+    def test_single_flight_has_total_deadline_without_holding_cache_lock(self):
+        import threading
+        import time
+        from concurrent.futures import ThreadPoolExecutor
+        started, release = threading.Event(), threading.Event()
+        calls = []
+        def slow(url, timeout):
+            calls.append(url); started.set(); release.wait(2)
+            return io.BytesIO(json.dumps(body()).encode())
+        client = WeatherClient(slow, lambda:TODAY, timeout=0.05)
+        try:
+            with ThreadPoolExecutor(max_workers=4) as pool:
+                first = pool.submit(client.snapshot, '2026-10-30', '2026-10-31')
+                self.assertTrue(started.wait(1))
+                self.assertTrue(client.lock.acquire(blocking=False)); client.lock.release()
+                rest = [pool.submit(client.snapshot, '2026-10-30', '2026-10-31') for _ in range(3)]
+                for task in [first]+rest:
+                    self.assertEqual(task.result(timeout=0.5)['status'], 'unavailable')
+            self.assertEqual(len(calls), 1)
+            # A hung worker cannot spawn more workers on subsequent room requests.
+            self.assertEqual(client.snapshot('2026-10-30','2026-10-31')['status'],'unavailable')
+            self.assertEqual(len(calls),1)
+        finally:
+            flight=client.flight; release.set()
+            if flight:self.assertTrue(flight['done'].wait(1))
+        self.assertEqual(client.cached, ({},None,'unavailable'))
+        self.assertEqual(client.snapshot('2026-10-30','2026-10-31')['status'],'unavailable')

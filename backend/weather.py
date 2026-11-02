@@ -30,12 +30,14 @@ def open_forecast(url, timeout):
 
 
 class WeatherClient:
-    def __init__(self, opener=open_forecast, clock=lambda: datetime.now(TOKYO), monotonic=time.monotonic):
+    def __init__(self, opener=open_forecast, clock=lambda: datetime.now(TOKYO), monotonic=time.monotonic, timeout=3):
         self.opener, self.clock, self.monotonic = opener, clock, monotonic
         self.lock = threading.Lock()
         self.cached = None
         self.until = 0
         self.cache_day = None
+        self.timeout = timeout
+        self.flight = None
 
     def snapshot(self, start, end):
         now = self.clock().astimezone(TOKYO)
@@ -49,12 +51,27 @@ class WeatherClient:
         if os.environ.get('WEATHER_ENABLED', '1') == '0':
             status = 'disabled'
         elif available:
+            launch = False
             with self.lock:
-                if self.cached is None or self.monotonic() >= self.until or self.cache_day != today:
-                    self.cached = self._fetch(now)
-                    self.until = self.monotonic() + (1800 if self.cached[2] == 'forecast' else 60)
-                    self.cache_day = today
-                data, fetched, status = self.cached
+                valid = self.cached is not None and self.monotonic() < self.until and self.cache_day == today
+                if valid:
+                    data, fetched, status = self.cached
+                    flight = None
+                else:
+                    if self.flight is None:
+                        self.flight = dict(done=threading.Event(), deadline=time.monotonic()+self.timeout,
+                                           result=None, day=today)
+                        launch = True
+                    flight = self.flight
+            if flight is not None:
+                # Slow/trickling I/O holds no global lock. At most one worker is
+                # alive; all callers share its deadline and never use stale data.
+                if launch:
+                    threading.Thread(target=self._refresh, args=(now, flight), daemon=True).start()
+                flight['done'].wait(max(0, flight['deadline']-time.monotonic()))
+                with self.lock:
+                    result = flight['result'] if flight['day'] == today else None
+                    data, fetched, status = result or ({}, None, 'unavailable')
         rows = []
         for day in dates:
             values = data.get(day.isoformat(), {}) if today <= day <= today+timedelta(days=15) else {}
@@ -67,9 +84,23 @@ class WeatherClient:
         return dict(source='Open-Meteo', source_url=API, timezone='Asia/Tokyo',
                     location='Osaka city forecast grid', fetched_at=fetched, status=status, days=rows)
 
+    def _refresh(self, now, flight):
+        try:
+            result = self._fetch(now)
+        except Exception:
+            result = {}, None, 'unavailable'
+        with self.lock:
+            if time.monotonic() >= flight['deadline']:
+                result = {}, None, 'unavailable'
+            flight['result'] = result
+            self.cached, self.cache_day = result, flight['day']
+            self.until = self.monotonic() + (1800 if result[2] == 'forecast' else 60)
+            self.flight = None
+            flight['done'].set()
+
     def _fetch(self, now):
         try:
-            with self.opener(API+'?'+urlencode(PARAMS), timeout=3) as response:
+            with self.opener(API+'?'+urlencode(PARAMS), timeout=self.timeout) as response:
                 raw = response.read(262145)
             if len(raw) > 262144:
                 raise ValueError('oversized forecast')
