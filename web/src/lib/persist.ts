@@ -91,7 +91,7 @@ export const CUSTOM_PREFIX = "custom_";
 
 /** 이 입력에 서버가 모르는 직접 추가 장소가 들어 있는가 */
 export function hasCustomPlace(mine: Submission) {
-  return [...mine.longlist, ...mine.picks, mine.must, mine.veto]
+  return [...mine.longlist, ...mine.picks, mine.must, mine.veto, ...(mine.vetoes ?? [])]
     .some((id) => typeof id === "string" && id.startsWith(CUSTOM_PREFIX));
 }
 

@@ -30,7 +30,8 @@ def pin_ok(pin,stored):
     return hmac.compare_digest(hashlib.pbkdf2_hmac('sha256',pin.encode(),bytes.fromhex(salt),100_000).hex(),h)
 
 class Store(CandidateStore):
-    def __init__(self,path,catalog=None):
+    def __init__(self,path,catalog=None,*,date_availability=None):
+        self.date_availability=date_availability
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
         real_records=json.loads(DATA.read_text(encoding="utf-8"))["places"]
         self.real_ids={r["place"]["place_id"] for r in real_records}
@@ -185,21 +186,36 @@ class Store(CandidateStore):
             require(len(set(v))==len(v),field+'에 중복 장소가 있습니다.')
         for field in ('must','veto'):require(b.get(field) is None or isinstance(b[field],str) and 1<=len(b[field])<=100,field+' 형식을 확인하세요.')
         require(b.get('must') is None or b['must'] in b['picks'],'꼭 가는 곳은 picks에 포함되어야 합니다.')
-        require(b.get('veto') not in b['picks'],'거부 장소는 picks에 포함할 수 없습니다.')
+        if 'vetoes' in b:
+            v=b['vetoes']
+            require(isinstance(v,list) and all(isinstance(x,str) and 1<=len(x)<=100 for x in v),'vetoes 형식을 확인하세요.')
+            require(len(set(v))==len(v),'vetoes에 중복 장소가 있습니다.')
+        vetoes=b.get('vetoes', [b['veto']] if b.get('veto') else [])
+        require(not set(vetoes).intersection(b['picks']),'거부 장소는 picks에 포함할 수 없습니다.')
         for field,low,high in [('budgetPerDay',0,10000000),('stepLimit',0,100000),('activeMin',1,1440)]:
             require(type(b.get(field)) is int and low<=b[field]<=high,field+' 범위를 확인하세요.')
         # trade off three axes in engine direction (pace 1 = packed). Optional: inputs saved before week 7 have none.
         t=b.get('tradeoffs')
         require(t is None or isinstance(t,dict) and set(t)=={'pace','distance','spend'} and all(type(v) in (int,float) and 0<=v<=1 for v in t.values()),'tradeoffs 형식을 확인하세요.')
         payload={k:b.get(k) for k in ['longlist','picks','must','veto','budgetPerDay','stepLimit','activeMin']};payload['memberId']=mid
+        if 'vetoes' in b:payload['vetoes']=list(vetoes)
         if t is not None:payload['tradeoffs']={k:float(t[k]) for k in ('pace','distance','spend')}
+        # Validate new real-place choices before taking a write lock. Existing saved inputs stay readable.
+        usable=None
+        if self.date_availability is not None:
+            with self.connect() as c:
+                r=self.room(c,rid);self.authenticate(c,r,token,mid)
+                dataset,start,end=r['dataset'],r['start'],r['end']
+            if dataset==REAL_DATASET and b['picks']:
+                usable=set(self.date_availability(start,end))
         with self.connect() as c:
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
-            ids=b['longlist']+b['picks']+[b[k] for k in ('must','veto') if b.get(k)]
+            ids=b['longlist']+b['picks']+[b[k] for k in ('must','veto') if b.get(k)]+vetoes
             if allowed is not None:require(all(x in allowed for x in ids),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
             if r['dataset']==REAL_DATASET:
                 require(not self.excluded_real_ids.intersection(b['longlist']+b['picks']),'제외된 장소를 목록에서 지운 뒤 다시 제출하세요.')
+                if usable is not None:require(all(x in usable for x in b['picks']),'방문일에 갈 수 없는 장소를 선택·꼭 가기 목록에서 빼고 다시 제출하세요.')
             c.execute('INSERT INTO submissions VALUES(?,?,?) ON CONFLICT(member_id) DO UPDATE SET payload=excluded.payload,updated=excluded.updated',(mid,json.dumps(payload),now()))
             c.execute('UPDATE rooms SET revision=revision+1 WHERE id=?',(rid,));c.execute('DELETE FROM results WHERE room_id=?',(rid,))
             c.execute('DELETE FROM candidate_results WHERE room_id=?',(rid,))
@@ -314,19 +330,23 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
     real_engine=RealEngine(engine.node)
     candidate_engine=CandidateEngine(engine.node)
     schedulable_cache={}
-    def schedulable(rid,token):
-        # Real places that pass the engine's date checks on at least one trip date, so P3/P4 offer only places P8 can use.
-        dataset,start,end=store.room_dates(rid,token)
-        if dataset!=REAL_DATASET:return {'roomId':rid,'placeIds':None}
+    def available_ids(start,end):
+        # Shared by P3/P4 reads and new submissions; eligible on at least one trip date.
         if (start,end) not in schedulable_cache:
             d0,d1=date.fromisoformat(start),date.fromisoformat(end)
             dates=[(d0+timedelta(days=i)).isoformat() for i in range((d1-d0).days+1)]
             try:
                 out=subprocess.run([engine.node,str(Path(__file__).parent/'engine/schedulable.mjs')],input=json.dumps({'dates':dates}),capture_output=True,text=True,encoding='utf-8',timeout=60,check=True)
-                schedulable_cache[(start,end)]=json.loads(out.stdout)['placeIds']
+                value=json.loads(out.stdout)
+                ids=value.get('placeIds') if isinstance(value,dict) else None
+                if not isinstance(ids,list) or not all(isinstance(x,str) for x in ids):raise ValueError('invalid placeIds')
+                schedulable_cache[(start,end)]=ids
             except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('일정에 넣을 수 있는 장소를 확인하지 못했습니다. 다시 시도하세요.')
-        return {'roomId':rid,'placeIds':schedulable_cache[(start,end)]}
-    store=Store(path,engine.catalog)
+        return schedulable_cache[(start,end)]
+    def schedulable(rid,token):
+        dataset,start,end=store.room_dates(rid,token)
+        return {'roomId':rid,'placeIds':available_ids(start,end) if dataset==REAL_DATASET else None}
+    store=Store(path,engine.catalog,date_availability=available_ids)
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
             origin=self.headers.get('Origin')
@@ -414,7 +434,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
                 if self.command=='GET' and m:
                     result=store.pool(m[1],token)
-                    usable=schedulable(m[1],token)['placeIds']
+                    try:usable=schedulable(m[1],token)['placeIds']
+                    except EngineError:usable=None # Preserve the readable pool; new submissions still require validation.
                     if usable is not None:
                         usable=set(usable)
                         result['placeIds']=[x for x in result['placeIds'] if x in usable]

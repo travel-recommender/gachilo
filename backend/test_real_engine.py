@@ -21,16 +21,24 @@ class RealRoomTests(unittest.TestCase):
         body={'longlist':picks,'picks':picks,'must':None,'veto':None,'budgetPerDay':100000,'stepLimit':20000,'activeMin':720,**extra}
         return self.req('PUT',f"/rooms/{room['roomId']}/submissions/{member['id']}",body,member['submissionToken'])
 
+    def legacy_save(self, room, member, picks, **extra):
+        # Seed rows saved before date validation; this deliberately bypasses the HTTP submit guard.
+        body={'longlist':picks,'picks':picks,'must':None,'veto':None,'budgetPerDay':100000,'stepLimit':20000,'activeMin':720,**extra}
+        Store(self.db).submit(room['roomId'],member['id'],member['submissionToken'],body)
+        saved=self.req('GET',f"/rooms/{room['roomId']}/submissions/{member['id']}",token=member['submissionToken'])
+        self.assertEqual(saved[0],200)
+        self.assertEqual(saved[1]['submission']['picks'],picks)
+
     def calculate(self,room,**kwargs):
         with patch.dict(os.environ,FX):
             return self.req('POST',f"/rooms/{room['roomId']}/calculate",{'strategy':'average',**kwargs},room['ownerToken'])
 
-    def test_nonexcluded_ids_can_be_saved_but_dated_blockers_are_not_scheduled(self):
+    def test_legacy_nonexcluded_inputs_remain_readable_but_dated_blockers_are_not_scheduled(self):
         room=self.room(count=6)
         places=self.req('GET','/api/places?limit=150')[1]['places']
         self.assertEqual(len(places),150)
         for i,m in enumerate(room['members']):
-            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25] if not p.get('selection_disabled_reason')])[0],200)
+            self.legacy_save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25] if not p.get('selection_disabled_reason')])
         code,data,_=self.calculate(room)
         self.assertEqual(code,200);self.assertEqual(data['status'],'draft')
         self.assertEqual(data['planning']['catalog_count'],self.req('GET','/api/places?limit=1')[1]['total'])
@@ -113,6 +121,14 @@ class RealRoomTests(unittest.TestCase):
         self.assertEqual(data['planning']['status'],'needs_review')
         self.assertEqual(data['planning']['days'][0]['totals']['selected_admission_and_menu_krw'],0)
 
+    def test_multiple_vetoes_use_real_catalog_ids_without_demo_lookup(self):
+        room=self.room(start='2026-10-01',end='2026-10-01');a,b=room['members']
+        self.assertEqual(self.save(room,a,['osaka_009','osaka_015'],must='osaka_015')[0],200)
+        self.assertEqual(self.save(room,b,[],veto='osaka_009',vetoes=['osaka_009','osaka_015'])[0],200)
+        code,data,_=self.calculate(room)
+        self.assertEqual(code,200)
+        self.assertFalse({id for day in data['result']['days'] for id in day['placeIds']} & {'osaka_009','osaka_015'})
+
     def test_input_change_invalidates_planning_and_rejects_stale_calculation(self):
         room=self.room()
         for m in room['members']:self.save(room,m,['osaka_009'])
@@ -141,10 +157,12 @@ class RealRoomTests(unittest.TestCase):
         self.assertEqual(item['cost_status'],'not_applicable_shopping')
         self.assertIsNone(item['cost_jpy']);self.assertIsNone(item['cost_krw'])
 
-    def test_empty_or_outside_calendar_is_review_required(self):
+    def test_empty_or_legacy_outside_calendar_is_review_required(self):
         for picks,start,end in [([], '2026-10-01','2026-10-01'),(['osaka_009'],'2026-12-01','2026-12-01')]:
             room=self.room(start=start,end=end)
-            for m in room['members']:self.save(room,m,picks)
+            for m in room['members']:
+                if picks:self.legacy_save(room,m,picks)
+                else:self.assertEqual(self.save(room,m,picks)[0],200)
             code,data,_=self.calculate(room);self.assertEqual(code,200)
             self.assertEqual(data['planning']['scheduled_count'],0)
             self.assertEqual(data['planning']['status'],'needs_review')

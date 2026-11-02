@@ -93,6 +93,60 @@ class ApiTests(unittest.TestCase):
   self.assertEqual(self.req('PUT',f"/rooms/{rid}/longlists/{member['id']}",{'longlist':['branch_ichiran_shinsaibashi']},token)[0],200)
   result=self.req('GET',f'/rooms/{rid}/pool',token=token)
   self.assertEqual(result[0],200);self.assertNotIn('branch_ichiran_shinsaibashi',result[1]['placeIds'])
+ def test_real_pool_stays_readable_when_availability_worker_fails(self):
+  import subprocess
+  from unittest.mock import patch
+  room=self.req('POST','/rooms',{'startDate':'2026-11-02','endDate':'2026-11-03','memberNames':['A','B'],'dataset':'osaka_review_150'})[1]
+  rid=room['roomId'];member=room['members'][0];token=member['submissionToken'];ids=['osaka_009','branch_wanaka_dotonbori']
+  self.assertEqual(self.req('PUT',f"/rooms/{rid}/longlists/{member['id']}",{'longlist':ids},token)[0],200)
+  for failure in [OSError('node missing'),subprocess.TimeoutExpired('node',60),subprocess.CalledProcessError(1,'node')]:
+   with self.subTest(failure=type(failure).__name__),patch('server.subprocess.run',side_effect=failure) as run:
+    self.assertEqual(self.req('GET',f'/rooms/{rid}/pool',token='bad')[0],403);run.assert_not_called()
+    code,data,_=self.req('GET',f'/rooms/{rid}/pool',token=token)
+    self.assertEqual(code,200);self.assertEqual(data['placeIds'],ids)
+    self.assertEqual(self.req('GET',f'/rooms/{rid}/schedulable',token=token)[0],503)
+  # A failure must not be cached as an empty usable set; normal filtering recovers.
+  data=self.req('GET',f'/rooms/{rid}/pool',token=token)[1]
+  self.assertEqual(data['placeIds'],['osaka_009'])
+ def test_real_submit_rejects_unavailable_picks_without_touching_saved_inputs_or_results(self):
+  from test_real_engine import FX
+  from unittest.mock import patch
+  room=self.req('POST','/rooms',{'startDate':'2026-11-02','endDate':'2026-11-03','memberNames':['A','B'],'dataset':'osaka_review_150'})[1]
+  rid=room['roomId'];a=room['members'][0];token=a['submissionToken'];url=f"/rooms/{rid}/submissions/{a['id']}"
+  body={'longlist':['osaka_009','branch_wanaka_dotonbori'],'picks':['osaka_009'],'must':'osaka_009','veto':'branch_wanaka_dotonbori','budgetPerDay':100000,'stepLimit':20000,'activeMin':720}
+  for m in room['members']:
+   self.assertEqual(self.req('PUT',f"/rooms/{rid}/submissions/{m['id']}",body,m['submissionToken'])[0],200)
+  with patch.dict('os.environ',FX):
+   self.assertEqual(self.req('POST',f'/rooms/{rid}/calculate',{'strategy':'average'},room['ownerToken'])[0],200)
+  before=self.req('GET',f'/rooms/{rid}/results',token=token)[1]
+  old=self.req('GET',url,token=token)[1]
+  for picks,must in [(['osaka_009','branch_wanaka_dotonbori'],'osaka_009'),(['branch_wanaka_dotonbori'],'branch_wanaka_dotonbori')]:
+   code,error,_=self.req('PUT',url,{**body,'picks':picks,'must':must,'veto':None},token)
+   self.assertEqual(code,400);self.assertIn('방문일',error['error'])
+   self.assertEqual(self.req('GET',url,token=token)[1],old)
+   self.assertEqual(self.req('GET',f'/rooms/{rid}/results',token=token)[1],before)
+  self.assertEqual(old['submission']['longlist'],body['longlist'])
+ def test_real_submit_enforces_reviewed_dates_and_keeps_legacy_input_readable(self):
+  room=self.req('POST','/rooms',{'startDate':'2026-12-01','endDate':'2026-12-02','memberNames':['A','B'],'dataset':'osaka_review_150'})[1]
+  rid=room['roomId'];a=room['members'][0];token=a['submissionToken'];url=f"/rooms/{rid}/submissions/{a['id']}"
+  body={'longlist':['branch_ichiran_shinsaibashi'],'picks':['branch_ichiran_shinsaibashi'],'must':'branch_ichiran_shinsaibashi','veto':None,'budgetPerDay':100000,'stepLimit':20000,'activeMin':720}
+  # Seed a pre-validation DB, which must stay readable and unchanged on a rejected resubmit.
+  Store(self.db).submit(rid,a['id'],token,body)
+  old=self.req('GET',url,token=token)[1]
+  code,error,_=self.req('PUT',url,body,token)
+  self.assertEqual(code,400);self.assertIn('방문일',error['error'])
+  self.assertEqual(self.req('GET',url,token=token)[1],old)
+ def test_submit_availability_failure_does_not_write_and_auth_precedes_worker(self):
+  from unittest.mock import patch
+  room=self.req('POST','/rooms',{'startDate':'2026-11-02','endDate':'2026-11-03','memberNames':['A','B'],'dataset':'osaka_review_150'})[1]
+  rid=room['roomId'];a,b=room['members'];token=a['submissionToken'];url=f"/rooms/{rid}/submissions/{a['id']}"
+  body={'longlist':['osaka_009'],'picks':['osaka_009'],'must':'osaka_009','veto':None,'budgetPerDay':100000,'stepLimit':20000,'activeMin':720}
+  with patch('server.subprocess.run',side_effect=OSError('node unavailable')) as run:
+   self.assertEqual(self.req('PUT',url,body,b['submissionToken'])[0],403);run.assert_not_called()
+   self.assertEqual(self.req('PUT',url,body,token)[0],503)
+  self.assertIsNone(self.req('GET',url,token=token)[1]['submission'])
+  self.assertEqual(self.req('GET',f'/rooms/{rid}/results',token=token)[1]['revision'],0)
+  self.assertEqual(self.req('PUT',url,body,token)[0],200)
  def test_private_access_and_origin(self):
   room=self.room();a,b=room['members'][:2];path=f"/rooms/{room['roomId']}/results"
   self.assertEqual(self.req('GET',path)[0],403)

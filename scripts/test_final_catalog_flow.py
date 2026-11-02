@@ -33,9 +33,14 @@ with tempfile.TemporaryDirectory() as tmp:
   for m in room['members']:
    req('PUT',path+'/longlists/'+m['id'],{'longlist':picks},m['submissionToken'])
   pool=req('GET',path+'/pool',token=room['ownerToken'])
-  assert pool['listedCount']==2 and set(pool['placeIds'])==set(picks)
+  assert pool['listedCount']==2
+  usable=set(req('GET',path+'/schedulable',token=room['ownerToken'])['placeIds'])
+  selected_picks=[pid for pid in picks if pid in usable]
+  assert branch in selected_picks and held not in selected_picks
+  assert not set(supplemental).intersection(selected_picks)
+  assert set(pool['placeIds'])==set(selected_picks)
   for m in room['members']:
-   req('PUT',path+'/submissions/'+m['id'],{'longlist':picks,'picks':picks,'must':branch,'veto':None,'budgetPerDay':100000,'stepLimit':20000,'activeMin':720},m['submissionToken'])
+   req('PUT',path+'/submissions/'+m['id'],{'longlist':picks,'picks':selected_picks,'must':branch,'veto':None,'budgetPerDay':100000,'stepLimit':20000,'activeMin':720},m['submissionToken'])
   result=req('POST',path+'/calculate',{'strategies':['average','least_misery','fairness'],'revision':2},room['ownerToken'])
   assert len(result['candidates'])==3
   for candidate in result['candidates']:

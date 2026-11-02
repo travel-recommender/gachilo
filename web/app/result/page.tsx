@@ -56,7 +56,7 @@ export default function Result() {
 
   /** 이 기기에서 만든 후보 (데모·미리보기). store의 일정과 같은 규칙 */
   const localCards = useMemo<Card[]>(() => {
-    const vetoed = new Set(submissions.map((s) => s.veto).filter(Boolean) as string[]);
+    const vetoed = new Set(submissions.flatMap((s) => s.vetoes ?? (s.veto ? [s.veto] : [])));
     return STRATEGIES.map((st) => {
       const consensus = buildConsensus({
         submissions, nights: state.nights, strategy: st.id, allowPartial: state.allowPartial,
