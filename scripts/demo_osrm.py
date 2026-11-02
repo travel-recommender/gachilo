@@ -23,7 +23,15 @@ def lima_home(vm, link, action):
 CONTROL_KEYS = {'LIMACTL', 'LIMA_HOME', 'OSRM_LIMA_LINK', 'OSRM_VM_NAME'}
 REQUIRED_TARGET = {'LIMACTL', 'LIMA_HOME', 'OSRM_VM_NAME'}
 
+def recovery_hint(root):
+    return (f'실행 기록 {root/".local/demo/osrm.json"}을 확인하세요. '
+            '이동·변경한 대상을 사용하려면 LIMACTL·LIMA_HOME·OSRM_VM_NAME을 모두 환경변수로 명시하세요. '
+            '세 값이 모두 있으면 기록 대신 사용하며, 짧은 링크가 필요하면 OSRM_LIMA_LINK도 지정하세요.')
+
 def control_settings(root):
+    # A complete explicit target is a deliberate recovery override, not a partial retarget.
+    if all(os.environ.get(k,'').strip() for k in REQUIRED_TARGET):
+        return {k:os.environ[k] for k in CONTROL_KEYS if k in os.environ}
     record=root/'.local/demo/osrm.json'
     if record.exists():
         try:
@@ -34,15 +42,13 @@ def control_settings(root):
                 raise ValueError('invalid OSRM target')
             return config
         except (OSError,ValueError,UnicodeError):
-            raise SystemExit('OSRM 실행 기록을 읽지 못했습니다. .local/demo/osrm.json을 확인하세요. 다른 VM을 추측해서 조작하지 않았습니다.') from None
+            raise SystemExit(f'OSRM 실행 기록을 읽지 못했습니다. {recovery_hint(root)} 다른 VM을 추측해서 조작하지 않았습니다.') from None
     try:
         # Older launches have no record. Ignore settings unrelated to stop/status.
         return settings(root,only=CONTROL_KEYS)
     except SystemExit as error:
         # Malformed JSON cannot reveal a custom target: require an explicit one instead of guessing.
-        if all(os.environ.get(k) for k in REQUIRED_TARGET):
-            return {k:os.environ[k] for k in CONTROL_KEYS if k in os.environ}
-        raise SystemExit(f'{error} 이전 OSRM 실행 기록이 없으므로 LIMACTL·LIMA_HOME·OSRM_VM_NAME을 환경변수로 명시하세요. 짧은 링크를 썼다면 OSRM_LIMA_LINK도 지정하세요.') from None
+        raise SystemExit(f'{error} {recovery_hint(root)}') from None
 
 def remember_target(root,tool,vm,link,name):
     directory=root/'.local/demo';directory.mkdir(parents=True,exist_ok=True)
@@ -59,13 +65,13 @@ def remember_target(root,tool,vm,link,name):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('action',choices=['start','stop','status']);a=p.parse_args()
-    config=settings(ROOT) if a.action=='start' else control_settings(ROOT)
+    config=settings(ROOT,only=CONTROL_KEYS|{'OSRM_CONTAINER_NAME'}) if a.action=='start' else control_settings(ROOT)
     tool=executable(config.get('LIMACTL'),'limactl')
     vm=Path(config.get('LIMA_HOME',str(Path.home()/'.lima'))).expanduser().resolve()
     name=config.get('OSRM_VM_NAME','gachilo-osrm')
     container=config.get('OSRM_CONTAINER_NAME','gachilo-osrm-foot')
     if not tool or not (vm/name/'lima.yaml').is_file():
-        raise SystemExit('준비된 OSRM VM 또는 limactl을 찾지 못했습니다. LIMACTL/LIMA_HOME을 지정하세요. 새 VM은 만들지 않았으며 추정 경로로 실행할 수 있습니다.')
+        raise SystemExit(f'준비된 OSRM VM 또는 limactl을 찾지 못했습니다. {recovery_hint(ROOT)} 새 VM은 만들지 않았으며 추정 경로로 실행할 수 있습니다.')
     raw=config.get('OSRM_LIMA_LINK')
     link=Path(raw).expanduser().absolute() if raw else None
     home=lima_home(vm,link,a.action)
