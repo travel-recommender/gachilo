@@ -9,14 +9,14 @@ CONFIG=settings(ROOT)
 WEB_PORT=3048; API_PORT=8048
 NODE=executable(CONFIG.get('NODE_BINARY'), 'node')
 ENV={**os.environ,'NODE_BINARY':NODE,'NEXT_TELEMETRY_DISABLED':'1',
- 'NEXT_PUBLIC_API_BASE_URL':f'http://localhost:{API_PORT}','NEXT_PUBLIC_DATASET':os.environ.get('DEMO_DATASET','prototype_demo_36'),
+ 'NEXT_PUBLIC_API_BASE_URL':f'http://localhost:{API_PORT}','NEXT_PUBLIC_DATASET':CONFIG.get('DEMO_DATASET','prototype_demo_36'),
  'NEXT_PUBLIC_BASE_PATH':'','NEXT_PUBLIC_GOOGLE_MAPS_API_KEY':'','SOMSOM_API_KEY':'','AI_MOCK':'',
- 'JPY_TO_KRW':os.environ.get('JPY_TO_KRW','8.6253'),
- 'JPY_TO_KRW_AS_OF':os.environ.get('JPY_TO_KRW_AS_OF','2026-09-30'),
- 'JPY_TO_KRW_SOURCE':os.environ.get('JPY_TO_KRW_SOURCE','하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp')}
-ENV['PATH']=str(Path(NODE).parent)+os.pathsep+ENV.get('PATH','')
-ENV['OSRM_FOOT_URL']=os.environ.get('OSRM_FOOT_URL','http://127.0.0.1:5001')
-ENV['OSRM_TIMEOUT_MS']='2000'
+ 'JPY_TO_KRW':CONFIG.get('JPY_TO_KRW','8.6253'),
+ 'JPY_TO_KRW_AS_OF':CONFIG.get('JPY_TO_KRW_AS_OF','2026-09-30'),
+ 'JPY_TO_KRW_SOURCE':CONFIG.get('JPY_TO_KRW_SOURCE','하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp')}
+if NODE:ENV['PATH']=str(Path(NODE).parent)+os.pathsep+ENV.get('PATH','')
+ENV['OSRM_FOOT_URL']=CONFIG.get('OSRM_FOOT_URL','http://127.0.0.1:5001')
+ENV['OSRM_TIMEOUT_MS']=str(CONFIG.get('OSRM_TIMEOUT_MS','2000'))
 
 def record(name):
  p=STATE/(name+'.json')
@@ -38,7 +38,8 @@ def healthy(url):
 
 def start(name,cmd,port,url,marker):
  if owned(name):
-  print(name+': 이미 실행 중');return
+  if healthy(url):print(name+': 이미 실행 중 (응답 정상)');return
+  raise SystemExit(name+': 프로세스는 있지만 응답이 없습니다. 로그를 확인하고 stop 후 다시 시작하세요. DB는 보존했습니다.')
  if occupied(port):raise SystemExit(f'{port} 포트가 다른 실행에 사용 중입니다. 자동 종료하지 않았습니다.')
  STATE.mkdir(parents=True,exist_ok=True)
  with (STATE/(name+'.log')).open('a') as log:
@@ -48,7 +49,7 @@ def start(name,cmd,port,url,marker):
   if healthy(url):print(f'{name}: 준비 완료 ({port})');return
   if p.poll() is not None:raise SystemExit(f'{name} 시작 실패: {STATE/name}.log 확인')
   time.sleep(.5)
- raise SystemExit(f'{name} 준비 시간 초과: 로그를 확인하세요. DB는 보존되었습니다.')
+ raise SystemExit(f'{name} 준비 시간 초과: 로그를 확인하고 stop 후 다시 시작하세요. 프로세스 기록과 DB는 보존되었습니다.')
 
 def stop(name):
  r=owned(name)
@@ -70,7 +71,13 @@ def api():
 
 def main():
  p=argparse.ArgumentParser();p.add_argument('action',choices=['start','stop','status','api-start','api-stop']);p.add_argument('--rebuild',action='store_true');args=p.parse_args()
- if args.action=='stop':stop('web');stop('api');return
+ if args.action=='stop':
+  failures=[]
+  for name in ('web','api'):
+   try:stop(name)
+   except (SystemExit,OSError) as e:failures.append(str(e))
+  if failures:raise SystemExit(' / '.join(failures))
+  return
  if args.action=='api-stop':stop('api');return
  if args.action=='status':
   for n,port,path in [('api',API_PORT,'health'),('web',WEB_PORT,'')]:print(f'{n}: '+('응답 정상' if healthy(f'http://localhost:{port}/{path}') else '응답 없음'))

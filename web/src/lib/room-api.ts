@@ -1,4 +1,4 @@
-import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS, CREATE_TIMEOUT_MS, CREATE_UNCERTAIN, JOIN_UNCERTAIN } from "./network-request.mjs";
+import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS, CREATE_TIMEOUT_MS, CREATE_UNCERTAIN, JOIN_UNCERTAIN, REJOIN_UNCERTAIN, SCHEDULABLE_TIMEOUT_MS } from "./network-request.mjs";
 /**
  * 서버 API 클라이언트.
  * 계약 원본은 backend/README.md 「API 계약」이다. 여기서 임의로 경로를 만들지 않는다.
@@ -186,7 +186,7 @@ export const roomApi = {
 
   /** 150곳 중 이 방 날짜에 일정 검사를 통과할 수 있는 곳 (36곳 방이면 null) */
   schedulable: (roomId: string, token: string) =>
-    request<{ roomId: string; placeIds: string[] | null }>(`/rooms/${encodeURIComponent(roomId)}/schedulable`, "GET", undefined, token),
+    request<{ roomId: string; placeIds: string[] | null }>(`/rooms/${encodeURIComponent(roomId)}/schedulable`, "GET", undefined, token, { timeoutMs: SCHEDULABLE_TIMEOUT_MS }),
 
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>
@@ -202,7 +202,7 @@ export const roomApi = {
 
   /** 이미 고른 내 이름에 PIN으로 다시 들어간다. 새 토큰이 나오고 이전 기기는 끊긴다 */
   rejoin: (roomId: string, inviteToken: string, memberId: string, pin: string) =>
-    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/rejoin`, "POST", { memberId, pin }, inviteToken, { timeoutMs: CREATE_TIMEOUT_MS, uncertainMessage: JOIN_UNCERTAIN }),
+    request<ApiSeat>(`/rooms/${encodeURIComponent(roomId)}/rejoin`, "POST", { memberId, pin }, inviteToken, { timeoutMs: CREATE_TIMEOUT_MS, uncertainMessage: REJOIN_UNCERTAIN }),
 
   /** 내가 저장한 입력. 그 참여자의 토큰으로만 읽힌다 (방장 토큰도 403) */
   mySubmission: (roomId: string, memberId: string, token: string) =>

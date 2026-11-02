@@ -51,4 +51,27 @@ class DemoLauncherTests(unittest.TestCase):
  def test_api_restart_uses_configured_node_without_web_build(self):
   with patch.object(server.sys,'argv',['demo_server.py','api-start']),patch.object(server,'NODE','/configured/node'),patch.object(server.subprocess,'check_output',return_value='24.1.0'),patch.object(server,'api') as api,patch.object(server.subprocess,'run') as run:
    server.main();api.assert_called_once();run.assert_not_called()
+ def test_stop_attempts_both_services_after_one_fails(self):
+  with patch.object(server.sys,'argv',['demo_server.py','stop']),patch.object(server,'stop',side_effect=[SystemExit('web slow'),None]) as stop:
+   with self.assertRaisesRegex(SystemExit,'web slow'):server.main()
+   self.assertEqual([c.args[0] for c in stop.call_args_list],['web','api'])
+ def test_owned_but_unhealthy_is_not_reported_ready(self):
+  with patch.object(server,'owned',return_value={'pid':123}),patch.object(server,'healthy',return_value=False),patch.object(server.subprocess,'Popen') as spawn:
+   with self.assertRaisesRegex(SystemExit,'stop 후 다시 시작'):server.start('web',[],123,'http://test','marker')
+   spawn.assert_not_called()
+ def test_config_applies_dataset_routing_and_fx_without_dot_path(self):
+  import runpy
+  with patch('demo_runtime.settings',return_value={'DEMO_DATASET':'osaka_review_150','OSRM_FOOT_URL':'http://127.0.0.1:9999','OSRM_TIMEOUT_MS':1234,'JPY_TO_KRW':'9.5'}),patch('demo_runtime.executable',return_value=''),patch.dict(os.environ,{'PATH':'/bin'},clear=True):
+   env=runpy.run_path(str(Path(server.__file__)))['ENV']
+   self.assertEqual(env['PATH'],'/bin')
+   self.assertEqual(env['NEXT_PUBLIC_DATASET'],'osaka_review_150')
+   self.assertEqual(env['OSRM_FOOT_URL'],'http://127.0.0.1:9999')
+   self.assertEqual(env['OSRM_TIMEOUT_MS'],'1234')
+   self.assertEqual(env['JPY_TO_KRW'],'9.5')
+ def test_lima_command_failure_is_an_explicit_friendly_failure(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   vm=Path(tmp);(vm/'gachilo-osrm').mkdir();(vm/'gachilo-osrm/lima.yaml').write_text('{}')
+   with patch.object(osrm,'settings',return_value={'LIMA_HOME':tmp}),patch.object(osrm,'executable',return_value='/bin/limactl'),patch('sys.argv',['demo_osrm.py','status']),patch.object(osrm.subprocess,'run',side_effect=osrm.subprocess.CalledProcessError(1,['limactl'])):
+    with self.assertRaisesRegex(SystemExit,'OSRM status 실행을 확인하지 못했습니다'):osrm.main()
 if __name__=='__main__':unittest.main()

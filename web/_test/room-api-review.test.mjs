@@ -23,7 +23,7 @@ Module._extensions[".ts"] = (module, filename) => module._compile(
 const require = Module.createRequire(import.meta.url);
 
 const {roomApi,ApiError}=require('../src/lib/room-api.ts');
-const {CREATE_TIMEOUT_MS,CALCULATE_TIMEOUT_MS,CREATE_UNCERTAIN,JOIN_UNCERTAIN}=await import('../src/lib/network-request.mjs');
+const {CREATE_TIMEOUT_MS,CALCULATE_TIMEOUT_MS,CREATE_UNCERTAIN,JOIN_UNCERTAIN,REJOIN_UNCERTAIN}=await import('../src/lib/network-request.mjs');
 test('all room helpers reject malformed successful bodies as ApiError',async()=>{
  const before=globalThis.fetch;
  try {
@@ -41,16 +41,31 @@ test('create and join get an explicit longer deadline; calculate deadline is sel
   await roomApi.create('2026-11-01','2026-11-02',['A','B']);
   await roomApi.claim('room','invite',{memberId:'member'});
   await roomApi.rejoin('room','invite','member','0000');
+  await roomApi.schedulable('room','token');
   await roomApi.calculate({roomId:'room',ownerToken:'owner'},'average');
-  assert.deepEqual(timeouts,[CREATE_TIMEOUT_MS,CREATE_TIMEOUT_MS,CREATE_TIMEOUT_MS,CALCULATE_TIMEOUT_MS]);
+  assert.deepEqual(timeouts,[CREATE_TIMEOUT_MS,CREATE_TIMEOUT_MS,CREATE_TIMEOUT_MS,70000,CALCULATE_TIMEOUT_MS]);
  } finally {globalThis.fetch=before;globalThis.setTimeout=oldTimer;}
 });
 test('failed create and claim explain ambiguous outcome without automatically replaying',async()=>{
  const before=globalThis.fetch;let sent=0;
  globalThis.fetch=async()=>{sent++;throw new TypeError('lost response');};
  try {
-  await assert.rejects(roomApi.create('2026-11-01','2026-11-02',['A','B']),e=>e instanceof ApiError&&e.message===CREATE_UNCERTAIN);
-  await assert.rejects(roomApi.claim('room','invite',{memberId:'member'}),e=>e instanceof ApiError&&e.message===JOIN_UNCERTAIN);
+  await assert.rejects(roomApi.create('2026-11-01','2026-11-02',['A','B']),e=>e instanceof ApiError&&e.message.includes(CREATE_UNCERTAIN)&&e.message.includes('서버가 실행'));
+  await assert.rejects(roomApi.claim('room','invite',{memberId:'member'}),e=>e instanceof ApiError&&e.message.includes(JOIN_UNCERTAIN)&&e.message.includes('서버가 실행'));
   assert.equal(sent,2);
  } finally {globalThis.fetch=before;}
+});
+
+test('PIN recovery has its own retry guidance and selection tolerates slow SQLite writes',async()=>{
+ const {createSharedResultClient}=require('../src/lib/shared-results-api.ts');
+ const before=globalThis.fetch,oldTimer=globalThis.setTimeout;const timeouts=[];
+ try {
+  globalThis.fetch=async()=>{throw new TypeError('lost rejoin response');};
+  await assert.rejects(roomApi.rejoin('room','invite','member','0000'),e=>e instanceof ApiError&&e.message.includes(REJOIN_UNCERTAIN));
+  assert.match(JOIN_UNCERTAIN,/PIN을 정하지 않았다면/);
+  globalThis.setTimeout=(cb,ms,...args)=>{timeouts.push(ms);return oldTimer(cb,ms,...args);};
+  const api=createSharedResultClient('http://example.test',async()=>Response.json({}));
+  await api.select('room','owner',{revision:1,selectionVersion:0},'average');
+  assert.deepEqual(timeouts,[CREATE_TIMEOUT_MS]);
+ }finally{globalThis.fetch=before;globalThis.setTimeout=oldTimer;}
 });

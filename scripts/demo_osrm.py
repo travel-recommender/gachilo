@@ -32,9 +32,12 @@ def main():
     link=Path(raw).expanduser().absolute() if raw else None
     home=lima_home(vm,link,a.action)
     env={**os.environ,'LIMA_HOME':str(home)}
-    if a.action=='start':
-        subprocess.run([tool,'start','--tty=false',name],env=env,check=True)
-        subprocess.run([tool,'shell','--workdir=/mnt/osrm-data',name,'nerdctl','start',container],env=env,check=True)
-    else:
-        subprocess.run([tool,'list' if a.action=='status' else 'stop',name],env=env,check=True)
+    try:
+        if a.action=='start':
+            subprocess.run([tool,'start','--tty=false',name],env=env,check=True)
+            subprocess.run([tool,'shell','--workdir=/mnt/osrm-data',name,'nerdctl','start',container],env=env,check=True)
+        else:
+            subprocess.run([tool,'list' if a.action=='status' else 'stop',name],env=env,check=True)
+    except (subprocess.CalledProcessError,OSError) as error:
+        raise SystemExit(f'OSRM {a.action} 실행을 확인하지 못했습니다. VM 상태와 설정을 확인하세요. ({type(error).__name__})') from None
 if __name__=='__main__':main()

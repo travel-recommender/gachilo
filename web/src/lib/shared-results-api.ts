@@ -1,4 +1,4 @@
-import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS } from "./network-request.mjs";
+import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS, CREATE_TIMEOUT_MS } from "./network-request.mjs";
 /** P7/P8 shared-result contract. Separate from the legacy single-strategy client. */
 export type SharedStrategy = "average" | "least_misery" | "fairness";
 export const SHARED_STRATEGIES: SharedStrategy[] = ["average", "least_misery", "fairness"];
@@ -82,6 +82,6 @@ export function createSharedResultClient(baseUrl: string, fetcher: typeof fetch 
       strategy: SharedStrategy, signal?: AbortSignal) =>
       request(roomId, "selection", ownerToken, "PUT", {
         revision: snapshot.revision, selectionVersion: snapshot.selectionVersion, strategy,
-      }, signal),
+      }, signal, CREATE_TIMEOUT_MS),
   };
 }
