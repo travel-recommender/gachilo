@@ -34,7 +34,7 @@ export function searchPlaces(pool: Place[], query: string, limit = 8): Place[] {
   if (!q) return [];
   const scored: { p: Place; s: number }[] = [];
   for (const p of pool) {
-    const matches = [p.name, ...(p.searchNames ?? [])].flatMap(searchablePlaceNames).map((name) => nameHas(name, q)).filter((at) => at >= 0);
+    const matches = [...new Set([p.name, ...(p.searchNames ?? [])])].flatMap(searchablePlaceNames).map((name) => nameHas(name, q)).filter((at) => at >= 0);
     const at = matches.length ? Math.min(...matches) : -1;
     if (at === 0) scored.push({ p, s: 0 });
     else if (at > 0) scored.push({ p, s: 1 });

@@ -412,7 +412,13 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 m=re.fullmatch(r'/rooms/([\w-]+)/schedulable',path)
                 if self.command=='GET' and m:return self.send_json(200,schedulable(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
-                if self.command=='GET' and m:return self.send_json(200,store.pool(m[1],token))
+                if self.command=='GET' and m:
+                    result=store.pool(m[1],token)
+                    usable=schedulable(m[1],token)['placeIds']
+                    if usable is not None:
+                        usable=set(usable)
+                        result['placeIds']=[x for x in result['placeIds'] if x in usable]
+                    return self.send_json(200,result)
                 m=re.fullmatch(r'/rooms/([\w-]+)/results',path)
                 if m and self.command=='GET':return self.send_json(200,store.result(m[1],token))
                 if m and self.command=='POST':return self.send_json(200,store.save_result(m[1],token,b))
