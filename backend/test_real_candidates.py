@@ -18,6 +18,7 @@ class RealCandidatesTests(unittest.TestCase):
     req=test_server.ApiTests.req
     room=test_real_engine.RealRoomTests.room
     save=test_real_engine.RealRoomTests.save
+    legacy_save=test_real_engine.RealRoomTests.legacy_save
 
     def setUp(self):
         self.env=patch.dict(os.environ,{**test_real_engine.FX,'OSRM_FOOT_URL':'','SOMSOM_API_KEY':'','AI_MOCK':''})
@@ -66,12 +67,12 @@ class RealCandidatesTests(unittest.TestCase):
         self.assertEqual(self.calculate(room)[0],409)
         self.assertEqual(self.calculate(room,revision=4)[0],200)
 
-    def test_150_catalog_ids_submit_then_three_validated_candidates(self):
+    def test_legacy_150_catalog_inputs_produce_three_validated_candidates(self):
         room=self.room(count=6,start='2026-10-01',end='2026-10-07')
         places=self.req('GET','/api/places?limit=150')[1]['places'];self.assertEqual(len(places),150)
         ids={p['place_id'] for p in places}
         for i,m in enumerate(room['members']):
-            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25] if not p.get('selection_disabled_reason')])[0],200)
+            self.legacy_save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25] if not p.get('selection_disabled_reason')])
         code,result,_=self.calculate(room,revision=6)
         self.assertEqual(code,200)
         for c in result['candidates']:
@@ -116,7 +117,7 @@ class RealCandidatesTests(unittest.TestCase):
         with patch.dict(os.environ,{'JPY_TO_KRW_SOURCE':''}):
             code,result,_=self.calculate(room)
         self.assertEqual(code,503);self.assertIn('하나은행',result['error'])
-        for m in room['members']:self.save(room,m,['osaka_001'])
+        for m in room['members']:self.assertEqual(self.save(room,m,[])[0],200)
         code,result,_=self.calculate(room,revision=6)
         self.assertEqual(code,503);self.assertIn('방문 날짜',result['error'])
         current=Store(self.db).result(room['roomId'],room['ownerToken'])
