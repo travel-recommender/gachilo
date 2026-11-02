@@ -5,18 +5,24 @@ from pathlib import Path
 from demo_runtime import settings, executable
 ROOT=Path(__file__).resolve().parents[1]
 STATE=ROOT/'.local/demo'
-CONFIG=settings(ROOT)
 WEB_PORT=3048; API_PORT=8048
-NODE=executable(CONFIG.get('NODE_BINARY'), 'node')
-ENV={**os.environ,'NODE_BINARY':NODE,'NEXT_TELEMETRY_DISABLED':'1',
- 'NEXT_PUBLIC_API_BASE_URL':f'http://localhost:{API_PORT}','NEXT_PUBLIC_DATASET':CONFIG.get('DEMO_DATASET','prototype_demo_36'),
- 'NEXT_PUBLIC_BASE_PATH':'','NEXT_PUBLIC_GOOGLE_MAPS_API_KEY':'','SOMSOM_API_KEY':'','AI_MOCK':'',
- 'JPY_TO_KRW':CONFIG.get('JPY_TO_KRW','8.6253'),
- 'JPY_TO_KRW_AS_OF':CONFIG.get('JPY_TO_KRW_AS_OF','2026-09-30'),
- 'JPY_TO_KRW_SOURCE':CONFIG.get('JPY_TO_KRW_SOURCE','하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp')}
-if NODE:ENV['PATH']=str(Path(NODE).parent)+os.pathsep+ENV.get('PATH','')
-ENV['OSRM_FOOT_URL']=CONFIG.get('OSRM_FOOT_URL','http://127.0.0.1:5001')
-ENV['OSRM_TIMEOUT_MS']=str(CONFIG.get('OSRM_TIMEOUT_MS','2000'))
+NODE=''
+ENV={}
+
+def configure():
+ # Recovery commands rely on recorded process identity, not editable runtime settings.
+ global NODE,ENV
+ CONFIG=settings(ROOT)
+ NODE=executable(CONFIG.get('NODE_BINARY'), 'node')
+ ENV={**os.environ,'NODE_BINARY':NODE,'NEXT_TELEMETRY_DISABLED':'1',
+  'NEXT_PUBLIC_API_BASE_URL':f'http://localhost:{API_PORT}','NEXT_PUBLIC_DATASET':CONFIG.get('DEMO_DATASET','prototype_demo_36'),
+  'NEXT_PUBLIC_BASE_PATH':'','NEXT_PUBLIC_GOOGLE_MAPS_API_KEY':'','SOMSOM_API_KEY':'','AI_MOCK':'',
+  'JPY_TO_KRW':CONFIG.get('JPY_TO_KRW','8.6253'),
+  'JPY_TO_KRW_AS_OF':CONFIG.get('JPY_TO_KRW_AS_OF','2026-09-30'),
+  'JPY_TO_KRW_SOURCE':CONFIG.get('JPY_TO_KRW_SOURCE','하나은행 2026-09-30 14:04 337회차; 100JPY=862.53KRW; https://kebhana.com/cont/mall/mall15/mall1501/index.jsp')}
+ if NODE:ENV['PATH']=str(Path(NODE).parent)+os.pathsep+ENV.get('PATH','')
+ ENV['OSRM_FOOT_URL']=CONFIG.get('OSRM_FOOT_URL','http://127.0.0.1:5001')
+ ENV['OSRM_TIMEOUT_MS']=str(CONFIG.get('OSRM_TIMEOUT_MS','2000'))
 
 def record(name):
  p=STATE/(name+'.json')
@@ -83,6 +89,7 @@ def main():
   for n,port,path in [('api',API_PORT,'health'),('web',WEB_PORT,'')]:print(f'{n}: '+('응답 정상' if healthy(f'http://localhost:{port}/{path}') else '응답 없음'))
   print('OSRM: '+('포트 열림 (경로 정상 여부는 별도 확인)' if occupied(5001) else '중지 — 직선거리 추정으로 대체'))
   return
+ configure()
  if sys.version_info<(3,10):raise SystemExit('Python 3.10 이상이 필요합니다.')
  # api-start also loads Engine(), which requires Node 24 to load and calculate the catalogue.
  if not NODE:raise SystemExit('Node.js 24 이상을 PATH에 설치하거나 NODE_BINARY를 지정하세요.')

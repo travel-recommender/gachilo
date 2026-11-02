@@ -6,6 +6,26 @@ from demo_osrm import lima_home
 from demo_runtime import settings, executable
 
 class DemoLauncherTests(unittest.TestCase):
+ def test_invalid_runtime_does_not_block_server_stop_or_status(self):
+  import runpy
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   for invalid in ['{"NODE_BINARY":', '{"NODE_BINARY":false}']:
+    path.write_text(invalid)
+    for action in ['stop','api-stop','status']:
+     with self.subTest(config=invalid,action=action),patch('demo_runtime.settings',side_effect=lambda _:settings(root)) as read,patch('pathlib.Path.exists',return_value=False),patch('socket.socket'),patch('urllib.request.urlopen',side_effect=OSError('offline')),patch('sys.argv',['demo_server.py',action]):
+      runpy.run_path(str(Path(server.__file__)),run_name='__main__')
+      read.assert_not_called()
+ def test_invalid_json_is_a_friendly_start_error_without_spawning(self):
+  import runpy
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   path.write_text('{"NODE_BINARY":')
+   for action in ['start','api-start']:
+    with self.subTest(action=action),patch('demo_runtime.settings',side_effect=lambda _:settings(root)),patch('sys.argv',['demo_server.py',action]),patch('subprocess.Popen') as spawn:
+     with self.assertRaisesRegex(SystemExit,'runtime.json.*JSON.*확인'):
+      runpy.run_path(str(Path(server.__file__)),run_name='__main__')
+     spawn.assert_not_called()
  def test_null_runtime_paths_use_defaults_without_creating_none_link(self):
   import demo_osrm as osrm
   with tempfile.TemporaryDirectory() as tmp:
@@ -34,7 +54,7 @@ class DemoLauncherTests(unittest.TestCase):
    root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
    path.write_text(json.dumps({'JPY_TO_KRW':9.5,'OSRM_TIMEOUT_MS':2000,'DEMO_DATASET':'prototype_demo_36'}))
    with patch.dict(os.environ,{},clear=True),patch('demo_runtime.settings',side_effect=lambda _:settings(root)),patch('demo_runtime.executable',return_value=''):
-    env=runpy.run_path(str(Path(server.__file__)))['ENV']
+    configure=runpy.run_path(str(Path(server.__file__)))['configure'];configure();env=configure.__globals__['ENV']
    result=subprocess.run([sys.executable,'-c','import os; print(os.environ["JPY_TO_KRW"], os.environ["OSRM_TIMEOUT_MS"])'],env=env,capture_output=True,text=True,check=True)
    self.assertEqual(result.stdout.strip(),'9.5 2000')
  def test_config_paths_and_environment_precedence(self):
@@ -76,11 +96,11 @@ class DemoLauncherTests(unittest.TestCase):
    with self.assertRaises(SystemExit):lima_home(vm,link,'start')
    self.assertEqual(link.readlink(),missing)
  def test_api_restart_requires_node_because_engine_needs_it(self):
-  with patch.object(server.sys,'argv',['demo_server.py','api-start']),patch.object(server,'NODE',''),patch.object(server,'api') as api:
+  with patch.object(server,'configure'),patch.object(server.sys,'argv',['demo_server.py','api-start']),patch.object(server,'NODE',''),patch.object(server,'api') as api:
    with self.assertRaisesRegex(SystemExit,'Node.js 24'):server.main()
    api.assert_not_called()
  def test_api_restart_uses_configured_node_without_web_build(self):
-  with patch.object(server.sys,'argv',['demo_server.py','api-start']),patch.object(server,'NODE','/configured/node'),patch.object(server.subprocess,'check_output',return_value='24.1.0'),patch.object(server,'api') as api,patch.object(server.subprocess,'run') as run:
+  with patch.object(server,'configure'),patch.object(server.sys,'argv',['demo_server.py','api-start']),patch.object(server,'NODE','/configured/node'),patch.object(server.subprocess,'check_output',return_value='24.1.0'),patch.object(server,'api') as api,patch.object(server.subprocess,'run') as run:
    server.main();api.assert_called_once();run.assert_not_called()
  def test_stop_attempts_both_services_after_one_fails(self):
   with patch.object(server.sys,'argv',['demo_server.py','stop']),patch.object(server,'stop',side_effect=[SystemExit('web slow'),None]) as stop:
@@ -93,7 +113,7 @@ class DemoLauncherTests(unittest.TestCase):
  def test_config_applies_dataset_routing_and_fx_without_dot_path(self):
   import runpy
   with patch('demo_runtime.settings',return_value={'DEMO_DATASET':'osaka_review_150','OSRM_FOOT_URL':'http://127.0.0.1:9999','OSRM_TIMEOUT_MS':1234,'JPY_TO_KRW':'9.5'}),patch('demo_runtime.executable',return_value=''),patch.dict(os.environ,{'PATH':'/bin'},clear=True):
-   env=runpy.run_path(str(Path(server.__file__)))['ENV']
+   configure=runpy.run_path(str(Path(server.__file__)))['configure'];configure();env=configure.__globals__['ENV']
    self.assertEqual(env['PATH'],'/bin')
    self.assertEqual(env['NEXT_PUBLIC_DATASET'],'osaka_review_150')
    self.assertEqual(env['OSRM_FOOT_URL'],'http://127.0.0.1:9999')

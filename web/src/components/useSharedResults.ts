@@ -18,6 +18,17 @@ const selectionStateKey = (snap: SharedResults) => JSON.stringify([
   snap.roomId, snap.revision, snap.selectionVersion, snap.status, snap.selectedStrategy,
 ]);
 
+type SelectionNotice = { message: string; stateKey: string; recovery?: { strategy: SharedStrategy; status: number } };
+function recoveredNotice(next: SharedResults, strategy: SharedStrategy, status: number): SelectionNotice | null {
+  const message = next.status === "ready"
+    ? (next.selectedStrategy !== strategy
+      ? "이미 다른 후보로 확정되어 있어요. 서버에 저장된 확정 일정을 확인해 주세요." : null)
+    : status === 0
+      ? "현재 일정이 확정되지 않았어요. 최신 후보를 확인한 뒤 다시 확정해 주세요."
+      : "그 사이 입력이나 확정이 바뀌었어요. 최신 후보를 확인해 주세요.";
+  return message ? { message, stateKey: selectionStateKey(next) } : null;
+}
+
 /**
  * 서버 공용 결과를 3초마다 조회한다. 방이 없으면(데모 모드) 아무것도 하지 않는다.
  * 방장 화면은 전원 제출(awaiting_result)을 보면 그 버전에 대해 한 번만 후보 3개 계산을 요청한다.
@@ -28,7 +39,7 @@ export function useSharedResults(enabled = true) {
   const isOwner = !!room?.ownerToken;
   const [snap, setSnap] = useState<SharedResults | null>(null);
   const [queryError, setQueryError] = useState<string | null>(null);
-  const [selectionNotice, setSelectionNotice] = useState<{ message: string; stateKey: string } | null>(null);
+  const [selectionNotice, setSelectionNotice] = useState<SelectionNotice | null>(null);
   // 계산기 상태가 바뀌면 다시 그린다
   const [, setTick] = useState(0);
   useEffect(() => calculator.subscribe(() => setTick((t) => t + 1)), []);
@@ -44,7 +55,11 @@ export function useSharedResults(enabled = true) {
     try {
       const next = await api.get(room.roomId, room.token);
       accept(next);
-      if (live.current) setQueryError(null);
+      if (live.current) {
+        setQueryError(null);
+        setSelectionNotice((notice) => notice?.recovery
+          ? recoveredNotice(next, notice.recovery.strategy, notice.recovery.status) : notice);
+      }
       return next;
     } catch (e) {
       if (live.current) setQueryError(e instanceof Error ? e.message : "결과를 불러오지 못했어요.");
@@ -89,19 +104,12 @@ export function useSharedResults(enabled = true) {
     } catch (e) {
       if (e instanceof SharedResultError && (e.status === 0 || e.status === 409)) {
         if (live.current) setSelectionNotice({
-          message: "서버에서 최신 확정 상태를 확인하고 있어요.", stateKey: selectionStateKey(snap),
+          message: "확정 결과를 확인하지 못했어요. 서버에 이미 저장됐을 수 있어요. 연결 후 최신 상태를 먼저 확인해 주세요.",
+          stateKey: selectionStateKey(snap), recovery: { strategy, status: e.status },
         });
-        // Keep the button busy until this read completes; the write may already have succeeded.
-        const next = await refresh();
-        if (live.current) {
-          const message = !next ? null : next.status === "ready"
-            ? (next.selectedStrategy !== strategy
-              ? "이미 다른 후보로 확정되어 있어요. 서버에 저장된 확정 일정을 확인해 주세요." : null)
-            : e.status === 0
-              ? "현재 일정이 확정되지 않았어요. 최신 후보를 확인한 뒤 다시 확정해 주세요."
-              : "그 사이 입력이나 확정이 바뀌었어요. 최신 후보를 확인해 주세요.";
-          setSelectionNotice(message && next ? { message, stateKey: selectionStateKey(next) } : null);
-        }
+        // Keep uncertainty visible if this read also fails; the next successful poll reconciles it.
+        // Keep the button busy until this read completes, and never repeat the write automatically.
+        await refresh();
       } else {
         if (live.current) setSelectionNotice({
           message: e instanceof Error ? e.message : "확정하지 못했어요.", stateKey: selectionStateKey(snap),
@@ -115,5 +123,5 @@ export function useSharedResults(enabled = true) {
 
   const notice = snap && snap.roomId === room?.roomId && selectionNotice?.stateKey === selectionStateKey(snap)
     ? selectionNotice.message : null;
-  return { snap, error: queryError ?? notice, calcError: calc.retry ? calc.error : null, isOwner, online: !!room, selecting, select, retryCalculate, refresh };
+  return { snap, error: selectionNotice?.recovery && notice ? notice : queryError ?? notice, calcError: calc.retry ? calc.error : null, isOwner, online: !!room, selecting, select, retryCalculate, refresh };
 }

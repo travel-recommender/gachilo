@@ -109,3 +109,20 @@ test('a different confirmed candidate is explained after a 409 or lost response 
   assert.equal(render().error,null);assert.equal(calls.filter(m=>m==='PUT').length,1);
  }
 });
+
+
+test('failed reconciliation preserves uncertain-write context until a successful read, without rewriting',async()=>{
+ for(const restored of [snapshot(),snapshot({status:'ready',selectionVersion:1,selectedStrategy:'average'}),snapshot({status:'ready',selectionVersion:1,selectedStrategy:'fairness'})]) {
+  let offline=false,current=snapshot();const calls=[];
+  const render=mount(async(url,init)=>{calls.push(init.method);if(init.method==='PUT'||offline)throw new TypeError('offline');return Response.json(current);});
+  await render().refresh();offline=true;await render().select('average');
+  assert.match(render().error,/확정 결과를 확인하지 못/);
+  assert.match(render().error,/저장됐을 수/);
+  for(let i=0;i<2;i++){await render().refresh();assert.match(render().error,/최신 상태를 먼저 확인/);}
+  offline=false;current=restored;await render().refresh();
+  if(restored.status!=='ready')assert.match(render().error,/확정되지 않았/);
+  else if(restored.selectedStrategy==='average')assert.equal(render().error,null);
+  else assert.match(render().error,/이미 다른 후보/);
+  assert.equal(calls.filter(m=>m==='PUT').length,1);
+ }
+});

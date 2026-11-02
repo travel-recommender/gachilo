@@ -7,7 +7,12 @@ PATH_SETTINGS = {'NODE_BINARY', 'LIMACTL', 'LIMA_HOME', 'OSRM_LIMA_LINK',
 
 def settings(root):
     path=root/'.local/demo/runtime.json'
-    config=json.loads(path.read_text()) if path.is_file() else {}
+    try:
+        config=json.loads(path.read_text()) if path.is_file() else {}
+    except (json.JSONDecodeError, UnicodeError):
+        raise SystemExit('runtime.json의 JSON 형식을 확인하세요. 따옴표·쉼표·괄호를 수정한 뒤 다시 시작하세요.') from None
+    except OSError:
+        raise SystemExit('runtime.json을 읽지 못했습니다. 파일 경로와 읽기 권한을 확인하세요.') from None
     if not isinstance(config, dict):
         raise SystemExit('runtime.json은 설정 이름과 값을 가진 JSON 객체여야 합니다.')
     env = {}
