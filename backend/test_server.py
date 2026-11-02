@@ -68,6 +68,31 @@ class ApiTests(unittest.TestCase):
   self.assertNotIn('osaka_draft_cdb260bb106a',ids)  # Google 지도상 폐업
   self.assertTrue(0<len(ids)<150)
   demo=self.room();self.assertIsNone(self.req('GET',f"/rooms/{demo['roomId']}/schedulable",token=demo['ownerToken'])[1]['placeIds'])
+ def test_real_pool_filters_dated_and_search_only_places_without_erasing_inputs(self):
+  import sqlite3
+  room=self.req('POST','/rooms',{'startDate':'2026-11-02','endDate':'2026-11-03','memberNames':['A','B'],'dataset':'osaka_review_150'})[1]
+  rid=room['roomId'];member=room['members'][0];token=member['submissionToken']
+  ids=['osaka_009','branch_ichiran_shinsaibashi']
+  # Select an actual search-only catalogue item rather than a fabricated unknown ID.
+  extra=self.req('GET','/api/places?offset=150&limit=150')[1]['places']
+  available=set(self.req('GET',f'/rooms/{rid}/schedulable',token=token)[1]['placeIds'])
+  blocked=next(p['place_id'] for p in extra if p['place_id'] not in available)
+  ids.append(blocked)
+  self.assertEqual(self.req('PUT',f"/rooms/{rid}/longlists/{member['id']}",{'longlist':ids},token)[0],200)
+  response=self.req('GET',f'/rooms/{rid}/pool',token=token)
+  self.assertEqual(response[0],200)
+  self.assertEqual(set(response[1]['placeIds']),set(ids)&available)
+  self.assertIn('osaka_009',response[1]['placeIds'])
+  self.assertNotIn(blocked,response[1]['placeIds'])
+  with sqlite3.connect(self.db) as c:
+   self.assertEqual(json.loads(c.execute('SELECT ids FROM longlists WHERE member_id=?',(member['id'],)).fetchone()[0]),ids)
+  self.assertEqual(self.req('GET',f'/rooms/{rid}/pool',token='invalid')[0],403)
+ def test_real_pool_excludes_places_outside_the_reviewed_visit_dates(self):
+  room=self.req('POST','/rooms',{'startDate':'2026-12-01','endDate':'2026-12-02','memberNames':['A','B'],'dataset':'osaka_review_150'})[1]
+  rid=room['roomId'];member=room['members'][0];token=member['submissionToken']
+  self.assertEqual(self.req('PUT',f"/rooms/{rid}/longlists/{member['id']}",{'longlist':['branch_ichiran_shinsaibashi']},token)[0],200)
+  result=self.req('GET',f'/rooms/{rid}/pool',token=token)
+  self.assertEqual(result[0],200);self.assertNotIn('branch_ichiran_shinsaibashi',result[1]['placeIds'])
  def test_private_access_and_origin(self):
   room=self.room();a,b=room['members'][:2];path=f"/rooms/{room['roomId']}/results"
   self.assertEqual(self.req('GET',path)[0],403)
