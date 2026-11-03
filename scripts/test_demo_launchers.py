@@ -229,4 +229,40 @@ class DemoLauncherTests(unittest.TestCase):
     with self.subTest(key=key),patch.dict(os.environ,{},clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
      with self.assertRaisesRegex(SystemExit,key):osrm.main()
      run.assert_not_called();self.assertEqual(record.read_text(),saved)
+ def test_osrm_start_missing_target_explains_start_configuration(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   path.write_text(json.dumps({'LIMACTL':'/missing/limactl','LIMA_HOME':str(root/'missing')}))
+   with patch.dict(os.environ,{},clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm,'executable',return_value=''),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
+    with self.assertRaises(SystemExit) as error:osrm.main()
+    message=str(error.exception)
+    self.assertIn(str(path),message);self.assertIn('LIMACTL',message);self.assertIn('LIMA_HOME',message)
+    self.assertNotIn('osrm.json',message);self.assertNotIn('추정 경로로 실행할 수',message)
+    run.assert_not_called()
+ def test_osrm_start_complete_environment_bypasses_corrupt_runtime(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp).resolve();path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   vm=root/'vm';(vm/'new-osrm').mkdir(parents=True);(vm/'new-osrm/lima.yaml').write_text('{}')
+   explicit={'LIMACTL':'/new/limactl','LIMA_HOME':str(vm),'OSRM_VM_NAME':'new-osrm'}
+   for broken in ['{bad json',json.dumps({'LIMA_HOME':'/old','OSRM_CONTAINER_NAME':False,'OSRM_LIMA_LINK':'/old-link'})]:
+    for container in [None,'new-foot']:
+     path.write_text(broken)
+     env={**explicit,**({'OSRM_CONTAINER_NAME':container} if container else {})}
+     with self.subTest(broken=broken,container=container),patch.dict(os.environ,env,clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm,'executable',side_effect=lambda value,name:value),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
+      osrm.main()
+      self.assertEqual(run.call_args_list[0].args[0],['/new/limactl','start','--tty=false','new-osrm'])
+      self.assertEqual(run.call_args_list[1].args[0][-1],container or 'gachilo-osrm-foot')
+      self.assertEqual(run.call_args_list[0].kwargs['env']['LIMA_HOME'],str(vm))
+      self.assertIsNone(json.loads((root/'.local/demo/osrm.json').read_text())['OSRM_LIMA_LINK'])
+      self.assertEqual(path.read_text(),broken)
+ def test_osrm_start_incomplete_environment_cannot_hide_corrupt_runtime(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True);path.write_text('{bad')
+   for env in [{'LIMACTL':'/new/limactl'},{'LIMACTL':'/new/limactl','LIMA_HOME':'/vm','OSRM_VM_NAME':' '}]:
+    with self.subTest(env=env),patch.dict(os.environ,env,clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
+     with self.assertRaisesRegex(SystemExit,'runtime.json'):osrm.main()
+     run.assert_not_called()
 if __name__=='__main__':unittest.main()
