@@ -59,38 +59,43 @@ def build_counts(database, dataset=REAL_DATASET):
     """
     allowed = catalog_ids(dataset)
     database = Path(database).resolve()
-    places, pairs = Counter(), Counter()
-    sources = {'p3': 0, 'submissionFallback': 0}
-    saved = nonempty = paired = ignored = 0
     with closing(sqlite3.connect(database.as_uri() + '?mode=ro', uri=True, timeout=10)) as c:
         c.row_factory = sqlite3.Row
         c.execute('PRAGMA query_only=ON')
         c.execute('BEGIN')
-        has_p3 = c.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='longlists'").fetchone()
-        # Older demo databases predate dedicated P3 storage. Read their submitted
-        # longlists without creating/migrating tables in a running server's DB.
-        ids_sql = 'l.ids' if has_p3 else 'NULL'
-        p3_join = 'LEFT JOIN longlists l ON l.member_id=m.id' if has_p3 else ''
-        rows = c.execute(f'''
-            SELECT {ids_sql} AS ids,
-                   CASE WHEN {ids_sql} IS NULL THEN s.payload END AS payload
-            FROM rooms r JOIN members m ON m.room_id=r.id
-            {p3_join}
-            LEFT JOIN submissions s ON s.member_id=m.id
-            WHERE r.dataset=?
-        ''', (dataset,))
-        for row in rows:
-            ids, source = _ids(row)
-            if ids is None:
-                continue
-            saved += 1
-            sources[source] += 1
-            valid = sorted(x for x in ids if x in allowed and not x.startswith('custom_'))
-            ignored += len(ids) - len(valid)
-            nonempty += bool(valid)
-            paired += len(valid) >= 2
-            places.update(valid)
-            pairs.update(combinations(valid, 2))
+        return counts_from_connection(c, dataset, allowed)
+
+
+def counts_from_connection(c, dataset, allowed):
+    """Use the caller's read transaction so counts and exclusions agree."""
+    places, pairs = Counter(), Counter()
+    sources = {'p3': 0, 'submissionFallback': 0}
+    saved = nonempty = paired = ignored = 0
+    has_p3 = c.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='longlists'").fetchone()
+    # Older demo databases predate dedicated P3 storage. Read their submitted
+    # longlists without creating/migrating tables in a running server's DB.
+    ids_sql = 'l.ids' if has_p3 else 'NULL'
+    p3_join = 'LEFT JOIN longlists l ON l.member_id=m.id' if has_p3 else ''
+    rows = c.execute(f'''
+        SELECT {ids_sql} AS ids,
+               CASE WHEN {ids_sql} IS NULL THEN s.payload END AS payload
+        FROM rooms r JOIN members m ON m.room_id=r.id
+        {p3_join}
+        LEFT JOIN submissions s ON s.member_id=m.id
+        WHERE r.dataset=?
+    ''', (dataset,))
+    for row in rows:
+        ids, source = _ids(row)
+        if ids is None:
+            continue
+        saved += 1
+        sources[source] += 1
+        valid = sorted(x for x in ids if x in allowed and not x.startswith('custom_'))
+        ignored += len(ids) - len(valid)
+        nonempty += bool(valid)
+        paired += len(valid) >= 2
+        places.update(valid)
+        pairs.update(combinations(valid, 2))
     return {
         'schemaVersion': 1,
         'dataset': dataset,

@@ -12,6 +12,7 @@ from real_engine import RealEngine, REAL_DATASET
 from api_errors import ApiError, require
 from candidate_results import CandidateStore, STRATEGIES
 from candidate_engine import CandidateEngine
+from place_recommendations import RecommendationStore
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
 def now():return datetime.now(timezone.utc).isoformat()
 PIN_TRIES=5
@@ -29,9 +30,10 @@ def pin_ok(pin,stored):
     salt,h=stored.split('$',1)
     return hmac.compare_digest(hashlib.pbkdf2_hmac('sha256',pin.encode(),bytes.fromhex(salt),100_000).hex(),h)
 
-class Store(CandidateStore):
+class Store(CandidateStore, RecommendationStore):
     def __init__(self,path,catalog=None,*,date_availability=None):
         self.date_availability=date_availability
+        self.recommendation_demo_places=catalog
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
         real_records=json.loads(DATA.read_text(encoding="utf-8"))["places"]
         self.real_ids={r["place"]["place_id"] for r in real_records}
@@ -429,6 +431,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 if self.command=='PUT' and m:return self.send_json(200,store.submit(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/longlists/([\w-]+)',path)
                 if self.command=='PUT' and m:return self.send_json(200,store.save_longlist(*m.groups(),token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/recommendations/([\w-]+)',path)
+                if self.command=='POST' and m:return self.send_json(200,store.recommend_places(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/schedulable',path)
                 if self.command=='GET' and m:return self.send_json(200,schedulable(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
