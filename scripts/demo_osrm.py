@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Control an existing Lima OSRM VM; never create a VM or replace unrelated paths."""
-import argparse, json, os, subprocess, tempfile
+import argparse, json, os, subprocess, sys, tempfile
 from pathlib import Path
-from demo_runtime import settings, executable
+from demo_runtime import settings, executable, RuntimeConfigReadError
 ROOT=Path(__file__).resolve().parents[1]
 
 def lima_home(vm, link, action):
@@ -30,16 +30,24 @@ def explicit_target(keys):
 
 def start_hint(root):
     return (f'시작 설정 {root/".local/demo/runtime.json"}의 LIMACTL·LIMA_HOME·OSRM_VM_NAME을 확인하세요. '
-            '세 값을 모두 환경변수로 명시하면 runtime.json을 읽지 않습니다. '
-            '필요한 OSRM_LIMA_LINK·OSRM_CONTAINER_NAME도 함께 지정하세요.')
+            '파일 읽기·JSON 문법 오류 때는 세 값을 모두 환경변수로 명시해 복구할 수 있습니다. '
+            '이 복구 시 필요한 OSRM_LIMA_LINK·OSRM_CONTAINER_NAME도 함께 지정하세요.')
 
 def start_settings(root):
-    explicit = explicit_target(CONTROL_KEYS | {'OSRM_CONTAINER_NAME'})
-    if explicit is not None:
-        return explicit
+    keys = CONTROL_KEYS | {'OSRM_CONTAINER_NAME'}
     try:
-        return settings(root, only=CONTROL_KEYS | {'OSRM_CONTAINER_NAME'})
+        # Preserve file-only options and the existing per-key environment precedence.
+        return settings(root, only=keys)
+    except RuntimeConfigReadError as error:
+        explicit = explicit_target(keys)
+        if explicit is not None:
+            print(f'{root/".local/demo/runtime.json"}을 읽지 못해 명시한 환경변수만 사용합니다. '
+                  '파일의 링크·컨테이너 설정은 적용되지 않습니다. '
+                  '필요하면 OSRM_LIMA_LINK·OSRM_CONTAINER_NAME도 지정하세요.', file=sys.stderr)
+            return explicit
+        raise SystemExit(f'{error} {start_hint(root)}') from None
     except SystemExit as error:
+        # Valid JSON with invalid setting types must still be corrected explicitly.
         raise SystemExit(f'{error} {start_hint(root)}') from None
 
 def recovery_hint(root):

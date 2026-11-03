@@ -99,7 +99,9 @@ OSRM은 `LIMA_HOME`(기본 `~/.lima`)의 기존 `gachilo-osrm` VM을 사용한�
 
 `demo_server.py`의 `stop`·`api-stop`·`status`는 runtime.json을 읽지 않으므로 설정이 잘못돼도 종료·상태 확인을 할 수 있다. `start`·`api-start`에서만 설정을 검증하고, JSON 형식 오류는 한국어로 안내한다.
 
-OSRM 시작은 OSRM 관련 키(위치·실행 파일·VM/컨테이너 이름·링크)만 검사하므로 잘못된 `NODE_BINARY` 같은 웹 설정에 막히지 않는다. 파일에서 읽는 OSRM 설정의 잘못된 타입이나 JSON 문법 오류는 시작을 막고, 실제 수정할 runtime.json 경로를 안내한다. **start도 `LIMACTL`·`LIMA_HOME`·`OSRM_VM_NAME` 세 값을 모두 환경변수로 지정하면 runtime.json을 건너뛴다.** 이때 링크·컨테이너 이름은 파일과 섞지 않으므로 필요하면 `OSRM_LIMA_LINK`·`OSRM_CONTAINER_NAME`을 함께 지정한다. 생략하면 링크 없이 기본 컨테이너 `gachilo-osrm-foot`를 사용한다. 시작할 때 확인한 VM 위치는 `.local/demo/osrm.json`에 기록한다.
+OSRM 시작은 OSRM 관련 키(위치·실행 파일·VM/컨테이너 이름·링크)만 검사하므로 잘못된 `NODE_BINARY` 같은 웹 설정에 막히지 않는다. **정상적인 runtime.json은 항상 키별로 `환경변수 > 파일 > 기본값` 순서로 합친다.** `LIMACTL`·`LIMA_HOME`·`OSRM_VM_NAME`을 모두 환경변수로 지정해도 파일의 `OSRM_LIMA_LINK`·`OSRM_CONTAINER_NAME`은 유지되며, 이 두 키도 환경변수로 지정하면 그 값이 우선한다. 파일에서 사용하는 OSRM 값의 타입이 잘못됐거나 JSON이 객체가 아니면 시작을 막고 수정할 경로를 안내한다.
+
+파일을 읽을 수 없거나 JSON 문법·인코딩 오류가 있을 때만 세 대상 값을 모두 환경변수로 지정해 복구할 수 있다. 이때는 **환경변수만 사용하며 파일의 선택 설정이 적용되지 않는다는 안내**를 출력한다. 짧은 링크·별도 컨테이너가 필요하면 `OSRM_LIMA_LINK`·`OSRM_CONTAINER_NAME`도 함께 지정한다. 생략하면 링크 없이 기본 컨테이너 `gachilo-osrm-foot`를 사용한다. 시작할 때 확인한 VM 위치는 `.local/demo/osrm.json`에 기록한다.
 
 `demo_osrm.py stop/status`는 기본적으로 이 기록을 사용하므로 runtime.json이 깨지거나 다른 경로로 바뀌어도 원래 VM을 대상으로 한다. 이전 기록이 없으면 OSRM 관련 키만 읽는다. **경로 이동·limactl 업그레이드·깨진 기록을 복구할 때는 `LIMACTL`·`LIMA_HOME`·`OSRM_VM_NAME` 세 값을 모두 환경변수로 지정하면 기록보다 우선한다.** 일부만 지정하면 저장된 대상과 섞지 않는다. 짧은 링크가 필요하면 `OSRM_LIMA_LINK`도 함께 지정한다. 생략하면 예전 링크를 재사용하지 않고 지정한 `LIMA_HOME`을 직접 쓴다.
 

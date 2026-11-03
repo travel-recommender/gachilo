@@ -246,7 +246,7 @@ class DemoLauncherTests(unittest.TestCase):
    root=Path(tmp).resolve();path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
    vm=root/'vm';(vm/'new-osrm').mkdir(parents=True);(vm/'new-osrm/lima.yaml').write_text('{}')
    explicit={'LIMACTL':'/new/limactl','LIMA_HOME':str(vm),'OSRM_VM_NAME':'new-osrm'}
-   for broken in ['{bad json',json.dumps({'LIMA_HOME':'/old','OSRM_CONTAINER_NAME':False,'OSRM_LIMA_LINK':'/old-link'})]:
+   for broken in ['{bad json']:
     for container in [None,'new-foot']:
      path.write_text(broken)
      env={**explicit,**({'OSRM_CONTAINER_NAME':container} if container else {})}
@@ -257,6 +257,46 @@ class DemoLauncherTests(unittest.TestCase):
       self.assertEqual(run.call_args_list[0].kwargs['env']['LIMA_HOME'],str(vm))
       self.assertIsNone(json.loads((root/'.local/demo/osrm.json').read_text())['OSRM_LIMA_LINK'])
       self.assertEqual(path.read_text(),broken)
+ def test_osrm_start_merges_valid_file_options_with_complete_environment_target(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp).resolve();path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   vm=root/'vm';(vm/'new-osrm').mkdir(parents=True);(vm/'new-osrm/lima.yaml').write_text('{}')
+   link=root/'file-link';override=root/'env-link'
+   config={'LIMACTL':'/old/limactl','LIMA_HOME':'/old','OSRM_VM_NAME':'old-osrm',
+           'OSRM_LIMA_LINK':str(link),'OSRM_CONTAINER_NAME':'file-foot'}
+   path.write_text(json.dumps(config));original=path.read_text()
+   explicit={'LIMACTL':'/new/limactl','LIMA_HOME':str(vm),'OSRM_VM_NAME':'new-osrm'}
+   for options,expected_link,container in [({},link,'file-foot'),
+      ({'OSRM_LIMA_LINK':str(override),'OSRM_CONTAINER_NAME':'env-foot'},override,'env-foot')]:
+    with self.subTest(options=options),patch.dict(os.environ,{**explicit,**options},clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm,'executable',side_effect=lambda value,name:value),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
+     osrm.main()
+    self.assertEqual(run.call_args_list[0].args[0],['/new/limactl','start','--tty=false','new-osrm'])
+    self.assertEqual(run.call_args_list[1].args[0][-1],container)
+    self.assertEqual(run.call_args_list[0].kwargs['env']['LIMA_HOME'],str(expected_link))
+    self.assertTrue(expected_link.samefile(vm))
+    self.assertEqual(json.loads((root/'.local/demo/osrm.json').read_text())['OSRM_LIMA_LINK'],str(expected_link))
+    self.assertEqual(path.read_text(),original)
+ def test_osrm_start_does_not_hide_valid_json_validation_errors(self):
+  import demo_osrm as osrm
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True)
+   explicit={'LIMACTL':'/new/limactl','LIMA_HOME':'/new','OSRM_VM_NAME':'new-osrm'}
+   for invalid in [{'OSRM_LIMA_LINK':False},{'OSRM_CONTAINER_NAME':False},[]]:
+    path.write_text(json.dumps(invalid))
+    with self.subTest(invalid=invalid),patch.dict(os.environ,explicit,clear=True),patch.object(osrm,'ROOT',root),patch.object(osrm.subprocess,'run') as run,patch('sys.argv',['demo_osrm.py','start']):
+     with self.assertRaisesRegex(SystemExit,'문자열|객체'):osrm.start_settings(root)
+     run.assert_not_called();self.assertFalse((root/'.local/demo/osrm.json').exists())
+ def test_osrm_start_read_failure_uses_explicit_options_with_notice(self):
+  import demo_osrm as osrm
+  from io import StringIO
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);path=root/'.local/demo/runtime.json';path.parent.mkdir(parents=True);path.write_text('{}')
+   explicit={'LIMACTL':'/new/limactl','LIMA_HOME':'/new','OSRM_VM_NAME':'new-osrm',
+             'OSRM_LIMA_LINK':'/new-link','OSRM_CONTAINER_NAME':'new-foot'}
+   with patch.dict(os.environ,explicit,clear=True),patch.object(Path,'read_text',side_effect=PermissionError('unreadable')),patch('sys.stderr',new_callable=StringIO) as stderr:
+    self.assertEqual(osrm.start_settings(root),explicit)
+    self.assertIn(str(path),stderr.getvalue());self.assertIn('환경변수',stderr.getvalue())
  def test_osrm_start_incomplete_environment_cannot_hide_corrupt_runtime(self):
   import demo_osrm as osrm
   with tempfile.TemporaryDirectory() as tmp:
