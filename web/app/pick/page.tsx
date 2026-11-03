@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
+import { PlaceRecommendations } from "@/components/PlaceRecommendations";
 import { CATEGORIES, findPlace } from "@/lib/places";
 import { Box, MinusButton, NavButtons, Page, PlanHeader } from "@/components/gachiro";
 import type { Place } from "@/lib/types";
@@ -18,14 +19,18 @@ const LIMIT = 30;
  */
 export default function Pick() {
   const router = useRouter();
-  const { state, setMine, saveLonglist } = useTrip();
+  const { state, catalog, setMine, saveLonglist } = useTrip();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [recommendFrom, setRecommendFrom] = useState<{ id: string; session: string } | null>(null);
+  const session = JSON.stringify([state.room?.roomId, state.room?.memberId, state.room?.token]);
   const longlist = state.mine.longlist;
   const places = longlist.map((id) => findPlace(id)).filter((p): p is Place => !!p);
 
   const add = (p: Place) => {
-    if (!longlist.includes(p.id) && longlist.length < LIMIT) setMine({ longlist: [...longlist, p.id] });
+    if (busy || p.selectionDisabledReason || longlist.includes(p.id) || longlist.length >= LIMIT) return;
+    setMine({ longlist: [...longlist, p.id] });
+    setRecommendFrom({ id: p.id, session });
   };
   const remove = (id: string) => setMine({ longlist: longlist.filter((x) => x !== id) });
 
@@ -52,6 +57,9 @@ export default function Pick() {
       <PlanHeader />
       <div className="px-5 pt-[59px]">
         <PlaceFinder added={longlist} onPick={add} />
+        {state.room && recommendFrom?.session === session && <PlaceRecommendations
+          room={state.room} catalog={catalog} sourceId={recommendFrom.id} added={longlist} disabled={busy} onAdd={add}
+        />}
 
         {error && <p className="mt-3 text-[12px] leading-relaxed text-wine">{error}</p>}
         <h2 className="mb-[15px] mt-[43px] text-[23.929px] font-extrabold leading-[29px]">My list</h2>
