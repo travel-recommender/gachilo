@@ -9,9 +9,12 @@ const key = (p:Point) => `${p.lng},${p.lat}`;
 const edge = (a:number,b:number) => a < b ? `${a}:${b}` : `${b}:${a}`;
 export const pair = (a:Point,b:Point) => `${key(a)};${key(b)}`;
 
+let cachedData: ShelterData | null | undefined;
 export function loadShelterData(): ShelterData | null {
-  try { return JSON.parse(fs.readFileSync(new URL('../../data/sheltered_paths.json',import.meta.url),'utf8')); }
-  catch { return null; }
+  if(cachedData!==undefined) return cachedData;
+  try { cachedData=JSON.parse(fs.readFileSync(new URL('../../data/sheltered_paths.json',import.meta.url),'utf8')); }
+  catch { cachedData=null; }
+  return cachedData??null;
 }
 
 function validWay(w:Way):boolean {
@@ -26,9 +29,14 @@ function validWay(w:Way):boolean {
 }
 type ShelterEdge = {wayId:number;indoor:boolean};
 export function roofEdges(data:ShelterData): Map<string,ShelterEdge> {
+  return buildEdges(validWays(data));
+}
+function validWays(data:ShelterData):Way[] {
+  return data?.schema_version===1 && Array.isArray(data.ways)?data.ways.filter(validWay):[];
+}
+function buildEdges(ways:Way[]):Map<string,ShelterEdge> {
   const edges = new Map<string,ShelterEdge>();
-  if (data?.schema_version !== 1 || !Array.isArray(data.ways)) return edges;
-  for (const w of data.ways.filter(validWay)) {
+  for (const w of ways) {
     for (let i=1;i<w.nodes.length;i++) {
       const key=edge(w.nodes[i-1],w.nodes[i]);
       if(!edges.has(key) || w.tags.indoor==='yes') edges.set(key,{wayId:w.osm_way_id,indoor:w.tags.indoor==='yes'});
@@ -61,14 +69,31 @@ export function annotateRoute(route:any, edges:Map<string,ShelterEdge>): Shelter
 
 /** Selection cost: distance + max(p(rain), heat preference) × distance without shelter evidence.
  * Unknown edges are conservatively penalized; this does not label them known outdoor.
- * A roof detour must stay walkable (<=1.2km), within +35% and +5min of the dry route.
+ * A roof detour must stay walkable (<=1.2km), within +35% and +5min of the Table baseline; normal Route annotations only establish shelter evidence.
  */
-export function selectShelteredRoute(routes:ShelteredRoute[], exposureWeight:number, indoorOnly=false): ShelteredRoute {
+export function selectShelteredRoute(routes:ShelteredRoute[], exposureWeight:number, indoorOnly=false,
+  baseline:Pick<ShelteredRoute,'km'|'min'>=routes[0]): ShelteredRoute {
   const base=routes[0];
   if (!(exposureWeight>0 && exposureWeight<=1)) return base;
   const cost=(r:ShelteredRoute)=>r.km+exposureWeight*(indoorOnly?Math.max(0,r.km-r.indoorKm):r.unknownKm);
-  return routes.filter(r=>(r===base || (indoorOnly?r.indoorKm>base.indoorKm:r.coveredKm>base.coveredKm)) && r.km<=1.2 && r.km<=base.km*1.35 && r.min<=base.min+5)
+  return routes.filter(r=>(r===base || (indoorOnly?r.indoorKm>base.indoorKm:r.coveredKm>base.coveredKm)) && r.km<=1.2 && r.km<=baseline.km*1.35 && r.min<=baseline.min+5)
     .reduce((best,r)=>cost(r) < cost(best) ? r:best,base);
+}
+
+type PreparedShelter = {edges:Map<string,ShelterEdge>; midpoints:Record<'covered'|'indoor',Point[]>};
+let cachedPrepared:PreparedShelter|null|undefined;
+function prepareData(data:ShelterData|null):PreparedShelter|null {
+  if(!data)return null;
+  const ways=validWays(data);
+  return {edges:buildEdges(ways),midpoints:{
+    covered:ways.map(w=>w.geometry[Math.floor(w.geometry.length/2)]),
+    indoor:ways.filter(w=>w.tags.indoor==='yes').map(w=>w.geometry[Math.floor(w.geometry.length/2)])}};
+}
+function shelterSnapshot(injected:ShelterData|null|undefined):PreparedShelter|null {
+  // Only the checked-in immutable file is shared. Fixtures/overrides stay request-local.
+  if(injected!==undefined)return prepareData(injected);
+  if(cachedPrepared===undefined)cachedPrepared=prepareData(loadShelterData());
+  return cachedPrepared;
 }
 
 export async function prepareShelteredRoutes(points:Point[], base:Map<string,{km:number;source:string}>,
@@ -76,15 +101,11 @@ export async function prepareShelteredRoutes(points:Point[], base:Map<string,{km
   const deadline=performance.now()+2500;
   const signal=AbortSignal.timeout(2500);
   const expired=()=>performance.now()>=deadline || signal.aborted;
-  const data=options.data===undefined?loadShelterData():options.data;
   const result=new Map<string,ShelteredRoute[]>();
-  if (!data) return result;
-  const edges=roofEdges(data);
-  if (!edges.size) return result;
-  const ways=data.ways.filter(validWay);
-  const midpoints=(options.kinds??['covered']).map(kind=>ways
-    .filter(w=>kind!=='indoor'||w.tags.indoor==='yes')
-    .map(w=>w.geometry[Math.floor(w.geometry.length/2)]));
+  const prepared=shelterSnapshot(options.data);
+  if (!prepared?.edges.size) return result;
+  const {edges}=prepared;
+  const midpoints=(options.kinds??['covered']).map(kind=>prepared.midpoints[kind]);
   // Bound CPU work as well as I/O. Check the nearest 128 directed Table pairs;
   // all unexamined pairs retain their original routes.
   const pairs:{a:Point;b:Point;km:number}[]=[];

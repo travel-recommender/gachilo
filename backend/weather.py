@@ -59,7 +59,7 @@ class WeatherClient:
                     flight = None
                 else:
                     if self.flight is None:
-                        self.flight = dict(done=threading.Event(), deadline=time.monotonic()+self.timeout,
+                        self.flight = dict(done=threading.Event(), deadline=self.monotonic()+self.timeout,
                                            result=None, day=today)
                         launch = True
                     flight = self.flight
@@ -68,7 +68,7 @@ class WeatherClient:
                 # alive; all callers share its deadline and never use stale data.
                 if launch:
                     threading.Thread(target=self._refresh, args=(now, flight), daemon=True).start()
-                flight['done'].wait(max(0, flight['deadline']-time.monotonic()))
+                flight['done'].wait(max(0, flight['deadline']-self.monotonic()))
                 with self.lock:
                     result = flight['result'] if flight['day'] == today else None
                     data, fetched, status = result or ({}, None, 'unavailable')
@@ -90,9 +90,9 @@ class WeatherClient:
         except Exception:
             result = {}, None, 'unavailable'
         with self.lock:
-            if time.monotonic() >= flight['deadline']:
-                result = {}, None, 'unavailable'
-            flight['result'] = result
+            # Keep this flight's timed-out callers on their original fallback.
+            # A valid late response can still serve the next calculation.
+            flight['result'] = result if self.monotonic() < flight['deadline'] else ({}, None, 'unavailable')
             self.cached, self.cache_day = result, flight['day']
             self.until = self.monotonic() + (1800 if result[2] == 'forecast' else 60)
             self.flight = None
@@ -130,7 +130,7 @@ class WeatherClient:
                     probability=value/100 if type(value) in (int, float) and math.isfinite(value) and 0 <= value <= 100 else None,
                     max_temperature_c=temperature if type(temperature) in (int, float)
                     and math.isfinite(temperature) and -90 <= temperature <= 60 else None)
-            return result, now.isoformat(timespec='seconds'), 'forecast'
+            return result, self.clock().astimezone(TOKYO).isoformat(timespec='seconds'), 'forecast'
         except (OSError, ValueError, KeyError, TypeError, OverflowError):
             # Errors are cached briefly; an expired forecast is never relabelled current.
             return {}, None, 'unavailable'

@@ -198,3 +198,55 @@ test('a shelter detour must also stay within the Table baseline allowance',async
   assert.doesNotMatch(conditionSummary([{date,points:[a,b]}]),/날씨 경로 안내:/);
  },opts));
 });
+
+
+test('Table-eligible second detour survives a cheaper candidate outside the Table limits',async()=>{
+ const roofVia={lat:34.6715,lng:135.502},indoorVia={...roofVia,lng:135.5017};
+ const mixed={...data,ways:[{...data.ways[0],geometry:[roofVia,roofVia]},{osm_way_id:456,nodes:[5,6],
+  geometry:[indoorVia,indoorVia],tags:{highway:'footway',indoor:'yes'}}]};
+ const opts={...options,shelterData:mixed,fetchImpl:async url=>{
+  const d=await (await fixture(url)).json();
+  if(url.includes('/table/')){d.distances=[[0,500],[500,0]];d.durations=[[0,420],[420,0]];}
+  else {
+   const coords=new URL(url).pathname.split('/').at(-1).split(';');
+   const isIndoor=coords.length===3 && coords[1]===`${indoorVia.lng},${indoorVia.lat}`;
+   const detour=coords.length===3;
+   const distance=detour?(isIndoor?600:700):600;
+   d.routes=[{distance,duration:480,geometry:raw().geometry,legs:[{annotation:detour?
+    (isIndoor?{nodes:[1,5,6,4],distance:[150,300,150]}:{nodes:[1,2,3,4],distance:[10,680,10]}):
+    {nodes:[8,9],distance:[distance]}}]}];
+  }
+  return Response.json(d);
+ }};
+ // Mixed trip prepares both roof and indoor candidates. Rain day chooses within Table allowance.
+ const forecast={...weather(1),days:[...weather(1).days,{date:'2026-10-03',status:'forecast',max_temperature_c:0}]};
+ await withTripConditions(forecast,date,()=>withRouting([a,b],()=>{
+  const move=travel(a,b);assert.equal(move.km,0.6);assert.deepEqual(move.via,indoorVia);
+  assert.match(conditionSummary([{date,points:[a,b]}]),/추가 약 1분/);
+  withConditionDay(1,()=>assert.equal(travel(a,b).km,0.5));
+ },opts));
+});
+
+test('Table time and distance limits are applied before ranking sheltered alternatives',()=>{
+ const normal={...annotateRoute(raw(),roofEdges(data)),min:10};
+ const first={...normal,km:0.65,min:13,coveredKm:0.6,unknownKm:0.05};
+ const second={...normal,km:0.6,min:8,coveredKm:0.5,unknownKm:0.1};
+ assert.equal(selectShelteredRoute([normal,first,second],1,false,{km:0.5,min:5}),second);
+ // A stricter Route response must not reject a candidate allowed by the actual Table baseline.
+ assert.equal(selectShelteredRoute([{...normal,km:0.4,unknownKm:0.4},second],1,false,{km:0.5,min:7}),second);
+});
+
+test('fixed shelter data is read once; injected empty and alternate data remain isolated',async t=>{
+ const fs=(await import('node:fs')).default;
+ const module=await import('./sheltered-routing.ts?cache-regression');
+ const read=t.mock.method(fs,'readFileSync',()=>JSON.stringify(data));
+ const base=new Map([[pair(a,b),{km:0.5,source:'osrm-foot'}]]);
+ const opts={baseUrl:options.baseUrl,fetchImpl:fixture};
+ const first=await module.prepareShelteredRoutes([a,b],base,opts,distKm);
+ const second=await module.prepareShelteredRoutes([a,b],base,opts,distKm);
+ assert.ok(first.size>0);assert.deepEqual(second,first);assert.equal(read.mock.callCount(),1);
+ assert.equal((await module.prepareShelteredRoutes([a,b],base,{...opts,data:null},distKm)).size,0);
+ assert.equal((await module.prepareShelteredRoutes([a,b],base,{...opts,data:{...data,ways:[]}},distKm)).size,0);
+ const injected=await module.prepareShelteredRoutes([a,b],base,{...opts,data},distKm);
+ assert.deepEqual(injected,first);assert.equal(read.mock.callCount(),1);
+});

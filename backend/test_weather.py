@@ -105,5 +105,38 @@ class WeatherTests(unittest.TestCase):
         finally:
             flight=client.flight; release.set()
             if flight:self.assertTrue(flight['done'].wait(1))
-        self.assertEqual(client.cached, ({},None,'unavailable'))
+        # Timed-out callers stay unchanged, but the next request can use a valid late response.
+        self.assertEqual(client.cached[2], 'forecast')
+        self.assertEqual(client.snapshot('2026-10-30','2026-10-31')['status'],'forecast')
+        self.assertEqual(len(calls),1)
+
+    def test_injected_monotonic_deadline_and_late_completion_use_one_clock(self):
+        def delayed(url,timeout):
+            self.calls.append(url)
+            self.seconds += 4
+            self.now += timedelta(seconds=4)
+            return io.BytesIO(json.dumps(body()).encode())
+        self.seconds=10000
+        client=WeatherClient(delayed,lambda:self.now,lambda:self.seconds,timeout=3)
+        first=client.snapshot('2026-10-30','2026-10-31')
+        self.assertEqual(first['status'],'unavailable')
+        second=client.snapshot('2026-10-30','2026-10-31')
+        self.assertEqual(second['status'],'forecast')
+        self.assertEqual(second['fetched_at'],self.now.isoformat(timespec='seconds'))
+        self.assertEqual(len(self.calls),1)
+        self.assertEqual(first['status'],'unavailable')
+        self.seconds+=1801
         self.assertEqual(client.snapshot('2026-10-30','2026-10-31')['status'],'unavailable')
+        self.assertEqual(len(self.calls),2)
+
+    def test_late_failed_forecast_is_negative_cached_and_retried_after_expiry(self):
+        def fail(url,timeout):
+            self.calls.append(url);self.seconds+=4
+            raise OSError('offline')
+        client=WeatherClient(fail,lambda:self.now,lambda:self.seconds)
+        self.assertEqual(client.snapshot('2026-10-30','2026-10-31')['status'],'unavailable')
+        self.assertEqual(client.snapshot('2026-10-30','2026-10-31')['status'],'unavailable')
+        self.assertEqual(len(self.calls),1)
+        self.seconds+=61
+        client.snapshot('2026-10-30','2026-10-31')
+        self.assertEqual(len(self.calls),2)

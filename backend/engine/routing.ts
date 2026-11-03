@@ -171,9 +171,9 @@ export function travel(a: Coordinate, b: Coordinate): Move {
   const alternatives=snapshot?.sheltered?.get(pairKey(a,b));
   const probability=routingExposureWeight();
   if(alternatives && probability>0) {
-    const chosen=selectShelteredRoute(alternatives,probability,routingColdPreference());
+    const chosen=selectShelteredRoute(alternatives,probability,routingColdPreference(),route);
     // Table is the baseline, including dry dates and constraint fallback.
-    if(chosen!==alternatives[0] && chosen.via && chosen.km<=route.km*1.35 && chosen.min<=route.min+5) route=chosen;
+    if(chosen!==alternatives[0] && chosen.via) route=chosen;
   }
   // Decide from the same walking distance that would enter the walking constraint.
   // Foot OSRM cannot model trains. Use the larger distance as a transit proxy so a
