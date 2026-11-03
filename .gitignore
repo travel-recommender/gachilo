@@ -46,3 +46,6 @@ backend/.local/
 data/osrm/
 *.osrm
 *.osrm.*
+
+# Local rehearsal state (tokens, logs, process records)
+.local/
