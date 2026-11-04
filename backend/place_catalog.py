@@ -16,6 +16,14 @@ def runtime_paths():
                  for value,key in zip(overrides,('catalog','profiles')))
 
 DATA,PROFILES=runtime_paths()
+DEMO_DATASET='prototype_demo_36'
+
+def is_excluded(record):
+    return record['review'].get('final_csv', {}).get('record_status') == '제외'
+
+def active_real_ids(records):
+    return {r['place']['place_id'] for r in records if not is_excluded(r)}
+
 LIGHT_SHOPPING_PLACES={'구로몬시장','신사이바시스지 상점가','아메리카무라','신세카이'}
 
 def get_luggage_score(place):
@@ -111,7 +119,7 @@ def project(record,rate):
         if verified['cost_kind']=='official_budget_estimate':out['cost_status']='estimate'
 
     out['search_names']=search_names(record)
-    out['selection_disabled_reason']='제외된 장소예요: '+out['record_status_reason'] if final.get('record_status')=='제외' else None
+    out['selection_disabled_reason']='제외된 장소예요: '+out['record_status_reason'] if is_excluded(record) else None
     out['planning']={'schedule_ready':False,'review_required':list(dict.fromkeys(reasons)),
       'shopping_spend_excluded':shopping,'stay_range':record['review'].get('stay_policy'),
       'source_currency':'JPY','api_currency':'KRW'}
