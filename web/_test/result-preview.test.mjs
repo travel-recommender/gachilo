@@ -36,6 +36,8 @@ function preview(exclusions) {
   '@/lib/explain':{explainResult:()=>[]},
   '@/lib/room-api':{FALLBACK_RATE:{krwPerJpy:9.5}},
   '@/lib/shared-flow':{hasCandidates:()=>false},
+  '@/lib/weather-route-notice':require('../src/lib/weather-route-notice.ts'),
+  '@/components/WeatherRouteNotice':{WeatherRouteNotice:()=>null},
   '@/components/useSharedResults':{useSharedResults:()=>({online:false,snap:null})},
   '@/components/gachiro':{NavButtons:()=>null,Page:()=>null,PlanHeader:()=>null,asset:s=>s},
  };

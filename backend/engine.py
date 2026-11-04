@@ -1,5 +1,6 @@
 import json,os,re,shutil,subprocess
 from pathlib import Path
+from weather import with_weather
 
 class EngineError(Exception):pass
 class Engine:
@@ -22,4 +23,4 @@ class Engine:
             return json.loads(p.stdout)
         except (OSError,ValueError,subprocess.SubprocessError) as e:
             raise EngineError('추천 계산을 완료하지 못했습니다. 실행 환경을 확인한 뒤 다시 시도하세요.') from e
-    def calculate(self,snapshot,strategy):return self.call({**snapshot,'strategy':strategy})
+    def calculate(self,snapshot,strategy):return self.call({**with_weather(snapshot),'strategy':strategy})
