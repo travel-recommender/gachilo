@@ -8,7 +8,6 @@ import { CATEGORIES, findPlace } from "@/lib/places";
 import { Box, MinusButton, NavButtons, Page, PlanHeader } from "@/components/gachiro";
 import type { Place } from "@/lib/types";
 
-/** 서버가 받는 1차 목록 최대 개수 */
 import { P3_LIST_LIMIT as LIMIT } from "@/lib/p3-limits";
 
 /**
@@ -55,7 +54,7 @@ export default function Pick() {
   return (
     <Page nav={<NavButtons next={next} busy={busy} />}>
       <PlanHeader />
-      <fieldset disabled={busy} className="px-5 pt-[59px]">
+      <fieldset disabled={busy} className="min-w-0 px-5 pt-[59px]">
         <PlaceFinder added={longlist} onPick={add} disabled={busy} />
         {busy && <p role="status" className="mt-2 text-sm text-mute">목록을 저장하고 있어요. 잠시 기다려 주세요.</p>}
         {state.room && recommendFrom?.session === session && <PlaceRecommendations

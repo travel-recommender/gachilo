@@ -19,11 +19,13 @@ function load(relative,mocks={}) {
 const evidence=load('../src/lib/place-recommendations.ts');
 function hooks() {
  let index=0;const values=[],effects=[],pending=[];
+ const scheduleEffect=(fn,deps)=>{const i=index++,prior=effects[i];if(!prior||deps.some((v,n)=>v!==prior.deps[n]))pending.push(()=>{prior?.cleanup?.();effects[i]={deps,cleanup:fn()};});};
  return {
   react:{
    useState(initial){const i=index++;if(!(i in values))values[i]=initial;return [values[i],v=>{values[i]=typeof v==='function'?v(values[i]):v;}];},
    useRef(initial){const i=index++;if(!(i in values))values[i]={current:initial};return values[i];},
-   useEffect(fn,deps){const i=index++,prior=effects[i];if(!prior||deps.some((v,n)=>v!==prior.deps[n]))pending.push(()=>{prior?.cleanup?.();effects[i]={deps,cleanup:fn()};});},
+   useEffect:scheduleEffect,
+   useLayoutEffect:scheduleEffect,
   },
   render(fn){index=0;return fn();},
   flush(){while(pending.length)pending.shift()();},

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { API_BASE } from "@/lib/room-api";
 import { createRecommendationClient, type RecommendationRequest, type PlaceRecommendations } from "@/lib/place-recommendations";
 
@@ -10,7 +10,7 @@ export function usePlaceRecommendations(request: RecommendationRequest | null) {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [attempt, setAttempt] = useState(0);
   const latest = useRef(request);
-  latest.current = request;
+  useLayoutEffect(() => { latest.current = request; }, [request]);
   // Keep one batch while editing My list. The UI filters it against the live list.
   // A different source/session/mode cancels and hides prior evidence immediately.
   const identity = request ? [request.roomId, request.memberId, request.token, request.dataset, request.placeId] : null;

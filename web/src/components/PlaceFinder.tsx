@@ -43,7 +43,7 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
   };
 
   return (
-    <fieldset disabled={disabled} className="relative">
+    <fieldset disabled={disabled} className="relative min-w-0">
       <div className="flex h-[46px] items-center rounded-[6.795px] border border-line bg-white pl-[23px] pr-[19px]">
         <input ref={input} value={query} placeholder={placeholder} aria-label={placeholder}
           onChange={(e) => { setQuery(e.target.value); setVisibleCount(40); setOpen(true); setAdding(false); }}
