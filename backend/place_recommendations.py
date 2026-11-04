@@ -24,6 +24,7 @@ def rank_places(source_id, places, counts, eligible, excluded, limit):
         same_category = bool(source['category'] and source['category'] == p['category'])
         affinity = 0 if same_area and same_category else 1 if same_area else 2 if same_category else 3
         count = votes.get(pid, 0)
+        # Keep the disclosure threshold even when this ranker is called directly.
         if count < MIN_COUNT:
             count = 0
         if count == 0 and affinity == 3:

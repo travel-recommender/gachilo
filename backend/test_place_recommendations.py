@@ -103,6 +103,7 @@ class RecommendationStoreTests(unittest.TestCase):
         with self.assertLogs('co_picks', level='WARNING') as logs:
             got = self.recommend()
         self.assertIsInstance(got['recommendations'], list)
+        self.assertEqual(got['eligibility'], 'at_least_one_trip_date')
         self.assertEqual(len(logs.output), 1)
         self.assertIn('1개 제외', logs.output[0])
         self.assertNotIn('private-corrupt', logs.output[0])
