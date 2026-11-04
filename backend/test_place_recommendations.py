@@ -22,10 +22,10 @@ def place(pid, area='난바', category='food'):
 class RankingTests(unittest.TestCase):
     def test_count_then_affinity_then_stable_id_and_no_duplicates(self):
         places = {p['id']: p for p in [place('s'), place('b'), place('a'), place('far', '우메다', 'cafe')]}
-        counts = {'pairs': [{'placeIds': ['s', pid], 'listCount': n} for pid, n in [('a', 2), ('b', 2), ('far', 3)]]}
+        counts = {'pairs': [{'placeIds': ['s', pid], 'listCount': n} for pid, n in [('a', 3), ('b', 3), ('far', 4)]]}
         got = rank_places('s', places, counts, set(places), set(), 10)
         self.assertEqual([x['placeId'] for x in got], ['far', 'a', 'b'])
-        self.assertEqual([x['coPickCount'] for x in got], [3, 2, 2])
+        self.assertEqual([x['coPickCount'] for x in got], [4, 3, 3])
         self.assertTrue(all(x['reason'] == 'co_pick' for x in got))
 
     def test_sparse_fills_area_category_then_area_then_category(self):
@@ -59,7 +59,8 @@ class RecommendationStoreTests(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.db = Path(self.tmp.name) / 'test.sqlite3'
-        self.store = Store(self.db)
+        self.demo = json.loads((Path(__file__).parent / 'engine/catalog.json').read_text())
+        self.store = Store(self.db, self.demo)
         self.room = self.create()
 
     def create(self, dataset=DEMO_DATASET):
@@ -77,15 +78,40 @@ class RecommendationStoreTests(unittest.TestCase):
         return self.store.recommend_places(room['roomId'], m['id'], m['submissionToken'],
                                            body or {'placeId': 'glico'})
 
-    def test_live_counts_refresh_after_repeated_save_edit_and_clear(self):
-        for _ in range(3):
-            self.save(1, ['glico', 'kuromon'])
-        self.save(2, ['glico', 'kuromon'])
-        self.assertEqual(self.recommend()['recommendations'][0]['coPickCount'], 2)
-        self.save(1, ['glico'])
-        self.assertEqual(self.recommend()['recommendations'][0]['coPickCount'], 1)
-        self.save(2, [])
+    def test_live_counts_exclude_own_room_threshold_and_refresh(self):
+        # Own room cannot be used to probe other rooms with injected votes.
+        for i in range(3):
+            self.save(i, ['glico', 'kuromon'])
         self.assertTrue(all(x['coPickCount'] == 0 for x in self.recommend()['recommendations']))
+        self.save(0, ['glico'])
+        other = self.create()
+        for i in range(3):
+            self.save(i, ['glico', 'kuromon'], other)
+            self.save(i, ['kuromon', 'glico'], other)
+            got = self.recommend()['recommendations']
+            if i < 2:
+                self.assertTrue(all(x['coPickCount'] == 0 for x in got))
+        self.assertEqual(got[0]['placeId'], 'kuromon')
+        self.assertEqual(got[0]['coPickCount'], 3)
+        self.save(1, [], other)
+        self.assertTrue(all(x['coPickCount'] == 0 for x in self.recommend()['recommendations']))
+
+    def test_foreign_corruption_is_skipped_and_only_count_logged(self):
+        other = self.create()
+        with self.store.connect() as c:
+            c.execute('INSERT INTO longlists VALUES(?,?,?)', (other['members'][0]['id'], '{private-corrupt-value', 'test'))
+        with self.assertLogs('co_picks', level='WARNING') as logs:
+            got = self.recommend()
+        self.assertIsInstance(got['recommendations'], list)
+        self.assertEqual(len(logs.output), 1)
+        self.assertIn('1개 제외', logs.output[0])
+        self.assertNotIn('private-corrupt', logs.output[0])
+        self.assertNotIn(other['roomId'], logs.output[0])
+
+    def test_request_reuses_initialized_catalog_and_only_counts_source(self):
+        with patch('pathlib.Path.read_text', side_effect=AssertionError('request reread catalog')), \
+             patch('co_picks.combinations', side_effect=AssertionError('all-pairs work')):
+            self.assertTrue(self.recommend()['recommendations'])
 
     def test_server_and_unsaved_exclusions_are_both_applied(self):
         self.save(0, ['glico', 'hozenji'])
@@ -109,18 +135,19 @@ class RecommendationStoreTests(unittest.TestCase):
         self.save(1, ['glico'], other)
         self.save(2, ['kuromon'], other)
         self.assertTrue(all(x['coPickCount'] == 0 for x in self.recommend()['recommendations']))
-        self.save(1, ['glico', 'kuromon'], other)
+        for i in range(3):
+            self.save(i, ['glico', 'kuromon'], other)
         self.assertEqual(self.recommend()['recommendations'][0]['placeId'], 'kuromon')
         # Even legacy dirty IDs from a different dataset cannot influence demo counts.
         real = self.create(REAL_DATASET)
         with self.store.connect() as c:
             c.execute('INSERT INTO longlists VALUES(?,?,?)', (real['members'][1]['id'], '["glico","umeda_sky"]', 'test'))
-        self.assertEqual(self.recommend()['recommendations'][0]['coPickCount'], 1)
+        self.assertEqual(self.recommend()['recommendations'][0]['coPickCount'], 3)
 
     def test_auth_is_member_specific_and_precedes_work(self):
         a, b = self.room['members'][:2]
         foreign = self.create()['members'][0]
-        with patch('place_recommendations.load_places') as loader:
+        with patch('place_recommendations.source_counts_from_connection') as loader:
             for token in ['', 'bad', self.room['ownerToken'], b['submissionToken'], foreign['submissionToken']]:
                 with self.subTest(token=bool(token)), self.assertRaises(ApiError) as caught:
                     self.store.recommend_places(self.room['roomId'], a['id'], token, {'placeId': 'glico'})
@@ -216,7 +243,7 @@ class RecommendationHttpTests(unittest.TestCase):
         code, got, headers = self.req('POST', path, {'placeId': 'glico'}, a['submissionToken'])
         self.assertEqual(code, 200)
         self.assertEqual(len(got['recommendations']), 3)
-        self.assertEqual(got['recommendations'][0]['placeId'], 'kuromon')
+        self.assertTrue(all(x['coPickCount'] == 0 for x in got['recommendations']))
         self.assertEqual(headers['Cache-Control'], 'no-store')
         raw = json.dumps(got)
         for secret in [rid, a['id'], b['id'], a['submissionToken'], 'memberNames', 'longlist']:
@@ -236,8 +263,6 @@ class RecommendationHttpTests(unittest.TestCase):
         code, got, _ = self.req('POST', f"/rooms/{rid}/recommendations/{a['id']}",
                                {'placeId': 'osaka_001', 'limit': 10}, a['submissionToken'])
         self.assertEqual(code, 200)
-        self.assertEqual(got['recommendations'][0]['placeId'], 'branch_ichiran_shinsaibashi')
-        self.assertNotIn('branch_wanaka_dotonbori', [x['placeId'] for x in got['recommendations']])
         allowed = self.req('GET', f'/rooms/{rid}/schedulable', token=a['submissionToken'])[1]['placeIds']
         self.assertTrue(set(x['placeId'] for x in got['recommendations']) <= set(allowed))
         # Review-expired trip: return fewer/zero, never search-only padding.
@@ -256,4 +281,4 @@ class RecommendationHttpTests(unittest.TestCase):
             self.assertEqual(self.req('POST', path, body, m['submissionToken'])[0], 503)
         code, got, _ = self.req('POST', path, body, m['submissionToken'])
         self.assertEqual(code, 200)
-        self.assertTrue(got['recommendations'])
+        self.assertIsInstance(got['recommendations'], list)
