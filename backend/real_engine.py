@@ -4,6 +4,7 @@ import re
 import subprocess
 from pathlib import Path
 from engine import EngineError
+from weather import with_weather
 from place_catalog import exchange_rate, exchange_rate_metadata
 
 REAL_DATASET = 'osaka_review_150'
@@ -28,6 +29,7 @@ class RealEngine:
         self.script = Path(__file__).parent / 'engine/real.mjs'
 
     def calculate(self, snapshot):
+        snapshot = with_weather(snapshot)
         metadata = documented_exchange_rate()
         try:
             result = subprocess.run([self.node, str(self.script)],
