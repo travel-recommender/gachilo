@@ -20,7 +20,7 @@ class RealCandidatesTests(unittest.TestCase):
     save=test_real_engine.RealRoomTests.save
 
     def setUp(self):
-        self.env=patch.dict(os.environ,{**test_real_engine.FX,'OSRM_FOOT_URL':'','SOMSOM_API_KEY':'','AI_MOCK':''})
+        self.env=patch.dict(os.environ,{**test_real_engine.FX,'OSRM_FOOT_URL':'','SOMSOM_API_KEY':'','AI_MOCK':'','LIVE_CHECK_MOCK':'pass'})
         self.env.start();self.addCleanup(self.env.stop)
         test_server.ApiTests.setUp(self)
 
@@ -117,7 +117,9 @@ class RealCandidatesTests(unittest.TestCase):
             code,result,_=self.calculate(room)
         self.assertEqual(code,503);self.assertIn('하나은행',result['error'])
         for m in room['members']:self.save(room,m,['osaka_001'])
-        code,result,_=self.calculate(room,revision=6)
+        # 빈자리는 AI 채우기가 메우므로, 실시간 확인이 모두 실패할 때 빈 후보가 저장되지 않는지 본다
+        with patch.dict(os.environ,{'LIVE_CHECK_MOCK':'fail'}):
+            code,result,_=self.calculate(room,revision=6)
         self.assertEqual(code,503);self.assertIn('방문 날짜',result['error'])
         current=Store(self.db).result(room['roomId'],room['ownerToken'])
         self.assertEqual(current['status'],'awaiting_result');self.assertEqual(current['candidates'],[])
