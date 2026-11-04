@@ -15,6 +15,9 @@ from server import Store
 
 class CoPickTests(unittest.TestCase):
     def setUp(self):
+        self.threshold = patch('co_picks.MIN_COUNT', 1)
+        self.threshold.start()
+        self.addCleanup(self.threshold.stop)
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.db = Path(self.tmp.name) / 'trips.sqlite3'
@@ -58,6 +61,37 @@ class CoPickTests(unittest.TestCase):
         self.assertEqual(counts['pairListCount'], 2)
         self.assertEqual(counts['placeCounts'], [{'placeId': p, 'listCount': 2}
                                                for p in ['glico', 'kuromon', 'umeda_sky']])
+
+    def test_default_threshold_suppresses_small_samples_and_removal(self):
+        self.threshold.stop()
+        for i in (0, 1):
+            self.save(i, ['glico', 'kuromon'])
+            self.assertEqual(self.counts()['pairs'], [])
+            self.assertEqual(self.counts()['placeCounts'], [])
+        self.save(2, ['glico', 'kuromon'])
+        self.assertEqual(self.pairs(), {('glico', 'kuromon'): 3})
+        self.assertEqual(self.counts()['minimumListCount'], 3)
+        self.save(2, [])
+        self.assertEqual(self.counts()['pairs'], [])
+
+    def test_oldest_db_without_dataset_is_demo_and_remains_unmigrated(self):
+        self.submit(0, ['glico', 'kuromon'])
+        with self.store.connect() as c:
+            c.execute('DROP TABLE longlists')
+            c.execute('ALTER TABLE rooms DROP COLUMN dataset')
+            before = list(c.iterdump())
+        self.assertEqual(self.pairs(), {('glico', 'kuromon'): 1})
+        self.assertEqual(build_counts(self.db, REAL_DATASET)['pairs'], [])
+        with self.store.connect() as c:
+            self.assertEqual(list(c.iterdump()), before)
+
+    def test_pool_and_counts_share_p3_precedence(self):
+        self.submit(0, ['glico', 'kuromon'])
+        self.save(0, [])
+        self.save(1, ['umeda_sky'])
+        pool = self.store.pool(self.room['roomId'], self.room['ownerToken'])
+        self.assertEqual(pool['placeIds'], ['umeda_sky'])
+        self.assertEqual([p['placeId'] for p in self.counts()['placeCounts']], pool['placeIds'])
 
     def test_room_union_does_not_invent_a_pair(self):
         self.save(0, ['glico'])
@@ -210,10 +244,11 @@ class CoPickTests(unittest.TestCase):
         output.write_text('previous snapshot', encoding='utf-8')
         self.save(0, ['glico', 'kuromon'])
         for invalid in ['not json', '{}', '[null]', '["glico",1]']:
-            with self.subTest(invalid=invalid), self.store.connect() as c:
-                c.execute('UPDATE longlists SET ids=?', (invalid,))
-            with self.assertRaises(ValueError):
-                self.counts()
+            with self.subTest(invalid=invalid):
+                with self.store.connect() as c:
+                    c.execute('UPDATE longlists SET ids=?', (invalid,))
+                with self.assertRaises(ValueError):
+                    self.counts()
         with self.assertRaises(SystemExit) as error, contextlib.redirect_stderr(io.StringIO()):
             co_picks.main(['--db', str(self.db), '--dataset', DEMO_DATASET, '--output', str(output)])
         self.assertEqual(error.exception.code, 1)
