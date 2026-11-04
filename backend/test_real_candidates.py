@@ -18,6 +18,7 @@ class RealCandidatesTests(unittest.TestCase):
     req=test_server.ApiTests.req
     room=test_real_engine.RealRoomTests.room
     save=test_real_engine.RealRoomTests.save
+    legacy_save=test_real_engine.RealRoomTests.legacy_save
 
     def setUp(self):
         self.env=patch.dict(os.environ,{**test_real_engine.FX,'OSRM_FOOT_URL':'','SOMSOM_API_KEY':'','AI_MOCK':'','LIVE_CHECK_MOCK':'pass'})
@@ -34,6 +35,54 @@ class RealCandidatesTests(unittest.TestCase):
 
     def calculate(self,room,revision=3,token=None):
         return self.req('POST',f"/rooms/{room['roomId']}/calculate",{'strategies':STRATEGIES,'revision':revision},room['ownerToken'] if token is None else token)
+
+    def test_shared_pool_multiple_vetoes_selection_reload_and_clear(self):
+        room=self.room(count=2);a,b=room['members'];path=f"/rooms/{room['roomId']}"
+        ids=['osaka_009','osaka_015','osaka_017'];vetoes=ids[:2]
+        for member in (a,b):
+            self.assertEqual(self.req('PUT',path+'/longlists/'+member['id'],{'longlist':ids},member['submissionToken'])[0],200)
+            self.assertEqual(self.save(room,member,ids,must='osaka_015')[0],200)
+        code,before,_=self.calculate(room,revision=2)
+        self.assertEqual(code,200)
+        # Both veto targets were genuinely schedulable before being excluded.
+        # 남은 자리는 AI 채우기 장소(aiAdded)이고 구성원 장소는 모두 들어간다
+        for candidate in before['candidates']:
+            mine={i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']}
+            self.assertEqual(mine,set(ids))
+
+        self.assertEqual(self.save(room,b,['osaka_017'],longlist=ids,veto=vetoes[0],vetoes=vetoes)[0],200)
+        pool=self.req('GET',path+'/pool',token=a['submissionToken'])[1]
+        self.assertEqual(set(pool['placeIds']),set(ids))
+        self.assertEqual(pool['listedCount'],2)
+        own=self.req('GET',path+'/submissions/'+b['id'],token=b['submissionToken'])[1]['submission']
+        self.assertEqual(own['vetoes'],vetoes)
+        with Store(self.db).connect() as connection:
+            saved=json.loads(connection.execute('SELECT payload FROM submissions WHERE member_id=?',(b['id'],)).fetchone()[0])
+        self.assertEqual(saved['vetoes'],vetoes)
+        self.assertEqual(self.req('GET',path+'/results',token=room['ownerToken'])[1]['candidates'],[])
+        code,result,_=self.calculate(room,revision=3)
+        self.assertEqual(code,200)
+        self.assertEqual([candidate['strategy'] for candidate in result['candidates']],STRATEGIES)
+        for candidate in result['candidates']:
+            placed={pid for day in candidate['days'] for pid in day['placeIds']}
+            self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']},{'osaka_017'})
+            self.assertFalse(placed & set(vetoes))
+            self.assertEqual(candidate['planning']['must_veto_conflict_count'],1)
+            choice={'strategy':candidate['strategy'],'revision':3,'selectionVersion':result['selectionVersion']}
+            code,result,_=self.req('PUT',path+'/selection',choice,room['ownerToken'])
+            self.assertEqual(code,200)
+            self.assertEqual({pid for day in result['result']['days'] for pid in day['placeIds']},placed)
+            for member in (a,b):
+                self.assertEqual(self.req('GET',path+'/results',token=member['submissionToken'])[1],result)
+                self.assertEqual(Store(self.db).result(room['roomId'],member['submissionToken']),result)
+
+        # Clearing the list overrides a stale legacy veto and invalidates the selected result.
+        self.assertEqual(self.save(room,b,['osaka_017'],longlist=ids,veto=vetoes[0],vetoes=[])[0],200)
+        self.assertIsNone(self.req('GET',path+'/results',token=a['submissionToken'])[1]['result'])
+        code,cleared,_=self.calculate(room,revision=4)
+        self.assertEqual(code,200)
+        for candidate in cleared['candidates']:
+            self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']},set(ids))
 
     def test_three_clients_select_persist_and_cache_same_real_candidates(self):
         room=self.ready_room();path=f"/rooms/{room['roomId']}"
@@ -66,12 +115,28 @@ class RealCandidatesTests(unittest.TestCase):
         self.assertEqual(self.calculate(room)[0],409)
         self.assertEqual(self.calculate(room,revision=4)[0],200)
 
-    def test_150_catalog_ids_submit_then_three_validated_candidates(self):
+    def test_forecast_summary_is_shared_saved_and_not_refetched_for_cached_revision(self):
+        room=self.ready_room();path=f"/rooms/{room['roomId']}"
+        forecast=dict(source='Open-Meteo',status='forecast',fetched_at='2026-10-01T09:00:00+09:00',
+                      days=[dict(date='2026-10-01',status='forecast',probability=0.8,max_temperature_c=36),
+                            dict(date='2026-10-02',status='forecast',probability=0,max_temperature_c=25)])
+        with patch('weather.client.snapshot',return_value=forecast) as fetch:
+            code,result,_=self.calculate(room);self.assertEqual(code,200)
+            for c in result['candidates']:
+                self.assertIn('2026-10-01 80%',c['summary']);self.assertIn('2026-10-02 0%',c['summary'])
+                self.assertIn('지붕 미확인',c['summary']);self.assertIn('2026-10-01 36°C',c['summary'])
+            self.assertEqual(self.calculate(room)[1],result);self.assertEqual(fetch.call_count,1)
+        selected=self.req('PUT',path+'/selection',{'strategy':'average','revision':3,'selectionVersion':0},room['ownerToken'])[1]
+        for m in room['members']:
+            self.assertEqual(self.req('GET',path+'/results',token=m['submissionToken'])[1],selected)
+            self.assertEqual(Store(self.db).result(room['roomId'],m['submissionToken']),selected)
+
+    def test_legacy_150_catalog_inputs_produce_three_validated_candidates(self):
         room=self.room(count=6,start='2026-10-01',end='2026-10-07')
         places=self.req('GET','/api/places?limit=150')[1]['places'];self.assertEqual(len(places),150)
         ids={p['place_id'] for p in places}
         for i,m in enumerate(room['members']):
-            self.assertEqual(self.save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25]])[0],200)
+            self.legacy_save(room,m,[p['place_id'] for p in places[i*25:(i+1)*25] if not p.get('selection_disabled_reason')])
         code,result,_=self.calculate(room,revision=6)
         self.assertEqual(code,200)
         for c in result['candidates']:
@@ -98,7 +163,7 @@ class RealCandidatesTests(unittest.TestCase):
         room=self.ready_room();store=Store(self.db,Engine().catalog)
         good=CandidateEngine(Engine().node).calculate(store.snapshot(room['roomId'],room['ownerToken']))
         metadata={'dataset':'osaka_review_150','start':'2026-10-01','end':'2026-10-02'}
-        ids={p['place_id'] for p in self.req('GET','/api/places?limit=150')[1]['places']}
+        ids=store.real_ids # Validation needs the full catalog, not just its first page.
         for code in ('price_2027_unconfirmed','OAP_reopening_unconfirmed','regular_closure','A'*100,
                      '', 'price unconfirmed', 'member@example.com', 'price-2027', 'A'*101, 'a\n'):
             with self.subTest(code=code):
@@ -116,7 +181,7 @@ class RealCandidatesTests(unittest.TestCase):
         with patch.dict(os.environ,{'JPY_TO_KRW_SOURCE':''}):
             code,result,_=self.calculate(room)
         self.assertEqual(code,503);self.assertIn('하나은행',result['error'])
-        for m in room['members']:self.save(room,m,['osaka_001'])
+        for m in room['members']:self.assertEqual(self.save(room,m,[])[0],200)
         # 빈자리는 AI 채우기가 메우므로, 실시간 확인이 모두 실패할 때 빈 후보가 저장되지 않는지 본다
         with patch.dict(os.environ,{'LIVE_CHECK_MOCK':'fail'}):
             code,result,_=self.calculate(room,revision=6)

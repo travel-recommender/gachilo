@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "scope": "여행 편의 참고 자료. 관광 장소/식당 추천 풀에 포함하지 않음. UI 연동 미적용.",
+  "items": [
+    {
+      "support_id": "support_nest_namba",
+      "kind": "luggage_storage",
+      "name_ko": "n・e・s・t 난카이 난바역 짐 보관",
+      "address": "大阪市中央区難波5-1-60 南海なんば駅2F 中央改札口前（改札外）",
+      "hours": "09:00–21:00",
+      "conditions": "개찰구 밖. 일시 보관·공항 배송을 구분. 요금·용량·예약·마감 조건은 예약 화면에서 확인 필요.",
+      "source_urls": [
+        "https://about.airporter.co.jp/nest"
+      ],
+      "checked_at": "2026-10-30",
+      "related_place_id": null,
+      "automatic_itinerary_stop": false,
+      "runtime_ui_applied": false,
+      "coordinates": null
+    },
+    {
+      "support_id": "support_yamato_namba",
+      "kind": "luggage_storage",
+      "name_ko": "야마토 운수 난바역 앞 영업소",
+      "address": "大阪府大阪市中央区難波4-4-4",
+      "hours": "매일 09:00–20:00",
+      "conditions": "일시 보관 120사이즈 600엔/개·일, 140사이즈 이상 800엔/개·일. 사이즈 정의·약관·당일 수용 가능 여부 확인. 배송 접수 11:30 마감과 보관 운영시간을 구분.",
+      "source_urls": [
+        "https://www.kuronekoyamato.co.jp/ytc/promotion/baggage_osaka/ja/index.html"
+      ],
+      "checked_at": "2026-10-30",
+      "related_place_id": null,
+      "automatic_itinerary_stop": false,
+      "runtime_ui_applied": false,
+      "coordinates": null
+    },
+    {
+      "support_id": "support_nankai_namba_access",
+      "kind": "station_access",
+      "name_ko": "난카이 난바역 층별 출입·엘리베이터 안내",
+      "address": "大阪市中央区難波5丁目1番60号",
+      "hours": null,
+      "conditions": "공식 층별 도면·엘리베이터/개찰구 안내 링크. 도면은 2023-09-15 기준이므로 공사 변경 재확인. 역 전체 좌표를 특정 출입구 좌표로 사용하지 않음.",
+      "source_urls": [
+        "https://www.nankai.co.jp/traffic/station/namba.html"
+      ],
+      "checked_at": "2026-10-30",
+      "related_place_id": null,
+      "automatic_itinerary_stop": false,
+      "runtime_ui_applied": false,
+      "coordinates": null
+    },
+    {
+      "support_id": "support_osaka_toki",
+      "kind": "rest_area",
+      "name_ko": "오사카역 시공의 광장",
+      "address": "JR大阪駅5F",
+      "hours": "08:00–23:30",
+      "conditions": "지붕이 덮인 광장. 행사·통행 변경 및 자리 이용 가능 여부 재확인. 위층까지 이동하는 시간은 도로 OSRM 경로에 포함되지 않음.",
+      "source_urls": [
+        "https://osakastationcity.com/green/toki/"
+      ],
+      "checked_at": "2026-10-30",
+      "related_place_id": null,
+      "automatic_itinerary_stop": false,
+      "runtime_ui_applied": false,
+      "coordinates": null
+    },
+    {
+      "support_id": "support_kaiyukan_lockers",
+      "kind": "luggage_storage",
+      "name_ko": "가이유칸 입장 전 보관함 안내",
+      "address": "海遊館エントランスビル",
+      "hours": null,
+      "conditions": "크기별 400/600/800/1000/1500엔 안내. 관내 유료 구역은 400엔 보관함만 있음. 빈자리·규격·사용 시간 확인. 입장료와 별도 비용.",
+      "source_urls": [
+        "https://www.kaiyukan.com/info/"
+      ],
+      "checked_at": "2026-10-30",
+      "related_place_id": "branch_kaiyukan",
+      "automatic_itinerary_stop": false,
+      "runtime_ui_applied": false,
+      "coordinates": null
+    }
+  ]
+}

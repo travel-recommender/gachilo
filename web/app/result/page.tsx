@@ -9,6 +9,8 @@ import { FALLBACK_RATE, roomApi } from "@/lib/room-api";
 import { hasCandidates, statusLine } from "@/lib/shared-flow";
 import { useSharedResults } from "@/components/useSharedResults";
 import { NavButtons, Page, PlanHeader, asset } from "@/components/gachiro";
+import { WeatherRouteNotice } from "@/components/WeatherRouteNotice";
+import { withoutWeatherRouteNotice } from "@/lib/weather-route-notice";
 import type { Strategy } from "@/lib/types";
 
 const STRATEGIES: { id: Strategy; label: string; desc: string }[] = [
@@ -54,7 +56,7 @@ export default function Result() {
 
   /** 이 기기에서 만든 후보 (데모·미리보기). store의 일정과 같은 규칙 */
   const localCards = useMemo<Card[]>(() => {
-    const vetoed = new Set(submissions.map((s) => s.veto).filter(Boolean) as string[]);
+    const vetoed = new Set(submissions.flatMap((s) => s.vetoes ?? (s.veto ? [s.veto] : [])));
     return STRATEGIES.map((st) => {
       const consensus = buildConsensus({
         submissions, nights: state.nights, strategy: st.id, allowPartial: state.allowPartial,
@@ -166,13 +168,14 @@ export default function Result() {
                 )}
                 <p className={`mt-2 text-[11px] leading-[1.45] ${on ? "font-semibold text-white" : "text-mute-soft"}`}>
                   {/* 고르기 전(회색)에는 방법 설명, 고른 뒤(버건디)에는 이 후보의 결과 설명만 */}
-                  {on ? c.note : c.desc}
+                  {on ? withoutWeatherRouteNotice(c.note) : c.desc}
                   {on && c.ai && <span className="ml-1 rounded-[20px] bg-white/20 px-1.5 py-[1px] text-[9px] font-bold">AI 설명</span>}
                 </p>
               </button>
             );
           })}
         </div>
+        {server && <WeatherRouteNotice summary={cards.find(c => c.id === shown)?.note} />}
         <p className="mt-3 text-[10.5px] text-mute-soft">
           엔화는 1엔 = {rate}원으로 계산했어요. 실제 환전 금액과 다를 수 있어요.
           {server && " 걸음·소비·이동은 추정치이고 교통·숙박비는 빠져 있어요."}

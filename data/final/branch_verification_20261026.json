@@ -1,0 +1,3058 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-26",
+  "scope": "Local demo model, dated availability; no production guarantee or surveyed entrances.",
+  "collection_sha256": "9fdac5791db1169c433fb329c4e63c1d4575c86000dff2147236dd7cd90abc57",
+  "policy": {
+    "request": "사용자가 추가55곳의 좌표·운영조건 확인 및 자동 일정 적용 요청",
+    "valid_from": "2026-10-26",
+    "valid_through": "2026-11-30",
+    "stay_and_bag_values_are_estimates": true,
+    "shopping_purchase_cost_excluded": true,
+    "coordinates_are_map_references_not_surveyed_entrances": true,
+    "same_building_transfer_min": 5
+  },
+  "places": {
+    "branch_ichiran_shinsaibashi": {
+      "place_id": "branch_ichiran_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/shinsaibashi/"
+      ],
+      "coordinates": {
+        "latitude": 34.674134,
+        "longitude": 135.501957,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~익일06:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1440,
+          1425
+        ],
+        "source_urls": [
+          "https://ichiran.com/shop/kinki/shinsaibashi/"
+        ],
+        "exceptions": {},
+        "cost_basis": "지점 공식 기본 라멘 1그릇 1180엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+      },
+      "cost_jpy": 1180,
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1180엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "심야 영업이 있어도 자동 일정은 당일 09~21시만 배치. 심야 할증·다음날 새벽 미모델링."
+      ]
+    },
+    "branch_ichiran_namba_midosuji": {
+      "place_id": "branch_ichiran_namba_midosuji",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://ichiran.com/np/shop/kinki/namba-midosuji.html"
+      ],
+      "coordinates": {
+        "latitude": 34.669318,
+        "longitude": 135.500645,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "09:00~22:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          540,
+          1320,
+          1305
+        ],
+        "source_urls": [
+          "https://ichiran.com/np/shop/kinki/namba-midosuji.html"
+        ],
+        "exceptions": {},
+        "cost_basis": "지점 공식 기본 라멘 1그릇 1280엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+      },
+      "cost_jpy": 1280,
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1280엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "심야 영업이 있어도 자동 일정은 당일 09~21시만 배치. 심야 할증·다음날 새벽 미모델링."
+      ]
+    },
+    "branch_ichiran_umeda_hankyu": {
+      "place_id": "branch_ichiran_umeda_hankyu",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/umeda-hankyu/"
+      ],
+      "coordinates": {
+        "latitude": 34.70272,
+        "longitude": 135.502981,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~익일06:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1440,
+          1425
+        ],
+        "source_urls": [
+          "https://ichiran.com/shop/kinki/umeda-hankyu/"
+        ],
+        "exceptions": {},
+        "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+      },
+      "cost_jpy": 1080,
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "심야 영업이 있어도 자동 일정은 당일 09~21시만 배치. 심야 할증·다음날 새벽 미모델링."
+      ]
+    },
+    "branch_ichiran_umeda_shibata": {
+      "place_id": "branch_ichiran_umeda_shibata",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/umeda-shibata/"
+      ],
+      "coordinates": {
+        "latitude": 34.705513,
+        "longitude": 135.497576,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~23:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1380,
+          1365
+        ],
+        "source_urls": [
+          "https://ichiran.com/shop/kinki/umeda-shibata/"
+        ],
+        "exceptions": {},
+        "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+      },
+      "cost_jpy": 1080,
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "심야 영업이 있어도 자동 일정은 당일 09~21시만 배치. 심야 할증·다음날 새벽 미모델링.",
+        "2·4·6·8·10월 제3일요일 및 1월1~2일 휴무. 이번 검증 기간에는 해당 날짜 없음."
+      ]
+    },
+    "branch_ichiran_abeno": {
+      "place_id": "branch_ichiran_abeno",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/abeno/"
+      ],
+      "coordinates": {
+        "latitude": 34.64511,
+        "longitude": 135.513876,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~23:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1380,
+          1335
+        ],
+        "source_urls": [
+          "https://ichiran.com/shop/kinki/abeno/"
+        ],
+        "exceptions": {},
+        "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용."
+      },
+      "cost_jpy": 1080,
+      "cost_basis": "지점 공식 기본 라멘 1그릇 1080엔; 추가 주문 제외. 09~21시 시연 일정 범위만 사용.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "심야 영업이 있어도 자동 일정은 당일 09~21시만 배치. 심야 할증·다음날 새벽 미모델링.",
+        "최종 입장22:15, 주문 마감22:45."
+      ]
+    },
+    "branch_donki_dotonbori": {
+      "place_id": "branch_donki_dotonbori",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.donki.com/store/shop_detail.php?shop_id=110"
+      ],
+      "coordinates": {
+        "latitude": 34.6693043,
+        "longitude": 135.5026796,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "24시간",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          0,
+          1440,
+          1440
+        ],
+        "source_urls": [
+          "https://www.donki.com/store/shop_detail.php?shop_id=110"
+        ],
+        "exceptions": {
+          "2026-11-06": {
+            "window": [
+              540,
+              1440,
+              1440
+            ]
+          }
+        },
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "11/5 25시 종료~11/6 09시 재개 재고조사."
+      ]
+    },
+    "branch_donki_dotonbori_midosuji": {
+      "place_id": "branch_donki_dotonbori_midosuji",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.donki.com/store/shop_detail.php?shop_id=373"
+      ],
+      "coordinates": {
+        "latitude": 34.66928032,
+        "longitude": 135.49992879,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "24시간",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          0,
+          1440,
+          1440
+        ],
+        "source_urls": [
+          "https://www.donki.com/store/shop_detail.php?shop_id=373"
+        ],
+        "exceptions": {
+          "2026-11-19": {
+            "window": [
+              540,
+              1440,
+              1440
+            ]
+          }
+        },
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "11/18 25시 종료~11/19 09시 재개 재고조사."
+      ]
+    },
+    "branch_donki_namba_sennichimae": {
+      "place_id": "branch_donki_namba_sennichimae",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.donki.com/store/shop_detail.php?shop_id=419"
+      ],
+      "coordinates": {
+        "latitude": 34.66454488,
+        "longitude": 135.50302592,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "09:00~익일04:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          540,
+          1440,
+          1440
+        ],
+        "source_urls": [
+          "https://www.donki.com/store/shop_detail.php?shop_id=419"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "11/16 25시 종료~11/17 09시 재개; 주간 일정에는 영향 없음."
+      ]
+    },
+    "branch_donki_umeda": {
+      "place_id": "branch_donki_umeda",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.donki.com/store/shop_detail.php?shop_id=275"
+      ],
+      "coordinates": {
+        "latitude": 34.70322662,
+        "longitude": 135.50094008,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "24시간",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          0,
+          1440,
+          1440
+        ],
+        "source_urls": [
+          "https://www.donki.com/store/shop_detail.php?shop_id=275"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_gu_shinsaibashi": {
+      "place_id": "branch_gu_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.gu-global.com/jp/ja/feature/contents/tax-free/all"
+      ],
+      "coordinates": {
+        "latitude": 34.6712541,
+        "longitude": 135.5015885,
+        "kind": "official_address_map_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://www.gu-global.com/jp/ja/feature/contents/tax-free/all"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_gu_links_umeda": {
+      "place_id": "branch_gu_links_umeda",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://links-umeda.jp/shop/gu%E3%80%80links-umeda/",
+        "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+      ],
+      "coordinates": {
+        "latitude": 34.70414,
+        "longitude": 135.49623,
+        "kind": "verified_building_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일10:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://links-umeda.jp/shop/gu%E3%80%80links-umeda/",
+          "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "links_umeda",
+        "facility_name": "LINKS UMEDA",
+        "building_id": "links_umeda",
+        "building_name": "LINKS UMEDA",
+        "floor": "3F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://links-umeda.jp/shop/gu%E3%80%80links-umeda/"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_daiso_shinsaibashi": {
+      "place_id": "branch_daiso_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.daiso-sangyo.co.jp/shop/detail/008646"
+      ],
+      "coordinates": {
+        "latitude": 34.67735,
+        "longitude": 135.50127,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~금09:00~22:00 / 토·일09:30~22:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          570,
+          1320,
+          1320
+        ],
+        "source_urls": [
+          "https://www.daiso-sangyo.co.jp/shop/detail/008646"
+        ],
+        "exceptions": {},
+        "weekday_window": [
+          540,
+          1320,
+          1320
+        ],
+        "holiday_hours_unconfirmed": true,
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_daiso_links_umeda": {
+      "place_id": "branch_daiso_links_umeda",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+      ],
+      "coordinates": {
+        "latitude": 34.70414,
+        "longitude": 135.49623,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "links_umeda",
+        "facility_name": "LINKS UMEDA",
+        "building_id": "links_umeda",
+        "building_name": "LINKS UMEDA",
+        "floor": "5F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_daiso_osaka_umeda": {
+      "place_id": "branch_daiso_osaka_umeda",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.daiso-sangyo.co.jp/shop/detail/008952"
+      ],
+      "coordinates": {
+        "latitude": 34.7048,
+        "longitude": 135.49962,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "09:00~22:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          540,
+          1320,
+          1320
+        ],
+        "source_urls": [
+          "https://www.daiso-sangyo.co.jp/shop/detail/008952"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_uniqlo_shinsaibashi": {
+      "place_id": "branch_uniqlo_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/stores/show/27"
+      ],
+      "coordinates": {
+        "latitude": 34.674499,
+        "longitude": 135.5015609,
+        "kind": "official_address_map_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://www.shinsaibashi.or.jp/stores/show/27"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_uniqlo_umeda": {
+      "place_id": "branch_uniqlo_umeda",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://map.uniqlo.com/jp/ja/detail/10101654/1000",
+        "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+      ],
+      "coordinates": {
+        "latitude": 34.70414,
+        "longitude": 135.49623,
+        "kind": "verified_building_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일·공휴일10:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://map.uniqlo.com/jp/ja/detail/10101654/1000",
+          "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "links_umeda",
+        "facility_name": "LINKS UMEDA",
+        "building_id": "links_umeda",
+        "building_name": "LINKS UMEDA",
+        "floor": "1–2F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://map.uniqlo.com/jp/ja/detail/10101654/1000"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_muji_grandfront": {
+      "place_id": "branch_muji_grandfront",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.muji.com/jp/ja/shop/detail/045589",
+        "https://mapfan.com/future-info/details/N2J0"
+      ],
+      "coordinates": {
+        "latitude": 34.70537,
+        "longitude": 135.49436,
+        "kind": "mapfan_poi_crosschecked_official_address",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일11:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://www.muji.com/jp/ja/shop/detail/045589",
+          "https://mapfan.com/future-info/details/N2J0"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "grand_front_north",
+        "facility_name": "グランフロント大阪 北館",
+        "building_id": "grand_front_north",
+        "building_name": "グランフロント大阪 北館",
+        "floor": "2–4F",
+        "parent_place_id": null,
+        "complex_id": "grand_front_osaka",
+        "source_urls": [
+          "https://www.muji.com/jp/ja/shop/detail/045589"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_muji_namba_skyo": {
+      "place_id": "branch_muji_namba_skyo",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.muji.com/jp/ja/shop/detail/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%B9%E3%82%AB%E3%82%A4%E3%82%AA/046316",
+        "https://nambaskyo.com/shopresearch/479",
+        "https://nambaskyo.com/access"
+      ],
+      "coordinates": {
+        "latitude": 34.6637295,
+        "longitude": 135.5009267,
+        "kind": "verified_building_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일11:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://www.muji.com/jp/ja/shop/detail/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%B9%E3%82%AB%E3%82%A4%E3%82%AA/046316",
+          "https://nambaskyo.com/shopresearch/479",
+          "https://nambaskyo.com/access"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "namba_skyo",
+        "facility_name": "なんばスカイオ",
+        "building_id": "namba_skyo",
+        "building_name": "なんばスカイオ",
+        "floor": "5F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.muji.com/jp/ja/shop/detail/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%B9%E3%82%AB%E3%82%A4%E3%82%AA/046316"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_onitsuka_shinsaibashi": {
+      "place_id": "branch_onitsuka_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/stores/show/233/index"
+      ],
+      "coordinates": {
+        "latitude": 34.673261,
+        "longitude": 135.5015865,
+        "kind": "official_address_map_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://www.shinsaibashi.or.jp/stores/show/233/index"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_kiddyland_umeda": {
+      "place_id": "branch_kiddyland_umeda",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.kiddyland.co.jp/shoplist/umeda/"
+      ],
+      "coordinates": {
+        "latitude": 34.7060219,
+        "longitude": 135.4982621,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://www.kiddyland.co.jp/shoplist/umeda/"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "hankyu_sanbangai_north",
+        "facility_name": "阪急三番街 北館",
+        "building_id": "hankyu_sanbangai_north",
+        "building_name": "阪急三番街 北館",
+        "floor": null,
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.kiddyland.co.jp/shoplist/umeda/"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_montbell_namba_city": {
+      "place_id": "branch_montbell_namba_city",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://store.montbell.jp/sp/search/shopinfo/?shop_no=678546"
+      ],
+      "coordinates": {
+        "latitude": 34.66260984247967,
+        "longitude": 135.50252626270446,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://store.montbell.jp/sp/search/shopinfo/?shop_no=678546"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "namba_city_south",
+        "facility_name": "なんばCITY南館",
+        "building_id": "namba_city_south",
+        "building_name": "なんばCITY南館",
+        "floor": "B1F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://store.montbell.jp/sp/search/shopinfo/?shop_no=678546"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_montbell_umekita": {
+      "place_id": "branch_montbell_umekita",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+      ],
+      "coordinates": {
+        "latitude": 34.70384073421245,
+        "longitude": 135.4947629570961,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "grand_front_south",
+        "facility_name": "グランフロント大阪 南館",
+        "building_id": "grand_front_south",
+        "building_name": "グランフロント大阪 南館",
+        "floor": "5F",
+        "parent_place_id": null,
+        "complex_id": "grand_front_osaka",
+        "source_urls": [
+          "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_montbell_daimaru_shinsaibashi": {
+      "place_id": "branch_montbell_daimaru_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+        "https://store.montbell.jp/clubshop/",
+        "https://store.montbell.jp/search/shopinfo/?shop_no=678624"
+      ],
+      "coordinates": {
+        "latitude": 34.6725318,
+        "longitude": 135.5008152,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+          "https://store.montbell.jp/clubshop/",
+          "https://store.montbell.jp/search/shopinfo/?shop_no=678624"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "daimaru_shinsaibashi_south",
+        "facility_name": "大丸心斎橋店 南館",
+        "building_id": "daimaru_shinsaibashi_south",
+        "building_name": "大丸心斎橋店 南館",
+        "floor": "6F",
+        "parent_place_id": null,
+        "complex_id": "daimaru_shinsaibashi",
+        "source_urls": [
+          "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+          "https://store.montbell.jp/clubshop/"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_stussy_osaka": {
+      "place_id": "branch_stussy_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.stussy.com/blogs/chapters/stussy-osaka"
+      ],
+      "coordinates": {
+        "latitude": 34.6722174,
+        "longitude": 135.4981964,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일11:00~19:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1140,
+          1140
+        ],
+        "source_urls": [
+          "https://www.stussy.com/blogs/chapters/stussy-osaka"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_supreme_osaka": {
+      "place_id": "branch_supreme_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://supreme.com/stores"
+      ],
+      "coordinates": {
+        "latitude": 34.67107367572279,
+        "longitude": 135.49581840634346,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일11:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://supreme.com/stores"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_bape_osaka": {
+      "place_id": "branch_bape_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://jp.bape.com/pages/store-list/osaka"
+      ],
+      "coordinates": {
+        "latitude": 34.670918,
+        "longitude": 135.4945664,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://jp.bape.com/pages/store-list/osaka"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_bape_hankyu_mens": {
+      "place_id": "branch_bape_hankyu_mens",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://jp.bape.com/pages/store-list",
+        "https://jp.bape.com/blogs/news/bapestore-hankyumens",
+        "https://jp.bape.com/pages/store-list/hankyu-mens-osaka"
+      ],
+      "coordinates": {
+        "latitude": 34.70330539,
+        "longitude": 135.4998167,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "평일11:00~20:00 / 토·일·공휴일10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://jp.bape.com/pages/store-list",
+          "https://jp.bape.com/blogs/news/bapestore-hankyumens",
+          "https://jp.bape.com/pages/store-list/hankyu-mens-osaka"
+        ],
+        "exceptions": {},
+        "weekday_window": [
+          660,
+          1200,
+          1200
+        ],
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "hankyu_mens_osaka",
+        "facility_name": "阪急メンズ大阪",
+        "building_id": "hankyu_mens_osaka",
+        "building_name": "阪急メンズ大阪",
+        "floor": "5F",
+        "parent_place_id": "branch_hankyu_mens_osaka",
+        "complex_id": null,
+        "source_urls": [
+          "https://jp.bape.com/pages/store-list",
+          "https://jp.bape.com/blogs/news/bapestore-hankyumens"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_bape_cdg_osaka": {
+      "place_id": "branch_bape_cdg_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://jp.bape.com/pages/store-list/cdg-osaka"
+      ],
+      "coordinates": {
+        "latitude": 34.6758241,
+        "longitude": 135.4998634,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://jp.bape.com/pages/store-list/cdg-osaka"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "cdg_osaka",
+        "facility_name": "COMME des GARCONS OSAKA",
+        "building_id": "cdg_osaka",
+        "building_name": "COMME des GARCONS OSAKA",
+        "floor": null,
+        "parent_place_id": "branch_cdg_osaka",
+        "complex_id": null,
+        "source_urls": [
+          "https://jp.bape.com/pages/store-list/cdg-osaka",
+          "https://jp.bape.com/blogs/news/cdg-osaka-5th"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_humanmade_shinsaibashi": {
+      "place_id": "branch_humanmade_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://shinsaibashi.parco.jp/shop/detail/?cd=028077"
+      ],
+      "coordinates": {
+        "latitude": 34.6738473,
+        "longitude": 135.5009574,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://shinsaibashi.parco.jp/shop/detail/?cd=028077"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "shinsaibashi_parco",
+        "facility_name": "心斎橋PARCO",
+        "building_id": "shinsaibashi_parco",
+        "building_name": "心斎橋PARCO",
+        "floor": "1F",
+        "parent_place_id": "osaka_024",
+        "complex_id": null,
+        "source_urls": [
+          "https://shinsaibashi.parco.jp/shop/detail/?cd=028077"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_porter_osaka": {
+      "place_id": "branch_porter_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.gfo-sc.jp/shop-detail/porter/",
+        "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+      ],
+      "coordinates": {
+        "latitude": 34.70384073421245,
+        "longitude": 135.4947629570961,
+        "kind": "verified_building_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://www.gfo-sc.jp/shop-detail/porter/",
+          "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "grand_front_south",
+        "facility_name": "グランフロント大阪 南館",
+        "building_id": "grand_front_south",
+        "building_name": "グランフロント大阪 南館",
+        "floor": "3F",
+        "parent_place_id": null,
+        "complex_id": "grand_front_osaka",
+        "source_urls": [
+          "https://www.gfo-sc.jp/shop-detail/porter/",
+          "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_porter_cloakroom_hankyu": {
+      "place_id": "branch_porter_cloakroom_hankyu",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://website.hankyu-dept.co.jp/honten/cat/mens/h/with_local/",
+        "https://www.hankyu-dept.co.jp/honten/map/index.html"
+      ],
+      "coordinates": {
+        "latitude": 34.7028186,
+        "longitude": 135.4985323,
+        "kind": "verified_building_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~20:00 (한큐 우메다 본점 8층 일반 매장)",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://website.hankyu-dept.co.jp/honten/cat/mens/h/with_local/",
+          "https://www.hankyu-dept.co.jp/honten/map/index.html"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "hankyu_umeda",
+        "facility_name": "阪急うめだ本店",
+        "building_id": "hankyu_umeda",
+        "building_name": "阪急うめだ本店",
+        "floor": "8F",
+        "parent_place_id": "osaka_draft_f1ba0aa6ab58",
+        "complex_id": null,
+        "source_urls": [
+          "https://website.hankyu-dept.co.jp/honten/cat/mens/h/with_local/",
+          "https://www.hankyu-dept.co.jp/honten/map/index.html"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_zara_shinsaibashi": {
+      "place_id": "branch_zara_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/stores/show/280/ZARA"
+      ],
+      "coordinates": {
+        "latitude": 34.6745468,
+        "longitude": 135.5010798,
+        "kind": "official_address_map_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~22:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1320,
+          1320
+        ],
+        "source_urls": [
+          "https://www.shinsaibashi.or.jp/stores/show/280/ZARA"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_zara_man_shinsaibashi": {
+      "place_id": "branch_zara_man_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/stores/show/842/ZARA%20MAN%20%E5%BF%83%E6%96%8E%E6%A9%8B%E7%AD%8B%E5%BA%97",
+        "https://namba.keizai.biz/mapnews/5759/"
+      ],
+      "coordinates": {
+        "latitude": 34.6698522,
+        "longitude": 135.5015057,
+        "kind": "local_report_map_crosschecked_official_address",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:30~22:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          630,
+          1320,
+          1320
+        ],
+        "source_urls": [
+          "https://www.shinsaibashi.or.jp/stores/show/842/ZARA%20MAN%20%E5%BF%83%E6%96%8E%E6%A9%8B%E7%AD%8B%E5%BA%97",
+          "https://namba.keizai.biz/mapnews/5759/"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_cdg_osaka": {
+      "place_id": "branch_cdg_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.comme-des-garcons.com/stores/",
+        "https://www.comme-des-garcons.com/stores/jpen.html",
+        "https://jp.bape.com/pages/store-list/cdg-osaka",
+        "https://kansai-sanpo.com/comme-des-garcons-osaka/"
+      ],
+      "coordinates": {
+        "latitude": 34.6758241,
+        "longitude": 135.4998634,
+        "kind": "verified_building_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~20:00 (같은 주소·전화의 내부 BAPE 공식 운영시간과 현지 보도 교차 확인)",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://www.comme-des-garcons.com/stores/",
+          "https://www.comme-des-garcons.com/stores/jpen.html",
+          "https://jp.bape.com/pages/store-list/cdg-osaka",
+          "https://kansai-sanpo.com/comme-des-garcons-osaka/"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "부모 매장 시간은 내부 BAPE 공식 안내와 현지 보도 교차 확인. 브랜드별 재고·판매 조건 미보장."
+      ],
+      "building_id": "cdg_osaka"
+    },
+    "branch_matsukiyo_dotonbori1": {
+      "place_id": "branch_matsukiyo_dotonbori1",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.matsukiyococokara-online.com/map/?kid=10001629",
+        "https://goo.gl/maps/gwjRHJmUn1ofKuKVA"
+      ],
+      "coordinates": {
+        "latitude": 34.6685144,
+        "longitude": 135.5040986,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일·공휴일10:00~24:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1440,
+          1440
+        ],
+        "source_urls": [
+          "https://www.matsukiyococokara-online.com/map/?kid=10001629",
+          "https://goo.gl/maps/gwjRHJmUn1ofKuKVA"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_matsukiyo_shinsaibashi_chuo": {
+      "place_id": "branch_matsukiyo_shinsaibashi_chuo",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.matsukiyococokara-online.com/map/?kid=10001671",
+        "https://mapfan.com/spots/SCWA3%2C1DD%2CXQ0"
+      ],
+      "coordinates": {
+        "latitude": 34.6720318,
+        "longitude": 135.5012428,
+        "kind": "mapfan_poi_crosschecked_official_address",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일·공휴일10:00~23:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1380,
+          1380
+        ],
+        "source_urls": [
+          "https://www.matsukiyococokara-online.com/map/?kid=10001671",
+          "https://mapfan.com/spots/SCWA3%2C1DD%2CXQ0"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_daikoku_dotonbori": {
+      "place_id": "branch_daikoku_dotonbori",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://daikokudrug.com/store/604/"
+      ],
+      "coordinates": {
+        "latitude": 34.66952,
+        "longitude": 135.50142,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:05~23:20",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          605,
+          1400,
+          1400
+        ],
+        "source_urls": [
+          "https://daikokudrug.com/store/604/"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_daimaru_umeda": {
+      "place_id": "branch_daimaru_umeda",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.daimaru.co.jp/umedamise/hours.html",
+        "https://www.daimaru.co.jp/umedamise/access.html"
+      ],
+      "coordinates": {
+        "latitude": 34.701731,
+        "longitude": 135.496386,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://www.daimaru.co.jp/umedamise/hours.html",
+          "https://www.daimaru.co.jp/umedamise/access.html"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 180,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외."
+      ],
+      "within": {
+        "facility_id": "daimaru_umeda",
+        "facility_name": "大丸梅田店",
+        "building_id": "south_gate_building",
+        "building_name": "サウスゲートビルディング",
+        "floor": "B2–9F（운영 범위, 일부 층 공사 휴업은 별도 확인）",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.daimaru.co.jp/umedamise/hours.html",
+          "https://www.daimaru.co.jp/umedamise/topics/260120information.html"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_hankyu_mens_osaka": {
+      "place_id": "branch_hankyu_mens_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://web.hh-online.jp/hankyu-mens/contents/osaka/",
+        "https://jp.bape.com/pages/store-list/hankyu-mens-osaka"
+      ],
+      "coordinates": {
+        "latitude": 34.70330539,
+        "longitude": 135.4998167,
+        "kind": "verified_building_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "평일11:00~20:00 / 토·일·공휴일10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://web.hh-online.jp/hankyu-mens/contents/osaka/",
+          "https://jp.bape.com/pages/store-list/hankyu-mens-osaka"
+        ],
+        "exceptions": {},
+        "weekday_window": [
+          660,
+          1200,
+          1200
+        ],
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 180,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ],
+      "building_id": "hankyu_mens_osaka"
+    },
+    "branch_pokemon_osaka": {
+      "place_id": "branch_pokemon_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/",
+        "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/news/202610/000609.html",
+        "https://www.lucua.jp/special/south-open/"
+      ],
+      "coordinates": {
+        "latitude": 34.7018579,
+        "longitude": 135.4964699,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/",
+          "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/news/202610/000609.html",
+          "https://www.lucua.jp/special/south-open/"
+        ],
+        "exceptions": {
+          "2026-11-17": {
+            "closed": true
+          },
+          "2026-11-18": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-19": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-20": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-21": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-22": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-23": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-24": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-25": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-26": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-27": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-28": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-29": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-30": {
+            "requires_visit_confirmation": true
+          }
+        },
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외.",
+        "11/17 13층 휴업. 11/18~23 사전 추첨 초대만 입장, 11/24부터 당분간 추첨/정리권제: 입장확인 전 자동 배치 제외."
+      ],
+      "within": {
+        "facility_id": "lucua_south",
+        "facility_name": "ルクア サウス",
+        "building_id": "south_gate_building",
+        "building_name": "サウスゲートビルディング",
+        "floor": "13F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/",
+          "https://www.daimaru.co.jp/umedamise/topics/260120information.html"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_pokemon_osaka_dx": {
+      "place_id": "branch_pokemon_osaka_dx",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osakadx/"
+      ],
+      "coordinates": {
+        "latitude": 34.6731719,
+        "longitude": 135.5007545,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~일10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osakadx/"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외.",
+        "포켓몬 상품 매장 방문 범위. 예약제 포켓몬카페는 포함하지 않음."
+      ],
+      "within": {
+        "facility_id": "daimaru_shinsaibashi_main",
+        "facility_name": "大丸心斎橋店 本館",
+        "building_id": "daimaru_shinsaibashi_main",
+        "building_name": "大丸心斎橋店 本館",
+        "floor": "9F",
+        "parent_place_id": "osaka_022",
+        "complex_id": "daimaru_shinsaibashi",
+        "source_urls": [
+          "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osakadx/"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_nintendo_osaka": {
+      "place_id": "branch_nintendo_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.nintendo.com/jp/officialstore/index.html",
+        "https://www.lucua.jp/special/south-open/"
+      ],
+      "coordinates": {
+        "latitude": 34.701789,
+        "longitude": 135.4965763,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://www.nintendo.com/jp/officialstore/index.html",
+          "https://www.lucua.jp/special/south-open/"
+        ],
+        "exceptions": {
+          "2026-11-17": {
+            "closed": true
+          },
+          "2026-11-18": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-19": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-20": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-21": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-22": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-23": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-24": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-25": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-26": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-27": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-28": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-29": {
+            "requires_visit_confirmation": true
+          },
+          "2026-11-30": {
+            "requires_visit_confirmation": true
+          }
+        },
+        "confirmation_weekdays": [
+          0,
+          6
+        ],
+        "confirmation_holidays": true,
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외.",
+        "11/17 13층 휴업. 11/18~23 사전 추첨 초대만 입장, 11/24부터 당분간 추첨/정리권제: 입장확인 전 자동 배치 제외.",
+        "토·일·공휴일 및 혼잡일 입장 정리권 확인 필요; 예약 확보 기능 없음."
+      ],
+      "within": {
+        "facility_id": "lucua_south",
+        "facility_name": "ルクア サウス",
+        "building_id": "south_gate_building",
+        "building_name": "サウスゲートビルディング",
+        "floor": "13F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.nintendo.com/jp/officialstore/index.html",
+          "https://www.daimaru.co.jp/umedamise/topics/260120information.html"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_jam_americamura": {
+      "place_id": "branch_jam_americamura",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://jamtrading.jp/f/shop-list/shop-05"
+      ],
+      "coordinates": {
+        "latitude": 34.6708341,
+        "longitude": 135.4982467,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://jamtrading.jp/f/shop-list/shop-05"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_jam_shinsaibashi": {
+      "place_id": "branch_jam_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://jamtrading.jp/f/shop-list/shop-11",
+        "https://jamtrading.jp/company_site/about.html"
+      ],
+      "coordinates": {
+        "latitude": 34.6740391,
+        "longitude": 135.4982745,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://jamtrading.jp/f/shop-list/shop-11",
+          "https://jamtrading.jp/company_site/about.html"
+        ],
+        "exceptions": {},
+        "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위"
+      },
+      "cost_jpy": null,
+      "cost_basis": "개인 쇼핑 구매액 제외; 입점 매장 일반 상품 구경 범위",
+      "cost_kind": "shopping_excluded",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 30,
+        "bag_load": 2,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_girlsmignon_shinsaibashi": {
+      "place_id": "branch_girlsmignon_shinsaibashi",
+      "checked_at": "2026-10-26",
+      "status": "held",
+      "source_urls": [
+        "https://www.puri.furyu.jp/mignon/gm/"
+      ],
+      "coordinates": {
+        "latitude": null,
+        "longitude": null,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~23:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": null,
+        "source_urls": [
+          "https://www.puri.furyu.jp/mignon/gm/"
+        ],
+        "exceptions": {},
+        "cost_basis": null
+      },
+      "cost_jpy": null,
+      "cost_basis": null,
+      "cost_kind": "unconfirmed",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [
+        "official_site_temporarily_unavailable",
+        "visitor_admission_conditions_unconfirmed",
+        "price_unconfirmed",
+        "map_reference_unconfirmed"
+      ],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외.",
+        "검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.",
+        "현재 공식 점포 목록503/점검. 오래된 지점·층과 이용자 입장제한을 새 지점에 전용하지 않음."
+      ],
+      "within": {
+        "facility_id": "shinsaibashi_gate",
+        "facility_name": "Shinsaibashi GATE",
+        "building_id": "shinsaibashi_gate",
+        "building_name": "Shinsaibashi GATE",
+        "floor": "7F",
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.puri.furyu.jp/mignon/gm/"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_petitmignon_daimaru": {
+      "place_id": "branch_petitmignon_daimaru",
+      "checked_at": "2026-10-26",
+      "status": "held",
+      "source_urls": [
+        "https://www.puri.furyu.jp/mignon/gm/",
+        "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+        "https://store.montbell.jp/search/shopinfo/?shop_no=678624"
+      ],
+      "coordinates": {
+        "latitude": 34.6725318,
+        "longitude": 135.5008152,
+        "kind": "verified_building_reference",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": null,
+        "source_urls": [
+          "https://www.puri.furyu.jp/mignon/gm/",
+          "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+          "https://store.montbell.jp/search/shopinfo/?shop_no=678624"
+        ],
+        "exceptions": {},
+        "cost_basis": null
+      },
+      "cost_jpy": null,
+      "cost_basis": null,
+      "cost_kind": "unconfirmed",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [
+        "official_site_temporarily_unavailable",
+        "current_branch_hours_unconfirmed",
+        "visitor_admission_conditions_unconfirmed",
+        "price_unconfirmed"
+      ],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외.",
+        "검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.",
+        "현재 공식 점포 목록503/점검. 오래된 지점·층과 이용자 입장제한을 새 지점에 전용하지 않음."
+      ],
+      "within": {
+        "facility_id": "daimaru_shinsaibashi_south",
+        "facility_name": "大丸心斎橋店 南館",
+        "building_id": "daimaru_shinsaibashi_south",
+        "building_name": "大丸心斎橋店 南館",
+        "floor": "5F",
+        "parent_place_id": null,
+        "complex_id": "daimaru_shinsaibashi",
+        "source_urls": [
+          "https://www.puri.furyu.jp/mignon/gm/",
+          "https://www.daimaru.co.jp/shinsaibashi/hours.html"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_551_honten": {
+      "place_id": "branch_551_honten",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.551horai.co.jp/shop/list/13/",
+        "https://www.551horai.co.jp/wp/wp-content/uploads/2026/08/%E6%9C%AC%E5%BA%97202609.pdf"
+      ],
+      "coordinates": {
+        "latitude": 34.6664051,
+        "longitude": 135.5013457,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "식당 11:00~주문마감21:30; 이번 모델은 21:30까지 식사 종료하는 보수적 창 사용",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1290,
+          1290
+        ],
+        "source_urls": [
+          "https://www.551horai.co.jp/shop/list/13/",
+          "https://www.551horai.co.jp/wp/wp-content/uploads/2026/08/%E6%9C%AC%E5%BA%97202609.pdf"
+        ],
+        "exceptions": {
+          "2026-11-10": {
+            "closed": true
+          },
+          "2026-11-17": {
+            "closed": true
+          }
+        },
+        "cost_basis": "공식 2026-09 본점 식당 메뉴 PDF 2쪽: 감초단자 정식(甘酢団子定食) 1,550엔. 1층 포장 가격과 구분."
+      },
+      "cost_jpy": 1550,
+      "cost_basis": "공식 2026-09 본점 식당 메뉴 PDF 2쪽: 감초단자 정식(甘酢団子定食) 1,550엔. 1층 포장 가격과 구분.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "통상 첫째·셋째 화요일. 공식 2026년11월 공지는10일·17일 휴무(3일 휴일 영업). 식당2~3층/포장1층 구분."
+      ]
+    },
+    "branch_551_namba_walk": {
+      "place_id": "branch_551_namba_walk",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.551horai.co.jp/shop/list/20/",
+        "https://www.551horai.co.jp/wp/wp-content/uploads/2026/08/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AF202609.pdf"
+      ],
+      "coordinates": {
+        "latitude": 34.6671873,
+        "longitude": 135.4985462,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "식당11:00~22:00 / 주문 마감21:30",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1320,
+          1290
+        ],
+        "source_urls": [
+          "https://www.551horai.co.jp/shop/list/20/",
+          "https://www.551horai.co.jp/wp/wp-content/uploads/2026/08/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AF202609.pdf"
+        ],
+        "exceptions": {
+          "2026-11-18": {
+            "closed": true
+          }
+        },
+        "cost_basis": "공식 2026-09 난바워크 식당 메뉴 PDF 3쪽: 해물 야키소바 1,300엔, 세금 포함. 추가 세트 제외."
+      },
+      "cost_jpy": 1300,
+      "cost_basis": "공식 2026-09 난바워크 식당 메뉴 PDF 3쪽: 해물 야키소바 1,300엔, 세금 포함. 추가 세트 제외.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외.",
+        "홀수달 셋째 수요일 정기휴무. 주문 마감21:30."
+      ],
+      "within": {
+        "facility_id": "namba_walk_1_north",
+        "facility_name": "なんばウォーク1番街北通り",
+        "building_id": "namba_walk_1_north",
+        "building_name": "なんばウォーク1番街北通り",
+        "floor": null,
+        "parent_place_id": null,
+        "complex_id": null,
+        "source_urls": [
+          "https://www.551horai.co.jp/shop/list/20/"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_551_takashimaya_osaka": {
+      "place_id": "branch_551_takashimaya_osaka",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.551horai.co.jp/shop/list/18/",
+        "https://www.551horai.co.jp/menu/butaman/"
+      ],
+      "coordinates": {
+        "latitude": 34.664594,
+        "longitude": 135.5010806,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:00~20:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          600,
+          1200,
+          1200
+        ],
+        "source_urls": [
+          "https://www.551horai.co.jp/shop/list/18/",
+          "https://www.551horai.co.jp/menu/butaman/"
+        ],
+        "exceptions": {},
+        "cost_basis": "공식 판매 상품 가격: 따뜻한 부타만 2개입 500엔. 택배·냉장품·매장 내 식사 가격과 다름."
+      },
+      "cost_jpy": 500,
+      "cost_basis": "공식 판매 상품 가격: 따뜻한 부타만 2개입 500엔. 택배·냉장품·매장 내 식사 가격과 다름.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 20,
+        "bag_load": 1,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외.",
+        "포장 구매 방문. 점심·저녁 식당을 대신하지 않음. 마감 전 품절 가능."
+      ],
+      "within": {
+        "facility_id": "osaka_takashimaya",
+        "facility_name": "大阪高島屋",
+        "building_id": "osaka_takashimaya",
+        "building_name": "大阪高島屋",
+        "floor": "B1F",
+        "parent_place_id": "osaka_021",
+        "complex_id": null,
+        "source_urls": [
+          "https://www.551horai.co.jp/shop/list/18/"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_daruma_dotonbori": {
+      "place_id": "branch_daruma_dotonbori",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.kushikatu-daruma.com/location/doutonbori",
+        "https://www.kushikatu-daruma.com/files/user/%E9%81%93%E9%A0%93%E5%A0%80%E5%BA%97HP.pdf"
+      ],
+      "coordinates": {
+        "latitude": 34.6688351,
+        "longitude": 135.502638,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "평일11:00~22:30 / 토·일·공휴일10:30~22:30",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          630,
+          1350,
+          1320
+        ],
+        "source_urls": [
+          "https://www.kushikatu-daruma.com/location/doutonbori",
+          "https://www.kushikatu-daruma.com/files/user/%E9%81%93%E9%A0%93%E5%A0%80%E5%BA%97HP.pdf"
+        ],
+        "exceptions": {},
+        "weekday_window": [
+          660,
+          1350,
+          1320
+        ],
+        "cost_basis": "지점 공식 메뉴 PDF: 꼬치9개+도테야키 세트 1,793엔(세금 포함). 음료·별도 추가품 제외."
+      },
+      "cost_jpy": 1793,
+      "cost_basis": "지점 공식 메뉴 PDF: 꼬치9개+도테야키 세트 1,793엔(세금 포함). 음료·별도 추가품 제외.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "일반 워크인 식사. 예약 선택 시 별도 인원·세트·시간제한 적용; 자동예약하지 않음."
+      ]
+    },
+    "branch_daruma_shinsekai": {
+      "place_id": "branch_daruma_shinsekai",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://www.kushikatu-daruma.com/location/shinsekai",
+        "https://www.kushikatu-daruma.com/files/user/HP%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf"
+      ],
+      "coordinates": {
+        "latitude": 34.6515704,
+        "longitude": 135.5062032,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "평일11:00~22:30 / 토·일·공휴일10:30~22:30",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          630,
+          1350,
+          1320
+        ],
+        "source_urls": [
+          "https://www.kushikatu-daruma.com/location/shinsekai",
+          "https://www.kushikatu-daruma.com/files/user/HP%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf"
+        ],
+        "exceptions": {},
+        "weekday_window": [
+          660,
+          1350,
+          1320
+        ],
+        "cost_basis": "지점 공식 메뉴 PDF: 꼬치9개+도테야키 세트 1,793엔(세금 포함). 음료·별도 추가품 제외."
+      },
+      "cost_jpy": 1793,
+      "cost_basis": "지점 공식 메뉴 PDF: 꼬치9개+도테야키 세트 1,793엔(세금 포함). 음료·별도 추가품 제외.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "일반 워크인 식사. 예약 선택 시 별도 인원·세트·시간제한 적용; 자동예약하지 않음."
+      ]
+    },
+    "branch_fukutaro_honten": {
+      "place_id": "branch_fukutaro_honten",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://2951.jp/",
+        "https://2951.jp/menu.html"
+      ],
+      "coordinates": {
+        "latitude": 34.6655916,
+        "longitude": 135.504538,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "평일17:00~23:30 / 토·일·공휴일12:00~23:30",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          720,
+          1410,
+          1365
+        ],
+        "source_urls": [
+          "https://2951.jp/",
+          "https://2951.jp/menu.html"
+        ],
+        "exceptions": {},
+        "weekday_window": [
+          1020,
+          1410,
+          1365
+        ],
+        "cost_basis": "공식 본점 전용 메뉴: 돼지고기 오코노미야키1장 1,080엔(세금 포함). 우메다점에 전용하지 않음."
+      },
+      "cost_jpy": 1080,
+      "cost_basis": "공식 본점 전용 메뉴: 돼지고기 오코노미야키1장 1,080엔(세금 포함). 우메다점에 전용하지 않음.",
+      "cost_kind": "published_menu",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음."
+      ]
+    },
+    "branch_fukutaro_umeda": {
+      "place_id": "branch_fukutaro_umeda",
+      "checked_at": "2026-10-26",
+      "status": "eligible_for_dated_demo",
+      "source_urls": [
+        "https://2951.jp/",
+        "https://www.gfo-sc.jp/shop-detail/hukutaro/"
+      ],
+      "coordinates": {
+        "latitude": 34.7042542,
+        "longitude": 135.494773,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "11:00~23:00(주문마감22:00), 상황에 따라15:00~17:00휴식",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          660,
+          1380,
+          1320
+        ],
+        "source_urls": [
+          "https://2951.jp/",
+          "https://www.gfo-sc.jp/shop-detail/hukutaro/"
+        ],
+        "exceptions": {},
+        "windows": [
+          [
+            660,
+            900,
+            900
+          ],
+          [
+            1020,
+            1380,
+            1320
+          ]
+        ],
+        "cost_basis": "공식 그랜드프런트 안내 평균예산 점심1,500/저녁2,500엔 중 높은2,500엔을 시연 예산에 사용. 확정 메뉴 가격 아님."
+      },
+      "cost_jpy": 2500,
+      "cost_basis": "공식 그랜드프런트 안내 평균예산 점심1,500/저녁2,500엔 중 높은2,500엔을 시연 예산에 사용. 확정 메뉴 가격 아님.",
+      "cost_kind": "official_budget_estimate",
+      "space_type": "indoor",
+      "covered": true,
+      "planning_policy": {
+        "stay_min": 90,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "건물과 입점 매장을 각각 고르면 별도 방문으로 체류시간을 합산한다. 같은 건물 사이 이동은 도보 경로 대신 5분 추정, 내부 도보 거리는 제외.",
+        "15~17시 잠정 휴식은 자동 배치 제외. 공식 평균예산으로 계산하며 최종 결제금액 아님."
+      ],
+      "within": {
+        "facility_id": "grand_front_south",
+        "facility_name": "グランフロント大阪 南館",
+        "building_id": "grand_front_south",
+        "building_name": "グランフロント大阪 南館",
+        "floor": "7F",
+        "parent_place_id": null,
+        "complex_id": "grand_front_osaka",
+        "source_urls": [
+          "https://2951.jp/"
+        ],
+        "checked_at": "2026-10-26",
+        "scheduling_policy": "separate_requested_visits_same_building_transfer_estimate"
+      }
+    },
+    "branch_wanaka_sennichimae": {
+      "place_id": "branch_wanaka_sennichimae",
+      "checked_at": "2026-10-26",
+      "status": "held",
+      "source_urls": [
+        "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+      ],
+      "coordinates": {
+        "latitude": 34.6652167,
+        "longitude": 135.5033629,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "월~금10:30~21:00 / 토·일·공휴일09:30~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          570,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+        ],
+        "exceptions": {},
+        "weekday_window": [
+          630,
+          1260,
+          1260
+        ],
+        "cost_basis": null
+      },
+      "cost_jpy": null,
+      "cost_basis": null,
+      "cost_kind": "unconfirmed",
+      "space_type": "mixed_queue_and_indoor",
+      "covered": false,
+      "planning_policy": {
+        "stay_min": 20,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [
+        "current_menu_price_unconfirmed"
+      ],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.",
+        "타코야키 간식 방문. 가격이 과거 보도마다 달라 공식 최신 메뉴 확인 필요; 다른 지점 가격을 복사하지 않음."
+      ]
+    },
+    "branch_wanaka_dotonbori": {
+      "place_id": "branch_wanaka_dotonbori",
+      "checked_at": "2026-10-26",
+      "status": "held",
+      "source_urls": [
+        "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+      ],
+      "coordinates": {
+        "latitude": 34.6688502,
+        "longitude": 135.5027323,
+        "kind": "official_linked_map_poi",
+        "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
+      },
+      "opening_hours": "10:30~21:00",
+      "profile": {
+        "valid_from": "2026-10-26",
+        "valid_through": "2026-11-30",
+        "window": [
+          630,
+          1260,
+          1260
+        ],
+        "source_urls": [
+          "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+        ],
+        "exceptions": {},
+        "cost_basis": null
+      },
+      "cost_jpy": null,
+      "cost_basis": null,
+      "cost_kind": "unconfirmed",
+      "space_type": "mixed_queue_and_indoor",
+      "covered": false,
+      "planning_policy": {
+        "stay_min": 20,
+        "bag_load": 0,
+        "kind": "demo_estimate",
+        "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+      },
+      "remaining": [
+        "current_menu_price_unconfirmed"
+      ],
+      "conditions": [
+        "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
+        "검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.",
+        "타코야키 간식 방문. 가격이 과거 보도마다 달라 공식 최신 메뉴 확인 필요; 다른 지점 가격을 복사하지 않음."
+      ]
+    }
+  }
+}

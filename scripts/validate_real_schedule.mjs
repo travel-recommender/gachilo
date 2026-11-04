@@ -1,3 +1,4 @@
+import {withConditionStart} from '../backend/engine/conditions.ts';
 /** Week 5 day validator, also reused by the opt-in real catalogue server adapter. Node 24+. */
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -12,6 +13,17 @@ export const loadInputs = () => ({
   dataset: JSON.parse(fs.readFileSync(sourceURL, 'utf8')),
   profiles: JSON.parse(fs.readFileSync(profilesURL, 'utf8')),
 });
+// Historical audits keep loadInputs(); service entry points use this shared manifest.
+export function loadRuntimeInputs() {
+  const catalog = process.env.REAL_CATALOG_PATH, profiles = process.env.REAL_PROFILES_PATH;
+  if (!!catalog !== !!profiles) throw Error('REAL_CATALOG_PATH and REAL_PROFILES_PATH must be configured together');
+  const root = new URL('../data/', import.meta.url);
+  const manifest = JSON.parse(fs.readFileSync(new URL('runtime_catalog.json', root), 'utf8'));
+  return {
+    dataset: JSON.parse(fs.readFileSync(catalog || new URL(manifest.catalog, root), 'utf8')),
+    profiles: JSON.parse(fs.readFileSync(profiles || new URL(manifest.profiles, root), 'utf8')),
+  };
+}
 const categories = {명소: 'landmark', 문화: 'culture', 자연: 'nature', 쇼핑: 'shopping', 카페: 'cafe', 식사: 'food', '체험·오락': 'activity'};
 export const engineCategory = category => categories[category];
 const shoppingRecord = r => r.place.category === '쇼핑'
@@ -45,7 +57,9 @@ export function toEnginePlace(record, check, rate) {
   const p = record.place;
   return {id: p.place_id, name: p.name_ko, area: p.area || '', category: engineCategory(p.category),
     lat: p.latitude, lng: p.longitude, cost: shoppingRecord(record) ? 0 : costKrw(check.cost_jpy, rate),
-    stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1], bagLoad: p.bag_load / 2};
+    stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1], bagLoad: p.bag_load / 2,
+    mealRole: record.review.meal_role, buildingId: record.review.building_id ?? record.review.within?.building_id,
+    openingWindows: check.windows, lastEntry: check.window[2]};
 }
 
 export function availability(record, date, profiles, {allowShopping = false} = {}) {
@@ -69,7 +83,7 @@ export function availability(record, date, profiles, {allowShopping = false} = {
   if (!engineCategory(p.category)) reasons.push('category_unknown');
   if (!profile) reasons.push('structured_date_profile_missing');
   if (date < profiles.valid_from || date > profiles.valid_through) reasons.push('outside_reviewed_date_range');
-  let window = null;
+  let window = null, windows = null;
   if (profile) {
     if (profile.valid_from && date < profile.valid_from || profile.valid_through && date > profile.valid_through) {
       reasons.push('outside_place_reviewed_date_range');
@@ -79,6 +93,8 @@ export function availability(record, date, profiles, {allowShopping = false} = {
     if (profile.uncertain_dates?.includes(date)) reasons.push('closure_notice_year_unconfirmed');
     const weekday = dayOfWeek(date);
     const holiday = profiles.japan_holidays.includes(date);
+    if (override?.requires_visit_confirmation || profile.confirmation_weekdays?.includes(weekday)
+        || (holiday && profile.confirmation_holidays)) reasons.push('visit_confirmation_required');
     if (profile.holiday_hours_unconfirmed && holiday) reasons.push('holiday_hours_unconfirmed');
     // A weekday-only price cannot imply that the restaurant itself is closed.
     if (profile.price_unavailable_weekdays?.includes(weekday)
@@ -100,8 +116,14 @@ export function availability(record, date, profiles, {allowShopping = false} = {
     if (!Array.isArray(window) || window.length !== 3 || !window.every(Number.isInteger)
         || window[0] < 0 || window[1] > 1440 || window[0] >= window[1]
         || window[2] < window[0] || window[2] > window[1]) reasons.push('invalid_time_window');
+    if (profile.windows && (profile.weekday_window || profile.extended_window)
+        && !override?.windows && !override?.window) reasons.push('split_window_rule_conflict');
+    windows = override?.windows ?? (override?.window ? [window] : profile.windows ?? [window]);
+    if (!Array.isArray(windows) || !windows.length || windows.some((w,i) => !Array.isArray(w) || w.length !== 3
+        || !w.every(Number.isInteger) || w[0] < 0 || w[1] > 1440 || w[0] >= w[1]
+        || w[2] < w[0] || w[2] > w[1] || (i > 0 && w[0] < windows[i-1][1]))) reasons.push('invalid_time_window');
   }
-  return {place_id: p.place_id, name_ko: p.name_ko, reasons: [...new Set(reasons)], window,
+  return {place_id: p.place_id, name_ko: p.name_ko, reasons: [...new Set(reasons)], window, windows,
     cost_jpy: shopping ? null : visitCost,
     cost_basis: profile?.cost_basis ?? null, source_urls: profile?.source_urls ?? [],
     eligible_for_model: reasons.length === 0, schedule_ready: false};
@@ -109,6 +131,9 @@ export function availability(record, date, profiles, {allowShopping = false} = {
 
 /** One Japan-local day. All requested IDs must be kept; omissions fail validation. */
 export function validateDay(request, dataset, profiles, options = {}) {
+  return withConditionStart(request.date, () => validatePreparedDay(request, dataset, profiles, options));
+}
+function validatePreparedDay(request, dataset, profiles, options) {
   if (!validDate(request.date)) throw Error('date must be a real YYYY-MM-DD date in Japan');
   if (!Array.isArray(request.place_ids) || request.place_ids.length === 0
       || request.place_ids.some(id => typeof id !== 'string')
@@ -124,20 +149,20 @@ export function validateDay(request, dataset, profiles, options = {}) {
     if (!r) { rejected.push({place_id: id, reasons: ['unknown_place_id']}); continue; }
     const check = availability(r, request.date, profiles, options);
     if (!check.eligible_for_model) { rejected.push(check); continue; }
-    windows.set(id, check.window);
+    windows.set(id, check.windows);
     visitCosts.set(id, check.cost_jpy);
     accepted.push({place: toEnginePlace(r, check, request.krw_per_jpy),
       votes: 1, mustOf: null, tier: 'core', participants: []});
   }
-  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: true, distanceWeight: options.distanceWeight});
+  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: options.considerBags ?? true, distanceWeight: options.distanceWeight});
   const plan = built.plans[0];
   const violations = rejected.map(r => ({code: 'place_not_eligible', place_id: r.place_id, reasons: r.reasons}));
   let walkingKm = 0, previous = null;
   const items = plan.items.map(item => {
     const movement = previous ? travel(previous, item.place) : {km: 0, min: 0, walkKm: 0, mode: 'walk'};
     walkingKm += movement.walkKm;
-    const [open, close, lastEntry] = windows.get(item.place.id);
-    if (item.startMin < open || item.endMin > close || item.startMin > lastEntry) {
+    if (!windows.get(item.place.id).some(([open, close, lastEntry]) =>
+        item.startMin >= open && item.endMin <= close && item.startMin <= lastEntry)) {
       violations.push({code: 'opening_or_last_entry_violation', place_id: item.place.id});
     }
     previous = item.place;
@@ -146,7 +171,7 @@ export function validateDay(request, dataset, profiles, options = {}) {
     return {place_id: item.place.id, name_ko: item.place.name, start_min: item.startMin, end_min: item.endMin,
       stay_min: item.place.stayMin, move_min: movement.min, move_mode: movement.mode,
       cost_jpy: shopping ? null : visitCosts.get(item.place.id), cost_krw: shopping ? null : item.place.cost,
-      cost_status: shopping ? 'not_applicable_shopping' : 'known',
+      cost_status: shopping ? 'not_applicable_shopping' : record.field_sources.cost?.kind === 'official_budget_estimate' ? 'estimate' : 'known',
       cost_basis: profiles.places[item.place.id].cost_basis};
   });
   const included = new Set(items.map(item => item.place_id));
@@ -170,7 +195,7 @@ export function validateDay(request, dataset, profiles, options = {}) {
       hasRoutingContext() ? routingLimitations([plan.items.map(item => item.place)])
         : 'Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.',
       'Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.',
-      'Stay times are team estimates. Weather, entry queues and unannounced closures are not verified.',
+      'Stay times are team estimates. Forecast rain probability is a preference, not a live safety or weather guarantee; entry queues and unannounced closures are not verified.',
     ]};
 }
 

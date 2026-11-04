@@ -40,7 +40,7 @@ export function buildEvidence(res: ConsensusResult, submissions: Submission[], d
 
   const taken = new Set([...res.selections, ...res.excluded].map((s) => s.place.id));
   const picked = new Set(subs.flatMap((s) => s.picks));
-  const vetoed = new Set(subs.map((s) => s.veto).filter(Boolean) as string[]);
+  const vetoed = new Set(submissions.flatMap((s) => vetoesOf(s)));
   const pickedCats = subs.map((s) => new Set(s.picks.map((id) => allPlaces().find((p) => p.id === id)?.category)));
 
   const ep = (p: Place) => ({

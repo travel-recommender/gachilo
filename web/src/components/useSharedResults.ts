@@ -12,6 +12,22 @@ const api = createSharedResultClient(API_BASE);
  */
 const calculator = createCalculator();
 const POLL_MS = 3000;
+// A successful poll of the same result must not dismiss an owner's action notice.
+// Hide it only after the input/selection state changes or a new selection attempt starts.
+const selectionStateKey = (snap: SharedResults) => JSON.stringify([
+  snap.roomId, snap.revision, snap.selectionVersion, snap.status, snap.selectedStrategy,
+]);
+
+type SelectionNotice = { message: string; stateKey: string; recovery?: { strategy: SharedStrategy; status: number } };
+function recoveredNotice(next: SharedResults, strategy: SharedStrategy, status: number): SelectionNotice | null {
+  const message = next.status === "ready"
+    ? (next.selectedStrategy !== strategy
+      ? "이미 다른 후보로 확정되어 있어요. 서버에 저장된 확정 일정을 확인해 주세요." : null)
+    : status === 0
+      ? "현재 일정이 확정되지 않았어요. 최신 후보를 확인한 뒤 다시 확정해 주세요."
+      : "그 사이 입력이나 확정이 바뀌었어요. 최신 후보를 확인해 주세요.";
+  return message ? { message, stateKey: selectionStateKey(next) } : null;
+}
 
 /**
  * 서버 공용 결과를 3초마다 조회한다. 방이 없으면(데모 모드) 아무것도 하지 않는다.
@@ -22,7 +38,8 @@ export function useSharedResults(enabled = true) {
   const room = state.room;
   const isOwner = !!room?.ownerToken;
   const [snap, setSnap] = useState<SharedResults | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [queryError, setQueryError] = useState<string | null>(null);
+  const [selectionNotice, setSelectionNotice] = useState<SelectionNotice | null>(null);
   // 계산기 상태가 바뀌면 다시 그린다
   const [, setTick] = useState(0);
   useEffect(() => calculator.subscribe(() => setTick((t) => t + 1)), []);
@@ -34,12 +51,19 @@ export function useSharedResults(enabled = true) {
   }, []);
 
   const refresh = useCallback(async () => {
-    if (!room) return;
+    if (!room) return null;
     try {
-      accept(await api.get(room.roomId, room.token));
-      setError(null);
+      const next = await api.get(room.roomId, room.token);
+      accept(next);
+      if (live.current) {
+        setQueryError(null);
+        setSelectionNotice((notice) => notice?.recovery
+          ? recoveredNotice(next, notice.recovery.strategy, notice.recovery.status) : notice);
+      }
+      return next;
     } catch (e) {
-      if (live.current) setError(e instanceof Error ? e.message : "결과를 불러오지 못했어요.");
+      if (live.current) setQueryError(e instanceof Error ? e.message : "결과를 불러오지 못했어요.");
+      return null;
     }
   }, [room, accept]);
 
@@ -66,20 +90,30 @@ export function useSharedResults(enabled = true) {
   /** 계산 실패·미완료 뒤 방장이 누르는 다시 시도 */
   const retryCalculate = useCallback(() => { if (snap) calculator.retry(snap); }, [snap]);
 
-  /** 방장 확정. 다른 사람이 그 사이 다시 냈거나 확정이 바뀌었으면(409) 최신 상태로 다시 불러온다 */
+  /** 방장 확정. 충돌·응답 유실 뒤에는 쓰기를 반복하지 않고 서버 상태를 먼저 확인한다. */
   const select = useCallback(async (strategy: SharedStrategy) => {
     if (!room?.ownerToken || !snap) return null;
     setSelecting(true);
+    setQueryError(null);
+    setSelectionNotice(null);
     try {
       const next = await api.select(room.roomId, room.ownerToken, snap, strategy);
       accept(next);
+      if (live.current) setQueryError(null);
       return next;
     } catch (e) {
-      if (e instanceof SharedResultError && e.status === 409) {
-        setError("그 사이 입력이나 확정이 바뀌었어요. 최신 후보로 다시 불러왔어요.");
-        refresh();
+      if (e instanceof SharedResultError && (e.status === 0 || e.status === 409)) {
+        if (live.current) setSelectionNotice({
+          message: "확정 결과를 확인하지 못했어요. 서버에 이미 저장됐을 수 있어요. 연결 후 최신 상태를 먼저 확인해 주세요.",
+          stateKey: selectionStateKey(snap), recovery: { strategy, status: e.status },
+        });
+        // Keep uncertainty visible if this read also fails; the next successful poll reconciles it.
+        // Keep the button busy until this read completes, and never repeat the write automatically.
+        await refresh();
       } else {
-        setError(e instanceof Error ? e.message : "확정하지 못했어요.");
+        if (live.current) setSelectionNotice({
+          message: e instanceof Error ? e.message : "확정하지 못했어요.", stateKey: selectionStateKey(snap),
+        });
       }
       return null;
     } finally {
@@ -87,5 +121,7 @@ export function useSharedResults(enabled = true) {
     }
   }, [room, snap, accept, refresh]);
 
-  return { snap, error, calcError: calc.retry ? calc.error : null, isOwner, online: !!room, selecting, select, retryCalculate, refresh };
+  const notice = snap && snap.roomId === room?.roomId && selectionNotice?.stateKey === selectionStateKey(snap)
+    ? selectionNotice.message : null;
+  return { snap, error: selectionNotice?.recovery && notice ? notice : queryError ?? notice, calcError: calc.retry ? calc.error : null, isOwner, online: !!room, selecting, select, retryCalculate, refresh };
 }

@@ -131,7 +131,10 @@ test('budget, steps, and elapsed-time limits are checked independently after sch
 test('last-entry time is checked even when stay could finish before closing', () => {
   const modified=structuredClone(profiles);
   modified.places.osaka_009.window=[0,1080,539];
-  assert.ok(run(['osaka_009'],{},dataset,modified).violations.some(v=>v.code==='opening_or_last_entry_violation'));
+  const result=run(['osaka_009'],{},dataset,modified);
+  assert.equal(result.passed_model_checks,false);
+  assert.equal(result.items.length,0);
+  assert.ok(result.violations.some(v=>v.code==='requested_place_not_scheduled'));
 });
 test('time-dropped requested places invalidate the result', () => {
   const modified=structuredClone(dataset);
@@ -165,8 +168,8 @@ test('source data stay unchanged, every profile has evidence, and no demo filler
     assert.equal(scenario.schedule_ready,false);
   }
 });
-test('committed validation report is reproducible from the current source and profiles', () => {
-  const saved=JSON.parse(fs.readFileSync(new URL('../data/week5/schedule_validation_20260930.json',import.meta.url),'utf8'));
+test('current engine validation report is reproducible while historical reports stay unchanged', () => {
+  const saved=JSON.parse(fs.readFileSync(new URL('../data/final/legacy_catalog_validation_20261026.json',import.meta.url),'utf8'));
   assert.deepEqual(makeReport(dataset,profiles),saved);
 });
 

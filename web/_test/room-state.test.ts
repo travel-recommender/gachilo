@@ -2,7 +2,7 @@
 // 실행: cd web && node --test _test/room-state.test.ts  (Node 24 이상)
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { EXTRAS_DEFAULT, editedState, joinedState, rejoinedState, restoredFromServer, seatRow } from "../src/lib/room-state.ts";
+import { vetoFields, EXTRAS_DEFAULT, editedState, joinedState, rejoinedState, restoredFromServer, seatRow } from "../src/lib/room-state.ts";
 import { restore, save, submitBlocker, type KV } from "../src/lib/persist.ts";
 import type { AppState } from "../src/components/store";
 
@@ -177,4 +177,27 @@ test("A→B→A: 토큰이 폐기된 이전 기기도 내 자리를 PIN으로 �
   assert.equal(seatRow({ id: "c", claimed: true }, "b", true), "taken");
   assert.equal(seatRow({ id: "b", claimed: true }, "b", true), "taken"); // PIN 없는 자리는 되찾을 수 없다
   assert.equal(seatRow({ id: "d", claimed: false }, "b", true), "open");
+});
+
+test("복수 제외는 서버 복원 후에도 전부 남고, 빈 목록은 옛 veto보다 우선한다", () => {
+  for (const vetoes of [["osaka_castle", "harukas"], []]) {
+    const saved = { ...SAVED, veto: "osaka_castle", vetoes };
+    const after = restoredFromServer(seated("a", {inputMissing:true}), saved);
+    assert.deepEqual(after.mine.vetoes, vetoes);
+    assert.deepEqual(after.extra.vetoList, vetoes);
+  }
+  const legacy = restoredFromServer(seated("a", {inputMissing:true}), {...SAVED, veto:"harukas"});
+  assert.deepEqual(legacy.mine.vetoes, ["harukas"]);
+  assert.deepEqual(legacy.extra.vetoList, ["harukas"]);
+});
+
+test("P4 전체 제외의 제출 계약은 JSON 왕복과 마지막 제외 해제를 보존한다", () => {
+  for (const vetoes of [["osaka_castle", "harukas"], ["harukas"], []]) {
+    const fields = vetoFields(vetoes);
+    assert.deepEqual(fields, {veto:vetoes[0] ?? null, vetoes});
+    const saved = JSON.parse(JSON.stringify({...SAVED, ...fields}));
+    const restored = restoredFromServer(seated("a", {inputMissing:true}), saved);
+    assert.deepEqual(restored.extra.vetoList, vetoes);
+    assert.deepEqual(vetoFields(restored.mine.vetoes!), fields);
+  }
 });

@@ -60,6 +60,39 @@ class SharedCandidatesTests(unittest.TestCase):
     def select(self,strategy='fairness',version=0,revision=3,token=None):
         return self.req('PUT',self.path+'/selection',{'strategy':strategy,'revision':revision,'selectionVersion':version},self.owner if token is None else token)
 
+    def test_multiple_vetoes_survive_http_storage_engine_and_all_candidates(self):
+        vetoes=['osaka_castle','harukas','ichiran']
+        for i,m in enumerate(self.room['members']):
+            body={**self.body}
+            if i==0:body.update(veto='osaka_castle',vetoes=vetoes)
+            else:body.update(picks=['harukas','osaka_castle'],must='harukas')
+            self.assertEqual(self.req('PUT',self.path+'/submissions/'+m['id'],body,m['submissionToken'])[0],200)
+        with self.store.connect() as c:
+            saved=json.loads(c.execute('SELECT payload FROM submissions WHERE member_id=?',(self.room['members'][0]['id'],)).fetchone()[0])
+        self.assertEqual(saved['vetoes'],vetoes)
+        m=self.room['members'][0]
+        code,own=self.req('GET',self.path+'/submissions/'+m['id'],token=m['submissionToken'])
+        self.assertEqual(code,200)
+        self.assertEqual(own['submission']['vetoes'],vetoes)
+        code,result=self.calculate()
+        self.assertEqual(code,200)
+        self.assertEqual([c['strategy'] for c in result['candidates']],STRATEGIES)
+        for candidate in result['candidates']:
+            self.assertTrue(any(day['placeIds'] for day in candidate['days']))
+            for day in candidate['days']:
+                self.assertFalse(set(day['placeIds']) & set(vetoes))
+            selected=self.select(candidate['strategy'],result['selectionVersion'])[1]
+            result=selected
+            self.assertFalse({id for day in selected['result']['days'] for id in day['placeIds']} & set(vetoes))
+
+    def test_vetoes_validation_and_legacy_compatibility(self):
+        m=self.room['members'][0]
+        for invalid in [None,'harukas',[1],['harukas','harukas'],['missing'],['glico']]:
+            body={**self.body,'vetoes':invalid}
+            self.assertEqual(self.req('PUT',self.path+'/submissions/'+m['id'],body,m['submissionToken'])[0],400,invalid)
+        for extra in [{'veto':'harukas'},{'veto':'glico','vetoes':[]}]:
+            self.assertEqual(self.req('PUT',self.path+'/submissions/'+m['id'],{**self.body,**extra},m['submissionToken'])[0],200)
+
     def test_three_clients_same_candidates_selection_and_restart(self):
         self.submit_all()
         code,payload=self.calculate()

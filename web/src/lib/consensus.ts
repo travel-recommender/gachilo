@@ -27,8 +27,13 @@ export function toView(sub: Submission, days: number): SubmissionView {
 
 /* ══════════════ 거리 · 이동 ══════════════ */
 
+export const hasCoordinates = (p: Place) => Number.isFinite(p.lat) && Number.isFinite(p.lng)
+  && Math.abs(p.lat) <= 90 && Math.abs(p.lng) <= 180;
+export const canPreviewPlace = (p: Place) => hasCoordinates(p) && !p.selectionDisabledReason;
+
 /** 두 좌표 사이 직선거리(km). 도심 규모에서는 등장방형 근사로 충분하다 */
 export function distKm(a: Place, b: Place): number {
+  if (!hasCoordinates(a) || !hasCoordinates(b)) return Infinity;
   const kx = Math.cos((((a.lat + b.lat) / 2) * Math.PI) / 180);
   const dx = (a.lng - b.lng) * kx * 111;
   const dy = (a.lat - b.lat) * 111;
@@ -98,7 +103,7 @@ export function satisfactionOf(
   const hit = sub.picks.filter((p) => ids.has(p)).length;
   const pickRate = sub.picks.length ? hit / sub.picks.length : 0;
   const mustKept = sub.must ? ids.has(sub.must) : true;
-  const vetoKept = sub.veto ? !ids.has(sub.veto) : true;
+  const vetoKept = (sub.vetoes ?? (sub.veto ? [sub.veto] : [])).every(id => !ids.has(id));
 
   const budgetUse = sub.budget ? costPerPerson / sub.budget : 1;
   const walkUse = sub.walkLimit ? walkPerDay / sub.walkLimit : 1;
@@ -166,7 +171,7 @@ function categoryTaste(sub: Submission): Partial<Record<string, number>> {
 
 /** 개인 효용 (0~1) */
 export function utilityOf(place: Place, sub: SubmissionView, taste = categoryTaste(sub)): number {
-  if (sub.veto === place.id) return 0;
+  if ((sub.vetoes ?? (sub.veto ? [sub.veto] : [])).includes(place.id)) return 0;
   if (sub.must === place.id) return 1;
 
   // 직접 고른 곳은 높게, 안 고른 곳은 (내 취향 + 장소의 보편적 매력)만큼
@@ -220,7 +225,7 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
   const candidateIds = new Set<string>();
   subs.forEach((s) => s.picks.forEach((p) => candidateIds.add(p)));
 
-  const vetoed = new Set(subs.map((s) => s.veto).filter(Boolean) as string[]);
+  const vetoed = new Set(subs.flatMap((s) => s.vetoes ?? (s.veto ? [s.veto] : [])));
 
   const selections: Selection[] = [];
   const excluded: Selection[] = [];
@@ -241,14 +246,14 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
     }
   });
 
-  const alive = [...candidateIds].filter((id) => !vetoed.has(id)).map((id) => findPlace(id)).filter((p): p is Place => !!p);
+  const alive = [...candidateIds].filter((id) => !vetoed.has(id)).map((id) => findPlace(id)).filter((p): p is Place => !!p && canPreviewPlace(p));
 
   // 4. 각자의 '꼭'을 먼저 확정
   const allIds = new Set<string>();
   subs.forEach((s) => {
     if (!s.must || vetoed.has(s.must)) return;
     const place = findPlace(s.must);
-    if (!place || allIds.has(place.id)) return;
+    if (!place || !canPreviewPlace(place) || allIds.has(place.id)) return;
     allIds.add(place.id);
     selections.push(makeSel(place, "core", subs.map((x) => x.memberId)));
   });
@@ -319,7 +324,7 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
   //    사람이 고른 곳이 자리를 다 못 채웠을 때만 동작하고, 남은 예산 안에서만 넣는다.
   //    프로토타입에서는 그룹 효용이 높은 순으로 고르는 규칙이 AI 역할을 대신한다.
   const chosenIds = new Set(selections.map((s) => s.place.id));
-  const aiPool = allPlaces()
+  const aiPool = allPlaces().filter(canPreviewPlace)
     .filter((p) => !chosenIds.has(p.id) && !vetoed.has(p.id) && !candidateIds.has(p.id))
     .map((p) => ({ place: p, score: scorePlace(p, subs, strategy) }))
     .sort((a, b) => b.score - a.score);
@@ -368,6 +373,7 @@ export function buildConsensus(input: ConsensusInput): ConsensusResult {
 
 /** 장소들을 하루치로 나눴을 때 하루 평균 도보 거리 */
 export function estimateWalkPerDay(places: Place[], days: number): number {
+  places = places.filter(canPreviewPlace);
   if (places.length < 2) return 0;
   const sorted = [...places].sort((a, b) => a.lng - b.lng || a.lat - b.lat);
   let walk = 0;

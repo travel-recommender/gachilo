@@ -14,10 +14,10 @@ import {
 } from "@/lib/places";
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
 import { ApiError, nightsBetween, roomApi, toDateRange, type ApiPool, type ApiResult, type RoomMember } from "@/lib/room-api";
-import { editedState, joinedState, rejoinedState, restoredFromServer } from "@/lib/room-state";
+import { editedState, joinedState, rejoinedState, restoredFromServer, vetoFields } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
-import { REAL_DATASET, toPlace } from "@/lib/catalog";
+import { REAL_DATASET, roomCatalog } from "@/lib/catalog";
 import { toServerTradeoffs } from "@/lib/tradeoff";
 import type { Member, Place, Strategy, Submission } from "@/lib/types";
 
@@ -245,7 +245,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       longlist: mine.longlist,
       picks: mine.picks,
       must: mine.must,
-      veto: mine.veto,
+      ...vetoFields(mine.vetoes ?? (stateRef.current.extra.vetoList.length ? stateRef.current.extra.vetoList : (mine.veto ? [mine.veto] : []))),
       budgetPerDay: mine.budgetPerDay,
       stepLimit: mine.stepLimit,
       activeMin: mine.activeMin,
@@ -310,12 +310,11 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
           if (live) { setCatalog(null); setCatalogStatus("demo"); }
           return;
         }
-        // 폐업·검토 전·방문일 휴무처럼 일정에 못 넣는 곳은 고를 수 없게 처음부터 뺀다 (P8이 비는 원인이었다)
+        // 전체를 검색하되 방문일 검사에서 탈락한 장소는 사유를 표시하고 선택을 막는다.
         const [{ places }, { placeIds }] = await Promise.all([
           roomApi.realPlaces(), roomApi.schedulable(roomId, roomToken),
         ]);
-        const usable = placeIds ? new Set(placeIds) : null;
-        const list = places.filter((p) => !usable || usable.has(p.place_id)).map(toPlace);
+        const list = roomCatalog(places, placeIds);
         if (live) { setCatalog(list); setCatalogStatus("real"); }
       } catch {
         if (live) setCatalogStatus("error");
@@ -371,7 +370,7 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
   );
 
   const schedule = useMemo(() => {
-    const vetoed = new Set(submissions.map((s) => s.veto).filter(Boolean) as string[]);
+    const vetoed = new Set(submissions.flatMap((s) => s.vetoes ?? (s.veto ? [s.veto] : [])));
     return buildSchedule(consensus.selections, state.nights + 1, {
       considerBags: true, fillMeals: true, vetoed,
       // 자동 식사도 가장 낮은 1인 예산 안에서만 (consensus의 groupBudget과 같은 기준)

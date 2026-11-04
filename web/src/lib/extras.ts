@@ -11,7 +11,7 @@ export interface Lodging {
 }
 
 export interface TripExtras {
-  /** 꼭 가기·제외는 개수 제한이 없어서 목록으로 둔다. 서버에는 picks·must·veto로 줄여 보낸다 */
+  /** 꼭 가기·제외는 개수 제한이 없어서 목록으로 둔다. 제외 목록은 서버의 vetoes로 보낸다 */
   mustList: string[];
   vetoList: string[];
   arrivalAirport: string;

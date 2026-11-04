@@ -1,12 +1,13 @@
+import {withTripConditions} from './conditions.ts';
 /** Shared P7/P8 projection. Never publish member inputs or per-member scores. */
 import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {buildConsensus, kmToSteps} from './consensus.ts';
 import {buildSchedule} from './schedule.ts';
 import {allPlaces, setMembers} from './places.ts';
-import {distanceWeightFor, groupTradeoffs} from './inputs.ts';
+import {distanceWeightFor, groupTradeoffs, vetoesOf} from './inputs.ts';
 
-import {withRouting, routingSummary} from './routing.ts';
+import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 
 export const STRATEGIES = ['average', 'least_misery', 'fairness'];
 const round = n => Math.round(n * 100) / 100;
@@ -19,14 +20,15 @@ const reasonText = {
 };
 
 function ruleResult(consensus, submissions, days, summary, distanceWeight) {
-  const vetoed = new Set(submissions.map(s => s.veto).filter(Boolean));
+  const vetoed = new Set(submissions.flatMap(s => vetoesOf(s)));
   return {core: consensus.core, schedule: buildSchedule(consensus.core, days,
     {considerBags:true, fillMeals:true, vetoed, distanceWeight, budget:consensus.metrics.budgetCap}), summary,
     ai:{used:false, added:[], basis:[]}};
 }
 
 export async function calculateCandidates(request, enrich, routingOptions = {}) {
-  return withRouting(allPlaces(), () => calculatePrepared(request, enrich), routingOptions);
+  return withTripConditions(request.weather, request.startDate, () =>
+    withRouting(allPlaces(), () => calculatePrepared(request, enrich), routingOptions));
 }
 
 async function calculatePrepared(request, enrich) {
@@ -71,7 +73,7 @@ async function calculatePrepared(request, enrich) {
     candidates.push({strategy,
       metrics:{walkStepsPerDay:Math.round(mean('walkSteps')),
         costKrwPerDay:Math.round(mean('costKrw')), totalKmPerDay:round(mean('totalKm'))},
-      days:projected, summary:enriched.summary + routingSummary(enriched.schedule.plans.map(p=>p.items.map(i=>i.place))),
+      days:projected, summary:enriched.summary + routingSummary(enriched.schedule.plans.map(p=>p.items.map(i=>i.place))) + conditionSummary(enriched.schedule.plans.map((p,i)=>({date:projected[i].date,points:p.items.map(it=>it.place)}))),
       explanationSource:enriched.ai.used ? 'ai' : 'rules'});
   }
   return {candidates};

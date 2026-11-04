@@ -47,10 +47,15 @@ export interface Place {
   blurb: string;
   /** 실제 장소(150곳)의 주소. 있으면 목록의 주소 줄에 쓴다 */
   address?: string;
-  /** 실제 장소의 원래 이름(일본어·영어). 화면에는 한국어 이름을 쓰고, 검색은 이 이름으로도 된다 */
-  originalName?: string;
   /** 사용자가 직접 추가한 장소인가 (좌표·비용이 추정값) */
   custom?: boolean;
+  categoryLabel?: string;
+  searchNames?: string[];
+  catalogStatus?: string;
+  selectionDisabledReason?: string | null;
+  costKnown?: boolean;
+  costEstimated?: boolean;
+  shoppingSpendExcluded?: boolean;
 }
 
 export interface Member {
@@ -73,6 +78,8 @@ export interface Submission {
   must: string | null;
   /** 가고 싶지 않은 곳 */
   veto: string | null;
+  /** 전체 제외 목록. 없을 때만 기존 veto 한 개를 사용한다. */
+  vetoes?: string[];
   /** 하루에 쓸 수 있는 돈(원). 여행 전체 예산은 일수를 곱해 구한다 */
   budgetPerDay: number;
   /** 하루 걸을 수 있는 걸음 수(보) */

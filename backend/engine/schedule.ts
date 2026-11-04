@@ -1,5 +1,6 @@
 import { distKm, travel } from "./consensus.ts";
-import { DETOUR } from "./routing.ts";
+import { DETOUR, travelBurdenTotals } from "./routing.ts";
+import {bagIncrement, bagExtraCost, withConditionDay} from "./conditions.ts";
 import { allPlaces } from "./places.ts";
 import type { DayPlan, Place, ScheduleItem, Selection } from "./types.ts";
 
@@ -49,14 +50,17 @@ function clusterByDay(sels: Selection[], days: number): Selection[][] {
 const inWindow = (t: number, w: [number, number]) => t >= w[0] && t <= w[1];
 /** 술집은 따로 카테고리가 없어 이름으로 알아본다 */
 export const isBar = (p: Place) => /이자카야|술집|와인바|칵테일|izakaya|\bbar\b|\bpub\b/i.test(p.name);
-const isMeal = (p: Place) => p.category === "food" && !isBar(p);
+export const isMeal = (p: Place) => p.category === "food" && !isBar(p) && (!p.mealRole || p.mealRole === "meal");
 
 /** 영업시간 안으로 들어오는 시작 시각. 못 넣으면 null. 술집만 자정까지 둔다 */
 function fitOpening(place: Place, arrive: number): number | null {
-  const start = Math.max(arrive, place.openFrom);
-  if (start + place.stayMin > place.openTo) return null;
-  if (start + place.stayMin > (isBar(place) ? NIGHT_END : DAY_END)) return null;
-  return start;
+  const windows = place.openingWindows ?? [[place.openFrom, place.openTo, place.lastEntry ?? place.openTo]];
+  for (const [open, close, lastEntry] of windows) {
+    const start = Math.max(arrive, open);
+    if (start <= lastEntry && start + place.stayMin <= close
+        && start + place.stayMin <= (isBar(place) ? NIGHT_END : DAY_END)) return start;
+  }
+  return null;
 }
 
 /** 빈 식사 시간을 채울 가까운 식당·카페를 고른다 */
@@ -144,7 +148,7 @@ function buildDay(
     clock = start + p.stayMin;
     prev = p;
     used.add(p.id);
-    load += p.bagLoad;
+    load += bagIncrement(p.bagLoad);
     if (tier === "filled") mealSpent += p.cost;
     if (isMeal(p) && inWindow(start, LUNCH)) mealsDone.lunch = true;
     if (isMeal(p) && inWindow(start, DINNER)) mealsDone.dinner = true;
@@ -161,6 +165,18 @@ function buildDay(
   // 술집은 맨 뒤로 미룬다
   const bars = remaining.filter((s) => isBar(s.place));
   bars.forEach((s) => remaining.splice(remaining.indexOf(s), 1));
+
+  // Directed walking distances are stable inside this dated buildDay. Maintain
+  // row sums as candidates leave, instead of repeating an O(n²) scan per choice.
+  const onward = new Map<Selection,Map<Selection,number>>();
+  const onwardSums = new Map<Selection,number>();
+  if (opts.considerBags) for (const s of remaining) {
+    const row=new Map<Selection,number>();let sum=0;
+    for(const other of remaining) if(other!==s) {
+      const km=travel(s.place,other.place).walkKm;row.set(other,km);sum+=km;
+    }
+    onward.set(s,row);onwardSums.set(s,sum);
+  }
 
   while (remaining.length) {
     const nearLunch = inWindow(clock, [LUNCH[0] - MEAL_LEAD, LUNCH[1]]) && !mealsDone.lunch;
@@ -204,13 +220,25 @@ function buildDay(
     const scored = pool.map((s) => {
       // Keep the original distance/packing score scale without mixing routing sources.
       const d = prev ? distKm(prev, s.place) * DETOUR : 0;
-      const bagPenalty = opts.considerBags ? s.place.bagLoad * 2.5 * (1 - load) : 0;
+      // Carry accumulated bags on this leg. Buying now also adds burden to the
+      // next leg: use the mean remaining walking distance as a bounded lookahead.
+      // The old (1-load) term became negative and rewarded shopping after load>1.
+      let bagPenalty=0;
+      if(opts.considerBags) {
+        const nextWalk=remaining.length>1 ? (onwardSums.get(s)??0)/(remaining.length-1)
+          : stay ? travel(s.place,stay).walkKm : 0;
+        const incomingWalk=prev ? travel(prev,s.place).walkKm : 0;
+        bagPenalty=bagExtraCost(incomingWalk,load)+bagExtraCost(nextWalk,bagIncrement(s.place.bagLoad));
+      }
       return { sel: s, cost: d * (opts.distanceWeight ?? 1) + bagPenalty };
     });
     scored.sort((a, b) => urgency(b.sel) - urgency(a.sel) || a.cost - b.cost);
 
     const chosen = scored[0].sel;
     remaining.splice(remaining.indexOf(chosen), 1);
+    if(opts.considerBags) for(const s of remaining) {
+      onwardSums.set(s,Math.max(0,(onwardSums.get(s)??0)-(onward.get(s)?.get(chosen)??0)));
+    }
     // 끼니 시각에 못 넣으면 지금 바로 넣어 본 뒤에야 탈락시킨다
     if (!place(chosen.place, chosen.tier, chosen.participants, notBefore)
       && !(notBefore && place(chosen.place, chosen.tier, chosen.participants))) {
@@ -236,7 +264,7 @@ function buildDay(
   return { items: items.sort((a, b) => a.startMin - b.startMin), dropped, mealSpent };
 }
 
-export function buildSchedule(
+function buildSchedulePrepared(
   selections: Selection[],
   days: number,
   opts: ScheduleOptions = {}
@@ -248,7 +276,7 @@ export function buildSchedule(
   const globalUsed = new Set<string>(selections.map((s) => s.place.id));
   // 자동 식사에 쓸 수 있는 돈 — 선택 장소 비용을 먼저 빼고, 남은 날수로 나눠 앞날이 다 쓰지 않게 한다
   let mealWallet = (opts.budget ?? Infinity) - selections.reduce((sum, s) => sum + s.place.cost, 0);
-  buckets.forEach((bucket, i) => {
+  buckets.forEach((bucket, i) => withConditionDay(i, () => {
     const stay = opts.staysByDay?.[i] ?? null;
     const { items, dropped: d, mealSpent } = buildDay(bucket, opts, globalUsed, stay,
       Math.max(0, mealWallet / (days - i)));
@@ -294,7 +322,24 @@ export function buildSchedule(
       cost,
       ...(stay ? { stayName: stay.name, stayOutKm, stayBackKm } : {}),
     });
-  });
+  }));
 
   return { plans, dropped };
+}
+
+/** Compare the two feasible visit orders when they keep exactly the same daily
+ * places. A local greedy bag preference must not increase its own trip cost.
+ * This is a baseline guard, not a global route optimizer or a new hard limit.
+ */
+export function buildSchedule(selections:Selection[], days:number, opts:ScheduleOptions={}) {
+  const weighted=buildSchedulePrepared(selections,days,opts);
+  if(!opts.considerBags) return weighted;
+  const baseline=buildSchedulePrepared(selections,days,{...opts,considerBags:false});
+  const sameVisits=weighted.plans.every((p,i)=>
+    p.items.map(x=>x.place.id).sort().join('\0')===baseline.plans[i].items.map(x=>x.place.id).sort().join('\0'));
+  const score=(result:typeof weighted)=>result.plans.reduce((sum,p,i)=>sum+withConditionDay(i,()=>{
+    const stay=opts.staysByDay?.[i];
+    return travelBurdenTotals([...(stay?[stay]:[]),...p.items.map(x=>x.place),...(stay?[stay]:[])]).carryingCost;
+  }),0);
+  return sameVisits && score(baseline)<score(weighted) ? baseline : weighted;
 }

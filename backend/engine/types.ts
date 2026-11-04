@@ -48,6 +48,13 @@ export interface Place {
   blurb: string;
   /** 사용자가 직접 추가한 장소인가 (좌표·비용이 추정값) */
   custom?: boolean;
+  /** Verified branch role: a snack/takeout visit must not satisfy lunch/dinner. */
+  mealRole?: "meal" | "snack" | "takeout";
+  /** Same physical building, not just the same complex (north/south remain distinct). */
+  buildingId?: string;
+  /** Date-specific disjoint opening intervals [open, close, last entry]. */
+  openingWindows?: [number, number, number][];
+  lastEntry?: number;
 }
 
 export interface Member {
