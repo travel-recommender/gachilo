@@ -72,9 +72,12 @@ function intervalsOn(hours, date, dated) {
 }
 
 /** One place-date verdict from Google details fetched on fetchedOn (Japan date).
+ * windows: the reviewed opening segments of that date ([[open, close, lastEntry], …]; one segment
+ * may be passed bare). Every segment must be covered, so a reviewed lunch/dinner break is not a change.
  * Empty reasons = confirmed unchanged.
  */
-export function judge(details, date, window, fetchedOn) {
+export function judge(details, date, windows, fetchedOn) {
+  const segments = Array.isArray(windows?.[0]) ? windows : [windows];
   if (!details) return ['live_lookup_failed'];
   const status = details.businessStatus;
   if (status === 'CLOSED_PERMANENTLY') return ['live_closed_permanently'];
@@ -87,7 +90,7 @@ export function judge(details, date, window, fetchedOn) {
   if (!hours?.periods?.length) return ['live_hours_unavailable'];
   const intervals = intervalsOn(hours, date, Boolean(dated));
   if (!intervals.length) return ['live_closed_on_visit_date'];
-  return covers(intervals, window[0], window[1]) ? [] : ['live_hours_changed'];
+  return segments.every(w => covers(intervals, w[0], w[1])) ? [] : ['live_hours_changed'];
 }
 
 function readJson(url, fallback) {
@@ -183,9 +186,9 @@ export function googleLiveCheck({key = process.env.GOOGLE_PLACES_API_KEY, fetchI
       fs.writeFileSync(cacheUrl, JSON.stringify(cache));
     } catch { /* A cache write failure must not change the verdicts. */ }
     const verdicts = new Map();
-    for (const {record, date, window} of requests) {
+    for (const {record, date, windows} of requests) {
       const d = detailsOf.get(record.place.place_id);
-      verdicts.set(`${record.place.place_id}|${date}`, typeof d === 'string' ? [d] : judge(d.data, date, window, d.fetched_on));
+      verdicts.set(`${record.place.place_id}|${date}`, typeof d === 'string' ? [d] : judge(d.data, date, windows, d.fetched_on));
     }
     // checked_on: 판정에 쓴 응답을 받은 날짜. 새로 조회한 수와 같은 날 캐시를 재사용한 수를 따로 센다
     return {verdicts, source: 'google_places', checked_on: today, fetched, reused};

@@ -7,7 +7,7 @@ import {pathToFileURL} from 'node:url';
 import {calculateRealCandidates} from './real_candidates.mjs';
 import {googleLiveCheck, judge, mockLiveCheck, UNAVAILABLE} from './live_check.mjs';
 import {choose} from './real_ai.mjs';
-import {loadInputs, validateDay} from '../../scripts/validate_real_schedule.mjs';
+import {loadInputs, loadRuntimeInputs, availability, toEnginePlace, validateDay} from '../../scripts/validate_real_schedule.mjs';
 const {dataset, profiles} = loadInputs();
 const request = (ids, {days = 1, must = null, veto = null} = {}) => ({startDate: '2026-10-01',
   endDate: `2026-10-0${days}`, exchange_rate: {krw_per_jpy: '9.5', as_of: '2026-09-30'},
@@ -53,7 +53,7 @@ test('live judge: within 7 days the dated current hours (special closures) decid
 
 test('Google lookup: no key stops, far match fails, details are cached, the key never goes elsewhere', async () => {
   const record = dataset.places.find(r => r.place.place_id === 'osaka_009');
-  const reqs = [{record, date: '2026-10-01', window: [600, 1200, 1140]}];
+  const reqs = [{record, date: '2026-10-01', windows: [[600, 1200, 1140]]}];
   await assert.rejects(googleLiveCheck({key: ''})(reqs), new RegExp(UNAVAILABLE));
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'live-'));
   const cacheUrl = pathToFileURL(path.join(dir, 'cache.json'));
@@ -85,7 +85,7 @@ test('Google lookup: no key stops, far match fails, details are cached, the key 
 
 test('Google lookup: an address result is not the place; the same-name result wins over a closer one', async () => {
   const record = dataset.places.find(r => r.place.place_id === 'osaka_009');
-  const reqs = [{record, date: '2026-10-01', window: [600, 1200, 1140]}];
+  const reqs = [{record, date: '2026-10-01', windows: [[600, 1200, 1140]]}];
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'live-'));
   const {latitude: lat, longitude: lng} = record.place;
   const queries = [];
@@ -107,7 +107,7 @@ test('Google lookup: an address result is not the place; the same-name result wi
 test('Google lookup: a nearby shop under another name is never the same place', async () => {
   const record = structuredClone(dataset.places.find(r => r.place.place_id === 'osaka_009'));
   record.place.name = '対象店舗A';
-  const reqs = [{record, date: '2026-10-01', window: [600, 1200, 1140]}];
+  const reqs = [{record, date: '2026-10-01', windows: [[600, 1200, 1140]]}];
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'live-'));
   const cacheUrl = pathToFileURL(path.join(dir, 'c.json'));
   const queries = [];
@@ -161,7 +161,7 @@ test('Google lookup: details fetched before Japan midnight are refetched after i
     return {ok: true, json: async () => ({businessStatus: 'OPERATIONAL', regularOpeningHours: hours(0, 23)})};
   };
   const at = iso => () => new Date(iso);
-  const reqs = [{record, date: '2026-11-11', window: [600, 1200, 1140]}];
+  const reqs = [{record, date: '2026-11-11', windows: [[600, 1200, 1140]]}];
   const night = await googleLiveCheck({key: 'k', fetchImpl: fake, cacheUrl, now: at('2026-11-04T14:59:00Z')})(reqs); // JST 23:59
   assert.equal(night.checked_on, '2026-11-04');
   assert.deepEqual([night.fetched, night.reused, details], [1, 0, 1]);
@@ -177,6 +177,65 @@ test('Google lookup: details fetched before Japan midnight are refetched after i
   const seen = [];
   await googleLiveCheck({key: 'k', fetchImpl: async (url, init) => { seen.push(url); return fake(url, init); }, cacheUrl: pathToFileURL(path.join(dir, 'old.json'))})(reqs);
   assert.ok(seen[0].endsWith(':searchText') && !seen.some(u => u.includes('wrong')));
+});
+
+// 리뷰 #63 2차 P2: 점심·저녁으로 나뉜 영업은 구간별로 대조한다
+test('live judge: reviewed split hours match split Google hours; a shorter segment is still a change', () => {
+  const split = (a, b, c, d) => ({businessStatus: 'OPERATIONAL', regularOpeningHours: {periods: [0, 1, 2, 3, 4, 5, 6].flatMap(day => [
+    {open: {day, hour: a, minute: 0}, close: {day, hour: b, minute: 0}}, {open: {day, hour: c, minute: 0}, close: {day, hour: d, minute: 0}}])}});
+  const windows = [[660, 900, 840], [1020, 1380, 1320]];
+  assert.deepEqual(judge(split(11, 15, 17, 23), '2026-12-01', windows, '2026-11-04'), []);
+  assert.deepEqual(judge(split(11, 14, 17, 23), '2026-12-01', windows, '2026-11-04'), ['live_hours_changed']);
+  // 연속 영업 데이터에 Google만 휴게시간이 생기면 변경이다
+  assert.deepEqual(judge(split(11, 15, 17, 23), '2026-12-01', [[660, 1380, 1320]], '2026-11-04'), ['live_hours_changed']);
+});
+
+test('the 225-place runtime catalogue keeps a split-hours restaurant when Google agrees', async () => {
+  const {dataset: runtime, profiles: runtimeProfiles} = loadRuntimeInputs();
+  const id = 'branch_fukutaro_umeda', date = '2026-11-06';
+  const record = runtime.places.find(r => r.place.place_id === id);
+  const check = availability(record, date, runtimeProfiles, {allowShopping: true});
+  assert.ok(check.eligible_for_model && check.windows.length > 1, 'fixture: reviewed split hours');
+  const weekday = new Date(date + 'T00:00:00Z').getUTCDay();
+  const fake = async url => ({ok: true, json: async () => url.endsWith(':searchText')
+    ? {places: [{id: 'g', displayName: {text: record.place.name}, location: {latitude: record.place.latitude, longitude: record.place.longitude}}]}
+    : {businessStatus: 'OPERATIONAL', regularOpeningHours: {periods: check.windows.map(([a, b]) => ({
+      open: {day: weekday, hour: Math.floor(a / 60), minute: a % 60}, close: {day: weekday, hour: Math.floor(b / 60), minute: b % 60}}))}}});
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'live-'));
+  const liveCheck = googleLiveCheck({key: 'k', fetchImpl: fake, cacheUrl: pathToFileURL(path.join(dir, 'c.json')), now: () => new Date('2026-11-01T03:00:00Z')});
+  const r = {...request([id]), startDate: date, endDate: date};
+  const {candidates} = await calculateRealCandidates(r, runtime, runtimeProfiles, {baseUrl: ''}, {liveCheck, choose: null});
+  for (const c of candidates) assert.ok(c.days[0].placeIds.includes(id), c.strategy);
+});
+
+// 리뷰 #63 2차 P2: 예산·걸음 때문에 비는 날도 보충한다
+test('slots left empty by budget limits are filled, judged from the actual members-only schedule', async () => {
+  const date = '2026-10-01';
+  const paid = dataset.places.flatMap(rec => {
+    const check = availability(rec, date, profiles, {allowShopping: true});
+    if (!check.eligible_for_model) return [];
+    const cost = toEnginePlace(rec, check, '9.5').cost;
+    return cost >= 2000 && cost <= 6000 ? [{id: rec.place.place_id, cost}] : [];
+  }).slice(0, 4);
+  assert.equal(paid.length, 4, 'fixture: four paid places');
+  const budget = Math.max(...paid.map(p => p.cost)) + 500; // 하나만 들어가는 예산
+  const r = request(paid.map(p => p.id));
+  r.submissions.forEach(s => { s.budgetPerDay = budget; });
+  const calls = [];
+  const spy = async (pool, slots) => { calls.push(slots); return choose(pool, slots); };
+  await withEnv({SOMSOM_API_KEY: undefined, AI_MOCK: undefined}, async () => {
+    const {candidates} = await calculateRealCandidates(r, dataset, profiles, {baseUrl: ''}, {liveCheck: mockLiveCheck('pass'), choose: spy});
+    assert.equal(calls.length, 1);
+    assert.ok(calls[0] >= 1, 'empty slots come from the real placement, not the candidate count');
+    for (const c of candidates) {
+      const mine = c.days[0].items.filter(i => !i.aiAdded).length;
+      assert.ok(mine < 4, 'fixture: budget really blocks some member places');
+      assert.ok(c.days[0].items.some(i => i.aiAdded), c.strategy);
+      const v = validateDay({date, place_ids: c.days[0].placeIds, budget_krw: budget, step_limit: 20000, active_min: 720, krw_per_jpy: '9.5'},
+        dataset, profiles, {allowShopping: true, candidateMetrics: true, distanceWeight: 1.2});
+      assert.equal(v.passed_model_checks, true);
+    }
+  });
 });
 
 /* ── schedule integration ── */

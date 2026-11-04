@@ -19,7 +19,7 @@ const why = args.includes('--why');
 const run = args.includes('--run') || why;
 const dateAt = args.indexOf('--date');
 const date = dateAt >= 0 ? args[dateAt + 1] : new Intl.DateTimeFormat('en-CA', {timeZone: 'Asia/Tokyo'}).format(new Date());
-const ids = args.filter((a, i) => a.startsWith('osaka_') && !(dateAt >= 0 && i === dateAt + 1));
+const ids = args.filter((a, i) => !a.startsWith('--') && !(dateAt >= 0 && i === dateAt + 1));
 const {dataset, profiles} = loadRuntimeInputs(); // 서버와 같은 카탈로그
 const picked = (ids.length ? ids : ['osaka_009', 'osaka_015', 'osaka_017']).slice(0, 5);
 const hhmm = m => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
@@ -31,8 +31,9 @@ for (const id of picked) {
   const check = availability(record, date, profiles, {allowShopping: true});
   const name = record.place.name_ko || record.place.name;
   if (!check.eligible_for_model) { console.log(`${id} ${name}: 엑셀 단계에서 제외 (${check.reasons.join(', ')}) — 조회 안 함`); continue; }
-  console.log(`${id} ${name}: 엑셀 운영 시간 ${hhmm(check.window[0])}~${hhmm(check.window[1])}`);
-  requests.push({record, date, window: check.window});
+  const windows = check.windows ?? [check.window];
+  console.log(`${id} ${name}: 엑셀 운영 시간 ${windows.map(w => `${hhmm(w[0])}~${hhmm(w[1])}`).join(', ')}`);
+  requests.push({record, date, windows});
 }
 if (!run) {
   console.log(`\n준비 완료 (${date}, ${requests.length}곳). --run을 붙이면 장소당 최대 2회 Google 요청을 보냅니다.`);

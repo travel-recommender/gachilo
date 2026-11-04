@@ -202,7 +202,8 @@ function liveRequests(ids, dates, byId, profiles) {
   return ids.flatMap(id => dates.flatMap(date => {
     const record = byId.get(id);
     const check = record && availability(record, date, profiles, {allowShopping: true});
-    return check?.eligible_for_model ? [{record, date, window: check.window}] : [];
+    // 점심·저녁처럼 나뉜 영업은 구간을 그대로 넘긴다. 전체 범위(window)로 대조하면 정상 휴게시간을 변경으로 본다
+    return check?.eligible_for_model ? [{record, date, windows: check.windows ?? [check.window]}] : [];
   }));
 }
 
@@ -223,7 +224,7 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
   const human = [...picked, ...listed].filter(id => !vetoes.has(id));
   // 1) 구성원의 장소부터 실시간 확인한다. 확인 결과로 '꼭 가기인데 못 넣는 곳'을 알아야 비슷한 곳을 찾는다
   const live = await liveCheck(liveRequests(human, dates, byId, profiles));
-  let ai = null;
+  let pool = [];
   if (chooser) {
     const limits = limitsFor(request);
     const usable = id => dates.some(date => passed(live, id, date) && availability(byId.get(id), date, profiles, {allowShopping: true}).eligible_for_model);
@@ -239,18 +240,29 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
     const poolLive = await liveCheck(liveRequests(draft.map(c => c.id), dates, byId, profiles));
     poolLive.verdicts.forEach((v, k) => live.verdicts.set(k, v));
     live.fetched += poolLive.fetched; live.reused += poolLive.reused;
-    const pool = draft.filter(c => dates.some(date => passed(live, c.id, date)));
-    const empty = Math.max(0, dates.length * slotsPerDayFor(groupTradeoffs(request.submissions).pace) - human.filter(id => byId.has(id) && usable(id)).length);
-    if (pool.length && empty) ai = await chooser(pool, Math.min(empty, pool.length));
+    pool = draft.filter(c => dates.some(date => passed(live, c.id, date)));
   }
   const failed = new Set([...live.verdicts].filter(([, v]) => v.length).map(([k]) => k.split('|')[0]));
   live.failedPlaces = [...failed].filter(id => ![...live.verdicts].some(([k, v]) => k.startsWith(id + '|') && !v.length)).length;
-  const routed = new Set([...picked, ...listed, ...(ai ? [...ai.picks, ...(ai.backup ?? [])].map(p => p.id) : [])]);
+  // AI 후보 전체를 경로 표에 넣는다. 모델이 어느 곳을 고를지 경로 조회 전에는 모른다
+  const routed = new Set([...picked, ...listed, ...pool.map(c => c.id)]);
   const points = dataset.places.filter(r => routed.has(r.place.place_id))
     .map(r => ({lat: r.place.latitude, lng: r.place.longitude}));
   // One routing snapshot is reused by every strategy so OSRM work is bounded, not tripled.
   return withTripConditions(request.weather, request.startDate, () =>
-    withRouting(points, () => {
+    withRouting(points, async () => {
+      // 3) 빈자리는 후보 수가 아니라 구성원 장소를 실제로 배치해 본 결과로 센다.
+      //    예산·걸음·활동시간 때문에 같이 못 넣는 곳은 자리를 채운 것이 아니다
+      let ai = null;
+      if (pool.length) {
+        const slots = slotsPerDayFor(groupTradeoffs(request.submissions).pace);
+        let empty = dates.length * slots;
+        try {
+          const {candidates} = calculatePrepared(request, dataset, profiles, dates, picked, listed, live, null);
+          empty = Math.max(...candidates.map(c => c.days.reduce((n, d) => n + Math.max(0, slots - d.placeIds.length), 0)));
+        } catch (error) { if (error.message !== 'NO_SCHEDULABLE_REAL_CANDIDATE') throw error; }
+        if (empty) ai = await chooser(pool, Math.min(empty, pool.length));
+      }
       const run=()=>calculatePrepared(request,dataset,profiles,dates,picked,listed,live,ai);
       let wet;
       try { wet=run(); } catch(error) {
