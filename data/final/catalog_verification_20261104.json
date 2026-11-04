@@ -1,0 +1,3298 @@
+{
+  "checked_at": "2026-11-04",
+  "valid_from": "2026-11-04",
+  "valid_through": "2026-11-30",
+  "catalog_input": "data/final/osaka_catalog_20261030.json",
+  "profiles_input": "data/final/osaka_profiles_20261026.json",
+  "input_sha256": {
+    "data/final/osaka_catalog_20261030.json": "9ee8f27b5aa129ae54b01ca177fe1d680715e9c24a7a6dfd22ee886a16b5afd6",
+    "data/final/osaka_profiles_20261026.json": "2aa45ba754e4a05c17e243db479d4f8897ccc28a4343aedf76ab699fb0855658",
+    "data/final/reviewed_places_20261014.csv": "eb610219946c34058662b6a71dffdaf51cc52d6e3acaeca62ac147126031ed16"
+  },
+  "limits": [
+    "공식 온라인 자료 대조이며 현장 방문·예약·모든 입력 조건의 보장이 아님.",
+    "지도 좌표는 장소/건물의 참고 위치이며 실제 출입구·층간 길찾기 검증이 아님.",
+    "새 수집 장소는 검색 자료로 보존하며 조건 미확인 상태로 자동 배정하지 않음.",
+    "공식 공통 메뉴의 참고가는 지점 결제 확정가가 아니라 비용 추정으로 표시."
+  ],
+  "updates": {
+    "branch_komeda_namba_sennichimae": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "opening_hours": "현재 단축 운영 08:00–22:00; 정기휴무 없음",
+        "cost": 600,
+        "covered": true,
+        "latitude": 34.666618,
+        "longitude": 135.501673,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://www.komeda.co.jp/shop/detail.html?id=620",
+        "https://eu.komeda.co.jp/v1/hp/shop/620",
+        "https://eu.komeda.co.jp/v1/hp/shop/620/menu"
+      ],
+      "conditions": [
+        "실내 매장 이용. 지점별 공개 메뉴의 코메다 블렌드 매장 취식 가격 600엔 확인.",
+        "난바점은 기본시간 07–23시보다 현재 단축 공지 08–22시를 우선 적용."
+      ],
+      "profile": {
+        "window": [
+          480,
+          1320,
+          1320
+        ]
+      },
+      "cost_basis": "지점 메뉴: 코메다 블렌드 1잔·매장 취식 600엔(세금 포함).",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "지점 메뉴: 코메다 블렌드 1잔·매장 취식 600엔(세금 포함)."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "meal_role": "snack"
+    },
+    "branch_komeda_kitte_osaka": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "opening_hours": "08:00–21:00; 매장 취식 마감 20:30",
+        "cost": 600,
+        "covered": true,
+        "latitude": 34.700864,
+        "longitude": 135.494786,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://www.komeda.co.jp/shop/detail.html?id=1190",
+        "https://eu.komeda.co.jp/v1/hp/shop/1190",
+        "https://eu.komeda.co.jp/v1/hp/shop/1190/menu"
+      ],
+      "conditions": [
+        "실내 매장 이용. 지점별 공개 메뉴의 코메다 블렌드 매장 취식 가격 600엔 확인.",
+        "KITTE 2층 지점. 시설 임시휴무·좌석은 방문 전 재확인."
+      ],
+      "profile": {
+        "window": [
+          480,
+          1260,
+          1230
+        ]
+      },
+      "cost_basis": "지점 메뉴: 코메다 블렌드 1잔·매장 취식 600엔(세금 포함).",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed",
+        "facility_relation_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "지점 메뉴: 코메다 블렌드 1잔·매장 취식 600엔(세금 포함)."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "building_id": "jp_tower_osaka",
+      "meal_role": "snack"
+    },
+    "branch_doutor_shinsaibashi_station": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "cost": 300,
+        "covered": true,
+        "latitude": 34.674173,
+        "longitude": 135.500361,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://shop.doutor.co.jp/doutor/spot/detail?code=2012424",
+        "https://www.doutor.co.jp/dcs/menu/detail/20110907153810.html"
+      ],
+      "conditions": [
+        "체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+        "운영시간 안에 체류 전체를 배치. 공지되지 않은 임시휴무·만석은 보장하지 않음."
+      ],
+      "profile": {
+        "window": [
+          420,
+          1350,
+          1350
+        ]
+      },
+      "cost_basis": "블렌드 S 1잔 300엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+      "cost_kind": "official_menu_reference",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "블렌드 S 1잔 300엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "meal_role": "snack"
+    },
+    "branch_doutor_umeda_city": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "cost": 300,
+        "covered": true,
+        "latitude": 34.704726,
+        "longitude": 135.490743,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://shop.doutor.co.jp/doutor/spot/detail?code=2010347",
+        "https://www.doutor.co.jp/dcs/menu/detail/20110907153810.html"
+      ],
+      "conditions": [
+        "체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+        "운영시간 안에 체류 전체를 배치. 공지되지 않은 임시휴무·만석은 보장하지 않음."
+      ],
+      "profile": {
+        "window": [
+          540,
+          1140,
+          1140
+        ],
+        "weekday_window": [
+          450,
+          1140,
+          1140
+        ]
+      },
+      "cost_basis": "블렌드 S 1잔 300엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+      "cost_kind": "official_menu_reference",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "블렌드 S 1잔 300엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "building_id": "umeda_sky_building",
+      "meal_role": "snack"
+    },
+    "branch_tullys_namba_parks": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "cost": 390,
+        "covered": true,
+        "latitude": 34.6613851,
+        "longitude": 135.502238,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://shop.tullys.co.jp/detail/1000897",
+        "https://www.tullys.co.jp/menu/drink/coffee/todays.html"
+      ],
+      "conditions": [
+        "체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+        "운영시간 안에 체류 전체를 배치. 공지되지 않은 임시휴무·만석은 보장하지 않음."
+      ],
+      "profile": {
+        "window": [
+          660,
+          1260,
+          1260
+        ]
+      },
+      "cost_basis": "오늘의 커피 Short 1잔 390엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+      "cost_kind": "official_menu_reference",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed",
+        "facility_relation_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "오늘의 커피 Short 1잔 390엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "building_id": "namba_parks",
+      "meal_role": "snack"
+    },
+    "branch_tullys_grandfront_south": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "cost": 390,
+        "covered": true,
+        "latitude": 34.7040701,
+        "longitude": 135.4947252,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://shop.tullys.co.jp/detail/1003053",
+        "https://www.tullys.co.jp/menu/drink/coffee/todays.html"
+      ],
+      "conditions": [
+        "체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+        "운영시간 안에 체류 전체를 배치. 공지되지 않은 임시휴무·만석은 보장하지 않음."
+      ],
+      "profile": {
+        "window": [
+          600,
+          1320,
+          1320
+        ]
+      },
+      "cost_basis": "오늘의 커피 Short 1잔 390엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+      "cost_kind": "official_menu_reference",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed",
+        "facility_relation_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "오늘의 커피 Short 1잔 390엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "building_id": "grand_front_south",
+      "meal_role": "snack"
+    },
+    "branch_matsuya_nankai_namba": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "cost": 480,
+        "covered": true,
+        "latitude": 34.665114,
+        "longitude": 135.500031,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://pkg.navitime.co.jp/matsuyafoods/spot/detail?code=0000000260",
+        "https://www.matsuyafoods.co.jp/matsuya/whatsnew/menu/185629.html"
+      ],
+      "conditions": [
+        "체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+        "운영시간 안에 체류 전체를 배치. 공지되지 않은 임시휴무·만석은 보장하지 않음.",
+        "24시간 영업이나 22–05시 심야 7% 할증 제외를 위해 일정은 09–22시만 사용. 2026-10-13 인상 후 가격 적용."
+      ],
+      "profile": {
+        "window": [
+          540,
+          1320,
+          1320
+        ]
+      },
+      "cost_basis": "규메시 보통 1그릇 480엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+      "cost_kind": "official_menu_reference",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "규메시 보통 1그릇 480엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "meal_role": "meal"
+    },
+    "branch_yayoiken_nippombashi": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "cost": 890,
+        "covered": true,
+        "latitude": 34.66739443010213,
+        "longitude": 135.5064311111111,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://store.yayoiken.com/b/yayoiken/info/1083/",
+        "https://www.yayoiken.com/contents/news/260929_sabashouga.html"
+      ],
+      "conditions": [
+        "체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+        "운영시간 안에 체류 전체를 배치. 공지되지 않은 임시휴무·만석은 보장하지 않음.",
+        "24시간 영업 중 시연은 09–22시만 사용. 포장 단품 가격을 정식 가격으로 사용하지 않음."
+      ],
+      "profile": {
+        "window": [
+          540,
+          1320,
+          1320
+        ]
+      },
+      "cost_basis": "쇼가야키 정식 1인분 890엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+      "cost_kind": "official_menu_reference",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "쇼가야키 정식 1인분 890엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "meal_role": "meal"
+    },
+    "branch_marugame_umeda": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "cost": 440,
+        "covered": true,
+        "latitude": 34.70355660416765,
+        "longitude": 135.50078991063785,
+        "stay_min": 60,
+        "bag_load": 0
+      },
+      "source_urls": [
+        "https://stores.marugame.com/111094",
+        "https://www.marugame.com/menu/udon/",
+        "https://marugame.com/menu/udon/kake/?filter=shop"
+      ],
+      "conditions": [
+        "체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+        "운영시간 안에 체류 전체를 배치. 공지되지 않은 임시휴무·만석은 보장하지 않음."
+      ],
+      "profile": {
+        "window": [
+          600,
+          1380,
+          1350
+        ]
+      },
+      "cost_basis": "가케우동 보통 1그릇 440엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님.",
+      "cost_kind": "official_menu_reference",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "official_menu_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "stay_min": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "bag_load": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값.",
+        "cost": "가케우동 보통 1그릇 440엔. 체인 공식 공통 메뉴의 세금 포함 참고가. 지점·선택 메뉴에 따른 결제 금액은 달라질 수 있으며 평균 식사비가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "카페 휴식/식사 시연용 체류시간 추정. 실제 대기시간 미포함; 짐 점수는 상대값."
+      },
+      "meal_role": "meal"
+    },
+    "osaka_008": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "covered": true,
+        "cost": 1000
+      },
+      "source_urls": [
+        "https://www.hepfive.jp/ferriswheel",
+        "https://www.e-pass.osaka-info.jp/en/facility/detail?id=8"
+      ],
+      "conditions": [
+        "11월 19일 휴관으로 관람차도 휴업. 11–23시·최종탑승22:45.",
+        "1회 약15분. 기존 120분은 대기·시설 접근을 포함한 팀 계획 추정으로 유지.",
+        "냉난방 객실 내부를 covered=true로 분류; 외부 접근 전체가 실내라는 뜻이 아님."
+      ],
+      "profile": {
+        "window": [
+          660,
+          1380,
+          1365
+        ],
+        "exceptions": {
+          "2026-11-19": {
+            "closed": true
+          }
+        }
+      },
+      "cost_basis": "일반 1인 1000엔, 5세 이하 무료. 할인 미적용.",
+      "cost_kind": "official_admission",
+      "resolved_blockers": [
+        "final_calendar_review_required"
+      ],
+      "remaining": [],
+      "field_kinds": {
+        "cost": "official_admission"
+      },
+      "field_notes": {
+        "cost": "일반 1인 1000엔, 5세 이하 무료. 할인 미적용."
+      },
+      "coordinates": {
+        "kind": "bounding_box_center_not_entrance",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "osaka_016": {
+      "status": "eligible_for_dated_demo",
+      "fields": {},
+      "source_urls": [
+        "https://osaka-info.jp/spot/nakanoshima-park/",
+        "https://www.city.osaka.lg.jp/kita/page/0000001658.html"
+      ],
+      "conditions": [
+        "공식 상시 개방 공원 산책 범위. 무료는 기존 사용자 직접 확인값을 유지; 식당·유람선·별도 행사는 포함하지 않음.",
+        "일정은 09–18시 야외 산책만 사용. 원본 OSM 중심 좌표는 실제 출입구가 아님."
+      ],
+      "profile": {
+        "window": [
+          540,
+          1080,
+          1080
+        ]
+      },
+      "cost_basis": "기존 사용자 직접 확인: 일반 공원 산책 무료. 개별 구매·시설 제외.",
+      "cost_kind": "user_manual_review",
+      "resolved_blockers": [
+        "final_calendar_review_required"
+      ],
+      "remaining": [],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "bounding_box_center_not_entrance",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "osaka_002": {
+      "status": "held",
+      "fields": {
+        "opening_hours": "일반 전망대 09:00–21:45, 최종입장21:15; 시간 지정 입장 예약 필수"
+      },
+      "source_urls": [
+        "https://www.tsutenkaku.co.jp/"
+      ],
+      "conditions": [
+        "일반 전망대 시간 지정 예약이 필요. 예약 완료를 입력받기 전에는 자동 배정 보류. 특별 전망대·슬라이더 별도."
+      ],
+      "profile": {
+        "window": [
+          540,
+          1305,
+          1275
+        ],
+        "entry_time_reservation": true
+      },
+      "cost_basis": "일반 전망대 성인1500엔; 특별 전망대 등 별도.",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [
+        "final_calendar_review_required"
+      ],
+      "remaining": [
+        "entry_time_reservation_required"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "bounding_box_center_not_entrance",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "osaka_draft_7c98da5a96f9": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.osaka-angenet.jp/konjyakukan/top"
+      ],
+      "conditions": [
+        "2026-09-01부터2027-01-05까지 휴관 공지. 재개일이 지나도 확인 없이 자동 승격하지 않음."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "temporary_closure"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "node",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "osaka_draft_9cd21dc062f7": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.moco.or.jp/"
+      ],
+      "conditions": [
+        "2026-08-03부터2027년4월경까지 장기휴관. 확정 재개일·전시 요금 필요."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "temporary_closure"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "bounding_box_center_not_entrance",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "osm_node_2546559085": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://ichiran.com/shop/kinki/"
+      ],
+      "conditions": [
+        "도톤보리 본관 폐점 확인. 도톤보리 별관(osaka_026)과 다른 지점이며 기존 폐점 제외 유지."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "permanently_closed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "node",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_starbucks_ebisubashi": {
+      "status": "held",
+      "fields": {
+        "latitude": 34.6686601266,
+        "longitude": 135.501465004
+      },
+      "source_urls": [
+        "https://store.starbucks.co.jp/detail-2005/",
+        "https://ebisubashisuji.or.jp/shops/tsutaya_ebisubashi/",
+        "https://menu.starbucks.co.jp/4524785000018"
+      ],
+      "conditions": [
+        "특정 입지 가격 A 적용 지점. 공통 최저가격을 지점 가격으로 확정할 수 없음."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [
+        "entrance_coordinates_unconfirmed"
+      ],
+      "remaining": [
+        "branch_specific_menu_price_unconfirmed"
+      ],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_starbucks_namba_nankai": {
+      "status": "held",
+      "fields": {
+        "latitude": 34.6649685885,
+        "longitude": 135.502123175
+      },
+      "source_urls": [
+        "https://store.starbucks.co.jp/detail-4555/",
+        "https://menu.starbucks.co.jp/4524785000018"
+      ],
+      "conditions": [
+        "특정 입지 가격 B 적용 지점. 공통 최저가격을 지점 가격으로 확정할 수 없음."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [
+        "entrance_coordinates_unconfirmed"
+      ],
+      "remaining": [
+        "branch_specific_menu_price_unconfirmed"
+      ],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_sushiro_namba_amza": {
+      "status": "held",
+      "fields": {
+        "latitude": 34.666643,
+        "longitude": 135.503473
+      },
+      "source_urls": [
+        "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2225"
+      ],
+      "conditions": [
+        "150엔부터는 한 접시 가격이며 한 끼 비용이 아님. 대표 식사 구성·예산 검증 필요."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [
+        "entrance_coordinates_unconfirmed"
+      ],
+      "remaining": [
+        "representative_meal_cost_unconfirmed"
+      ],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_sushiro_umeda_chayamachi": {
+      "status": "held",
+      "fields": {
+        "latitude": 34.705851,
+        "longitude": 135.499183
+      },
+      "source_urls": [
+        "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2369"
+      ],
+      "conditions": [
+        "150엔부터는 한 접시 가격이며 한 끼 비용이 아님. 대표 식사 구성·예산 검증 필요."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [
+        "entrance_coordinates_unconfirmed"
+      ],
+      "remaining": [
+        "representative_meal_cost_unconfirmed"
+      ],
+      "field_kinds": {
+        "latitude": "official_map_reference",
+        "longitude": "official_map_reference"
+      },
+      "field_notes": {
+        "latitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님.",
+        "longitude": "공식 지점 지도 위치. 실제 입구·층간 이동 위치가 아님."
+      },
+      "coordinates": {
+        "kind": "official_map_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_coco_namba_ebisubashi": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://tenpo.ichibanya.co.jp/map/3123/"
+      ],
+      "conditions": [
+        "지점 좌표·현재 메뉴 가격·심야 7% 할증 적용을 추가 대조해야 함."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "map_reference_unconfirmed",
+        "current_menu_price_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_rikuro_namba_honten": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.rikuro.co.jp/shoplist/134.html",
+        "https://www.rikuro.co.jp/cheesecake/"
+      ],
+      "conditions": [
+        "판매점9–20시와 카페11–17:30시(주문16:30)를 구분. 통케이크1095엔을 1인 식사비로 사용하지 않음."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "visit_scope_and_cost_unconfirmed",
+        "map_reference_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_rikuro_daimaru_umeda": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.rikuro.co.jp/shoplist/136.html",
+        "https://www.rikuro.co.jp/cheesecake/"
+      ],
+      "conditions": [
+        "포장 판매점. 통케이크1095엔을 1인 식사비로 사용하지 않음."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "visit_scope_and_cost_unconfirmed",
+        "map_reference_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_beardpapa_namba_walk": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+        "https://osakapoint.com/shop/shop-list/157/"
+      ],
+      "conditions": [
+        "11월18일 난바워크 휴관. 최신 지점 메뉴 가격과 좌표 확인 필요."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "current_menu_price_unconfirmed",
+        "map_reference_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_viedefrance_bentencho": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://baytower.jp/omise/viedefrance/",
+        "https://baytower.jp/access/"
+      ],
+      "conditions": [
+        "공식시설7–20:30/주문20시 확인. 지점 메뉴 가격과 좌표 확인 필요."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "current_menu_price_unconfirmed",
+        "map_reference_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_usj": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour",
+        "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
+        "https://www.usj.co.jp/web/ja/jp/access/car"
+      ],
+      "conditions": [
+        "날짜별 입장료·예약·파크 운영시간과 실제 입구를 확인해야 함. 지도 영역 중심을 입구로 쓰지 않음."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "dated_ticket_and_reservation_required"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_kaiyukan": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.kaiyukan.com/info/ticket/kaiyukan/",
+        "https://www.kaiyukan.com/info/hours/",
+        "https://www.kaiyukan.com/info/access/",
+        "https://www.kaiyukan.com/info/"
+      ],
+      "conditions": [
+        "날짜별 입장료·운영시간·시간 지정 입장과 실제 입구 확인 필요."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "dated_ticket_and_reservation_required"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_wanaka_sennichimae": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+      ],
+      "conditions": [
+        "영업시간 확인. 블로그의8개650엔을 공식 최신 지점 가격으로 확정하지 않음."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "current_menu_price_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_wanaka_dotonbori": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+      ],
+      "conditions": [
+        "영업시간 확인. 블로그의8개650엔을 공식 최신 지점 가격으로 확정하지 않음."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "current_menu_price_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_girlsmignon_shinsaibashi": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.puri.furyu.jp/mignon/gm/"
+      ],
+      "conditions": [
+        "공식 페이지 유지보수 상태. 입장 조건·현재 요금·지도 위치 확인 필요."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "visitor_admission_conditions_unconfirmed",
+        "price_unconfirmed",
+        "map_reference_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    },
+    "branch_petitmignon_daimaru": {
+      "status": "held",
+      "fields": {},
+      "source_urls": [
+        "https://www.puri.furyu.jp/mignon/gm/",
+        "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+        "https://store.montbell.jp/search/shopinfo/?shop_no=678624"
+      ],
+      "conditions": [
+        "다이마루 남관5층10–20시 표기는 확보했으나 기기별 요금·입장 조건 확인 필요."
+      ],
+      "profile": null,
+      "cost_basis": "",
+      "cost_kind": "official_menu",
+      "resolved_blockers": [],
+      "remaining": [
+        "visitor_admission_conditions_unconfirmed",
+        "price_unconfirmed"
+      ],
+      "field_kinds": {},
+      "field_notes": {},
+      "coordinates": {
+        "kind": "existing_reference",
+        "entrance_verified": false
+      },
+      "planning_policy": null
+    }
+  },
+  "additions": [
+    {
+      "place": {
+        "place_id": "branch_kaldi_namba_city",
+        "name": "カルディコーヒーファーム なんばCITY店",
+        "name_ko": "칼디 커피팜 난바 CITY점",
+        "category": "쇼핑",
+        "area": "난바·도톤보리",
+        "address": "大阪市中央区難波5-1-60 なんばCITY本館1F",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": "11:00–21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": true,
+        "website": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+        "opening_hours_source": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "칼디",
+          "official_name": "カルディコーヒーファーム なんばCITY店",
+          "aliases": "칼디 커피팜 난바 CITY점|カルディコーヒーファーム なんばCITY店",
+          "remaining": "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "conditions": [
+            "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "branch_kaldi_tennoji_mio",
+        "name": "カルディコーヒーファーム 天王寺ミオ店",
+        "name_ko": "칼디 커피팜 덴노지 MIO점",
+        "category": "쇼핑",
+        "area": "덴노지",
+        "address": "大阪市天王寺区悲田院町10-48 天王寺ミオプラザ館B1F",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": "09:00–21:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": true,
+        "website": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2",
+        "opening_hours_source": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "칼디",
+          "official_name": "カルディコーヒーファーム 天王寺ミオ店",
+          "aliases": "칼디 커피팜 덴노지 MIO점|カルディコーヒーファーム 天王寺ミオ店",
+          "remaining": "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "conditions": [
+            "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "branch_kaldi_lucua1100",
+        "name": "カルディコーヒーファーム ルクアイーレ店",
+        "name_ko": "칼디 커피팜 루쿠아1100점",
+        "category": "쇼핑",
+        "area": "우메다",
+        "address": "大阪市北区梅田3-1-3 ルクアイーレ2F",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": "10:30–20:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": true,
+        "website": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2",
+        "opening_hours_source": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "칼디",
+          "official_name": "カルディコーヒーファーム ルクアイーレ店",
+          "aliases": "칼디 커피팜 루쿠아1100점|カルディコーヒーファーム ルクアイーレ店",
+          "remaining": "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "conditions": [
+            "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "branch_kura_sennichimae",
+        "name": "くら寿司 なんば千日前店",
+        "name_ko": "쿠라스시 난바 센니치마에점",
+        "category": "식사",
+        "area": "난바·도톤보리",
+        "address": "大阪市中央区千日前2-8-4 延田ビル3F",
+        "latitude": 34.66632,
+        "longitude": 135.50349,
+        "opening_hours": "11:00–24:00; 최종입점23:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": true,
+        "website": "https://shop.kurasushi.co.jp/detail/660",
+        "opening_hours_source": "https://shop.kurasushi.co.jp/detail/660",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "latitude": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "longitude": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://shop.kurasushi.co.jp/detail/660"
+        ],
+        "coordinate_method": "official_map_reference_not_entrance",
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "쿠라스시",
+          "official_name": "くら寿司 なんば千日前店",
+          "aliases": "쿠라스시 난바 센니치마에점|くら寿司 なんば千日前店",
+          "remaining": "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "conditions": [
+            "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "branch_kura_dotonbori",
+        "name": "くら寿司 道頓堀店",
+        "name_ko": "쿠라스시 도톤보리점",
+        "category": "식사",
+        "area": "난바·도톤보리",
+        "address": "大阪市中央区道頓堀1-4-22 クロ－ドビル2F",
+        "latitude": 34.66873953221998,
+        "longitude": 135.50361379733647,
+        "opening_hours": "평일11:00–24:00 / 토·일·공휴일10:20–24:00; 최종입점23:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": true,
+        "website": "https://shop.kurasushi.co.jp/detail/567",
+        "opening_hours_source": "https://shop.kurasushi.co.jp/detail/567",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "latitude": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "longitude": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://shop.kurasushi.co.jp/detail/567"
+        ],
+        "coordinate_method": "official_map_reference_not_entrance",
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "쿠라스시",
+          "official_name": "くら寿司 道頓堀店",
+          "aliases": "쿠라스시 도톤보리점|くら寿司 道頓堀店",
+          "remaining": "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "conditions": [
+            "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "branch_mizukakechaya_namba",
+        "name": "炉ばた焼 水かけ茶屋",
+        "name_ko": "호젠지 미즈카케차야",
+        "category": "식사",
+        "area": "난바·도톤보리",
+        "address": "大阪市中央区難波1-1-20",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": "16:00–23:00; 주문마감22:30",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": true,
+        "website": "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+        "opening_hours_source": "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "사용자 제공 주소와 공식 지점 주소 일치. 공식 평균3000엔은 확정 메뉴 가격 아님. 좌표·메뉴 구성·예약 조건 정규화 필요."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "호젠지",
+          "official_name": "炉ばた焼 水かけ茶屋",
+          "aliases": "호젠지 미즈카케차야|炉ばた焼 水かけ茶屋",
+          "remaining": "사용자 제공 주소와 공식 지점 주소 일치. 공식 평균3000엔은 확정 메뉴 가격 아님. 좌표·메뉴 구성·예약 조건 정규화 필요."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+          ],
+          "conditions": [
+            "사용자 제공 주소와 공식 지점 주소 일치. 공식 평균3000엔은 확정 메뉴 가격 아님. 좌표·메뉴 구성·예약 조건 정규화 필요."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "branch_namba_walk",
+        "name": "なんばウォーク",
+        "name_ko": "난바워크",
+        "category": "쇼핑",
+        "area": "난바·도톤보리",
+        "address": "大阪市中央区難波2丁目虹のまち",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": "상점10:00–21:00 / 음식점11:00–22:00; 2026-11-18휴관",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": true,
+        "website": "https://walk.osaka-chikagai.jp/service",
+        "opening_hours_source": "https://walk.osaka-chikagai.jp/service; https://walk.osaka-chikagai.jp/access",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://walk.osaka-chikagai.jp/service",
+          "https://walk.osaka-chikagai.jp/access"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "전체 지하상가와 개별 입점 가게를 구분. 출입구·연결 보행구간 검증 전 지붕 경로에 등록하지 않음."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "난바워크",
+          "official_name": "なんばウォーク",
+          "aliases": "난바워크|なんばウォーク",
+          "remaining": "전체 지하상가와 개별 입점 가게를 구분. 출입구·연결 보행구간 검증 전 지붕 경로에 등록하지 않음."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://walk.osaka-chikagai.jp/service",
+            "https://walk.osaka-chikagai.jp/access"
+          ],
+          "conditions": [
+            "전체 지하상가와 개별 입점 가게를 구분. 출입구·연결 보행구간 검증 전 지붕 경로에 등록하지 않음."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "spot_ebisubashi",
+        "name": "戎橋",
+        "name_ko": "에비스바시 다리",
+        "category": "명소",
+        "area": "난바·도톤보리",
+        "address": "大阪市中央区道頓堀1丁目～心斎橋筋2丁目",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": false,
+        "website": "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+        "opening_hours_source": "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "공공 보행교. 글리코 간판 건물과 다른 장소. 실제 관람 지점 좌표·통행 제한 조건 검증 필요."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "에비스바시",
+          "official_name": "戎橋",
+          "aliases": "에비스바시 다리|戎橋",
+          "remaining": "공공 보행교. 글리코 간판 건물과 다른 장소. 실제 관람 지점 좌표·통행 제한 조건 검증 필요."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+          ],
+          "conditions": [
+            "공공 보행교. 글리코 간판 건물과 다른 장소. 실제 관람 지점 좌표·통행 제한 조건 검증 필요."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "spot_nippombashi_denden",
+        "name": "日本橋でんでんタウン",
+        "name_ko": "닛폰바시 덴덴타운",
+        "category": "쇼핑",
+        "area": "닛폰바시",
+        "address": "大阪市浪速区日本橋3～5丁目",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": false,
+        "website": "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+        "opening_hours_source": "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "상점별 시간이 다름. 안내소11–19시를 상점가 전체 시간으로 쓰지 않음. 가게·방문 구역을 특정한 프로필 필요."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "닛폰바시",
+          "official_name": "日本橋でんでんタウン",
+          "aliases": "닛폰바시 덴덴타운|日本橋でんでんタウン",
+          "remaining": "상점별 시간이 다름. 안내소11–19시를 상점가 전체 시간으로 쓰지 않음. 가게·방문 구역을 특정한 프로필 필요."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+          ],
+          "conditions": [
+            "상점별 시간이 다름. 안내소11–19시를 상점가 전체 시간으로 쓰지 않음. 가게·방문 구역을 특정한 프로필 필요."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "cruise_tombori",
+        "name": "とんぼりリバークルーズ",
+        "name_ko": "돈보리 리버크루즈",
+        "category": "체험·오락",
+        "area": "난바·도톤보리",
+        "address": "太左衛門橋船着場",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": null,
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": false,
+        "website": "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+        "opening_hours_source": "https://www.ipponmatsu.co.jp/cruise/tombori.html; https://osaka-info.jp/special/coolosaka/cool-spot/1210/",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "covered": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+          "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "소요20분. 성인2000엔 안내; 출항요일·첫배 시간 상충을 재확인해야 함. 날씨·조위·탑승권·선착장 좌표 확인 전 자동 배정 보류."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "opening_hours",
+          "cost",
+          "stay_min",
+          "bag_load"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "돈보리",
+          "official_name": "とんぼりリバークルーズ",
+          "aliases": "돈보리 리버크루즈|とんぼりリバークルーズ",
+          "remaining": "소요20분. 성인2000엔 안내; 출항요일·첫배 시간 상충을 재확인해야 함. 날씨·조위·탑승권·선착장 좌표 확인 전 자동 배정 보류."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://www.ipponmatsu.co.jp/cruise/tombori.html",
+            "https://osaka-info.jp/special/coolosaka/cool-spot/1210/"
+          ],
+          "conditions": [
+            "소요20분. 성인2000엔 안내; 출항요일·첫배 시간 상충을 재확인해야 함. 날씨·조위·탑승권·선착장 좌표 확인 전 자동 배정 보류."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "onsen_solaniwa",
+        "name": "空庭温泉",
+        "name_ko": "소라니와 온천",
+        "category": "체험·오락",
+        "area": "벤텐초",
+        "address": "大阪市港区弁天1-2-3",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": "11:00–23:00; 입장22:00/목욕22:30마감; 11월11일휴관",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://solaniwa.com/price/",
+        "opening_hours_source": "https://solaniwa.com/price/; https://solaniwa.com/access/; https://solaniwa.com/faq/; https://solaniwa.com/_docs/calendar_2611.pdf",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://solaniwa.com/price/",
+          "https://solaniwa.com/access/",
+          "https://solaniwa.com/faq/",
+          "https://solaniwa.com/_docs/calendar_2611.pdf"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "성인 날짜등급별2310/2640/3080/3300/3630엔에 입탕세150엔 별도. 날짜별 가격 매핑·문신/연령 조건·입구 좌표 확인 필요. 실내+야외 혼합."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "소라니와",
+          "official_name": "空庭温泉",
+          "aliases": "소라니와 온천|空庭温泉",
+          "remaining": "성인 날짜등급별2310/2640/3080/3300/3630엔에 입탕세150엔 별도. 날짜별 가격 매핑·문신/연령 조건·입구 좌표 확인 필요. 실내+야외 혼합."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://solaniwa.com/price/",
+            "https://solaniwa.com/access/",
+            "https://solaniwa.com/faq/",
+            "https://solaniwa.com/_docs/calendar_2611.pdf"
+          ],
+          "conditions": [
+            "성인 날짜등급별2310/2640/3080/3300/3630엔에 입탕세150엔 별도. 날짜별 가격 매핑·문신/연령 조건·입구 좌표 확인 필요. 실내+야외 혼합."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "onsen_spaworld",
+        "name": "SPAWORLD HOTEL & RESORT",
+        "name_ko": "스파월드",
+        "category": "체험·오락",
+        "area": "신세카이",
+        "address": "大阪市浪速区恵美須東3-4-24",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": "목욕10:00–다음날08:45; 청소08:45–10:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://www.spaworld.co.jp/info/ryokin/",
+        "opening_hours_source": "https://www.spaworld.co.jp/info/ryokin/; https://www.spaworld.co.jp/info/eigyo/; https://www.spaworld.co.jp/about/access.html",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://www.spaworld.co.jp/info/ryokin/",
+          "https://www.spaworld.co.jp/info/eigyo/",
+          "https://www.spaworld.co.jp/about/access.html"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "수영장 제외 성인1500엔. 자정–05시 심야요금1300엔+입탕세150엔 별도. 문신(스티커 포함)입장 불가; 입구좌표·입장자 조건 확인 후 투입. 실내+야외 혼합."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "스파월드",
+          "official_name": "SPAWORLD HOTEL & RESORT",
+          "aliases": "스파월드|SPAWORLD HOTEL & RESORT",
+          "remaining": "수영장 제외 성인1500엔. 자정–05시 심야요금1300엔+입탕세150엔 별도. 문신(스티커 포함)입장 불가; 입구좌표·입장자 조건 확인 후 투입. 실내+야외 혼합."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/info/eigyo/",
+            "https://www.spaworld.co.jp/about/access.html"
+          ],
+          "conditions": [
+            "수영장 제외 성인1500엔. 자정–05시 심야요금1300엔+입탕세150엔 별도. 문신(스티커 포함)입장 불가; 입구좌표·입장자 조건 확인 후 투입. 실내+야외 혼합."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    },
+    {
+      "place": {
+        "place_id": "onsen_spasuminoe",
+        "name": "スパスミノエ",
+        "name_ko": "스파 스미노에",
+        "category": "체험·오락",
+        "area": "스미노에",
+        "address": "大阪市住之江区泉1-1-82",
+        "latitude": null,
+        "longitude": null,
+        "opening_hours": "10:00–다음날02:00; 최종접수01:00",
+        "cost": null,
+        "stay_min": null,
+        "bag_load": null,
+        "covered": null,
+        "website": "https://spasuminoe.jp/guide/",
+        "opening_hours_source": "https://spasuminoe.jp/guide/; https://metronine.osaka/spot-details/?spot_id=15623465631789",
+        "verified_at": "2026-11-04"
+      },
+      "field_sources": {
+        "place_id": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "name_ko": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "category": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "area": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "address": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "website": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "opening_hours_source": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "verified_at": {
+          "kind": "official_source_collection",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "checked_at": "2026-11-04",
+          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        }
+      },
+      "source": {
+        "kind": "official_web_review",
+        "urls": [
+          "https://spasuminoe.jp/guide/",
+          "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+        ],
+        "coordinate_method": null,
+        "tags": {}
+      },
+      "review": {
+        "status": "held",
+        "schedule_ready": false,
+        "official_checks": [],
+        "notes": [
+          "성인 평일800엔/토일공휴일900엔. 문신입장불가·미성년 단독이용 제한·수건 별도; 입구좌표·날짜/입장자 조건 확인 필요. 실내+노천 혼합."
+        ],
+        "recommendation_blockers": [
+          "collected_visit_conditions_require_profile",
+          "structured_date_profile_missing",
+          "stay_policy_unconfirmed"
+        ],
+        "missing_fields": [
+          "latitude",
+          "longitude",
+          "cost",
+          "stay_min",
+          "bag_load",
+          "covered"
+        ],
+        "stay_policy": null,
+        "branch_collection": {
+          "brand": "스파",
+          "official_name": "スパスミノエ",
+          "aliases": "스파 스미노에|スパスミノエ",
+          "remaining": "성인 평일800엔/토일공휴일900엔. 문신입장불가·미성년 단독이용 제한·수건 별도; 입구좌표·날짜/입장자 조건 확인 필요. 실내+노천 혼합."
+        },
+        "collection_review": {
+          "checked_at": "2026-11-04",
+          "source_urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+          ],
+          "conditions": [
+            "성인 평일800엔/토일공휴일900엔. 문신입장불가·미성년 단독이용 제한·수건 별도; 입구좌표·날짜/입장자 조건 확인 필요. 실내+노천 혼합."
+          ],
+          "ready_for_scheduling": false
+        }
+      }
+    }
+  ]
+}

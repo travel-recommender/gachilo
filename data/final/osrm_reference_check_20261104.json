@@ -1,0 +1,152 @@
+{
+  "checked_at": "2026-11-04T03:44:55.909133+00:00",
+  "method": "Existing local foot OSRM, nearest + route from Komeda Namba map reference. No server restart or paid API.",
+  "limits": [
+    "A route response is not evidence of the physical entrance, floor access, indoor cover or opening status."
+  ],
+  "results": [
+    {
+      "place_id": "branch_komeda_namba_sennichimae",
+      "nearest_code": "Ok",
+      "snap_metres": 3.771777627,
+      "snapped_location": [
+        135.501673,
+        34.666652
+      ],
+      "route_code": "Ok",
+      "distance_metres": 0,
+      "duration_seconds": 0,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "branch_komeda_kitte_osaka",
+      "nearest_code": "Ok",
+      "snap_metres": 5.489955735,
+      "snapped_location": [
+        135.494837,
+        34.70089
+      ],
+      "route_code": "Ok",
+      "distance_metres": 4279.3,
+      "duration_seconds": 3092,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "branch_doutor_shinsaibashi_station",
+      "nearest_code": "Ok",
+      "snap_metres": 14.86778365,
+      "snapped_location": [
+        135.500364,
+        34.674307
+      ],
+      "route_code": "Ok",
+      "distance_metres": 966.5,
+      "duration_seconds": 704.2,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "branch_doutor_umeda_city",
+      "nearest_code": "Ok",
+      "snap_metres": 12.56043019,
+      "snapped_location": [
+        135.490606,
+        34.704731
+      ],
+      "route_code": "Ok",
+      "distance_metres": 5081.4,
+      "duration_seconds": 3671.3,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "branch_tullys_namba_parks",
+      "nearest_code": "Ok",
+      "snap_metres": 27.69181271,
+      "snapped_location": [
+        135.501936,
+        34.661377
+      ],
+      "route_code": "Ok",
+      "distance_metres": 803.1,
+      "duration_seconds": 578.2,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "branch_tullys_grandfront_south",
+      "nearest_code": "Ok",
+      "snap_metres": 22.87945441,
+      "snapped_location": [
+        135.494545,
+        34.703927
+      ],
+      "route_code": "Ok",
+      "distance_metres": 4701.3,
+      "duration_seconds": 3395.7,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "branch_matsuya_nankai_namba",
+      "nearest_code": "Ok",
+      "snap_metres": 8.216507895,
+      "snapped_location": [
+        135.500114,
+        34.665086
+      ],
+      "route_code": "Ok",
+      "distance_metres": 299,
+      "duration_seconds": 217.1,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "branch_yayoiken_nippombashi",
+      "nearest_code": "Ok",
+      "snap_metres": 18.23923031,
+      "snapped_location": [
+        135.506232,
+        34.667396
+      ],
+      "route_code": "Ok",
+      "distance_metres": 507.1,
+      "duration_seconds": 365.1,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "branch_marugame_umeda",
+      "nearest_code": "Ok",
+      "snap_metres": 3.633782816,
+      "snapped_location": [
+        135.500817,
+        34.703533
+      ],
+      "route_code": "Ok",
+      "distance_metres": 4243.8,
+      "duration_seconds": 3078.1,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "osaka_008",
+      "nearest_code": "Ok",
+      "snap_metres": 21.12450943,
+      "snapped_location": [
+        135.499981,
+        34.704162
+      ],
+      "route_code": "Ok",
+      "distance_metres": 4382.7,
+      "duration_seconds": 3177.9,
+      "entrance_verified": false
+    },
+    {
+      "place_id": "osaka_016",
+      "nearest_code": "Ok",
+      "snap_metres": 1.098548237,
+      "snapped_location": [
+        135.507767,
+        34.692414
+      ],
+      "route_code": "Ok",
+      "distance_metres": 3474.5,
+      "duration_seconds": 2512.2,
+      "entrance_verified": false
+    }
+  ]
+}

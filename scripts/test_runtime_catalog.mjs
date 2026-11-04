@@ -8,7 +8,7 @@ test('service and historical audit inputs stay separate without local path setti
     delete process.env.REAL_CATALOG_PATH;delete process.env.REAL_PROFILES_PATH;
     assert.equal(loadInputs().dataset.places.length,150);
     const runtime=loadRuntimeInputs();
-    assert.equal(runtime.dataset.places.length,225);
+    assert.equal(runtime.dataset.places.length,238);
     for(const id of ['branch_ichiran_abeno','branch_ichiran_shinsaibashi']) {
       assert.ok(runtime.dataset.places.some(r=>r.place.place_id===id));
       assert.ok(runtime.profiles.places[id]);

@@ -1,11 +1,12 @@
 {
-  "version": "2026-10-30",
-  "catalog": "final/osaka_catalog_20261030.json",
-  "profiles": "final/osaka_profiles_20261026.json",
-  "searchable_count": 225,
-  "new_branch_count": 75,
-  "new_branch_dated_eligible_count": 51,
-  "supplemental_search_only_count": 20,
+  "version": "2026-11-04",
+  "catalog": "final/osaka_catalog_20261104.json",
+  "profiles": "final/osaka_profiles_20261104.json",
+  "searchable_count": 238,
+  "new_branch_count": 82,
+  "new_branch_dated_eligible_count": 60,
+  "supplemental_search_only_count": 24,
   "travel_support": "collections/osaka_traveler_expansion_20261030/travel_support.json",
-  "travel_support_count": 5
+  "travel_support_count": 5,
+  "dated_verification": "final/catalog_verification_20261104.json"
 }
