@@ -13,8 +13,9 @@ import fs from 'node:fs';
 const BASE = 'https://places.googleapis.com/v1';
 const LINKS_URL = new URL('../../data/google_place_links.json', import.meta.url);
 const CACHE_URL = new URL('../.local/live_places.json', import.meta.url);
-// 영업 상태·시간은 '오늘' 기준이라 하루만 재사용한다. Google ID는 정책상 계속 보관할 수 있다.
-const DETAILS_TTL_MS = 24 * 3600 * 1000;
+// 영업 상태·시간은 받은 날(일본 날짜) 안에서만 재사용한다. Google ID는 정책상 계속 보관할 수 있다.
+// 매칭 규칙이 바뀌면 버전을 올려 예전 규칙으로 저장한 ID를 버린다.
+const CACHE_VERSION = 2;
 const MATCH_METRES = 150;
 const CONCURRENCY = 4;
 
@@ -40,7 +41,13 @@ function covers(intervals, from, to) {
   return reach >= to;
 }
 
-/** Opening intervals on one date. current: date-stamped periods (next 7 days); regular: weekly. */
+const daysBetween = (from, to) => (Date.parse(to + 'T00:00:00Z') - Date.parse(from + 'T00:00:00Z')) / 86400000;
+const minuteOf = t => t.hour * 60 + (t.minute ?? 0);
+
+/** Opening intervals of one visit date, in minutes from its midnight and clipped to that day.
+ * A period that opened the day before and runs past midnight counts too (월 22:00→화 06:00).
+ * dated: current periods carry calendar dates (next 7 days); otherwise weekly regular periods.
+ */
 function intervalsOn(hours, date, dated) {
   const weekday = new Date(date + 'T00:00:00Z').getUTCDay();
   const out = [];
@@ -48,24 +55,34 @@ function intervalsOn(hours, date, dated) {
     if (!open) continue;
     // 24시간 영업은 close 없이 일요일 0시 open 하나로 온다
     if (!close) { if (open.day === 0 && !open.hour && !open.minute) out.push([0, 1440]); continue; }
-    const starts = dated ? isoOf(open.date) === date : open.day === weekday;
-    if (!starts) continue;
-    const a = open.hour * 60 + (open.minute ?? 0);
-    const sameDay = dated ? isoOf(close.date) === date : close.day === open.day;
-    out.push([a, close.hour * 60 + (close.minute ?? 0) + (sameDay ? 0 : 1440)]);
+    // 방문일 0시 기준으로 며칠째에 열고 닫았나 (0=당일, -1=전날)
+    let startDay, endDay;
+    if (dated) {
+      startDay = daysBetween(date, isoOf(open.date)); endDay = daysBetween(date, isoOf(close.date));
+    } else {
+      const ahead = (open.day - weekday + 7) % 7;
+      startDay = ahead === 6 ? -1 : ahead;
+      endDay = startDay + (close.day - open.day + 7) % 7;
+    }
+    if (!Number.isFinite(startDay) || !Number.isFinite(endDay)) continue;
+    const a = startDay * 1440 + minuteOf(open), b = endDay * 1440 + minuteOf(close);
+    if (b > 0 && a < 1440) out.push([Math.max(0, a), Math.min(1440, b)]);
   }
   return out;
 }
 
-/** One place-date verdict from Google details. Empty reasons = confirmed unchanged. */
-export function judge(details, date, window, today) {
+/** One place-date verdict from Google details fetched on fetchedOn (Japan date).
+ * Empty reasons = confirmed unchanged.
+ */
+export function judge(details, date, window, fetchedOn) {
   if (!details) return ['live_lookup_failed'];
   const status = details.businessStatus;
   if (status === 'CLOSED_PERMANENTLY') return ['live_closed_permanently'];
   if (status === 'CLOSED_TEMPORARILY') return ['live_closed_temporarily'];
   if (status !== 'OPERATIONAL') return ['live_status_unknown'];
-  // 7일 안의 날짜는 특별 휴무까지 반영된 현재 영업시간으로, 그 뒤는 정규 영업시간으로 대조한다
-  const dated = date >= today && date <= addDays(today, 6) && details.currentOpeningHours?.periods;
+  // 조회일 포함 7일은 특별 휴무까지 반영된 현재 영업시간으로, 그 뒤는 정규 영업시간으로 대조한다.
+  // 범위는 '오늘'이 아니라 그 응답을 받은 날 기준이다 (캐시를 다음 날 쓰면 범위가 하루 밀린다)
+  const dated = date >= fetchedOn && date <= addDays(fetchedOn, 6) && details.currentOpeningHours?.periods;
   const hours = dated ? details.currentOpeningHours : details.regularOpeningHours;
   if (!hours?.periods?.length) return ['live_hours_unavailable'];
   const intervals = intervalsOn(hours, date, Boolean(dated));
@@ -91,7 +108,8 @@ async function request(fetchImpl, url, init, key) {
 
 // 주소 검색 결과(番地 자체)는 장소가 아니다. 영업 정보가 없으므로 같은 장소로 보지 않는다
 const ADDRESS_TYPES = new Set(['street_address', 'premise', 'subpremise', 'route', 'geocode', 'plus_code', 'postal_code']);
-const normName = s => (s ?? '').normalize('NFKC').replace(/\s/g, '').toLowerCase();
+// 공백·가운뎃점·하이픈·괄호·따옴표 차이만 무시한다. 포함 관계(大阪城 ⊂ 大阪城公園)는 같은 이름이 아니다
+const normName = s => (s ?? '').normalize('NFKC').toLowerCase().replace(/[\s・･·\-‐‑–—()（）「」『』'"’”.,、。]/g, '');
 // 이름만 먼저, 안 되면 이름+주소. 주소를 붙이면 Google이 장소 대신 주소를 돌려주는 경우가 있다(大阪城 → 大阪城1-1)
 export const searchQueries = place => [place.name, `${place.name} ${place.address}`];
 
@@ -109,17 +127,18 @@ export async function searchCandidates(fetchImpl, key, place, textQuery = search
     d: p.location ? metres(at, {lat: p.location.latitude, lng: p.location.longitude}) : Infinity}));
 }
 
-/** Google Place ID within MATCH_METRES of our coordinates, or the failure reason.
- * Same-name results win over closer ones (大阪城 vs 大阪城公園 are both nearby).
+/** Google Place ID of the same place, or the failure reason.
+ * Same place = same name (after normName) and within MATCH_METRES. A nearby shop under another
+ * name is never accepted: its hours would vouch for a place that may be closed. When the name
+ * differs on Google, link it by hand in data/google_place_links.json.
  */
 async function findId(fetchImpl, key, place) {
   let failed = 0;
   for (const query of searchQueries(place)) {
     const found = await searchCandidates(fetchImpl, key, place, query);
     if (!found) { failed++; continue; }
-    const near = found.filter(p => p.id && !p.address && p.d <= MATCH_METRES)
-      .sort((a, b) => Number(b.exact) - Number(a.exact) || a.d - b.d);
-    if (near.length) return {id: near[0].id};
+    const same = found.filter(p => p.id && p.exact && !p.address && p.d <= MATCH_METRES).sort((a, b) => a.d - b.d);
+    if (same.length) return {id: same[0].id};
   }
   // 요청 실패는 '같은 장소 없음'과 구분한다
   return {reason: failed === searchQueries(place).length ? 'live_lookup_failed' : 'live_no_match'};
@@ -133,8 +152,9 @@ export function googleLiveCheck({key = process.env.GOOGLE_PLACES_API_KEY, fetchI
     const today = japanToday(now());
     const links = new Map((readJson(LINKS_URL, {links: []}).links ?? [])
       .filter(l => l.status === 'linked').map(l => [l.place_id, l.google_place_id]));
-    const cache = readJson(cacheUrl, {ids: {}, details: {}});
-    cache.ids ??= {}; cache.details ??= {};
+    let cache = readJson(cacheUrl, {});
+    if (cache.version !== CACHE_VERSION) cache = {version: CACHE_VERSION, ids: {}, details: {}};
+    let fetched = 0, reused = 0;
     const records = new Map(requests.map(r => [r.record.place.place_id, r.record]));
     const detailsOf = new Map();
     const queue = [...records.values()];
@@ -148,11 +168,13 @@ export function googleLiveCheck({key = process.env.GOOGLE_PLACES_API_KEY, fetchI
           gid = cache.ids[id] = found.id;
         }
         const hit = cache.details[gid];
-        if (hit && now() - Date.parse(hit.fetched_at) < DETAILS_TTL_MS) { detailsOf.set(id, hit.data); continue; }
+        // 같은 일본 날짜에 받은 응답만 재사용한다. 날짜가 바뀌면 currentOpeningHours의 7일 범위도 바뀐다
+        if (hit?.fetched_on === today) { reused++; detailsOf.set(id, hit); continue; }
         const data = await request(fetchImpl, `${BASE}/places/${encodeURIComponent(gid)}`, {method: 'GET',
           headers: {'X-Goog-FieldMask': 'id,businessStatus,regularOpeningHours,currentOpeningHours'}}, key.trim());
-        if (data) cache.details[gid] = {fetched_at: now().toISOString(), data};
-        detailsOf.set(id, data);
+        const entry = {fetched_at: now().toISOString(), fetched_on: today, data};
+        if (data) { fetched++; cache.details[gid] = entry; }
+        detailsOf.set(id, entry);
       }
     };
     await Promise.all(Array.from({length: CONCURRENCY}, worker));
@@ -163,15 +185,16 @@ export function googleLiveCheck({key = process.env.GOOGLE_PLACES_API_KEY, fetchI
     const verdicts = new Map();
     for (const {record, date, window} of requests) {
       const d = detailsOf.get(record.place.place_id);
-      verdicts.set(`${record.place.place_id}|${date}`, typeof d === 'string' ? [d] : judge(d, date, window, today));
+      verdicts.set(`${record.place.place_id}|${date}`, typeof d === 'string' ? [d] : judge(d.data, date, window, d.fetched_on));
     }
-    return {verdicts, source: 'google_places', checked_on: today};
+    // checked_on: 판정에 쓴 응답을 받은 날짜. 새로 조회한 수와 같은 날 캐시를 재사용한 수를 따로 센다
+    return {verdicts, source: 'google_places', checked_on: today, fetched, reused};
   };
 }
 
 /** Offline stand-in for tests and audits. Never used unless LIVE_CHECK_MOCK is set. */
 export function mockLiveCheck(mode) {
-  return async requests => ({source: 'mock', checked_on: null,
+  return async requests => ({source: 'mock', checked_on: null, fetched: 0, reused: 0,
     verdicts: new Map(requests.map(r => [`${r.record.place.place_id}|${r.date}`, mode === 'pass' ? [] : ['live_lookup_failed']]))});
 }
 

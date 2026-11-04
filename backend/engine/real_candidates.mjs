@@ -168,7 +168,8 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       scheduled_count: scheduled.size, unplaced_count: omitted, must_satisfied: !missingMust && !conflicts,
       must_veto_conflict_count: conflicts, empty_day_count: emptyDays,
       reason_aggregation: 'common_across_dates', exclusion_reason_counts: exclusionReasons,
-      live_check: {source: live.source, checked_on: live.checked_on, failed_place_count: live.failedPlaces},
+      live_check: {source: live.source, checked_on: live.checked_on, failed_place_count: live.failedPlaces,
+        fetched_count: live.fetched, reused_count: live.reused},
       ai_fill: {source: ai ? ai.source : 'off', added_count: aiAdded},
     };
     const mean = key => days.reduce((total, day) => total + day.metrics[key], 0) / days.length;
@@ -237,6 +238,7 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
     // 2) AI 후보도 실시간 확인을 통과한 곳만 모델에 보여 준다
     const poolLive = await liveCheck(liveRequests(draft.map(c => c.id), dates, byId, profiles));
     poolLive.verdicts.forEach((v, k) => live.verdicts.set(k, v));
+    live.fetched += poolLive.fetched; live.reused += poolLive.reused;
     const pool = draft.filter(c => dates.some(date => passed(live, c.id, date)));
     const empty = Math.max(0, dates.length * slotsPerDayFor(groupTradeoffs(request.submissions).pace) - human.filter(id => byId.has(id) && usable(id)).length);
     if (pool.length && empty) ai = await chooser(pool, Math.min(empty, pool.length));

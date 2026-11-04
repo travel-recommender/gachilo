@@ -12,7 +12,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {googleLiveCheck, searchCandidates, searchQueries} from '../backend/engine/live_check.mjs';
-import {loadInputs, availability} from './validate_real_schedule.mjs';
+import {loadRuntimeInputs, availability} from './validate_real_schedule.mjs';
 
 const args = process.argv.slice(2);
 const why = args.includes('--why');
@@ -20,7 +20,7 @@ const run = args.includes('--run') || why;
 const dateAt = args.indexOf('--date');
 const date = dateAt >= 0 ? args[dateAt + 1] : new Intl.DateTimeFormat('en-CA', {timeZone: 'Asia/Tokyo'}).format(new Date());
 const ids = args.filter((a, i) => a.startsWith('osaka_') && !(dateAt >= 0 && i === dateAt + 1));
-const {dataset, profiles} = loadInputs();
+const {dataset, profiles} = loadRuntimeInputs(); // 서버와 같은 카탈로그
 const picked = (ids.length ? ids : ['osaka_009', 'osaka_015', 'osaka_017']).slice(0, 5);
 const hhmm = m => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 

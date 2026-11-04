@@ -153,8 +153,9 @@ def validate_candidates(output, room, known_ids):
             check(bool(seen_ids))  # An empty real schedule is a retryable failure, not a candidate.
             p = candidate['planning']
             keys(p, 'status schedule_ready exchange_rate catalog_count scheduled_count unplaced_count must_satisfied must_veto_conflict_count empty_day_count reason_aggregation exclusion_reason_counts live_check ai_fill')
-            keys(p['live_check'], 'source checked_on failed_place_count')
-            check(p['live_check']['source'] in ('google_places', 'mock') and type(p['live_check']['failed_place_count']) is int and p['live_check']['failed_place_count'] >= 0)
+            keys(p['live_check'], 'source checked_on failed_place_count fetched_count reused_count')
+            check(p['live_check']['source'] in ('google_places', 'mock'))
+            check(all(type(p['live_check'][k]) is int and p['live_check'][k] >= 0 for k in ('failed_place_count', 'fetched_count', 'reused_count')))
             check(p['live_check']['checked_on'] is None or isinstance(p['live_check']['checked_on'], str) and re.fullmatch(r'\d{4}-\d{2}-\d{2}', p['live_check']['checked_on']) is not None)
             keys(p['ai_fill'], 'source added_count')
             check(p['ai_fill']['source'] in ('ai_added', 'rule_added', 'off') and type(p['ai_fill']['added_count']) is int)

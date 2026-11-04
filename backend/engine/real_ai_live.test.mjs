@@ -61,7 +61,7 @@ test('Google lookup: no key stops, far match fails, details are cached, the key 
   const fake = near => async (url, init) => {
     calls.push({url, redirect: init.redirect, key: init.headers['X-Goog-Api-Key']});
     const lat = record.place.latitude + (near ? 0.0002 : 0.01);
-    const body = url.endsWith(':searchText') ? {places: [{id: 'g1', location: {latitude: lat, longitude: record.place.longitude}}]}
+    const body = url.endsWith(':searchText') ? {places: [{id: 'g1', displayName: {text: record.place.name}, location: {latitude: lat, longitude: record.place.longitude}}]}
       : {id: 'g1', businessStatus: 'OPERATIONAL', regularOpeningHours: hours(0, 23)};
     return {ok: true, json: async () => body};
   };
@@ -101,6 +101,82 @@ test('Google lookup: an address result is not the place; the same-name result wi
   assert.deepEqual(out.verdicts.get('osaka_009|2026-10-01'), []);
   assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'c.json'), 'utf8')).ids.osaka_009, 'castle');
   assert.deepEqual(queries, ['大阪城'], 'name-only query is tried first and is enough');
+});
+
+// 리뷰 #63 P1: 이름이 다른 가까운 가게의 영업 정보로 통과시키지 않는다
+test('Google lookup: a nearby shop under another name is never the same place', async () => {
+  const record = structuredClone(dataset.places.find(r => r.place.place_id === 'osaka_009'));
+  record.place.name = '対象店舗A';
+  const reqs = [{record, date: '2026-10-01', window: [600, 1200, 1140]}];
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'live-'));
+  const cacheUrl = pathToFileURL(path.join(dir, 'c.json'));
+  const queries = [];
+  const fake = async (url, init) => {
+    if (!url.endsWith(':searchText')) throw Error('details must not be fetched for another shop');
+    queries.push(JSON.parse(init.body).textQuery);
+    return {ok: true, json: async () => ({places: [{id: 'shopB', displayName: {text: '別ブランドB'}, types: ['store'],
+      location: {latitude: record.place.latitude + 0.0001, longitude: record.place.longitude}}]})};
+  };
+  const out = await googleLiveCheck({key: 'k', fetchImpl: fake, cacheUrl})(reqs);
+  assert.deepEqual(out.verdicts.get('osaka_009|2026-10-01'), ['live_no_match']);
+  assert.equal(queries.length, 2, 'name+address is tried before giving up');
+  assert.deepEqual(JSON.parse(fs.readFileSync(cacheUrl, 'utf8')).ids, {}, 'nothing is cached for a non-match');
+  // 표기 차이(공백·가운뎃점)는 같은 이름, 포함 관계는 다른 이름
+  record.place.name = '丸福珈琲店 千日前本店';
+  const spaced = async url => ({ok: true, json: async () => url.endsWith(':searchText')
+    ? {places: [{id: 'p', displayName: {text: '丸福珈琲店・千日前本店'}, location: {latitude: record.place.latitude, longitude: record.place.longitude}}]}
+    : {businessStatus: 'OPERATIONAL', regularOpeningHours: hours(9, 21)}});
+  assert.deepEqual((await googleLiveCheck({key: 'k', fetchImpl: spaced, cacheUrl: pathToFileURL(path.join(dir, 's.json'))})(reqs)).verdicts.get('osaka_009|2026-10-01'), []);
+  record.place.name = '大阪城';
+  const park = async () => ({ok: true, json: async () => ({places: [{id: 'park', displayName: {text: '大阪城公園'}, location: {latitude: record.place.latitude, longitude: record.place.longitude}}]})});
+  assert.deepEqual((await googleLiveCheck({key: 'k', fetchImpl: park, cacheUrl: pathToFileURL(path.join(dir, 'p.json'))})(reqs)).verdicts.get('osaka_009|2026-10-01'), ['live_no_match']);
+});
+
+// 리뷰 #63 P2: 전날 시작해 방문일까지 이어지는 영업
+test('live judge: a period that opened the day before and runs past midnight covers early hours', () => {
+  // 2026-12-01은 화요일(day 2). 월 22:00 → 화 06:00
+  const weekly = {businessStatus: 'OPERATIONAL', regularOpeningHours: {periods: [{open: {day: 1, hour: 22, minute: 0}, close: {day: 2, hour: 6, minute: 0}}]}};
+  assert.deepEqual(judge(weekly, '2026-12-01', [60, 120, 90], '2026-11-04'), []);
+  assert.deepEqual(judge(weekly, '2026-12-01', [60, 480, 400], '2026-11-04'), ['live_hours_changed']);
+  // 토 22:00 → 일 06:00: 주가 넘어가도 전날로 본다 (2026-12-06은 일요일)
+  const wrap = {businessStatus: 'OPERATIONAL', regularOpeningHours: {periods: [{open: {day: 6, hour: 22, minute: 0}, close: {day: 0, hour: 6, minute: 0}}]}};
+  assert.deepEqual(judge(wrap, '2026-12-06', [60, 120, 90], '2026-11-04'), []);
+  const d = (day) => ({year: 2026, month: 11, day});
+  const dated = {businessStatus: 'OPERATIONAL', regularOpeningHours: weekly.regularOpeningHours, currentOpeningHours: {periods: [
+    {open: {day: 4, hour: 22, minute: 0, date: d(5)}, close: {day: 5, hour: 6, minute: 0, date: d(6)}}]}};
+  assert.deepEqual(judge(dated, '2026-11-06', [60, 120, 90], '2026-11-04'), []);
+  // 당일 저녁에 열어 다음 날 새벽에 닫는 영업도 당일 몫은 그대로
+  assert.deepEqual(judge(dated, '2026-11-05', [1380, 1440, 1410], '2026-11-04'), []);
+});
+
+// 리뷰 #63 P2: 날짜가 바뀌면 같은 응답을 재사용하지 않는다
+test('Google lookup: details fetched before Japan midnight are refetched after it', async () => {
+  const record = dataset.places.find(r => r.place.place_id === 'osaka_009');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'live-'));
+  const cacheUrl = pathToFileURL(path.join(dir, 'c.json'));
+  let details = 0;
+  const fake = async url => {
+    if (url.endsWith(':searchText')) return {ok: true, json: async () => ({places: [{id: 'g', displayName: {text: record.place.name}, location: {latitude: record.place.latitude, longitude: record.place.longitude}}]})};
+    details++;
+    return {ok: true, json: async () => ({businessStatus: 'OPERATIONAL', regularOpeningHours: hours(0, 23)})};
+  };
+  const at = iso => () => new Date(iso);
+  const reqs = [{record, date: '2026-11-11', window: [600, 1200, 1140]}];
+  const night = await googleLiveCheck({key: 'k', fetchImpl: fake, cacheUrl, now: at('2026-11-04T14:59:00Z')})(reqs); // JST 23:59
+  assert.equal(night.checked_on, '2026-11-04');
+  assert.deepEqual([night.fetched, night.reused, details], [1, 0, 1]);
+  const again = await googleLiveCheck({key: 'k', fetchImpl: fake, cacheUrl, now: at('2026-11-04T14:59:30Z')})(reqs);
+  assert.deepEqual([again.fetched, again.reused, details], [0, 1, 1], 'same Japan date reuses');
+  const next = await googleLiveCheck({key: 'k', fetchImpl: fake, cacheUrl, now: at('2026-11-04T15:01:00Z')})(reqs); // JST 11/5 00:01
+  assert.equal(next.checked_on, '2026-11-05');
+  assert.deepEqual([next.fetched, next.reused, details], [1, 0, 2], 'new Japan date refetches');
+  // 11/11은 11/4 응답의 7일 범위 밖, 11/5 응답의 범위 안: 판정 기준은 응답을 받은 날이다
+  assert.deepEqual(judge({businessStatus: 'OPERATIONAL', regularOpeningHours: hours(9, 21), currentOpeningHours: {periods: []}}, '2026-11-11', [600, 1200, 1140], '2026-11-04'), []);
+  // 예전 버전 캐시(느슨한 매칭으로 저장한 ID)는 버린다
+  fs.writeFileSync(path.join(dir, 'old.json'), JSON.stringify({ids: {osaka_009: 'wrong'}, details: {}}));
+  const seen = [];
+  await googleLiveCheck({key: 'k', fetchImpl: async (url, init) => { seen.push(url); return fake(url, init); }, cacheUrl: pathToFileURL(path.join(dir, 'old.json'))})(reqs);
+  assert.ok(seen[0].endsWith(':searchText') && !seen.some(u => u.includes('wrong')));
 });
 
 /* ── schedule integration ── */
