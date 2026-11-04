@@ -245,7 +245,10 @@ class Store(CandidateStore, RecommendationStore):
         self.occupy_after_read(seat)
         votes,order=Counter(),[]
         for row in rows:
-            ids,_=saved_longlist(row)
+            try:ids,_=saved_longlist(row)
+            except ValueError:
+                # Do not return a misleading partial pool or leak the saved payload.
+                raise ApiError(503,'저장된 장소 목록을 읽을 수 없습니다. P3에서 목록을 다시 저장한 뒤 시도하세요.') from None
             if ids is None:continue
             for x in ids:
                 if r['dataset']==REAL_DATASET and x in self.excluded_real_ids:continue
