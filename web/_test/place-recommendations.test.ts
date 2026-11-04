@@ -4,30 +4,30 @@ import { createRecommendationClient, recommendationEvidence, RecommendationError
 import type { RecommendationRequest } from "../src/lib/place-recommendations.ts";
 
 const request: RecommendationRequest = { roomId: "room/a", memberId: "m/b", token: "personal", dataset: "osaka_review_150", placeId: "source", excludePlaceIds: ["source", "already-added"] };
-const item = { placeId: "new", name: "장소", category: "카페", area: "난바", coPickCount: 2, reason: "co_pick" as const };
-const response = () => ({ dataset: request.dataset, sourcePlaceId: "source", limit: 3, countUnit: "room_member_list", generatedAt: "2026-11-03T05:00:00Z", eligibility: "at_least_one_trip_date", recommendations: [{ ...item }] });
+const item = { placeId: "new", name: "장소", category: "카페", area: "난바", coPickCount: 3, reason: "co_pick" as const };
+const response = () => ({ dataset: request.dataset, sourcePlaceId: "source", limit: 6, countUnit: "room_member_list", generatedAt: "2026-11-03T05:00:00Z", eligibility: "at_least_one_trip_date", recommendations: [{ ...item }] });
 
-test("own member token, unsaved exclusions and limit 3 are sent without mutating the list", async () => {
+test("own member token, unsaved exclusions and limit 6 are sent without mutating the list", async () => {
   let sent: RequestInit | undefined;
   const api = createRecommendationClient("http://test.invalid/", async (url, init) => {
     assert.equal(url, "http://test.invalid/rooms/room%2Fa/recommendations/m%2Fb");
     sent = init; return Response.json(response());
   });
-  assert.equal((await api(request)).recommendations[0].coPickCount, 2);
-  assert.deepEqual(JSON.parse(sent!.body as string), { placeId: "source", excludePlaceIds: ["source", "already-added"], limit: 3 });
+  assert.equal((await api(request)).recommendations[0].coPickCount, 3);
+  assert.deepEqual(JSON.parse(sent!.body as string), { placeId: "source", excludePlaceIds: ["source", "already-added"], limit: 6 });
   assert.equal((sent!.headers as Record<string, string>).Authorization, "Bearer personal");
   assert.equal(sent!.cache, "no-store");
 });
 
 test("numeric evidence uses saved list units; fallbacks never invent person counts", () => {
-  assert.equal(recommendationEvidence(item), "2개 참여 목록에서 함께 담김");
+  assert.equal(recommendationEvidence(item), "3개 참여 목록에서 함께 담김");
   assert.equal(recommendationEvidence({ ...item, coPickCount: 1000 }), "1,000개 참여 목록에서 함께 담김");
   for (const [reason, label] of [["same_area_category", "같은 지역 · 같은 카테고리"], ["same_area", "같은 지역"], ["same_category", "같은 카테고리"]] as const)
     assert.equal(recommendationEvidence({ ...item, coPickCount: 0, reason }), label);
 });
 
 test("counts and reasons must agree and counts must be nonnegative safe integers", async () => {
-  for (const coPickCount of [-1, 0, 1.5, "2", true, null, Number.MAX_SAFE_INTEGER + 1]) {
+  for (const coPickCount of [-1, 0, 1, 2, 1.5, "2", true, null, Number.MAX_SAFE_INTEGER + 1]) {
     const api = createRecommendationClient("", async () => Response.json({ ...response(), recommendations: [{ ...item, coPickCount }] }));
     await assert.rejects(api(request), RecommendationError);
   }
@@ -40,7 +40,7 @@ test("wrong source, unit, mode, eligibility, date, duplicate and over-limit resp
   for (const change of [{ sourcePlaceId: "other" }, { countUnit: "people" }, { dataset: "prototype_demo_36" },
     { eligibility: "demo_unverified" }, { generatedAt: "invalid" }, { limit: 10 },
     { recommendations: [item, item] }, { recommendations: [{ ...item, placeId: "source" }] },
-    { recommendations: [1, 2, 3, 4].map(i => ({ ...item, placeId: String(i) })) }]) {
+    { recommendations: [1, 2, 3, 4, 5, 6, 7].map(i => ({ ...item, placeId: String(i) })) }]) {
     await assert.rejects(createRecommendationClient("", async () => Response.json({ ...response(), ...change }))(request), RecommendationError);
   }
 });

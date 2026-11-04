@@ -9,7 +9,7 @@ import { Box, MinusButton, NavButtons, Page, PlanHeader } from "@/components/gac
 import type { Place } from "@/lib/types";
 
 /** 서버가 받는 1차 목록 최대 개수 */
-const LIMIT = 30;
+import { P3_LIST_LIMIT as LIMIT } from "@/lib/p3-limits";
 
 /**
  * P3 — 가고 싶은 곳 찾기.
@@ -27,10 +27,10 @@ export default function Pick() {
   const longlist = state.mine.longlist;
   const places = longlist.map((id) => findPlace(id)).filter((p): p is Place => !!p);
 
-  const add = (p: Place) => {
+  const add = (p: Place, changeSource = true) => {
     if (busy || p.selectionDisabledReason || longlist.includes(p.id) || longlist.length >= LIMIT) return;
     setMine({ longlist: [...longlist, p.id] });
-    setRecommendFrom({ id: p.id, session });
+    if (changeSource) setRecommendFrom({ id: p.id, session });
   };
   const remove = (id: string) => setMine({ longlist: longlist.filter((x) => x !== id) });
 
@@ -55,10 +55,11 @@ export default function Pick() {
   return (
     <Page nav={<NavButtons next={next} busy={busy} />}>
       <PlanHeader />
-      <div className="px-5 pt-[59px]">
-        <PlaceFinder added={longlist} onPick={add} />
+      <fieldset disabled={busy} className="px-5 pt-[59px]">
+        <PlaceFinder added={longlist} onPick={add} disabled={busy} />
+        {busy && <p role="status" className="mt-2 text-sm text-mute">목록을 저장하고 있어요. 잠시 기다려 주세요.</p>}
         {state.room && recommendFrom?.session === session && <PlaceRecommendations
-          room={state.room} catalog={catalog} sourceId={recommendFrom.id} added={longlist} disabled={busy} onAdd={add}
+          room={state.room} catalog={catalog} sourceId={recommendFrom.id} added={longlist} disabled={busy} onAdd={p => add(p, false)}
         />}
 
         {error && <p className="mt-3 text-[12px] leading-relaxed text-wine">{error}</p>}
@@ -89,7 +90,7 @@ export default function Pick() {
             </section>
           ))}
         </Box>
-      </div>
+      </fieldset>
     </Page>
   );
 }

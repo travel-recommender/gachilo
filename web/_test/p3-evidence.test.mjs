@@ -22,6 +22,7 @@ function hooks() {
  return {
   react:{
    useState(initial){const i=index++;if(!(i in values))values[i]=initial;return [values[i],v=>{values[i]=typeof v==='function'?v(values[i]):v;}];},
+   useRef(initial){const i=index++;if(!(i in values))values[i]={current:initial};return values[i];},
    useEffect(fn,deps){const i=index++,prior=effects[i];if(!prior||deps.some((v,n)=>v!==prior.deps[n]))pending.push(()=>{prior?.cleanup?.();effects[i]={deps,cleanup:fn()};});},
   },
   render(fn){index=0;return fn();},
@@ -41,8 +42,8 @@ function harness() {
 const request={roomId:'r',memberId:'m',token:'one',dataset:'osaka_review_150',placeId:'a',excludePlaceIds:['a']};
 const payload={recommendations:[],countUnit:'room_member_list',eligibility:'at_least_one_trip_date'};
 
-test('source/list/session changes hide old evidence before effects and reject late responses',async()=>{
- for(const change of [{placeId:'b'}, {excludePlaceIds:['a','b']}, {token:'two'}, {roomId:'other'}, {memberId:'other'}]){
+test('source/mode/session changes hide old evidence before effects and reject late responses',async()=>{
+ for(const change of [{placeId:'b'}, {dataset:'prototype_demo_36'}, {token:'two'}, {roomId:'other'}, {memberId:'other'}]){
   const h=harness();assert.equal(h.view(request).loading,true);h.flush();
   h.calls[0].resolve(payload);await tick();assert.equal(h.view(request).data,payload);
   const next={...request,...change};assert.equal(h.view(next).data,null);h.flush();
@@ -70,7 +71,7 @@ function cards(data,added=['a'],rest={}){
  const {PlaceRecommendations}=load('../src/components/PlaceRecommendations.tsx',{
   '@/components/usePlaceRecommendations':{usePlaceRecommendations:r=>{sent=r;return {data,error:null,loading:false,retry(){},...rest};}},
   '@/lib/places':{findPlace:id=>places.get(id),CATEGORIES:[{id:'cafe',label:'카페'}]},
-  '@/lib/place-recommendations':evidence,
+  '@/lib/place-recommendations':evidence,'@/lib/p3-limits':{P3_LIST_LIMIT:30},
  });
  const tree=PlaceRecommendations({room:request,catalog:'real',sourceId:'a',added,disabled:false,onAdd:p=>clicked.push(p.id)});
  return {tree,sent,clicked};
@@ -84,7 +85,7 @@ test('cards show the real list count and a separate fallback explanation; unknow
  const add=nodes(tree).find(n=>n.type==='button'&&n.props['aria-label']==='b 담기');add.props.onClick();assert.deepEqual(clicked,['b']);
  const hidden=cards({...data,recommendations:[make('missing',3,'co_pick'),make('disabled',2,'co_pick'),make('b',1,'co_pick')]},['a','b']);
  assert.match(words(hidden.tree),/추천할 수 있는 다른 장소가 없어요/);
- assert.equal(nodes(hidden.tree).filter(n=>n.type==='button').length,0);
+ assert.equal(nodes(hidden.tree).filter(n=>n.type==='button'&&n.props['aria-label']).length,0);
 });
 test('capacity disables adding, removed sources request nothing, and errors retain a retry',()=>{
  const data={...payload,recommendations:[{placeId:'b',coPickCount:1,reason:'co_pick'}]};
@@ -102,6 +103,7 @@ test('actual P3 add updates longlist only and never persists a recommendation or
   react:h.react,'next/navigation':{useRouter:()=>({push:p=>router.push(p)})},
   '@/components/store':{useTrip:()=>({state,catalog:'real',setMine:p=>{patches.push(p);state.mine={...state.mine,...p};},saveLonglist:async()=>{saved++;}})},
   '@/components/PlaceFinder':{PlaceFinder,placeLine:()=>''},'@/components/PlaceRecommendations':{PlaceRecommendations},
+  '@/lib/p3-limits':{P3_LIST_LIMIT:30},
   '@/lib/places':{CATEGORIES:[{id:'cafe',label:'카페'}],findPlace:id=>places.get(id)},
   '@/components/gachiro':{Box:()=>null,MinusButton:()=>null,NavButtons,Page:()=>null,PlanHeader:()=>null},
  });
@@ -109,9 +111,34 @@ test('actual P3 add updates longlist only and never persists a recommendation or
  tree=h.render(Pick);const props=nodes(tree).find(n=>n.type===PlaceRecommendations).props;
  assert.equal(props.sourceId,'b');assert.deepEqual(props.added,['a','b']);
  props.onAdd(places.get('c'));tree=h.render(Pick);
+ assert.equal(nodes(tree).find(n=>n.type===PlaceRecommendations).props.sourceId,'b');
  assert.deepEqual(patches,[{longlist:['a','b']},{longlist:['a','b','c']}]);
  assert.equal(state.mine.must,'a');assert.deepEqual(state.mine.picks,['a']);assert.equal(saved,0);
- await tree.props.nav.props.next();assert.equal(saved,1);assert.deepEqual(router,['/waiting?step=list']);
+ const saving=tree.props.nav.props.next();tree=h.render(Pick);
+ const finder=nodes(tree).find(n=>n.type===PlaceFinder);assert.equal(finder.props.disabled,true);
+ assert.equal(nodes(tree).find(n=>n.type==='fieldset').props.disabled,true);
+ finder.props.onPick(places.get('disabled'));assert.equal(patches.length,2);
+ await saving;assert.equal(saved,1);assert.deepEqual(router,['/waiting?step=list']);
  state.room={...state.room,token:'new-session'};tree=h.render(Pick);
  assert.equal(nodes(tree).some(n=>n.type===PlaceRecommendations),false);
+});
+
+
+test('list edits preserve the batch without refetch; explicit retry captures current exclusions',async()=>{
+ const h=harness();h.view(request);h.flush();
+ const next={...request,excludePlaceIds:['a','b','c']};
+ h.view(next);h.flush();assert.equal(h.calls.length,1);assert.equal(h.calls[0].signal.aborted,false);
+ h.calls[0].resolve(payload);await tick();
+ assert.equal(h.view(next).data,payload);h.flush();assert.equal(h.calls.length,1);
+ h.view(next).retry();h.view(next);h.flush();
+ assert.equal(h.calls.length,2);assert.deepEqual(h.calls[1].request.excludePlaceIds,['a','b','c']);h.close();
+});
+
+test('reserve candidates replace filtered results, keeping at most three cards',()=>{
+ for(const id of ['d','e','f'])places.set(id,{id,name:id,category:'cafe'});
+ const data={...payload,recommendations:['missing','disabled','b','c','d','e'].map(placeId=>({placeId,coPickCount:0,reason:'same_area'}))};
+ const first=cards(data,['a']);
+ assert.deepEqual(nodes(first.tree).filter(n=>n.type==='button'&&n.props['aria-label']).map(n=>n.props['aria-label']),['b 담기','c 담기','d 담기']);
+ const next=cards(data,['a','b']);
+ assert.deepEqual(nodes(next.tree).filter(n=>n.type==='button'&&n.props['aria-label']).map(n=>n.props['aria-label']),['c 담기','d 담기','e 담기']);
 });

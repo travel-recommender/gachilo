@@ -1,4 +1,5 @@
 /** P3 recommendation counts describe saved room-member lists, not unique people. */
+export const RECOMMENDATION_FETCH_LIMIT = 6;
 export type RecommendationDataset = "osaka_review_150" | "prototype_demo_36";
 export type RecommendationReason = "co_pick" | "same_area_category" | "same_area" | "same_category";
 export interface PlaceRecommendation {
@@ -38,10 +39,10 @@ const text = (v: unknown): v is string => typeof v === "string" && v.trim().leng
 function decode(value: unknown, request: RecommendationRequest): PlaceRecommendations {
   const invalid = () => new RecommendationError("추천 근거를 확인하지 못했어요. 잠시 후 다시 시도해 주세요.");
   if (!object(value) || value.dataset !== request.dataset || value.sourcePlaceId !== request.placeId
-    || value.countUnit !== "room_member_list" || value.limit !== 3
+    || value.countUnit !== "room_member_list" || value.limit !== RECOMMENDATION_FETCH_LIMIT
     || !text(value.generatedAt) || !Number.isFinite(Date.parse(value.generatedAt))
     || value.eligibility !== (request.dataset === "osaka_review_150" ? "at_least_one_trip_date" : "demo_unverified")
-    || !Array.isArray(value.recommendations) || value.recommendations.length > 3) throw invalid();
+    || !Array.isArray(value.recommendations) || value.recommendations.length > RECOMMENDATION_FETCH_LIMIT) throw invalid();
   const seen = new Set<string>();
   for (const item of value.recommendations) {
     if (!object(item) || !text(item.placeId) || !text(item.name) || seen.has(item.placeId)
@@ -50,7 +51,7 @@ function decode(value: unknown, request: RecommendationRequest): PlaceRecommenda
       || !(item.area === null || typeof item.area === "string")
       || typeof item.coPickCount !== "number" || !Number.isSafeInteger(item.coPickCount) || item.coPickCount < 0
       || typeof item.reason !== "string" || !reasons.has(item.reason)
-      || (item.reason === "co_pick" ? item.coPickCount === 0 : item.coPickCount !== 0)) throw invalid();
+      || (item.reason === "co_pick" ? item.coPickCount < 3 : item.coPickCount !== 0)) throw invalid();
     seen.add(item.placeId);
   }
   return value as unknown as PlaceRecommendations;
@@ -74,7 +75,7 @@ export function createRecommendationClient(baseUrl: string, fetcher: typeof fetc
       const response = await fetcher(`${baseUrl.replace(/\/$/, "")}/rooms/${encodeURIComponent(request.roomId)}/recommendations/${encodeURIComponent(request.memberId)}`, {
         method: "POST", cache: "no-store", signal: controller.signal,
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${request.token}` },
-        body: JSON.stringify({ placeId: request.placeId, excludePlaceIds: request.excludePlaceIds, limit: 3 }),
+        body: JSON.stringify({ placeId: request.placeId, excludePlaceIds: request.excludePlaceIds, limit: RECOMMENDATION_FETCH_LIMIT }),
       });
       if (!response.ok) throw new RecommendationError(
         response.status === 403 ? "참여 정보를 확인하지 못했어요. 초대 링크에서 다시 접속해 주세요."
