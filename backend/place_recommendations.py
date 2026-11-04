@@ -1,44 +1,10 @@
 """Authenticated P3 suggestions, separate from itinerary/must-go decisions."""
-import json
-from pathlib import Path
-import re
-import unicodedata
 
 from api_errors import ApiError, require
-from co_picks import _ids, counts_from_connection, DEMO_DATASET
+from co_picks import _ids, source_counts_from_connection, DEMO_DATASET, MIN_COUNT
 from engine import EngineError
-from place_catalog import DATA
+from place_catalog import area_key
 from real_engine import REAL_DATASET
-
-
-def area_key(place):
-    # Existing rows use Japanese wards; new branches often use Korean districts.
-    # Prefer an explicit city/ward in either field, without guessing a location.
-    def normalized(value):
-        return re.sub(r'\s+', '', unicodedata.normalize('NFKC', value or ''))
-    for value in (place.get('address'), place.get('area')):
-        match = re.search(r'大阪市([^市区郡]+区)', normalized(value))
-        if match:
-            return '大阪市' + match[1]
-    return normalized(place.get('area')) or None
-
-
-def load_places(dataset, demo_places):
-    if dataset == DEMO_DATASET:
-        return {p['id']: {**p, 'areaKey': area_key(p)} for p in demo_places}
-    if dataset != REAL_DATASET:
-        raise ValueError('unsupported dataset')
-    records = json.loads(DATA.read_text(encoding='utf-8'))['places']
-    result = {}
-    for row in records:
-        if row['review'].get('final_csv', {}).get('record_status') == '제외':
-            continue
-        p = row['place']
-        result[p['place_id']] = {
-            'id': p['place_id'], 'name': p.get('name_ko') or p['name'],
-            'category': p.get('category'), 'area': p.get('area'), 'areaKey': area_key(p),
-        }
-    return result
 
 
 def rank_places(source_id, places, counts, eligible, excluded, limit):
@@ -58,6 +24,8 @@ def rank_places(source_id, places, counts, eligible, excluded, limit):
         same_category = bool(source['category'] and source['category'] == p['category'])
         affinity = 0 if same_area and same_category else 1 if same_area else 2 if same_category else 3
         count = votes.get(pid, 0)
+        if count < MIN_COUNT:
+            count = 0
         if count == 0 and affinity == 3:
             continue  # Never pad with unrelated places or invent popularity.
         reason = 'co_pick' if count else ('same_area_category', 'same_area', 'same_category')[affinity]
@@ -85,10 +53,7 @@ class RecommendationStore:
             r = self.room(c, rid)
             self.authenticate(c, r, token, mid)
         try:
-            demo = getattr(self, 'recommendation_demo_places', None)
-            if demo is None:
-                demo = json.loads((Path(__file__).parent / 'engine/catalog.json').read_text())
-            places = load_places(r['dataset'], demo)
+            places = self.recommendation_real_places if r['dataset'] == REAL_DATASET else self.recommendation_demo_places
             require(source in places and not source.startswith('custom_'), '이 방의 장소 목록에 없는 placeId입니다.')
             if r['dataset'] == REAL_DATASET:
                 if self.date_availability is None:
@@ -104,7 +69,7 @@ class RecommendationStore:
                     LEFT JOIN longlists l ON l.member_id=m.id
                     LEFT JOIN submissions s ON s.member_id=m.id WHERE m.id=?''', (mid,)).fetchone()
                 own_ids, _ = _ids(own)
-                counts = counts_from_connection(c, r['dataset'], set(places))
+                counts = source_counts_from_connection(c, r['dataset'], set(places), source, rid)
                 excluded = set(extra) | (own_ids or set())
                 recommendations = rank_places(source, places, counts, eligible, excluded, limit)
         except (OSError, ValueError, KeyError, TypeError):

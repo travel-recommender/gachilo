@@ -5,6 +5,7 @@ from contextlib import closing
 from datetime import datetime, timezone
 from itertools import combinations
 import json
+import logging
 import os
 from pathlib import Path
 import sqlite3
@@ -51,11 +52,8 @@ def build_counts(database, dataset=REAL_DATASET):
         return counts_from_connection(c, dataset, allowed)
 
 
-def counts_from_connection(c, dataset, allowed):
-    """Use the caller's read transaction so counts and exclusions agree."""
-    places, pairs = Counter(), Counter()
-    sources = {'p3': 0, 'submissionFallback': 0}
-    saved = nonempty = paired = ignored = 0
+def saved_rows(c, dataset):
+    """Read current member rows without migrating a legacy database."""
     has_p3 = c.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='longlists'").fetchone()
     has_dataset = 'dataset' in {row['name'] for row in c.execute('PRAGMA table_info(rooms)')}
     dataset_sql = 'r.dataset' if has_dataset else f"'{DEMO_DATASET}'"
@@ -63,14 +61,22 @@ def counts_from_connection(c, dataset, allowed):
     # longlists without creating/migrating tables in a running server's DB.
     ids_sql = 'l.ids' if has_p3 else 'NULL'
     p3_join = 'LEFT JOIN longlists l ON l.member_id=m.id' if has_p3 else ''
-    rows = c.execute(f'''
-        SELECT {ids_sql} AS ids,
+    return c.execute(f'''
+        SELECT r.id AS room_id, {ids_sql} AS ids,
                CASE WHEN {ids_sql} IS NULL THEN s.payload END AS payload
         FROM rooms r JOIN members m ON m.room_id=r.id
         {p3_join}
         LEFT JOIN submissions s ON s.member_id=m.id
         WHERE {dataset_sql}=?
     ''', (dataset,))
+
+
+def counts_from_connection(c, dataset, allowed):
+    """Use the caller's read transaction so counts and exclusions agree."""
+    places, pairs = Counter(), Counter()
+    sources = {'p3': 0, 'submissionFallback': 0}
+    saved = nonempty = paired = ignored = 0
+    rows = saved_rows(c, dataset)
     for row in rows:
         ids, source = _ids(row)
         if ids is None:
@@ -99,6 +105,35 @@ def counts_from_connection(c, dataset, allowed):
                         for key, value in sorted(places.items()) if value >= MIN_COUNT],
         'pairs': [{'placeIds': list(key), 'listCount': value}
                   for key, value in sorted(pairs.items()) if value >= MIN_COUNT],
+    }
+
+
+def source_counts_from_connection(c, dataset, allowed, source_id, request_room):
+    """Count only source pairs, exclude requester room, isolate foreign corruption.
+
+    The caller owns a single read transaction. Current-room corrupt data remains
+    an error; foreign corrupt rows are omitted and logged only as a count.
+    """
+    votes = Counter()
+    skipped = 0
+    for row in saved_rows(c, dataset):
+        try:
+            ids, _ = _ids(row)
+        except ValueError:
+            if row['room_id'] == request_room:
+                raise
+            skipped += 1
+            continue
+        if row['room_id'] == request_room or not ids or source_id not in ids:
+            continue
+        votes.update(pid for pid in ids if pid != source_id and pid in allowed and not pid.startswith('custom_'))
+    if skipped:
+        logging.getLogger(__name__).warning('추천 집계: 다른 방의 잘못된 목록 %d개 제외', skipped)
+    return {
+        'countUnit': 'room_member_list',
+        'generatedAt': datetime.now(timezone.utc).isoformat(),
+        'pairs': [{'placeIds': [source_id, pid], 'listCount': count}
+                  for pid, count in sorted(votes.items()) if count >= MIN_COUNT],
     }
 
 

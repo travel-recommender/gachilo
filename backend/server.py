@@ -7,7 +7,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from engine import Engine, EngineError
 from urllib.parse import urlsplit, parse_qs
-from place_catalog import catalog, exchange_rate, DATA, DEMO_DATASET, active_real_ids
+from place_catalog import catalog, exchange_rate, DATA, DEMO_DATASET, active_real_ids, recommendation_places
 from place_selection import saved_longlist
 from real_engine import RealEngine, REAL_DATASET
 from api_errors import ApiError, require
@@ -34,11 +34,11 @@ def pin_ok(pin,stored):
 class Store(CandidateStore, RecommendationStore):
     def __init__(self,path,catalog=None,*,date_availability=None):
         self.date_availability=date_availability
-        self.recommendation_demo_places=catalog
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
         real_records=json.loads(DATA.read_text(encoding="utf-8"))["places"]
         self.real_ids={r["place"]["place_id"] for r in real_records}
         self.excluded_real_ids=self.real_ids-active_real_ids(real_records)
+        self.recommendation_real_places,self.recommendation_demo_places=recommendation_places(real_records,catalog)
         self.path=str(path)
         Path(path).parent.mkdir(parents=True,exist_ok=True)
         with self.connect() as c:
