@@ -103,7 +103,6 @@ class RecommendationStoreTests(unittest.TestCase):
         with self.assertLogs('co_picks', level='WARNING') as logs:
             got = self.recommend()
         self.assertIsInstance(got['recommendations'], list)
-        self.assertEqual(got['eligibility'], 'at_least_one_trip_date')
         self.assertEqual(len(logs.output), 1)
         self.assertIn('1개 제외', logs.output[0])
         self.assertNotIn('private-corrupt', logs.output[0])
@@ -283,3 +282,4 @@ class RecommendationHttpTests(unittest.TestCase):
         code, got, _ = self.req('POST', path, body, m['submissionToken'])
         self.assertEqual(code, 200)
         self.assertIsInstance(got['recommendations'], list)
+        self.assertEqual(got['eligibility'], 'at_least_one_trip_date')
