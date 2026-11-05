@@ -16,8 +16,8 @@ with tempfile.TemporaryDirectory() as tmp:
   with urllib.request.urlopen(request,timeout=150) as response:return json.load(response)
  try:
   page1=req('GET','/api/places?limit=150');page2=req('GET','/api/places?offset=150&limit=150')
-  assert page1['total']==225 and len(page2['places'])==75
-  assert req('GET','/api/places?offset=225')['places']==[]
+  assert page1['total']==238 and len(page2['places'])==88
+  assert req('GET','/api/places?offset=238')['places']==[]
   for query in ['?offset=-1','?offset=bad','?limit=151']:
    try:req('GET','/api/places'+query);raise AssertionError('invalid pagination accepted')
    except urllib.error.HTTPError as error:assert error.code==400
@@ -50,5 +50,5 @@ with tempfile.TemporaryDirectory() as tmp:
   selected=req('PUT',path+'/selection',{'strategy':'fairness','revision':2,'selectionVersion':0},room['ownerToken'])
   for m in room['members']:assert req('GET',path+'/results',token=m['submissionToken'])==selected
   assert Store(db).result(room['roomId'],room['ownerToken'])==selected
-  print(json.dumps({'catalog':225,'branches':75,'submission_with_new_branch':'accepted','strategies':3,'verified_branch':'scheduled in all 3 candidates','unverified_branch_and_supplements':'excluded','shared_result_and_db_reload':'passed'},ensure_ascii=False))
+  print(json.dumps({'catalog':238,'submission_with_new_branch':'accepted','strategies':3,'verified_branch':'scheduled in all 3 candidates','unverified_branch_and_supplements':'excluded','shared_result_and_db_reload':'passed'},ensure_ascii=False))
  finally:server.shutdown();server.server_close();thread.join()

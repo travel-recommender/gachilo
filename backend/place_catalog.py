@@ -133,7 +133,7 @@ def project(record,rate):
     reasons.append('visit_date_hours_review_required')
     final=record['review'].get('final_csv',{})
     branch=record['review'].get('branch_collection',{})
-    verified=record['review'].get('branch_verification',{})
+    verified=record['review'].get('dated_verification') or record['review'].get('branch_verification',{})
     out['record_status']=final.get('record_status') or ('추가 수집·일정 조건 확인 필요' if branch else '방문일 조건 확인 필요')
     out['record_status_reason']=final.get('record_status_reason') or branch.get('remaining') or ''
     if verified:
@@ -141,7 +141,8 @@ def project(record,rate):
         out['record_status_reason']='; '.join(verified['conditions'])
         out['visit_conditions']=verified['conditions']
         out['coordinate_basis']=verified['coordinates']['kind']
-        if verified['cost_kind']=='official_budget_estimate':out['cost_status']='estimate'
+        if verified['cost_kind'] in ('official_budget_estimate','official_menu_reference') and out['cost_status']=='known':
+            out['cost_status']='estimate'
 
     out['search_names']=search_names(record)
     out['selection_disabled_reason']='제외된 장소예요: '+out['record_status_reason'] if is_excluded(record) else None
