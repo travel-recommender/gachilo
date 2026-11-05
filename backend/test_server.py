@@ -76,7 +76,10 @@ class ApiTests(unittest.TestCase):
      self.assertEqual(self.req('GET',pool,token='invalid')[0],403)
      code,data,headers=self.req('GET',pool,token=b['submissionToken'])
      self.assertEqual(code,503);self.assertEqual(headers.get_content_type(),'application/json')
-     self.assertEqual(data,{'error':'저장된 장소 목록을 읽을 수 없습니다. P3에서 목록을 다시 저장한 뒤 시도하세요.'})
+     self.assertEqual(data,{'error':'참여자 중 한 명의 저장된 장소 목록을 읽을 수 없습니다. 각자 P3에서 목록을 다시 저장한 뒤 시도하세요.'})
+     # 다른 참여자가 본인 목록을 저장해도 손상된 행은 복구되지 않는다.
+     self.assertEqual(self.req('PUT',f"/rooms/{rid}/longlists/{b['id']}",{'longlist':['kuromon']},b['submissionToken'])[0],200)
+     self.assertEqual(self.req('GET',pool,token=b['submissionToken'])[:2],(503,data))
      with closing(sqlite3.connect(self.db)) as c,c:
       saved=c.execute('SELECT ids FROM longlists WHERE member_id=?',(a['id'],)).fetchone() if source=='p3' else c.execute('SELECT payload FROM submissions WHERE member_id=?',(a['id'],)).fetchone()
       self.assertIsNotNone(saved)
