@@ -7,7 +7,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from engine import Engine, EngineError
 from urllib.parse import urlsplit, parse_qs
-from place_catalog import catalog, exchange_rate, DATA
+from place_catalog import catalog, exchange_rate, DATA, DEMO_DATASET, active_real_ids
+from place_selection import saved_longlist
 from real_engine import RealEngine, REAL_DATASET
 from api_errors import ApiError, require
 from candidate_results import CandidateStore, STRATEGIES
@@ -35,8 +36,7 @@ class Store(CandidateStore):
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
         real_records=json.loads(DATA.read_text(encoding="utf-8"))["places"]
         self.real_ids={r["place"]["place_id"] for r in real_records}
-        self.excluded_real_ids={r["place"]["place_id"] for r in real_records
-            if r["review"].get("final_csv",{}).get("record_status")=="제외"}
+        self.excluded_real_ids=self.real_ids-active_real_ids(real_records)
         self.path=str(path)
         Path(path).parent.mkdir(parents=True,exist_ok=True)
         with self.connect() as c:
@@ -49,7 +49,7 @@ class Store(CandidateStore):
             ''')
             self.init_candidates(c)
             if 'dataset' not in {row['name'] for row in c.execute('PRAGMA table_info(rooms)')}:
-                c.execute("ALTER TABLE rooms ADD COLUMN dataset TEXT NOT NULL DEFAULT 'prototype_demo_36'")
+                c.execute(f"ALTER TABLE rooms ADD COLUMN dataset TEXT NOT NULL DEFAULT '{DEMO_DATASET}'")
             if 'planning' not in {row['name'] for row in c.execute('PRAGMA table_info(results)')}:
                 c.execute('ALTER TABLE results ADD COLUMN planning TEXT')
             # Shared invite link: one invite token per room, and each name can be claimed once.
@@ -83,8 +83,8 @@ class Store(CandidateStore):
         require(0<=(end-start).days<=29,'여행 기간은 1~30일이어야 합니다.')
         names=b.get('memberNames');require(isinstance(names,list) and 2<=len(names)<=6,'동행자는 2~6명이어야 합니다.')
         require(all(isinstance(n,str) and 1<=len(n.strip())<=40 for n in names),'참여자 이름은 1~40자여야 합니다.')
-        dataset=b.get('dataset','prototype_demo_36')
-        require(dataset in ('prototype_demo_36',REAL_DATASET),'장소 데이터 모드를 확인하세요.')
+        dataset=b.get('dataset',DEMO_DATASET)
+        require(dataset in (DEMO_DATASET,REAL_DATASET),'장소 데이터 모드를 확인하세요.')
         require(len({n.strip() for n in names})==len(names),'참여자 이름이 겹칩니다.')
         rid=secrets.token_urlsafe(16);owner=secrets.token_urlsafe(32);invite=secrets.token_urlsafe(24);members=[]
         with self.connect() as c:
@@ -243,7 +243,10 @@ class Store(CandidateStore):
         self.occupy_after_read(seat)
         votes,order=Counter(),[]
         for row in rows:
-            ids=json.loads(row['ids']) if row['ids'] is not None else json.loads(row['payload'])['longlist'] if row['payload'] else None
+            try:ids,_=saved_longlist(row)
+            except ValueError:
+                # Do not return a misleading partial pool or leak the saved payload.
+                raise ApiError(503,'참여자 중 한 명의 저장된 장소 목록을 읽을 수 없습니다. 각자 P3에서 목록을 다시 저장한 뒤 시도하세요.') from None
             if ids is None:continue
             for x in ids:
                 if r['dataset']==REAL_DATASET and x in self.excluded_real_ids:continue
