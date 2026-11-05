@@ -1,5 +1,5 @@
 """Read-only adapter: source JPY and explicit planning estimates stay separate."""
-import json, os
+import json, os, re, unicodedata
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from datetime import date
 from pathlib import Path
@@ -25,6 +25,31 @@ def active_real_ids(records):
     return {r['place']['place_id'] for r in records if not is_excluded(r)}
 
 LIGHT_SHOPPING_PLACES={'구로몬시장','신사이바시스지 상점가','아메리카무라','신세카이'}
+
+def area_key(place):
+    # Existing rows use Japanese wards; new branches often use Korean districts.
+    # Prefer an explicit city/ward in either field, without guessing a location.
+    def normalized(value):
+        return re.sub(r'\s+', '', unicodedata.normalize('NFKC', value or ''))
+    for value in (place.get('address'), place.get('area')):
+        match = re.search(r'大阪市([^市区郡]+区)', normalized(value))
+        if match:
+            return '大阪市' + match[1]
+    return normalized(place.get('area')) or None
+
+
+def recommendation_places(real_records, demo_places):
+    """Build internal indexes once, with the same exclusion/area policy."""
+    real = {}
+    for row in real_records:
+        if is_excluded(row):
+            continue
+        p = row['place']
+        real[p['place_id']] = {'id': p['place_id'], 'name': p.get('name_ko') or p['name'],
+            'category': p.get('category'), 'area': p.get('area'), 'areaKey': area_key(p)}
+    demo = {p['id']: {**p, 'areaKey': area_key(p)} for p in (demo_places or [])}
+    return real, demo
+
 
 def get_luggage_score(place):
     if place['category']=='쇼핑':return 2

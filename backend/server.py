@@ -7,12 +7,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from engine import Engine, EngineError
 from urllib.parse import urlsplit, parse_qs
-from place_catalog import catalog, exchange_rate, DATA, DEMO_DATASET, active_real_ids
+from place_catalog import catalog, exchange_rate, DATA, DEMO_DATASET, active_real_ids, recommendation_places
 from place_selection import saved_longlist
 from real_engine import RealEngine, REAL_DATASET
 from api_errors import ApiError, require
 from candidate_results import CandidateStore, STRATEGIES
 from candidate_engine import CandidateEngine
+from place_recommendations import RecommendationStore
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
 def now():return datetime.now(timezone.utc).isoformat()
 PIN_TRIES=5
@@ -30,13 +31,14 @@ def pin_ok(pin,stored):
     salt,h=stored.split('$',1)
     return hmac.compare_digest(hashlib.pbkdf2_hmac('sha256',pin.encode(),bytes.fromhex(salt),100_000).hex(),h)
 
-class Store(CandidateStore):
+class Store(CandidateStore, RecommendationStore):
     def __init__(self,path,catalog=None,*,date_availability=None):
         self.date_availability=date_availability
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
         real_records=json.loads(DATA.read_text(encoding="utf-8"))["places"]
         self.real_ids={r["place"]["place_id"] for r in real_records}
         self.excluded_real_ids=self.real_ids-active_real_ids(real_records)
+        self.recommendation_real_places,self.recommendation_demo_places=recommendation_places(real_records,catalog)
         self.path=str(path)
         Path(path).parent.mkdir(parents=True,exist_ok=True)
         with self.connect() as c:
@@ -432,6 +434,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 if self.command=='PUT' and m:return self.send_json(200,store.submit(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/longlists/([\w-]+)',path)
                 if self.command=='PUT' and m:return self.send_json(200,store.save_longlist(*m.groups(),token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/recommendations/([\w-]+)',path)
+                if self.command=='POST' and m:return self.send_json(200,store.recommend_places(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/schedulable',path)
                 if self.command=='GET' and m:return self.send_json(200,schedulable(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
