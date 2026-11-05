@@ -21,7 +21,7 @@ class RealCandidatesTests(unittest.TestCase):
     legacy_save=test_real_engine.RealRoomTests.legacy_save
 
     def setUp(self):
-        self.env=patch.dict(os.environ,{**test_real_engine.FX,'OSRM_FOOT_URL':'','SOMSOM_API_KEY':'','AI_MOCK':''})
+        self.env=patch.dict(os.environ,{**test_real_engine.FX,'OSRM_FOOT_URL':'','SOMSOM_API_KEY':'','AI_MOCK':'','LIVE_CHECK_MOCK':'pass'})
         self.env.start();self.addCleanup(self.env.stop)
         test_server.ApiTests.setUp(self)
 
@@ -45,8 +45,10 @@ class RealCandidatesTests(unittest.TestCase):
         code,before,_=self.calculate(room,revision=2)
         self.assertEqual(code,200)
         # Both veto targets were genuinely schedulable before being excluded.
+        # 남은 자리는 AI 채우기 장소(aiAdded)이고 구성원 장소는 모두 들어간다
         for candidate in before['candidates']:
-            self.assertEqual({pid for day in candidate['days'] for pid in day['placeIds']},set(ids))
+            mine={i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']}
+            self.assertEqual(mine,set(ids))
 
         self.assertEqual(self.save(room,b,['osaka_017'],longlist=ids,veto=vetoes[0],vetoes=vetoes)[0],200)
         pool=self.req('GET',path+'/pool',token=a['submissionToken'])[1]
@@ -62,12 +64,14 @@ class RealCandidatesTests(unittest.TestCase):
         self.assertEqual(code,200)
         self.assertEqual([candidate['strategy'] for candidate in result['candidates']],STRATEGIES)
         for candidate in result['candidates']:
-            self.assertEqual({pid for day in candidate['days'] for pid in day['placeIds']},{'osaka_017'})
+            placed={pid for day in candidate['days'] for pid in day['placeIds']}
+            self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']},{'osaka_017'})
+            self.assertFalse(placed & set(vetoes))
             self.assertEqual(candidate['planning']['must_veto_conflict_count'],1)
             choice={'strategy':candidate['strategy'],'revision':3,'selectionVersion':result['selectionVersion']}
             code,result,_=self.req('PUT',path+'/selection',choice,room['ownerToken'])
             self.assertEqual(code,200)
-            self.assertEqual({pid for day in result['result']['days'] for pid in day['placeIds']},{'osaka_017'})
+            self.assertEqual({pid for day in result['result']['days'] for pid in day['placeIds']},placed)
             for member in (a,b):
                 self.assertEqual(self.req('GET',path+'/results',token=member['submissionToken'])[1],result)
                 self.assertEqual(Store(self.db).result(room['roomId'],member['submissionToken']),result)
@@ -78,7 +82,7 @@ class RealCandidatesTests(unittest.TestCase):
         code,cleared,_=self.calculate(room,revision=4)
         self.assertEqual(code,200)
         for candidate in cleared['candidates']:
-            self.assertEqual({pid for day in candidate['days'] for pid in day['placeIds']},set(ids))
+            self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']},set(ids))
 
     def test_three_clients_select_persist_and_cache_same_real_candidates(self):
         room=self.ready_room();path=f"/rooms/{room['roomId']}"
@@ -178,7 +182,9 @@ class RealCandidatesTests(unittest.TestCase):
             code,result,_=self.calculate(room)
         self.assertEqual(code,503);self.assertIn('하나은행',result['error'])
         for m in room['members']:self.assertEqual(self.save(room,m,[])[0],200)
-        code,result,_=self.calculate(room,revision=6)
+        # 빈자리는 AI 채우기가 메우므로, 실시간 확인이 모두 실패할 때 빈 후보가 저장되지 않는지 본다
+        with patch.dict(os.environ,{'LIVE_CHECK_MOCK':'fail'}):
+            code,result,_=self.calculate(room,revision=6)
         self.assertEqual(code,503);self.assertIn('방문 날짜',result['error'])
         current=Store(self.db).result(room['roomId'],room['ownerToken'])
         self.assertEqual(current['status'],'awaiting_result');self.assertEqual(current['candidates'],[])

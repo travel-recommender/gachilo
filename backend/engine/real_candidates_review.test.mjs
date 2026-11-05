@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {calculateRealCandidates} from './real_candidates.mjs';
+import {mockLiveCheck} from './live_check.mjs';
+// 기존 검사는 구성원 장소만 쓰는 경로를 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
+const offline = {liveCheck: mockLiveCheck('pass'), choose: null};
 import {loadInputs} from '../../scripts/validate_real_schedule.mjs';
 const {dataset, profiles} = loadInputs();
 const request = (ids, extra = {}) => ({startDate:'2026-10-01',endDate:'2026-10-01',
@@ -8,7 +11,7 @@ const request = (ids, extra = {}) => ({startDate:'2026-10-01',endDate:'2026-10-0
   submissions:['private-a','private-b','private-c'].map(memberId => ({memberId,longlist:ids,picks:ids,
     must:null,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720,
     tradeoffs:{pace:1,distance:0.5,spend:1},...extra}))});
-const run = r => calculateRealCandidates(r,dataset,profiles,{baseUrl:''});
+const run = r => calculateRealCandidates(r,dataset,profiles,{baseUrl:''},offline);
 
 
 test('planning counts only unplaced non-veto choices and retains dated FX provenance',async()=>{
@@ -64,7 +67,7 @@ test('exclusion diagnostics distinguish changing dates, common blockers and ordi
   }};
   const r=request(['osaka_009','osaka_015'],{must:'osaka_009',budgetPerDay:0});
   r.endDate='2026-10-02';
-  for(const c of (await calculateRealCandidates(r,dataset,fixture,{baseUrl:''})).candidates){
+  for(const c of (await calculateRealCandidates(r,dataset,fixture,{baseUrl:''},offline)).candidates){
     assert.deepEqual(c.planning.exclusion_reason_counts,{date_conditions_vary:1});
     assert.equal(c.planning.must_veto_conflict_count,0);
     assert.equal(c.planning.must_satisfied,false);
@@ -72,7 +75,7 @@ test('exclusion diagnostics distinguish changing dates, common blockers and ordi
     assert.doesNotMatch(c.summary,/충돌/);
   }
   fixture.places.osaka_009.exceptions['2026-10-02'].closed=true;
-  for(const c of (await calculateRealCandidates(r,dataset,fixture,{baseUrl:''})).candidates){
+  for(const c of (await calculateRealCandidates(r,dataset,fixture,{baseUrl:''},offline)).candidates){
     assert.deepEqual(c.planning.exclusion_reason_counts,{closed_on_visit_date:1});
   }
 });

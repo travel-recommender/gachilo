@@ -5,6 +5,9 @@ import {withRouting,travel,travelBurdenTotals,conditionSummary,distKm} from './r
 import {roofEdges,annotateRoute,selectShelteredRoute,loadShelterData,prepareShelteredRoutes,pair} from './sheltered-routing.ts';
 import {buildSchedule} from './schedule.ts';
 import {calculateRealCandidates} from './real_candidates.mjs';
+import {mockLiveCheck} from './live_check.mjs';
+// 날씨·경로 검사는 구성원 장소만 쓰는 경로를 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
+const offline={liveCheck:mockLiveCheck('pass'),choose:null};
 import {loadInputs} from '../../scripts/validate_real_schedule.mjs';
 const date='2026-10-01';
 const weather=p=>({source:'test',status:'forecast',fetched_at:null,days:[{date,status:'forecast',probability:p},{date:'2026-10-02',status:'forecast',probability:0}]});
@@ -88,7 +91,7 @@ test('real three-strategy API includes auditable conditions while keeping hard l
  const {dataset,profiles}=loadInputs();const ids=['osaka_009','osaka_015','osaka_017'];
  const req={startDate:date,endDate:date,exchange_rate:{krw_per_jpy:'9.5'},weather:weather(0.8),
  submissions:['a','b'].map(memberId=>({memberId,longlist:ids,picks:ids,must:null,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};
- const out=await calculateRealCandidates(req,dataset,profiles,{baseUrl:''});
+ const out=await calculateRealCandidates(req,dataset,profiles,{baseUrl:''},offline);
  assert.equal(out.candidates.length,3);
  for(const c of out.candidates){assert.match(c.summary,/2026-10-01 80%/);assert.match(c.summary,/지붕 미확인/);assert.ok(c.days[0].metrics.walkSteps<=20000);assert.equal(c.planning.schedule_ready,false);assert.ok(!('weather' in c));}
 });
@@ -99,8 +102,8 @@ test('soft rain preference falls back to feasible base routes instead of losing 
  ids.forEach((id,i)=>Object.assign(dataset.places.find(r=>r.place.place_id===id).place,{latitude:[a,b][i].lat,longitude:[a,b][i].lng}));
  const req={startDate:date,endDate:date,exchange_rate:{krw_per_jpy:'9.5'},
  submissions:ids.map((id,i)=>({memberId:String(i),longlist:ids,picks:ids,must:id,veto:null,budgetPerDay:100000,stepLimit:750,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};
- const dry=await calculateRealCandidates({...req,weather:weather(0)},dataset,profiles,options);
- const results=await Promise.all([weather(1),hotWeather(38)].map(w=>calculateRealCandidates({...req,weather:w},dataset,profiles,options)));
+ const dry=await calculateRealCandidates({...req,weather:weather(0)},dataset,profiles,options,offline);
+ const results=await Promise.all([weather(1),hotWeather(38)].map(w=>calculateRealCandidates({...req,weather:w},dataset,profiles,options,offline)));
  assert.ok(dry.candidates.every(c=>c.days[0].placeIds.length===2));
  for(const rain of results) assert.ok(rain.candidates.every(c=>c.days[0].placeIds.length===2&&c.days[0].metrics.walkSteps<=750&&c.planning.must_satisfied));
  for(const rain of results) assert.ok(rain.candidates.every(c=>c.summary.includes('실내·지붕 우회 선호를 적용하지 않았습니다')));

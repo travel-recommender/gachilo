@@ -16,6 +16,9 @@ import fs from 'node:fs';
 const ROOT = new URL('../../', import.meta.url);
 const {calculateRealCandidates} = await import(new URL('backend/engine/real_candidates.mjs', ROOT).href);
 const V = await import(new URL('scripts/validate_real_schedule.mjs', ROOT).href);
+const {mockLiveCheck} = await import(new URL('backend/engine/live_check.mjs', ROOT).href);
+// 전략 간 차이만 본다: 유료 실시간 확인 대신 모두 통과, AI 채우기는 끈다 (구성원 장소만 비교)
+const offline = {liveCheck: mockLiveCheck('pass'), choose: null};
 const {dataset, profiles} = V.loadInputs();
 
 const SEED = 20261026, GROUPS = 200, MEMBERS = 4, COMMON = 15, LONGLIST = 6;
@@ -47,7 +50,7 @@ async function run(nMust, allMusts) {
       if (others.length) s.veto = others[Math.floor(rnd() * others.length)];
     });
     const r = await calculateRealCandidates({startDate: DATES[0], endDate: DATES.at(-1),
-      exchange_rate: {krw_per_jpy: '9.5', as_of: '2026-10-26'}, submissions: subs}, dataset, profiles, {baseUrl: ''});
+      exchange_rate: {krw_per_jpy: '9.5', as_of: '2026-10-26'}, submissions: subs}, dataset, profiles, {baseUrl: ''}, offline);
     ok++;
     if (new Set(r.candidates.map(sig)).size > 1) differ++;
     if (r.candidates.some(c => /꼭 가는 장소 조건이 충족되지/.test(c.summary))) mustMiss++;

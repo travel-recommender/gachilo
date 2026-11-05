@@ -74,12 +74,15 @@ class RoutingIntegrationTests(unittest.TestCase):
         snapshot = {**self.snapshot, 'dataset':'osaka_review_150'}
         snapshot['submissions'] = [{**s,'longlist':['osaka_009','osaka_015'],
                                     'picks':['osaka_009','osaka_015']} for s in self.snapshot['submissions']]
-        with patch.dict(os.environ,FX):
+        with patch.dict(os.environ,{**FX,'LIVE_CHECK_MOCK':'pass','SOMSOM_API_KEY':'','AI_MOCK':''}):
             got = CandidateEngine(self.engine.node).calculate(snapshot)
         self.assertEqual(len(self.calls),1)
         for candidate in got['candidates']:
-            self.assertEqual(candidate['days'][0]['placeIds'],['osaka_009','osaka_015'])
-            self.assertEqual(candidate['days'][0]['metrics']['totalKm'],0.9)
+            day = candidate['days'][0]
+            # 두 선택 장소는 그대로, 남은 자리는 규칙 채우기 장소. 그 장소까지 같은 OSRM 표 하나로 계산한다
+            self.assertEqual([i['placeId'] for i in day['items'] if not i['aiAdded']],['osaka_009','osaka_015'])
+            self.assertTrue(all(i['source']=='rule_added' for i in day['items'] if i['aiAdded']))
+            self.assertGreater(day['metrics']['totalKm'],0)
             self.assertRegex(candidate['summary'],r'OSRM 도보 [1-9]')
 
     def test_query_cli_uses_route_endpoint_and_returns_machine_readable_units(self):
