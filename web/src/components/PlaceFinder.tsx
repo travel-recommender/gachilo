@@ -14,10 +14,11 @@ export const placeLine = (p: Place) => p.address ?? `${p.area} · ${p.blurb}`;
  * 돋보기 검색창 + 추천 목록 (P3, P8 장소 추가).
  * 돋보기를 누르면 입력창에 커서가 가고 키보드가 올라온다 (피그마 댓글 #11).
  */
-export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검색" }: {
+export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검색", disabled = false }: {
   added: string[];
   onPick: (place: Place) => void;
   placeholder?: string;
+  disabled?: boolean;
 }) {
   const { state, catalog, addPlace } = useTrip();
   const [query, setQuery] = useState("");
@@ -35,13 +36,14 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
   const canAdd = !state.room;
 
   const pick = (p: Place) => {
+    if (disabled) return;
     onPick(p);
     setQuery("");
     setOpen(false);
   };
 
   return (
-    <div className="relative">
+    <fieldset disabled={disabled} className="relative min-w-0">
       <div className="flex h-[46px] items-center rounded-[6.795px] border border-line bg-white pl-[23px] pr-[19px]">
         <input ref={input} value={query} placeholder={placeholder} aria-label={placeholder}
           onChange={(e) => { setQuery(e.target.value); setVisibleCount(40); setOpen(true); setAdding(false); }}
@@ -102,6 +104,6 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
             onSubmit={(input) => { pick(addPlace(input)); setAdding(false); }} />
         </div>
       )}
-    </div>
+    </fieldset>
   );
 }
