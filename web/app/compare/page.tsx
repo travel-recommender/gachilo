@@ -1,4 +1,6 @@
 "use client";
+import { EXPERIMENT_MODE } from "@/lib/experiment";
+import { ExperimentClosed } from "@/components/ExperimentClosed";
 import { useMemo } from "react";
 import { useTrip } from "@/components/store";
 import { buildConsensus } from "@/lib/consensus";
@@ -19,7 +21,13 @@ const DESC: Record<Strategy, string> = {
   fairness: "만족도 편차가 작은 곳부터",
 };
 
+/** 실험 모드에서는 전략 이름이 드러나는 연구·점검 화면을 열지 않는다 (실험설계 2장·5.4) */
 export default function Compare() {
+  if (EXPERIMENT_MODE) return <ExperimentClosed />;
+  return <CompareInner />;
+}
+
+function CompareInner() {
   const { state, set, submissions } = useTrip();
 
   const results = useMemo(() => {
