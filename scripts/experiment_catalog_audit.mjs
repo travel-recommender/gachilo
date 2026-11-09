@@ -14,8 +14,14 @@ const rows = places.map(row => ({place_id: row.place.place_id, name: row.place.n
     const check = availability(row, date, profiles, {allowShopping: true});
     return {date, eligible: check.eligible_for_model, reasons: check.reasons};
   })}));
-console.log(JSON.stringify({date_range: [start, end], searchable: places.length,
+console.log(JSON.stringify({date_range: [start, end],
+  catalog_total: dataset.places.length,
+  excluded: dataset.places.length - places.length,
+  selectable: places.length,
+  reviewed_date_range: [profiles.valid_from, profiles.valid_through],
+  outside_reviewed_dates: dates.filter(date => date < profiles.valid_from || date > profiles.valid_through),
   per_day: dates.map(date => ({date, eligible: rows.filter(row => row.dates.find(d => d.date === date).eligible).length})),
   limits: ['저장한 운영 조건에 따른 날짜 적격 검사. 실시간 영업·예약·최종 일정 가능 여부를 보장하지 않습니다.',
-    '검색 가능한 장소 수와 자동 일정에 넣을 수 있는 수는 다릅니다. 데이터 상태는 변경하지 않습니다.'],
+    'catalog_total은 제외 장소를 포함한 API 목록 수, selectable은 제외 표시가 없는 선택 가능 수입니다. 날짜별 일정 적격 수는 per_day입니다.',
+    '검증 범위 밖 날짜를 쓰려면 공식 운영 조건과 날짜 프로필을 재검증·갱신해야 합니다. 데이터 상태는 변경하지 않습니다.'],
   rows}, null, 2));
