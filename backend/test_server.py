@@ -58,6 +58,37 @@ class ApiTests(unittest.TestCase):
   # A full submission counts as a list too, and step-1 lists never change the result revision
   self.assertEqual(self.req('GET',f"/rooms/{rid}/results",token=room['ownerToken'])[1]['revision'],0)
   self.submit(room,c);self.assertEqual(self.req('GET',pool,token=c['submissionToken'])[1]['listedCount'],3)
+ def test_pool_invalid_saved_lists_return_json_and_recover_after_resave(self):
+  import sqlite3
+  from contextlib import closing
+  room=self.room();a,b=room['members'][:2];rid=room['roomId'];pool=f'/rooms/{rid}/pool'
+  self.submit(room,a)
+  self.req('PUT',f"/rooms/{rid}/longlists/{b['id']}",{'longlist':['kuromon']},b['submissionToken'])
+  before=self.req('GET',f'/rooms/{rid}/results',token=room['ownerToken'])[1]
+  invalid=['not-json-private-marker','[null]',json.dumps(['glico']*31),json.dumps(['x'*101]),'{}']
+  for source in ('p3','submissionFallback'):
+   for value in invalid:
+    with self.subTest(source=source,value=value):
+     with closing(sqlite3.connect(self.db)) as c,c:
+      c.execute('DELETE FROM longlists WHERE member_id=?',(a['id'],))
+      if source=='p3':c.execute('INSERT INTO longlists VALUES(?,?,?)',(a['id'],value,'old'))
+      else:c.execute('UPDATE submissions SET payload=? WHERE member_id=?',(json.dumps({'longlist':json.loads(value)}) if value!='not-json-private-marker' else value,a['id']))
+     self.assertEqual(self.req('GET',pool,token='invalid')[0],403)
+     code,data,headers=self.req('GET',pool,token=b['submissionToken'])
+     self.assertEqual(code,503);self.assertEqual(headers.get_content_type(),'application/json')
+     self.assertEqual(data,{'error':'참여자 중 한 명의 저장된 장소 목록을 읽을 수 없습니다. 각자 P3에서 목록을 다시 저장한 뒤 시도하세요.'})
+     # 다른 참여자가 본인 목록을 저장해도 손상된 행은 복구되지 않는다.
+     self.assertEqual(self.req('PUT',f"/rooms/{rid}/longlists/{b['id']}",{'longlist':['kuromon']},b['submissionToken'])[0],200)
+     self.assertEqual(self.req('GET',pool,token=b['submissionToken'])[:2],(503,data))
+     with closing(sqlite3.connect(self.db)) as c,c:
+      saved=c.execute('SELECT ids FROM longlists WHERE member_id=?',(a['id'],)).fetchone() if source=='p3' else c.execute('SELECT payload FROM submissions WHERE member_id=?',(a['id'],)).fetchone()
+      self.assertIsNotNone(saved)
+      self.assertEqual(saved[0],value if source=='p3' or value=='not-json-private-marker' else json.dumps({'longlist':json.loads(value)}))
+     self.assertEqual(self.req('GET',f'/rooms/{rid}/results',token=room['ownerToken'])[1],before)
+     self.assertEqual(self.req('GET','/health')[0],200)
+     self.assertEqual(self.req('PUT',f"/rooms/{rid}/longlists/{a['id']}",{'longlist':['glico']},a['submissionToken'])[0],200)
+     code,recovered,_=self.req('GET',pool,token=b['submissionToken'])
+     self.assertEqual(code,200);self.assertEqual(set(recovered['placeIds']),{'glico','kuromon'})
  def test_schedulable_lists_only_places_the_real_engine_can_use_on_trip_dates(self):
   real=self.req('POST','/rooms',{'startDate':'2026-10-01','endDate':'2026-10-03','memberNames':['조은','윤진'],'dataset':'osaka_review_150'})[1]
   path=f"/rooms/{real['roomId']}/schedulable"

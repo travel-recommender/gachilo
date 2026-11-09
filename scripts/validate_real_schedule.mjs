@@ -172,7 +172,7 @@ function validatePreparedDay(request, dataset, profiles, options) {
     return {place_id: item.place.id, name_ko: item.place.name, start_min: item.startMin, end_min: item.endMin,
       stay_min: item.place.stayMin, move_min: movement.min, move_mode: movement.mode,
       cost_jpy: shopping ? null : visitCosts.get(item.place.id), cost_krw: shopping ? null : item.place.cost,
-      cost_status: shopping ? 'not_applicable_shopping' : record.field_sources.cost?.kind === 'official_budget_estimate' ? 'estimate' : 'known',
+      cost_status: shopping ? 'not_applicable_shopping' : ['official_budget_estimate','official_menu_reference'].includes(record.field_sources.cost?.kind) ? 'estimate' : 'known',
       cost_basis: profiles.places[item.place.id].cost_basis};
   });
   const included = new Set(items.map(item => item.place_id));

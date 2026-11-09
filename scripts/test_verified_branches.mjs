@@ -111,7 +111,7 @@ test('shared candidate summary reports the same indoor transfer and estimated co
    assert.doesNotMatch(c.summary,/시설 내부 이동은 포함하지/);
  }
  for(const c of (await calculate(['branch_fukutaro_umeda'])).candidates){
-   assert.match(c.summary,/공식 평균예산 추정/);
-   assert.match(c.days[0].items[0].reason,/공식 평균예산/);
+   assert.match(c.summary,/공식 자료 기준 추정/);
+   assert.match(c.days[0].items[0].reason,/공식 자료의 기준 금액/);
  }
 });

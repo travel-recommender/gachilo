@@ -5,7 +5,7 @@ import {enrich} from './ai.ts';
 import {staysByDay, validateStays, validateSubmissions, groupTradeoffs, distanceWeightFor} from './inputs.ts';
 import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 if (process.argv.includes('--catalog')) {
-  process.stdout.write(JSON.stringify(allPlaces().map(p=>({id:p.id,name:p.name,category:p.category}))));
+  process.stdout.write(JSON.stringify(allPlaces().map(p=>({id:p.id,name:p.name,category:p.category,area:p.area}))));
 } else {
   let input='';
   for await (const chunk of process.stdin) input+=chunk;

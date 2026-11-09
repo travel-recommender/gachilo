@@ -8,7 +8,7 @@ class RuntimeCatalogTests(unittest.TestCase):
         with patch.dict('os.environ',{'REAL_CATALOG_PATH':'','REAL_PROFILES_PATH':''}):
             paths=runtime_paths()
         self.assertEqual(paths,(DATA,PROFILES))
-        self.assertEqual(catalog()['total'],225)
+        self.assertEqual(catalog()['total'],238)
         for q,pid in [('이치란 아베노','branch_ichiran_abeno'),('이치란 신사이바시','branch_ichiran_shinsaibashi')]:
             self.assertIn(pid,{p['place_id'] for p in catalog(query=q)['places']})
         profiles=json.loads(PROFILES.read_text(encoding='utf-8'))['places']

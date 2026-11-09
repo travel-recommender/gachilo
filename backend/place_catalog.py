@@ -1,5 +1,5 @@
 """Read-only adapter: source JPY and explicit planning estimates stay separate."""
-import json, os
+import json, os, re, unicodedata
 from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from datetime import date
 from pathlib import Path
@@ -16,7 +16,40 @@ def runtime_paths():
                  for value,key in zip(overrides,('catalog','profiles')))
 
 DATA,PROFILES=runtime_paths()
+DEMO_DATASET='prototype_demo_36'
+
+def is_excluded(record):
+    return record['review'].get('final_csv', {}).get('record_status') == '제외'
+
+def active_real_ids(records):
+    return {r['place']['place_id'] for r in records if not is_excluded(r)}
+
 LIGHT_SHOPPING_PLACES={'구로몬시장','신사이바시스지 상점가','아메리카무라','신세카이'}
+
+def area_key(place):
+    # Existing rows use Japanese wards; new branches often use Korean districts.
+    # Prefer an explicit city/ward in either field, without guessing a location.
+    def normalized(value):
+        return re.sub(r'\s+', '', unicodedata.normalize('NFKC', value or ''))
+    for value in (place.get('address'), place.get('area')):
+        match = re.search(r'大阪市([^市区郡]+区)', normalized(value))
+        if match:
+            return '大阪市' + match[1]
+    return normalized(place.get('area')) or None
+
+
+def recommendation_places(real_records, demo_places):
+    """Build internal indexes once, with the same exclusion/area policy."""
+    real = {}
+    for row in real_records:
+        if is_excluded(row):
+            continue
+        p = row['place']
+        real[p['place_id']] = {'id': p['place_id'], 'name': p.get('name_ko') or p['name'],
+            'category': p.get('category'), 'area': p.get('area'), 'areaKey': area_key(p)}
+    demo = {p['id']: {**p, 'areaKey': area_key(p)} for p in (demo_places or [])}
+    return real, demo
+
 
 def get_luggage_score(place):
     if place['category']=='쇼핑':return 2
@@ -100,7 +133,7 @@ def project(record,rate):
     reasons.append('visit_date_hours_review_required')
     final=record['review'].get('final_csv',{})
     branch=record['review'].get('branch_collection',{})
-    verified=record['review'].get('branch_verification',{})
+    verified=record['review'].get('dated_verification') or record['review'].get('branch_verification',{})
     out['record_status']=final.get('record_status') or ('추가 수집·일정 조건 확인 필요' if branch else '방문일 조건 확인 필요')
     out['record_status_reason']=final.get('record_status_reason') or branch.get('remaining') or ''
     if verified:
@@ -108,10 +141,11 @@ def project(record,rate):
         out['record_status_reason']='; '.join(verified['conditions'])
         out['visit_conditions']=verified['conditions']
         out['coordinate_basis']=verified['coordinates']['kind']
-        if verified['cost_kind']=='official_budget_estimate':out['cost_status']='estimate'
+        if verified['cost_kind'] in ('official_budget_estimate','official_menu_reference') and out['cost_status']=='known':
+            out['cost_status']='estimate'
 
     out['search_names']=search_names(record)
-    out['selection_disabled_reason']='제외된 장소예요: '+out['record_status_reason'] if final.get('record_status')=='제외' else None
+    out['selection_disabled_reason']='제외된 장소예요: '+out['record_status_reason'] if is_excluded(record) else None
     out['planning']={'schedule_ready':False,'review_required':list(dict.fromkeys(reasons)),
       'shopping_spend_excluded':shopping,'stay_range':record['review'].get('stay_policy'),
       'source_currency':'JPY','api_currency':'KRW'}

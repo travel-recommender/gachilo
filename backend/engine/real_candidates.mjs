@@ -119,7 +119,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       estimatedCost ||= (trial?.items ?? []).some(item => item.cost_status === "estimate");
       return {date, placeIds: accepted, items: (trial?.items ?? []).map(item => {
         const costNote = (item.cost_status === 'not_applicable_shopping' ? ' 쇼핑 구매액은 비용 합계에서 제외됩니다.' : '')
-          + (item.cost_status === 'estimate' ? ' 비용은 공식 평균예산을 이용한 추정입니다.' : '');
+          + (item.cost_status === 'estimate' ? ' 비용은 공식 자료의 기준 금액을 이용한 추정입니다.' : '');
         const added = aiById.get(item.place_id);
         if (added && !picked.has(item.place_id) && !listed.includes(item.place_id)) return {
           placeId: item.place_id, aiAdded: true, filled: false, source: added.source, reasonCode: added.reasonCode,
@@ -186,7 +186,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       + (conflicts ? ` 꼭 가기와 거부 조건이 충돌한 장소가 ${conflicts}곳 있어 거부 조건을 우선 적용했습니다.` : '')
       + (missingMust ? ' 꼭 가는 장소 조건이 충족되지 않았습니다.' : '')
       + (emptyDays ? ` 일정이 비어 있는 날짜가 ${emptyDays}일입니다.` : '')
-      + (estimatedCost ? ' 비용에는 공식 평균예산 추정이 포함됩니다. 쇼핑·교통·숙박은 제외합니다.'
+      + (estimatedCost ? ' 비용에는 공식 자료 기준 추정이 포함됩니다. 쇼핑·교통·숙박은 제외합니다.'
         : ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다.')
       + ' 걸음 수는 장소 사이 이동만 계산한 추정입니다.'
       + ` 환율: 1엔=${request.exchange_rate.krw_per_jpy}원 (${request.exchange_rate.as_of ?? '기준일 미지정'}).`
