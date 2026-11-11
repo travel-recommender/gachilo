@@ -1,7 +1,7 @@
 # 같은 Wi-Fi에서 휴대폰 실험하기
 
 **설문은 혜인님이 만든 Google 설문 하나만 사용한다. 앱 안에 별도 설문은 없다.**
-https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F29K-rBKrb3qkI-TRqd7IWgwDlIw8Go4F7aQ/viewform
+설문 주소는 [config/experiment.json](../config/experiment.json)의 `surveyUrl`을 참고한다.
 
 팀원(혜인·윤진·조은) 실험 예정일: **2026-11-16 월요일**. 친구 그룹 진행일은 별도다.
 가상 오사카 여행일: **2026-11-16~19, 4일**. 실제 진행일과 구분한다.
