@@ -2,6 +2,7 @@ import json
 import os
 from pathlib import Path
 import tempfile
+import socket
 import types
 import unittest
 from unittest.mock import patch, Mock
@@ -9,9 +10,22 @@ from unittest.mock import patch, Mock
 import experiment_network as network
 import experiment_start as starter
 import experiment_support as support
+import experiment_lan as lan
 
 
 class PortableTests(unittest.TestCase):
+    def test_port_probe_accepts_recently_closed_connection_but_not_live_listener(self):
+        with socket.socket() as listener:
+            listener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+            listener.bind(('127.0.0.1',0));listener.listen()
+            port=listener.getsockname()[1]
+            with self.assertRaises(OSError):lan.probe_port('127.0.0.1',port)
+            with socket.create_connection(('127.0.0.1',port)) as client:
+                peer,_=listener.accept()
+                peer.close()
+                client.recv(1)
+        lan.probe_port('127.0.0.1',port)
+
     def test_mac_ignores_loopback_and_keeps_separate_adapter_addresses(self):
         self.assertEqual(network.parse_ifconfig('lo0: flags\n\tinet 127.0.0.1 netmask 0xff\nen0: flags\n\tinet 192.168.0.4 netmask 0xff\nutun0: flags\n\tinet 10.3.4.5 netmask 0xff'), [('192.168.0.4', 'en0'), ('10.3.4.5', 'utun0')])
 

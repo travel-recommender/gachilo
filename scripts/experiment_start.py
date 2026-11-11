@@ -153,10 +153,18 @@ def main():
     if not args.no_open:
         command.append('--open')
     print('이 창을 열어 둔 채 실험하세요. Ctrl+C로 종료합니다. 다른 노트북의 QR을 재사용하지 마세요.', flush=True)
+    child = subprocess.Popen(command, cwd=ROOT, env=env)
     try:
-        subprocess.run(command, check=True, cwd=ROOT, env=env)
+        result = child.wait()
     except KeyboardInterrupt:
-        pass  # Child receives the same console Ctrl+C and performs its own cleanup.
+        # Ctrl+C reaches the LAN launcher too. Wait for its gateway/API cleanup,
+        # otherwise a quick restart can race the still-running child.
+        try:
+            result = child.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            raise ValueError('서버가 아직 종료 중입니다. 잠시 기다린 뒤 재시작하세요.') from None
+    if result:
+        raise subprocess.CalledProcessError(result, command)
 
 
 if __name__ == '__main__':

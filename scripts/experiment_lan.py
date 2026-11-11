@@ -77,6 +77,21 @@ class Gateway(SimpleHTTPRequestHandler):
         else:super().do_GET()
     do_GET=route;do_HEAD=route;do_POST=route;do_PUT=route;do_OPTIONS=route
 
+def probe_port(host,port):
+    with socket.socket() as sock:
+        if os.name=='nt':
+            sock.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
+        else:
+            # Match HTTPServer so recently closed connections do not block restart.
+            sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+        sock.bind((host,port))
+
+class LanServer(ThreadingHTTPServer):
+    allow_reuse_address=os.name!='nt'
+    def server_bind(self):
+        if os.name=='nt':self.socket.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
+        super().server_bind()
+
 def build(node):
     commit=support.clean_commit()
     env=os.environ.copy();env.update({'NEXT_PUBLIC_EXPERIMENT_MODE':'1','NEXT_PUBLIC_API_BASE_URL':'/backend','NEXT_PUBLIC_BASE_PATH':'','NEXT_TELEMETRY_DISABLED':'1'})
@@ -132,7 +147,7 @@ def main():
     # Claim ports before spawning, never stop unrelated servers.
     for i,_ in selected:
         for host,port in [(str(ip),a.port+i),('127.0.0.1',a.api_port+i)]:
-            with socket.socket() as sock:sock.bind((host,port))
+            probe_port(host,port)
     out=bundle/'qr-share';out.mkdir(exist_ok=True);processes=[];servers=[];cards=[];metadata=[];locks=[];operator_lines=['진행자 전용: 각 번호의 본인에게만 PIN을 전달하세요. 파일 전체를 공유하지 마세요.']
     try:
         for i,(key,title) in selected:
@@ -169,7 +184,7 @@ def main():
             label='모의 점검 · 응답은 본 실험에 사용하지 않음' if a.mode=='rehearsal' else 'H4 실험 · 진행자 안내 후 시작'
             notice='운영정보 조회는 모의 응답입니다. 실제 Google 확인이 아닙니다.' if a.mode=='rehearsal' else '여행 입력·일정은 로컬 서버에, 설문 응답은 혜인님의 Google 설문에 저장됩니다. 진행자의 안내 후 시작해 주세요.'
             entry=page(title+' 실험','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>'+title+'</h1><span class="pill">'+label+'</span><p>가상 오사카 여행: '+a.start+' ~ '+a.end+' (4일)<br>같은 그룹의 서버 노트북과 같은 Wi-Fi · 각자 휴대폰 · 그룹 3명</p><div class="notice">'+notice+'<br><br>① 진행자가 준 본인 번호로 입장하고 PIN을 기억하세요.<br>② 장소 6곳 이상 → 꼭 가기 5곳 → 예산·체력 입력<br>③ 일정 A·B·C를 모두 살펴보고 혜인님의 Google 설문 작성<br><br>다른 사람과 상의하지 말고 평가해 주세요. 방장이 확정하지 않습니다. 01번은 진행자가 전달한 PIN으로 다시 들어갑니다. 번호를 추가하지 마세요. 아이폰 Safari / 안드로이드 Chrome 공통입니다.</div><a class="button" href="'+html.escape(invite,quote=True)+'">실험방 입장</a><p><a href="'+SURVEY_URL+'" target="_blank" rel="noopener noreferrer">혜인님 Google 설문</a></p>')
-            server=ThreadingHTTPServer((str(ip),port),partial(Gateway,web_root=web,entry=entry,origin=origin,api_port=api));server.daemon_threads=True;servers.append(server);threading.Thread(target=server.serve_forever,daemon=True).start()
+            server=LanServer((str(ip),port),partial(Gateway,web_root=web,entry=entry,origin=origin,api_port=api));server.daemon_threads=True;servers.append(server);threading.Thread(target=server.serve_forever,daemon=True).start()
             url=origin+'/entry/';qr_image(url,out/(key+'-qr.png'));metadata.append({'group':key,'title':title,'url':url,'mode':a.mode,'travelDates':config['travelDates']})
             cards.append('<section class="card"><h2>'+title+'</h2><span class="pill">'+label+'</span><img src="'+key+'-qr.png" alt="'+title+' QR"><a class="url" href="'+url+'">'+url+'</a><p>각자 배정받은 참가자 번호로 입장</p></section>')
         (out/'QR_접속안내.html').write_text(page('가치로 그룹별 QR','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>그룹별 실험 QR</h1><p>서버 노트북과 같은 Wi-Fi에서 Safari 또는 Chrome으로 열어 주세요.</p><div class="grid">'+''.join(cards)+'</div><p>이 노트북의 현재 Wi-Fi 주소 기준입니다. 혜인·윤진 노트북에서 진행할 때는 해당 노트북에서 실행하고 새 QR을 사용하세요.</p>'),encoding='utf-8')
