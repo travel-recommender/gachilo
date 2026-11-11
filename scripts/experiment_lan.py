@@ -9,7 +9,8 @@ from PIL import Image,ImageDraw
 import experiment_support as support
 import experiment_network as network
 ROOT=Path(__file__).resolve().parents[1]
-SURVEY_URL='https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F29K-rBKrb3qkI-TRqd7IWgwDlIw8Go4F7aQ/viewform'
+# Shared with the web survey link; change the form only in config/experiment.json.
+SURVEY_URL=support.read_json(ROOT/'config/experiment.json')['surveyUrl']
 CODES={'team':'T','joeun':'J','hyein':'H','yunjin':'Y'}
 GROUPS=[('team','윤진·조은·혜인'),('joeun','조은 친구'),('hyein','혜인 친구'),('yunjin','윤진 친구')]
 def request(port,path,body=None):

@@ -9,7 +9,7 @@ https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F29K-rBKrb3qkI-TRqd7IWgwDl
 ## 참가자 안내
 
 1. **자기 그룹 서버 노트북과 같은 Wi-Fi**에 연결한다. 네 그룹 전체가 같은 Wi-Fi일 필요는 없다.
-2. 자기 그룹 QR을 열고, 아이폰은 Safari / 안드로이드는 Chrome을 사용한다. 기종별로 다른 QR은 필요 없다.
+2. QR은 참가자에게만 직접 보여 주고 단체방·공개 채널에 올리지 않는다. 자기 그룹 QR을 열고, 아이폰은 Safari / 안드로이드는 Chrome을 사용한다. 기종별로 다른 QR은 필요 없다.
 3. 진행자가 배정한 번호로 입장한다. 팀 `T-01~03`, 조은 친구 `J-01~03`, 혜인 친구 `H-01~03`, 윤진 친구 `Y-01~03`이다.
 4. 01번은 진행자가 따로 전달한 PIN으로 다시 들어간다. 02·03번은 첫 입장 때 본인 PIN 4자리를 정한다. 번호를 추가하지 않는다.
 5. 가고 싶은 곳 6곳 이상 → 꼭 가기 5곳 → 예산·체력 등 조건을 입력한다. 먼저 고른 곳이 1순위다.
@@ -27,7 +27,7 @@ https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F29K-rBKrb3qkI-TRqd7IWgwDl
 
 1. GitHub Desktop에서 `travel-recommender/gachilo`를 **실험 전용 새 폴더**에 Clone한다. 작업 중인 폴더를 덮어쓰거나 강제로 브랜치를 바꾸지 않는다.
 2. PR #72가 병합되기 전에는 `feat/experiment-server-qr` 브랜치를 선택하고 최신 커밋을 받는다. ZIP 다운로드에는 Git 버전 정보가 없어 실행기가 거부한다.
-3. Node.js 24 이상과 Python 3.10 이상을 설치한다. Windows Python은 `py` 명령이나 PATH 등록이 필요하다.
+3. Node.js 24 이상과 Python 3.10 이상을 설치한다. Mac은 터미널에서 `python3 --version`을 확인한다. Xcode 도구만 설치된 Mac의 기본 Python은 3.9일 수 있다. 3.10 이상 설치 후 터미널을 다시 열어 같은 명령으로 확인한다. Windows는 `py -3 --version`으로 확인하며 `py` 명령이나 PATH 등록이 필요하다. 두 운영체제 모두 `node --version`이 24 이상인지 확인한다.
 4. 윤진은 루트의 **Start-Experiment-Windows.cmd**, 혜인·조은은 **Start-Experiment-Mac.command**를 실행한다.
 5. 자기 그룹과 `연결 연습`/`실제 실험`을 고른다. 처음에는 연결 연습으로 휴대폰 접속을 확인한다.
 6. 실행기가 Python 가상환경·웹 패키지·실험 화면을 준비한다. 첫 실행은 인터넷이 필요하고 몇 분 걸린다.
@@ -60,6 +60,12 @@ python3 -X utf8 scripts/experiment_start.py --group joeun
 - 실행기가 알려주는 `운영자_01번_PIN.txt`에서 01번 PIN만 본인에게 전달한다. 이 파일은 공유 QR 폴더 밖에 있다.
 - Windows에서 방화벽 안내가 나오면 진행자가 사용하는 **신뢰할 수 있는 개인 네트워크** 범위에서 Python 허용 여부를 확인한다. 실행기는 방화벽을 끄거나 규칙을 자동 변경하지 않는다. 학교·공공 Wi-Fi의 기기 간 통신 차단은 다른 공유기에서 확인한다.
 - 파일을 OneDrive/iCloud로 동기화해 다른 노트북과 같은 DB를 동시에 사용하지 않는다. 각 노트북의 그룹 DB는 독립적으로 보관한다.
+
+### 설문 변경·빌드 백업 관리
+
+- 설문 주소는 `config/experiment.json`의 `surveyUrl` 한 곳에서 관리한다. 서버 안내와 웹 결과 화면이 함께 읽는다. 폼을 바꾼 뒤에는 변경을 커밋하고 실행기를 다시 실행해 화면을 다시 빌드한다. 기존 실험 기록은 유지하고 새 실험방을 사용한다.
+- Mac의 한글 경로에서 다시 빌드하면 이전 `web/out`·`web/.next`를 `.local/build-backups/<시각>/`에 보관한다. 이전 화면 복구를 위해 자동으로 삭제하지 않으므로 빌드 횟수만큼 용량이 늘 수 있다.
+- 용량 정리는 실험 서버를 종료하고 새 빌드가 정상인지 확인한 뒤 진행한다. Finder에서 **`.local/build-backups` 안의 예전 빌드 폴더만** 확인해 휴지통으로 옮긴다. 복구가 필요하면 최근 빌드는 남긴다. `.local` 전체나 `experiments`·`groups`·DB·PIN·키 파일은 지우지 않는다.
 
 ### 수동 설치·실행
 

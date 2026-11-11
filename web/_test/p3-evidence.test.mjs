@@ -73,7 +73,7 @@ function cards(data,added=['a'],rest={}){
  const {PlaceRecommendations}=load('../src/components/PlaceRecommendations.tsx',{
   '@/components/usePlaceRecommendations':{usePlaceRecommendations:r=>{sent=r;return {data,error:null,loading:false,retry(){},...rest};}},
   '@/lib/places':{findPlace:id=>places.get(id),CATEGORIES:[{id:'cafe',label:'카페'}]},
-  '@/lib/place-recommendations':evidence,'@/components/ExperimentSurveyLink':{ExperimentSurveyLink:()=>null},'@/lib/experiment-api':{experimentResponse:async()=>({pre:{}})},
+  '@/lib/place-recommendations':evidence,
   '@/lib/p3-limits':{P3_LIST_LIMIT:30},
  });
  const tree=PlaceRecommendations({room:request,catalog:'real',sourceId:'a',added,disabled:false,onAdd:p=>clicked.push(p.id)});
@@ -106,7 +106,6 @@ test('actual P3 add updates longlist only and never persists a recommendation or
   react:h.react,'next/navigation':{useRouter:()=>({push:p=>router.push(p)})},
   '@/components/store':{useTrip:()=>({state,catalog:'real',setMine:p=>{patches.push(p);state.mine={...state.mine,...p};},saveLonglist:async()=>{saved++;}})},
   '@/components/PlaceFinder':{PlaceFinder,placeLine:()=>''},'@/components/PlaceRecommendations':{PlaceRecommendations},
-  '@/components/ExperimentSurveyLink':{ExperimentSurveyLink:()=>null},'@/lib/experiment-api':{experimentResponse:async()=>({pre:{}})},
   '@/lib/p3-limits':{P3_LIST_LIMIT:30},'@/lib/experiment':{EXPERIMENT_MODE:false},
   '@/lib/places':{CATEGORIES:[{id:'cafe',label:'카페'}],findPlace:id=>places.get(id)},
   '@/components/gachiro':{Box:()=>null,MinusButton:()=>null,NavButtons,Page:()=>null,PlanHeader:()=>null},
@@ -135,7 +134,6 @@ test('experiment mode: P3 never mounts the recommendation card, so no recommenda
   react:h.react,'next/navigation':{useRouter:()=>({push(){}})},
   '@/components/store':{useTrip:()=>({state,catalog:'real',setMine:p=>{state.mine={...state.mine,...p};},saveLonglist:async()=>{}})},
   '@/components/PlaceFinder':{PlaceFinder,placeLine:()=>''},'@/components/PlaceRecommendations':{PlaceRecommendations},
-  '@/components/ExperimentSurveyLink':{ExperimentSurveyLink:()=>null},'@/lib/experiment-api':{experimentResponse:async()=>({pre:{}})},
   '@/lib/p3-limits':{P3_LIST_LIMIT:30},'@/lib/experiment':{EXPERIMENT_MODE:true},
   '@/lib/places':{CATEGORIES:[{id:'cafe',label:'카페'}],findPlace:id=>places.get(id)},
   '@/components/gachiro':{Box:()=>null,MinusButton:()=>null,NavButtons:()=>null,Page:()=>null,PlanHeader:()=>null},

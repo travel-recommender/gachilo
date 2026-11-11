@@ -1,7 +1,8 @@
 "use client";
 import {useTrip} from './store';
 import {EXPERIMENT_MODE} from '@/lib/experiment';
-export const SURVEY_URL='https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F29K-rBKrb3qkI-TRqd7IWgwDlIw8Go4F7aQ/viewform';
+import experimentConfig from '../../../config/experiment.json';
+export const SURVEY_URL=experimentConfig.surveyUrl;
 /** Answers belong only in the team's Google Form; no extra in-app survey or tracking. */
 export function ExperimentSurveyLink() {
  const {state}=useTrip();
