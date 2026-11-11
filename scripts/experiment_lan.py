@@ -1,5 +1,5 @@
 """Build/start isolated H4 LAN rooms. Use --mode rehearsal for offline QA; live requires a Places key."""
-import argparse,html,http.client,ipaddress,json,os,secrets,signal,socket,subprocess,sys,threading,time,urllib.request,shutil
+import argparse,html,http.client,io,json,os,secrets,signal,socket,subprocess,sys,threading,time,urllib.request,shutil,tempfile,zipfile,webbrowser
 from functools import partial
 from http.server import SimpleHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
@@ -7,6 +7,7 @@ from urllib.parse import urlencode,urlsplit,unquote
 from reportlab.graphics.barcode.qrencoder import QRCode,QRErrorCorrectLevel
 from PIL import Image,ImageDraw
 import experiment_support as support
+import experiment_network as network
 ROOT=Path(__file__).resolve().parents[1]
 SURVEY_URL='https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F29K-rBKrb3qkI-TRqd7IWgwDlIw8Go4F7aQ/viewform'
 CODES={'team':'T','joeun':'J','hyein':'H','yunjin':'Y'}
@@ -17,7 +18,7 @@ def request(port,path,body=None):
 
 def save_private(path,value):
     path.parent.mkdir(parents=True,exist_ok=True,mode=0o700)
-    path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n');path.chmod(0o600)
+    path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');path.chmod(0o600)
 
 def qr_image(value,path):
     code=QRCode(None,QRErrorCorrectLevel.M);code.addData(value);code.make()
@@ -79,23 +80,40 @@ class Gateway(SimpleHTTPRequestHandler):
 def build(node):
     commit=support.clean_commit()
     env=os.environ.copy();env.update({'NEXT_PUBLIC_EXPERIMENT_MODE':'1','NEXT_PUBLIC_API_BASE_URL':'/backend','NEXT_PUBLIC_BASE_PATH':'','NEXT_TELEMETRY_DISABLED':'1'})
-    subprocess.run([node,str(ROOT/'web/node_modules/next/dist/bin/next'),'build'],cwd=ROOT/'web',env=env,check=True)
+    # Next static export can fail on decomposed Korean macOS checkout paths.
+    # Build the exact committed sources in an ASCII temporary path; no credentials travel with it.
+    if sys.platform=='darwin' and not str(ROOT).isascii():
+        with tempfile.TemporaryDirectory(prefix='gachilo-build-',dir='/private/tmp') as directory:
+            target=Path(directory)
+            archive=subprocess.check_output([support.git_binary(),'-C',str(ROOT),'archive','--format=zip',commit])
+            with zipfile.ZipFile(io.BytesIO(archive)) as source:source.extractall(target)
+            (target/'web/node_modules').symlink_to((ROOT/'web/node_modules').resolve(),target_is_directory=True)
+            subprocess.run([node,str(target/'web/node_modules/next/dist/bin/next'),'build'],cwd=target/'web',env=env,check=True)
+            if support.clean_commit()!=commit:raise ValueError('빌드 중 코드가 변경됐습니다. 다시 빌드하세요.')
+            for name in ('out','.next'):
+                destination=ROOT/'web'/name
+                if destination.exists():
+                    previous=ROOT/'.local/build-backups'/str(time.time_ns());previous.mkdir(parents=True)
+                    destination.rename(previous/name)
+                shutil.copytree(target/'web'/name,destination)
+    else:
+        subprocess.run([node,str(ROOT/'web/node_modules/next/dist/bin/next'),'build'],cwd=ROOT/'web',env=env,check=True)
+    if support.clean_commit()!=commit:raise ValueError('빌드 중 코드가 변경됐습니다. 다시 빌드하세요.')
     # Persist the expected code/build identity; never serve a previous non-experiment export.
     save_private(ROOT/'.local/experiment-build.json',{'commit':commit,'mode':'h4','api':'/backend'})
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['build','start']);p.add_argument('--node',default=os.getenv('NODE_BINARY','node'));p.add_argument('--host');p.add_argument('--group',choices=['all']+[x[0] for x in GROUPS],default='all');p.add_argument('--mode',choices=['rehearsal','live'],default='rehearsal');p.add_argument('--bundle',type=Path);p.add_argument('--start',default='2026-11-16');p.add_argument('--end',default='2026-11-19');p.add_argument('--port',type=int,default=3140);p.add_argument('--api-port',type=int,default=8140)
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['build','start']);p.add_argument('--node',default=os.getenv('NODE_BINARY','node'));p.add_argument('--host');p.add_argument('--group',choices=['all']+[x[0] for x in GROUPS],default='all');p.add_argument('--mode',choices=['rehearsal','live'],default='rehearsal');p.add_argument('--bundle',type=Path);p.add_argument('--start',default='2026-11-16');p.add_argument('--end',default='2026-11-19');p.add_argument('--port',type=int,default=3140);p.add_argument('--api-port',type=int,default=8140);p.add_argument('--open',action='store_true')
     a=p.parse_args();node=support.node_binary(a.node)
     if a.command=='build':build(node);return
-    ip=ipaddress.ip_address(a.host or '')
-    if ip.version!=4 or not any(ip in ipaddress.ip_network(x) for x in ('10.0.0.0/8','172.16.0.0/12','192.168.0.0/16')):raise ValueError('--host에 현재 노트북의 Wi-Fi 사설 IPv4 주소를 넣으세요.')
+    ip=network.choose_host(a.host);network.ensure_local(ip)
     if (support.date.fromisoformat(a.end)-support.date.fromisoformat(a.start)).days!=3:raise ValueError('가상 여행은 4일로 고정합니다.')
     for port in (a.port,a.api_port):
         if not 1024<=port<=65532:raise ValueError('포트 범위는 1024~65532입니다.')
     if a.mode=='live' and not os.getenv('GOOGLE_PLACES_API_KEY'):raise ValueError('실제 실험 시작 전 GOOGLE_PLACES_API_KEY를 서버 환경변수로 설정하세요. 키를 Git에 올리지 마세요. rehearsal은 별도 모의 점검입니다.')
     if a.mode=='live' and (os.getenv('LIVE_CHECK_MOCK') or os.getenv('AI_MOCK')):raise ValueError('실제 실험에서 MOCK 설정을 사용할 수 없습니다.')
     commit=support.clean_commit();marker=ROOT/'.local/experiment-build.json'
-    if not marker.exists() or json.loads(marker.read_text())!={'commit':commit,'mode':'h4','api':'/backend'}:raise ValueError('현재 커밋에서 먼저 build를 실행하세요.')
+    if not marker.exists() or support.read_json(marker)!={'commit':commit,'mode':'h4','api':'/backend'}:raise ValueError('현재 커밋에서 먼저 build를 실행하세요.')
     web=ROOT/'web/out'
     if not (web/'result/index.html').is_file():raise ValueError('실험 화면 빌드가 없습니다.')
     bundle=(a.bundle or ROOT/'.local'/('experiment-'+a.mode)).resolve()
@@ -108,14 +126,14 @@ def main():
     if fresh_bundle:save_private(bundle/'manifest.json',{**manifest,**expected})
     elif any(manifest.get(k)!=v for k,v in expected.items()):raise ValueError('기존 묶음의 날짜·실험 정책이 다릅니다. 새 --bundle 경로를 사용하세요.')
     config_file=bundle/'experiment-config.json'
-    if config_file.exists() and json.loads(config_file.read_text())!=config:raise ValueError('기존 실험과 설정이 다릅니다. 새 --bundle 경로로 준비하세요.')
+    if config_file.exists() and support.read_json(config_file)!=config:raise ValueError('기존 실험과 설정이 다릅니다. 새 --bundle 경로로 준비하세요.')
     if not config_file.exists():save_private(config_file,config)
     selected=[(i,g) for i,g in enumerate(GROUPS) if a.group in ('all',g[0])]
     # Claim ports before spawning, never stop unrelated servers.
     for i,_ in selected:
         for host,port in [(str(ip),a.port+i),('127.0.0.1',a.api_port+i)]:
             with socket.socket() as sock:sock.bind((host,port))
-    out=bundle/'qr-share';out.mkdir(exist_ok=True);processes=[];servers=[];cards=[];metadata=[];locks=[]
+    out=bundle/'qr-share';out.mkdir(exist_ok=True);processes=[];servers=[];cards=[];metadata=[];locks=[];operator_lines=['진행자 전용: 각 번호의 본인에게만 PIN을 전달하세요. 파일 전체를 공유하지 마세요.']
     try:
         for i,(key,title) in selected:
             g=support.group_dir(bundle,key);g.mkdir(parents=True,exist_ok=True,mode=0o700)
@@ -129,8 +147,8 @@ def main():
             # Keep the established backup/restore tool's group configuration.
             if not (g/'rehearsal.json').exists():save_private(g/'rehearsal.json',{'experiment':config,'group':key})
             logfile=g/'server.log'
-            with logfile.open('a') as log:
-                child=subprocess.Popen([sys.executable,str(ROOT/'backend/server.py'),'--db',str(g/'trips.sqlite3'),'--host','127.0.0.1','--port',str(api),'--origin',f'http://localhost:{port}'],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+            with logfile.open('a',encoding='utf-8') as log:
+                child=subprocess.Popen([sys.executable,'-X','utf8',str(ROOT/'backend/server.py'),'--db',str(g/'trips.sqlite3'),'--host','127.0.0.1','--port',str(api),'--origin',f'http://localhost:{port}'],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=os.name!='nt',creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if os.name=='nt' else 0)
                 # Do not print request tokens; backend logs no request URLs.
             processes.append(child)
             for _ in range(150):
@@ -141,11 +159,12 @@ def main():
                 time.sleep(.2)
             else:raise RuntimeError(title+' API 대기 시간 초과')
             private=g/'room-private.json'
-            if private.exists():state=json.loads(private.read_text())
+            if private.exists():state=support.read_json(private)
             else:
                 pin=f'{secrets.randbelow(10000):04d}'
                 room=request(api,'/rooms',{'startDate':a.start,'endDate':a.end,'memberNames':[f'{CODES[key]}-{n:02d}' for n in (1,2,3)],'ownerPin':pin,'dataset':'osaka_review_150'})
                 state={'room':room,'participant1Pin':pin};save_private(private,state)
+            operator_lines.append(f"{title} / {CODES[key]}-01 PIN: {state['participant1Pin']}")
             room=state['room'];invite='/join/?'+urlencode({'room':room['roomId'],'k':room['inviteToken']})
             label='모의 점검 · 응답은 본 실험에 사용하지 않음' if a.mode=='rehearsal' else 'H4 실험 · 진행자 안내 후 시작'
             notice='운영정보 조회는 모의 응답입니다. 실제 Google 확인이 아닙니다.' if a.mode=='rehearsal' else '여행 입력·일정은 로컬 서버에, 설문 응답은 혜인님의 Google 설문에 저장됩니다. 진행자의 안내 후 시작해 주세요.'
@@ -153,11 +172,13 @@ def main():
             server=ThreadingHTTPServer((str(ip),port),partial(Gateway,web_root=web,entry=entry,origin=origin,api_port=api));server.daemon_threads=True;servers.append(server);threading.Thread(target=server.serve_forever,daemon=True).start()
             url=origin+'/entry/';qr_image(url,out/(key+'-qr.png'));metadata.append({'group':key,'title':title,'url':url,'mode':a.mode,'travelDates':config['travelDates']})
             cards.append('<section class="card"><h2>'+title+'</h2><span class="pill">'+label+'</span><img src="'+key+'-qr.png" alt="'+title+' QR"><a class="url" href="'+url+'">'+url+'</a><p>각자 배정받은 참가자 번호로 입장</p></section>')
-        (out/'QR_접속안내.html').write_text(page('가치로 그룹별 QR','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>그룹별 실험 QR</h1><p>서버 노트북과 같은 Wi-Fi에서 Safari 또는 Chrome으로 열어 주세요.</p><div class="grid">'+''.join(cards)+'</div><p>이 노트북의 현재 Wi-Fi 주소 기준입니다. 혜인·윤진 노트북에서 진행할 때는 해당 노트북에서 실행하고 새 QR을 사용하세요.</p>'))
-        (out/'links.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2))
+        (out/'QR_접속안내.html').write_text(page('가치로 그룹별 QR','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>그룹별 실험 QR</h1><p>서버 노트북과 같은 Wi-Fi에서 Safari 또는 Chrome으로 열어 주세요.</p><div class="grid">'+''.join(cards)+'</div><p>이 노트북의 현재 Wi-Fi 주소 기준입니다. 혜인·윤진 노트북에서 진행할 때는 해당 노트북에서 실행하고 새 QR을 사용하세요.</p>'),encoding='utf-8')
+        (out/'links.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2),encoding='utf-8')
+        operator=bundle/'운영자_01번_PIN.txt';operator.write_text('\n'.join(operator_lines)+'\n',encoding='utf-8');operator.chmod(0o600)
         print('QR 안내: '+str(out/'QR_접속안내.html'),flush=True)
-        print('참가자 1 PIN: 각 그룹 .local room-private.json에서 진행자만 확인 후 본인에게 전달',flush=True)
+        print('진행자만 확인할 01번 PIN: '+str(operator),flush=True)
         for row in metadata:print(row['title']+': '+row['url']+' ('+a.mode+')',flush=True)
+        if a.open:webbrowser.open((out/'QR_접속안내.html').resolve().as_uri())
         while True:
             time.sleep(1)
             if any(x.poll() is not None for x in processes):raise RuntimeError('API 종료 감지. DB를 보존하고 이번 실행을 중단합니다.')
@@ -166,7 +187,7 @@ def main():
         for s in servers:s.shutdown();s.server_close()
         for child in processes:
             if child.poll() is None:
-                child.send_signal(signal.SIGTERM)
+                child.terminate()
                 try:child.wait(timeout=15)
                 except subprocess.TimeoutExpired:print('API 종료 대기 초과. 해당 프로세스를 확인하세요.',file=sys.stderr)
         for lock in reversed(locks):lock.__exit__(None,None,None)

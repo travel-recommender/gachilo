@@ -1,6 +1,5 @@
 """Local rehearsal preparation and SQLite recovery. Never starts a public experiment."""
 import argparse
-import fcntl
 import hashlib
 import json
 import os
@@ -15,6 +14,11 @@ from contextlib import closing, contextmanager
 from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
+
+if os.name == 'nt':
+    import msvcrt
+else:
+    import fcntl
 
 ROOT = Path(__file__).resolve().parents[1]
 TABLES = ('rooms', 'members', 'submissions', 'results', 'longlists')
@@ -35,8 +39,22 @@ def write_json(path, value):
     path.chmod(0o600)
 
 
+def git_binary():
+    binary = shutil.which('git')
+    if binary:
+        return binary
+    # GitHub Desktop users may not have installed a separate command-line Git.
+    candidates = [Path('/Applications/GitHub Desktop.app/Contents/Resources/app/git/bin/git')]
+    if os.environ.get('LOCALAPPDATA'):
+        candidates += sorted((Path(os.environ['LOCALAPPDATA']) / 'GitHubDesktop').glob('app-*/resources/app/git/cmd/git.exe'), reverse=True)
+    for candidate in candidates:
+        if candidate.is_file():
+            return str(candidate)
+    raise ValueError('Git 또는 GitHub Desktop을 설치하고 저장소를 Clone해 주세요. ZIP 다운로드만으로는 실행할 수 없습니다.')
+
+
 def git(*args):
-    return subprocess.check_output(['git', '-C', str(ROOT), *args], text=True).strip()
+    return subprocess.check_output([git_binary(), '-C', str(ROOT), *args], text=True, encoding='utf-8').strip()
 
 
 def clean_commit():
@@ -110,15 +128,26 @@ def database_summary(path):
 
 @contextmanager
 def group_lock(path):
-    with (path / 'server.lock').open('a') as lock:
+    with (path / 'server.lock').open('a+b') as lock:
+        if os.fstat(lock.fileno()).st_size == 0:
+            lock.write(b'0')
+            lock.flush()
+        lock.seek(0)
         try:
-            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
+            if os.name == 'nt':
+                msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
             raise ValueError('이 그룹의 준비 서버가 이미 실행 중입니다.') from None
         try:
             yield
         finally:
-            fcntl.flock(lock, fcntl.LOCK_UN)
+            lock.seek(0)
+            if os.name == 'nt':
+                msvcrt.locking(lock.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                fcntl.flock(lock, fcntl.LOCK_UN)
 
 
 def snapshot(source, destination):
@@ -195,10 +224,11 @@ def node_binary(value):
 
 def offline_env(bundle, node):
     # Deliberate allowlist: no inherited AI/weather/routing/debug overrides or credentials.
-    env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR', 'LANG') if k in os.environ}
+    env = {k: os.environ[k] for k in ('PATH', 'HOME', 'TMPDIR', 'LANG', 'SystemRoot', 'SYSTEMROOT',
+           'WINDIR', 'COMSPEC', 'PATHEXT', 'TEMP', 'TMP', 'USERPROFILE', 'APPDATA', 'LOCALAPPDATA') if k in os.environ}
     env.update({'NODE_BINARY': node, 'REAL_CATALOG_PATH': str(bundle / 'catalog.json'),
                 'REAL_PROFILES_PATH': str(bundle / 'profiles.json'), 'WEATHER_ENABLED': '0',
-                'SOMSOM_API_KEY': '', 'AI_MOCK': '', 'OSRM_FOOT_URL': '', 'PYTHONUNBUFFERED': '1'})
+                'SOMSOM_API_KEY': '', 'AI_MOCK': '', 'OSRM_FOOT_URL': '', 'PYTHONUNBUFFERED': '1', 'PYTHONUTF8': '1'})
     return env
 
 
@@ -208,7 +238,7 @@ def audit(bundle, start, end, node):
     if not 1 <= days <= 30:
         raise ValueError('여행 날짜는 시작일 포함 1~30일이어야 합니다.')
     result = subprocess.run([node, str(ROOT / 'scripts/experiment_catalog_audit.mjs'), start, end],
-                            env=offline_env(bundle, node), capture_output=True, text=True,
+                            env=offline_env(bundle, node), capture_output=True, text=True, encoding='utf-8',
                             timeout=30, check=True)
     return json.loads(result.stdout)
 
@@ -258,7 +288,7 @@ def rehearsal(args):
             return process.wait()
         except KeyboardInterrupt:
             if process.poll() is None:
-                process.send_signal(signal.SIGINT)
+                process.terminate()
             return process.wait(timeout=15)
 
 

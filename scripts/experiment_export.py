@@ -9,7 +9,7 @@ def export(bundle,group,out,node=None):
  source=support.group_dir(bundle,group)/'trips.sqlite3'
  if not source.is_file():raise ValueError('그룹 DB가 없습니다.')
  node=support.node_binary(node);rows=[];details=[]
- config=json.loads((bundle/'experiment-config.json').read_text())
+ config=support.read_json(bundle/'experiment-config.json')
  with sqlite3.connect(source.resolve().as_uri()+'?mode=ro',uri=True) as db:
   db.row_factory=sqlite3.Row;db.execute('BEGIN')
   for row in db.execute('SELECT cr.* FROM candidate_results cr JOIN rooms r ON r.id=cr.room_id WHERE cr.revision=r.revision'):
@@ -18,7 +18,7 @@ def export(bundle,group,out,node=None):
    for member in members:
     for candidate in json.loads(row['payload']):
      payload={'roomId':row['room_id'],'memberId':member['id'],'memberIds':[m['id'] for m in members],'candidate':candidate,'submissions':subs}
-     computed=json.loads(subprocess.check_output([node,str(support.ROOT/'backend/engine/experiment_record.mjs')],input=json.dumps(payload),text=True,timeout=10))
+     computed=json.loads(subprocess.check_output([node,str(support.ROOT/'backend/engine/experiment_record.mjs')],input=json.dumps(payload),text=True,encoding='utf-8',timeout=10))
      identity={'group_id':group,'mode':config['mode'],'participant_code':member['name'],'room_id':row['room_id'],'revision':row['revision'],'letter':computed['letter'],'strategy':computed['strategy'],'display_order':computed['order'],'explained':computed['explained']}
      rows.append({**identity,**{k:v for k,v in computed['automatic'].items() if k!='memberId'},**computed['metrics']})
      details.append({**identity,'candidate':candidate,'groupMetrics':computed['group']})
@@ -29,8 +29,8 @@ def export(bundle,group,out,node=None):
   return "'"+v if isinstance(v,str) and v.lstrip()[:1] in ('=','+','-','@') else v
  with (out/'candidate_metrics.csv').open('w',encoding='utf-8-sig',newline='') as f:
   w=csv.DictWriter(f,fieldnames=columns);w.writeheader();w.writerows({k:safe(v) for k,v in r.items()} for r in rows)
- (out/'evidence.json').write_text(json.dumps(details,ensure_ascii=False,indent=2))
- (out/'config.json').write_text(json.dumps(config,ensure_ascii=False,indent=2))
+ (out/'evidence.json').write_text(json.dumps(details,ensure_ascii=False,indent=2),encoding='utf-8')
+ (out/'config.json').write_text(json.dumps(config,ensure_ascii=False,indent=2),encoding='utf-8')
  for p in out.iterdir():p.chmod(0o600)
  return len(rows)
 if __name__=='__main__':
