@@ -183,16 +183,25 @@ const OTHER = "그 밖의 운영 조건";
 /** 아무도 고르지 않은 곳을 넣은 주체. P8 표시(badgeOf)와 같다: ai_added = "AI 추천", 나머지 = "추천" */
 const FILL_REASON: [source: string, phrase: string][] = [
   ["ai_added", "모두의 취향·예산에 맞아 AI가 골라 넣었"],
-  // AI가 꺼져 있거나 답이 검증을 통과하지 못하면 같은 후보를 규칙 순서로 넣는다 (backend/engine/real_ai.mjs)
+  // 규칙 순서로 넣은 후보 (backend/engine/real_candidates.mjs aiById):
+  //  - AI가 꺼져 있거나 답이 검증을 통과하지 못했을 때 (real_ai.mjs)
+  //  - AI가 켜져 있어도, AI가 고른 곳이 날짜·영업·한도 검사에서 떨어진 자리를 예비 후보(ai.backup)로 메웠을 때
   ["rule_added", "모두의 취향·예산에 맞아 규칙에 따라 골라 넣었"],
   ["meal_fill", "빈 식사 시간을 채우려고 넣었"],
 ];
 
+/** 그룹 제외 문장 — 내가 제외한 곳이 들어 있는 낡은 결과에서는 빼야 해서 따로 둔다 */
+export const GROUP_VETO_LINE = "누군가 제외한 곳은 넣지 않았어요.";
+
 /**
  * 5.4 "모두에게 같은 설명" — 같은 일정을 보는 그룹 모두에게 같은 문장. 실제 장소 결과(planning)가 있을 때만.
- * 다른 사람의 입력(누구의 1순위·제외·예산·걸음 수치)은 드러내지 않는다. 숫자는 그룹 합계·장소 수만 쓴다.
+ * 다른 사람의 입력(누구의 1순위·제외·예산·걸음 수치)은 드러내지 않는다. 숫자는 장소 수만 쓴다.
+ *
+ * hasMust: 이 사람에게 1순위가 있는가. 엔진은 1순위가 하나도 없어도 must_satisfied = true를 주므로,
+ * 1순위가 있다는 게 확실할 때만 "모두의 1순위 … 들어갔어요"라고 말한다. 화면은 꼭 가기의 첫 곳을 1순위로 보내고,
+ * 실험에서는 모두 꼭 가기 5곳을 고르므로 그룹 모두에게 같은 문장이 된다.
  */
-export function groupExplanation(c: CandidateLike): string[] {
+export function groupExplanation(c: CandidateLike, hasMust = false): string[] {
   const p = c.planning;
   const lines: string[] = [];
   const unpicked = c.days.flatMap((d) => d.items).filter((it) => it.source !== "selected");
@@ -207,9 +216,11 @@ export function groupExplanation(c: CandidateLike): string[] {
   }
   if (!p) return lines;
   lines.unshift(
-    p.must_satisfied ? "모두의 1순위 꼭 가기가 모두 들어갔어요." : "1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요.",
+    // must_satisfied = false는 1순위가 있었다는 뜻이라 항상 말해도 된다
+    ...(!p.must_satisfied ? ["1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요."]
+      : hasMust ? ["모두의 1순위 꼭 가기가 모두 들어갔어요."] : []),
     // 실제 장소 경로는 제외한 곳을 후보에서 빼고, 하루마다 그룹에서 가장 적은 걸음 한도로 검사한다
-    "누군가 제외한 곳은 넣지 않았어요.",
+    GROUP_VETO_LINE,
     "하루 걸음 수는 그룹에서 가장 적은 걸음 한도를 넘지 않아요.",
   );
   if (p.unplaced_count > 0) {
@@ -219,11 +230,12 @@ export function groupExplanation(c: CandidateLike): string[] {
       const label = UNPLACED_REASON[code] ?? OTHER;
       counts.set(label, (counts.get(label) ?? 0) + n);
     }
-    // 많은 이유부터, 같으면 가나다순. "그 밖의 운영 조건"은 맨 뒤 — 결과마다 문장 순서가 흔들리지 않게
+    // 한 곳에 이유가 여러 개면 코드마다 1씩 세므로 이유별 곳 수를 더하면 N보다 커질 수 있다.
+    // 그래서 곳 수는 쓰지 않고 이유 이름만 많은 순서로 쓴다. 같으면 가나다순, "그 밖의 운영 조건"은 맨 뒤
     const why = [...counts]
       .sort(([la, a], [lb, b]) => Number(la === OTHER) - Number(lb === OTHER) || b - a || la.localeCompare(lb, "ko"))
-      .map(([label, n]) => `${label} ${n}곳`).join(", ");
-    lines.push(`꼭 가기로 고른 곳 중 ${p.unplaced_count}곳은 넣지 못했어요${why ? ` (${why})` : ""}.`);
+      .map(([label]) => label).join(", ");
+    lines.push(`꼭 가기로 고른 곳 중 ${p.unplaced_count}곳은 넣지 못했어요.${why ? ` 주된 이유: ${why}.` : ""}`);
   }
   return lines;
 }
@@ -235,7 +247,10 @@ export function groupExplanation(c: CandidateLike): string[] {
  */
 export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: (id: string) => string): string[] {
   const placed = new Set(c.days.flatMap((d) => d.items.map((it) => it.placeId)));
-  const lines: string[] = groupExplanation(c);
+  const vetoes = mine.vetoes ?? (mine.veto ? [mine.veto] : []);
+  const myVetoPlaced = vetoes.some((id) => placed.has(id));
+  // 내가 제외한 곳이 들어 있으면(결과 계산 뒤 내 입력이 바뀐 경우) 그룹 제외 문장과 어긋나므로 그룹 문장을 뺀다
+  const lines: string[] = groupExplanation(c, !!mine.must).filter((l) => !(myVetoPlaced && l === GROUP_VETO_LINE));
   const picks = mine.picks;
   if (picks.length) {
     const kept = picks.filter((id) => placed.has(id)).length;
@@ -246,10 +261,9 @@ export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: 
       ? `내 1순위 ${nameOf(mine.must)}은(는) 들어갔어요.`
       : `내 1순위 ${nameOf(mine.must)}은(는) 이번 일정에 들어가지 못했어요.`);
   }
-  const vetoes = mine.vetoes ?? (mine.veto ? [mine.veto] : []);
   // 그룹 문장("누군가 제외한 곳은 넣지 않았어요")이 있으면 같은 말을 반복하지 않는다
-  if (vetoes.length && !(c.planning && vetoes.every((id) => !placed.has(id)))) {
-    lines.push(vetoes.some((id) => placed.has(id))
+  if (vetoes.length && !(c.planning && !myVetoPlaced)) {
+    lines.push(myVetoPlaced
       ? "내가 제외한 곳 중 일부가 들어 있어요."
       : "내가 제외한 곳은 넣지 않았어요.");
   }

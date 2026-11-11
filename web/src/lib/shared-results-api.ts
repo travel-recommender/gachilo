@@ -27,7 +27,8 @@ export interface SharedCandidate {
   planning?: {
     must_satisfied: boolean;
     unplaced_count: number;
-    reason_aggregation: string;
+    /** 예전 결과에는 없을 수 있다. "common_across_dates"일 때만 이유를 쓴다 */
+    reason_aggregation?: string;
     exclusion_reason_counts: Record<string, number>;
   } | null;
 }

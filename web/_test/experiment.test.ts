@@ -109,7 +109,7 @@ const realCand = (p: object | null) => ({
 });
 
 test("5.4 모두에게 같은 설명: 1순위·제외·걸음 한도·못 넣은 이유", () => {
-  assert.deepEqual(groupExplanation(realCand(planning())), [
+  assert.deepEqual(groupExplanation(realCand(planning()), true), [
     "모두의 1순위 꼭 가기가 모두 들어갔어요.",
     "누군가 제외한 곳은 넣지 않았어요.",
     "하루 걸음 수는 그룹에서 가장 적은 걸음 한도를 넘지 않아요.",
@@ -119,21 +119,45 @@ test("5.4 모두에게 같은 설명: 1순위·제외·걸음 한도·못 넣은
     exclusion_reason_counts: { closed_on_visit_date: 1, strategy_selection_or_capacity: 1, daily_place_limit: 1, live_no_match: 1 },
   })));
   assert.equal(missed[0], "1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요.");
-  // 같은 뜻의 코드는 합치고, 많은 이유부터 쓴다. 모르는 코드는 '그 밖의 운영 조건'으로 묶어 맨 뒤에
-  assert.equal(missed.at(-1), "꼭 가기로 고른 곳 중 3곳은 넣지 못했어요 (하루에 갈 수 있는 곳 수가 다 참 2곳, 여행 날짜에 모두 휴무 1곳, 그 밖의 운영 조건 1곳).");
+  // 같은 뜻의 코드는 합치고, 많은 이유부터 쓴다. 모르는 코드는 '그 밖의 운영 조건'으로 묶어 맨 뒤에.
+  // 이유별 곳 수는 쓰지 않는다 — 한 곳에 이유가 여럿이면 합이 N(3)보다 커진다(여기선 4) (#71 리뷰)
+  assert.equal(missed.at(-1), "꼭 가기로 고른 곳 중 3곳은 넣지 못했어요. 주된 이유: 하루에 갈 수 있는 곳 수가 다 참, 여행 날짜에 모두 휴무, 그 밖의 운영 조건.");
+  const overlapping = groupExplanation(realCand(planning({ unplaced_count: 2,
+    exclusion_reason_counts: { budget_exceeded: 2, step_limit_exceeded: 1 } }))).at(-1)!;
+  assert.equal(overlapping, "꼭 가기로 고른 곳 중 2곳은 넣지 못했어요. 주된 이유: 하루 예산 초과, 하루 걸음 한도 초과.");
+  assert.deepEqual(overlapping.match(/\d+곳/g), ["2곳"], "괄호 안 곳 수가 N과 어긋나지 않게 곳 수는 한 번만");
   // 서버가 준 코드 순서가 달라도 같은 문장
   const shuffled = groupExplanation(realCand(planning({ must_satisfied: false, unplaced_count: 3,
     exclusion_reason_counts: { live_no_match: 1, daily_place_limit: 1, closed_on_visit_date: 1, strategy_selection_or_capacity: 1 } })));
   assert.equal(shuffled.at(-1), missed.at(-1));
-  // 집계 기준을 모르는 예전 결과는 이유를 붙이지 않는다
+  // 집계 기준을 모르는 예전 결과는 이유를 붙이지 않는다 (reason_aggregation이 없거나 다름)
   const old = groupExplanation(realCand(planning({ unplaced_count: 2, reason_aggregation: "union", exclusion_reason_counts: { closed_on_visit_date: 2 } })));
   assert.equal(old.at(-1), "꼭 가기로 고른 곳 중 2곳은 넣지 못했어요.");
+  const missing = groupExplanation(realCand(planning({ unplaced_count: 2, reason_aggregation: undefined, exclusion_reason_counts: { closed_on_visit_date: 2 } })));
+  assert.equal(missing.at(-1), "꼭 가기로 고른 곳 중 2곳은 넣지 못했어요.");
+});
+
+test("1순위가 있는지 모르면 '모두의 1순위가 들어갔어요'라고 하지 않는다 (#71 리뷰)", () => {
+  // 엔진은 1순위가 하나도 없어도 must_satisfied = true를 준다
+  assert.ok(!groupExplanation(realCand(planning())).some((l) => l.includes("1순위")));
+  assert.ok(groupExplanation(realCand(planning()), true).includes("모두의 1순위 꼭 가기가 모두 들어갔어요."));
+  // 못 들어갔다는 문장은 1순위가 있었다는 뜻이라 늘 쓴다
+  assert.equal(groupExplanation(realCand(planning({ must_satisfied: false })))[0], "1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요.");
+  const noMust = { picks: [], must: null, veto: null, budgetPerDay: 0, stepLimit: 0 };
+  assert.ok(!experimentExplanation(realCand(planning()), noMust, (id) => id).some((l) => l.includes("1순위")));
+});
+
+test("내가 제외한 곳이 들어 있는 낡은 결과에서는 그룹 제외 문장을 빼고 내 문장만 쓴다 (#71 리뷰)", () => {
+  const mine = { picks: ["a"], must: "a", veto: null, vetoes: ["b"], budgetPerDay: 0, stepLimit: 0 };
+  const lines = experimentExplanation(realCand(planning()), mine, (id) => id);
+  assert.ok(!lines.includes("누군가 제외한 곳은 넣지 않았어요."));
+  assert.ok(lines.includes("내가 제외한 곳 중 일부가 들어 있어요."));
 });
 
 test("그룹 설명은 다른 사람의 입력을 드러내지 않고, 데모 방(planning 없음)에는 나오지 않는다", () => {
   const all = groupExplanation(realCand(planning({ must_satisfied: false, unplaced_count: 1, exclusion_reason_counts: { budget_exceeded: 1 } }))).join(" ");
-  // 숫자는 장소 수만. 원·보·% 같은 개인 조건 수치를 쓰지 않는다
-  assert.ok(!/원|보 |%|\d+보/.test(all), all);
+  // 숫자는 장소 수만. 숫자 뒤에 원·보·%가 붙는 개인 조건 수치를 쓰지 않는다
+  assert.ok(!/\d[\d,]*\s*(원|보|%)/.test(all), all);
   for (const w of STRATEGY_WORDS) assert.ok(!all.includes(w), w);
   assert.deepEqual(groupExplanation(realCand(null)), []);
   assert.deepEqual(groupExplanation(realCand(undefined as never)), []);
