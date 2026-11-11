@@ -5,6 +5,7 @@ import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
 import { WeatherRouteNotice } from "@/components/WeatherRouteNotice";
 import { PlanMap } from "@/components/PlanMap";
+import { VisitConditionsPanel } from "@/components/VisitConditionsPanel";
 import { CATEGORY_MAP, findPlace } from "@/lib/places";
 import { explainPlace } from "@/lib/explain";
 import { badgeOf, hasCandidates } from "@/lib/shared-flow";
@@ -44,7 +45,7 @@ const STRATEGY_LABEL: Record<SharedStrategy, string> = { average: "평균", leas
 function PlanInner() {
   const router = useRouter();
   const params = useSearchParams();
-  const { state, setExtra, schedule, consensus } = useTrip();
+  const { state, catalog, setExtra, schedule, consensus } = useTrip();
   const shared = useSharedResults();
   const online = shared.online;
   const snap = shared.snap;
@@ -178,6 +179,12 @@ function PlanInner() {
             <p className="mt-2 text-right text-[11px] font-medium text-mute-soft">한 칸을 꾹 누르면 순서를 바꿀 수 있어요</p>
           )}
           {online && shared.error && <p className="mt-2 text-[12px] leading-relaxed text-wine">{shared.error}</p>}
+          {/* 실제 장소 방: 그날 장소의 휴무·영업시간·예약 조건을 출처와 함께 (이슈 #6 RAG).
+              실험 모드에서는 끈다 — 설명 있음/없음 조건과 섞인다 (H4 2.1) */}
+          {online && !EXPERIMENT_MODE && catalog === "real" && state.room && final?.days[day - 1] && (
+            <VisitConditionsPanel roomId={state.room.roomId} token={state.room.ownerToken ?? state.room.token}
+              placeIds={ids.filter((id) => !id.startsWith("custom_"))} date={final.days[day - 1].date} />
+          )}
         </div>
       </div>
 

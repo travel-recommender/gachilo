@@ -351,6 +351,26 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
     def schedulable(rid,token):
         dataset,start,end=store.room_dates(rid,token)
         return {'roomId':rid,'placeIds':available_ids(start,end) if dataset==REAL_DATASET else None}
+    def visit_conditions(rid,token,b):
+        # 이슈 #6 RAG 방문 조건 안내: 검토 자료·실시간 영업 조회·출처를 장소·날짜별로 돌려준다. 방 참여자만, 실제 장소 방만.
+        dataset,start,end=store.room_dates(rid,token)
+        require(dataset==REAL_DATASET,'방문 조건 안내는 실제 장소 방에서만 쓸 수 있습니다.')
+        require(isinstance(b,dict) and set(b)=={'placeIds','dates'},'placeIds와 dates를 지정하세요.')
+        ids,dates=b['placeIds'],b['dates']
+        require(isinstance(ids,list) and 1<=len(ids)<=30 and all(isinstance(x,str) for x in ids) and len(set(ids))==len(ids),'장소는 1~30곳, 중복 없이 지정하세요.')
+        require(isinstance(dates,list) and 1<=len(dates)<=7 and all(isinstance(x,str) for x in dates),'날짜는 1~7개를 지정하세요.')
+        for d in dates:
+            try:date.fromisoformat(d)
+            except ValueError:raise ApiError(400,'날짜는 YYYY-MM-DD여야 합니다.')
+            require(start<=d<=end,'여행 기간 안의 날짜만 조회할 수 있습니다.')
+        known=store.real_ids-store.excluded_real_ids
+        require(all(x in known for x in ids),'이 방의 장소 목록에 없는 장소가 있습니다.')
+        try:
+            out=subprocess.run([engine.node,str(Path(__file__).parent/'engine/visit_conditions.mjs')],input=json.dumps({'placeIds':ids,'dates':dates}),capture_output=True,text=True,encoding='utf-8',timeout=90,check=True)
+            value=json.loads(out.stdout)
+            if not isinstance(value,dict) or not isinstance(value.get('places'),list):raise ValueError('invalid visit conditions')
+        except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('방문 조건을 불러오지 못했습니다. 잠시 뒤 다시 시도하세요.')
+        return {'roomId':rid,**value}
     store=Store(path,engine.catalog,date_availability=available_ids)
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
@@ -436,6 +456,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 if self.command=='PUT' and m:return self.send_json(200,store.save_longlist(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/recommendations/([\w-]+)',path)
                 if self.command=='POST' and m:return self.send_json(200,store.recommend_places(*m.groups(),token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/visit-conditions',path)
+                if self.command=='POST' and m:return self.send_json(200,visit_conditions(m[1],token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/schedulable',path)
                 if self.command=='GET' and m:return self.send_json(200,schedulable(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/pool',path)
