@@ -1,9 +1,10 @@
 """민감도 분석 그래프 — docs/sensitivity/results.json → docs/sensitivity/*.png
 
-실행 (저장소 루트):  python3 scripts/experiment/sensitivity_plot.py
+실행 (저장소 루트):  python3 scripts/experiment/sensitivity_plot.py [결과 폴더, 기본 docs/sensitivity]
 필요: matplotlib, 한글 글꼴(Noto Sans CJK / 맑은 고딕 / Apple SD Gothic Neo 중 하나)
 """
 import json
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -12,7 +13,7 @@ import matplotlib.pyplot as plt
 from matplotlib import font_manager
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / 'docs' / 'sensitivity'
+OUT = ROOT / (sys.argv[1] if len(sys.argv) > 1 else 'docs/sensitivity')
 data = json.loads((OUT / 'results.json').read_text(encoding='utf-8'))
 conds = {c['id']: c for c in data['conditions']}
 
@@ -24,7 +25,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 SURFACE, INK, MUTED, GRID = '#fcfcfb', '#0b0b0b', '#6b6a63', '#e4e3df'
 LOW, HIGH, THIRD = '#2a78d6', '#eb6834', '#1baf7a'
-PARAMS = [('pick', '찜 반영률 가중치'), ('must', '꼭 가기 가중치'), ('budget', '예산 가중치'),
+PARAMS = [('pick', '꼭 가기 반영 가중치'), ('must', '1순위 가중치'), ('budget', '예산 가중치'),
           ('walk', '걸음 가중치'), ('veto', '제외 가중치'), ('stay', '체류 시간(stay_min)')]
 
 
@@ -80,7 +81,7 @@ tornado(lambda c: c['h2']['least_misery']['diff'],
 
 # 조건별 세 전략의 그룹 최저 만족도 — 수준은 움직여도 순서가 유지되는지
 order = ['base'] + [f'w_{k}_{f}' for k, _ in PARAMS[:5] for f in (0.8, 1.2)] + ['stay_0.8', 'stay_1.2']
-names = {'pick': '찜', 'must': '꼭 가기', 'budget': '예산', 'walk': '걸음', 'veto': '제외'}
+names = {'pick': '꼭 가기', 'must': '1순위', 'budget': '예산', 'walk': '걸음', 'veto': '제외'}
 labels = ['기준'] + [f'{names[k]} ×{f}' for k, _ in PARAMS[:5] for f in (0.8, 1.2)] + ['체류 ×0.8', '체류 ×1.2']
 fig, ax = plt.subplots(figsize=(8, 5.2), dpi=200, facecolor=SURFACE)
 style(ax)
@@ -96,4 +97,4 @@ ax.legend(loc='lower left', bbox_to_anchor=(0, 1.0), ncol=3, frameon=False, font
 fig.tight_layout()
 fig.savefig(OUT / 'min_by_condition.png', facecolor=SURFACE)
 plt.close(fig)
-print('저장:', ', '.join(f'docs/sensitivity/{n}' for n in ['tornado_h1.png', 'tornado_h2.png', 'min_by_condition.png']))
+print('저장:', ', '.join(f'{OUT.relative_to(ROOT)}/{n}' for n in ['tornado_h1.png', 'tornado_h2.png', 'min_by_condition.png']))
