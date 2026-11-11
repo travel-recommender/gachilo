@@ -139,9 +139,17 @@ export function experimentStatusLine(
 /** 전략 이름 — 실험 화면 문장에 섞이면 안 된다 (5.4) */
 export const STRATEGY_WORDS = ["평균", "최소 불만", "공정성", "average", "least_misery", "fairness"];
 
+/** 실제 장소 결과의 계획 요약 (backend/candidate_results.py planning). 데모 방에는 없다 */
+type PlanningLike = {
+  must_satisfied: boolean;
+  unplaced_count: number;
+  reason_aggregation?: string;
+  exclusion_reason_counts: Record<string, number>;
+};
 type CandidateLike = {
   metrics: { walkStepsPerDay: number; costKrwPerDay: number };
   days: { items: { placeId: string; source: string }[] }[];
+  planning?: PlanningLike | null;
 };
 type MineLike = {
   picks: string[]; must: string | null; veto: string | null; vetoes?: string[];
@@ -149,13 +157,85 @@ type MineLike = {
 };
 
 /**
- * 실험 모드의 설명 문장 — 5.4 "나에게만 보이는 설명"을 엔진 결과와 내 입력으로 채운다. AI를 쓰지 않는다.
+ * 못 넣은 이유 — 참가자용 짧은 말. 코드는 backend/engine/real_candidates.mjs · live_check.mjs가 낸다.
+ * 여러 날짜에 공통인 이유만 온다(reason_aggregation = common_across_dates). 한 곳에 이유가 여러 개일 수 있다.
+ */
+const UNPLACED_REASON: Record<string, string> = {
+  closed_on_visit_date: "여행 날짜에 모두 휴무",
+  outside_reviewed_date_range: "여행 날짜의 운영 정보가 확인되지 않음",
+  outside_place_reviewed_date_range: "여행 날짜의 운영 정보가 확인되지 않음",
+  budget_exceeded: "하루 예산 초과",
+  step_limit_exceeded: "하루 걸음 한도 초과",
+  active_minutes_exceeded: "하루 활동 시간 초과",
+  requested_place_not_scheduled: "이동·체류 시간을 넣을 시간이 부족",
+  opening_or_last_entry_violation: "영업·입장 마감 시간과 맞지 않음",
+  daily_place_limit: "하루에 갈 수 있는 곳 수가 다 참",
+  strategy_selection_or_capacity: "하루에 갈 수 있는 곳 수가 다 참",
+  date_conditions_vary: "날짜마다 이유가 다름",
+  live_closed_permanently: "폐업",
+  live_closed_temporarily: "임시 휴업",
+  live_closed_on_visit_date: "여행 날짜에 모두 휴무",
+  live_hours_changed: "영업시간이 바뀜",
+};
+
+const OTHER = "그 밖의 운영 조건";
+
+/** 아무도 고르지 않은 곳을 넣은 주체. P8 표시(badgeOf)와 같다: ai_added = "AI 추천", 나머지 = "추천" */
+const FILL_REASON: [source: string, phrase: string][] = [
+  ["ai_added", "모두의 취향·예산에 맞아 AI가 골라 넣었"],
+  // AI가 꺼져 있거나 답이 검증을 통과하지 못하면 같은 후보를 규칙 순서로 넣는다 (backend/engine/real_ai.mjs)
+  ["rule_added", "모두의 취향·예산에 맞아 규칙에 따라 골라 넣었"],
+  ["meal_fill", "빈 식사 시간을 채우려고 넣었"],
+];
+
+/**
+ * 5.4 "모두에게 같은 설명" — 같은 일정을 보는 그룹 모두에게 같은 문장. 실제 장소 결과(planning)가 있을 때만.
+ * 다른 사람의 입력(누구의 1순위·제외·예산·걸음 수치)은 드러내지 않는다. 숫자는 그룹 합계·장소 수만 쓴다.
+ */
+export function groupExplanation(c: CandidateLike): string[] {
+  const p = c.planning;
+  const lines: string[] = [];
+  const unpicked = c.days.flatMap((d) => d.items).filter((it) => it.source !== "selected");
+  const parts = FILL_REASON
+    .map(([source, phrase]) => [unpicked.filter((it) => it.source === source).length, phrase] as const)
+    .filter(([n]) => n > 0);
+  const other = unpicked.length - parts.reduce((a, [n]) => a + n, 0);
+  if (other) parts.push([other, "조건에 맞아 넣었"] as const);
+  if (parts.length === 1) lines.push(`아무도 고르지 않은 ${parts[0][0]}곳은 ${parts[0][1]}어요.`);
+  else if (parts.length > 1) {
+    lines.push(`아무도 고르지 않은 곳 중 ${parts.map(([n, phrase], i) => `${n}곳은 ${phrase}${i < parts.length - 1 ? "고" : "어요."}`).join(", ")}`);
+  }
+  if (!p) return lines;
+  lines.unshift(
+    p.must_satisfied ? "모두의 1순위 꼭 가기가 모두 들어갔어요." : "1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요.",
+    // 실제 장소 경로는 제외한 곳을 후보에서 빼고, 하루마다 그룹에서 가장 적은 걸음 한도로 검사한다
+    "누군가 제외한 곳은 넣지 않았어요.",
+    "하루 걸음 수는 그룹에서 가장 적은 걸음 한도를 넘지 않아요.",
+  );
+  if (p.unplaced_count > 0) {
+    const counts = new Map<string, number>();
+    const known = p.reason_aggregation === "common_across_dates";
+    for (const [code, n] of Object.entries(known ? p.exclusion_reason_counts : {})) {
+      const label = UNPLACED_REASON[code] ?? OTHER;
+      counts.set(label, (counts.get(label) ?? 0) + n);
+    }
+    // 많은 이유부터, 같으면 가나다순. "그 밖의 운영 조건"은 맨 뒤 — 결과마다 문장 순서가 흔들리지 않게
+    const why = [...counts]
+      .sort(([la, a], [lb, b]) => Number(la === OTHER) - Number(lb === OTHER) || b - a || la.localeCompare(lb, "ko"))
+      .map(([label, n]) => `${label} ${n}곳`).join(", ");
+    lines.push(`꼭 가기로 고른 곳 중 ${p.unplaced_count}곳은 넣지 못했어요${why ? ` (${why})` : ""}.`);
+  }
+  return lines;
+}
+
+/**
+ * 실험 모드의 설명 문장 (5.4). 엔진 결과와 내 입력으로 정해진 틀을 채운다. 문장을 만드는 데 AI는 쓰지 않는다.
  * 서버 요약(summary)은 첫 문장에 전략 이름이 들어 있어 실험 화면에 쓰지 않는다.
- * 그룹 공통 설명·빠진 이유 문장은 윤진 담당(실험설계 7장 "설명 문장 만들기")이 붙으면 여기에 더한다.
+ * 순서: 모두에게 같은 설명(groupExplanation) → 나에게만 보이는 설명.
  */
 export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: (id: string) => string): string[] {
   const placed = new Set(c.days.flatMap((d) => d.items.map((it) => it.placeId)));
-  const lines: string[] = [];
+  const lines: string[] = groupExplanation(c);
   const picks = mine.picks;
   if (picks.length) {
     const kept = picks.filter((id) => placed.has(id)).length;
@@ -167,7 +247,8 @@ export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: 
       : `내 1순위 ${nameOf(mine.must)}은(는) 이번 일정에 들어가지 못했어요.`);
   }
   const vetoes = mine.vetoes ?? (mine.veto ? [mine.veto] : []);
-  if (vetoes.length) {
+  // 그룹 문장("누군가 제외한 곳은 넣지 않았어요")이 있으면 같은 말을 반복하지 않는다
+  if (vetoes.length && !(c.planning && vetoes.every((id) => !placed.has(id)))) {
     lines.push(vetoes.some((id) => placed.has(id))
       ? "내가 제외한 곳 중 일부가 들어 있어요."
       : "내가 제외한 곳은 넣지 않았어요.");
@@ -176,14 +257,5 @@ export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: 
   if (mine.budgetPerDay > 0 && mine.stepLimit > 0) {
     lines.push(`하루 예산의 ${pct(c.metrics.costKrwPerDay, mine.budgetPerDay)}%, 걸음 한도의 ${pct(c.metrics.walkStepsPerDay, mine.stepLimit)}%를 써요.`);
   }
-  // 아무도 고르지 않은 곳은 넣은 주체로 나눈다. P8 표시(badgeOf)와 같다: ai_added = "AI 추천", 나머지 = 규칙으로 채운 "추천"
-  const unpicked = c.days.flatMap((d) => d.items).filter((it) => it.source !== "selected");
-  const ai = unpicked.filter((it) => it.source === "ai_added").length;
-  const rule = unpicked.length - ai;
-  const AI_REASON = "모두의 취향·예산에 맞아 AI가 골라 넣었";
-  const RULE_REASON = "빈 식사 시간 등을 채우려고 규칙에 따라 넣었";
-  if (ai && rule) lines.push(`아무도 고르지 않은 곳 중 ${ai}곳은 ${AI_REASON}고, ${rule}곳은 ${RULE_REASON}어요.`);
-  else if (ai) lines.push(`아무도 고르지 않은 ${ai}곳은 ${AI_REASON}어요.`);
-  else if (rule) lines.push(`아무도 고르지 않은 ${rule}곳은 ${RULE_REASON}어요.`);
   return lines;
 }

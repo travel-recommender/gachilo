@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  EXPLAIN_TABLE, LETTERS, STRATEGY_WORDS, assignment, experimentExplanation, experimentStatusLine, explainedLetters, letterMap, seatOf, strategyOf,
+  EXPLAIN_TABLE, LETTERS, STRATEGY_WORDS, assignment, experimentExplanation, experimentStatusLine, explainedLetters, groupExplanation, letterMap, seatOf, strategyOf,
 } from "../src/lib/experiment.ts";
 
 const members = ["m1", "m2", "m3", "m4", "m5", "m6", "m7"];
@@ -73,32 +73,83 @@ test("설명 문장은 내 입력과 엔진 결과로만 채우고 전략 이름
   const mine = { picks: ["a", "b", "c", "d", "e"], must: "d", veto: null, vetoes: ["x"], budgetPerDay: 90000, stepLimit: 9000 };
   const lines = experimentExplanation(cand, mine, (id) => `장소${id}`);
   assert.deepEqual(lines, [
+    "아무도 고르지 않은 1곳은 빈 식사 시간을 채우려고 넣었어요.",
     "내 꼭 가기 5곳 중 3곳이 들어갔어요.",
     "내 1순위 장소d은(는) 이번 일정에 들어가지 못했어요.",
     "내가 제외한 곳은 넣지 않았어요.",
     "하루 예산의 70%, 걸음 한도의 85%를 써요.",
-    "아무도 고르지 않은 1곳은 빈 식사 시간 등을 채우려고 규칙에 따라 넣었어요.",
   ]);
   const text = lines.join(" ");
   for (const w of STRATEGY_WORDS) assert.ok(!text.includes(w), w);
 });
 
-test("AI가 넣은 곳은 규칙으로 넣었다고 설명하지 않는다 (#63 이후 실제 장소 방)", () => {
-  const mine = { picks: ["a"], must: null, veto: null, budgetPerDay: 0, stepLimit: 0 };
+test("아무도 고르지 않은 곳은 넣은 주체(AI·규칙·식사)대로 설명한다 (#63 이후 실제 장소 방)", () => {
   const withItems = (...sources: string[]) => ({
     metrics: { walkStepsPerDay: 0, costKrwPerDay: 0 },
     days: [{ items: [{ placeId: "a", source: "selected" }, ...sources.map((source, i) => ({ placeId: `x${i}`, source }))] }],
   });
-  const last = (...sources: string[]) => experimentExplanation(withItems(...sources), mine, (id) => id).at(-1);
-  // 리뷰 예시: ai_added 1곳 + meal_fill 1곳
-  assert.equal(last("ai_added", "meal_fill"),
-    "아무도 고르지 않은 곳 중 1곳은 모두의 취향·예산에 맞아 AI가 골라 넣었고, 1곳은 빈 식사 시간 등을 채우려고 규칙에 따라 넣었어요.");
-  assert.equal(last("ai_added", "ai_added"), "아무도 고르지 않은 2곳은 모두의 취향·예산에 맞아 AI가 골라 넣었어요.");
-  assert.equal(last("rule_added", "meal_fill"), "아무도 고르지 않은 2곳은 빈 식사 시간 등을 채우려고 규칙에 따라 넣었어요.");
-  assert.equal(last(), "내 꼭 가기 1곳 중 1곳이 들어갔어요.");
-  for (const s of [last("ai_added"), last("ai_added", "meal_fill")]) {
-    for (const w of STRATEGY_WORDS) assert.ok(!s!.includes(w), w);
-  }
+  const fill = (...sources: string[]) => groupExplanation(withItems(...sources))[0];
+  assert.equal(fill("ai_added", "meal_fill"),
+    "아무도 고르지 않은 곳 중 1곳은 모두의 취향·예산에 맞아 AI가 골라 넣었고, 1곳은 빈 식사 시간을 채우려고 넣었어요.");
+  assert.equal(fill("ai_added", "ai_added"), "아무도 고르지 않은 2곳은 모두의 취향·예산에 맞아 AI가 골라 넣었어요.");
+  // AI가 꺼져 있거나 검증에 실패하면 rule_added — 식사 채우기라고 말하지 않는다 (#68 리뷰)
+  assert.equal(fill("rule_added", "rule_added"), "아무도 고르지 않은 2곳은 모두의 취향·예산에 맞아 규칙에 따라 골라 넣었어요.");
+  assert.equal(fill("ai_added", "rule_added", "meal_fill"),
+    "아무도 고르지 않은 곳 중 1곳은 모두의 취향·예산에 맞아 AI가 골라 넣었고, 1곳은 모두의 취향·예산에 맞아 규칙에 따라 골라 넣었고, 1곳은 빈 식사 시간을 채우려고 넣었어요.");
+  assert.deepEqual(groupExplanation(withItems()), []);
+});
+
+const planning = (over = {}) => ({
+  must_satisfied: true, unplaced_count: 0, reason_aggregation: "common_across_dates", exclusion_reason_counts: {}, ...over,
+});
+const realCand = (p: object | null) => ({
+  metrics: { walkStepsPerDay: 8000, costKrwPerDay: 50000 },
+  days: [{ items: [{ placeId: "a", source: "selected" }, { placeId: "b", source: "selected" }] }],
+  planning: p as never,
+});
+
+test("5.4 모두에게 같은 설명: 1순위·제외·걸음 한도·못 넣은 이유", () => {
+  assert.deepEqual(groupExplanation(realCand(planning())), [
+    "모두의 1순위 꼭 가기가 모두 들어갔어요.",
+    "누군가 제외한 곳은 넣지 않았어요.",
+    "하루 걸음 수는 그룹에서 가장 적은 걸음 한도를 넘지 않아요.",
+  ]);
+  const missed = groupExplanation(realCand(planning({
+    must_satisfied: false, unplaced_count: 3,
+    exclusion_reason_counts: { closed_on_visit_date: 1, strategy_selection_or_capacity: 1, daily_place_limit: 1, live_no_match: 1 },
+  })));
+  assert.equal(missed[0], "1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요.");
+  // 같은 뜻의 코드는 합치고, 많은 이유부터 쓴다. 모르는 코드는 '그 밖의 운영 조건'으로 묶어 맨 뒤에
+  assert.equal(missed.at(-1), "꼭 가기로 고른 곳 중 3곳은 넣지 못했어요 (하루에 갈 수 있는 곳 수가 다 참 2곳, 여행 날짜에 모두 휴무 1곳, 그 밖의 운영 조건 1곳).");
+  // 서버가 준 코드 순서가 달라도 같은 문장
+  const shuffled = groupExplanation(realCand(planning({ must_satisfied: false, unplaced_count: 3,
+    exclusion_reason_counts: { live_no_match: 1, daily_place_limit: 1, closed_on_visit_date: 1, strategy_selection_or_capacity: 1 } })));
+  assert.equal(shuffled.at(-1), missed.at(-1));
+  // 집계 기준을 모르는 예전 결과는 이유를 붙이지 않는다
+  const old = groupExplanation(realCand(planning({ unplaced_count: 2, reason_aggregation: "union", exclusion_reason_counts: { closed_on_visit_date: 2 } })));
+  assert.equal(old.at(-1), "꼭 가기로 고른 곳 중 2곳은 넣지 못했어요.");
+});
+
+test("그룹 설명은 다른 사람의 입력을 드러내지 않고, 데모 방(planning 없음)에는 나오지 않는다", () => {
+  const all = groupExplanation(realCand(planning({ must_satisfied: false, unplaced_count: 1, exclusion_reason_counts: { budget_exceeded: 1 } }))).join(" ");
+  // 숫자는 장소 수만. 원·보·% 같은 개인 조건 수치를 쓰지 않는다
+  assert.ok(!/원|보 |%|\d+보/.test(all), all);
+  for (const w of STRATEGY_WORDS) assert.ok(!all.includes(w), w);
+  assert.deepEqual(groupExplanation(realCand(null)), []);
+  assert.deepEqual(groupExplanation(realCand(undefined as never)), []);
+});
+
+test("실제 장소 방: 그룹 설명이 먼저, 내 설명이 뒤. 제외 문장은 반복하지 않는다", () => {
+  const mine = { picks: ["a", "c"], must: "a", veto: null, vetoes: ["z"], budgetPerDay: 100000, stepLimit: 10000 };
+  const lines = experimentExplanation(realCand(planning()), mine, (id) => id);
+  assert.deepEqual(lines, [
+    "모두의 1순위 꼭 가기가 모두 들어갔어요.",
+    "누군가 제외한 곳은 넣지 않았어요.",
+    "하루 걸음 수는 그룹에서 가장 적은 걸음 한도를 넘지 않아요.",
+    "내 꼭 가기 2곳 중 1곳이 들어갔어요.",
+    "내 1순위 a은(는) 들어갔어요.",
+    "하루 예산의 50%, 걸음 한도의 80%를 써요.",
+  ]);
 });
 
 test("실험 안내 문구에는 방장 확정·전략 이름이 없다", () => {

@@ -23,6 +23,13 @@ export interface SharedCandidate {
       endMin?: number;
     }[];
   }[];
+  /** 실제 장소 결과에만 있는 계획 요약 (backend/candidate_results.py). 실험 설명 문장이 쓴다 */
+  planning?: {
+    must_satisfied: boolean;
+    unplaced_count: number;
+    reason_aggregation: string;
+    exclusion_reason_counts: Record<string, number>;
+  } | null;
 }
 export interface SharedResults {
   dataset: string;
