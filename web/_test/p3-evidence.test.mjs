@@ -105,7 +105,7 @@ test('actual P3 add updates longlist only and never persists a recommendation or
   react:h.react,'next/navigation':{useRouter:()=>({push:p=>router.push(p)})},
   '@/components/store':{useTrip:()=>({state,catalog:'real',setMine:p=>{patches.push(p);state.mine={...state.mine,...p};},saveLonglist:async()=>{saved++;}})},
   '@/components/PlaceFinder':{PlaceFinder,placeLine:()=>''},'@/components/PlaceRecommendations':{PlaceRecommendations},
-  '@/lib/p3-limits':{P3_LIST_LIMIT:30},
+  '@/lib/p3-limits':{P3_LIST_LIMIT:30},'@/lib/experiment':{EXPERIMENT_MODE:false},
   '@/lib/places':{CATEGORIES:[{id:'cafe',label:'카페'}],findPlace:id=>places.get(id)},
   '@/components/gachiro':{Box:()=>null,MinusButton:()=>null,NavButtons,Page:()=>null,PlanHeader:()=>null},
  });
@@ -125,6 +125,23 @@ test('actual P3 add updates longlist only and never persists a recommendation or
  assert.equal(nodes(tree).some(n=>n.type===PlaceRecommendations),false);
 });
 
+
+test('experiment mode: P3 never mounts the recommendation card, so no recommendation request can start (실험설계 2.1)',()=>{
+ const h=hooks();const state={room:{roomId:'r',memberId:'m',token:'one'},mine:{longlist:['a'],picks:[],must:null}};
+ const PlaceFinder=()=>null,PlaceRecommendations=()=>null;
+ const {default:Pick}=load('../app/pick/page.tsx',{
+  react:h.react,'next/navigation':{useRouter:()=>({push(){}})},
+  '@/components/store':{useTrip:()=>({state,catalog:'real',setMine:p=>{state.mine={...state.mine,...p};},saveLonglist:async()=>{}})},
+  '@/components/PlaceFinder':{PlaceFinder,placeLine:()=>''},'@/components/PlaceRecommendations':{PlaceRecommendations},
+  '@/lib/p3-limits':{P3_LIST_LIMIT:30},'@/lib/experiment':{EXPERIMENT_MODE:true},
+  '@/lib/places':{CATEGORIES:[{id:'cafe',label:'카페'}],findPlace:id=>places.get(id)},
+  '@/components/gachiro':{Box:()=>null,MinusButton:()=>null,NavButtons:()=>null,Page:()=>null,PlanHeader:()=>null},
+ });
+ let tree=h.render(Pick);nodes(tree).find(n=>n.type===PlaceFinder).props.onPick(places.get('b'));
+ tree=h.render(Pick);
+ assert.deepEqual(state.mine.longlist,['a','b']);
+ assert.equal(nodes(tree).some(n=>n.type===PlaceRecommendations),false);
+});
 
 test('list edits preserve the batch without refetch; explicit retry captures current exclusions',async()=>{
  const h=harness();h.view(request);h.flush();

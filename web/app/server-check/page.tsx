@@ -1,10 +1,18 @@
 'use client';
+import { EXPERIMENT_MODE } from "@/lib/experiment";
+import { ExperimentClosed } from "@/components/ExperimentClosed";
 import {useEffect, useState} from 'react';
 import Link from 'next/link';
 import {roomApi, type ApiRoom, type ApiPlace, type ApiResult} from '@/lib/room-api';
 import {Body, Card, Screen, TopBar, Notice} from '@/components/ui';
 
+/** 실험 모드에서는 전략 이름이 드러나는 연구·점검 화면을 열지 않는다 (실험설계 2장·5.4) */
 export default function ServerCheck() {
+  if (EXPERIMENT_MODE) return <ExperimentClosed />;
+  return <ServerCheckInner />;
+}
+
+function ServerCheckInner() {
   const [places,setPlaces]=useState<ApiPlace[]>([]),[room,setRoom]=useState<ApiRoom|null>(null),[result,setResult]=useState<ApiResult|null>(null);
   const [names,setNames]=useState('조은, 윤진, 혜인'),[start,setStart]=useState(''),[end,setEnd]=useState('');
   const [memberId,setMemberId]=useState(''),[picks,setPicks]=useState<string[]>([]),[must,setMust]=useState(''),[veto,setVeto]=useState('');
