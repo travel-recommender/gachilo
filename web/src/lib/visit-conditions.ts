@@ -10,7 +10,11 @@ export interface VisitNotice { code: string; source: "review" | "live"; text: st
 export interface VisitDay {
   date: string;
   status: VisitStatus;
-  hours: { open: string; close: string; lastEntry: string | null }[];
+  /** 카탈로그에 검토해 둔 실제 영업·입장 시간 문장. 휴무일이거나 기록이 없으면 null */
+  openingHours: string | null;
+  /** 일정 엔진이 이 장소를 넣는 시간. 가격 조건 등으로 실제 영업보다 좁을 수 있다. latestStart는 입장 마감이 아니라 방문을 시작하는 마지막 시각 */
+  scheduleHours: { open: string; close: string; latestStart: string | null }[];
+  /** 일정에 넣는 시간·가격을 그렇게 정한 조건 (예: 점심 가격 11~16시) */
   costBasis: string | null;
   live: LiveStatus;
   notices: VisitNotice[];
@@ -59,8 +63,8 @@ export function decodeVisitConditions(value: unknown, request: VisitRequest): Vi
     for (const s of p.sources) if (!obj(s) || !safeUrl(s.url) || !str(s.label) || !strOrNull(s.checkedAt)) throw invalid();
     (p.dates as unknown[]).forEach((d, j) => {
       if (!obj(d) || d.date !== request.dates[j] || !str(d.status) || !STATUSES.has(d.status) || !str(d.live) || !LIVE.has(d.live)
-        || !strOrNull(d.costBasis) || !Array.isArray(d.hours) || !Array.isArray(d.notices)) throw invalid();
-      for (const h of d.hours) if (!obj(h) || !time(h.open) || !time(h.close) || !(h.lastEntry === null || time(h.lastEntry))) throw invalid();
+        || !strOrNull(d.costBasis) || !strOrNull(d.openingHours) || !Array.isArray(d.scheduleHours) || !Array.isArray(d.notices)) throw invalid();
+      for (const h of d.scheduleHours) if (!obj(h) || !time(h.open) || !time(h.close) || !(h.latestStart === null || time(h.latestStart))) throw invalid();
       for (const n of d.notices) if (!obj(n) || !str(n.code) || (n.source !== "review" && n.source !== "live") || !str(n.text)) throw invalid();
     });
   });
@@ -109,7 +113,8 @@ export const STATUS_LABEL: Record<VisitStatus, string> = { confirmed: "확인됨
 export function liveLine(live: LiveStatus, checkedOn: string | null): string {
   const on = checkedOn ? `${Number(checkedOn.slice(5, 7))}월 ${Number(checkedOn.slice(8, 10))}일` : null;
   switch (live) {
-    case "confirmed": return on ? `${on} 실시간 조회에서 영업이 확인됐어요.` : "실시간 조회에서 영업이 확인됐어요.";
+    // 실시간 조회는 Google 영업시간이 '일정에 넣는 시간'을 덮는지 본다
+    case "confirmed": return `${on ? `${on} ` : ""}실시간 조회에서 일정에 넣는 시간에 영업하는 것으로 확인됐어요.`;
     case "changed": return "실시간 조회한 영업시간이 검토 자료와 달라요.";
     case "closed": return "실시간 조회에서 이 날은 영업하지 않는 것으로 나와요.";
     case "failed": return "실시간 조회에 실패했어요. 공식 안내로 확인해 주세요.";
@@ -118,9 +123,17 @@ export function liveLine(live: LiveStatus, checkedOn: string | null): string {
   }
 }
 
-export const hoursLine = (d: VisitDay) => d.hours.length
-  ? d.hours.map((h) => `${h.open}~${h.close}${h.lastEntry ? ` (입장 마감 ${h.lastEntry})` : ""}`).join(", ")
-  : "영업시간 정보 없음";
+/** 실제 영업시간 한 줄 (검토 자료 문장 그대로) */
+export const openingLine = (d: VisitDay) => d.openingHours ?? "영업시간 정보 없음";
+
+/** 일정에 넣는 시간 한 줄. 영업시간이 아니다 — 가격 조건 등으로 좁게 잡은 구간일 수 있다 */
+export const scheduleLine = (d: VisitDay) => d.scheduleHours.length
+  ? d.scheduleHours.map((h) => `${h.open}~${h.close}${h.latestStart ? ` (늦어도 ${h.latestStart} 시작)` : ""}`).join(", ")
+  : null;
+
+/** 실시간 조회를 다시 눌러 볼 만한 상태 — 조회 실패·조회 불가 (HTTP 200 안에 담겨 온다) */
+export const canRetryLive = (data: VisitConditions) =>
+  data.liveSource === "unavailable" || data.places.some((p) => p.dates.some((d) => d.live === "failed" || d.live === "unavailable"));
 
 /** 출처 링크 옆에 보여줄 사이트 이름 (같은 이름의 출처가 여러 개일 때 구분용) */
 export function sourceHost(url: string): string {

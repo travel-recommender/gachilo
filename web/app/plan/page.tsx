@@ -179,8 +179,9 @@ function PlanInner() {
             <p className="mt-2 text-right text-[11px] font-medium text-mute-soft">한 칸을 꾹 누르면 순서를 바꿀 수 있어요</p>
           )}
           {online && shared.error && <p className="mt-2 text-[12px] leading-relaxed text-wine">{shared.error}</p>}
-          {/* 실제 장소 방: 그날 장소의 휴무·영업시간·예약 조건을 출처와 함께 (이슈 #6 RAG) */}
-          {online && catalog === "real" && state.room && final?.days[day - 1] && (
+          {/* 실제 장소 방: 그날 장소의 휴무·영업시간·예약 조건을 출처와 함께 (이슈 #6 RAG).
+              실험 모드에서는 끈다 — 설명 있음/없음 조건과 섞인다 (H4 2.1) */}
+          {online && !EXPERIMENT_MODE && catalog === "real" && state.room && final?.days[day - 1] && (
             <VisitConditionsPanel roomId={state.room.roomId} token={state.room.ownerToken ?? state.room.token}
               placeIds={ids.filter((id) => !id.startsWith("custom_"))} date={final.days[day - 1].date} />
           )}

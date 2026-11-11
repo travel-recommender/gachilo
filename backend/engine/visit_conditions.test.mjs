@@ -40,7 +40,9 @@ test('검토 자료와 실시간 조회가 모두 맞으면 확인됨, 영업시
   assert.equal(day.status, 'confirmed');
   assert.equal(day.live, 'confirmed');
   assert.deepEqual(day.notices, []);
-  assert.ok(day.hours.length >= 1 && /^\d\d:\d\d$/.test(day.hours[0].open));
+  assert.ok(day.scheduleHours.length >= 1 && /^\d\d:\d\d$/.test(day.scheduleHours[0].open));
+  assert.equal(typeof day.openingHours, 'string');
+  assert.equal('hours' in day, false);
   assert.ok(place.sources.length >= 1);
   for (const s of place.sources) assert.match(s.url, /^https?:\/\//);
   assert.deepEqual(check.calls, ['osaka_007|2026-11-17']);
@@ -75,7 +77,7 @@ test('실시간 조회를 할 수 없으면(키 없음·오류) 검토 자료는
   const [day] = out.places[0].dates;
   assert.equal(day.status, 'check');
   assert.equal(day.live, 'unavailable');
-  assert.ok(day.hours.length >= 1);
+  assert.ok(day.scheduleHours.length >= 1);
   assert.ok(day.notices.some(n => n.code === 'live_unavailable'));
 });
 
@@ -99,4 +101,26 @@ test('출처는 URL마다 한 번, 가장 최근 확인일을 남긴다', () => 
   assert.deepEqual(sourcesOf({field_sources: {website: {url: 'javascript:alert(1)'}}}, null), []);
   assert.deepEqual(sourcesOf({field_sources: {website: {kind: 'osm', url: 'https://www.openstreetmap.org/node/1'}}}, null),
     [{url: 'https://www.openstreetmap.org/node/1', label: '지도 정보', checkedAt: null}]);
+});
+
+test('일정 엔진이 가격 조건으로 좁힌 구간을 영업시간으로 내보내지 않는다 (카니도라쿠 점심·이치란 심야 할증)', async () => {
+  const day = async id => (await visitConditions({placeIds: [id], dates: ['2026-11-16']}, dataset, profiles, {liveCheck: live()})).places[0].dates[0];
+  const kani = await day('osaka_025');
+  assert.match(kani.openingHours, /11:00–23:00/);
+  assert.match(kani.openingHours, /최종입장22:00/);
+  assert.deepEqual(kani.scheduleHours, [{open: '11:00', close: '16:00', latestStart: null}]);
+  assert.match(kani.costBasis, /점심/);
+  const ichiran = await day('osaka_026');
+  assert.match(ichiran.openingHours, /카운터 24시간/);
+  assert.match(ichiran.openingHours, /테이블석 08:00–23:00/);
+  assert.deepEqual(ichiran.scheduleHours, [{open: '08:00', close: '22:00', latestStart: null}]);
+  assert.match(ichiran.costBasis, /심야 할증/);
+});
+
+test('휴무일에는 영업시간도 일정에 넣는 시간도 보여주지 않는다', async () => {
+  const run = await visitConditions({placeIds: ['osaka_008'], dates: ['2026-11-19']}, dataset, profiles, {liveCheck: live()});
+  const [day] = run.places[0].dates;
+  assert.equal(day.status, 'closed');
+  assert.equal(day.openingHours, null);
+  assert.deepEqual(day.scheduleHours, []);
 });

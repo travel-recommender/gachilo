@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useVisitConditions } from "@/components/useVisitConditions";
-import { STATUS_LABEL, hoursLine, liveLine, sourceHost, type VisitRequest, type VisitStatus } from "@/lib/visit-conditions";
+import { STATUS_LABEL, canRetryLive, liveLine, openingLine, scheduleLine, sourceHost, type VisitRequest, type VisitStatus } from "@/lib/visit-conditions";
 
 const CHIP: Record<VisitStatus, string> = {
   confirmed: "bg-emerald-50 text-emerald-700",
@@ -19,9 +19,12 @@ const dateLabel = (iso: string) => `${Number(iso.slice(5, 7))}월 ${Number(iso.s
 export function VisitConditionsPanel({ roomId, token, placeIds, date }: {
   roomId: string; token: string; placeIds: string[]; date: string;
 }) {
-  // 누른 날·장소 묶음만 기억한다. 다른 날로 넘기면 다시 눌러야 조회한다
-  const [asked, setAsked] = useState<string | null>(null);
+  // 누른 날·장소 묶음만 기억한다. 방·날짜·장소가 바뀌면 누른 기록을 지운다 —
+  // 돌아왔을 때 누르지 않았는데 다시 조회하면(특히 캐시되지 않는 실패 응답) 유료 요청이 반복된다
   const key = JSON.stringify([roomId, date, placeIds]);
+  const [asked, setAsked] = useState<string | null>(null);
+  const [seenKey, setSeenKey] = useState(key);
+  if (seenKey !== key) { setSeenKey(key); setAsked(null); }
   const request: VisitRequest | null = asked === key && placeIds.length ? { roomId, token, placeIds, dates: [date] } : null;
   const { data, error, loading, retry } = useVisitConditions(request);
 
@@ -59,7 +62,13 @@ export function VisitConditionsPanel({ roomId, token, placeIds, date }: {
                   <span className="min-w-0 flex-1 truncate text-[13px] font-bold">{p.name}</span>
                   <span className={`shrink-0 rounded-[20px] px-2 py-[2px] text-[10.5px] font-bold ${CHIP[d.status]}`}>{STATUS_LABEL[d.status]}</span>
                 </div>
-                <p className="mt-1 text-[11.5px] text-ink-700">영업 {hoursLine(d)}</p>
+                <p className="mt-1 text-[11.5px] text-ink-700">영업 {openingLine(d)}</p>
+                {scheduleLine(d) && (
+                  <p className="mt-1 text-[11px] leading-snug text-ink-700">
+                    일정에 넣는 시간 {scheduleLine(d)}
+                    {d.costBasis && <span className="block text-mute">{d.costBasis}</span>}
+                  </p>
+                )}
                 {d.notices.filter((n) => n.source === "review").map((n) => (
                   <p key={n.code} className="mt-1 text-[11.5px] font-semibold leading-snug text-amber-700">{n.text}</p>
                 ))}
@@ -82,6 +91,11 @@ export function VisitConditionsPanel({ roomId, token, placeIds, date }: {
             );
           })}
         </ul>
+      )}
+      {data && canRetryLive(data) && (
+        <button onClick={retry} className="mt-3 h-[28px] rounded-[20px] border border-wine px-[10px] text-[12px] font-semibold text-wine">
+          실시간 조회 다시 확인하기
+        </button>
       )}
       {data && (
         <p className="mt-3 text-[10px] leading-relaxed text-mute-soft">

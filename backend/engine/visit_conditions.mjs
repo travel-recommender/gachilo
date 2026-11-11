@@ -65,7 +65,8 @@ export function sourcesOf(record, profile) {
   return [...out.values()];
 }
 
-/** 한 장소·날짜의 조건. live: 실시간 판정 이유 목록(빈 배열=확인됨) · null=조회 안 함 · 'unavailable'=조회 불가 */
+/** 한 장소·날짜의 조건. live: 실시간 판정 이유 목록(빈 배열=확인됨) · null=조회 안 함 · 'unavailable'=조회 불가.
+ * 실시간 '확인됨'은 Google 영업시간이 일정에 넣는 시간(scheduleHours)을 덮는다는 뜻이다 (live_check.mjs) */
 export function conditionOf(record, date, profiles, live) {
   const check = availability(record, date, profiles, {allowShopping: true});
   const notices = [];
@@ -83,9 +84,14 @@ export function conditionOf(record, date, profiles, live) {
     notices.push({code: 'review_incomplete', source: 'review', text: OTHER_REVIEW.text});
     worse(OTHER_REVIEW.status);
   }
-  const hours = status === 'closed' ? [] : (check.windows ?? (check.window ? [check.window] : []))
+  // 실제 영업시간과 일정에 넣는 시간을 나눈다. 일정 엔진의 window는 점심 가격·심야 할증처럼 가격 조건 때문에
+  // 실제 영업보다 좁게 잡은 곳이 있다(예: 카니도라쿠 영업 11–23시, 일정은 점심 가격 11–16시).
+  // 그래서 window를 영업시간이라고 부르지 않는다. 영업시간은 카탈로그에 검토해 둔 문장 그대로 준다.
+  const openingHours = status === 'closed' ? null : record.place.opening_hours ?? null;
+  // latestStart: 일정 엔진이 이 시각 이후로는 방문을 시작하지 않는다 (입장 마감이 아니다)
+  const scheduleHours = status === 'closed' ? [] : (check.windows ?? (check.window ? [check.window] : []))
     .filter(w => Array.isArray(w) && w.length === 3)
-    .map(([open, close, lastEntry]) => ({open: hhmm(open), close: hhmm(close), lastEntry: lastEntry < close ? hhmm(lastEntry) : null}));
+    .map(([open, close, latest]) => ({open: hhmm(open), close: hhmm(close), latestStart: latest < close ? hhmm(latest) : null}));
 
   let liveStatus;
   if (live === 'unavailable') {
@@ -103,7 +109,8 @@ export function conditionOf(record, date, profiles, live) {
     for (const code of live) notices.push({code, source: 'live', text: LIVE_TEXT[code] ?? '실시간 조회 결과를 확인할 수 없어요.'});
     worse(liveStatus === 'closed' ? 'closed' : 'check');
   }
-  return {date, status, hours, costBasis: check.cost_basis ?? null, live: liveStatus, notices};
+  // costBasis: 일정에 넣는 시간·가격을 그렇게 정한 조건. 화면에서 일정에 넣는 시간과 함께 보여준다
+  return {date, status, openingHours, scheduleHours, costBasis: check.cost_basis ?? null, live: liveStatus, notices};
 }
 
 /** 요청 검사. 잘못되면 Error */
