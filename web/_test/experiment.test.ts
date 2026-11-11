@@ -83,6 +83,24 @@ test("설명 문장은 내 입력과 엔진 결과로만 채우고 전략 이름
   for (const w of STRATEGY_WORDS) assert.ok(!text.includes(w), w);
 });
 
+test("AI가 넣은 곳은 규칙으로 넣었다고 설명하지 않는다 (#63 이후 실제 장소 방)", () => {
+  const mine = { picks: ["a"], must: null, veto: null, budgetPerDay: 0, stepLimit: 0 };
+  const withItems = (...sources: string[]) => ({
+    metrics: { walkStepsPerDay: 0, costKrwPerDay: 0 },
+    days: [{ items: [{ placeId: "a", source: "selected" }, ...sources.map((source, i) => ({ placeId: `x${i}`, source }))] }],
+  });
+  const last = (...sources: string[]) => experimentExplanation(withItems(...sources), mine, (id) => id).at(-1);
+  // 리뷰 예시: ai_added 1곳 + meal_fill 1곳
+  assert.equal(last("ai_added", "meal_fill"),
+    "아무도 고르지 않은 곳 중 1곳은 모두의 취향·예산에 맞아 AI가 골라 넣었고, 1곳은 빈 식사 시간 등을 채우려고 규칙에 따라 넣었어요.");
+  assert.equal(last("ai_added", "ai_added"), "아무도 고르지 않은 2곳은 모두의 취향·예산에 맞아 AI가 골라 넣었어요.");
+  assert.equal(last("rule_added", "meal_fill"), "아무도 고르지 않은 2곳은 빈 식사 시간 등을 채우려고 규칙에 따라 넣었어요.");
+  assert.equal(last(), "내 꼭 가기 1곳 중 1곳이 들어갔어요.");
+  for (const s of [last("ai_added"), last("ai_added", "meal_fill")]) {
+    for (const w of STRATEGY_WORDS) assert.ok(!s!.includes(w), w);
+  }
+});
+
 test("실험 안내 문구에는 방장 확정·전략 이름이 없다", () => {
   for (const status of ["collecting", "awaiting_result", "calculating", "awaiting_selection", "ready"]) {
     const line = experimentStatusLine({ status, submittedCount: 3, memberCount: 3 }, true, true);

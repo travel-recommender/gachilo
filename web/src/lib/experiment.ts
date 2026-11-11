@@ -176,7 +176,14 @@ export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: 
   if (mine.budgetPerDay > 0 && mine.stepLimit > 0) {
     lines.push(`하루 예산의 ${pct(c.metrics.costKrwPerDay, mine.budgetPerDay)}%, 걸음 한도의 ${pct(c.metrics.walkStepsPerDay, mine.stepLimit)}%를 써요.`);
   }
-  const added = c.days.flatMap((d) => d.items).filter((it) => it.source !== "selected").length;
-  if (added) lines.push(`아무도 고르지 않은 ${added}곳은 빈 식사 시간 등을 채우려고 규칙에 따라 넣었어요.`);
+  // 아무도 고르지 않은 곳은 넣은 주체로 나눈다. P8 표시(badgeOf)와 같다: ai_added = "AI 추천", 나머지 = 규칙으로 채운 "추천"
+  const unpicked = c.days.flatMap((d) => d.items).filter((it) => it.source !== "selected");
+  const ai = unpicked.filter((it) => it.source === "ai_added").length;
+  const rule = unpicked.length - ai;
+  const AI_REASON = "모두의 취향·예산에 맞아 AI가 골라 넣었";
+  const RULE_REASON = "빈 식사 시간 등을 채우려고 규칙에 따라 넣었";
+  if (ai && rule) lines.push(`아무도 고르지 않은 곳 중 ${ai}곳은 ${AI_REASON}고, ${rule}곳은 ${RULE_REASON}어요.`);
+  else if (ai) lines.push(`아무도 고르지 않은 ${ai}곳은 ${AI_REASON}어요.`);
+  else if (rule) lines.push(`아무도 고르지 않은 ${rule}곳은 ${RULE_REASON}어요.`);
   return lines;
 }
