@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {calculateRealCandidates} from './real_candidates.mjs';
+import {mockLiveCheck} from './live_check.mjs';
+// 기존 검사는 구성원 장소만 쓰는 경로를 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
+const offline = {liveCheck: mockLiveCheck('pass'), choose: null};
 import {allPlaces, findPlace, withPlaceCatalog} from './places.ts';
 import {loadInputs, availability, validateDay} from '../../scripts/validate_real_schedule.mjs';
 const {dataset, profiles} = loadInputs();
@@ -9,7 +12,7 @@ const request = (ids, extra = {}) => ({startDate:'2026-10-01',endDate:'2026-10-0
   submissions:['private-a','private-b','private-c'].map(memberId => ({memberId,longlist:ids,picks:ids,
     must:null,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720,
     tradeoffs:{pace:1,distance:0.5,spend:1},...extra}))});
-const run = r => calculateRealCandidates(r,dataset,profiles,{baseUrl:''});
+const run = r => calculateRealCandidates(r,dataset,profiles,{baseUrl:''},offline);
 
 test('actual IDs, times, dates, metrics and private projection are independently verifiable',async()=>{
   const r=request(['osaka_009','osaka_015','osaka_017']);
@@ -105,7 +108,7 @@ test('real strategy selection is not three renamed average results; pace also ch
   const r=request([]);r.exchange_rate.krw_per_jpy='1';
   const picks=[['1','3','4'],['2','5','6'],['0','1','4','5']];
   r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],budgetPerDay:[11000,10000,17000][i],tradeoffs:{pace:0,distance:0.5,spend:1}}));
-  const runFixture=()=>calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
+  const runFixture=()=>calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''},offline);
   const low=await runFixture();
   // least_misery는 찜이 하나도 안 들어간 멤버(picks 2·5·6)의 찜 5를 넣는다. 예전 ['1','0']은 그 멤버가 0/3이었다.
   assert.deepEqual(low.candidates.map(c=>c.days[0].placeIds),[['1','4'],['1','5'],['1','4']]);
@@ -132,7 +135,7 @@ test('a higher-ranked place that fails the day checks leaves its slot to the nex
   const r=request([]);r.exchange_rate.krw_per_jpy='1';
   const picks=[['0','1'],['0','1'],['0','1','2']];
   r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],activeMin:300,tradeoffs:{pace:0,distance:0.5,spend:1}}));
-  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
+  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''},offline);
   for(const c of candidates){
     assert.ok(!c.days[0].placeIds.includes('0'));
     assert.deepEqual([...c.days[0].placeIds].sort(),['1','2']);
@@ -145,7 +148,7 @@ test('least_misery remembers earlier days: the member left out on day 1 is serve
   const r=request([]);r.exchange_rate.krw_per_jpy='1';r.endDate='2026-10-02';
   const picks=[['2','5','1'],['4','3','0'],['1','5']];
   r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],tradeoffs:{pace:0,distance:0.5,spend:1}}));
-  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
+  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''},offline);
   const lm=candidates.find(c=>c.strategy==='least_misery');
   const kept=new Set(lm.days.flatMap(d=>d.placeIds));
   const minRate=Math.min(...picks.map(p=>p.filter(id=>kept.has(id)).length/p.length));
@@ -161,14 +164,14 @@ test('each member\'s first must is tried even when it exceeds the pace slot coun
   const {records,fixtureProfiles}=fixture(['문화','문화','문화']);
   const r=request([]);r.exchange_rate.krw_per_jpy='1';
   r.submissions.forEach((s,i)=>Object.assign(s,{picks:[String(i)],must:String(i),activeMin:300,tradeoffs:{pace:0,distance:0.5,spend:1}}));
-  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''});
+  const {candidates}=await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''},offline);
   for(const c of candidates){
     assert.deepEqual([...c.days[0].placeIds].sort(),['0','1','2'],c.strategy);
     assert.doesNotMatch(c.summary,/꼭 가는 장소 조건이 충족되지/);
   }
   // 검사는 우회하지 않는다: 활동시간이 모자라면 1순위라도 빠진다.
   r.submissions.forEach(s=>s.activeMin=60);
-  for(const c of (await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''})).candidates){
+  for(const c of (await calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''},offline)).candidates){
     assert.ok(c.days[0].placeIds.length<3,c.strategy);
     assert.match(c.summary,/꼭 가는 장소 조건이 충족되지/);
   }

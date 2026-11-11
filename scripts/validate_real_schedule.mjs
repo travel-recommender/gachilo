@@ -24,7 +24,8 @@ export function loadRuntimeInputs() {
     profiles: JSON.parse(fs.readFileSync(profiles || new URL(manifest.profiles, root), 'utf8')),
   };
 }
-const categories = {명소: 'landmark', 문화: 'culture', 자연: 'nature', 쇼핑: 'shopping', 카페: 'cafe', 식사: 'food', '체험·오락': 'activity'};
+// 복합문화: 덴시바 이나(2026-10-14 사용자 분류 결정). 웹 catalog.ts와 같이 culture로 읽는다
+const categories = {명소: 'landmark', 문화: 'culture', 복합문화: 'culture', 자연: 'nature', 쇼핑: 'shopping', 카페: 'cafe', 식사: 'food', '체험·오락': 'activity'};
 export const engineCategory = category => categories[category];
 const shoppingRecord = r => r.place.category === '쇼핑'
   || ['구로몬시장', '신사이바시스지 상점가', '아메리카무라', '신세카이'].includes(r.place.name_ko)

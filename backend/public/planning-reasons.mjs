@@ -14,6 +14,15 @@ const labels = {
   opening_or_last_entry_violation: '방문 순서와 영업·입장 마감시간이 맞지 않음',
   daily_place_limit: '하루 최대 방문 장소 수 초과',
   date_conditions_vary: '날짜별 미배치 사유가 다름 (휴무·검증 범위·일정 한도 등)',
+  // live_check.mjs: Google 지도 실시간 확인에서 떨어진 사유
+  live_closed_permanently: '실시간 확인: 폐업',
+  live_closed_temporarily: '실시간 확인: 임시 휴업',
+  live_closed_on_visit_date: '실시간 확인: 모든 여행일 휴무',
+  live_hours_changed: '실시간 확인: 영업시간이 데이터와 다름',
+  live_hours_unavailable: '실시간 확인: 영업시간 정보 없음',
+  live_status_unknown: '실시간 확인: 영업 상태 확인 불가',
+  live_no_match: '실시간 확인: 지도에서 같은 장소를 찾지 못함',
+  live_lookup_failed: '실시간 확인: 조회 실패',
 };
 
 // Persisted results predating this marker used a union of reasons across dates.
