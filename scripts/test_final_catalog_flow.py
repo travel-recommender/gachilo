@@ -2,7 +2,7 @@ import os,sys,json,tempfile,threading,urllib.request,urllib.error
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 for key in ('REAL_CATALOG_PATH','REAL_PROFILES_PATH'):os.environ.pop(key,None)
-os.environ.update(NODE_BINARY=os.environ.get('NODE_BINARY','node'),JPY_TO_KRW='8.6253',JPY_TO_KRW_AS_OF='2026-09-30',JPY_TO_KRW_SOURCE='하나은행 https://kebhana.com/cont/mall/mall15/mall1501/index.jsp',OSRM_FOOT_URL='',SOMSOM_API_KEY='',AI_MOCK='')
+os.environ.update(NODE_BINARY=os.environ.get('NODE_BINARY','node'),JPY_TO_KRW='8.6253',JPY_TO_KRW_AS_OF='2026-09-30',JPY_TO_KRW_SOURCE='하나은행 https://kebhana.com/cont/mall/mall15/mall1501/index.jsp',OSRM_FOOT_URL='',SOMSOM_API_KEY='',AI_MOCK='',LIVE_CHECK_MOCK='pass')
 sys.path.insert(0,str(ROOT/'backend'))
 from server import make_server,Store
 from candidate_engine import CandidateEngine

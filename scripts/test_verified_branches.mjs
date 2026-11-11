@@ -5,6 +5,9 @@ import {availability,validateDay,toEnginePlace} from './validate_real_schedule.m
 import {isMeal,buildSchedule} from '../backend/engine/schedule.ts';
 import {travel} from '../backend/engine/routing.ts';
 import {calculateRealCandidates} from '../backend/engine/real_candidates.mjs';
+import {mockLiveCheck} from '../backend/engine/live_check.mjs';
+// 지점 검증은 구성원 장소만 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
+const offline={liveCheck:mockLiveCheck('pass'),choose:null};
 const read=f=>JSON.parse(fs.readFileSync(new URL('../data/final/'+f,import.meta.url)));
 const data=read('osaka_catalog_20261026.json'), profiles=read('osaka_profiles_20261026.json');
 const verification=read('branch_verification_20261026.json');
@@ -25,7 +28,7 @@ test('51 verified branches each pass dated scheduling and all three real candida
     assert.deepEqual(day.items.map(p=>p.place_id),[id]);
     const req={startDate:'2026-10-27',endDate:'2026-10-27',exchange_rate:{krw_per_jpy:'8.6253',as_of:'2026-09-30'},
       submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};
-    const {candidates}=await calculateRealCandidates(req,data,profiles,{baseUrl:''});
+    const {candidates}=await calculateRealCandidates(req,data,profiles,{baseUrl:''},offline);
     assert.equal(candidates.length,3);
     for(const c of candidates) assert.deepEqual(c.days[0].placeIds,[id],id+' '+c.strategy);
   }
@@ -98,7 +101,7 @@ test('same-building transfer is explicit, and separate building wings are not co
 
 test('shared candidate summary reports the same indoor transfer and estimated cost as its schedule',async()=>{
  const calculate=async ids=>calculateRealCandidates({startDate:'2026-10-27',endDate:'2026-10-27',exchange_rate:{krw_per_jpy:'8.6253',as_of:'2026-09-30'},
-   submissions:['a','b'].map(memberId=>({memberId,longlist:ids,picks:ids,must:null,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))},data,profiles,{baseUrl:''});
+   submissions:['a','b'].map(memberId=>({memberId,longlist:ids,picks:ids,must:null,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))},data,profiles,{baseUrl:''},offline);
  const ids=['branch_gu_links_umeda','branch_daiso_links_umeda'];
  for(const c of (await calculate(ids)).candidates){
    assert.deepEqual(new Set(c.days[0].placeIds),new Set(ids));

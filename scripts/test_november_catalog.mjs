@@ -3,6 +3,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {loadRuntimeInputs,availability,validateDay} from './validate_real_schedule.mjs';
 import {calculateRealCandidates} from '../backend/engine/real_candidates.mjs';
+import {mockLiveCheck} from '../backend/engine/live_check.mjs';
+// 새로 검증한 장소가 배치되는지만 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
+const offline={liveCheck:mockLiveCheck('pass'),choose:null};
 const {dataset,profiles}=loadRuntimeInputs();
 const evidence=JSON.parse(fs.readFileSync(new URL('../data/final/catalog_verification_20261104.json',import.meta.url)));
 const byId=new Map(dataset.places.map(r=>[r.place.place_id,r]));
@@ -18,7 +21,7 @@ test('newly verified places actually fit all three candidate strategies',async()
   assert.equal(result.passed_model_checks,true,id+': '+JSON.stringify(result.violations));
   const req={startDate:'2026-11-04',endDate:'2026-11-04',exchange_rate:{krw_per_jpy:'9.0'},
    submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,budgetPerDay:100000,stepLimit:30000,activeMin:900,tradeoffs:{pace:1,distance:.5,spend:1}}))};
-  const {candidates}=await calculateRealCandidates(req,dataset,profiles,{baseUrl:''});
+  const {candidates}=await calculateRealCandidates(req,dataset,profiles,{baseUrl:''},offline);
   assert.equal(candidates.length,3);
   for(const c of candidates)assert.deepEqual(c.days[0].placeIds,[id],id+' '+c.strategy);
  }

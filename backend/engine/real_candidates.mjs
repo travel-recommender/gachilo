@@ -7,6 +7,8 @@ import {buildConsensus} from './consensus.ts';
 import {distanceWeightFor, groupTradeoffs, slotsPerDayFor, spendCapFor} from './inputs.ts';
 import {withPlaceCatalog} from './places.ts';
 import {withRouting, conditionSummary, routingSummary} from './routing.ts';
+import {defaultLiveCheck} from './live_check.mjs';
+import {buildPool, choose, REASON_TEXT} from './real_ai.mjs';
 
 const STRATEGIES = ['average', 'least_misery', 'fairness'];
 const LABELS = {average: '평균 만족', least_misery: '최소 불만', fairness: '공정성'};
@@ -21,16 +23,27 @@ function datesFor(request) {
   return dates;
 }
 
+const vetoesOf = request => new Set(request.submissions.flatMap(s => s.vetoes ?? (s.veto ? [s.veto] : [])));
+const mustsOf = request => new Set(request.submissions.flatMap(s => s.musts ?? (s.must ? [s.must] : [])));
+const limitsFor = request => ({
+  budget_krw: spendCapFor(Math.min(...request.submissions.map(s => s.budgetPerDay)), groupTradeoffs(request.submissions).spend),
+  step_limit: Math.min(...request.submissions.map(s => s.stepLimit)),
+  active_min: Math.min(...request.submissions.map(s => s.activeMin)),
+  krw_per_jpy: request.exchange_rate.krw_per_jpy,
+});
+const passed = (live, id, date) => live.verdicts.get(`${id}|${date}`)?.length === 0;
+
 /** Call the existing strategy implementation separately for each date/strategy.
  * Only picked, date-eligible real places enter its registry, so neither consensus nor scheduling
  * can introduce a demo place or an unreviewed filler. Missing popularity is left missing.
  * listed: places someone put in their step-1 list (P3) without marking 꼭 가기. They are tried
- * after the picks to fill empty slots — still only places a member chose, never the rest of the catalogue.
+ * after the picks to fill empty slots.
+ * live: every place-date must pass the live check (live_check.mjs) before it can be placed.
+ * ai: places nobody listed (real_ai.mjs), tried last and only for slots the members' places left empty.
  */
-function calculatePrepared(request, dataset, profiles, dates, picked, listed = []) {
+function calculatePrepared(request, dataset, profiles, dates, picked, listed = [], live, ai = null) {
   const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
-  const vetoes = new Set(request.submissions.flatMap(s => s.vetoes ?? (s.veto ? [s.veto] : [])));
-  const musts = new Set(request.submissions.flatMap(s => s.musts ?? (s.must ? [s.must] : [])));
+  const vetoes = vetoesOf(request), musts = mustsOf(request);
   // 각 참여자의 1순위 꼭 가기(거부된 곳은 건너뛰고 다음 순위가 이어받음). inputs.ts의 mustRounds와 같은 규칙이다.
   // pace 자리 수가 이것을 잘라내지 않는다. 운영·예산·걷기·활동시간 검사는 그대로 적용한다.
   const firstMusts = new Set(request.submissions
@@ -39,19 +52,18 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
   const tradeoffs = groupTradeoffs(request.submissions);
   // pace 축으로 정한 하루 자리 수. 합의 단계가 아니라 검증을 통과한 장소 수에 적용한다.
   const slots = slotsPerDayFor(tradeoffs.pace);
-  const limits = {
-    budget_krw: spendCapFor(Math.min(...request.submissions.map(s => s.budgetPerDay)), tradeoffs.spend),
-    step_limit: Math.min(...request.submissions.map(s => s.stepLimit)),
-    active_min: Math.min(...request.submissions.map(s => s.activeMin)),
-    krw_per_jpy: request.exchange_rate.krw_per_jpy,
-  };
+  const limits = limitsFor(request);
   const validationOptions = {allowShopping: true, candidateMetrics: true, distanceWeight: distanceWeightFor(tradeoffs.distance)};
-  const eligibleByDate = dates.map(date => [...picked, ...listed].filter(id => !vetoes.has(id)).flatMap(id => {
+  const eligibleOn = (ids, date) => ids.filter(id => !vetoes.has(id)).flatMap(id => {
     const record = byId.get(id);
     const check = record && availability(record, date, profiles, {allowShopping: true});
-    if (!check?.eligible_for_model) return [];
+    if (!check?.eligible_for_model || !passed(live, id, date)) return [];
     return [toEnginePlace(record, check, limits.krw_per_jpy)];
-  }));
+  });
+  const eligibleByDate = dates.map(date => eligibleOn([...picked, ...listed], date));
+  const aiPicks = ai ? [...ai.picks, ...(ai.backup ?? [])] : [];
+  const aiById = new Map(aiPicks.map((p, i) => [p.id, {...p, source: i < ai.picks.length ? ai.source : 'rule_added'}]));
+  const aiEligibleByDate = dates.map(date => new Set(eligibleOn(aiPicks.map(p => p.id), date).map(p => p.id)));
   const candidates = STRATEGIES.map(strategy => {
     const scheduled = new Set();
     let estimatedCost = false;
@@ -98,23 +110,37 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         }
         tryAdd(queue.splice(i, 1)[0]);
       }
+      // 3) 구성원의 장소로 pace 자리를 다 못 채운 날만, 아무도 담지 않은 AI 후보로 남은 자리를 채운다.
+      for (const {id} of aiPicks) {
+        if (accepted.length >= slots) break;
+        if (!scheduled.has(id) && !accepted.includes(id) && aiEligibleByDate[index].has(id)) tryAdd(id);
+      }
       accepted.forEach(id => scheduled.add(id));
       estimatedCost ||= (trial?.items ?? []).some(item => item.cost_status === "estimate");
-      return {date, placeIds: accepted, items: (trial?.items ?? []).map(item => ({
-        placeId: item.place_id, aiAdded: false, filled: false, source: 'selected',
-        reasonCode: picked.has(item.place_id) ? 'reviewed_date_and_limits' : 'listed_reviewed_date_and_limits',
-        reason: (picked.has(item.place_id) ? '선택 장소' : '모두가 찾아온 곳')
-          + ' 중 방문일 운영 조건과 일일 한도 검사 통과.'
-          + (item.cost_status === 'not_applicable_shopping' ? ' 쇼핑 구매액은 비용 합계에서 제외됩니다.' : '')
-          + (item.cost_status === 'estimate' ? ' 비용은 공식 자료의 기준 금액을 이용한 추정입니다.' : ''),
-        startMin: item.start_min, endMin: item.end_min,
-      })), metrics: {
+      return {date, placeIds: accepted, items: (trial?.items ?? []).map(item => {
+        const costNote = (item.cost_status === 'not_applicable_shopping' ? ' 쇼핑 구매액은 비용 합계에서 제외됩니다.' : '')
+          + (item.cost_status === 'estimate' ? ' 비용은 공식 자료의 기준 금액을 이용한 추정입니다.' : '');
+        const added = aiById.get(item.place_id);
+        if (added && !picked.has(item.place_id) && !listed.includes(item.place_id)) return {
+          placeId: item.place_id, aiAdded: true, filled: false, source: added.source, reasonCode: added.reasonCode,
+          reason: REASON_TEXT[added.reasonCode] + ' 방문일 운영 조건, 실시간 영업 확인과 일일 한도 검사 통과.' + costNote,
+          startMin: item.start_min, endMin: item.end_min,
+        };
+        return {
+          placeId: item.place_id, aiAdded: false, filled: false, source: 'selected',
+          reasonCode: picked.has(item.place_id) ? 'reviewed_date_and_limits' : 'listed_reviewed_date_and_limits',
+          reason: (picked.has(item.place_id) ? '선택 장소' : '모두가 찾아온 곳')
+            + ' 중 방문일 운영 조건, 실시간 영업 확인과 일일 한도 검사 통과.' + costNote,
+          startMin: item.start_min, endMin: item.end_min,
+        };
+      }), metrics: {
         walkSteps: trial?.totals.estimated_steps ?? 0,
         costKrw: trial?.totals.selected_admission_and_menu_krw ?? 0,
         totalKm: roundKm(trial?.totals.estimated_total_km ?? 0),
       }};
     });
     if (!scheduled.size) throw Error('NO_SCHEDULABLE_REAL_CANDIDATE');
+    const aiAdded = [...scheduled].filter(id => !picked.has(id) && !listed.includes(id)).length;
     const unplaced = [...picked].filter(id => !vetoes.has(id) && !scheduled.has(id));
     const omitted = unplaced.length;
     const conflicts = [...musts].filter(id => vetoes.has(id)).length;
@@ -129,6 +155,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         if (!record) return ['unknown_place'];
         const check = availability(record, day.date, profiles, {allowShopping: true});
         if (!check.eligible_for_model) return check.reasons;
+        if (!passed(live, id, day.date)) return live.verdicts.get(`${id}|${day.date}`) ?? ['live_lookup_failed'];
         const trial = validateDay({...limits, date: day.date, place_ids: [...day.placeIds, id]}, dataset, profiles, validationOptions);
         return trial.passed_model_checks ? ['strategy_selection_or_capacity'] : [...new Set(trial.violations.map(v => v.code))];
       });
@@ -141,6 +168,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       scheduled_count: scheduled.size, unplaced_count: omitted, must_satisfied: !missingMust && !conflicts,
       must_veto_conflict_count: conflicts, empty_day_count: emptyDays,
       reason_aggregation: 'common_across_dates', exclusion_reason_counts: exclusionReasons,
+      live_check: {source: live.source, checked_on: live.checked_on, failed_place_count: live.failedPlaces,
+        fetched_count: live.fetched, reused_count: live.reused},
+      ai_fill: {source: ai ? ai.source : 'off', added_count: aiAdded},
     };
     const mean = key => days.reduce((total, day) => total + day.metrics[key], 0) / days.length;
     const routes = days.map(day => day.placeIds.map(id => {
@@ -150,7 +180,8 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     }));
     return {strategy, days, planning, metrics: {
       walkStepsPerDay: Math.round(mean('walkSteps')), costKrwPerDay: Math.round(mean('costKrw')), totalKmPerDay: roundKm(mean('totalKm')),
-    }, explanationSource: 'rules', summary: `${LABELS[strategy]} 전략으로 실제 선택 장소 ${scheduled.size}곳을 배치한 초안입니다.`
+    }, explanationSource: 'rules', summary: `${LABELS[strategy]} 전략으로 실제 장소 ${scheduled.size}곳을 배치한 초안입니다.`
+      + (aiAdded ? ` 그중 ${aiAdded}곳은 아무도 담지 않았지만 그룹의 취향·예산·체력에 맞춰 ${ai.source === 'ai_added' ? 'AI가' : '규칙이'} 추가했습니다.` : '')
       + (omitted ? ` 운영·일일 한도·전략 선택 조건으로 ${omitted}곳은 미배치했습니다.` : '')
       + (conflicts ? ` 꼭 가기와 거부 조건이 충돌한 장소가 ${conflicts}곳 있어 거부 조건을 우선 적용했습니다.` : '')
       + (missingMust ? ' 꼭 가는 장소 조건이 충족되지 않았습니다.' : '')
@@ -159,25 +190,80 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         : ' 비용은 확인된 입장권·대표 메뉴만 포함하며 쇼핑·교통·숙박은 제외합니다.')
       + ' 걸음 수는 장소 사이 이동만 계산한 추정입니다.'
       + ` 환율: 1엔=${request.exchange_rate.krw_per_jpy}원 (${request.exchange_rate.as_of ?? '기준일 미지정'}).`
-      + ' 누구도 찾아오지 않은 장소·끼니 자동 추가와 AI 설명은 사용하지 않았습니다.' + routingSummary(routes) + conditionSummary(days.map((d,i)=>({date:d.date,points:routes[i]})))};
+      + ` 모든 장소는 ${live.source === 'google_places' ? `Google 지도 영업 정보(${live.checked_on} 조회)` : '실시간 영업 확인'}로 폐업·휴무·영업시간 변경이 없는지 확인한 뒤 넣었습니다.`
+      + (live.failedPlaces ? ` 실시간 확인을 통과하지 못한 ${live.failedPlaces}곳은 넣지 않았습니다.` : '')
+      + ' 끼니 자동 추가와 AI 설명 문장은 사용하지 않았습니다.' + routingSummary(routes) + conditionSummary(days.map((d,i)=>({date:d.date,points:routes[i]})))};
   });
   return {candidates};
 }
 
-export async function calculateRealCandidates(request, dataset, profiles, routingOptions = {}) {
+/** Live-check request for every reviewed-eligible place-date of the given IDs. */
+function liveRequests(ids, dates, byId, profiles) {
+  return ids.flatMap(id => dates.flatMap(date => {
+    const record = byId.get(id);
+    const check = record && availability(record, date, profiles, {allowShopping: true});
+    // 점심·저녁처럼 나뉜 영업은 구간을 그대로 넘긴다. 전체 범위(window)로 대조하면 정상 휴게시간을 변경으로 본다
+    return check?.eligible_for_model ? [{record, date, windows: check.windows ?? [check.window]}] : [];
+  }));
+}
+
+/** deps.liveCheck: (requests) → {verdicts, source, checked_on}; default Google (live_check.mjs).
+ * deps.choose: AI chooser (real_ai.mjs); null turns the AI fill off.
+ */
+export async function calculateRealCandidates(request, dataset, profiles, routingOptions = {}, deps = {}) {
+  const liveCheck = deps.liveCheck ?? defaultLiveCheck();
+  const chooser = deps.choose === undefined ? choose : deps.choose;
   const dates = datesFor(request);
   const picked = new Set(request.submissions.flatMap(s => s.picks));
   // 각자 1차 목록에 담은 곳. 여러 명이 담은 곳부터 (같으면 처음 담긴 순서)
   const votes = new Map();
   request.submissions.forEach(s => (s.longlist ?? []).forEach(id => { if (!picked.has(id)) votes.set(id, (votes.get(id) ?? 0) + 1); }));
   const listed = [...votes.keys()].sort((a, b) => votes.get(b) - votes.get(a));
-  const routed = new Set([...picked, ...listed]);
+  const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
+  const vetoes = vetoesOf(request);
+  const human = [...picked, ...listed].filter(id => !vetoes.has(id));
+  // 1) 구성원의 장소부터 실시간 확인한다. 확인 결과로 '꼭 가기인데 못 넣는 곳'을 알아야 비슷한 곳을 찾는다
+  const live = await liveCheck(liveRequests(human, dates, byId, profiles));
+  let pool = [];
+  if (chooser) {
+    const limits = limitsFor(request);
+    const usable = id => dates.some(date => passed(live, id, date) && availability(byId.get(id), date, profiles, {allowShopping: true}).eligible_for_model);
+    const missedMusts = [...mustsOf(request)].filter(id => !vetoes.has(id) && byId.has(id) && !usable(id)).map(id => byId.get(id));
+    const taken = new Set([...human, ...vetoes]);
+    const candidates = dataset.places.filter(r => !taken.has(r.place.place_id)).flatMap(record => {
+      const date = dates.find(d => availability(record, d, profiles, {allowShopping: true}).eligible_for_model);
+      if (!date) return [];
+      return [{record, costKrw: toEnginePlace(record, availability(record, date, profiles, {allowShopping: true}), limits.krw_per_jpy).cost}];
+    });
+    const draft = buildPool({candidates, submissions: request.submissions, byId, missedMusts, budgetKrw: limits.budget_krw});
+    // 2) AI 후보도 실시간 확인을 통과한 곳만 모델에 보여 준다
+    const poolLive = await liveCheck(liveRequests(draft.map(c => c.id), dates, byId, profiles));
+    poolLive.verdicts.forEach((v, k) => live.verdicts.set(k, v));
+    live.fetched += poolLive.fetched; live.reused += poolLive.reused;
+    pool = draft.filter(c => dates.some(date => passed(live, c.id, date)));
+  }
+  const failed = new Set([...live.verdicts].filter(([, v]) => v.length).map(([k]) => k.split('|')[0]));
+  live.failedPlaces = [...failed].filter(id => ![...live.verdicts].some(([k, v]) => k.startsWith(id + '|') && !v.length)).length;
+  // AI 후보 전체를 경로 표에 넣는다. 모델이 어느 곳을 고를지 경로 조회 전에는 모른다
+  const routed = new Set([...picked, ...listed, ...pool.map(c => c.id)]);
   const points = dataset.places.filter(r => routed.has(r.place.place_id))
     .map(r => ({lat: r.place.latitude, lng: r.place.longitude}));
   // One routing snapshot is reused by every strategy so OSRM work is bounded, not tripled.
   return withTripConditions(request.weather, request.startDate, () =>
-    withRouting(points, () => {
-      const run=()=>calculatePrepared(request,dataset,profiles,dates,picked,listed);
+    withRouting(points, async () => {
+      // 3) 빈자리는 후보 수가 아니라 구성원 장소를 실제로 배치해 본 결과로 센다.
+      //    예산·걸음·활동시간 때문에 같이 못 넣는 곳은 자리를 채운 것이 아니다
+      let ai = null;
+      if (pool.length) {
+        const slots = slotsPerDayFor(groupTradeoffs(request.submissions).pace);
+        let empty = dates.length * slots;
+        try {
+          const {candidates} = calculatePrepared(request, dataset, profiles, dates, picked, listed, live, null);
+          empty = Math.max(...candidates.map(c => c.days.reduce((n, d) => n + Math.max(0, slots - d.placeIds.length), 0)));
+        } catch (error) { if (error.message !== 'NO_SCHEDULABLE_REAL_CANDIDATE') throw error; }
+        if (empty) ai = await chooser(pool, Math.min(empty, pool.length));
+      }
+      const run=()=>calculatePrepared(request,dataset,profiles,dates,picked,listed,live,ai);
       let wet;
       try { wet=run(); } catch(error) {
         if(!hasShelterWeather() || error.message!=='NO_SCHEDULABLE_REAL_CANDIDATE') throw error;
