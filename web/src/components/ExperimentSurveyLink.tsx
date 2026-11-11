@@ -6,7 +6,7 @@ export const SURVEY_URL='https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F
 export function ExperimentSurveyLink() {
  const {state}=useTrip();
  if(!EXPERIMENT_MODE || !state.room)return null;
- const code=state.room.members.find(m=>m.id===state.room?.memberId)?.name;
+ const code=state.members.find(m=>m.id===state.room?.memberId)?.name;
  return <aside className="m-5 rounded-xl border border-line bg-white p-4 text-sm leading-relaxed">
    <p>일정 A·B·C를 모두 살펴본 뒤 혜인님이 만든 설문에 답해 주세요.</p>
    {code&&<p className="mt-2 font-semibold">내 참가자 번호: {code}</p>}
