@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ExperimentSurveyLink } from "@/components/ExperimentSurveyLink";
 import { useTrip } from "@/components/store";
 import { buildConsensus, kmToSteps } from "@/lib/consensus";
 import { buildSchedule } from "@/lib/schedule";
@@ -151,6 +152,7 @@ export default function Result() {
     <Page nav={<NavButtons prev={shared.online ? "/waiting" : "/condition"} next={next}
       nextLabel={nextLabel} nextDisabled={nextDisabled} />}>
       <PlanHeader />
+      <ExperimentSurveyLink />
       <div className="px-5 pt-[34px]">
         <div className="mb-[60px] space-y-2">
           <p className="text-[12px] font-medium leading-relaxed text-mute">{intro}</p>

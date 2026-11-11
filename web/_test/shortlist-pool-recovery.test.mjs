@@ -23,6 +23,7 @@ function mount(fetcher,room=session()) {
  const filename=fileURLToPath(new URL('../app/shortlist/page.tsx',import.meta.url));
  const mod=new Module(filename);
  const mocks={react,'react/jsx-runtime':jsx,'next/navigation':{useRouter:()=>({push(){}})},
+  '@/lib/experiment':{EXPERIMENT_MODE:false},
   '@/lib/room-state':{vetoFields:()=>({})},'@/components/store':{useTrip:()=>trip},
   '@/components/PlaceFinder':{placeLine:()=>''},
   '@/lib/places':{CATEGORIES:[{id:'landmark',label:'명소'}],findPlace:id=>({id,name:'글리코 장소 카드',category:'landmark'})},

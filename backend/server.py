@@ -1,5 +1,5 @@
 """Local week-5 API prototype. SQLite persistence; run: python3 server.py."""
-import argparse, hashlib, hmac, json, re, secrets, sqlite3, subprocess
+import os, argparse, hashlib, hmac, json, re, secrets, sqlite3, subprocess
 from collections import Counter
 from contextlib import contextmanager
 from datetime import date, datetime, timedelta, timezone
@@ -14,6 +14,7 @@ from api_errors import ApiError, require
 from candidate_results import CandidateStore, STRATEGIES
 from candidate_engine import CandidateEngine
 from place_recommendations import RecommendationStore
+from experiment_responses import ExperimentStore
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
 def now():return datetime.now(timezone.utc).isoformat()
 PIN_TRIES=5
@@ -31,7 +32,7 @@ def pin_ok(pin,stored):
     salt,h=stored.split('$',1)
     return hmac.compare_digest(hashlib.pbkdf2_hmac('sha256',pin.encode(),bytes.fromhex(salt),100_000).hex(),h)
 
-class Store(CandidateStore, RecommendationStore):
+class Store(CandidateStore, RecommendationStore, ExperimentStore):
     def __init__(self,path,catalog=None,*,date_availability=None):
         self.date_availability=date_availability
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
@@ -50,6 +51,7 @@ class Store(CandidateStore, RecommendationStore):
             CREATE TABLE IF NOT EXISTS longlists(member_id TEXT PRIMARY KEY,ids TEXT,updated TEXT,FOREIGN KEY(member_id) REFERENCES members(id));
             ''')
             self.init_candidates(c)
+            self.init_experiment(c)
             if 'dataset' not in {row['name'] for row in c.execute('PRAGMA table_info(rooms)')}:
                 c.execute(f"ALTER TABLE rooms ADD COLUMN dataset TEXT NOT NULL DEFAULT '{DEMO_DATASET}'")
             if 'planning' not in {row['name'] for row in c.execute('PRAGMA table_info(results)')}:
@@ -119,6 +121,7 @@ class Store(CandidateStore, RecommendationStore):
                 if m['claimed']:raise ApiError(409,'이미 다른 사람이 고른 이름이에요.')
                 c.execute('UPDATE members SET token_hash=?,claimed=1,pin_hash=? WHERE id=?',(digest(fresh),ph,m['id']))
                 return {'memberId':m['id'],'name':m['name'],'submissionToken':fresh}
+            if os.environ.get('EXPERIMENT_SERVER')=='1':raise ApiError(409,'실험 참가자는 미리 정한 번호로 입장해 주세요. 새 번호는 추가할 수 없습니다.')
             name=b['name'].strip();require(1<=len(name)<=40,'참여자 이름은 1~40자여야 합니다.')
             names=[x['name'] for x in c.execute('SELECT name FROM members WHERE room_id=?',(rid,))]
             if name in names:raise ApiError(409,'이미 있는 이름이에요. 목록에서 골라 주세요.')
@@ -352,6 +355,7 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
         dataset,start,end=store.room_dates(rid,token)
         return {'roomId':rid,'placeIds':available_ids(start,end) if dataset==REAL_DATASET else None}
     store=Store(path,engine.catalog,date_availability=available_ids)
+    store.experiment_node=engine.node
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
             origin=self.headers.get('Origin')
@@ -416,8 +420,13 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     else:result=engine.calculate(snapshot,b['strategy'])
                     store.save_result(m[1],token,{'revision':snapshot['revision'],'result':result},planning=planning)
                     return self.send_json(200,store.result(m[1],token))
+                m=re.fullmatch(r'/rooms/([\w-]+)/experiment/([\w-]+)',path)
+                if m and self.command in ('GET','PUT'):
+                    if self.command=='PUT':require(isinstance(b,dict),'응답은 JSON 객체여야 합니다.')
+                    return self.send_json(200,store.experiment(*m.groups(),token,b if self.command=='PUT' else None))
                 m=re.fullmatch(r'/rooms/([\w-]+)/selection',path)
                 if m and self.command=='PUT':
+                    if os.environ.get('EXPERIMENT_SERVER')=='1':raise ApiError(409,'실험 중에는 일정을 확정하지 않습니다.')
                     store.select_candidate(m[1],token,b)
                     return self.send_json(200,store.result(m[1],token))
                 if self.command=='GET' and path=='/health':return self.send_json(200,{'ok':True})
