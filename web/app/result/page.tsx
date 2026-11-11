@@ -11,6 +11,9 @@ import { useSharedResults } from "@/components/useSharedResults";
 import { NavButtons, Page, PlanHeader, asset } from "@/components/gachiro";
 import { WeatherRouteNotice } from "@/components/WeatherRouteNotice";
 import { withoutWeatherRouteNotice } from "@/lib/weather-route-notice";
+import { EXPERIMENT_MODE, experimentExplanation, experimentStatusLine, scheduleName, type Letter } from "@/lib/experiment";
+import { findPlace } from "@/lib/places";
+import { useExperiment } from "@/components/useExperiment";
 import type { Strategy } from "@/lib/types";
 
 const STRATEGIES: { id: Strategy; label: string; desc: string }[] = [
@@ -31,7 +34,13 @@ interface Card {
   /** 고른 카드(버건디)에 쓰는 이 후보의 결과 설명 */
   note: string;
   ai: boolean;
+  /** 실험 모드: 이 그룹에서 이 일정의 글자 */
+  letter?: Letter;
+  /** 실험 모드: 이 사람에게 설명 문장을 보여주는가 (5.3) */
+  explained?: boolean;
 }
+
+const EXPERIMENT_HINT = "눌러서 하루 걷는 양·소비·이동을 확인하세요.";
 
 /**
  * P7 — 후보 3개 비교. 카드를 누르면 그 후보가 펼쳐지고 하루 걷는 양·소비·이동이 나온다 (피그마 댓글 #3).
@@ -47,6 +56,7 @@ export default function Result() {
   const shared = useSharedResults();
   const snap = shared.snap;
   const server = shared.online && hasCandidates(snap);
+  const exp = useExperiment();
 
   useEffect(() => {
     roomApi.exchangeRate()
@@ -73,8 +83,22 @@ export default function Result() {
     });
   }, [submissions, state.nights, state.allowPartial, days]);
 
-  /** 서버 공용 후보. 기기에서 다시 계산하거나 예시 입력을 섞지 않는다 */
-  const cards: Card[] = server
+  /**
+   * 서버 공용 후보. 기기에서 다시 계산하거나 예시 입력을 섞지 않는다.
+   * 실험 모드: 일정 A·B·C로만, 이 사람의 순서로 놓고, 전략 이름·방법 설명은 숨긴다. 설명 문장은 배정된 일정에만.
+   * 실험 모드에서는 서버 후보가 나오기 전 미리보기(전략별 이 기기 계산)를 보여주지 않는다.
+   */
+  const cards: Card[] = EXPERIMENT_MODE
+    ? (server && exp ? exp.slots.map((slot): Card | null => {
+        const c = snap!.candidates.find((x) => x.strategy === slot.strategy);
+        return c ? {
+          id: slot.strategy, label: scheduleName(slot.letter), desc: EXPERIMENT_HINT,
+          // 서버 요약에는 전략 이름이 있어 쓰지 않는다
+          note: slot.explained ? experimentExplanation(c, state.mine, (id) => findPlace(id)?.name ?? "고른 곳").join(" ") : "", ai: false, letter: slot.letter, explained: slot.explained,
+          steps: c.metrics.walkStepsPerDay, spend: c.metrics.costKrwPerDay, move: c.metrics.totalKmPerDay,
+        } : null;
+      }).filter((c): c is Card => !!c) : [])
+    : server
     ? STRATEGIES.map((st) => {
         const c = snap!.candidates.find((x) => x.strategy === st.id);
         return c ? {
@@ -86,8 +110,10 @@ export default function Result() {
 
   // 펼쳐 볼 후보. 확정된 게 있으면 그것, 없으면 마지막으로 누른 것
   const [view, setView] = useState<Strategy | null>(null);
-  const confirmed = server && snap!.status === "ready" ? snap!.selectedStrategy : null;
-  const shown: Strategy = view ?? confirmed ?? state.strategy;
+  // 실험 방은 확정하지 않는다 (2장). 고르기 전에는 이 사람 화면의 첫 일정을 펼친다
+  const confirmed = !EXPERIMENT_MODE && server && snap!.status === "ready" ? snap!.selectedStrategy : null;
+  const shown: Strategy = view ?? confirmed ?? (EXPERIMENT_MODE ? cards[0]?.id ?? state.strategy : state.strategy);
+  const shownCard = cards.find((c) => c.id === shown);
 
   const choose = (id: Strategy) => {
     setView(id);
@@ -102,14 +128,20 @@ export default function Result() {
   let nextLabel = "다음";
   let nextDisabled = false;
   let next = () => router.push("/plan");
-  if (shared.online && !server) {
+  if (EXPERIMENT_MODE) {
+    nextLabel = "일정 보기";
+    nextDisabled = !shownCard?.letter;
+    next = () => { if (shownCard?.letter) router.push(`/plan?c=${shownCard.letter}`); };
+  } else if (shared.online && !server) {
     nextDisabled = true;
   } else if (server) {
     nextLabel = "일정 보기";
     next = () => router.push(`/plan?s=${shown}`);
   }
 
-  const intro = !shared.online
+  const intro = EXPERIMENT_MODE
+    ? experimentStatusLine(snap, shared.online, !!exp)
+    : !shared.online
     ? "세 가지 방법으로 일정을 만들어 봤어요. 마음에 드는 후보를 눌러 고르세요."
     : server
       ? statusLine(snap, shared.isOwner)
@@ -122,7 +154,7 @@ export default function Result() {
       <div className="px-5 pt-[34px]">
         <div className="mb-[60px] space-y-2">
           <p className="text-[12px] font-medium leading-relaxed text-mute">{intro}</p>
-          {shared.online && snap && !server && (
+          {shared.online && snap && !server && snap.status === "collecting" && (
             <p className="text-[12px] font-bold text-wine">{snap.submittedCount}/{snap.memberCount}명 제출</p>
           )}
           {shared.calcError && (
@@ -167,7 +199,7 @@ export default function Result() {
                   </div>
                 )}
                 <p className={`mt-2 text-[11px] leading-[1.45] ${on ? "font-semibold text-white" : "text-mute-soft"}`}>
-                  {/* 고르기 전(회색)에는 방법 설명, 고른 뒤(버건디)에는 이 후보의 결과 설명만 */}
+                  {/* 고르기 전(회색)에는 방법 설명, 고른 뒤(버건디)에는 이 후보의 결과 설명만. 실험 모드에서 설명이 없는 일정은 비운다 */}
                   {on ? withoutWeatherRouteNotice(c.note) : c.desc}
                   {on && c.ai && <span className="ml-1 rounded-[20px] bg-white/20 px-1.5 py-[1px] text-[9px] font-bold">AI 설명</span>}
                 </p>
@@ -175,7 +207,8 @@ export default function Result() {
             );
           })}
         </div>
-        {server && <WeatherRouteNotice summary={cards.find(c => c.id === shown)?.note} />}
+        {/* 날씨 안내는 서버 요약에서 뽑는다. 실험 모드에서는 두 조건 모두 같게 빼 둔다 */}
+        {server && !EXPERIMENT_MODE && <WeatherRouteNotice summary={shownCard?.note} />}
         <p className="mt-3 text-[10.5px] text-mute-soft">
           엔화는 1엔 = {rate}원으로 계산했어요. 실제 환전 금액과 다를 수 있어요.
           {server && " 걸음·소비·이동은 추정치이고 교통·숙박비는 빠져 있어요."}

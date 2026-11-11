@@ -12,6 +12,8 @@ import { selectedCandidate, type SharedStrategy } from "@/lib/shared-results-api
 import { useSharedResults } from "@/components/useSharedResults";
 import { Box, MinusButton, NavButtons, Page, PlanHeader, Sheet, TextTabs, asset } from "@/components/gachiro";
 import { fmtTime } from "@/lib/schedule";
+import { EXPERIMENT_MODE, scheduleName, strategyOf } from "@/lib/experiment";
+import { useExperiment } from "@/components/useExperiment";
 import type { Place } from "@/lib/types";
 
 /** 목록 한 줄 높이 — 꾹 눌러 끌 때 몇 칸 움직였는지 이 값으로 센다 */
@@ -19,7 +21,7 @@ const ROW_H = 58;
 const HOLD_MS = 450;
 
 /** 아무도 고르지 않았는데 들어간 곳의 표시. 규칙으로 채운 곳은 "AI 추천"이라 하지 않는다 */
-type Badge = { label: "AI 추천" | "추천"; reason: string };
+type Badge = { label: "AI 추천" | "추천"; reason?: string };
 
 /**
  * P8 — 일정과 동선.
@@ -47,8 +49,15 @@ function PlanInner() {
   const online = shared.online;
   const snap = shared.snap;
   const chosen = snap ? selectedCandidate(snap)?.strategy ?? null : null;
+  const exp = useExperiment();
   const asked = params.get("s") as SharedStrategy | null;
-  const viewing = asked && asked in STRATEGY_LABEL ? asked : chosen;
+  // 실험 모드는 주소에도 전략 이름을 싣지 않는다 (?c=A). 확정이 없으므로 글자가 없으면 볼 일정도 없다
+  const viewing = EXPERIMENT_MODE
+    ? (state.room ? strategyOf(state.room.roomId, params.get("c")) : null)
+    : asked && asked in STRATEGY_LABEL ? asked : chosen;
+  const slot = exp?.slots.find((x) => x.strategy === viewing) ?? null;
+  /** 설명 문장(장소별 이유·날씨 안내)을 보여주는가. 실험 모드는 5.3 배정대로 */
+  const explained = !EXPERIMENT_MODE || !!slot?.explained;
   const final = hasCandidates(snap) ? snap!.candidates.find((c) => c.strategy === viewing) ?? null : null;
   const { planEdits } = state.extra;
   // 공용 결과는 편집을 잠근다. 확정은 방장이 이 화면에서 한다
@@ -68,7 +77,8 @@ function PlanInner() {
     items.forEach((it) => {
       if (it.startMin !== undefined) times[it.placeId] = fmtTime(it.startMin);
       const label = badgeOf(it);
-      if (label) badges[it.placeId] = { label, reason: it.reason ?? "모두의 조건에 맞아 넣은 곳이에요." };
+      // 설명 없음 조건에서는 표시(라벨)만 같게 두고 이유 문장은 뺀다
+      if (label) badges[it.placeId] = { label, reason: explained ? it.reason ?? "모두의 조건에 맞아 넣은 곳이에요." : undefined };
     });
   } else {
     const dayItems = schedule.plans.find((p) => p.day === day)?.items ?? [];
@@ -86,7 +96,7 @@ function PlanInner() {
   const places = ids.map((id) => findPlace(id)).filter((p): p is Place => !!p);
   const save = (next: string[]) => setExtra({ planEdits: { ...planEdits, [day]: next } });
 
-  if (online && !final) {
+  if (online && (!final || (EXPERIMENT_MODE && !slot))) {
     return (
       <Page nav={<NavButtons prev="/result" next={() => router.push("/result")} nextLabel="후보 보기" />}>
         <PlanHeader />
@@ -95,7 +105,9 @@ function PlanInner() {
             {snap ? "아직 후보가 준비되지 않았어요." : "공용 결과를 불러오는 중이에요."}
           </p>
           <p className="mt-2 text-[12px] font-medium leading-relaxed text-mute">
-            후보 보기에서 평균·최소 불만·공정성 중 하나를 골라 들어오면 그 일정을 볼 수 있어요.
+            {EXPERIMENT_MODE
+              ? "후보 보기에서 일정 A·B·C 중 하나를 골라 들어오면 그 일정을 볼 수 있어요."
+              : "후보 보기에서 평균·최소 불만·공정성 중 하나를 골라 들어오면 그 일정을 볼 수 있어요."}
           </p>
           {shared.error && <p className="mt-3 text-[12px] text-wine">{shared.error}</p>}
         </div>
@@ -107,7 +119,11 @@ function PlanInner() {
   let next = () => setExtra({ confirmed: !confirmed });
   let nextLabel = confirmed ? "수정하기" : "확정하기";
   let nextDisabled = false;
-  if (online) {
+  if (EXPERIMENT_MODE) {
+    // 실험 중에는 방장도 확정하지 않는다 (2장). 다른 일정으로 돌아가는 버튼만 둔다
+    nextLabel = "다른 일정 보기";
+    next = () => router.push("/result");
+  } else if (online) {
     nextDisabled = true;
     nextLabel = isChosen ? "확정됨" : "확정 대기 중";
     if (shared.isOwner && !isChosen && viewing) {
@@ -121,18 +137,20 @@ function PlanInner() {
     <Page nav={
       <NavButtons prev="/result" next={next} nextLabel={nextLabel} nextDisabled={nextDisabled} busy={shared.selecting} />
     }>
-      <PlanHeader title={online && viewing ? STRATEGY_LABEL[viewing] : undefined} />
+      <PlanHeader title={EXPERIMENT_MODE && slot ? scheduleName(slot.letter)
+        : online && viewing ? STRATEGY_LABEL[viewing] : undefined} />
       <div className="pt-[20px]">
         <TextTabs label="여행 날짜" value={day} onChange={setDay}
           items={Array.from({ length: days }, (_, i) => ({ id: i + 1, label: `${i + 1}일차` }))} />
         <div className="px-5 pt-[20px]">
           <PlanMap day={day} places={places} />
-          {online && <WeatherRouteNotice summary={final?.summary} />}
+          {online && !EXPERIMENT_MODE && <WeatherRouteNotice summary={final?.summary} />}
 
           <div className="flex h-[38px] items-center justify-between">
             {confirmed
               ? <span className="text-[13px] font-extrabold text-wine">
-                  {!online ? "확정된 일정이에요"
+                  {EXPERIMENT_MODE ? "일정을 살펴본 뒤 설문에 답해 주세요."
+                    : !online ? "확정된 일정이에요"
                     : isChosen ? "방장이 확정한 일정이에요. 모두 같은 일정을 봐요."
                     : chosen ? `방장은 ${STRATEGY_LABEL[chosen]} 일정으로 확정했어요.`
                     : shared.isOwner ? "마음에 들면 아래에서 확정해 주세요." : "방장이 확정하기 전이에요."}
@@ -271,7 +289,7 @@ function Reorder({ places, locked, badges, times, onMove, onRemove }: {
                 )}
               </div>
               {/* AI 추천이면 주소 줄 대신 왜 넣었는지를 쓴다 */}
-              <div className={`mt-[3px] truncate leading-3 ${badges[p.id] ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
+              <div className={`mt-[3px] truncate leading-3 ${badges[p.id]?.reason ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
                 {badges[p.id]?.reason ?? placeLine(p)}
               </div>
             </div>

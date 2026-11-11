@@ -5,6 +5,7 @@ import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
 import { PlaceRecommendations } from "@/components/PlaceRecommendations";
 import { CATEGORIES, findPlace } from "@/lib/places";
+import { EXPERIMENT_MODE } from "@/lib/experiment";
 import { Box, MinusButton, NavButtons, Page, PlanHeader } from "@/components/gachiro";
 import type { Place } from "@/lib/types";
 
@@ -57,7 +58,8 @@ export default function Pick() {
       <fieldset disabled={busy} className="min-w-0 px-5 pt-[59px]">
         <PlaceFinder added={longlist} onPick={add} disabled={busy} />
         {busy && <p role="status" className="mt-2 text-sm text-mute">목록을 저장하고 있어요. 잠시 기다려 주세요.</p>}
-        {state.room && recommendFrom?.session === session && <PlaceRecommendations
+        {/* 실험 방에서는 추천 카드를 그리지 않는다 — 마운트되면 추천 API를 부르므로 숨김이 아니라 생략 (실험설계 2.1) */}
+        {!EXPERIMENT_MODE && state.room && recommendFrom?.session === session && <PlaceRecommendations
           room={state.room} catalog={catalog} sourceId={recommendFrom.id} added={longlist} disabled={busy} onAdd={p => add(p, false)}
         />}
 

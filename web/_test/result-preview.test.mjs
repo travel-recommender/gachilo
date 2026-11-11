@@ -39,6 +39,7 @@ function preview(exclusions) {
   '@/lib/weather-route-notice':require('../src/lib/weather-route-notice.ts'),
   '@/components/WeatherRouteNotice':{WeatherRouteNotice:()=>null},
   '@/components/useSharedResults':{useSharedResults:()=>({online:false,snap:null})},
+  '@/lib/experiment':require('../src/lib/experiment.ts'),'@/components/useExperiment':{useExperiment:()=>null},'@/lib/places':{findPlace:()=>null},
   '@/components/gachiro':{NavButtons:()=>null,Page:()=>null,PlanHeader:()=>null,asset:s=>s},
  };
  const filename=fileURLToPath(new URL('../app/result/page.tsx',import.meta.url));

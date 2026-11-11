@@ -5,6 +5,7 @@ import { useTrip } from "@/components/store";
 import { NavButtons, Page, PlanHeader } from "@/components/gachiro";
 import { useSharedResults } from "@/components/useSharedResults";
 import { hasCandidates, statusLine } from "@/lib/shared-flow";
+import { EXPERIMENT_MODE, experimentStatusLine } from "@/lib/experiment";
 
 /**
  * 다른 사람을 기다린다. 디자인에 없는 화면이다.
@@ -107,7 +108,7 @@ function WaitingInner() {
         {listError && <p className="mt-3 text-[12px] leading-relaxed text-wine">{listError}</p>}
         {shared.error && <p className="mt-3 text-[12px] leading-relaxed text-wine">{shared.error}</p>}
         <p className="mt-3 text-[12px] font-medium leading-relaxed text-mute">
-          {online ? statusLine(snap, shared.isOwner)
+          {online ? (EXPERIMENT_MODE ? experimentStatusLine(snap, true, true) : statusLine(snap, shared.isOwner))
             : listOnline && !allDone ? "모두 목록을 내면 모인 곳을 한꺼번에 보여줘요."
             : allDone && afterList ? `${pool.length}곳이 모였어요. 이제 이 중에서 고를 차례예요.`
             : allDone ? "전원 입력이 끝났어요." : "누가 무엇을 골랐는지는 끝까지 공개되지 않아요."}
