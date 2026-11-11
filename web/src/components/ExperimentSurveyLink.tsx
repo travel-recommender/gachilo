@@ -1,18 +1,16 @@
 "use client";
-import {useEffect,useState} from 'react';
-import Link from 'next/link';
 import {useTrip} from './store';
-import {EXPERIMENT_MODE,type Letter} from '@/lib/experiment';
-import {experimentResponse} from '@/lib/experiment-api';
-/** A display event means this screen was visible, not that the person read it. */
-export function ExperimentSurveyLink({letter,revision}:{letter?:Letter;revision?:number}) {
- const {state}=useTrip();const room=state.room;const [error,setError]=useState('');const [attempt,setAttempt]=useState(0);
- useEffect(()=>{
-  if(!EXPERIMENT_MODE||!room||!letter)return;
-  let active=true,started=false;
-  const visible=async()=>{if(document.visibilityState!=='visible'||started)return;started=true;setError('');try{const s=await experimentResponse(room);if(!active)return;if(!s.pre)throw Error('사전 질문을 먼저 저장해 주세요.');if(s.revision!==revision)throw Error('일정이 바뀌었어요. 화면을 새로고침해 주세요.');await experimentResponse(room,{kind:'view',letter,revision:s.revision,candidateHash:s.candidateHash});}catch(e){if(active)setError(e instanceof Error?e.message:'표시 기록을 저장하지 못했어요.');}};
-  void visible();document.addEventListener('visibilitychange',visible);return()=>{active=false;document.removeEventListener('visibilitychange',visible);};
- },[room?.roomId,room?.memberId,room?.token,letter,revision,attempt]);
- if(!EXPERIMENT_MODE)return null;
- return <aside className="m-5 rounded-xl border border-line bg-white p-4 text-sm"><Link className="font-bold text-wine underline" href={letter?`/experiment/?c=${letter}`:'/experiment/'}>{letter?`일정 ${letter} 평가하기`:'실험 설문 · 저장 상태'}</Link>{error&&<p role="alert" className="mt-2">{error} <button className="underline" onClick={()=>setAttempt(n=>n+1)}>기록 다시 저장</button></p>}</aside>;
+import {EXPERIMENT_MODE} from '@/lib/experiment';
+export const SURVEY_URL='https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F29K-rBKrb3qkI-TRqd7IWgwDlIw8Go4F7aQ/viewform';
+/** Answers belong only in the team's Google Form; no extra in-app survey or tracking. */
+export function ExperimentSurveyLink() {
+ const {state}=useTrip();
+ if(!EXPERIMENT_MODE || !state.room)return null;
+ const code=state.room.members.find(m=>m.id===state.room?.memberId)?.name;
+ return <aside className="m-5 rounded-xl border border-line bg-white p-4 text-sm leading-relaxed">
+   <p>일정 A·B·C를 모두 살펴본 뒤 혜인님이 만든 설문에 답해 주세요.</p>
+   {code&&<p className="mt-2 font-semibold">내 참가자 번호: {code}</p>}
+   <a className="mt-3 inline-block font-bold text-wine underline" href={SURVEY_URL} target="_blank" rel="noopener noreferrer">Google 설문 열기</a>
+   <p className="mt-2 text-xs text-mute">다른 사람과 상의하지 않고 작성해 주세요. 설문 제출 여부는 Google 설문에서 확인합니다.</p>
+ </aside>;
 }

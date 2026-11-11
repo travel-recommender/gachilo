@@ -1,34 +1,37 @@
-"""Export one group from a consistent read transaction. Never expose this through LAN HTTP."""
-import argparse,csv,json,sqlite3
+"""Export saved candidate/assignment evidence; survey answers stay in Google Forms."""
+import argparse,csv,json,sqlite3,subprocess
 from pathlib import Path
 import experiment_support as support
 
-def export(bundle,group,out):
+def export(bundle,group,out,node=None):
  support.verify(bundle)
  if out.exists():raise ValueError('출력 폴더가 이미 있습니다. 새 경로를 지정하세요.')
  source=support.group_dir(bundle,group)/'trips.sqlite3'
  if not source.is_file():raise ValueError('그룹 DB가 없습니다.')
- rows=[];details=[];mode=json.loads((bundle/'experiment-config.json').read_text())['mode']
+ node=support.node_binary(node);rows=[];details=[]
+ config=json.loads((bundle/'experiment-config.json').read_text())
  with sqlite3.connect(source.resolve().as_uri()+'?mode=ro',uri=True) as db:
   db.row_factory=sqlite3.Row;db.execute('BEGIN')
-  for row in db.execute("SELECT * FROM experiment_records WHERE kind='candidate' ORDER BY room_id,member_id,revision,letter"):
-   payload=json.loads(row['payload']);pre=db.execute('SELECT payload FROM experiment_pre WHERE member_id=?',(row['member_id'],)).fetchone()
-   post=db.execute("SELECT payload FROM experiment_records WHERE kind='post' AND room_id=? AND member_id=? AND revision=? AND candidate_hash=?",(row['room_id'],row['member_id'],row['revision'],row['candidate_hash'])).fetchone()
-   current=db.execute('SELECT revision FROM rooms WHERE id=?',(row['room_id'],)).fetchone()[0]
-   identity={'group_id':group,'mode':mode,'room_id':row['room_id'],'participant_id':row['member_id'],'seat':payload['seat'],'candidate_id':payload['strategy'],'display_letter':row['letter'],'revision':row['revision'],'candidate_hash':row['candidate_hash'],'current_revision':current,'is_current_revision':row['revision']==current,'display_order':payload['order'],'explained':payload['explained'],'displayed_at':payload['displayEvent']['displayedAt'],'saved_at':row['updated']}
-   flat={**identity,**{k:v for k,v in payload['automatic'].items() if k!='memberId'},**{'group_'+k:v for k,v in payload['group'].items()},**payload['metrics'],**json.loads(pre[0]),**payload['answers'],**(json.loads(post[0])['answers'] if post else {})}
-   rows.append(flat);details.append({**identity,**payload})
+  for row in db.execute('SELECT cr.* FROM candidate_results cr JOIN rooms r ON r.id=cr.room_id WHERE cr.revision=r.revision'):
+   members=db.execute('SELECT id,name FROM members WHERE room_id=? ORDER BY rowid',(row['room_id'],)).fetchall()
+   subs=[json.loads(x[0]) for x in db.execute('SELECT s.payload FROM submissions s JOIN members m ON m.id=s.member_id WHERE m.room_id=? ORDER BY m.rowid',(row['room_id'],))]
+   for member in members:
+    for candidate in json.loads(row['payload']):
+     payload={'roomId':row['room_id'],'memberId':member['id'],'memberIds':[m['id'] for m in members],'candidate':candidate,'submissions':subs}
+     computed=json.loads(subprocess.check_output([node,str(support.ROOT/'backend/engine/experiment_record.mjs')],input=json.dumps(payload),text=True,timeout=10))
+     identity={'group_id':group,'mode':config['mode'],'participant_code':member['name'],'room_id':row['room_id'],'revision':row['revision'],'letter':computed['letter'],'strategy':computed['strategy'],'display_order':computed['order'],'explained':computed['explained']}
+     rows.append({**identity,**{k:v for k,v in computed['automatic'].items() if k!='memberId'},**computed['metrics']})
+     details.append({**identity,'candidate':candidate,'groupMetrics':computed['group']})
  out.mkdir(parents=True,mode=0o700)
- columns=list(dict.fromkeys(k for r in rows for k in r)) or ['group_id','participant_id','candidate_id']
+ columns=list(dict.fromkeys(k for r in rows for k in r)) or ['group_id','participant_code','letter']
  def safe(v):
   if isinstance(v,(list,dict)):v=json.dumps(v,ensure_ascii=False)
-  if isinstance(v,str) and v.lstrip()[:1] in ('=','+','-','@'):return "'"+v
-  return v
- with (out/'responses.csv').open('w',encoding='utf-8-sig',newline='') as f:
-  writer=csv.DictWriter(f,fieldnames=columns);writer.writeheader();writer.writerows({k:safe(v) for k,v in r.items()} for r in rows)
+  return "'"+v if isinstance(v,str) and v.lstrip()[:1] in ('=','+','-','@') else v
+ with (out/'candidate_metrics.csv').open('w',encoding='utf-8-sig',newline='') as f:
+  w=csv.DictWriter(f,fieldnames=columns);w.writeheader();w.writerows({k:safe(v) for k,v in r.items()} for r in rows)
  (out/'evidence.json').write_text(json.dumps(details,ensure_ascii=False,indent=2))
- (out/'config.json').write_text((bundle/'experiment-config.json').read_text())
+ (out/'config.json').write_text(json.dumps(config,ensure_ascii=False,indent=2))
  for p in out.iterdir():p.chmod(0o600)
  return len(rows)
 if __name__=='__main__':
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--bundle',required=True,type=Path);p.add_argument('--group',required=True);p.add_argument('--out',required=True,type=Path);a=p.parse_args();print(f'{export(a.bundle,a.group,a.out)}개 참가자×일정 응답 내보내기 완료 (모의/실제 및 revision 구분 필요)')
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--bundle',required=True,type=Path);p.add_argument('--group',required=True);p.add_argument('--out',required=True,type=Path);p.add_argument('--node');a=p.parse_args();print(f'{export(a.bundle,a.group,a.out,a.node)}개 참가자×일정 근거 내보내기 완료. Google 설문 응답은 포함하지 않습니다.')

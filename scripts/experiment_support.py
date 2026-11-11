@@ -159,8 +159,12 @@ def backup(bundle, group, destination):
               'manifest_sha256': digest(bundle / 'manifest.json'), 'db_sha256': digest(destination),
               'rehearsal_config': config,
               **summary}
+    private = source.parent / 'room-private.json'
+    if private.exists():
+        record['room_private'] = read_json(private)
     write_json(metadata, record)
-    return record
+    # Recovery credentials belong only in the mode-0600 metadata, never CLI output.
+    return {k: v for k, v in record.items() if k != 'room_private'}
 
 
 def restore(bundle, source, new_group):
@@ -174,6 +178,8 @@ def restore(bundle, source, new_group):
     target.mkdir(parents=True, exist_ok=False, mode=0o700)
     summary = snapshot(source, target / 'trips.sqlite3')
     write_json(target / 'rehearsal.json', metadata['rehearsal_config'])
+    if 'room_private' in metadata:
+        write_json(target / 'room-private.json', metadata['room_private'])
     write_json(target / 'restored_from.json', {'original_group': metadata['group'],
                'backup_created_at': metadata['created_at'], 'backup_sha256': metadata['db_sha256']})
     return summary

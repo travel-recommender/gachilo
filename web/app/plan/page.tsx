@@ -140,7 +140,7 @@ function PlanInner() {
     }>
       <PlanHeader title={EXPERIMENT_MODE && slot ? scheduleName(slot.letter)
         : online && viewing ? STRATEGY_LABEL[viewing] : undefined} />
-      {EXPERIMENT_MODE && slot && <ExperimentSurveyLink letter={slot.letter} revision={snap?.revision} />}
+      {EXPERIMENT_MODE && slot && <ExperimentSurveyLink />}
       <div className="pt-[20px]">
         <TextTabs label="여행 날짜" value={day} onChange={setDay}
           items={Array.from({ length: days }, (_, i) => ({ id: i + 1, label: `${i + 1}일차` }))} />

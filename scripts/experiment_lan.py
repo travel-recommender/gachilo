@@ -8,6 +8,8 @@ from reportlab.graphics.barcode.qrencoder import QRCode,QRErrorCorrectLevel
 from PIL import Image,ImageDraw
 import experiment_support as support
 ROOT=Path(__file__).resolve().parents[1]
+SURVEY_URL='https://docs.google.com/forms/d/e/1FAIpQLScOde1GqSlhf7F29K-rBKrb3qkI-TRqd7IWgwDlIw8Go4F7aQ/viewform'
+CODES={'team':'T','joeun':'J','hyein':'H','yunjin':'Y'}
 GROUPS=[('team','윤진·조은·혜인'),('joeun','조은 친구'),('hyein','혜인 친구'),('yunjin','윤진 친구')]
 def request(port,path,body=None):
     req=urllib.request.Request(f'http://127.0.0.1:{port}'+path,data=None if body is None else json.dumps(body).encode(),headers={'Content-Type':'application/json'})
@@ -95,12 +97,16 @@ def main():
     commit=support.clean_commit();marker=ROOT/'.local/experiment-build.json'
     if not marker.exists() or json.loads(marker.read_text())!={'commit':commit,'mode':'h4','api':'/backend'}:raise ValueError('현재 커밋에서 먼저 build를 실행하세요.')
     web=ROOT/'web/out'
-    if not (web/'experiment/index.html').is_file():raise ValueError('설문 화면 빌드가 없습니다.')
+    if not (web/'result/index.html').is_file():raise ValueError('실험 화면 빌드가 없습니다.')
     bundle=(a.bundle or ROOT/'.local'/('experiment-'+a.mode)).resolve()
-    if not bundle.exists():support.prepare(bundle)
-    support.verify(bundle,code=True)
-    config={'commit':commit,'mode':a.mode,'travelDates':[a.start,a.end],'rate':'8.6253','rateDate':'2026-09-30','recommendationCards':'disabled_in_experiment','survey':'h4-2026-11-v1','groupSize':3,
+    fresh_bundle=not bundle.exists()
+    if fresh_bundle:support.prepare(bundle)
+    manifest=support.verify(bundle,code=True)
+    config={'commit':commit,'mode':a.mode,'travelDates':[a.start,a.end],'rate':'8.6253','rateDate':'2026-09-30','recommendationCards':'disabled_in_experiment','survey':'google_form','surveyUrl':SURVEY_URL,'groupSize':3,
             'osrm':bool(os.getenv('OSRM_FOOT_URL')) if a.mode=='live' else False,'ai':bool(os.getenv('SOMSOM_API_KEY')) if a.mode=='live' else False}
+    expected={'purpose':'h4_user_experiment' if a.mode=='live' else 'local_h4_rehearsal','travel_dates':[a.start,a.end],'recommendation_card_policy':'disabled_in_experiment'}
+    if fresh_bundle:save_private(bundle/'manifest.json',{**manifest,**expected})
+    elif any(manifest.get(k)!=v for k,v in expected.items()):raise ValueError('기존 묶음의 날짜·실험 정책이 다릅니다. 새 --bundle 경로를 사용하세요.')
     config_file=bundle/'experiment-config.json'
     if config_file.exists() and json.loads(config_file.read_text())!=config:raise ValueError('기존 실험과 설정이 다릅니다. 새 --bundle 경로로 준비하세요.')
     if not config_file.exists():save_private(config_file,config)
@@ -120,6 +126,8 @@ def main():
             else:
                 for name in ('GOOGLE_PLACES_API_KEY','SOMSOM_API_KEY','SOMSOM_BASE_URL','SOMSOM_MODEL','OSRM_FOOT_URL'):
                     if name in os.environ:env[name]=os.environ[name]
+            # Keep the established backup/restore tool's group configuration.
+            if not (g/'rehearsal.json').exists():save_private(g/'rehearsal.json',{'experiment':config,'group':key})
             logfile=g/'server.log'
             with logfile.open('a') as log:
                 child=subprocess.Popen([sys.executable,str(ROOT/'backend/server.py'),'--db',str(g/'trips.sqlite3'),'--host','127.0.0.1','--port',str(api),'--origin',f'http://localhost:{port}'],cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
@@ -136,12 +144,12 @@ def main():
             if private.exists():state=json.loads(private.read_text())
             else:
                 pin=f'{secrets.randbelow(10000):04d}'
-                room=request(api,'/rooms',{'startDate':a.start,'endDate':a.end,'memberNames':['참가자 1','참가자 2','참가자 3'],'ownerPin':pin,'dataset':'osaka_review_150'})
+                room=request(api,'/rooms',{'startDate':a.start,'endDate':a.end,'memberNames':[f'{CODES[key]}-{n:02d}' for n in (1,2,3)],'ownerPin':pin,'dataset':'osaka_review_150'})
                 state={'room':room,'participant1Pin':pin};save_private(private,state)
             room=state['room'];invite='/join/?'+urlencode({'room':room['roomId'],'k':room['inviteToken']})
             label='모의 점검 · 응답은 본 실험에 사용하지 않음' if a.mode=='rehearsal' else 'H4 실험 · 진행자 안내 후 시작'
-            notice='운영정보 조회는 모의 응답입니다. 실제 Google 확인이 아닙니다.' if a.mode=='rehearsal' else '실험 설문과 일정이 서버에 저장됩니다. 동의·안내 절차를 먼저 진행해 주세요.'
-            entry=page(title+' 실험','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>'+title+'</h1><span class="pill">'+label+'</span><p>가상 오사카 여행: '+a.start+' ~ '+a.end+' (4일)<br>같은 Wi-Fi · 각자 휴대폰 · 그룹 3명</p><div class="notice">'+notice+'<br><br>① 진행자가 준 본인 번호로 입장하고 PIN을 기억하세요.<br>② 사전 설문 → 장소 6곳 이상 → 꼭 가기 5곳 → 예산·체력 입력<br>③ 일정 A·B·C를 하나씩 살펴보고 각 일정 평가 → 마지막 설문<br><br>다른 사람과 상의하지 말고 평가해 주세요. 방장이 확정하지 않습니다. 1번은 진행자가 전달한 PIN으로 다시 들어갑니다. 번호를 추가하지 마세요.</div><a class="button" href="'+html.escape(invite,quote=True)+'">실험방 입장</a>')
+            notice='운영정보 조회는 모의 응답입니다. 실제 Google 확인이 아닙니다.' if a.mode=='rehearsal' else '여행 입력·일정은 로컬 서버에, 설문 응답은 혜인님의 Google 설문에 저장됩니다. 진행자의 안내 후 시작해 주세요.'
+            entry=page(title+' 실험','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>'+title+'</h1><span class="pill">'+label+'</span><p>가상 오사카 여행: '+a.start+' ~ '+a.end+' (4일)<br>같은 그룹의 서버 노트북과 같은 Wi-Fi · 각자 휴대폰 · 그룹 3명</p><div class="notice">'+notice+'<br><br>① 진행자가 준 본인 번호로 입장하고 PIN을 기억하세요.<br>② 장소 6곳 이상 → 꼭 가기 5곳 → 예산·체력 입력<br>③ 일정 A·B·C를 모두 살펴보고 혜인님의 Google 설문 작성<br><br>다른 사람과 상의하지 말고 평가해 주세요. 방장이 확정하지 않습니다. 01번은 진행자가 전달한 PIN으로 다시 들어갑니다. 번호를 추가하지 마세요. 아이폰 Safari / 안드로이드 Chrome 공통입니다.</div><a class="button" href="'+html.escape(invite,quote=True)+'">실험방 입장</a><p><a href="'+SURVEY_URL+'" target="_blank" rel="noopener noreferrer">혜인님 Google 설문</a></p>')
             server=ThreadingHTTPServer((str(ip),port),partial(Gateway,web_root=web,entry=entry,origin=origin,api_port=api));server.daemon_threads=True;servers.append(server);threading.Thread(target=server.serve_forever,daemon=True).start()
             url=origin+'/entry/';qr_image(url,out/(key+'-qr.png'));metadata.append({'group':key,'title':title,'url':url,'mode':a.mode,'travelDates':config['travelDates']})
             cards.append('<section class="card"><h2>'+title+'</h2><span class="pill">'+label+'</span><img src="'+key+'-qr.png" alt="'+title+' QR"><a class="url" href="'+url+'">'+url+'</a><p>각자 배정받은 참가자 번호로 입장</p></section>')

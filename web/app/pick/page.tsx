@@ -1,12 +1,10 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ExperimentSurveyLink } from "@/components/ExperimentSurveyLink";
 import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
 import { PlaceRecommendations } from "@/components/PlaceRecommendations";
 import { CATEGORIES, findPlace } from "@/lib/places";
-import { experimentResponse } from "@/lib/experiment-api";
 import { EXPERIMENT_MODE } from "@/lib/experiment";
 import { Box, MinusButton, NavButtons, Page, PlanHeader } from "@/components/gachiro";
 import type { Place } from "@/lib/types";
@@ -42,7 +40,6 @@ export default function Pick() {
     setError(null);
     try {
       if (EXPERIMENT_MODE) {
-        if (!state.room || !(await experimentResponse(state.room)).pre) { router.push("/experiment/"); return; }
         if (longlist.length < 6) throw new Error("실험에서는 가고 싶은 장소를 6곳 이상 담아 주세요.");
       }
       await saveLonglist();
@@ -61,9 +58,8 @@ export default function Pick() {
   return (
     <Page nav={<NavButtons next={next} busy={busy} />}>
       <PlanHeader />
-      <ExperimentSurveyLink />
       <fieldset disabled={busy} className="min-w-0 px-5 pt-[59px]">
-        {EXPERIMENT_MODE && <p className="mb-4 text-sm text-wine">사전 설문 후, 가고 싶은 곳을 6곳 이상 담아 주세요.</p>}
+        {EXPERIMENT_MODE && <p className="mb-4 text-sm text-wine">가고 싶은 곳을 6곳 이상 담아 주세요.</p>}
         <PlaceFinder added={longlist} onPick={add} disabled={busy} />
         {busy && <p role="status" className="mt-2 text-sm text-mute">목록을 저장하고 있어요. 잠시 기다려 주세요.</p>}
         {/* 실험 방에서는 추천 카드를 그리지 않는다 — 마운트되면 추천 API를 부르므로 숨김이 아니라 생략 (실험설계 2.1) */}

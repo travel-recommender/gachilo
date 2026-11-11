@@ -14,7 +14,6 @@ from api_errors import ApiError, require
 from candidate_results import CandidateStore, STRATEGIES
 from candidate_engine import CandidateEngine
 from place_recommendations import RecommendationStore
-from experiment_responses import ExperimentStore
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
 def now():return datetime.now(timezone.utc).isoformat()
 PIN_TRIES=5
@@ -32,7 +31,7 @@ def pin_ok(pin,stored):
     salt,h=stored.split('$',1)
     return hmac.compare_digest(hashlib.pbkdf2_hmac('sha256',pin.encode(),bytes.fromhex(salt),100_000).hex(),h)
 
-class Store(CandidateStore, RecommendationStore, ExperimentStore):
+class Store(CandidateStore, RecommendationStore):
     def __init__(self,path,catalog=None,*,date_availability=None):
         self.date_availability=date_availability
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
@@ -51,7 +50,6 @@ class Store(CandidateStore, RecommendationStore, ExperimentStore):
             CREATE TABLE IF NOT EXISTS longlists(member_id TEXT PRIMARY KEY,ids TEXT,updated TEXT,FOREIGN KEY(member_id) REFERENCES members(id));
             ''')
             self.init_candidates(c)
-            self.init_experiment(c)
             if 'dataset' not in {row['name'] for row in c.execute('PRAGMA table_info(rooms)')}:
                 c.execute(f"ALTER TABLE rooms ADD COLUMN dataset TEXT NOT NULL DEFAULT '{DEMO_DATASET}'")
             if 'planning' not in {row['name'] for row in c.execute('PRAGMA table_info(results)')}:
@@ -355,7 +353,6 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
         dataset,start,end=store.room_dates(rid,token)
         return {'roomId':rid,'placeIds':available_ids(start,end) if dataset==REAL_DATASET else None}
     store=Store(path,engine.catalog,date_availability=available_ids)
-    store.experiment_node=engine.node
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
             origin=self.headers.get('Origin')
@@ -420,10 +417,6 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     else:result=engine.calculate(snapshot,b['strategy'])
                     store.save_result(m[1],token,{'revision':snapshot['revision'],'result':result},planning=planning)
                     return self.send_json(200,store.result(m[1],token))
-                m=re.fullmatch(r'/rooms/([\w-]+)/experiment/([\w-]+)',path)
-                if m and self.command in ('GET','PUT'):
-                    if self.command=='PUT':require(isinstance(b,dict),'응답은 JSON 객체여야 합니다.')
-                    return self.send_json(200,store.experiment(*m.groups(),token,b if self.command=='PUT' else None))
                 m=re.fullmatch(r'/rooms/([\w-]+)/selection',path)
                 if m and self.command=='PUT':
                     if os.environ.get('EXPERIMENT_SERVER')=='1':raise ApiError(409,'실험 중에는 일정을 확정하지 않습니다.')
