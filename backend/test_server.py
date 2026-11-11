@@ -99,6 +99,30 @@ class ApiTests(unittest.TestCase):
   self.assertNotIn('osaka_draft_cdb260bb106a',ids)  # Google 지도상 폐업
   self.assertTrue(0<len(ids)<150)
   demo=self.room();self.assertIsNone(self.req('GET',f"/rooms/{demo['roomId']}/schedulable",token=demo['ownerToken'])[1]['placeIds'])
+ def test_visit_conditions_gives_reviewed_and_live_status_with_sources_for_room_members_only(self):
+  from unittest.mock import patch
+  real=self.req('POST','/rooms',{'startDate':'2026-11-16','endDate':'2026-11-19','memberNames':['조은','윤진'],'dataset':'osaka_review_150'})[1]
+  rid=real['roomId'];token=real['members'][1]['submissionToken'];path=f"/rooms/{rid}/visit-conditions"
+  body={'placeIds':['osaka_002','osaka_007'],'dates':['2026-11-17']}
+  self.assertEqual(self.req('POST',path,body)[0],403)
+  with patch.dict('os.environ',{'LIVE_CHECK_MOCK':'pass'}):
+   status,got,_=self.req('POST',path,body,token)
+  self.assertEqual(status,200);self.assertEqual(got['roomId'],rid);self.assertEqual(got['liveSource'],'mock')
+  tsutenkaku,umeda=got['places']
+  self.assertEqual(tsutenkaku['dates'][0]['status'],'check')  # 입장 시간 예약
+  self.assertTrue(any(n['code']=='entry_time_reservation_required' for n in tsutenkaku['dates'][0]['notices']))
+  self.assertEqual(umeda['dates'][0]['status'],'confirmed');self.assertEqual(umeda['dates'][0]['live'],'confirmed')
+  self.assertTrue(all(s['url'].startswith('http') for s in umeda['sources']))
+  with patch.dict('os.environ',{'LIVE_CHECK_MOCK':'fail'}):
+   failed=self.req('POST',path,body,token)[1]
+  self.assertEqual(failed['places'][1]['dates'][0]['live'],'failed')
+  # 여행 기간 밖·모르는 장소·형식 오류·데모 방은 거절
+  self.assertEqual(self.req('POST',path,{'placeIds':['osaka_007'],'dates':['2026-11-25']},token)[0],400)
+  self.assertEqual(self.req('POST',path,{'placeIds':['glico'],'dates':['2026-11-17']},token)[0],400)
+  self.assertEqual(self.req('POST',path,{'placeIds':[],'dates':['2026-11-17']},token)[0],400)
+  self.assertEqual(self.req('POST',path,{'placeIds':['osaka_007']},token)[0],400)
+  demo=self.room()
+  self.assertEqual(self.req('POST',f"/rooms/{demo['roomId']}/visit-conditions",{'placeIds':['glico'],'dates':['2026-10-01']},demo['ownerToken'])[0],400)
  def test_real_pool_filters_dated_and_search_only_places_without_erasing_inputs(self):
   import sqlite3
   room=self.req('POST','/rooms',{'startDate':'2026-11-02','endDate':'2026-11-03','memberNames':['A','B'],'dataset':'osaka_review_150'})[1]
