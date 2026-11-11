@@ -1,5 +1,5 @@
 """Local week-5 API prototype. SQLite persistence; run: python3 server.py."""
-import argparse, hashlib, hmac, json, re, secrets, sqlite3, subprocess
+import os, argparse, hashlib, hmac, json, re, secrets, sqlite3, subprocess
 from collections import Counter
 from contextlib import contextmanager
 from datetime import date, datetime, timedelta, timezone
@@ -119,6 +119,7 @@ class Store(CandidateStore, RecommendationStore):
                 if m['claimed']:raise ApiError(409,'이미 다른 사람이 고른 이름이에요.')
                 c.execute('UPDATE members SET token_hash=?,claimed=1,pin_hash=? WHERE id=?',(digest(fresh),ph,m['id']))
                 return {'memberId':m['id'],'name':m['name'],'submissionToken':fresh}
+            if os.environ.get('EXPERIMENT_SERVER')=='1':raise ApiError(409,'실험 참가자는 미리 정한 번호로 입장해 주세요. 새 번호는 추가할 수 없습니다.')
             name=b['name'].strip();require(1<=len(name)<=40,'참여자 이름은 1~40자여야 합니다.')
             names=[x['name'] for x in c.execute('SELECT name FROM members WHERE room_id=?',(rid,))]
             if name in names:raise ApiError(409,'이미 있는 이름이에요. 목록에서 골라 주세요.')
@@ -438,6 +439,7 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                     return self.send_json(200,store.result(m[1],token))
                 m=re.fullmatch(r'/rooms/([\w-]+)/selection',path)
                 if m and self.command=='PUT':
+                    if os.environ.get('EXPERIMENT_SERVER')=='1':raise ApiError(409,'실험 중에는 일정을 확정하지 않습니다.')
                     store.select_candidate(m[1],token,b)
                     return self.send_json(200,store.result(m[1],token))
                 if self.command=='GET' and path=='/health':return self.send_json(200,{'ok':True})

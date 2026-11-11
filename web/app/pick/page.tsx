@@ -39,6 +39,9 @@ export default function Pick() {
     setBusy(true);
     setError(null);
     try {
+      if (EXPERIMENT_MODE) {
+        if (longlist.length < 6) throw new Error("실험에서는 가고 싶은 장소를 6곳 이상 담아 주세요.");
+      }
       await saveLonglist();
       router.push("/waiting?step=list");
     } catch (e) {
@@ -56,6 +59,7 @@ export default function Pick() {
     <Page nav={<NavButtons next={next} busy={busy} />}>
       <PlanHeader />
       <fieldset disabled={busy} className="min-w-0 px-5 pt-[59px]">
+        {EXPERIMENT_MODE && <p className="mb-4 text-sm text-wine">가고 싶은 곳을 6곳 이상 담아 주세요.</p>}
         <PlaceFinder added={longlist} onPick={add} disabled={busy} />
         {busy && <p role="status" className="mt-2 text-sm text-mute">목록을 저장하고 있어요. 잠시 기다려 주세요.</p>}
         {/* 실험 방에서는 추천 카드를 그리지 않는다 — 마운트되면 추천 API를 부르므로 숨김이 아니라 생략 (실험설계 2.1) */}
