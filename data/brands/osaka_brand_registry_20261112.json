@@ -1,0 +1,1156 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-12-brands-v1",
+  "catalog_input": "data/final/osaka_catalog_20261104.json",
+  "catalog_sha256": "18a28f89f2982b342488533ef7862f9b82a2c895f9d7c0f2c9bc27b6c65a1e50",
+  "reviewed_place_count": 238,
+  "scope": "explicit multi-branch identity only; ungrouped records are not inferred from names",
+  "policy": {
+    "experiment_auto_replacement": "user_confirmed_2026-11-12",
+    "identity_key": "brand_id",
+    "substitution_key": "branch_group_id",
+    "null_identity": "compare original place_id; null does not mean all ungrouped places are equal",
+    "requirements": [
+      "same non-null brand_id and branch_group_id",
+      "same category and meal role",
+      "dated availability and budget recheck",
+      "preserve held/excluded status",
+      "revalidate full itinerary after replacement"
+    ],
+    "live_hours_reverified": false
+  },
+  "brands": [
+    {
+      "brand_id": "ichiran",
+      "name": "이치란 라멘",
+      "members": [
+        {
+          "place_id": "osaka_026",
+          "branch_group_id": "ichiran:standard",
+          "source_urls": [
+            "https://ichiran.com/shop/kinki/dotonbori-south/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "osm_node_2546559085",
+          "branch_group_id": "ichiran:standard",
+          "source_urls": [
+            "http://www.ichiran.co.jp/tenpo/kin_douton.html",
+            "https://ichiran.com/shop/kinki/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": "2026-11-12",
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_ichiran_shinsaibashi",
+          "branch_group_id": "ichiran:standard",
+          "source_urls": [
+            "https://ichiran.com/shop/kinki/shinsaibashi/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_ichiran_namba_midosuji",
+          "branch_group_id": "ichiran:standard",
+          "source_urls": [
+            "https://ichiran.com/np/shop/kinki/namba-midosuji.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_ichiran_umeda_hankyu",
+          "branch_group_id": "ichiran:standard",
+          "source_urls": [
+            "https://ichiran.com/shop/kinki/umeda-hankyu/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_ichiran_umeda_shibata",
+          "branch_group_id": "ichiran:standard",
+          "source_urls": [
+            "https://ichiran.com/shop/kinki/umeda-shibata/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_ichiran_abeno",
+          "branch_group_id": "ichiran:standard",
+          "source_urls": [
+            "https://ichiran.com/shop/kinki/abeno/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "donki",
+      "name": "돈키호테",
+      "members": [
+        {
+          "place_id": "branch_donki_dotonbori",
+          "branch_group_id": "donki:standard",
+          "source_urls": [
+            "https://www.donki.com/store/shop_detail.php?shop_id=110"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_donki_dotonbori_midosuji",
+          "branch_group_id": "donki:standard",
+          "source_urls": [
+            "https://www.donki.com/store/shop_detail.php?shop_id=373"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_donki_namba_sennichimae",
+          "branch_group_id": "donki:standard",
+          "source_urls": [
+            "https://www.donki.com/store/shop_detail.php?shop_id=419"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_donki_umeda",
+          "branch_group_id": "donki:standard",
+          "source_urls": [
+            "https://www.donki.com/store/shop_detail.php?shop_id=275"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "gu",
+      "name": "GU",
+      "members": [
+        {
+          "place_id": "branch_gu_shinsaibashi",
+          "branch_group_id": "gu:standard",
+          "source_urls": [
+            "https://www.gu-global.com/jp/ja/feature/contents/tax-free/all"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_gu_links_umeda",
+          "branch_group_id": "gu:standard",
+          "source_urls": [
+            "https://links-umeda.jp/shop/gu%E3%80%80links-umeda/",
+            "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "daiso",
+      "name": "다이소",
+      "members": [
+        {
+          "place_id": "branch_daiso_shinsaibashi",
+          "branch_group_id": "daiso:standard",
+          "source_urls": [
+            "https://www.daiso-sangyo.co.jp/shop/detail/008646"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_daiso_links_umeda",
+          "branch_group_id": "daiso:standard",
+          "source_urls": [
+            "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_daiso_osaka_umeda",
+          "branch_group_id": "daiso:standard",
+          "source_urls": [
+            "https://www.daiso-sangyo.co.jp/shop/detail/008952"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "uniqlo",
+      "name": "유니클로",
+      "members": [
+        {
+          "place_id": "branch_uniqlo_shinsaibashi",
+          "branch_group_id": "uniqlo:standard",
+          "source_urls": [
+            "https://www.shinsaibashi.or.jp/stores/show/27"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_uniqlo_umeda",
+          "branch_group_id": "uniqlo:standard",
+          "source_urls": [
+            "https://map.uniqlo.com/jp/ja/detail/10101654/1000",
+            "https://www.daiso-sangyo.co.jp/shop/detail/003962"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "muji",
+      "name": "무인양품",
+      "members": [
+        {
+          "place_id": "branch_muji_grandfront",
+          "branch_group_id": "muji:standard",
+          "source_urls": [
+            "https://www.muji.com/jp/ja/shop/detail/045589",
+            "https://mapfan.com/future-info/details/N2J0"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_muji_namba_skyo",
+          "branch_group_id": "muji:standard",
+          "source_urls": [
+            "https://www.muji.com/jp/ja/shop/detail/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%B9%E3%82%AB%E3%82%A4%E3%82%AA/046316",
+            "https://nambaskyo.com/shopresearch/479",
+            "https://nambaskyo.com/access"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "montbell",
+      "name": "몽벨",
+      "members": [
+        {
+          "place_id": "branch_montbell_namba_city",
+          "branch_group_id": "montbell:standard",
+          "source_urls": [
+            "https://store.montbell.jp/sp/search/shopinfo/?shop_no=678546"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_montbell_umekita",
+          "branch_group_id": "montbell:standard",
+          "source_urls": [
+            "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_montbell_daimaru_shinsaibashi",
+          "branch_group_id": "montbell:standard",
+          "source_urls": [
+            "https://www.daimaru.co.jp/shinsaibashi/hours.html",
+            "https://store.montbell.jp/clubshop/",
+            "https://store.montbell.jp/search/shopinfo/?shop_no=678624"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "matsukiyo",
+      "name": "마츠모토키요시",
+      "members": [
+        {
+          "place_id": "branch_matsukiyo_dotonbori1",
+          "branch_group_id": "matsukiyo:standard",
+          "source_urls": [
+            "https://www.matsukiyococokara-online.com/map/?kid=10001629",
+            "https://goo.gl/maps/gwjRHJmUn1ofKuKVA"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_matsukiyo_shinsaibashi_chuo",
+          "branch_group_id": "matsukiyo:standard",
+          "source_urls": [
+            "https://www.matsukiyococokara-online.com/map/?kid=10001671",
+            "https://mapfan.com/spots/SCWA3%2C1DD%2CXQ0"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "jam",
+      "name": "JAM",
+      "members": [
+        {
+          "place_id": "branch_jam_americamura",
+          "branch_group_id": "jam:standard",
+          "source_urls": [
+            "https://jamtrading.jp/f/shop-list/shop-05"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_jam_shinsaibashi",
+          "branch_group_id": "jam:standard",
+          "source_urls": [
+            "https://jamtrading.jp/f/shop-list/shop-11",
+            "https://jamtrading.jp/company_site/about.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "daruma",
+      "name": "쿠시카츠 다루마",
+      "members": [
+        {
+          "place_id": "branch_daruma_dotonbori",
+          "branch_group_id": "daruma:standard",
+          "source_urls": [
+            "https://www.kushikatu-daruma.com/location/doutonbori",
+            "https://www.kushikatu-daruma.com/files/user/%E9%81%93%E9%A0%93%E5%A0%80%E5%BA%97HP.pdf"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_daruma_shinsekai",
+          "branch_group_id": "daruma:standard",
+          "source_urls": [
+            "https://www.kushikatu-daruma.com/location/shinsekai",
+            "https://www.kushikatu-daruma.com/files/user/HP%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC.pdf"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "fukutaro",
+      "name": "후쿠타로",
+      "members": [
+        {
+          "place_id": "branch_fukutaro_honten",
+          "branch_group_id": "fukutaro:standard",
+          "source_urls": [
+            "https://2951.jp/",
+            "https://2951.jp/menu.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_fukutaro_umeda",
+          "branch_group_id": "fukutaro:standard",
+          "source_urls": [
+            "https://2951.jp/",
+            "https://www.gfo-sc.jp/shop-detail/hukutaro/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "wanaka",
+      "name": "와나카",
+      "members": [
+        {
+          "place_id": "branch_wanaka_sennichimae",
+          "branch_group_id": "wanaka:standard",
+          "source_urls": [
+            "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_wanaka_dotonbori",
+          "branch_group_id": "wanaka:standard",
+          "source_urls": [
+            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "starbucks",
+      "name": "스타벅스",
+      "members": [
+        {
+          "place_id": "branch_starbucks_ebisubashi",
+          "branch_group_id": "starbucks:standard",
+          "source_urls": [
+            "https://store.starbucks.co.jp/detail-2005/",
+            "https://ebisubashisuji.or.jp/shops/tsutaya_ebisubashi/",
+            "https://menu.starbucks.co.jp/4524785000018"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_starbucks_namba_nankai",
+          "branch_group_id": "starbucks:standard",
+          "source_urls": [
+            "https://store.starbucks.co.jp/detail-4555/",
+            "https://menu.starbucks.co.jp/4524785000018"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "doutor",
+      "name": "도토루",
+      "members": [
+        {
+          "place_id": "branch_doutor_shinsaibashi_station",
+          "branch_group_id": "doutor:standard",
+          "source_urls": [
+            "https://shop.doutor.co.jp/doutor/spot/detail?code=2012424",
+            "https://www.doutor.co.jp/dcs/menu/detail/20110907153810.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_doutor_umeda_city",
+          "branch_group_id": "doutor:standard",
+          "source_urls": [
+            "https://shop.doutor.co.jp/doutor/spot/detail?code=2010347",
+            "https://www.doutor.co.jp/dcs/menu/detail/20110907153810.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "komeda",
+      "name": "코메다",
+      "members": [
+        {
+          "place_id": "branch_komeda_namba_sennichimae",
+          "branch_group_id": "komeda:standard",
+          "source_urls": [
+            "https://www.komeda.co.jp/shop/detail.html?id=620",
+            "https://eu.komeda.co.jp/v1/hp/shop/620",
+            "https://eu.komeda.co.jp/v1/hp/shop/620/menu"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_komeda_kitte_osaka",
+          "branch_group_id": "komeda:standard",
+          "source_urls": [
+            "https://www.komeda.co.jp/shop/detail.html?id=1190",
+            "https://eu.komeda.co.jp/v1/hp/shop/1190",
+            "https://eu.komeda.co.jp/v1/hp/shop/1190/menu"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "sushiro",
+      "name": "스시로",
+      "members": [
+        {
+          "place_id": "branch_sushiro_namba_amza",
+          "branch_group_id": "sushiro:standard",
+          "source_urls": [
+            "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2225"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_sushiro_umeda_chayamachi",
+          "branch_group_id": "sushiro:standard",
+          "source_urls": [
+            "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2369"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "kaldi",
+      "name": "칼디",
+      "members": [
+        {
+          "place_id": "branch_kaldi_namba_city",
+          "branch_group_id": "kaldi:standard",
+          "source_urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_kaldi_tennoji_mio",
+          "branch_group_id": "kaldi:standard",
+          "source_urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_kaldi_lucua1100",
+          "branch_group_id": "kaldi:standard",
+          "source_urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=375&pgret=2"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "kura",
+      "name": "쿠라스시",
+      "members": [
+        {
+          "place_id": "branch_kura_sennichimae",
+          "branch_group_id": "kura:standard",
+          "source_urls": [
+            "https://shop.kurasushi.co.jp/detail/660"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_kura_dotonbori",
+          "branch_group_id": "kura:standard",
+          "source_urls": [
+            "https://shop.kurasushi.co.jp/detail/567"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "bape",
+      "name": "베이프",
+      "members": [
+        {
+          "place_id": "branch_bape_osaka",
+          "branch_group_id": "bape:osaka",
+          "source_urls": [
+            "https://jp.bape.com/pages/store-list/osaka"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "일반 BAPE 매장. 다른 형태의 한정 상품·취급 범위 동일성 미확인."
+        },
+        {
+          "place_id": "branch_bape_hankyu_mens",
+          "branch_group_id": "bape:hankyu_mens",
+          "source_urls": [
+            "https://jp.bape.com/pages/store-list",
+            "https://jp.bape.com/blogs/news/bapestore-hankyumens",
+            "https://jp.bape.com/pages/store-list/hankyu-mens-osaka"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "남성관 내 매장. 일반·협업 매장과 취급 범위 동일성 미확인."
+        },
+        {
+          "place_id": "branch_bape_cdg_osaka",
+          "branch_group_id": "bape:cdg",
+          "source_urls": [
+            "https://jp.bape.com/pages/store-list/cdg-osaka"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": "2026-11-12",
+          "note": "COMME des GARCONS 내 BAPE 매장. 건물의 브랜드 CDG와 합치지 않는다."
+        }
+      ]
+    },
+    {
+      "brand_id": "porter",
+      "name": "포터",
+      "members": [
+        {
+          "place_id": "branch_porter_osaka",
+          "branch_group_id": "porter:store",
+          "source_urls": [
+            "https://www.gfo-sc.jp/shop-detail/porter/",
+            "https://store.montbell.jp/search/shopinfo/?shop_no=678503"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "PORTER 매장과 CLOAKROOM by PORTER의 취급 범위 동일성을 가정하지 않는다."
+        },
+        {
+          "place_id": "branch_porter_cloakroom_hankyu",
+          "branch_group_id": "porter:cloakroom",
+          "source_urls": [
+            "https://website.hankyu-dept.co.jp/honten/cat/mens/h/with_local/",
+            "https://www.hankyu-dept.co.jp/honten/map/index.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "CLOAKROOM by PORTER 별도 매장 형태."
+        }
+      ]
+    },
+    {
+      "brand_id": "zara",
+      "name": "ZARA",
+      "members": [
+        {
+          "place_id": "branch_zara_shinsaibashi",
+          "branch_group_id": "zara:general",
+          "source_urls": [
+            "https://www.shinsaibashi.or.jp/stores/show/280/ZARA"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "일반 매장. 남성 전용 매장과 구매 목적이 같다고 추정하지 않는다."
+        },
+        {
+          "place_id": "branch_zara_man_shinsaibashi",
+          "branch_group_id": "zara:mens",
+          "source_urls": [
+            "https://www.shinsaibashi.or.jp/stores/show/842/ZARA%20MAN%20%E5%BF%83%E6%96%8E%E6%A9%8B%E7%AD%8B%E5%BA%97",
+            "https://namba.keizai.biz/mapnews/5759/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": "2026-11-12",
+          "note": "공식 상점가 안내의 남성 전용 매장."
+        }
+      ]
+    },
+    {
+      "brand_id": "daimaru",
+      "name": "다이마루",
+      "members": [
+        {
+          "place_id": "osaka_022",
+          "branch_group_id": "daimaru:standard",
+          "source_urls": [
+            "https://www.daimaru.co.jp/shinsaibashi/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_daimaru_umeda",
+          "branch_group_id": "daimaru:standard",
+          "source_urls": [
+            "https://www.daimaru.co.jp/umedamise/hours.html",
+            "https://www.daimaru.co.jp/umedamise/access.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "hankyu",
+      "name": "한큐",
+      "members": [
+        {
+          "place_id": "osaka_draft_f1ba0aa6ab58",
+          "branch_group_id": "hankyu:department",
+          "source_urls": [
+            "https://www.hankyu-dept.co.jp/honten"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "백화점 본점과 남성 전문관을 구분한다."
+        },
+        {
+          "place_id": "branch_hankyu_mens_osaka",
+          "branch_group_id": "hankyu:mens",
+          "source_urls": [
+            "https://web.hh-online.jp/hankyu-mens/contents/osaka/",
+            "https://jp.bape.com/pages/store-list/hankyu-mens-osaka"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "남성 전문관. 일반 백화점 방문과 서로 대체하지 않는다."
+        }
+      ]
+    },
+    {
+      "brand_id": "pokemon_center",
+      "name": "포켓몬센터",
+      "members": [
+        {
+          "place_id": "branch_pokemon_osaka",
+          "branch_group_id": "pokemon_center:standard",
+          "source_urls": [
+            "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/",
+            "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/news/202610/000609.html",
+            "https://www.lucua.jp/special/south-open/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_pokemon_osaka_dx",
+          "branch_group_id": "pokemon_center:standard",
+          "source_urls": [
+            "https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osakadx/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "551_horai",
+      "name": "551 호라이",
+      "members": [
+        {
+          "place_id": "branch_551_honten",
+          "branch_group_id": "551_horai:restaurant",
+          "source_urls": [
+            "https://www.551horai.co.jp/shop/list/13/",
+            "https://www.551horai.co.jp/wp/wp-content/uploads/2026/08/%E6%9C%AC%E5%BA%97202609.pdf"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": "2026-11-12",
+          "note": "기존 데이터는 본점 2~3층 식사 방문. 포장 매장으로 바꾸지 않는다."
+        },
+        {
+          "place_id": "branch_551_namba_walk",
+          "branch_group_id": "551_horai:restaurant",
+          "source_urls": [
+            "https://www.551horai.co.jp/shop/list/20/",
+            "https://www.551horai.co.jp/wp/wp-content/uploads/2026/08/%E3%81%AA%E3%82%93%E3%81%B0%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%AF202609.pdf"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": "2026-11-12",
+          "note": "기존 데이터는 매장 내 식사 방문. 지점별 메뉴 가격·휴무를 별도 검사한다."
+        },
+        {
+          "place_id": "branch_551_takashimaya_osaka",
+          "branch_group_id": "551_horai:takeout",
+          "source_urls": [
+            "https://www.551horai.co.jp/shop/list/18/",
+            "https://www.551horai.co.jp/menu/butaman/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": "2026-11-12",
+          "note": "포장 방문. 본점·난바워크의 점심·저녁 식사를 대체하지 않는다."
+        }
+      ]
+    },
+    {
+      "brand_id": "tullys",
+      "name": "툴리스",
+      "members": [
+        {
+          "place_id": "branch_tullys_namba_parks",
+          "branch_group_id": "tullys:coffee",
+          "source_urls": [
+            "https://shop.tullys.co.jp/detail/1000897",
+            "https://www.tullys.co.jp/menu/drink/coffee/todays.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "일반 커피 매장. &TEA 특화 방문과 구분한다."
+        },
+        {
+          "place_id": "branch_tullys_grandfront_south",
+          "branch_group_id": "tullys:tea",
+          "source_urls": [
+            "https://shop.tullys.co.jp/detail/1003053",
+            "https://www.tullys.co.jp/menu/drink/coffee/todays.html"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": "2026-11-12",
+          "note": "공식 명칭의 &TEA 매장 형태를 보존한다."
+        }
+      ]
+    },
+    {
+      "brand_id": "rikuro",
+      "name": "리쿠로 오지상",
+      "members": [
+        {
+          "place_id": "branch_rikuro_namba_honten",
+          "branch_group_id": "rikuro:standard",
+          "source_urls": [
+            "https://www.rikuro.co.jp/shoplist/134.html",
+            "https://www.rikuro.co.jp/cheesecake/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        {
+          "place_id": "branch_rikuro_daimaru_umeda",
+          "branch_group_id": "rikuro:standard",
+          "source_urls": [
+            "https://www.rikuro.co.jp/shoplist/136.html",
+            "https://www.rikuro.co.jp/cheesecake/"
+          ],
+          "evidence_kind": "existing_branch_specific_research",
+          "identity_reviewed_on": "2026-11-12",
+          "live_identity_checked_on": null,
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        }
+      ]
+    }
+  ],
+  "ungrouped_place_ids": [
+    "osaka_001",
+    "osaka_002",
+    "osaka_003",
+    "osaka_004",
+    "osaka_005",
+    "osaka_006",
+    "osaka_007",
+    "osaka_008",
+    "osaka_009",
+    "osaka_010",
+    "osaka_011",
+    "osaka_012",
+    "osaka_013",
+    "osaka_014",
+    "osaka_015",
+    "osaka_016",
+    "osaka_017",
+    "osaka_018",
+    "osaka_019",
+    "osaka_020",
+    "osaka_021",
+    "osaka_023",
+    "osaka_024",
+    "osaka_025",
+    "osaka_028",
+    "osm_node_2296903605",
+    "osm_node_9875632529",
+    "osaka_draft_2e4698946819",
+    "osaka_draft_73505422b2e6",
+    "osaka_draft_a270504b6cd8",
+    "osaka_draft_bdd1ec5175d0",
+    "osaka_draft_f0f97440bedc",
+    "osaka_draft_1c4a0fd86b91",
+    "osaka_draft_85b3463e84b9",
+    "osaka_draft_5a243c3857f7",
+    "osaka_draft_84378ff5ba08",
+    "osaka_draft_0cc625078422",
+    "osaka_draft_300825840acb",
+    "osaka_draft_7c98da5a96f9",
+    "osaka_draft_1cbe7e7894c8",
+    "osaka_draft_50b7a6cc608f",
+    "osaka_draft_c99cbfbd0f92",
+    "osaka_draft_6dbd8bbe7f48",
+    "osaka_draft_ce3b8d452a0e",
+    "osaka_draft_316598fb77c9",
+    "osaka_draft_2780be08a88e",
+    "osaka_draft_7675eb0bab46",
+    "osaka_draft_40d8be797d5b",
+    "osaka_draft_6eda07803129",
+    "osaka_draft_43502b1cfa97",
+    "osaka_draft_9cd21dc062f7",
+    "osaka_draft_70d399cfaea8",
+    "osaka_draft_07d2c797a410",
+    "osaka_draft_006a0c207d8c",
+    "osaka_draft_718edcaf3985",
+    "osaka_draft_d7da3fdbeaf6",
+    "osaka_draft_04b34bc4e6e2",
+    "osaka_draft_1289b4aecc32",
+    "osaka_draft_c62644984874",
+    "osaka_draft_9e900589aec0",
+    "osaka_draft_f72944194ef3",
+    "osaka_draft_a66fcd05acfb",
+    "osaka_draft_03cde684bd96",
+    "osaka_draft_e102a263e5a8",
+    "osaka_draft_5f8dd9212a0c",
+    "osaka_draft_c6de5620d3d0",
+    "osaka_draft_0cf4fe2e0afe",
+    "osaka_draft_2941efc9ac2d",
+    "osaka_draft_f852e8e07cf8",
+    "osaka_draft_0adb7945fbda",
+    "osaka_draft_2fc0df9e9f8d",
+    "osaka_draft_cff5e2720c53",
+    "osaka_draft_16f1d28c8bfd",
+    "osaka_draft_1b3533415b94",
+    "osaka_draft_4fb99b053e8b",
+    "osaka_draft_e51bbe99124a",
+    "osaka_draft_02288187c550",
+    "osaka_draft_11050de606b0",
+    "osaka_draft_b1eae8a8935b",
+    "osaka_draft_daa353940c61",
+    "osaka_draft_dc3ec67cb8d1",
+    "osaka_draft_2b9dd68b687a",
+    "osaka_draft_fa65b053e525",
+    "osaka_draft_31878d4960fc",
+    "osaka_draft_391fae83b26c",
+    "osaka_draft_a8c6b6985943",
+    "osaka_draft_fc7acd992f21",
+    "osaka_draft_b6b6dae05ce5",
+    "osaka_draft_481d9742f9c2",
+    "osaka_draft_c85fa26beb80",
+    "osaka_draft_35640888fa49",
+    "osaka_draft_f22cfa23d646",
+    "osaka_draft_b0a5c9b0d460",
+    "osaka_draft_5a3ef73c2b4b",
+    "osaka_draft_3b8f7684482e",
+    "osaka_draft_e3ac280c1575",
+    "osaka_draft_9342479ef7d7",
+    "osaka_draft_243b34cd6761",
+    "osaka_draft_eda93d07ee2b",
+    "osaka_draft_d52fee5c2304",
+    "osaka_draft_11ceb1687dfa",
+    "osaka_draft_2f4886b3a5b6",
+    "osaka_draft_cdb260bb106a",
+    "osaka_draft_4af3a5a14578",
+    "osaka_draft_e5eb4dd70807",
+    "osaka_draft_af11af018972",
+    "osaka_draft_19894ad0a123",
+    "osaka_draft_c4a30f2620d0",
+    "osaka_draft_32974d974e62",
+    "osaka_draft_57eaac2e578d",
+    "osaka_draft_74dbaeea6a02",
+    "osaka_draft_96e588e49f58",
+    "osaka_draft_f729469c78c5",
+    "osaka_draft_873f1e0cf834",
+    "osaka_draft_94d63b518da4",
+    "osaka_draft_77f869ee706f",
+    "osaka_draft_2f89be830b8c",
+    "osaka_draft_ff20bd4cf6b7",
+    "osaka_draft_5f45ffb4d766",
+    "osaka_draft_89de388fac63",
+    "osaka_draft_23d3d20ef739",
+    "osaka_draft_c341bbd2440a",
+    "osaka_draft_a9bc74861e3f",
+    "osaka_draft_d580756db04a",
+    "osaka_draft_f8831852f028",
+    "osaka_draft_98a4211ed755",
+    "osaka_draft_7d6ecfb032b6",
+    "osaka_draft_d0e6cdcb566f",
+    "osaka_draft_3b1acd991668",
+    "osaka_draft_2eb759c40909",
+    "osaka_draft_1875c31c058c",
+    "osaka_draft_3d97f36846d0",
+    "osaka_draft_1cdebcaa6534",
+    "osaka_draft_20aa5444aadd",
+    "osaka_draft_7eda017e1ded",
+    "osaka_draft_3c015925bf31",
+    "osaka_draft_6789f7f9c22f",
+    "osaka_draft_89458a1abeda",
+    "osaka_draft_26a5e809355e",
+    "osaka_draft_8cb9705b2793",
+    "osaka_draft_d996a4118ab0",
+    "osaka_draft_2a9b88c21411",
+    "osaka_draft_5fa8876a4657",
+    "osm_way_303446421",
+    "osm_way_151816175",
+    "osm_node_6189996345",
+    "branch_onitsuka_shinsaibashi",
+    "branch_kiddyland_umeda",
+    "branch_stussy_osaka",
+    "branch_supreme_osaka",
+    "branch_humanmade_shinsaibashi",
+    "branch_cdg_osaka",
+    "branch_daikoku_dotonbori",
+    "branch_nintendo_osaka",
+    "branch_girlsmignon_shinsaibashi",
+    "branch_petitmignon_daimaru",
+    "branch_coco_namba_ebisubashi",
+    "branch_matsuya_nankai_namba",
+    "branch_yayoiken_nippombashi",
+    "branch_marugame_umeda",
+    "branch_beardpapa_namba_walk",
+    "branch_viedefrance_bentencho",
+    "branch_usj",
+    "branch_kaiyukan",
+    "branch_mizukakechaya_namba",
+    "branch_namba_walk",
+    "spot_ebisubashi",
+    "spot_nippombashi_denden",
+    "cruise_tombori",
+    "onsen_solaniwa",
+    "onsen_spaworld",
+    "onsen_spasuminoe"
+  ],
+  "explicit_non_matches": [
+    {
+      "place_ids": [
+        "osaka_draft_26a5e809355e",
+        "branch_jam_americamura"
+      ],
+      "reason": "식당 Cherry Jam과 빈티지 의류 JAM은 다른 업종·공식 사이트. 문자열 JAM으로 묶지 않는다."
+    },
+    {
+      "place_ids": [
+        "branch_cdg_osaka",
+        "branch_bape_cdg_osaka"
+      ],
+      "reason": "입점 건물과 BAPE 매장은 별개의 장소·브랜드."
+    },
+    {
+      "place_ids": [
+        "branch_girlsmignon_shinsaibashi",
+        "branch_petitmignon_daimaru"
+      ],
+      "reason": "같은 운영사여도 다른 상표·매장 형태. mignon 문자열로 합치지 않는다."
+    },
+    {
+      "place_ids": [
+        "onsen_spasuminoe",
+        "onsen_spaworld"
+      ],
+      "reason": "스파라는 일반 명칭으로 다른 온천 시설을 묶지 않는다."
+    }
+  ]
+}

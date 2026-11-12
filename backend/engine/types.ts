@@ -19,6 +19,10 @@ export type Exposure = 0 | 0.3 | 0.6 | 1;
 
 export interface Place {
   id: string;
+  /** Explicit chain identity; null/absent falls back to the original place ID. */
+  brandId?: string | null;
+  /** Reviewed visit format. Equal brand alone does not allow restaurant/takeout replacement. */
+  branchGroupId?: string | null;
   name: string;
   area: string;             // 지역 (우메다, 난바 등)
   category: CategoryId;

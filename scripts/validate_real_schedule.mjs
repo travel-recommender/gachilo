@@ -56,7 +56,7 @@ export function costKrw(jpy, rate) {
  */
 export function toEnginePlace(record, check, rate) {
   const p = record.place;
-  return {id: p.place_id, name: p.name_ko, area: p.area || '', category: engineCategory(p.category),
+  return {id: p.place_id, name: p.name_ko, brandId: p.brand_id ?? null, branchGroupId: p.branch_group_id ?? null, area: p.area || '', category: engineCategory(p.category),
     lat: p.latitude, lng: p.longitude, cost: shoppingRecord(record) ? 0 : costKrw(check.cost_jpy, rate),
     stayMin: p.stay_min, openFrom: check.window[0], openTo: check.window[1], bagLoad: p.bag_load / 2,
     mealRole: record.review.meal_role, buildingId: record.review.building_id ?? record.review.within?.building_id,
