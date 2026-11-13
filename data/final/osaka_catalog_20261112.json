@@ -34768,7 +34768,7 @@
       "place": {
         "place_id": "osm_node_2546559085",
         "name": "一蘭 道頓堀店本館",
-        "name_ko": "이치란라멘",
+        "name_ko": "이치란라멘 도톤보리 본관",
         "category": "식사",
         "area": "大阪市中央区",
         "address": "大阪府大阪市中央区宗右衛門町7-18",
@@ -34791,8 +34791,18 @@
           "url": "https://www.openstreetmap.org/node/2546559085"
         },
         "name_ko": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/2546559085"
+          "kind": "official_branch_display_name",
+          "source_urls": [
+            "http://www.ichiran.co.jp/tenpo/kin_douton.html",
+            "https://ichiran.com/shop/kinki/"
+          ],
+          "reviewed_on": "2026-11-13",
+          "note": "공식 일본어 지점명 一蘭 道頓堀店本館에 맞춰 본관 구분을 표시. 기존 검색어 이치란라멘을 유지하며 폐업·일정 보류 상태는 변경하지 않는다.",
+          "previous_value": "이치란라멘",
+          "previous_source": {
+            "kind": "osm",
+            "url": "https://www.openstreetmap.org/node/2546559085"
+          }
         },
         "category": {
           "kind": "osm",
@@ -57736,7 +57746,7 @@
     },
     "brand_identity": {
       "path": "data/brands/osaka_brand_registry_20261112.json",
-      "sha256": "14b1a0edcec7574efbbe878a60aa70ed1f7e50afc1737552e1dfc197eb6a6e2b",
+      "sha256": "6419ad2c4a52fac3aa3f969138c5a56de41bb9d0180c524b7141b1fe0bb25b26",
       "catalog_input": "data/final/osaka_catalog_20261104.json",
       "catalog_sha256": "18a28f89f2982b342488533ef7862f9b82a2c895f9d7c0f2c9bc27b6c65a1e50"
     }
@@ -57793,6 +57803,6 @@
     "brand_count": 27,
     "grouped_places": 66,
     "ungrouped_places": 172,
-    "scope": "Identity metadata only. Date eligibility, prices, coordinates and operating facts unchanged."
+    "scope": "Identity and reviewed display names only. Date eligibility, prices, coordinates and operating facts unchanged."
   }
 }

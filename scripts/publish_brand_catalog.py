@@ -1,4 +1,4 @@
-"""Publish explicit branch identity without changing operating facts or eligibility."""
+"""Publish reviewed branch identity/display names without changing operating facts or eligibility."""
 import argparse
 import copy
 import hashlib
@@ -52,6 +52,17 @@ def apply(dataset, registry):
                 raise ValueError('Incompatible category or meal role in branch group: ' + key)
             replacement_groups[key] = signature
             r['place'].update(brand_id=brand, branch_group_id=key)
+            correction = member.get('display_name_correction')
+            if correction:
+                if r['place']['name_ko'] != correction['previous'] or not correction['value'].strip():
+                    raise ValueError('Display name correction no longer matches its reviewed source')
+                r['place']['name_ko'] = correction['value']
+                r['field_sources']['name_ko'] = {
+                    'kind': 'official_branch_display_name', 'source_urls': urls,
+                    'reviewed_on': correction['reviewed_on'], 'note': correction['note'],
+                    'previous_value': correction['previous'],
+                    'previous_source': copy.deepcopy(r['field_sources']['name_ko']),
+                }
             r['field_sources']['brand_id'] = {
                 'kind': 'explicit_identity_review', 'registry_version': registry['version'],
                 'source_urls': urls, 'identity_reviewed_on': member['identity_reviewed_on'],
@@ -73,7 +84,7 @@ def apply(dataset, registry):
             raise ValueError('Explicit non-match incorrectly grouped')
     result['brand_identity'] = {'version': registry['version'], 'reviewed_places': len(ids),
         'brand_count': len(brands), 'grouped_places': len(seen), 'ungrouped_places': len(ungrouped),
-        'scope': 'Identity metadata only. Date eligibility, prices, coordinates and operating facts unchanged.'}
+        'scope': 'Identity and reviewed display names only. Date eligibility, prices, coordinates and operating facts unchanged.'}
     return result
 
 

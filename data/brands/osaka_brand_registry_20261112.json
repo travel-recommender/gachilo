@@ -45,7 +45,13 @@
           "evidence_kind": "existing_branch_specific_research",
           "identity_reviewed_on": "2026-11-12",
           "live_identity_checked_on": "2026-11-12",
-          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다.",
+          "display_name_correction": {
+            "previous": "이치란라멘",
+            "value": "이치란라멘 도톤보리 본관",
+            "reviewed_on": "2026-11-13",
+            "note": "공식 일본어 지점명 一蘭 道頓堀店本館에 맞춰 본관 구분을 표시. 기존 검색어 이치란라멘을 유지하며 폐업·일정 보류 상태는 변경하지 않는다."
+          }
         },
         {
           "place_id": "branch_ichiran_shinsaibashi",

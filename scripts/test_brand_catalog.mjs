@@ -19,8 +19,13 @@ test('the engine receives stable identity and branch-format keys', () => {
 
 test('adding identity does not change availability of any of the 238 records across all four travel dates', () => {
   for (const r of old.places) for (const date of ['2026-11-16','2026-11-17','2026-11-18','2026-11-19']) {
-    assert.deepEqual(availability(byId.get(r.place.place_id), date, profiles, {allowShopping: true}),
-      availability(r, date, profiles, {allowShopping: true}));
+    const actual = availability(byId.get(r.place.place_id), date, profiles, {allowShopping: true});
+    const previous = availability(r, date, profiles, {allowShopping: true});
+    if (r.place.place_id === 'osm_node_2546559085') {
+      assert.equal(actual.name_ko, '이치란라멘 도톤보리 본관');
+      previous.name_ko = actual.name_ko; // Only this reviewed display name changed.
+    }
+    assert.deepEqual(actual, previous);
   }
 });
 
