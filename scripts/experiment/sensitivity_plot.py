@@ -97,4 +97,4 @@ ax.legend(loc='lower left', bbox_to_anchor=(0, 1.0), ncol=3, frameon=False, font
 fig.tight_layout()
 fig.savefig(OUT / 'min_by_condition.png', facecolor=SURFACE)
 plt.close(fig)
-print('저장:', ', '.join(f'{OUT.relative_to(ROOT)}/{n}' for n in ['tornado_h1.png', 'tornado_h2.png', 'min_by_condition.png']))
+print('저장:', ', '.join(str(OUT / n) for n in ['tornado_h1.png', 'tornado_h2.png', 'min_by_condition.png']))

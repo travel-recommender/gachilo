@@ -41,15 +41,19 @@ const arg = name => { const i = process.argv.indexOf(name); return i < 0 ? null 
 const SEED = 20261111, MEMBERS = 4, COMMON = 15, LONGLIST = 8, PICKS = 5;
 const GROUPS = Number(arg('--groups') ?? 1000);
 if (!Number.isInteger(GROUPS) || GROUPS < 1) throw Error('--groups는 1 이상의 정수');
-// 빠른 확인(--groups)은 파일을 쓰지 않는다. 보정 가중치(--weights)는 --out에만 쓴다
-if (arg('--weights') && !arg('--out')) throw Error('--weights를 쓰면 --out <폴더>도 지정하세요 (11주 결과를 덮어쓰지 않도록)');
+// --out을 주면 항상 저장한다. 없으면 1,000그룹 기본 실행만 docs/sensitivity/에 저장하고, 빠른 확인(--groups)은 저장하지 않는다.
+// 보정 가중치(--weights)로 저장할 때는 --out이 꼭 있어야 한다 (11주 결과를 덮어쓰지 않도록)
 const OUT_DIR = arg('--out') ?? 'docs/sensitivity';
-const WRITE = !arg('--groups') || GROUPS === 1000;
+const WRITE = !!arg('--out') || !arg('--groups') || GROUPS === 1000;
+if (arg('--weights') && WRITE && !arg('--out')) throw Error('--weights로 저장하려면 --out <폴더>도 지정하세요 (11주 결과를 덮어쓰지 않도록)');
 const DATES = ['2026-11-16', '2026-11-17', '2026-11-18', '2026-11-19'];
 const STRATEGIES = ['average', 'least_misery', 'fairness'];
 const KEYS = ['pick', 'must', 'budget', 'walk', 'veto'];
 const BASE_WEIGHTS = arg('--weights') ? JSON.parse(arg('--weights')) : {...C.WEIGHTS};
-if (KEYS.some(k => typeof BASE_WEIGHTS[k] !== 'number')) throw Error('--weights needs pick, must, budget, walk, veto');
+if (KEYS.some(k => typeof BASE_WEIGHTS[k] !== 'number' || !Number.isFinite(BASE_WEIGHTS[k]) || BASE_WEIGHTS[k] < 0)
+    || KEYS.reduce((a, k) => a + BASE_WEIGHTS[k], 0) <= 0) {
+  throw Error('--weights는 pick, must, budget, walk, veto가 모두 0 이상의 숫자이고 합이 0보다 커야 합니다');
+}
 
 const {dataset: baseDataset, profiles} = V.loadRuntimeInputs();
 const manifest = JSON.parse(fs.readFileSync(new URL('data/runtime_catalog.json', ROOT), 'utf8'));
@@ -204,7 +208,9 @@ if (WRITE) {
     generated_by: 'scripts/experiment/sensitivity.mjs', seed: SEED, groups: GROUPS, members: MEMBERS,
     dates: DATES, picks: PICKS, longlist: LONGLIST, common_pool: COMMON, candidate_pool: pool,
     catalog: manifest.catalog, catalog_count: baseDataset.places.length, catalog_sha256_12: catalogSha,
-    base_weights: BASE_WEIGHTS, conditions: results}, null, 2) + '\n');
+    // 합이 1이 아닌 값을 넣으면 실제로 쓴 값(합 1로 다시 나눈 값)을 남긴다. 합이 이미 1이면 입력 그대로
+    base_weights: Math.abs(KEYS.reduce((t, k) => t + BASE_WEIGHTS[k], 0) - 1) < 1e-9 ? BASE_WEIGHTS : normalized(null, 1),
+    conditions: results}, null, 2) + '\n');
   const rows = [['condition', 'kind', ...KEYS.map(k => 'w_' + k), 'stay_factor',
     ...STRATEGIES.flatMap(s => [`${s}_mean`, `${s}_min`, `${s}_gap`]),
     'h1_lm_minus_avg', 'h1_lm_t', 'h1_fair_minus_avg', 'h1_fair_t', 'h2_avg_minus_lm_gap', 'h2_avg_minus_fair_gap', 'h2_fair_t',
