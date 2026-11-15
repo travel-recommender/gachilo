@@ -170,7 +170,8 @@ const UNPLACED_REASON: Record<string, string> = {
   requested_place_not_scheduled: "이동·체류 시간을 넣을 시간이 부족",
   opening_or_last_entry_violation: "영업·입장 마감 시간과 맞지 않음",
   daily_place_limit: "하루에 갈 수 있는 곳 수가 다 참",
-  strategy_selection_or_capacity: "하루에 갈 수 있는 곳 수가 다 참",
+  // 그날 일정에 더해도 모든 검사를 통과하는데 들어가지 않은 경우 — 자리가 찼거나, 전략이 다른 곳을 먼저 골랐다
+  strategy_selection_or_capacity: "다른 곳을 먼저 넣음",
   date_conditions_vary: "날짜마다 이유가 다름",
   live_closed_permanently: "폐업",
   live_closed_temporarily: "임시 휴업",
@@ -190,37 +191,38 @@ const FILL_REASON: [source: string, phrase: string][] = [
   ["meal_fill", "빈 식사 시간을 채우려고 넣었"],
 ];
 
-/** 그룹 제외 문장 — 내가 제외한 곳이 들어 있는 낡은 결과에서는 빼야 해서 따로 둔다 */
-export const GROUP_VETO_LINE = "누군가 제외한 곳은 넣지 않았어요.";
+/** 서버가 허용하는 source 중 "아무도 고르지 않은 곳"의 종류 (backend/candidate_results.py). 테스트가 서버와 맞는지 확인한다 */
+export const FILL_SOURCES = FILL_REASON.map(([source]) => source);
 
 /**
- * 5.4 "모두에게 같은 설명" — 같은 일정을 보는 그룹 모두에게 같은 문장. 실제 장소 결과(planning)가 있을 때만.
+ * 5.4 "모두에게 같은 설명" — 같은 일정을 보는 그룹 모두에게 같은 문장.
+ * - 아무도 고르지 않은 곳 문장: 결과만 보고 만든다(데모 방에도 나온다).
+ * - 1순위·걸음 한도·못 넣은 이유 문장: 실제 장소 결과(planning)가 있을 때만.
  * 다른 사람의 입력(누구의 1순위·제외·예산·걸음 수치)은 드러내지 않는다. 숫자는 장소 수만 쓴다.
+ * "누군가 제외한 곳은 넣지 않았어요"는 쓰지 않는다. planning에 제외 수가 없어서 아무도 제외하지 않은 방에서도
+ * 누군가 제외했다고 읽히기 때문이다(#71 리뷰). 제외는 내 설명("내가 제외한 곳은 넣지 않았어요")으로만 말한다.
  *
  * hasMust: 이 사람에게 1순위가 있는가. 엔진은 1순위가 하나도 없어도 must_satisfied = true를 주므로,
  * 1순위가 있다는 게 확실할 때만 "모두의 1순위 … 들어갔어요"라고 말한다. 화면은 꼭 가기의 첫 곳을 1순위로 보내고,
  * 실험에서는 모두 꼭 가기 5곳을 고르므로 그룹 모두에게 같은 문장이 된다.
  */
-export function groupExplanation(c: CandidateLike, hasMust = false): string[] {
+export function groupExplanation(c: CandidateLike, hasMust = false, planningLines = true): string[] {
   const p = c.planning;
   const lines: string[] = [];
   const unpicked = c.days.flatMap((d) => d.items).filter((it) => it.source !== "selected");
   const parts = FILL_REASON
     .map(([source, phrase]) => [unpicked.filter((it) => it.source === source).length, phrase] as const)
     .filter(([n]) => n > 0);
-  const other = unpicked.length - parts.reduce((a, [n]) => a + n, 0);
-  if (other) parts.push([other, "조건에 맞아 넣었"] as const);
   if (parts.length === 1) lines.push(`아무도 고르지 않은 ${parts[0][0]}곳은 ${parts[0][1]}어요.`);
   else if (parts.length > 1) {
     lines.push(`아무도 고르지 않은 곳 중 ${parts.map(([n, phrase], i) => `${n}곳은 ${phrase}${i < parts.length - 1 ? "고" : "어요."}`).join(", ")}`);
   }
-  if (!p) return lines;
+  if (!p || !planningLines) return lines;
   lines.unshift(
     // must_satisfied = false는 1순위가 있었다는 뜻이라 항상 말해도 된다
     ...(!p.must_satisfied ? ["1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요."]
       : hasMust ? ["모두의 1순위 꼭 가기가 모두 들어갔어요."] : []),
-    // 실제 장소 경로는 제외한 곳을 후보에서 빼고, 하루마다 그룹에서 가장 적은 걸음 한도로 검사한다
-    GROUP_VETO_LINE,
+    // 실제 장소 경로는 하루마다 그룹에서 가장 적은 걸음 한도로 검사한다
     "하루 걸음 수는 그룹에서 가장 적은 걸음 한도를 넘지 않아요.",
   );
   if (p.unplaced_count > 0) {
@@ -249,8 +251,12 @@ export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: 
   const placed = new Set(c.days.flatMap((d) => d.items.map((it) => it.placeId)));
   const vetoes = mine.vetoes ?? (mine.veto ? [mine.veto] : []);
   const myVetoPlaced = vetoes.some((id) => placed.has(id));
-  // 내가 제외한 곳이 들어 있으면(결과 계산 뒤 내 입력이 바뀐 경우) 그룹 제외 문장과 어긋나므로 그룹 문장을 뺀다
-  const lines: string[] = groupExplanation(c, !!mine.must).filter((l) => !(myVetoPlaced && l === GROUP_VETO_LINE));
+  // 결과 계산 뒤 내 입력이 바뀌어 결과와 어긋나면(내가 제외한 곳이 들어 있음, 1순위를 바꿈, 걸음 한도를 낮춤)
+  // planning으로 만든 그룹 문장 전체를 뺀다. 하나씩 막기보다 한 가지 규칙으로 (#71 리뷰)
+  const stale = myVetoPlaced
+    || (!!c.planning?.must_satisfied && !!mine.must && !placed.has(mine.must))
+    || (mine.stepLimit > 0 && c.metrics.walkStepsPerDay > mine.stepLimit);
+  const lines: string[] = groupExplanation(c, !!mine.must, !stale);
   const picks = mine.picks;
   if (picks.length) {
     const kept = picks.filter((id) => placed.has(id)).length;
@@ -261,8 +267,7 @@ export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: 
       ? `내 1순위 ${nameOf(mine.must)}은(는) 들어갔어요.`
       : `내 1순위 ${nameOf(mine.must)}은(는) 이번 일정에 들어가지 못했어요.`);
   }
-  // 그룹 문장("누군가 제외한 곳은 넣지 않았어요")이 있으면 같은 말을 반복하지 않는다
-  if (vetoes.length && !(c.planning && !myVetoPlaced)) {
+  if (vetoes.length) {
     lines.push(myVetoPlaced
       ? "내가 제외한 곳 중 일부가 들어 있어요."
       : "내가 제외한 곳은 넣지 않았어요.");
