@@ -176,6 +176,33 @@ class RealCandidatesTests(unittest.TestCase):
                 else:
                     with self.assertRaises(EngineError):validate_candidates(output,metadata,ids)
 
+    def test_branch_field_is_optional_but_strictly_shaped(self):
+        # 지점 자동 배치(docs/branch_auto_placement.md): branch는 바꾼 항목에만, 모양이 다르면 저장하지 않는다
+        room=self.ready_room();store=Store(self.db,Engine().catalog)
+        good=CandidateEngine(Engine().node).calculate(store.snapshot(room['roomId'],room['ownerToken']))
+        metadata={'dataset':'osaka_review_150','start':'2026-10-01','end':'2026-10-02'}
+        ids=store.real_ids
+        item=next(i for d in good['candidates'][0]['days'] for i in d['items'] if i['source']=='selected')
+        other=next(x for x in sorted(ids) if x!=item['placeId'])
+        ok=[{'fromPlaceId':other,'reasonCode':'shorter_route','savedMin':7},
+            {'fromPlaceId':other,'reasonCode':'original_unavailable','savedMin':None}]
+        bad=[{'fromPlaceId':item['placeId'],'reasonCode':'shorter_route','savedMin':7},
+             {'fromPlaceId':'not_a_place','reasonCode':'shorter_route','savedMin':7},
+             {'fromPlaceId':other,'reasonCode':'ai_said_so','savedMin':7},
+             {'fromPlaceId':other,'reasonCode':'shorter_route','savedMin':0},
+             {'fromPlaceId':other,'reasonCode':'shorter_route','savedMin':None},
+             {'fromPlaceId':other,'reasonCode':'original_unavailable','savedMin':3},
+             {'fromPlaceId':other,'reasonCode':'shorter_route','savedMin':7,'note':'free text'}]
+        for branch in ok+bad:
+            with self.subTest(branch=branch):
+                output=copy.deepcopy(good)
+                target=next(i for d in output['candidates'][0]['days'] for i in d['items'] if i['placeId']==item['placeId'])
+                target['branch']=branch
+                if branch in ok:validate_candidates(output,metadata,ids)
+                else:
+                    with self.assertRaises(EngineError):validate_candidates(output,metadata,ids)
+        validate_candidates(good,metadata,ids)
+
     def test_missing_fx_and_empty_candidates_fail_cleanly_then_retry(self):
         room=self.ready_room()
         with patch.dict(os.environ,{'JPY_TO_KRW_SOURCE':''}):

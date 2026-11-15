@@ -137,7 +137,16 @@ def validate_candidates(output, room, known_ids):
             check(isinstance(items, list) and len(items) == len(ids))
             previous_end = 0
             for id_, item in zip(ids, items):
-                keys(item, 'placeId aiAdded filled source reasonCode reason startMin endMin')
+                # branch: 지점 자동 배치로 같은 교체 그룹의 다른 지점이 들어간 경우만 (docs/branch_auto_placement.md)
+                keys(item, 'placeId aiAdded filled source reasonCode reason startMin endMin' + (' branch' if 'branch' in item else ''))
+                if 'branch' in item:
+                    b = item['branch']
+                    keys(b, 'fromPlaceId reasonCode savedMin')
+                    check(isinstance(b['fromPlaceId'], str) and b['fromPlaceId'] != item['placeId'])
+                    check(known_ids is None or b['fromPlaceId'] in known_ids)
+                    check(b['reasonCode'] in ('shorter_route', 'original_unavailable') and item['source'] == 'selected')
+                    check(b['savedMin'] is None if b['reasonCode'] == 'original_unavailable'
+                          else type(b['savedMin']) is int and 1 <= b['savedMin'] <= 1440)
                 # Minutes from local midnight; bars may run until 24:00.
                 check(type(item['startMin']) is int and type(item['endMin']) is int and 0 <= item['startMin'] <= item['endMin'] <= 1440)
                 check(item['startMin'] >= previous_end)
