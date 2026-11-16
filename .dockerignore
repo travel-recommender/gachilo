@@ -1,0 +1,14 @@
+.git
+**/node_modules
+**/.next
+**/out
+**/.local
+**/.env*
+**/__pycache__
+**/.venv
+**/*.log
+**/*.sqlite3*
+**/*.tsbuildinfo
+data/raw
+data/osrm
+*.osm.*
