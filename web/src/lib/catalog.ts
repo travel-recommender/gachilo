@@ -67,8 +67,8 @@ export function toPlace(p: ApiCatalogPlace): Place {
 }
 
 /** Keep every record searchable; unavailable records explain why they cannot be selected. */
-export function roomCatalog(places: ApiCatalogPlace[], placeIds: string[] | null): Place[] {
+export function roomCatalog(places: ApiCatalogPlace[], placeIds: string[] | null, unavailableReasons: Record<string, string> = {}): Place[] {
   const usable = placeIds ? new Set(placeIds) : null;
   return places.map(p => ({ ...toPlace(p), selectionDisabledReason: p.selection_disabled_reason
-    || (usable && !usable.has(p.place_id) ? "방문일 운영 조건이 확인되지 않아 일정에 담을 수 없어요." : null) }));
+    || (usable && !usable.has(p.place_id) ? unavailableReasons[p.place_id] || "방문일 운영 조건이 확인되지 않아 일정에 담을 수 없어요." : null) }));
 }

@@ -68,8 +68,11 @@ def apply(catalog, profiles, evidence):
                 r['review']['within']['scheduling_policy'] = 'separate_requested_visits_same_building_transfer_estimate'
         if e.get('profile'):
             profile = copy.deepcopy(e['profile'])
-            profile.update(valid_from=evidence['valid_from'], valid_through=evidence['valid_through'],
-                checked_at=evidence['checked_at'], source_urls=e['source_urls'], cost_basis=e['cost_basis'])
+            profile.setdefault('valid_from', evidence['valid_from'])
+            profile.setdefault('valid_through', evidence['valid_through'])
+            if not evidence['valid_from'] <= profile['valid_from'] <= profile['valid_through'] <= evidence['valid_through']:
+                raise ValueError('Place period must stay inside evidence period: ' + pid)
+            profile.update(checked_at=evidence['checked_at'], source_urls=e['source_urls'], cost_basis=e['cost_basis'])
             profiles['places'][pid] = profile
         if e['status'] == 'eligible_for_dated_demo':
             p = r['place']
@@ -81,7 +84,7 @@ def apply(catalog, profiles, evidence):
                 raise ValueError('Coordinates outside Osaka review area: ' + pid)
             if p['category'] != '쇼핑' and (type(p['cost']) is not int or p['cost'] < 0):
                 raise ValueError('Price required: ' + pid)
-        r['review']['notes'].append('2026-11-04: ' + '; '.join(e['conditions']))
+        r['review']['notes'].append(evidence['checked_at'] + ': ' + '; '.join(e['conditions']))
         r['review']['missing_fields'] = [k for k, v in r['place'].items() if v is None or v == '']
     for r in evidence['additions']:
         pid = r['place']['place_id']
@@ -96,7 +99,7 @@ def apply(catalog, profiles, evidence):
         'updated': len(evidence['updates']), 'new_search_only': len(evidence['additions']),
         'promoted': sum(e['status'] == 'eligible_for_dated_demo' for e in evidence['updates'].values()),
         'date_range': [evidence['valid_from'], evidence['valid_through']]}
-    profiles['notes'].append('2026-11-04: evidence overlay restores only individually reviewed calendars; old snapshots and remaining holds stay intact.')
+    profiles['notes'].append(evidence['checked_at'] + ': evidence overlay restores only individually reviewed calendars; old snapshots and remaining holds stay intact.')
     return catalog, profiles
 
 

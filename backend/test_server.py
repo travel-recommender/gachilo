@@ -99,6 +99,17 @@ class ApiTests(unittest.TestCase):
   self.assertNotIn('osaka_draft_cdb260bb106a',ids)  # Google 지도상 폐업
   self.assertTrue(0<len(ids)<150)
   demo=self.room();self.assertIsNone(self.req('GET',f"/rooms/{demo['roomId']}/schedulable",token=demo['ownerToken'])[1]['placeIds'])
+ def test_landmarks_are_selectable_and_blocked_places_explain_the_actual_condition(self):
+  room=self.req('POST','/rooms',{'startDate':'2026-11-16','endDate':'2026-11-19','memberNames':['A','B'],'dataset':'osaka_review_150'})[1]
+  rid=room['roomId'];a=room['members'][0];token=a['submissionToken']
+  result=self.req('GET',f'/rooms/{rid}/schedulable',token=token)[1]
+  ids=['osaka_001','osaka_005','branch_usj']
+  self.assertTrue(set(ids)<=set(result['placeIds']))
+  self.assertTrue(all(pid not in result['unavailableReasons'] for pid in ids))
+  self.assertIn('입장 시간 예약',result['unavailableReasons']['osaka_002'])
+  body={'longlist':ids,'picks':ids,'must':'branch_usj','veto':None,'budgetPerDay':150000,'stepLimit':20000,'activeMin':720}
+  self.assertEqual(self.req('PUT',f"/rooms/{rid}/submissions/{a['id']}",body,token)[0],200)
+  self.assertEqual(set(self.req('GET',f'/rooms/{rid}/pool',token=token)[1]['placeIds']),set(ids))
  def test_visit_conditions_gives_reviewed_and_live_status_with_sources_for_room_members_only(self):
   from unittest.mock import patch
   real=self.req('POST','/rooms',{'startDate':'2026-11-16','endDate':'2026-11-19','memberNames':['조은','윤진'],'dataset':'osaka_review_150'})[1]
