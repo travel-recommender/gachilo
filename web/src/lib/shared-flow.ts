@@ -95,3 +95,25 @@ export function badgeOf(item: SharedCandidate["days"][number]["items"][number]):
   if (item.source === "rule_added" || item.source === "meal_fill") return "추천";
   return null;
 }
+
+/**
+ * P8 지점 변경 표시 (이슈 #6 지점 자동 배치 — 화면).
+ * - "지점 변경" 표시와 "고른 곳 → 배치" 문구는 설명 있음/없음 모두 같게 보인다.
+ * - 바꾼 이유는 정해진 틀의 문장이고, 설명 있음 조건에서만 돌려준다. 분은 엔진의 savedMin 그대로.
+ */
+export function branchNoteOf(
+  item: SharedCandidate["days"][number]["items"][number],
+  nameOf: (placeId: string) => string | undefined,
+  explained: boolean,
+): { label: "지점 변경"; from: string; reason?: string } | null {
+  const b = item.branch;
+  if (!b) return null;
+  const from = `고른 곳: ${nameOf(b.fromPlaceId) ?? "다른 지점"} → 배치: ${nameOf(item.placeId) ?? "이 지점"}`;
+  if (!explained) return { label: "지점 변경", from };
+  const reason = b.reasonCode === "original_unavailable"
+    ? "고른 지점이 그날 운영하지 않아 같은 가게의 영업하는 지점으로 넣었어요."
+    : b.savedMin
+      ? `같은 가게의 앞뒤 장소와 더 가까운 지점으로 바꿔 이동이 약 ${b.savedMin}분 줄었어요.`
+      : "같은 가게의 앞뒤 장소와 더 가까운 지점으로 바꿨어요.";
+  return { label: "지점 변경", from, reason };
+}
