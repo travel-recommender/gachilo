@@ -105,16 +105,33 @@ test('두 사람이 같은 교체 그룹의 다른 지점을 골라도 한 번�
   for (const c of candidates) {
     const ichiran = items(c).filter(i => byId.get(i.placeId).place.branch_group_id === 'ichiran:standard');
     assert.equal(ichiran.length, 1, `${c.strategy}: ${items(c).map(i => i.placeId)}`);
+    // 다른 장소가 우메다이므로, 아무도 고르지 않은 지점이 아니라 b가 고른 시바타점이 그대로 들어간다 (#74 재리뷰)
+    assert.equal(ichiran[0].placeId, 'branch_ichiran_umeda_shibata', c.strategy);
+    assert.ok(!ichiran[0].branch, c.strategy);
     assert.equal(c.planning.unplaced_count, 0, c.strategy);
     assert.equal(c.planning.must_satisfied, true, c.strategy);
   }
 });
 
-test('고른 지점이 오늘 휴무면 남은 날을 기다리지 않고 오늘 영업 지점을 시도한다 (#74 리뷰)', async () => {
-  // 본점은 11/17 휴무, 11/18 영업. 11/18에 예산·시간으로 떨어져도 대체 기회가 없던 문제를 막는다
+test('원래 지점이 남은 날 영업하고 넣을 수 있으면 그날 원래 지점으로 넣는다 (#74 재리뷰)', async () => {
+  // 본점은 11/17 휴무, 11/18 영업. 두 사람 모두 본점을 골랐으므로 11/18의 본점이 맞다
   const {candidates} = await run(range('2026-11-17', '2026-11-18', [member('a', ['branch_551_honten']), member('b', ['branch_551_honten'])]));
   for (const c of candidates) {
+    assert.deepEqual(c.days.map(d => d.placeIds), [[], ['branch_551_honten']], c.strategy);
+    assert.ok(!items(c).some(i => i.branch));
+    assert.equal(c.planning.must_satisfied, true);
+  }
+});
+
+test('기다렸는데 원래 지점이 결국 못 들어가면, 휴무인 날 영업 지점으로 대신 넣는다 (#74 리뷰 2번)', async () => {
+  // 본점이 11/18에 영업해도 그날 검사(여기서는 체류 시간이 활동 시간보다 김)에서 떨어지게 만든다
+  const places = dataset.places.map(r => r.place.place_id !== 'branch_551_honten' ? r
+    : {...r, place: {...r.place, stay_min: 2000}, review: {...r.review, stay_policy: {...r.review.stay_policy, representative: 2000}}});
+  const {candidates} = await calculateRealCandidates(range('2026-11-17', '2026-11-18', [member('a', ['branch_551_honten']), member('b', ['branch_551_honten'])]),
+    {...dataset, places}, profiles, {baseUrl: ''}, offline);
+  for (const c of candidates) {
     assert.deepEqual(c.days.map(d => d.placeIds), [['branch_551_namba_walk'], []], c.strategy);
+    assert.equal(items(c)[0].branch.reasonCode, 'original_unavailable');
     assert.equal(c.planning.must_satisfied, true);
   }
 });
@@ -173,4 +190,25 @@ test('빈자리 후보 수는 여행 전체 자리만큼 늘어난다 (예전 10
   const args = {candidates, submissions: [{...member('a', taste.slice(0, 5)), longlist: taste}], byId, missedMusts: [], budgetKrw: 1e9};
   assert.equal(buildPool(args).length, 10);
   assert.ok(buildPool({...args, size: 21}).length > 10);
+});
+
+test('같은 교체 그룹의 지점은 상한 밖이어도 AI·규칙 채우기 후보가 되지 않는다 (#74 재리뷰)', async () => {
+  // 채우기 후보 풀(모델에 보낼 목록)을 직접 받아 본다
+  let pool = [];
+  const choose = async candidates => { pool = candidates.map(c => c.id); return {source: 'rule_added', picks: []}; };
+  const taste = ['branch_ichiran_abeno', 'branch_kiddyland_umeda', 'branch_marugame_umeda', 'branch_daruma_dotonbori'];
+  await run(range('2026-11-16', '2026-11-18', [member('a', taste), member('b', ['branch_ichiran_abeno'])]),
+    {liveCheck: mockLiveCheck('pass'), choose});
+  assert.ok(pool.length > 0);
+  const ichiranInPool = pool.filter(id => byId.get(id).place.branch_group_id === 'ichiran:standard');
+  assert.deepEqual(ichiranInPool, []);
+});
+
+test('교체 후보 순서는 제외한 장소 근처가 아니라 같이 갈 장소 근처 지점부터 (#74 재리뷰)', () => {
+  // 난바 근처의 브랜드 없는 장소 하나를 누군가 제외했다고 둔다. 같이 갈 장소는 우메다뿐이다
+  const namba = dataset.places.find(r => r.place.place_id !== 'branch_ichiran_abeno' && !r.place.brand_id
+    && Math.abs(r.place.latitude - 34.669) < 0.003 && Math.abs(r.place.longitude - 135.501) < 0.004).place.place_id;
+  const ids = ['branch_ichiran_abeno', 'branch_kiddyland_umeda', namba];
+  const top = branchCandidates(dataset, profiles, ['2026-11-16'], ids, new Set([namba])).get('branch_ichiran_abeno');
+  assert.deepEqual(top.slice(0, 2).sort(), ['branch_ichiran_umeda_hankyu', 'branch_ichiran_umeda_shibata'], `${namba}: ${top}`);
 });
