@@ -1,7 +1,7 @@
 // 지점 자동 배치 (docs/branch_auto_placement.md). 실행 중 카탈로그(브랜드·교체 그룹 포함)로 검사한다.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {calculateRealCandidates} from './real_candidates.mjs';
+import {calculateRealCandidates, branchCandidates, BRANCH_CANDIDATE_LIMIT} from './real_candidates.mjs';
 import {mockLiveCheck} from './live_check.mjs';
 import {loadRuntimeInputs, availability, validateDay} from '../../scripts/validate_real_schedule.mjs';
 
@@ -12,7 +12,8 @@ const member = (id, picks, extra = {}) => ({memberId: id, longlist: picks, picks
   budgetPerDay: 200000, stepLimit: 30000, activeMin: 720, tradeoffs: {pace: 0.5, distance: 0.5, spend: 0.5}, ...extra});
 const request = (date, submissions) => ({startDate: date, endDate: date, submissions,
   exchange_rate: {krw_per_jpy: '9.5', as_of: '2026-11-15'}});
-const run = r => calculateRealCandidates(r, dataset, profiles, {baseUrl: ''}, offline);
+const run = (r, deps = offline) => calculateRealCandidates(r, dataset, profiles, {baseUrl: ''}, deps);
+const range = (start, end, submissions) => ({...request(start, submissions), endDate: end});
 const items = c => c.days.flatMap(d => d.items);
 const moveMin = (date, ids) => validateDay({budget_krw: 1e9, step_limit: 1e9, active_min: 1440, krw_per_jpy: '9.5', date, place_ids: ids},
   dataset, profiles, {allowShopping: true, candidateMetrics: true, distanceWeight: 0.5}).items.reduce((t, i) => t + i.move_min, 0);
@@ -73,25 +74,75 @@ test('앞뒤 장소와 더 가까운 같은 그룹 지점이 있으면 바꾸고
 });
 
 test('이미 가장 가까운 지점이면 그대로 두고, 교체 정보도 붙이지 않는다', async () => {
-  const date = '2026-11-16';
-  const picks = ['branch_kiddyland_umeda', 'branch_nintendo_osaka', 'branch_ichiran_umeda_hankyu'];
-  const {candidates} = await run(request(date, [member('a', picks), member('b', picks)]));
+  // 우메다 장소들 옆의 시바타점은 같은 그룹에서 가장 가까워 바꿀 이유가 없다
+  const picks = ['branch_kiddyland_umeda', 'branch_nintendo_osaka', 'branch_ichiran_umeda_shibata'];
+  const {candidates} = await run(request('2026-11-16', [member('a', picks), member('b', picks)]));
   for (const c of candidates) {
-    for (const i of items(c)) {
-      if (!i.branch) continue;
-      // 바꿨다면 반드시 이동이 1분 이상 줄어야 한다
-      const day = c.days.find(d => d.placeIds.includes(i.placeId));
-      const before = day.placeIds.map(id => id === i.placeId ? i.branch.fromPlaceId : id);
-      assert.ok(moveMin(date, before) - moveMin(date, day.placeIds) >= 1);
-    }
+    const ichiran = items(c).filter(i => byId.get(i.placeId).place.brand_id === 'ichiran');
+    assert.deepEqual(ichiran.map(i => i.placeId), ['branch_ichiran_umeda_shibata'], c.strategy);
+    assert.ok(!items(c).some(i => i.branch), c.strategy);
   }
+});
+
+test('교체로 빠진 원래 지점은 다음 날 다시 들어가지 않는다 — 같은 가게를 두 번 방문하지 않음 (#74 리뷰)', async () => {
+  const {candidates} = await run(range('2026-11-16', '2026-11-17', [
+    member('a', ['branch_ichiran_abeno', 'branch_kiddyland_umeda', 'branch_nintendo_osaka']),
+    member('b', ['branch_kiddyland_umeda', 'branch_ichiran_abeno']),
+  ]));
+  for (const c of candidates) {
+    const groups = items(c).map(i => byId.get(i.placeId).place.branch_group_id).filter(Boolean);
+    assert.equal(new Set(groups).size, groups.length, `${c.strategy}: ${items(c).map(i => i.placeId)}`);
+    assert.ok(items(c).some(i => i.branch?.fromPlaceId === 'branch_ichiran_abeno'), c.strategy);
+    assert.ok(!items(c).some(i => i.placeId === 'branch_ichiran_abeno'), c.strategy);
+  }
+});
+
+test('두 사람이 같은 교체 그룹의 다른 지점을 골라도 한 번만 넣고, 둘 다 반영으로 센다', async () => {
+  const {candidates} = await run(range('2026-11-16', '2026-11-17', [
+    member('a', ['branch_ichiran_abeno', 'branch_kiddyland_umeda']),
+    member('b', ['branch_ichiran_umeda_shibata', 'branch_kiddyland_umeda']),
+  ]));
+  for (const c of candidates) {
+    const ichiran = items(c).filter(i => byId.get(i.placeId).place.branch_group_id === 'ichiran:standard');
+    assert.equal(ichiran.length, 1, `${c.strategy}: ${items(c).map(i => i.placeId)}`);
+    assert.equal(c.planning.unplaced_count, 0, c.strategy);
+    assert.equal(c.planning.must_satisfied, true, c.strategy);
+  }
+});
+
+test('고른 지점이 오늘 휴무면 남은 날을 기다리지 않고 오늘 영업 지점을 시도한다 (#74 리뷰)', async () => {
+  // 본점은 11/17 휴무, 11/18 영업. 11/18에 예산·시간으로 떨어져도 대체 기회가 없던 문제를 막는다
+  const {candidates} = await run(range('2026-11-17', '2026-11-18', [member('a', ['branch_551_honten']), member('b', ['branch_551_honten'])]));
+  for (const c of candidates) {
+    assert.deepEqual(c.days.map(d => d.placeIds), [['branch_551_namba_walk'], []], c.strategy);
+    assert.equal(c.planning.must_satisfied, true);
+  }
+});
+
+test('교체 후보는 고른 곳마다 최대 3곳, 제외한 브랜드는 실시간 확인에도 넣지 않는다 (#74 리뷰)', async () => {
+  const seen = [];
+  const spy = async requests => { seen.push(...requests.map(r => r.record.place.place_id)); return mockLiveCheck('pass')(requests); };
+  const picks = ['branch_ichiran_abeno', 'branch_kiddyland_umeda', 'branch_551_honten'];
+  const dates = ['2026-11-16', '2026-11-17'];
+  const vetoes = new Set(['branch_551_takashimaya_osaka']);
+  const cands = branchCandidates(dataset, profiles, dates, picks, vetoes);
+  assert.equal(cands.has('branch_551_honten'), false, '제외한 브랜드');
+  assert.ok(cands.get('branch_ichiran_abeno').length <= BRANCH_CANDIDATE_LIMIT);
+  await run(range(dates[0], dates[1], [member('a', picks), member('b', ['branch_kiddyland_umeda'], {veto: 'branch_551_takashimaya_osaka'})]),
+    {liveCheck: spy, choose: null});
+  const checked = new Set(seen);
+  const ichiranBranches = dataset.places.filter(r => r.place.brand_id === 'ichiran' && r.place.place_id !== 'branch_ichiran_abeno')
+    .map(r => r.place.place_id).filter(id => checked.has(id));
+  assert.ok(ichiranBranches.length <= BRANCH_CANDIDATE_LIMIT, ichiranBranches.join(','));
+  assert.ok(!dataset.places.some(r => r.place.brand_id === '551_horai' && r.place.place_id !== 'branch_551_honten' && checked.has(r.place.place_id)));
 });
 
 test('예전 카탈로그(브랜드 정보 없음)에서는 아무것도 바꾸지 않는다', async () => {
   const {loadInputs} = await import('../../scripts/validate_real_schedule.mjs');
   const old = loadInputs();
   const r = await calculateRealCandidates({startDate: '2026-10-01', endDate: '2026-10-02', exchange_rate: {krw_per_jpy: '9.5', as_of: '2026-11-15'},
-    submissions: [member('a', old.dataset.places.slice(0, 6).map(p => p.place.place_id))]}, old.dataset, old.profiles, {baseUrl: ''}, offline)
-    .catch(() => null);
-  if (r) for (const c of r.candidates) assert.ok(!items(c).some(i => i.branch));
+    submissions: [member('a', old.dataset.places.slice(0, 6).map(p => p.place.place_id))]}, old.dataset, old.profiles, {baseUrl: ''}, offline);
+  // 예외를 삼키지 않는다 — 결과가 반드시 있어야 하고, 아무것도 바뀌지 않아야 한다 (#74 리뷰)
+  assert.ok(r.candidates.length > 0);
+  for (const c of r.candidates) assert.ok(!items(c).some(i => i.branch));
 });

@@ -41,6 +41,44 @@ const passed = (live, id, date) => live.verdicts.get(`${id}|${date}`)?.length ==
  * live: every place-date must pass the live check (live_check.mjs) before it can be placed.
  * ai: places nobody listed (real_ai.mjs), tried last and only for slots the members' places left empty.
  */
+/** 원래 고른 곳 하나당 시도할 교체 후보 지점 수. 실시간 확인(Google) 호출 수를 묶어 두기 위한 상한이다 */
+export const BRANCH_CANDIDATE_LIMIT = 3;
+
+/**
+ * 지점 자동 배치 후보 (docs/branch_auto_placement.md 2장). 실시간 확인·경로 표와 일정 계산이 같은 목록을 쓴다.
+ * 고른 곳마다: 같은 branch_group_id의 다른 지점 중 구성원이 직접 담지 않았고, 제외되지 않았고,
+ * 누군가 제외한 브랜드가 아니며, 여행일 중 하루라도 운영 조건을 통과하는 지점을 최대 BRANCH_CANDIDATE_LIMIT곳.
+ * 순서는 "구성원이 담은 다른 곳 중 가장 가까운 곳까지의 거리"가 짧은 순이다. 교체는 앞뒤 장소와의 이동을 줄이려는 것이라
+ * 원래 지점이 아니라 같이 갈 장소들 근처의 지점을 남겨야 한다.
+ * @returns {Map<string, string[]>} 고른 곳 → 후보 지점
+ */
+export function branchCandidates(dataset, profiles, dates, ids, vetoes) {
+  const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
+  const human = new Set(ids);
+  const vetoedBrands = new Set([...vetoes].map(id => byId.get(id)?.place.brand_id).filter(Boolean));
+  const members = new Map();
+  for (const r of dataset.places) {
+    const g = r.place.branch_group_id;
+    if (g) members.set(g, [...(members.get(g) ?? []), r]);
+  }
+  const km = (a, b) => Math.hypot(a.latitude - b.latitude, (a.longitude - b.longitude) * Math.cos(a.latitude * Math.PI / 180));
+  const out = new Map();
+  for (const id of human) {
+    const p = byId.get(id)?.place;
+    if (!p?.branch_group_id || vetoes.has(id) || vetoedBrands.has(p.brand_id)) continue;
+    // 같이 갈 다른 장소들(다른 교체 그룹). 없으면 원래 지점과의 거리로 줄 세운다
+    const others = [...human].map(x => byId.get(x)?.place).filter(o => o && o.branch_group_id !== p.branch_group_id);
+    const score = r => others.length ? Math.min(...others.map(o => km(r.place, o))) : km(p, r.place);
+    const list = members.get(p.branch_group_id)
+      .filter(r => r.place.place_id !== id && !human.has(r.place.place_id) && !vetoes.has(r.place.place_id)
+        && dates.some(date => availability(r, date, profiles, {allowShopping: true}).eligible_for_model))
+      .sort((a, b) => score(a) - score(b) || a.place.place_id.localeCompare(b.place.place_id))
+      .slice(0, BRANCH_CANDIDATE_LIMIT).map(r => r.place.place_id);
+    if (list.length) out.set(id, list);
+  }
+  return out;
+}
+
 function calculatePrepared(request, dataset, profiles, dates, picked, listed = [], live, ai = null) {
   const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
   const vetoes = vetoesOf(request), musts = mustsOf(request);
@@ -64,18 +102,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
   // 지점 자동 배치 (docs/branch_auto_placement.md). 같은 교체 그룹(branch_group_id)의 다른 지점만 후보다.
   // 누군가 제외한 브랜드로는 바꾸지 않는다. 구성원이 직접 담은 곳은 그 자체로 배치되므로 교체 후보로 쓰지 않는다.
   const human = new Set([...picked, ...listed]);
-  const vetoedBrands = new Set([...vetoes].map(id => byId.get(id)?.place.brand_id).filter(Boolean));
-  const groupMembers = new Map();
-  for (const r of dataset.places) {
-    const g = r.place.branch_group_id;
-    if (g) groupMembers.set(g, [...(groupMembers.get(g) ?? []), r.place.place_id]);
-  }
-  const siblingsOf = id => {
-    const p = byId.get(id)?.place;
-    if (!p?.branch_group_id || vetoedBrands.has(p.brand_id)) return [];
-    return groupMembers.get(p.branch_group_id).filter(x => x !== id && !human.has(x) && !vetoes.has(x));
-  };
-  const siblingIds = [...new Set([...human].flatMap(siblingsOf))];
+  const branches = branchCandidates(dataset, profiles, dates, [...picked, ...listed], vetoes);
+  const siblingsOf = id => branches.get(id) ?? [];
+  const siblingIds = [...new Set([...branches.values()].flat())];
   const siblingEligibleByDate = dates.map(date => new Set(eligibleOn(siblingIds, date).map(p => p.id)));
   const aiPicks = ai ? [...ai.picks, ...(ai.backup ?? [])] : [];
   const aiById = new Map(aiPicks.map((p, i) => [p.id, {...p, source: i < ai.picks.length ? ai.source : 'rule_added'}]));
@@ -85,13 +114,18 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     // 배치된 다른 지점 → {fromPlaceId: 원래 고른 곳, reasonCode, savedMin}
     const branchOf = new Map();
     const placedNow = (id, accepted) => scheduled.has(id) || accepted.includes(id);
+    // 같은 교체 그룹(branch_group_id)은 같은 곳으로 본다. 그룹의 어느 지점이든 이미 들어갔으면 반영된 것이고
+    // 다시 넣지 않는다 — 두 사람이 같은 가게의 다른 지점을 골라도 한 번만 방문한다
+    const groupOf = id => byId.get(id)?.place.branch_group_id ?? null;
     const covered = (id, accepted = []) => placedNow(id, accepted)
-      || [...branchOf].some(([placed, b]) => b.fromPlaceId === id && placedNow(placed, accepted));
+      || [...branchOf].some(([placed, b]) => b.fromPlaceId === id && placedNow(placed, accepted))
+      || (!!groupOf(id) && [...scheduled, ...accepted].some(x => x !== id && groupOf(x) === groupOf(id)));
     let estimatedCost = false;
     const days = dates.map((date, index) => {
-      const catalogue = eligibleByDate[index].filter(p => !scheduled.has(p.id) && picked.has(p.id));
+      // 다른 지점으로 이미 반영된 곳(covered)은 다시 넣지 않는다 — 같은 가게를 두 번 방문하지 않게
+      const catalogue = eligibleByDate[index].filter(p => !covered(p.id) && picked.has(p.id));
       // 남은 날짜에 고르게 나눈다. 첫날에 자리 수만큼 몰아 넣으면 장소가 적을 때 뒷날이 빈다.
-      const remaining = new Set(eligibleByDate.slice(index).flat().map(p => p.id).filter(id => !scheduled.has(id)));
+      const remaining = new Set(eligibleByDate.slice(index).flat().map(p => p.id).filter(id => !covered(id)));
       const share = Math.min(slots, Math.max(1, Math.ceil(remaining.size / (dates.length - index))));
       // 전략에게 그날 후보 전체의 순서를 받는다. 자리 수(slotsPerDay)를 후보 수만큼 열어 두어
       // 앞 순위가 시간·예산 검사에서 떨어져도 다음 순위로 빈자리를 채울 수 있게 한다.
@@ -103,12 +137,13 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         .map(s => s.place.id);
       // 꼭 가기는 전략과 무관하게 먼저 시도한다. 검사(운영·예산·걷기·활동시간)는 우회하지 않는다.
       // My list에만 있는 곳은 전략 순위 뒤에, 여러 명이 담은 곳부터 시도한다.
-      const fillers = listed.filter(id => !scheduled.has(id) && eligibleByDate[index].some(p => p.id === id));
-      // 고른 곳이 오늘부터 남은 날 모두 운영 조건에 맞지 않으면, 같은 교체 그룹의 다른 지점을 대신 시도한다.
-      const eligibleLater = id => eligibleByDate.slice(index).some(ps => ps.some(p => p.id === id));
+      const fillers = listed.filter(id => !covered(id) && eligibleByDate[index].some(p => p.id === id));
+      // 고른 곳이 오늘 운영 조건에 맞지 않으면, 오늘 영업하는 같은 교체 그룹의 다른 지점을 대신 시도한다.
+      // 남은 날에 원래 지점이 영업하더라도 그날 예산·시간 검사에서 떨어질 수 있으므로 기다리지 않는다(#74 리뷰).
+      const eligibleToday = id => eligibleByDate[index].some(p => p.id === id);
       const substitute = new Map();  // 대신 넣을 지점 → 원래 고른 곳
       const substituteFor = ids => ids.flatMap(id => {
-        if (vetoes.has(id) || covered(id) || eligibleLater(id)) return [];
+        if (vetoes.has(id) || covered(id) || eligibleToday(id)) return [];
         const sib = siblingsOf(id).find(x => siblingEligibleByDate[index].has(x) && !scheduled.has(x) && !substitute.has(x));
         if (!sib) return [];
         substitute.set(sib, id);
@@ -120,6 +155,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       const queue = [...ranked.filter(id => musts.has(id)), ...mustSubs, ...ranked.filter(id => !musts.has(id)), ...pickSubs, ...fillers, ...listedSubs];
       let accepted = [], trial = null;
       const tryAdd = id => {
+        if (covered(substitute.get(id) ?? id, accepted) || covered(id, accepted)) return;
         const next = validateDay({...limits, date, place_ids: [...accepted, id]}, dataset, profiles, validationOptions);
         // Must-places do not bypass date, cost, last-entry, walking or active-time checks.
         if (next.passed_model_checks) {
@@ -294,9 +330,8 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
   const vetoes = vetoesOf(request);
   const human = [...picked, ...listed].filter(id => !vetoes.has(id));
   // 지점 자동 배치 후보: 구성원 장소와 같은 교체 그룹의 다른 지점. 실시간 확인과 경로 표에 함께 넣는다
-  const humanSet = new Set([...picked, ...listed]);
-  const siblings = dataset.places.filter(r => r.place.branch_group_id && !humanSet.has(r.place.place_id) && !vetoes.has(r.place.place_id)
-    && human.some(id => byId.get(id)?.place.branch_group_id === r.place.branch_group_id)).map(r => r.place.place_id);
+  // calculatePrepared와 같은 함수로 계산한다. 제외 브랜드는 빼고, 고른 곳마다 가까운 후보 최대 BRANCH_CANDIDATE_LIMIT곳만
+  const siblings = [...new Set([...branchCandidates(dataset, profiles, dates, [...picked, ...listed], vetoes).values()].flat())];
   // 1) 구성원의 장소부터 실시간 확인한다. 확인 결과로 '꼭 가기인데 못 넣는 곳'을 알아야 비슷한 곳을 찾는다
   const live = await liveCheck(liveRequests([...human, ...siblings], dates, byId, profiles));
   let pool = [];
