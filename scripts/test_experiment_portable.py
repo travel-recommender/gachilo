@@ -14,6 +14,15 @@ import experiment_lan as lan
 
 
 class PortableTests(unittest.TestCase):
+    def test_maps_key_comes_from_env_then_env_local_and_is_empty_when_missing(self):
+        with tempfile.TemporaryDirectory() as d:
+            f=Path(d)/'.env.local'
+            self.assertEqual(lan.maps_key({},f),'')
+            f.write_text('# 주석\nOTHER=1\nNEXT_PUBLIC_GOOGLE_MAPS_API_KEY="abc123"\n',encoding='utf-8')
+            self.assertEqual(lan.maps_key({},f),'abc123')
+            self.assertEqual(lan.maps_key({'NEXT_PUBLIC_GOOGLE_MAPS_API_KEY':'fromenv'},f),'fromenv')
+            self.assertEqual(lan.maps_key({'NEXT_PUBLIC_GOOGLE_MAPS_API_KEY':' '},f),'abc123')
+
     def test_port_probe_accepts_recently_closed_connection_but_not_live_listener(self):
         with socket.socket() as listener:
             listener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
