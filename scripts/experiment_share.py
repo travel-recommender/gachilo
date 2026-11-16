@@ -38,18 +38,18 @@ def origin(value):
     return f'{u.scheme}://{u.netloc}'
 
 
-def group_tokens(bundle):
+def group_tokens(bundle, groups=GROUPS):
     file = bundle / 'public-groups.json'
     if not file.exists():
-        support.write_json(file, {g: secrets.token_urlsafe(24) for g in GROUPS})
+        support.write_json(file, {g: secrets.token_urlsafe(24) for g in groups})
     tokens = support.read_json(file)
-    if set(tokens) != set(GROUPS) or len(set(tokens.values())) != 3 or any(not re.fullmatch(r'[\w-]{32}', t) for t in tokens.values()):
+    if set(tokens) != set(groups) or len(set(tokens.values())) != len(groups) or any(not re.fullmatch(r'[\w-]{32}', t) for t in tokens.values()):
         raise ValueError('그룹 링크 파일이 손상되었습니다. 기존 파일과 DB를 보존하고 확인하세요.')
     return tokens
 
 
-def entry_page(group, mode, join_url="/entry/"):
-    title, code = GROUPS[group]
+def entry_page(group, mode, join_url="/entry/", groups=GROUPS):
+    title, code = groups[group]
     if mode == 'setup':
         body = '<h1>'+title+'</h1><p>서버를 준비하고 있어요.</p><p>지금은 접속 확인만 가능합니다. 진행자가 시작을 안내한 뒤 다시 열어 주세요.</p>'
     else:
@@ -90,15 +90,15 @@ class SharedGateway(BaseHTTPRequestHandler):
             return self.respond(400)
         if parsed.path == '/healthz' and self.command == 'GET':
             return self.respond(200, b'{"ok":true}', 'application/json')
-        entry = re.fullmatch(r'/g/(joeun|hyein|yunjin)/([\w-]+)/?', parsed.path)
+        entry = re.fullmatch(r'/g/([a-z]+)/([\w-]+)/?', parsed.path)
         if entry and self.command in ('GET', 'HEAD'):
             group, token = entry.groups()
-            if not secrets.compare_digest(token, cfg['tokens'][group]):
+            if group not in cfg['tokens'] or not secrets.compare_digest(token, cfg['tokens'][group]):
                 return self.respond(404)
             secure = '; Secure' if cfg['origin'].startswith('https:') else ''
             cookie = f'{COOKIE}={token}; Path=/; HttpOnly; SameSite=Lax'+secure
-            if cfg['mode'] == 'setup':
-                return self.respond(200, entry_page(group, 'setup'), headers=[('Set-Cookie', cookie)])
+            if cfg['mode'] == 'setup' or group not in cfg.get('active_groups', cfg['tokens']):
+                return self.respond(200, entry_page(group, 'setup', groups=cfg.get('groups', GROUPS)), headers=[('Set-Cookie', cookie)])
             # Go straight to this room's existing participant/PIN selector.
             return self.respond(303, headers=[('Set-Cookie', cookie), ('Location', cfg['joins'][group])])
         try:
@@ -111,10 +111,10 @@ class SharedGateway(BaseHTTPRequestHandler):
         group = next((g for g,t in cfg['tokens'].items() if secrets.compare_digest(gate, t)), None)
         if group is None:
             return self.respond(403, lan.page('실험 초대 링크', '<h1>전달받은 그룹 링크로 들어와 주세요.</h1>').encode())
-        if cfg['mode'] == 'setup':
-            return self.respond(503, entry_page(group, 'setup'))
+        if cfg['mode'] == 'setup' or group not in cfg.get('active_groups', cfg['tokens']):
+            return self.respond(503, entry_page(group, 'setup', groups=cfg.get('groups', GROUPS)))
         if parsed.path.rstrip('/') == '/entry' and self.command in ('GET', 'HEAD'):
-            return self.respond(200, entry_page(group, cfg['mode'], cfg['joins'][group]))
+            return self.respond(200, entry_page(group, cfg['mode'], cfg['joins'][group], cfg.get('groups', GROUPS)))
         # A cookie from another group cannot access this group's room, even with a copied URL.
         api = re.fullmatch(r'/backend/rooms/([\w-]+)(?:/.*)?', parsed.path)
         if api and api[1] != cfg['rooms'][group]:
