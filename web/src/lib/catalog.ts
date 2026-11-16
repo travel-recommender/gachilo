@@ -20,6 +20,7 @@ export interface ApiCatalogPlace {
   longitude: number | null;
   search_names?: string[];
   record_status?: string;
+  branch_group_id?: string | null;
   cost_basis?: string | null;
   cost_status?: string;
   visit_conditions?: string[];
@@ -47,6 +48,7 @@ export function toPlace(p: ApiCatalogPlace): Place {
     categoryLabel: p.category || "분류 확인 중",
     searchNames: p.search_names ?? [p.name],
     catalogStatus: p.record_status,
+    branchGroupId: p.branch_group_id ?? null,
     selectionDisabledReason: p.selection_disabled_reason,
     costKnown: p.cost_krw !== null,
     costEstimated: p.cost_status === "estimate",

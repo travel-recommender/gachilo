@@ -24,10 +24,10 @@ def export(bundle,group,out,node=None):
      payload={'roomId':row['room_id'],'memberId':member['id'],'memberIds':[m['id'] for m in members],'candidate':candidate,'submissions':subs}
      jobs.append((payload,member['name'],row['revision']))
  if jobs:
-  results=json.loads(subprocess.check_output([node,str(support.ROOT/'backend/engine/experiment_record.mjs')],input=json.dumps([job[0] for job in jobs]),text=True,encoding='utf-8',timeout=30))
+  results=json.loads(subprocess.check_output([node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(bundle/'catalog.json')],input=json.dumps([job[0] for job in jobs]),text=True,encoding='utf-8',timeout=30))
   if not isinstance(results,list) or len(results)!=len(jobs):raise ValueError('실험 근거 계산 결과 수가 맞지 않습니다.')
   for (payload,name,revision),computed in zip(jobs,results):
-   identity={'group_id':group,'mode':config['mode'],'participant_code':name,'room_id':room_id,'revision':revision,'letter':computed['letter'],'strategy':computed['strategy'],'display_order':computed['order'],'explained':computed['explained']}
+   identity={'group_id':group,'mode':config['mode'],'participant_code':name,'room_id':room_id,'revision':revision,'letter':computed['letter'],'strategy':computed['strategy'],'display_order':computed['order'],'explained':computed['explained'],'metric_basis':computed['metricBasis']}
    rows.append({**identity,**{k:v for k,v in computed['automatic'].items() if k!='memberId'},**computed['metrics']})
    details.append({**identity,'candidate':payload['candidate'],'groupMetrics':computed['group']})
  out.mkdir(parents=True,mode=0o700)

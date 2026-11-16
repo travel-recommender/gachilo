@@ -55,20 +55,23 @@ export function satisfactionOf(
   costPerPerson: number,
   walkPerDay: number,
   /** 민감도 분석(scripts/experiment/sensitivity.mjs)이 가중치를 바꿔 채점할 때만 넘긴다 */
-  weights: typeof WEIGHTS = WEIGHTS
+  weights: typeof WEIGHTS = WEIGHTS,
+  /** Frozen-catalogue experiment export may credit an equivalent branch; selection/veto stay unchanged. */
+  representedId: (id: string) => string | undefined = (id) => id
 ): MemberSatisfaction {
   const joinable = chosen.filter(
     (s) => s.tier === "core" || s.participants.includes(sub.memberId)
   );
   const ids = new Set(joinable.map((s) => s.place.id));
 
-  const hit = sub.picks.filter((p) => ids.has(p)).length;
+  const kept = (id: string) => ids.has(representedId(id) ?? id);
+  const hit = sub.picks.filter(kept).length;
   const pickRate = sub.picks.length ? hit / sub.picks.length : 0;
   // 꼭 가기가 여러 개면 '하나라도 지켜졌는가'가 아니라 '몇 개나 지켜졌는가'로 본다.
   // 다만 원리 2(모두가 최소 하나)는 1순위가 지켜졌는지로 따로 본다.
   const musts = mustsOf(sub);
-  const mustHit = musts.filter((id) => ids.has(id)).length;
-  const mustKept = musts.length === 0 ? true : ids.has(musts[0]) || mustHit > 0;
+  const mustHit = musts.filter(kept).length;
+  const mustKept = musts.length === 0 ? true : kept(musts[0]) || mustHit > 0;
   const mustRate = musts.length ? mustHit / musts.length : 1;
   const vetoes = vetoesOf(sub);
   const vetoKept = vetoes.every((id) => !ids.has(id));

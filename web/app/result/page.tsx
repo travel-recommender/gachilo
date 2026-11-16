@@ -95,7 +95,7 @@ export default function Result() {
         return c ? {
           id: slot.strategy, label: scheduleName(slot.letter), desc: EXPERIMENT_HINT,
           // 서버 요약에는 전략 이름이 있어 쓰지 않는다
-          note: slot.explained ? experimentExplanation(c, state.mine, (id) => findPlace(id)?.name ?? "고른 곳").join(" ") : "", ai: false, letter: slot.letter, explained: slot.explained,
+          note: slot.explained ? experimentExplanation(c, state.mine, (id) => findPlace(id)?.name ?? "고른 곳", (id) => findPlace(id)?.branchGroupId).join(" ") : "", ai: false, letter: slot.letter, explained: slot.explained,
           steps: c.metrics.walkStepsPerDay, spend: c.metrics.costKrwPerDay, move: c.metrics.totalKmPerDay,
         } : null;
       }).filter((c): c is Card => !!c) : [])

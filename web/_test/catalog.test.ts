@@ -39,3 +39,9 @@ test("150곳 목록을 넣으면 데모 36곳 대신 그 목록만 찾는다", a
   }
   assert.ok(findPlace("glico"));
 });
+
+
+test("서버 교체 그룹을 보존하되 없는 그룹을 브랜드로 추측하지 않는다", () => {
+  assert.equal(toPlace({...GLICO, branch_group_id: "551:dine"}).branchGroupId, "551:dine");
+  assert.equal(toPlace(GLICO).branchGroupId, null);
+});

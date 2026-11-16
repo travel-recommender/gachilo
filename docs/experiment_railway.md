@@ -4,7 +4,7 @@
 
 ## 배포 설정
 
-- Dockerfile: `Dockerfile.experiment`, Railway 설정: `railway.json`, 시작: `python3 scripts/experiment_cloud.py`
+- Dockerfile: `Dockerfile.experiment`, 시작: `python3 scripts/experiment_cloud.py`. 신규 Railway 환경에서는 서비스 설정에 직접 지정한다(`railway.json`은 구형 설정 예시).
 - Node 24 + Python, 포트 8080, `/healthz`, 한 replica. `/data`에 영구 volume을 연결한다.
 - GitHub의 검증한 전체 commit SHA에 고정하고 자동 배포를 끈다. 실험 중 코드 변경 금지.
 - `PUBLIC_ORIGIN`: 발급한 HTTPS 도메인. 브라우저 지도 키의 허용 웹사이트에도 이 도메인을 등록한다.
@@ -34,6 +34,6 @@ Railway volume의 묶음을 안전하게 내려받은 뒤 `python3 scripts/exper
 
 현재 알려진 통합 점검 항목:
 - #75 긴 지점명이 모바일에서 잘림: 리뷰에서 수정 요청.
-- 지점 교체 후 개인 설명·내보내기 만족도는 아직 원래 장소 ID 비교를 사용한다. 윤진의 지점 설명 후속과 기록 계산을 함께 맞추기 전 정식 실험에 사용하지 않는다.
+- 개인 설명과 내보내기 만족도는 같은 `branch_group_id`의 방문을 반영한다. 포장/식당처럼 교체 그룹이 다르면 반영하지 않으며 제외는 정확한 지점 ID로 평가한다. 내보내기는 실험 시작 때 고정한 카탈로그를 사용하고 CSV의 `metric_basis`에 계산 버전을 남긴다. 배포 버전의 실제 화면·기록 최종 대조는 여전히 필요하다.
 - 클라우드 OSRM은 아직 별도 연결하지 않았다. 이동 수치는 추정식이며 실제 도보 경로로 설명하면 안 된다.
 - A·B·C는 입력에 따라 같을 수 있다. 결과를 임의로 다르게 만들지 않는다.
