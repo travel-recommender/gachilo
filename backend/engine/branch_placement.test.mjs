@@ -146,3 +146,31 @@ test('예전 카탈로그(브랜드 정보 없음)에서는 아무것도 바꾸�
   assert.ok(r.candidates.length > 0);
   for (const c of r.candidates) assert.ok(!items(c).some(i => i.branch));
 });
+
+// 11/16 모의 실험: 활동 시간을 10~19시로 넣어도 '여유'가 한 명 있으면 하루 2곳에서 끝나 오후 1시쯤 일정이 끝났다
+test('하루 자리 수는 활동 시간에 맞춘다 — 여유라도 9시간이면 하루 2곳에서 끝내지 않는다', async () => {
+  const {realSlotsPerDay} = await import('./real_candidates.mjs');
+  assert.equal(realSlotsPerDay(0, 540), 4);    // 여유, 10~19시: 120분에 한 곳
+  assert.equal(realSlotsPerDay(0.5, 540), 7);  // 보통: 75분에 한 곳
+  assert.equal(realSlotsPerDay(1, 540), 8);    // 빡빡: 60분에 한 곳, 상한 8
+  assert.equal(realSlotsPerDay(0, 240), 2);    // 짧은 활동 시간은 그대로 적게
+  assert.equal(realSlotsPerDay(0, 60), 2);     // 하한
+  // 실제 장소 12곳을 셋이 나눠 고른 하루 여행: 예전(여유 = 하루 2곳)보다 많이 넣는다
+  const picks = ['branch_kiddyland_umeda', 'branch_nintendo_osaka', 'branch_ichiran_umeda_shibata', 'osaka_015', 'osaka_011', 'osaka_012'];
+  // 1순위는 자리 수와 상관없이 먼저 들어가므로, 셋 다 같은 1순위로 두어 자리 수 효과만 본다
+  const subs = [picks.slice(0, 3), picks.slice(2, 5), picks.slice(3)]
+    .map((p, k) => ({...member('m' + k, [picks[0], ...p.filter(x => x !== picks[0])]), activeMin: 540, tradeoffs: {pace: 0, distance: 0.5, spend: 0.5}}));
+  const {candidates} = await run(request('2026-11-17', subs));
+  for (const c of candidates) assert.ok(c.days[0].placeIds.length > 2, `${c.strategy}: ${c.days[0].placeIds}`);
+});
+
+test('빈자리 후보 수는 여행 전체 자리만큼 늘어난다 (예전 10곳 고정 → 10~30곳)', async () => {
+  const {buildPool} = await import('./real_ai.mjs');
+  const candidates = dataset.places.filter(r => availability(r, '2026-11-17', profiles, {allowShopping: true}).eligible_for_model)
+    .map(record => ({record, costKrw: 0}));
+  // 취향이 넓은 사람(여러 유형을 담음)이어야 후보가 취향 필터를 넉넉히 통과한다
+  const taste = dataset.places.filter(r => r.place.category).map(r => r.place.place_id);
+  const args = {candidates, submissions: [{...member('a', taste.slice(0, 5)), longlist: taste}], byId, missedMusts: [], budgetKrw: 1e9};
+  assert.equal(buildPool(args).length, 10);
+  assert.ok(buildPool({...args, size: 21}).length > 10);
+});

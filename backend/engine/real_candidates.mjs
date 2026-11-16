@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {loadRuntimeInputs, availability, toEnginePlace, validateDay} from '../../scripts/validate_real_schedule.mjs';
 import {buildConsensus} from './consensus.ts';
-import {distanceWeightFor, groupTradeoffs, slotsPerDayFor, spendCapFor} from './inputs.ts';
+import {distanceWeightFor, groupTradeoffs, spendCapFor} from './inputs.ts';
 import {withPlaceCatalog} from './places.ts';
 import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 import {defaultLiveCheck} from './live_check.mjs';
@@ -41,6 +41,20 @@ const passed = (live, id, date) => live.verdicts.get(`${id}|${date}`)?.length ==
  * live: every place-date must pass the live check (live_check.mjs) before it can be placed.
  * ai: places nobody listed (real_ai.mjs), tried last and only for slots the members' places left empty.
  */
+/**
+ * 실제 장소 경로의 하루 자리 수 — 활동 시간 안에 들어갈 만큼 정한다.
+ * 예전에는 속도만 보고 2~4곳(slotsPerDayFor)이라, 그룹에 '여유'가 한 명만 있어도 하루 2곳에서 끝나
+ * 활동 시간을 10~19시로 넣어도 오후 1시쯤 일정이 끝났다(11/16 모의 실험).
+ * 한 곳에 드는 시간(체류+이동)을 여유 120분 · 보통 75분 · 빡빡 60분(사이는 직선으로)으로 보고,
+ * 그룹의 가장 짧은 활동 시간에 맞춰 하루 2~8곳. 3명·10~19시 시뮬레이션에서 여유는 오후 3~4시, 보통은 5시 전후에 끝난다.
+ * 실제로 들어가는지는 그날 검사(validateDay: 활동 시간·예산·걷기·영업)가 다시 막는다.
+ */
+export function realSlotsPerDay(pace, activeMin) {
+  const t = Math.max(0, Math.min(1, pace));
+  const minutesPerPlace = t <= 0.5 ? 120 + (75 - 120) * t * 2 : 75 + (60 - 75) * (t - 0.5) * 2;
+  return Math.max(2, Math.min(8, Math.floor(activeMin / minutesPerPlace)));
+}
+
 /** 원래 고른 곳 하나당 시도할 교체 후보 지점 수. 실시간 확인(Google) 호출 수를 묶어 두기 위한 상한이다 */
 export const BRANCH_CANDIDATE_LIMIT = 3;
 
@@ -88,9 +102,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     .map(s => (s.musts ?? (s.must ? [s.must] : [])).find(id => !vetoes.has(id)))
     .filter(Boolean));
   const tradeoffs = groupTradeoffs(request.submissions);
-  // pace 축으로 정한 하루 자리 수. 합의 단계가 아니라 검증을 통과한 장소 수에 적용한다.
-  const slots = slotsPerDayFor(tradeoffs.pace);
   const limits = limitsFor(request);
+  // 활동 시간과 속도로 정한 하루 자리 수(realSlotsPerDay). 합의 단계가 아니라 검증을 통과한 장소 수에 적용한다.
+  const slots = realSlotsPerDay(tradeoffs.pace, limits.active_min);
   const validationOptions = {allowShopping: true, candidateMetrics: true, distanceWeight: distanceWeightFor(tradeoffs.distance)};
   const eligibleOn = (ids, date) => ids.filter(id => !vetoes.has(id)).flatMap(id => {
     const record = byId.get(id);
@@ -345,7 +359,10 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
       if (!date) return [];
       return [{record, costKrw: toEnginePlace(record, availability(record, date, profiles, {allowShopping: true}), limits.krw_per_jpy).cost}];
     });
-    const draft = buildPool({candidates, submissions: request.submissions, byId, missedMusts, budgetKrw: limits.budget_krw});
+    // 빈자리 후보 수: 여행 전체 자리(날짜 × 하루 자리 수)만큼, 10~30곳. 예전에는 여행 길이와 상관없이 10곳이라
+    // 3일 여행에서 날짜·검사로 걸러지면 빈자리를 다 채우지 못해 오후 4~5시에 일정이 끝났다(11/16 모의 실험)
+    const size = Math.min(30, Math.max(10, dates.length * realSlotsPerDay(groupTradeoffs(request.submissions).pace, limits.active_min)));
+    const draft = buildPool({candidates, submissions: request.submissions, byId, missedMusts, budgetKrw: limits.budget_krw, size});
     // 2) AI 후보도 실시간 확인을 통과한 곳만 모델에 보여 준다
     const poolLive = await liveCheck(liveRequests(draft.map(c => c.id), dates, byId, profiles));
     poolLive.verdicts.forEach((v, k) => live.verdicts.set(k, v));
@@ -367,7 +384,7 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
       //    예산·걸음·활동시간 때문에 같이 못 넣는 곳은 자리를 채운 것이 아니다
       let ai = null;
       if (pool.length) {
-        const slots = slotsPerDayFor(groupTradeoffs(request.submissions).pace);
+        const slots = realSlotsPerDay(groupTradeoffs(request.submissions).pace, limitsFor(request).active_min);
         let empty = dates.length * slots;
         try {
           const {candidates} = calculatePrepared(request, dataset, profiles, dates, picked, listed, live, null);
