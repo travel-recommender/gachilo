@@ -1,6 +1,7 @@
 "use client";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { ExperimentSurveyLink } from "@/components/ExperimentSurveyLink";
 import { useTrip } from "@/components/store";
 import { PlaceFinder, placeLine } from "@/components/PlaceFinder";
 import { WeatherRouteNotice } from "@/components/WeatherRouteNotice";
@@ -97,7 +98,7 @@ function PlanInner() {
   const places = ids.map((id) => findPlace(id)).filter((p): p is Place => !!p);
   const save = (next: string[]) => setExtra({ planEdits: { ...planEdits, [day]: next } });
 
-  if (online && (!final || (EXPERIMENT_MODE && !slot))) {
+  if ((EXPERIMENT_MODE && !online) || (online && (!final || (EXPERIMENT_MODE && !slot)))) {
     return (
       <Page nav={<NavButtons prev="/result" next={() => router.push("/result")} nextLabel="후보 보기" />}>
         <PlanHeader />
@@ -140,6 +141,7 @@ function PlanInner() {
     }>
       <PlanHeader title={EXPERIMENT_MODE && slot ? scheduleName(slot.letter)
         : online && viewing ? STRATEGY_LABEL[viewing] : undefined} />
+      {EXPERIMENT_MODE && slot && <ExperimentSurveyLink />}
       <div className="pt-[20px]">
         <TextTabs label="여행 날짜" value={day} onChange={setDay}
           items={Array.from({ length: days }, (_, i) => ({ id: i + 1, label: `${i + 1}일차` }))} />
@@ -175,6 +177,7 @@ function PlanInner() {
               }}
               onRemove={(id) => save(ids.filter((x) => x !== id))} />
           </Box>
+          {EXPERIMENT_MODE && explained && places.some(p => badges[p.id]?.reason) && <ul className="mt-3 space-y-2 text-xs text-wine">{places.filter(p => badges[p.id]?.reason).map(p => <li key={p.id}>{p.name}: {badges[p.id]?.reason}</li>)}</ul>}
           {!confirmed && places.length > 1 && (
             <p className="mt-2 text-right text-[11px] font-medium text-mute-soft">한 칸을 꾹 누르면 순서를 바꿀 수 있어요</p>
           )}
@@ -296,8 +299,8 @@ function Reorder({ places, locked, badges, times, onMove, onRemove }: {
                 )}
               </div>
               {/* AI 추천이면 주소 줄 대신 왜 넣었는지를 쓴다 */}
-              <div className={`mt-[3px] truncate leading-3 ${badges[p.id]?.reason ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
-                {badges[p.id]?.reason ?? placeLine(p)}
+              <div className={`mt-[3px] truncate leading-3 ${!EXPERIMENT_MODE && badges[p.id]?.reason ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
+                {EXPERIMENT_MODE ? placeLine(p) : badges[p.id]?.reason ?? placeLine(p)}
               </div>
             </div>
             {!locked && <MinusButton label={`${p.name} 빼기`} onClick={() => onRemove(p.id)} />}

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { ExperimentSurveyLink } from "@/components/ExperimentSurveyLink";
 import { useTrip } from "@/components/store";
 import { buildConsensus, kmToSteps } from "@/lib/consensus";
 import { buildSchedule } from "@/lib/schedule";
@@ -148,9 +149,10 @@ export default function Result() {
       : `${statusLine(snap, shared.isOwner)} 아래는 내 입력과 예시 동행자로 이 기기에서 만든 미리보기예요.`;
 
   return (
-    <Page nav={<NavButtons prev={shared.online ? "/waiting" : "/condition"} next={next}
+    <Page nav={<NavButtons prev={EXPERIMENT_MODE ? false : shared.online ? "/waiting" : "/condition"} next={next}
       nextLabel={nextLabel} nextDisabled={nextDisabled} />}>
       <PlanHeader />
+      {server && cards.length === 3 && <ExperimentSurveyLink />}
       <div className="px-5 pt-[34px]">
         <div className="mb-[60px] space-y-2">
           <p className="text-[12px] font-medium leading-relaxed text-mute">{intro}</p>

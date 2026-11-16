@@ -43,7 +43,7 @@ export function PlanHeader({ title }: { title?: React.ReactNode }) {
 
 /** 이전 / 다음 (높이 57px, 반지름 20px) */
 export function NavButtons({ prev, next, nextLabel = "다음", nextDisabled, busy }: {
-  prev?: string | (() => void);
+  prev?: string | (() => void) | false;
   next: () => void;
   nextLabel?: string;
   nextDisabled?: boolean;
@@ -56,11 +56,11 @@ export function NavButtons({ prev, next, nextLabel = "다음", nextDisabled, bus
     else router.back();
   };
   return (
-    <div className="grid shrink-0 grid-cols-2 gap-4 px-5 pb-[15px] pt-3">
-      <button onClick={goPrev}
+    <div className={`grid shrink-0 ${prev === false ? "grid-cols-1" : "grid-cols-2"} gap-4 px-5 pb-[15px] pt-3`}>
+      {prev !== false && <button onClick={goPrev}
         className="h-[57px] rounded-[20px] bg-line text-[23.929px] font-extrabold text-black transition active:scale-[0.98]">
         이전
-      </button>
+      </button>}
       <button onClick={next} disabled={nextDisabled || busy}
         className="h-[57px] rounded-[20px] bg-wine text-[23.929px] font-extrabold text-white transition active:scale-[0.98] disabled:opacity-40">
         {busy ? "잠시만요…" : nextLabel}

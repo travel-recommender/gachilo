@@ -73,7 +73,8 @@ function cards(data,added=['a'],rest={}){
  const {PlaceRecommendations}=load('../src/components/PlaceRecommendations.tsx',{
   '@/components/usePlaceRecommendations':{usePlaceRecommendations:r=>{sent=r;return {data,error:null,loading:false,retry(){},...rest};}},
   '@/lib/places':{findPlace:id=>places.get(id),CATEGORIES:[{id:'cafe',label:'카페'}]},
-  '@/lib/place-recommendations':evidence,'@/lib/p3-limits':{P3_LIST_LIMIT:30},
+  '@/lib/place-recommendations':evidence,
+  '@/lib/p3-limits':{P3_LIST_LIMIT:30},
  });
  const tree=PlaceRecommendations({room:request,catalog:'real',sourceId:'a',added,disabled:false,onAdd:p=>clicked.push(p.id)});
  return {tree,sent,clicked};
