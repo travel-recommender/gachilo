@@ -2,6 +2,12 @@ import { requestJson, NetworkRequestError, CALCULATE_TIMEOUT_MS, CREATE_TIMEOUT_
 /** P7/P8 shared-result contract. Separate from the legacy single-strategy client. */
 export type SharedStrategy = "average" | "least_misery" | "fairness";
 export const SHARED_STRATEGIES: SharedStrategy[] = ["average", "least_misery", "fairness"];
+/** fromPlaceId = 구성원이 원래 고른 지점. savedMin은 shorter_route일 때만 정수(엔진 계산값) */
+export interface BranchChange {
+  fromPlaceId: string;
+  reasonCode: "shorter_route" | "original_unavailable";
+  savedMin: number | null;
+}
 export interface SharedCandidate {
   strategy: SharedStrategy;
   metrics: { walkStepsPerDay: number; costKrwPerDay: number; totalKmPerDay: number };
@@ -21,6 +27,8 @@ export interface SharedCandidate {
       /** 자정부터 분. 시각을 내기 전에 계산된 결과에는 없다 */
       startMin?: number;
       endMin?: number;
+      /** 지점 자동 배치로 같은 교체 그룹의 다른 지점이 들어간 경우만 (docs/branch_auto_placement.md, PR #74) */
+      branch?: BranchChange;
     }[];
   }[];
 }
