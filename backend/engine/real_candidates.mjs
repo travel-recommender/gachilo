@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {loadRuntimeInputs, availability, toEnginePlace, validateDay} from '../../scripts/validate_real_schedule.mjs';
 import {buildConsensus} from './consensus.ts';
-import {distanceWeightFor, groupTradeoffs, slotsPerDayFor, spendCapFor} from './inputs.ts';
+import {distanceWeightFor, groupTradeoffs, spendCapFor} from './inputs.ts';
 import {withPlaceCatalog} from './places.ts';
 import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 import {defaultLiveCheck} from './live_check.mjs';
@@ -33,14 +33,20 @@ const limitsFor = request => ({
 });
 const passed = (live, id, date) => live.verdicts.get(`${id}|${date}`)?.length === 0;
 
-/** Call the existing strategy implementation separately for each date/strategy.
- * Only picked, date-eligible real places enter its registry, so neither consensus nor scheduling
- * can introduce a demo place or an unreviewed filler. Missing popularity is left missing.
- * listed: places someone put in their step-1 list (P3) without marking 꼭 가기. They are tried
- * after the picks to fill empty slots.
- * live: every place-date must pass the live check (live_check.mjs) before it can be placed.
- * ai: places nobody listed (real_ai.mjs), tried last and only for slots the members' places left empty.
+/**
+ * 실제 장소 경로의 하루 자리 수 — 활동 시간 안에 들어갈 만큼 정한다.
+ * 예전에는 속도만 보고 2~4곳(slotsPerDayFor)이라, 그룹에 '여유'가 한 명만 있어도 하루 2곳에서 끝나
+ * 활동 시간을 10~19시로 넣어도 오후 1시쯤 일정이 끝났다(11/16 모의 실험).
+ * 한 곳에 드는 시간(체류+이동)을 여유 120분 · 보통 75분 · 빡빡 60분(사이는 직선으로)으로 보고,
+ * 그룹의 가장 짧은 활동 시간에 맞춰 하루 2~8곳. 3명·10~19시 시뮬레이션에서 여유는 오후 3~4시, 보통은 5시 전후에 끝난다.
+ * 실제로 들어가는지는 그날 검사(validateDay: 활동 시간·예산·걷기·영업)가 다시 막는다.
  */
+export function realSlotsPerDay(pace, activeMin) {
+  const t = Math.max(0, Math.min(1, pace));
+  const minutesPerPlace = t <= 0.5 ? 120 + (75 - 120) * t * 2 : 75 + (60 - 75) * (t - 0.5) * 2;
+  return Math.max(2, Math.min(8, Math.floor(activeMin / minutesPerPlace)));
+}
+
 /** 원래 고른 곳 하나당 시도할 교체 후보 지점 수. 실시간 확인(Google) 호출 수를 묶어 두기 위한 상한이다 */
 export const BRANCH_CANDIDATE_LIMIT = 3;
 
@@ -67,7 +73,9 @@ export function branchCandidates(dataset, profiles, dates, ids, vetoes) {
     const p = byId.get(id)?.place;
     if (!p?.branch_group_id || vetoes.has(id) || vetoedBrands.has(p.brand_id)) continue;
     // 같이 갈 다른 장소들(다른 교체 그룹). 없으면 원래 지점과의 거리로 줄 세운다
-    const others = [...human].map(x => byId.get(x)?.place).filter(o => o && o.branch_group_id !== p.branch_group_id);
+    // 다른 날 갈 장소도 섞여 있다(날짜 배정 전에 정하므로). 제외한 곳은 뺀다 (#74 재리뷰)
+    const others = [...human].filter(x => !vetoes.has(x)).map(x => byId.get(x)?.place)
+      .filter(o => o && o.branch_group_id !== p.branch_group_id);
     const score = r => others.length ? Math.min(...others.map(o => km(r.place, o))) : km(p, r.place);
     const list = members.get(p.branch_group_id)
       .filter(r => r.place.place_id !== id && !human.has(r.place.place_id) && !vetoes.has(r.place.place_id)
@@ -79,6 +87,14 @@ export function branchCandidates(dataset, profiles, dates, ids, vetoes) {
   return out;
 }
 
+/** Call the existing strategy implementation separately for each date/strategy.
+ * Only picked, date-eligible real places enter its registry, so neither consensus nor scheduling
+ * can introduce a demo place or an unreviewed filler. Missing popularity is left missing.
+ * listed: places someone put in their step-1 list (P3) without marking 꼭 가기. They are tried
+ * after the picks to fill empty slots.
+ * live: every place-date must pass the live check (live_check.mjs) before it can be placed.
+ * ai: places nobody listed (real_ai.mjs), tried last and only for slots the members' places left empty.
+ */
 function calculatePrepared(request, dataset, profiles, dates, picked, listed = [], live, ai = null) {
   const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
   const vetoes = vetoesOf(request), musts = mustsOf(request);
@@ -88,9 +104,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     .map(s => (s.musts ?? (s.must ? [s.must] : [])).find(id => !vetoes.has(id)))
     .filter(Boolean));
   const tradeoffs = groupTradeoffs(request.submissions);
-  // pace 축으로 정한 하루 자리 수. 합의 단계가 아니라 검증을 통과한 장소 수에 적용한다.
-  const slots = slotsPerDayFor(tradeoffs.pace);
   const limits = limitsFor(request);
+  // 활동 시간과 속도로 정한 하루 자리 수(realSlotsPerDay). 합의 단계가 아니라 검증을 통과한 장소 수에 적용한다.
+  const slots = realSlotsPerDay(tradeoffs.pace, limits.active_min);
   const validationOptions = {allowShopping: true, candidateMetrics: true, distanceWeight: distanceWeightFor(tradeoffs.distance)};
   const eligibleOn = (ids, date) => ids.filter(id => !vetoes.has(id)).flatMap(id => {
     const record = byId.get(id);
@@ -109,7 +125,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
   const aiPicks = ai ? [...ai.picks, ...(ai.backup ?? [])] : [];
   const aiById = new Map(aiPicks.map((p, i) => [p.id, {...p, source: i < ai.picks.length ? ai.source : 'rule_added'}]));
   const aiEligibleByDate = dates.map(date => new Set(eligibleOn(aiPicks.map(p => p.id), date).map(p => p.id)));
-  const candidates = STRATEGIES.map(strategy => {
+  // early: 원래 지점이 남은 날에 영업하더라도 휴무인 날 바로 다른 지점을 시도할 고른 곳들.
+  // 먼저 early 없이(원래 지점을 기다림) 짜고, 그 결과 고른 곳이 빠지면 early로 한 번 더 짜서 더 많이 반영되는 쪽을 쓴다 (#74 재리뷰)
+  const plan = (strategy, early) => {
     const scheduled = new Set();
     // 배치된 다른 지점 → {fromPlaceId: 원래 고른 곳, reasonCode, savedMin}
     const branchOf = new Map();
@@ -138,12 +156,13 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       // 꼭 가기는 전략과 무관하게 먼저 시도한다. 검사(운영·예산·걷기·활동시간)는 우회하지 않는다.
       // My list에만 있는 곳은 전략 순위 뒤에, 여러 명이 담은 곳부터 시도한다.
       const fillers = listed.filter(id => !covered(id) && eligibleByDate[index].some(p => p.id === id));
-      // 고른 곳이 오늘 운영 조건에 맞지 않으면, 오늘 영업하는 같은 교체 그룹의 다른 지점을 대신 시도한다.
-      // 남은 날에 원래 지점이 영업하더라도 그날 예산·시간 검사에서 떨어질 수 있으므로 기다리지 않는다(#74 리뷰).
+      // 고른 곳이 오늘 운영 조건에 맞지 않고 남은 날에도 영업하지 않으면, 오늘 영업하는 같은 교체 그룹의 다른 지점을 대신 시도한다.
+      // 남은 날에 영업하면 원래 지점을 기다린다. 기다렸는데 결국 못 넣으면 plan()을 early로 다시 돌려 휴무인 날 바로 대체한다.
       const eligibleToday = id => eligibleByDate[index].some(p => p.id === id);
+      const eligibleLater = id => eligibleByDate.slice(index + 1).some(ps => ps.some(p => p.id === id));
       const substitute = new Map();  // 대신 넣을 지점 → 원래 고른 곳
       const substituteFor = ids => ids.flatMap(id => {
-        if (vetoes.has(id) || covered(id) || eligibleToday(id)) return [];
+        if (vetoes.has(id) || covered(id) || eligibleToday(id) || (!early.has(id) && eligibleLater(id))) return [];
         const sib = siblingsOf(id).find(x => siblingEligibleByDate[index].has(x) && !scheduled.has(x) && !substitute.has(x));
         if (!sib) return [];
         substitute.set(sib, id);
@@ -196,18 +215,28 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       for (const id of [...accepted]) {
         if (!accepted.includes(id) || !(human.has(id) || branchOf.has(id))) continue;
         const origin = branchOf.get(id)?.fromPlaceId ?? id;
-        let best = null;
-        for (const sib of siblingsOf(origin)) {
-          if (sib === id || !siblingEligibleByDate[index].has(sib) || scheduled.has(sib) || accepted.includes(sib)) continue;
-          const next = validateDay({...limits, date, place_ids: accepted.map(x => x === id ? sib : x)}, dataset, profiles, validationOptions);
-          if (!next.passed_model_checks || next.items.length !== accepted.length) continue;
-          if (!best || moveMin(next) < moveMin(best.trial)) best = {sib, trial: next};
-        }
-        if (best && moveMin(best.trial) <= moveMin(trial) - 1) {
+        const group = groupOf(origin);
+        // 같은 그룹을 다른 구성원도 골랐으면 그 지점도 비교한다. 구성원이 고른 지점이 이동을 1분이라도 줄이면
+        // 아무도 고르지 않은 지점보다 먼저 쓰고, branch 표시 없이 그 사람의 선택으로 둔다 (#74 재리뷰)
+        const memberBranches = group ? [...human].filter(x => x !== id && x !== origin && groupOf(x) === group
+          && !vetoes.has(x) && eligibleByDate[index].some(p => p.id === x)) : [];
+        const tryBranch = (list, eligible) => {
+          let best = null;
+          for (const sib of list) {
+            if (sib === id || !eligible(sib) || scheduled.has(sib) || accepted.includes(sib)) continue;
+            const next = validateDay({...limits, date, place_ids: accepted.map(x => x === id ? sib : x)}, dataset, profiles, validationOptions);
+            if (!next.passed_model_checks || next.items.length !== accepted.length) continue;
+            if (!best || moveMin(next) < moveMin(best.trial)) best = {sib, trial: next};
+          }
+          return best && moveMin(best.trial) <= moveMin(trial) - 1 ? best : null;
+        };
+        const member = tryBranch(memberBranches, () => true);
+        const best = member ?? tryBranch(siblingsOf(origin), sib => siblingEligibleByDate[index].has(sib));
+        if (best) {
           const saved = moveMin(trial) - moveMin(best.trial);
           const before = branchOf.get(id);
           branchOf.delete(id);
-          branchOf.set(best.sib, before?.reasonCode === 'original_unavailable' ? before
+          if (!member) branchOf.set(best.sib, before?.reasonCode === 'original_unavailable' ? before
             : {fromPlaceId: origin, reasonCode: 'shorter_route', savedMin: Math.round(saved)});
           trial = best.trial;
           accepted = trial.items.map(item => item.place_id);
@@ -300,6 +329,23 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       + ` 모든 장소는 ${live.source === 'google_places' ? `Google 지도 영업 정보(${live.checked_on} 조회)` : '실시간 영업 확인'}로 폐업·휴무·영업시간 변경이 없는지 확인한 뒤 넣었습니다.`
       + (live.failedPlaces ? ` 실시간 확인을 통과하지 못한 ${live.failedPlaces}곳은 넣지 않았습니다.` : '')
       + ' 끼니 자동 추가와 AI 설명 문장은 사용하지 않았습니다.' + routingSummary(routes) + conditionSummary(days.map((d,i)=>({date:d.date,points:routes[i]})))};
+  };
+  const branchable = new Set([...picked].filter(id => siblingsOf(id).length));
+  const candidates = STRATEGIES.map(strategy => {
+    const attempt = early => {
+      try { return plan(strategy, early); } catch (error) {
+        if (error.message !== 'NO_SCHEDULABLE_REAL_CANDIDATE' || !branchable.size) throw error;
+        return null;
+      }
+    };
+    const waited = attempt(new Set());
+    if (waited && (!branchable.size || (waited.planning.must_satisfied && !waited.planning.unplaced_count))) return waited;
+    const early = attempt(branchable);
+    if (!early) return waited ?? plan(strategy, new Set());  // 둘 다 못 짜면 원래 오류를 그대로 낸다
+    if (!waited) return early;
+    const better = (!waited.planning.must_satisfied && early.planning.must_satisfied)
+      || (early.planning.must_satisfied === waited.planning.must_satisfied && early.planning.unplaced_count < waited.planning.unplaced_count);
+    return better ? early : waited;
   });
   return {candidates};
 }
@@ -339,13 +385,20 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
     const limits = limitsFor(request);
     const usable = id => dates.some(date => passed(live, id, date) && availability(byId.get(id), date, profiles, {allowShopping: true}).eligible_for_model);
     const missedMusts = [...mustsOf(request)].filter(id => !vetoes.has(id) && byId.has(id) && !usable(id)).map(id => byId.get(id));
-    const taken = new Set([...human, ...vetoes, ...siblings]);
+    // 구성원 장소와 같은 교체 그룹의 지점은 상한(3곳)과 상관없이 모두 AI 후보에서 뺀다. 상한 밖 지점을 AI가 넣으면
+    // 그룹 단위 반영 때문에 꼭 가기가 branch 표시 없이 '반영'으로 세어진다 (#74 재리뷰)
+    const humanGroups = new Set(human.map(id => byId.get(id)?.place.branch_group_id).filter(Boolean));
+    const sameGroup = dataset.places.filter(r => humanGroups.has(r.place.branch_group_id)).map(r => r.place.place_id);
+    const taken = new Set([...human, ...vetoes, ...siblings, ...sameGroup]);
     const candidates = dataset.places.filter(r => !taken.has(r.place.place_id)).flatMap(record => {
       const date = dates.find(d => availability(record, d, profiles, {allowShopping: true}).eligible_for_model);
       if (!date) return [];
       return [{record, costKrw: toEnginePlace(record, availability(record, date, profiles, {allowShopping: true}), limits.krw_per_jpy).cost}];
     });
-    const draft = buildPool({candidates, submissions: request.submissions, byId, missedMusts, budgetKrw: limits.budget_krw});
+    // 빈자리 후보 수: 여행 전체 자리(날짜 × 하루 자리 수)만큼, 10~30곳. 예전에는 여행 길이와 상관없이 10곳이라
+    // 3일 여행에서 날짜·검사로 걸러지면 빈자리를 다 채우지 못해 오후 4~5시에 일정이 끝났다(11/16 모의 실험)
+    const size = Math.min(30, Math.max(10, dates.length * realSlotsPerDay(groupTradeoffs(request.submissions).pace, limits.active_min)));
+    const draft = buildPool({candidates, submissions: request.submissions, byId, missedMusts, budgetKrw: limits.budget_krw, size});
     // 2) AI 후보도 실시간 확인을 통과한 곳만 모델에 보여 준다
     const poolLive = await liveCheck(liveRequests(draft.map(c => c.id), dates, byId, profiles));
     poolLive.verdicts.forEach((v, k) => live.verdicts.set(k, v));
@@ -367,7 +420,7 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
       //    예산·걸음·활동시간 때문에 같이 못 넣는 곳은 자리를 채운 것이 아니다
       let ai = null;
       if (pool.length) {
-        const slots = slotsPerDayFor(groupTradeoffs(request.submissions).pace);
+        const slots = realSlotsPerDay(groupTradeoffs(request.submissions).pace, limitsFor(request).active_min);
         let empty = dates.length * slots;
         try {
           const {candidates} = calculatePrepared(request, dataset, profiles, dates, picked, listed, live, null);

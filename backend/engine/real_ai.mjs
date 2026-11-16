@@ -31,7 +31,7 @@ const r2 = n => Math.round(n * 100) / 100;
 /** Rule-built pool. candidates: [{record, costKrw}] already date-eligible and not listed by anyone.
  * missedMusts: 꼭 가기 records that cannot be scheduled on any trip date. Never sent to the model by ID.
  */
-export function buildPool({candidates, submissions, byId, missedMusts, budgetKrw}) {
+export function buildPool({candidates, submissions, byId, missedMusts, budgetKrw, size = POOL_SIZE}) {
   const tasteOf = s => {
     const cats = [...s.picks, ...(s.longlist ?? [])].map(id => byId.get(id)?.place.category).filter(Boolean);
     const out = {};
@@ -59,8 +59,8 @@ export function buildPool({candidates, submissions, byId, missedMusts, budgetKrw
   const byCat = new Map();
   scored.forEach(c => byCat.set(c.category, [...(byCat.get(c.category) ?? []), c]));
   const pool = [];
-  while (pool.length < POOL_SIZE && [...byCat.values()].some(v => v.length)) {
-    for (const list of byCat.values()) if (list.length && pool.length < POOL_SIZE) pool.push(list.shift());
+  while (pool.length < size && [...byCat.values()].some(v => v.length)) {
+    for (const list of byCat.values()) if (list.length && pool.length < size) pool.push(list.shift());
   }
   return pool;
 }

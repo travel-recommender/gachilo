@@ -107,7 +107,8 @@ test('real strategy selection is not three renamed average results; pace also ch
   const fixtureProfiles={...profiles,places:Object.fromEntries(records.map(r=>[r.place.place_id,{window:[540,1260,1230]}]))};
   const r=request([]);r.exchange_rate.krw_per_jpy='1';
   const picks=[['1','3','4'],['2','5','6'],['0','1','4','5']];
-  r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],budgetPerDay:[11000,10000,17000][i],tradeoffs:{pace:0,distance:0.5,spend:1}}));
+  // 하루 자리 수는 활동 시간과 속도로 정한다(realSlotsPerDay). 활동 4시간·여유면 2곳, 빡빡이면 3곳이다.
+  r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],budgetPerDay:[11000,10000,17000][i],activeMin:240,tradeoffs:{pace:0,distance:0.5,spend:1}}));
   const runFixture=()=>calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''},offline);
   const low=await runFixture();
   // least_misery는 찜이 하나도 안 들어간 멤버(picks 2·5·6)의 찜 5를 넣는다. 예전 ['1','0']은 그 멤버가 0/3이었다.
