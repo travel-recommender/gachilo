@@ -340,7 +340,18 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     };
     const waited = attempt(new Set());
     if (waited && (!branchable.size || (waited.planning.must_satisfied && !waited.planning.unplaced_count))) return waited;
-    const early = attempt(branchable);
+    // 다시 짤 때는 기다린 결과에서 실제로 빠진 곳만 휴무일에 대체한다. 기다려서 원래 지점으로 들어간 다른 곳까지
+    // 형제 지점으로 바뀌지 않게 (#74 재리뷰 2차)
+    const placedIn = c => {
+      const items = c.days.flatMap(d => d.items);
+      const groups = new Set(items.map(i => byId.get(i.placeId)?.place.branch_group_id).filter(Boolean));
+      return id => items.some(i => i.placeId === id || i.branch?.fromPlaceId === id)
+        || groups.has(byId.get(id)?.place.branch_group_id);
+    };
+    const inWaited = waited ? placedIn(waited) : () => false;
+    const missed = new Set([...branchable].filter(id => !inWaited(id)));
+    if (waited && !missed.size) return waited;
+    const early = attempt(missed);
     if (!early) return waited ?? plan(strategy, new Set());  // 둘 다 못 짜면 원래 오류를 그대로 낸다
     if (!waited) return early;
     const better = (!waited.planning.must_satisfied && early.planning.must_satisfied)
@@ -395,9 +406,10 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
       if (!date) return [];
       return [{record, costKrw: toEnginePlace(record, availability(record, date, profiles, {allowShopping: true}), limits.krw_per_jpy).cost}];
     });
-    // 빈자리 후보 수: 여행 전체 자리(날짜 × 하루 자리 수)만큼, 10~30곳. 예전에는 여행 길이와 상관없이 10곳이라
+    // 빈자리 후보 수: 여행 전체 자리(날짜 × 하루 자리 수)만큼, 10~20곳. 실시간 확인은 후보 × 날짜라 상한을 20으로 둔다
+    // (3일·보통 기준 그룹당 실시간 확인 69 → 90건. 30곳이면 92건인데 종료 시각은 같았다). 예전에는 여행 길이와 상관없이 10곳이라
     // 3일 여행에서 날짜·검사로 걸러지면 빈자리를 다 채우지 못해 오후 4~5시에 일정이 끝났다(11/16 모의 실험)
-    const size = Math.min(30, Math.max(10, dates.length * realSlotsPerDay(groupTradeoffs(request.submissions).pace, limits.active_min)));
+    const size = Math.min(20, Math.max(10, dates.length * realSlotsPerDay(groupTradeoffs(request.submissions).pace, limits.active_min)));
     const draft = buildPool({candidates, submissions: request.submissions, byId, missedMusts, budgetKrw: limits.budget_krw, size});
     // 2) AI 후보도 실시간 확인을 통과한 곳만 모델에 보여 준다
     const poolLive = await liveCheck(liveRequests(draft.map(c => c.id), dates, byId, profiles));
