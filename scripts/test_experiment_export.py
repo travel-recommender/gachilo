@@ -17,6 +17,7 @@ class ExportTests(unittest.TestCase):
         (self.bundle/'experiment-config.json').write_text('{"mode":"rehearsal"}')
         (self.group/'room-private.json').write_text('{"room":{"roomId":"actual-room"}}')
         self.node=support.node_binary(os.getenv('NODE_BINARY','node'))
+        (self.bundle/'catalog.json').write_text(json.dumps({'places':[{'place':{'place_id':'one','branch_group_id':None}}]}))
         self.payloads=[]
         self.candidates=[{'strategy':s,'days':[{'placeIds':['one']}],'metrics':{'costKrwPerDay':1000,'walkStepsPerDay':2000,'totalKmPerDay':2}} for s in ['average','least_misery','fairness']]
         with sqlite3.connect(self.group/'trips.sqlite3') as db:
@@ -37,7 +38,7 @@ class ExportTests(unittest.TestCase):
         with patch.object(support,'verify'),patch.object(exporter.subprocess,'check_output',wraps=actual) as call:
             self.assertEqual(exporter.export(self.bundle,'team',out,self.node),9)
             # node_binary also queries --version; the scoring worker must run only once.
-            workers=[c for c in call.call_args_list if str(c.args[0][-1]).endswith('experiment_record.mjs')]
+            workers=[c for c in call.call_args_list if any(str(a).endswith('experiment_record.mjs') for a in c.args[0])]
             self.assertEqual(len(workers),1)
         with (out/'candidate_metrics.csv').open(encoding='utf-8-sig') as csvfile:
             rows=list(csv.DictReader(csvfile))
@@ -47,7 +48,7 @@ class ExportTests(unittest.TestCase):
             self.assertEqual({r['letter'] for r in rows if r['participant_code']==code},{'A','B','C'})
         self.assertNotIn('unrelated-room',(out/'evidence.json').read_text())
     def test_batch_matches_single_payload_contract(self):
-        command=[self.node,str(support.ROOT/'backend/engine/experiment_record.mjs')]
+        command=[self.node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(self.bundle/'catalog.json')]
         batch=json.loads(subprocess.check_output(command,input=json.dumps(self.payloads),text=True))
         for p,computed in zip(self.payloads,batch):
             single=json.loads(subprocess.check_output(command,input=json.dumps(p),text=True))
@@ -58,5 +59,56 @@ class ExportTests(unittest.TestCase):
         with patch.object(support,'verify'),self.assertRaisesRegex(ValueError,'실험방'):
             exporter.export(self.bundle,'team',out,self.node)
         self.assertFalse(out.exists())
+
+    def test_frozen_branch_groups_match_personal_evidence_and_keep_exact_veto(self):
+        catalog={'places':[{'place':{'place_id':pid,'branch_group_id':group}} for pid,group in
+            [('old','dine'),('next','dine'),('takeout','takeout'),('unrelated',None)]]}
+        (self.bundle/'catalog.json').write_text(json.dumps(catalog))
+        candidate={'strategy':'average','days':[{'placeIds':['next']}],
+            'metrics':{'costKrwPerDay':1000,'walkStepsPerDay':2000}}
+        sub={'memberId':'a','picks':['old','takeout','unrelated'],'must':'old','musts':['old','takeout'],
+            'veto':'old','budgetPerDay':10000,'stepLimit':10000}
+        payload={'roomId':'r','memberId':'a','memberIds':['a'],'candidate':candidate,'submissions':[sub]}
+        command=[self.node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(self.bundle/'catalog.json')]
+        def score(value):
+            return json.loads(subprocess.check_output(command,input=json.dumps(value),text=True))
+        result=score(payload)
+        self.assertAlmostEqual(result['automatic']['pickRate'],1/3)
+        self.assertTrue(result['automatic']['mustKept'])
+        self.assertEqual(result['automatic']['mustRate'],0.5)
+        self.assertTrue(result['automatic']['vetoKept'])
+        self.assertIn('frozen catalogue',result['metricBasis'])
+        # No branch metadata, and no current runtime catalogue: frozen groups are sufficient.
+        changed={**payload,'submissions':[{**sub,'must':'takeout','musts':['takeout'],'veto':'next'}]}
+        missed=score(changed)['automatic']
+        self.assertFalse(missed['mustKept'])
+        self.assertEqual(missed['mustRate'],0)
+        self.assertFalse(missed['vetoKept'])
+        self.assertEqual(result['placeIds'],['next'])
+        # Same brand but missing/empty grouping must not imply a visit.
+        catalog['places'][0]['place']['branch_group_id']=None
+        (self.bundle/'catalog.json').write_text(json.dumps(catalog))
+        no_group=score(payload)['automatic']
+        self.assertEqual(no_group['pickRate'],0)
+        self.assertFalse(no_group['mustKept'])
+
+    def test_real_missing_must_and_veto_are_not_lost_to_demo_id_filter(self):
+        (self.bundle/'catalog.json').write_text(json.dumps({'places':[{'place':{'place_id':pid}} for pid in ['one','missing']]}))
+        with sqlite3.connect(self.group/'trips.sqlite3') as db:
+            payload=json.loads(db.execute('SELECT payload FROM submissions WHERE member_id=?',('actual-room0',)).fetchone()[0])
+            payload.update(must='missing',veto='one')
+            db.execute('UPDATE submissions SET payload=? WHERE member_id=?',(json.dumps(payload),'actual-room0'))
+        out=Path(self.tmp.name)/'out'
+        with patch.object(support,'verify'):
+            exporter.export(self.bundle,'team',out,self.node)
+        with (out/'candidate_metrics.csv').open(encoding='utf-8-sig') as f:
+            mine=[row for row in csv.DictReader(f) if row['participant_code']=='T-01']
+        self.assertEqual(len(mine),3)
+        for row in mine:
+            self.assertEqual(row['mustKept'],'False')
+            self.assertEqual(row['mustRate'],'0')
+            self.assertEqual(row['vetoKept'],'False')
+            self.assertIn('satisfactionOf/v2',row['metric_basis'])
+        self.assertIn('metric_basis',json.loads((out/'evidence.json').read_text())[0])
 
 if __name__=='__main__':unittest.main()

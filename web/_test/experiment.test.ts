@@ -209,3 +209,31 @@ test("실험 안내 문구에는 방장 확정·전략 이름이 없다", () => 
     for (const w of STRATEGY_WORDS) assert.ok(!line.includes(w), w);
   }
 });
+
+
+test("지점 교체는 동일 교체 그룹으로만 반영하고 제외는 정확한 지점으로 검사한다", () => {
+  const group = (id: string) => ({old: "dine", next: "dine", takeout: "takeout"} as Record<string,string>)[id] ?? null;
+  const mine = {picks: ["old", "takeout", "unrelated"], must: "old", veto: "old", budgetPerDay: 100000, stepLimit: 10000};
+  // Another member selected next: no branch metadata is necessary for group equivalence.
+  const candidate = {...realCand(planning()), days: [{items: [{placeId: "next", source: "selected"}]}]};
+  const lines = experimentExplanation(candidate, mine, id => id, group);
+  assert.ok(lines.includes("내 꼭 가기 3곳 중 1곳이 들어갔어요."));
+  assert.ok(lines.includes("내 1순위 old은(는) 같은 가게의 다른 지점인 next으로 들어갔어요."));
+  assert.ok(lines.includes("내가 제외한 곳은 넣지 않았어요."));
+  assert.ok(lines.includes("모두의 1순위 꼭 가기가 모두 들어갔어요."));
+  const denied = experimentExplanation(candidate, {...mine, veto: "next"}, id => id, group);
+  assert.ok(denied.includes("내가 제외한 곳 중 일부가 들어 있어요."));
+  assert.ok(!denied.includes("모두의 1순위 꼭 가기가 모두 들어갔어요."));
+  const otherPurpose = experimentExplanation(candidate, {...mine, must: "takeout"}, id => id, group);
+  assert.ok(otherPurpose.includes("내 1순위 takeout은(는) 이번 일정에 들어가지 못했어요."));
+  const unknownGroups = experimentExplanation(candidate, mine, id => id);
+  assert.ok(unknownGroups.includes("내 꼭 가기 3곳 중 0곳이 들어갔어요."));
+});
+
+test("원래 고른 지점도 있으면 다른 지점 문장보다 정확한 지점 방문이 우선한다", () => {
+  const mine = {picks: ["old"], must: "old", veto: null, budgetPerDay: 0, stepLimit: 0};
+  const candidate = {...realCand(planning()), days: [{items: ["next", "old"].map(placeId => ({placeId, source: "selected"}))}]};
+  const lines = experimentExplanation(candidate, mine, id => id, () => "same");
+  assert.ok(lines.includes("내 1순위 old은(는) 들어갔어요."));
+  assert.ok(!lines.some(line => line.includes("다른 지점인")));
+});
