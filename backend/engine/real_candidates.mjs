@@ -33,6 +33,22 @@ const limitsFor = request => ({
 });
 const passed = (live, id, date) => live.verdicts.get(`${id}|${date}`)?.length === 0;
 
+/** P3 목록에만 있는 그날 후보(listed)를 전략 순위로 줄 세운다.
+ * 각자 P3에 담은 곳을 그 사람의 '고른 곳'으로 보고 같은 합의 점수(buildConsensus)를 쓴다.
+ * 꼭 가기·1순위는 여기 없다(이미 앞에서 시도). 순위에서 빠진 곳은 원래 순서(여러 명이 담은 곳부터)로 뒤에 붙인다. */
+function rankListed(request, strategy, listed, eligible, picked) {
+  const catalogue = eligible.filter(p => listed.includes(p.id));
+  if (!catalogue.length) return [];
+  const consensus = withPlaceCatalog(catalogue, () => buildConsensus({
+    submissions: request.submissions.map(s => ({...s, picks: (s.longlist ?? []).filter(id => !picked.has(id)), must: null, musts: []})),
+    nights: 0, strategy, allowPartial: false, slotsPerDay: catalogue.length,
+  }));
+  const ranked = [...consensus.core, ...consensus.excluded.filter(s => s.excluded === 'time' || s.excluded === 'budget')]
+    .map(s => s.place.id).filter(id => listed.includes(id));
+  const ids = new Set(catalogue.map(p => p.id));
+  return [...new Set([...ranked, ...listed.filter(id => ids.has(id))])];
+}
+
 /** Call the existing strategy implementation separately for each date/strategy.
  * Only picked, date-eligible real places enter its registry, so neither consensus nor scheduling
  * can introduce a demo place or an unreviewed filler. Missing popularity is left missing.
@@ -81,8 +97,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       const ranked = [...consensus.core, ...consensus.excluded.filter(s => s.excluded === 'time' || s.excluded === 'budget')]
         .map(s => s.place.id);
       // 꼭 가기는 전략과 무관하게 먼저 시도한다. 검사(운영·예산·걷기·활동시간)는 우회하지 않는다.
-      // My list에만 있는 곳은 전략 순위 뒤에, 여러 명이 담은 곳부터 시도한다.
-      const fillers = listed.filter(id => !scheduled.has(id) && eligibleByDate[index].some(p => p.id === id));
+      // P3 목록에만 있는 곳은 꼭 가기 뒤에, 같은 전략의 순위로 시도한다(누가 P3에 담았는지가 그 사람의 선호).
+      // 꼭 가기가 모두 들어가는 작은 그룹에서도 세 후보가 달라질 여지가 여기서 생긴다 (이슈 #6 피드백 11/16).
+      const fillers = rankListed(request, strategy, listed.filter(id => !scheduled.has(id)), eligibleByDate[index], picked);
       const queue = [...ranked.filter(id => musts.has(id)), ...ranked.filter(id => !musts.has(id)), ...fillers];
       let accepted = [], trial = null;
       const tryAdd = id => {
