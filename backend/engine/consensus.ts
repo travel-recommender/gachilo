@@ -53,7 +53,9 @@ export function satisfactionOf(
   sub: SubmissionView,
   chosen: Selection[],
   costPerPerson: number,
-  walkPerDay: number
+  walkPerDay: number,
+  /** 민감도 분석(scripts/experiment/sensitivity.mjs)이 가중치를 바꿔 채점할 때만 넘긴다 */
+  weights: typeof WEIGHTS = WEIGHTS
 ): MemberSatisfaction {
   const joinable = chosen.filter(
     (s) => s.tier === "core" || s.participants.includes(sub.memberId)
@@ -78,12 +80,12 @@ export function satisfactionOf(
   const withinScore = (use: number) => (use > 1 ? Math.max(0, 1 - (use - 1) * 2) : 0.55 + use * 0.45);
 
   const score =
-    WEIGHTS.pick * pickRate +
+    weights.pick * pickRate +
     // 1순위를 지키는 것이 절반, 나머지를 얼마나 더 지켰는지가 절반
-    WEIGHTS.must * (0.5 * (mustKept ? 1 : 0) + 0.5 * mustRate) +
-    WEIGHTS.budget * withinScore(budgetUse) +
-    WEIGHTS.walk * withinScore(walkUse) +
-    WEIGHTS.veto * (vetoKept ? 1 : 0);
+    weights.must * (0.5 * (mustKept ? 1 : 0) + 0.5 * mustRate) +
+    weights.budget * withinScore(budgetUse) +
+    weights.walk * withinScore(walkUse) +
+    weights.veto * (vetoKept ? 1 : 0);
 
   return { memberId: sub.memberId, pickRate, mustKept, mustRate, budgetUse, walkUse, vetoKept, score };
 }
