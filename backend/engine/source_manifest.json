@@ -3,7 +3,7 @@
     "source": "web/src/lib/types.ts",
     "file": "types.ts",
     "sha256": "c5d81c7098ab84f74949492e93ce1c6a3c68555cccf3344ce6175340a1cab4ff",
-    "change": "Relative imports use .ts for Node. Server Place.popularity is optional because the real catalogue has no measured popularity; do not fabricate popularity during a future browser sync. sha256 records the original browser source, not the modified server file. Server-only optional mealRole, buildingId, openingWindows and lastEntry carry verified branch planning constraints; do not remove during browser sync."
+    "change": "Relative imports use .ts for Node. Server Place.popularity is optional because the real catalogue has no measured popularity; do not fabricate popularity during a future browser sync. sha256 records the original browser source, not the modified server file. Server-only optional brandId, branchGroupId, mealRole, buildingId, openingWindows and lastEntry carry verified branch planning constraints; do not remove during browser sync."
   },
   {
     "source": "web/src/lib/places.ts",
