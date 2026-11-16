@@ -68,7 +68,7 @@ function WaitingInner() {
   const next = () => router.push(afterList ? "/shortlist" : "/result");
 
   return (
-    <Page nav={<NavButtons prev={afterList ? "/pick" : "/condition"} next={next} nextDisabled={online ? !ready : !allDone}
+    <Page nav={<NavButtons prev={EXPERIMENT_MODE && !afterList ? false : afterList ? "/pick" : "/condition"} next={next} nextDisabled={online ? !ready : !allDone}
       nextLabel={afterList ? "다음" : "결과 보기"} />}>
       <PlanHeader title="기다리는 중" />
       <div className="px-5 pt-[50px]">

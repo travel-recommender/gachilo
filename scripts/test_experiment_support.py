@@ -51,6 +51,34 @@ class ExperimentSupportTests(unittest.TestCase):
         self.assertEqual(manifest['recommendation_card_policy'], 'pending_team_decision')
         self.assertEqual(len(support.read_json(self.bundle / 'catalog.json')['places']), 1)
 
+    def test_initial_manifest_already_has_final_experiment_settings(self):
+        target=self.root/'h4-bundle'
+        expected={'purpose':'local_h4_rehearsal','travel_dates':['2026-11-16','2026-11-19'],
+                  'recommendation_card_policy':'disabled_in_experiment'}
+        support.prepare(target,**expected)
+        # A stop immediately after prepare still leaves a resumable, correct manifest.
+        manifest=support.verify(target,code=True)
+        for key,value in expected.items():self.assertEqual(manifest[key],value)
+
+    @unittest.skipIf(os.name=='nt','POSIX mode bits; Windows uses directory ACLs')
+    def test_private_file_is_restricted_at_creation_and_before_rewrite(self):
+        target=self.root/'private.json';real_open=os.open;created=[]
+        def inspect(*args,**kwargs):
+            fd=real_open(*args,**kwargs)
+            created.append(os.fstat(fd).st_mode & 0o777)
+            return fd
+        previous=os.umask(0o022)
+        try:
+            with patch.object(support.os,'open',side_effect=inspect):
+                support.write_json(target,{'private':'fixture'})
+            self.assertEqual(created,[0o600])
+            target.chmod(0o644)
+            support.write_private_text(target,'replacement')
+            self.assertEqual(target.stat().st_mode & 0o777,0o600)
+            self.assertEqual(target.read_text(),'replacement')
+            with self.assertRaises(FileExistsError):support.write_json(target,{})
+        finally:os.umask(previous)
+
     def test_prepare_never_overwrites_existing_bundle(self):
         before = support.digest(self.bundle / 'manifest.json')
         with self.assertRaises(FileExistsError):

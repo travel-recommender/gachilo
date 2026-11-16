@@ -19,7 +19,7 @@ def request(port,path,body=None):
 
 def save_private(path,value):
     path.parent.mkdir(parents=True,exist_ok=True,mode=0o700)
-    path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');path.chmod(0o600)
+    support.write_private_text(path,json.dumps(value,ensure_ascii=False,indent=2)+'\n')
 
 def qr_image(value,path):
     code=QRCode(None,QRErrorCorrectLevel.M);code.addData(value);code.make()
@@ -49,6 +49,10 @@ class Gateway(SimpleHTTPRequestHandler):
         if not self.valid():return
         parsed=urlsplit(self.path)
         if parsed.scheme or parsed.netloc:self.send_error(400);return
+        if parsed.path.rstrip('/') in ('','/create'):
+            self.send_response(303);self.send_header('Location','/entry/');self.end_headers();return
+        if parsed.path.rstrip('/')=='/backend/rooms' and self.command=='POST':
+            self.send_error(409,'Use the prepared experiment room');return
         if parsed.path.startswith('/backend/'):
             if self.headers.get('Transfer-Encoding'):self.send_error(400);return
             try:length=int(self.headers.get('Content-Length','0'))
@@ -106,10 +110,11 @@ def build(node):
             (target/'web/node_modules').symlink_to((ROOT/'web/node_modules').resolve(),target_is_directory=True)
             subprocess.run([node,str(target/'web/node_modules/next/dist/bin/next'),'build'],cwd=target/'web',env=env,check=True)
             if support.clean_commit()!=commit:raise ValueError('빌드 중 코드가 변경됐습니다. 다시 빌드하세요.')
+            previous=ROOT/'.local/build-backups'/str(time.time_ns())
             for name in ('out','.next'):
                 destination=ROOT/'web'/name
                 if destination.exists():
-                    previous=ROOT/'.local/build-backups'/str(time.time_ns());previous.mkdir(parents=True)
+                    previous.mkdir(parents=True,exist_ok=True)
                     destination.rename(previous/name)
                 shutil.copytree(target/'web'/name,destination)
     else:
@@ -134,13 +139,12 @@ def main():
     if not (web/'result/index.html').is_file():raise ValueError('실험 화면 빌드가 없습니다.')
     bundle=(a.bundle or ROOT/'.local'/('experiment-'+a.mode)).resolve()
     fresh_bundle=not bundle.exists()
-    if fresh_bundle:support.prepare(bundle)
+    expected={'purpose':'h4_user_experiment' if a.mode=='live' else 'local_h4_rehearsal','travel_dates':[a.start,a.end],'recommendation_card_policy':'disabled_in_experiment'}
+    if fresh_bundle:support.prepare(bundle,**expected)
     manifest=support.verify(bundle,code=True)
     config={'commit':commit,'mode':a.mode,'travelDates':[a.start,a.end],'rate':'8.6253','rateDate':'2026-09-30','recommendationCards':'disabled_in_experiment','survey':'google_form','surveyUrl':SURVEY_URL,'groupSize':3,
             'osrm':bool(os.getenv('OSRM_FOOT_URL')) if a.mode=='live' else False,'ai':bool(os.getenv('SOMSOM_API_KEY')) if a.mode=='live' else False}
-    expected={'purpose':'h4_user_experiment' if a.mode=='live' else 'local_h4_rehearsal','travel_dates':[a.start,a.end],'recommendation_card_policy':'disabled_in_experiment'}
-    if fresh_bundle:save_private(bundle/'manifest.json',{**manifest,**expected})
-    elif any(manifest.get(k)!=v for k,v in expected.items()):raise ValueError('기존 묶음의 날짜·실험 정책이 다릅니다. 새 --bundle 경로를 사용하세요.')
+    if any(manifest.get(k)!=v for k,v in expected.items()):raise ValueError('기존 묶음의 날짜·실험 정책이 다릅니다. 새 --bundle 경로를 사용하세요.')
     config_file=bundle/'experiment-config.json'
     if config_file.exists() and support.read_json(config_file)!=config:raise ValueError('기존 실험과 설정이 다릅니다. 새 --bundle 경로로 준비하세요.')
     if not config_file.exists():save_private(config_file,config)
@@ -184,13 +188,13 @@ def main():
             room=state['room'];invite='/join/?'+urlencode({'room':room['roomId'],'k':room['inviteToken']})
             label='모의 점검 · 응답은 본 실험에 사용하지 않음' if a.mode=='rehearsal' else 'H4 실험 · 진행자 안내 후 시작'
             notice='운영정보 조회는 모의 응답입니다. 실제 Google 확인이 아닙니다.' if a.mode=='rehearsal' else '여행 입력·일정은 로컬 서버에, 설문 응답은 혜인님의 Google 설문에 저장됩니다. 진행자의 안내 후 시작해 주세요.'
-            entry=page(title+' 실험','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>'+title+'</h1><span class="pill">'+label+'</span><p>가상 오사카 여행: '+a.start+' ~ '+a.end+' (4일)<br>같은 그룹의 서버 노트북과 같은 Wi-Fi · 각자 휴대폰 · 그룹 3명</p><div class="notice">'+notice+'<br><br>① 진행자가 준 본인 번호로 입장하고 PIN을 기억하세요.<br>② 장소 6곳 이상 → 꼭 가기 5곳 → 예산·체력 입력<br>③ 일정 A·B·C를 모두 살펴보고 혜인님의 Google 설문 작성<br><br>다른 사람과 상의하지 말고 평가해 주세요. 방장이 확정하지 않습니다. 01번은 진행자가 전달한 PIN으로 다시 들어갑니다. 번호를 추가하지 마세요. 아이폰 Safari / 안드로이드 Chrome 공통입니다.</div><a class="button" href="'+html.escape(invite,quote=True)+'">실험방 입장</a><p><a href="'+SURVEY_URL+'" target="_blank" rel="noopener noreferrer">혜인님 Google 설문</a></p>')
+            entry=page(title+' 실험','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>'+title+'</h1><span class="pill">'+label+'</span><p>가상 오사카 여행: '+a.start+' ~ '+a.end+' (4일)<br>같은 그룹의 서버 노트북과 같은 Wi-Fi · 각자 휴대폰 · 그룹 3명</p><div class="notice">'+notice+'<br><br>① 진행자가 준 본인 번호로 입장하고 PIN을 기억하세요.<br>② 장소 6곳 이상 → 꼭 가기 5곳 → 예산·체력 입력<br>③ 일정 A·B·C를 모두 살펴보고 혜인님의 Google 설문 작성<br><br>다른 사람과 상의하지 말고 평가해 주세요. 방장이 확정하지 않습니다. 01번은 진행자가 전달한 PIN으로 다시 들어갑니다. 번호를 추가하지 마세요. 아이폰 Safari / 안드로이드 Chrome 공통입니다.</div><a class="button" href="'+html.escape(invite,quote=True)+'">실험방 입장</a><p>설문 링크는 일정 A·B·C가 준비된 뒤 결과 화면에서 열 수 있습니다.</p>')
             server=LanServer((str(ip),port),partial(Gateway,web_root=web,entry=entry,origin=origin,api_port=api));server.daemon_threads=True;servers.append(server);threading.Thread(target=server.serve_forever,daemon=True).start()
             url=origin+'/entry/';qr_image(url,out/(key+'-qr.png'));metadata.append({'group':key,'title':title,'url':url,'mode':a.mode,'travelDates':config['travelDates']})
             cards.append('<section class="card"><h2>'+title+'</h2><span class="pill">'+label+'</span><img src="'+key+'-qr.png" alt="'+title+' QR"><a class="url" href="'+url+'">'+url+'</a><p>각자 배정받은 참가자 번호로 입장</p></section>')
         (out/'QR_접속안내.html').write_text(page('가치로 그룹별 QR','<div class="eyebrow">GACHILO · EXPERIMENT</div><h1>그룹별 실험 QR</h1><p>서버 노트북과 같은 Wi-Fi에서 Safari 또는 Chrome으로 열어 주세요.</p><div class="grid">'+''.join(cards)+'</div><p>이 노트북의 현재 Wi-Fi 주소 기준입니다. 혜인·윤진 노트북에서 진행할 때는 해당 노트북에서 실행하고 새 QR을 사용하세요.</p>'),encoding='utf-8')
         (out/'links.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2),encoding='utf-8')
-        operator=bundle/'운영자_01번_PIN.txt';operator.write_text('\n'.join(operator_lines)+'\n',encoding='utf-8');operator.chmod(0o600)
+        operator=bundle/'운영자_01번_PIN.txt';support.write_private_text(operator,'\n'.join(operator_lines)+'\n')
         print('QR 안내: '+str(out/'QR_접속안내.html'),flush=True)
         print('진행자만 확인할 01번 PIN: '+str(operator),flush=True)
         for row in metadata:print(row['title']+': '+row['url']+' ('+a.mode+')',flush=True)

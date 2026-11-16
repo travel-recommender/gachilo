@@ -90,6 +90,9 @@ class Store(CandidateStore, RecommendationStore):
         require(len({n.strip() for n in names})==len(names),'참여자 이름이 겹칩니다.')
         rid=secrets.token_urlsafe(16);owner=secrets.token_urlsafe(32);invite=secrets.token_urlsafe(24);members=[]
         with self.connect() as c:
+            c.execute('BEGIN IMMEDIATE')
+            if os.environ.get('EXPERIMENT_SERVER')=='1' and c.execute('SELECT 1 FROM rooms LIMIT 1').fetchone():
+                raise ApiError(409,'실험에서는 진행자가 준비한 방만 사용할 수 있습니다.')
             c.execute('INSERT INTO rooms(id,start,end,owner_hash,dataset,invite_hash) VALUES(?,?,?,?,?,?)',(rid,start.isoformat(),end.isoformat(),digest(owner),dataset,digest(invite)))
             for i,name in enumerate(names):
                 mid=secrets.token_urlsafe(12);token=secrets.token_urlsafe(32)
@@ -182,11 +185,20 @@ class Store(CandidateStore, RecommendationStore):
         if not member_id:return
         with self.connect() as c:
             c.execute('BEGIN IMMEDIATE');self.occupy(c,member_id)
+    def require_experiment_editable(self,c,r):
+        # Called again inside the write transaction: candidate completion and edits serialize.
+        if os.environ.get('EXPERIMENT_SERVER')=='1' and c.execute(
+            'SELECT 1 FROM candidate_results WHERE room_id=? AND revision=?',
+            (r['id'],r['revision'])).fetchone():
+            raise ApiError(409,'실험 일정이 생성되어 입력을 변경할 수 없습니다. 같은 일정으로 평가를 계속해 주세요.')
     def submit(self,rid,mid,token,b):
         require(isinstance(b,dict),'JSON 객체가 필요합니다.')
         for field in ('longlist','picks'):
             v=b.get(field);require(isinstance(v,list) and len(v)<=30 and all(isinstance(x,str) and 1<=len(x)<=100 for x in v),field+' 형식을 확인하세요.')
             require(len(set(v))==len(v),field+'에 중복 장소가 있습니다.')
+        if os.environ.get('EXPERIMENT_SERVER')=='1':
+            require(len(b['longlist'])>=6,'실험에서는 장소를 6곳 이상 담아 주세요.')
+            require(len(b['picks'])==5,'실험에서는 꼭 가기 5곳을 선택해 주세요.')
         for field in ('must','veto'):require(b.get(field) is None or isinstance(b[field],str) and 1<=len(b[field])<=100,field+' 형식을 확인하세요.')
         require(b.get('must') is None or b['must'] in b['picks'],'꼭 가는 곳은 picks에 포함되어야 합니다.')
         if 'vetoes' in b:
@@ -208,11 +220,13 @@ class Store(CandidateStore, RecommendationStore):
         if self.date_availability is not None:
             with self.connect() as c:
                 r=self.room(c,rid);self.authenticate(c,r,token,mid)
+                self.require_experiment_editable(c,r)
                 dataset,start,end=r['dataset'],r['start'],r['end']
             if dataset==REAL_DATASET and b['picks']:
                 usable=set(self.date_availability(start,end))
         with self.connect() as c:
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
+            self.require_experiment_editable(c,r)
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
             ids=b['longlist']+b['picks']+[b[k] for k in ('must','veto') if b.get(k)]+vetoes
             if allowed is not None:require(all(x in allowed for x in ids),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
@@ -230,8 +244,10 @@ class Store(CandidateStore, RecommendationStore):
         require(isinstance(b,dict),'JSON 객체가 필요합니다.')
         v=b.get('longlist');require(isinstance(v,list) and len(v)<=30 and all(isinstance(x,str) and 1<=len(x)<=100 for x in v),'longlist 형식을 확인하세요.')
         require(len(set(v))==len(v),'longlist에 중복 장소가 있습니다.')
+        if os.environ.get('EXPERIMENT_SERVER')=='1':require(len(v)>=6,'실험에서는 장소를 6곳 이상 담아 주세요.')
         with self.connect() as c:
             c.execute('BEGIN IMMEDIATE');r=self.room(c,rid);self.occupy(c,self.authenticate(c,r,token,mid))
+            self.require_experiment_editable(c,r)
             allowed=self.real_ids if r['dataset']==REAL_DATASET else self.catalog_ids
             if allowed is not None:require(all(x in allowed for x in v),'이 방의 장소 목록에 없는 ID가 포함되어 있습니다.')
             if r['dataset']==REAL_DATASET:

@@ -26,6 +26,29 @@ class PortableTests(unittest.TestCase):
                 client.recv(1)
         lan.probe_port('127.0.0.1',port)
 
+    def test_gateway_returns_entry_and_blocks_extra_room_creation(self):
+        import http.client
+        import threading
+        from functools import partial
+        with tempfile.TemporaryDirectory() as directory:
+            handler=partial(lan.Gateway,web_root=directory,entry='experiment entry',origin='http://127.0.0.1:1',api_port=1)
+            server=lan.LanServer(('127.0.0.1',0),handler)
+            origin=f'http://127.0.0.1:{server.server_port}'
+            handler.keywords['origin']=origin
+            thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+            try:
+                for path in ['/', '/create/', '/create?other=1']:
+                    conn=http.client.HTTPConnection('127.0.0.1',server.server_port)
+                    conn.request('GET',path);response=conn.getresponse();response.read()
+                    self.assertEqual(response.status,303);self.assertEqual(response.getheader('Location'),'/entry/');conn.close()
+                conn=http.client.HTTPConnection('127.0.0.1',server.server_port)
+                conn.request('POST','/backend/rooms',body='{}');response=conn.getresponse();response.read()
+                self.assertEqual(response.status,409);conn.close()
+                conn=http.client.HTTPConnection('127.0.0.1',server.server_port)
+                conn.request('GET','/entry/');response=conn.getresponse()
+                self.assertEqual(response.status,200);self.assertEqual(response.read(),b'experiment entry');conn.close()
+            finally:server.shutdown();server.server_close();thread.join()
+
     def test_mac_ignores_loopback_and_keeps_separate_adapter_addresses(self):
         self.assertEqual(network.parse_ifconfig('lo0: flags\n\tinet 127.0.0.1 netmask 0xff\nen0: flags\n\tinet 192.168.0.4 netmask 0xff\nutun0: flags\n\tinet 10.3.4.5 netmask 0xff'), [('192.168.0.4', 'en0'), ('10.3.4.5', 'utun0')])
 

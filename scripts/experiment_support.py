@@ -32,11 +32,22 @@ def read_json(path):
     return json.loads(path.read_text(encoding='utf-8'))
 
 
+def write_private_text(path, text, *, exclusive=False):
+    # Mode 0600 applies at creation, including under umask 022. Restrict an existing
+    # file before replacing its contents. Windows relies on the user's directory ACL.
+    flags = os.O_WRONLY | os.O_CREAT | getattr(os, 'O_NOFOLLOW', 0)
+    if exclusive:
+        flags |= os.O_EXCL
+    fd = os.open(path, flags, 0o600)
+    with os.fdopen(fd, 'w', encoding='utf-8') as out:
+        if hasattr(os, 'fchmod'):
+            os.fchmod(out.fileno(), 0o600)
+        out.truncate(0)
+        out.write(text)
+
+
 def write_json(path, value):
-    with path.open('x', encoding='utf-8') as out:
-        json.dump(value, out, ensure_ascii=False, indent=2)
-        out.write('\n')
-    path.chmod(0o600)
+    write_private_text(path, json.dumps(value, ensure_ascii=False, indent=2)+'\n', exclusive=True)
 
 
 def git_binary():
@@ -63,7 +74,8 @@ def clean_commit():
     return git('rev-parse', 'HEAD')
 
 
-def prepare(bundle):
+def prepare(bundle, *, purpose='local_rehearsal_only', travel_dates=None,
+            recommendation_card_policy='pending_team_decision'):
     commit = clean_commit()
     source = read_json(ROOT / 'data/runtime_catalog.json')
     bundle.mkdir(parents=True, exist_ok=False, mode=0o700)
@@ -82,8 +94,8 @@ def prepare(bundle):
     manifest = {'schema': 1, 'created_at': datetime.now(timezone.utc).isoformat(),
                 'commit': commit, 'dataset': 'osaka_review_150', 'files': files,
                 'catalog_version': source['version'], 'catalog_rows': len(ids),
-                'purpose': 'local_rehearsal_only', 'travel_dates': None,
-                'recommendation_card_policy': 'pending_team_decision'}
+                'purpose': purpose, 'travel_dates': travel_dates,
+                'recommendation_card_policy': recommendation_card_policy}
     write_json(bundle / 'manifest.json', manifest)
     return manifest
 
