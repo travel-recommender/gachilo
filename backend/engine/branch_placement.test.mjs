@@ -136,6 +136,26 @@ test('기다렸는데 원래 지점이 결국 못 들어가면, 휴무인 날 �
   }
 });
 
+test('다시 짤 때는 기다린 결과에서 빠진 곳만 대체한다 — 원래 지점으로 들어간 곳은 그대로 (#74 재리뷰 3차)', async () => {
+  // 본점: 11/17 휴무, 11/18 영업 → 기다려서 11/18 본점으로 들어간다.
+  // 다루마 도톤보리: 11/17을 휴무로 두고 11/18은 체류 시간 2000분으로 탈락 → 다시 짤 때 11/17 신세카이점으로 대신 들어가야 한다.
+  // 다시 짤 때 고른 곳 전체를 넘기면 본점까지 11/17 난바워크점으로 바뀌어 이 테스트가 실패한다.
+  const y = 'branch_daruma_dotonbori';
+  const places = dataset.places.map(r => r.place.place_id !== y ? r
+    : {...r, place: {...r.place, stay_min: 2000}, review: {...r.review, stay_policy: {...r.review.stay_policy, representative: 2000}}});
+  const yProfile = profiles.places[y];
+  const closedProfiles = {...profiles, places: {...profiles.places, [y]: {...yProfile, uncertain_dates: [...(yProfile.uncertain_dates ?? []), '2026-11-17']}}};
+  const picks = ['branch_551_honten', y];
+  const {candidates} = await calculateRealCandidates(range('2026-11-17', '2026-11-18', [member('a', picks), member('b', picks)]),
+    {...dataset, places}, closedProfiles, {baseUrl: ''}, offline);
+  for (const c of candidates) {
+    assert.deepEqual(c.days.map(d => d.placeIds), [['branch_daruma_shinsekai'], ['branch_551_honten']], c.strategy);
+    assert.equal(items(c)[0].branch.fromPlaceId, y);
+    assert.equal(items(c)[0].branch.reasonCode, 'original_unavailable');
+    assert.ok(!items(c)[1].branch);
+  }
+});
+
 test('교체 후보는 고른 곳마다 최대 3곳, 제외한 브랜드는 실시간 확인에도 넣지 않는다 (#74 리뷰)', async () => {
   const seen = [];
   const spy = async requests => { seen.push(...requests.map(r => r.record.place.place_id)); return mockLiveCheck('pass')(requests); };
@@ -181,7 +201,7 @@ test('하루 자리 수는 활동 시간에 맞춘다 — 여유라도 9시간�
   for (const c of candidates) assert.ok(c.days[0].placeIds.length > 2, `${c.strategy}: ${c.days[0].placeIds}`);
 });
 
-test('빈자리 후보 수는 여행 전체 자리만큼 늘어난다 (예전 10곳 고정 → 10~30곳)', async () => {
+test('빈자리 후보 수는 여행 전체 자리만큼 늘어난다 (예전 10곳 고정 → 10~20곳)', async () => {
   const {buildPool} = await import('./real_ai.mjs');
   const candidates = dataset.places.filter(r => availability(r, '2026-11-17', profiles, {allowShopping: true}).eligible_for_model)
     .map(record => ({record, costKrw: 0}));

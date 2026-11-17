@@ -349,7 +349,10 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         || groups.has(byId.get(id)?.place.branch_group_id);
     };
     const inWaited = waited ? placedIn(waited) : () => false;
-    const missed = new Set([...branchable].filter(id => !inWaited(id)));
+    // 여행 내내 운영 조건을 통과하는 곳은 어느 날에도 형제 지점으로 대체되지 않으므로(substituteFor의 eligibleToday) 넘기지 않는다.
+    // 예산·시간으로만 빠진 곳 때문에 같은 결과를 한 번 더 계획하지 않게 (#74 재리뷰 3차)
+    const closedSomeDay = id => eligibleByDate.some(ps => !ps.some(p => p.id === id));
+    const missed = new Set([...branchable].filter(id => !inWaited(id) && closedSomeDay(id)));
     if (waited && !missed.size) return waited;
     const early = attempt(missed);
     if (!early) return waited ?? plan(strategy, new Set());  // 둘 다 못 짜면 원래 오류를 그대로 낸다
