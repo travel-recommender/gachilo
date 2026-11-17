@@ -108,6 +108,16 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
   // 활동 시간과 속도로 정한 하루 자리 수(realSlotsPerDay). 합의 단계가 아니라 검증을 통과한 장소 수에 적용한다.
   const slots = realSlotsPerDay(tradeoffs.pace, limits.active_min);
   const validationOptions = {allowShopping: true, candidateMetrics: true, distanceWeight: distanceWeightFor(tradeoffs.distance)};
+  // All strategies and the early-substitution retry share the same day checks.
+  // Keep order in the key: it can affect routing. This cache belongs to just this
+  // calculation, so other requests, AI previews and shelter/plain passes cannot
+  // reuse results under different limits, catalogues or routing conditions.
+  const dayChecks = new Map();
+  const checkDay = (date, ids) => {
+    const key = JSON.stringify([date, ids]);
+    if (!dayChecks.has(key)) dayChecks.set(key, validateDay({...limits, date, place_ids: ids}, dataset, profiles, validationOptions));
+    return dayChecks.get(key);
+  };
   const eligibleOn = (ids, date) => ids.filter(id => !vetoes.has(id)).flatMap(id => {
     const record = byId.get(id);
     const check = record && availability(record, date, profiles, {allowShopping: true});
@@ -131,13 +141,23 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     const scheduled = new Set();
     // 배치된 다른 지점 → {fromPlaceId: 원래 고른 곳, reasonCode, savedMin}
     const branchOf = new Map();
-    const placedNow = (id, accepted) => scheduled.has(id) || accepted.includes(id);
     // 같은 교체 그룹(branch_group_id)은 같은 곳으로 본다. 그룹의 어느 지점이든 이미 들어갔으면 반영된 것이고
     // 다시 넣지 않는다 — 두 사람이 같은 가게의 다른 지점을 골라도 한 번만 방문한다
     const groupOf = id => byId.get(id)?.place.branch_group_id ?? null;
-    const covered = (id, accepted = []) => placedNow(id, accepted)
-      || [...branchOf].some(([placed, b]) => b.fromPlaceId === id && placedNow(placed, accepted))
-      || (!!groupOf(id) && [...scheduled, ...accepted].some(x => x !== id && groupOf(x) === groupOf(id)));
+    const scheduledGroups = new Set(), emptyAccepted = [];
+    let indexedAccepted = null, acceptedIds, acceptedGroups;
+    const covered = (id, accepted = emptyAccepted) => {
+      if (indexedAccepted !== accepted) {
+        indexedAccepted = accepted;
+        acceptedIds = new Set(accepted);
+        acceptedGroups = new Set(accepted.map(groupOf).filter(Boolean));
+      }
+      // Every substitution stays within its non-empty branch_group_id, so this
+      // also covers branchOf.fromPlaceId without scanning the branch map.
+      const group = groupOf(id);
+      return scheduled.has(id) || acceptedIds.has(id)
+        || (!!group && (scheduledGroups.has(group) || acceptedGroups.has(group)));
+    };
     let estimatedCost = false;
     const days = dates.map((date, index) => {
       // 다른 지점으로 이미 반영된 곳(covered)은 다시 넣지 않는다 — 같은 가게를 두 번 방문하지 않게
@@ -175,7 +195,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       let accepted = [], trial = null;
       const tryAdd = id => {
         if (covered(substitute.get(id) ?? id, accepted) || covered(id, accepted)) return;
-        const next = validateDay({...limits, date, place_ids: [...accepted, id]}, dataset, profiles, validationOptions);
+        const next = checkDay(date, [...accepted, id]);
         // Must-places do not bypass date, cost, last-entry, walking or active-time checks.
         if (next.passed_model_checks) {
           trial = next;
@@ -224,7 +244,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
           let best = null;
           for (const sib of list) {
             if (sib === id || !eligible(sib) || scheduled.has(sib) || accepted.includes(sib)) continue;
-            const next = validateDay({...limits, date, place_ids: accepted.map(x => x === id ? sib : x)}, dataset, profiles, validationOptions);
+            const next = checkDay(date, accepted.map(x => x === id ? sib : x));
             if (!next.passed_model_checks || next.items.length !== accepted.length) continue;
             if (!best || moveMin(next) < moveMin(best.trial)) best = {sib, trial: next};
           }
@@ -242,7 +262,11 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
           accepted = trial.items.map(item => item.place_id);
         }
       }
-      accepted.forEach(id => scheduled.add(id));
+      accepted.forEach(id => {
+        scheduled.add(id);
+        const group = groupOf(id);
+        if (group) scheduledGroups.add(group);
+      });
       estimatedCost ||= (trial?.items ?? []).some(item => item.cost_status === "estimate");
       return {date, placeIds: accepted, items: (trial?.items ?? []).map(item => {
         const costNote = (item.cost_status === 'not_applicable_shopping' ? ' 쇼핑 구매액은 비용 합계에서 제외됩니다.' : '')
@@ -292,7 +316,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         const check = availability(record, day.date, profiles, {allowShopping: true});
         if (!check.eligible_for_model) return check.reasons;
         if (!passed(live, id, day.date)) return live.verdicts.get(`${id}|${day.date}`) ?? ['live_lookup_failed'];
-        const trial = validateDay({...limits, date: day.date, place_ids: [...day.placeIds, id]}, dataset, profiles, validationOptions);
+        const trial = checkDay(day.date, [...day.placeIds, id]);
         return trial.passed_model_checks ? ['strategy_selection_or_capacity'] : [...new Set(trial.violations.map(v => v.code))];
       });
       const common = attempts[0].filter(code => attempts.every(reasons => reasons.includes(code)));

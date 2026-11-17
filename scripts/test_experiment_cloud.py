@@ -1,5 +1,7 @@
 import http.client
 import json
+import subprocess
+import sys
 import threading
 import tempfile
 import unittest
@@ -23,6 +25,16 @@ class CloudTests(unittest.TestCase):
                 with self.assertRaises(ValueError):cloud.configuration()
             with patch.dict('os.environ',{'EXPERIMENT_SESSION':'../escape'}):
                 with self.assertRaises(ValueError):cloud.configuration()
+            with patch.dict('os.environ',{'EXPERIMENT_ADMIN_TOKEN':'é'*40}):
+                with self.assertRaisesRegex(ValueError,'ASCII EXPERIMENT_ADMIN_TOKEN'):cloud.configuration()
+    def test_missing_public_origin_exits_with_actionable_message(self):
+        for public in (None, ''):
+            env = {} if public is None else {'PUBLIC_ORIGIN': public}
+            result = subprocess.run([sys.executable, str(Path(cloud.__file__).resolve())],
+                                    env=env, capture_output=True, text=True, timeout=10)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('Set PUBLIC_ORIGIN', result.stderr)
+            self.assertNotIn('Traceback', result.stderr)
     def test_freeze_survives_restart_rejects_new_code_or_dates(self):
         cfg={'commit':'a'*40,'mode':'rehearsal','dates':['2026-11-16','2026-11-19']}
         with tempfile.TemporaryDirectory() as tmp:
@@ -58,7 +70,7 @@ class GatewayTests(unittest.TestCase):
         self.origin=f'http://127.0.0.1:{self.server.server_port}'
         self.server.config={'origin':self.origin,'admin':'a'*40,'mode':'setup','session':'test',
             'commit':'b'*40,'dates':['2026-11-16','2026-11-19'],'bundle':Path(self.tmp.name),
-            'active_groups':{'team'},'tokens':{g:g+'secret' for g in cloud.GROUPS},'processes':[]}
+            'active_groups':{'team'},'tokens':{g:chr(65+i)*32 for i,g in enumerate(cloud.GROUPS)},'processes':[]}
         threading.Thread(target=self.server.serve_forever,daemon=True).start()
     def tearDown(self):
         self.server.shutdown();self.server.server_close();self.tmp.cleanup()
@@ -80,5 +92,20 @@ class GatewayTests(unittest.TestCase):
             def poll(self):return 1
         self.server.config['processes']=[Stopped()]
         self.assertEqual(self.request('/healthz')[0],503)
+    def test_non_ascii_authorization_is_denied_without_dropping_connection(self):
+        for token in ('Bearer é', 'Bearer '+'a'*39+'é', 'é'*40):
+            with self.subTest(token=token):
+                self.assertEqual(self.request('/admin/status',{'Authorization':token})[0],403)
+        self.assertEqual(self.request('/admin/status',{'Authorization':'Bearer '+'a'*40})[0],200)
+    def test_malformed_entry_cookies_are_denied_and_valid_entry_still_works(self):
+        self.server.config.update(mode='rehearsal',entries={'team':'team entry'})
+        for method in ('GET','HEAD'):
+            for token in ('"é"','"'+'é'*32+'"','short','A'*31+'!',''):
+                with self.subTest(method=method,token=token):
+                    self.assertEqual(self.request('/entry/',{'Cookie':share.COOKIE+'='+token},method)[0],403)
+            token=self.server.config['tokens']['team']
+            code,body=self.request('/entry/',{'Cookie':share.COOKIE+'='+token},method)
+            self.assertEqual(code,200)
+            self.assertEqual(body,b'team entry' if method=='GET' else b'')
 
 if __name__=='__main__':unittest.main()

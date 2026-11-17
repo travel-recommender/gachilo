@@ -25,7 +25,7 @@ import experiment_lan as lan
 import experiment_support as support
 
 ROOT = Path(__file__).resolve().parents[1]
-GROUPS = {'joeun': ('조은 친구', 'J'), 'hyein': ('혜인 친구', 'H'), 'yunjin': ('윤진 친구', 'Y')}
+GROUPS = {g: (title, lan.CODES[g]) for g, title in lan.GROUPS if g != 'team'}
 COOKIE = 'gachilo_experiment_group'
 
 

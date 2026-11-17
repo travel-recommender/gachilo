@@ -41,10 +41,13 @@ def configuration():
     active = set(filter(None, os.getenv('EXPERIMENT_ACTIVE_GROUPS', 'team').split(',')))
     if not active <= set(GROUPS):
         raise ValueError('Unknown active group')
-    public = share.origin(os.environ['PUBLIC_ORIGIN'])
+    public_value = os.getenv('PUBLIC_ORIGIN', '')
+    if not public_value:
+        raise ValueError('Set PUBLIC_ORIGIN to the public HTTPS origin')
+    public = share.origin(public_value)
     admin = os.environ.get('EXPERIMENT_ADMIN_TOKEN', '')
-    if len(admin) < 32:
-        raise ValueError('Set a separate random EXPERIMENT_ADMIN_TOKEN of at least 32 characters')
+    if len(admin) < 32 or not admin.isascii():
+        raise ValueError('Set a separate random ASCII EXPERIMENT_ADMIN_TOKEN of at least 32 characters')
     commit = os.environ.get('RAILWAY_GIT_COMMIT_SHA') or os.environ.get('EXPERIMENT_CODE_VERSION', '')
     if not re.fullmatch(r'[0-9a-f]{40}', commit):
         raise ValueError('A full deployed commit SHA is required')
@@ -120,7 +123,7 @@ class CloudGateway(share.SharedGateway):
             if self.command != 'GET' or parsed.path != '/admin/status' or parsed.query:
                 return self.respond(404)
             token = self.headers.get('Authorization', '')
-            if not secrets.compare_digest(token, 'Bearer '+cfg['admin']):
+            if not token.isascii() or not secrets.compare_digest(token, 'Bearer '+cfg['admin']):
                 return self.respond(403)
             rows = []
             for group in GROUPS:
@@ -141,6 +144,8 @@ class CloudGateway(share.SharedGateway):
                 token = cookies[share.COOKIE].value if share.COOKIE in cookies else ''
             except CookieError:
                 token = ''
+            if not re.fullmatch(r'[A-Za-z0-9_-]{32}', token):
+                return self.respond(403)
             group = next((g for g, t in cfg['tokens'].items() if secrets.compare_digest(token, t)), None)
             if (group in cfg['active_groups'] and cfg['mode'] != 'setup'
                     and self.headers.get('Host') == urlsplit(cfg['origin']).netloc
