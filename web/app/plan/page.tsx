@@ -9,7 +9,7 @@ import { PlanMap } from "@/components/PlanMap";
 import { VisitConditionsPanel } from "@/components/VisitConditionsPanel";
 import { CATEGORY_MAP, findPlace } from "@/lib/places";
 import { explainPlace } from "@/lib/explain";
-import { badgeOf, hasCandidates } from "@/lib/shared-flow";
+import { badgeOf, branchNoteOf, hasCandidates } from "@/lib/shared-flow";
 import { selectedCandidate, type SharedStrategy } from "@/lib/shared-results-api";
 import { useSharedResults } from "@/components/useSharedResults";
 import { Box, MinusButton, NavButtons, Page, PlanHeader, Sheet, TextTabs, asset } from "@/components/gachiro";
@@ -24,6 +24,8 @@ const HOLD_MS = 450;
 
 /** 아무도 고르지 않았는데 들어간 곳의 표시. 규칙으로 채운 곳은 "AI 추천"이라 하지 않는다 */
 type Badge = { label: "AI 추천" | "추천"; reason?: string };
+/** 지점 자동 배치로 바뀐 곳. from은 두 조건 모두, reason은 설명 있음 조건에서만 */
+type BranchNote = { label: "지점 변경"; picked: string; placed: string; reason?: string };
 
 /**
  * P8 — 일정과 동선.
@@ -70,6 +72,7 @@ function PlanInner() {
   const [adding, setAdding] = useState(false);
 
   const badges: Record<string, Badge> = {};
+  const branches: Record<string, BranchNote> = {};
   /** 장소별 시작 시각 "09:00". 순서를 고친 날은 계산한 시각이 맞지 않아 비운다 */
   const times: Record<string, string> = {};
   let ids: string[];
@@ -81,6 +84,8 @@ function PlanInner() {
       const label = badgeOf(it);
       // 설명 없음 조건에서는 표시(라벨)만 같게 두고 이유 문장은 뺀다
       if (label) badges[it.placeId] = { label, reason: explained ? it.reason ?? "모두의 조건에 맞아 넣은 곳이에요." : undefined };
+      const note = branchNoteOf(it, (id) => findPlace(id)?.name, explained);
+      if (note) branches[it.placeId] = note;
     });
   } else {
     const dayItems = schedule.plans.find((p) => p.day === day)?.items ?? [];
@@ -96,6 +101,11 @@ function PlanInner() {
     });
   }
   const places = ids.map((id) => findPlace(id)).filter((p): p is Place => !!p);
+  // 일정 아래 이유 목록: 실험 설명 있음 조건의 추천 이유 + 지점을 바꾼 이유(설명 있음일 때만)
+  const reasons = places.flatMap((p) => [
+    ...(EXPERIMENT_MODE && explained && badges[p.id]?.reason ? [{ key: `${p.id}:badge`, text: `${p.name}: ${badges[p.id]!.reason}` }] : []),
+    ...(branches[p.id]?.reason ? [{ key: `${p.id}:branch`, text: `${p.name}: ${branches[p.id]!.reason}` }] : []),
+  ]);
   const save = (next: string[]) => setExtra({ planEdits: { ...planEdits, [day]: next } });
 
   if ((EXPERIMENT_MODE && !online) || (online && (!final || (EXPERIMENT_MODE && !slot)))) {
@@ -168,7 +178,7 @@ function PlanInner() {
           </div>
 
           <Box className="h-[261px] overflow-hidden">
-            <Reorder places={places} locked={confirmed} badges={badges} times={times}
+            <Reorder places={places} locked={confirmed} badges={badges} branches={branches} times={times}
               onMove={(from, to) => {
                 const next = [...ids];
                 const [m] = next.splice(from, 1);
@@ -177,7 +187,7 @@ function PlanInner() {
               }}
               onRemove={(id) => save(ids.filter((x) => x !== id))} />
           </Box>
-          {EXPERIMENT_MODE && explained && places.some(p => badges[p.id]?.reason) && <ul className="mt-3 space-y-2 text-xs text-wine">{places.filter(p => badges[p.id]?.reason).map(p => <li key={p.id}>{p.name}: {badges[p.id]?.reason}</li>)}</ul>}
+          {reasons.length > 0 && <ul className="mt-3 space-y-2 text-xs text-wine">{reasons.map((r) => <li key={r.key}>{r.text}</li>)}</ul>}
           {!confirmed && places.length > 1 && (
             <p className="mt-2 text-right text-[11px] font-medium text-mute-soft">한 칸을 꾹 누르면 순서를 바꿀 수 있어요</p>
           )}
@@ -212,9 +222,10 @@ function Pin({ n }: { n: number }) {
 }
 
 /** 꾹 눌러 끌어서 순서를 바꾸는 목록 */
-function Reorder({ places, locked, badges, times, onMove, onRemove }: {
+function Reorder({ places, locked, badges, branches, times, onMove, onRemove }: {
   places: Place[];
   badges: Record<string, Badge>;
+  branches: Record<string, BranchNote>;
   times: Record<string, string>;
   locked: boolean;
   onMove: (from: number, to: number) => void;
@@ -284,7 +295,9 @@ function Reorder({ places, locked, badges, times, onMove, onRemove }: {
               transform: `translateY(${isDrag ? drag!.dy : shiftOf(k)}px)`,
               transition: isDrag ? "none" : "transform .15s ease",
             }}
-            className={`relative flex h-[58px] select-none items-center gap-[4px] border-b border-line pr-[17px] last:border-0 ${
+            // 지점이 바뀐 줄은 지점명이 잘리지 않게 높이를 늘린다. 이 줄은 공용 결과에만 있고 공용 결과는 잠겨 있어 끌어 옮기기(ROW_H)와 겹치지 않는다
+            className={`relative flex select-none items-center gap-[4px] border-b border-line pr-[17px] last:border-0 ${
+              branches[p.id] ? "min-h-[58px] py-[9px]" : "h-[58px]"} ${
               isDrag ? "z-10 rounded-[10px] bg-white shadow-card" : "bg-white"}`}>
             {times[p.id] && (
               <span className="w-[38px] shrink-0 text-center text-[12px] font-extrabold tabular-nums text-wine">{times[p.id]}</span>
@@ -297,11 +310,22 @@ function Reorder({ places, locked, badges, times, onMove, onRemove }: {
                 {badges[p.id] && (
                   <span className="shrink-0 rounded-[20px] bg-line-faint px-[7px] py-[2px] text-[10px] font-bold leading-3 text-wine">{badges[p.id].label}</span>
                 )}
+                {branches[p.id] && (
+                  <span className="shrink-0 rounded-[20px] bg-line-faint px-[7px] py-[2px] text-[10px] font-bold leading-3 text-wine">{branches[p.id].label}</span>
+                )}
               </div>
-              {/* AI 추천이면 주소 줄 대신 왜 넣었는지를 쓴다 */}
-              <div className={`mt-[3px] truncate leading-3 ${!EXPERIMENT_MODE && badges[p.id]?.reason ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
-                {EXPERIMENT_MODE ? placeLine(p) : badges[p.id]?.reason ?? placeLine(p)}
-              </div>
+              {/* 지점이 바뀌었으면 고른 곳과 배치된 곳을 따로 한 줄씩, 자르지 않고 쓴다 (두 조건 모두).
+                  AI 추천이면 주소 줄 대신 왜 넣었는지를 쓴다 */}
+              {branches[p.id] ? (
+                <div className="mt-[3px] text-[9px] font-semibold leading-3 text-wine [overflow-wrap:anywhere]">
+                  <div>{branches[p.id].picked}</div>
+                  <div className="mt-[1px]">{branches[p.id].placed}</div>
+                </div>
+              ) : (
+                <div className={`mt-[3px] truncate leading-3 ${!EXPERIMENT_MODE && badges[p.id]?.reason ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
+                  {EXPERIMENT_MODE ? placeLine(p) : badges[p.id]?.reason ?? placeLine(p)}
+                </div>
+              )}
             </div>
             {!locked && <MinusButton label={`${p.name} 빼기`} onClick={() => onRemove(p.id)} />}
           </li>
