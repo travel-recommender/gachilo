@@ -102,10 +102,23 @@ class GatewayTests(unittest.TestCase):
         for method in ('GET','HEAD'):
             for token in ('"é"','"'+'é'*32+'"','short','A'*31+'!',''):
                 with self.subTest(method=method,token=token):
-                    self.assertEqual(self.request('/entry/',{'Cookie':share.COOKIE+'='+token},method)[0],403)
+                    code,body=self.request('/entry/',{'Cookie':share.COOKIE+'='+token},method)
+                    self.assertEqual(code,403)
+                    if method=='GET':
+                        self.assertIn('전달받은 그룹 링크로 들어와 주세요.'.encode(),body)
+                    else:
+                        self.assertEqual(body,b'')
             token=self.server.config['tokens']['team']
             code,body=self.request('/entry/',{'Cookie':share.COOKIE+'='+token},method)
             self.assertEqual(code,200)
             self.assertEqual(body,b'team entry' if method=='GET' else b'')
+    def test_missing_cookie_shows_group_link_guidance_without_private_entry(self):
+        self.server.config.update(mode='rehearsal',entries={'team':'private team entry'})
+        for path in ('/entry/','/entry/?from=camera'):
+            code,body=self.request(path)
+            self.assertEqual(code,403)
+            self.assertIn('전달받은 그룹 링크로 들어와 주세요.'.encode(),body)
+            self.assertNotIn(b'private team entry',body)
+            self.assertNotIn(self.server.config['tokens']['team'].encode(),body)
 
 if __name__=='__main__':unittest.main()

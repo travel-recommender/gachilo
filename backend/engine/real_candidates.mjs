@@ -146,6 +146,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     const groupOf = id => byId.get(id)?.place.branch_group_id ?? null;
     const scheduledGroups = new Set(), emptyAccepted = [];
     let indexedAccepted = null, acceptedIds, acceptedGroups;
+    // accepted is an immutable snapshot: always replace it with a new array
+    // after a successful day check. Do not push/splice it in place, because
+    // this index is refreshed when the array identity changes.
     const covered = (id, accepted = emptyAccepted) => {
       if (indexedAccepted !== accepted) {
         indexedAccepted = accepted;

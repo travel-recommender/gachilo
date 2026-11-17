@@ -145,8 +145,8 @@ class CloudGateway(share.SharedGateway):
             except CookieError:
                 token = ''
             if not re.fullmatch(r'[A-Za-z0-9_-]{32}', token):
-                return self.respond(403)
-            group = next((g for g, t in cfg['tokens'].items() if secrets.compare_digest(token, t)), None)
+                token = ''
+            group = next((g for g, t in cfg['tokens'].items() if token and secrets.compare_digest(token, t)), None)
             if (group in cfg['active_groups'] and cfg['mode'] != 'setup'
                     and self.headers.get('Host') == urlsplit(cfg['origin']).netloc
                     and self.headers.get('Origin') in (None, cfg['origin'])):
