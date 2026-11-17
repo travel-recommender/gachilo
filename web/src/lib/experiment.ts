@@ -7,10 +7,11 @@
  * - 일정은 "일정 A · B · C"로만 보여준다. 어느 전략이 어느 글자인지는 그룹(방)마다 섞고,
  *   같은 그룹 안에서는 모두 같은 글자를 본다 (5.1 — 철수와 영희의 일정 A는 같은 일정).
  * - 화면에 놓이는 순서는 사람마다 섞는다 (2장).
- * - 설명 문장은 참가자 순번(방 참여자 목록 순서)에 따라 5.3 표대로 일정마다 켜고 끈다.
+ * - 설명 문장은 참가자별로 고정한다. 1번은 세 일정 모두 없음, 나머지는 세 일정 모두 있음.
  *
  * 무작위는 방·참여자 id에서 만든 시드로 정한다. 같은 사람은 몇 번을 들어와도 같은 배정을 본다.
  */
+import experimentConfig from "../../../config/experiment.json" with { type: "json" };
 import type { SharedStrategy } from "./shared-results-api";
 
 export const EXPERIMENT_MODE = process.env.NEXT_PUBLIC_EXPERIMENT_MODE === "1";
@@ -19,7 +20,17 @@ export type Letter = "A" | "B" | "C";
 export const LETTERS: Letter[] = ["A", "B", "C"];
 const STRATEGIES: SharedStrategy[] = ["average", "least_misery", "fairness"];
 
-/** 5.3 — 순번별 설명을 붙이는 일정. 7번째부터 다시 1번 */
+export type ExplanationPolicy = "participant-fixed-v2" | "per-candidate-v1";
+export const LEGACY_EXPLANATION_POLICY = "per-candidate-v1" as const;
+export function explanationPolicy(value: unknown): ExplanationPolicy {
+  if (value !== "participant-fixed-v2" && value !== LEGACY_EXPLANATION_POLICY) {
+    throw new Error("Unknown experiment explanation policy");
+  }
+  return value;
+}
+export const EXPLANATION_POLICY = explanationPolicy(experimentConfig.explanationPolicy);
+
+/** 과거 실험 내보내기 전용. 새 실험 화면에는 사용하지 않는다. */
 export const EXPLAIN_TABLE: Letter[][] = [
   ["A"],
   ["B", "C"],
@@ -79,8 +90,10 @@ export function seatOf(memberId: string, memberIds: readonly string[]): number |
 }
 
 /** 이 순번이 설명을 보는 일정 */
-export function explainedLetters(seat: number): Letter[] {
-  return EXPLAIN_TABLE[(seat - 1) % EXPLAIN_TABLE.length];
+export function explainedLetters(seat: number, policy: ExplanationPolicy = EXPLANATION_POLICY): Letter[] {
+  if (!Number.isInteger(seat) || seat < 1) throw new Error("Invalid participant seat");
+  if (explanationPolicy(policy) === "participant-fixed-v2") return seat === 1 ? [] : [...LETTERS];
+  return [...EXPLAIN_TABLE[(seat - 1) % EXPLAIN_TABLE.length]];
 }
 
 export interface ExperimentSlot {
@@ -93,6 +106,7 @@ export interface ExperimentSlot {
 }
 
 export interface ExperimentAssignment {
+  explanationPolicy: ExplanationPolicy;
   seat: number;
   /** 화면에 놓이는 순서대로 */
   slots: ExperimentSlot[];
@@ -102,17 +116,17 @@ export interface ExperimentAssignment {
  * 한 참가자의 배정. 순번을 모르면(참여자 목록에 없음) null — 화면은 일정을 보여주지 않는다.
  * 응답 저장(조은)은 이 값으로 표시 이름·전략·표시 순서·설명 조건을 함께 남긴다.
  */
-export function assignment(roomId: string, memberId: string, memberIds: readonly string[]): ExperimentAssignment | null {
+export function assignment(roomId: string, memberId: string, memberIds: readonly string[], policy: ExplanationPolicy = EXPLANATION_POLICY): ExperimentAssignment | null {
   const seat = seatOf(memberId, memberIds);
   if (seat === null) return null;
   const map = letterMap(roomId);
-  const explained = new Set(explainedLetters(seat));
+  const explained = new Set(explainedLetters(seat, policy));
   const order = shuffled(LETTERS, `order:${roomId}:${memberId}`);
   const slots = order.map((letter, i) => {
     const strategy = STRATEGIES.find((s) => map[s] === letter)!;
     return { strategy, letter, order: i + 1, explained: explained.has(letter) };
   });
-  return { seat, slots };
+  return { seat, slots, explanationPolicy: policy };
 }
 
 export const scheduleName = (letter: Letter) => `일정 ${letter}`;

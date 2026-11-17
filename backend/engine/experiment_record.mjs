@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import {assignment, placedEquivalentOf} from '../../web/src/lib/experiment.ts';
+import {assignment, placedEquivalentOf, explanationPolicy, LEGACY_EXPLANATION_POLICY} from '../../web/src/lib/experiment.ts';
 import {satisfactionOf} from './consensus.ts';
 import {withPlaceCatalog} from './places.ts';
 
@@ -11,7 +11,9 @@ const metricBasis = records
   : 'satisfactionOf/v1; exact IDs; scheduled union; candidate per-day cost and walking; not a participant answer';
 
 function record(p) {
-  const assigned = assignment(p.roomId, p.memberId, p.memberIds);
+  // Unversioned frozen sessions used the original per-candidate condition.
+  const policy = explanationPolicy(p.explanationPolicy ?? LEGACY_EXPLANATION_POLICY);
+  const assigned = assignment(p.roomId, p.memberId, p.memberIds, policy);
   if (!assigned) throw Error('unknown member');
   if (!p.candidate) return assigned;
   const c = p.candidate, ids = [...new Set(c.days.flatMap(d => d.placeIds))];
@@ -22,7 +24,7 @@ function record(p) {
     c.metrics.costKrwPerDay, c.metrics.walkStepsPerDay, undefined, represented));
   const mine = scores.find(s => s.memberId === p.memberId), values = scores.map(s => s.score);
   const slot = assigned.slots.find(s => s.strategy === c.strategy);
-  return {seat: assigned.seat, ...slot, automatic: mine,
+  return {seat: assigned.seat, ...slot, explanationPolicy: policy, automatic: mine,
     group: {mean: values.reduce((a,b) => a+b, 0)/values.length, min: Math.min(...values), gap: Math.max(...values)-Math.min(...values)},
     metrics: c.metrics, placeIds: ids, metricBasis};
 }

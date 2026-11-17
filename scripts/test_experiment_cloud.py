@@ -41,6 +41,7 @@ class CloudTests(unittest.TestCase):
             root=Path(tmp)
             tokens=share.group_tokens(root,cloud.GROUP_META)
             cloud.freeze_bundle(root,cfg)
+            self.assertEqual(support.read_json(root/'experiment-config.json')['explanationPolicy'],'participant-fixed-v2')
             before={p.name:p.read_bytes() for p in root.iterdir() if p.is_file()}
             cloud.freeze_bundle(root,cfg)
             self.assertEqual(tokens,share.group_tokens(root,cloud.GROUP_META))
@@ -49,6 +50,16 @@ class CloudTests(unittest.TestCase):
             for change in [{'commit':'b'*40},{'dates':['2026-11-17','2026-11-20']},{'mode':'live'}]:
                 with self.assertRaises(ValueError):cloud.freeze_bundle(root,{**cfg,**change})
             self.assertEqual(before,{p.name:p.read_bytes() for p in root.iterdir() if p.is_file()})
+    def test_legacy_frozen_session_requires_new_session_not_silent_condition_change(self):
+        cfg={'commit':'a'*40,'mode':'rehearsal','dates':['2026-11-16','2026-11-19']}
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);cloud.freeze_bundle(root,cfg)
+            config=support.read_json(root/'experiment-config.json');config.pop('explanationPolicy')
+            (root/'experiment-config.json').write_text(json.dumps(config))
+            before=(root/'experiment-config.json').read_bytes()
+            with self.assertRaisesRegex(ValueError,'NEW EXPERIMENT_SESSION'):cloud.freeze_bundle(root,cfg)
+            self.assertEqual((root/'experiment-config.json').read_bytes(),before)
+
     def test_partial_session_is_not_reinitialized(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);(root/'groups').mkdir()

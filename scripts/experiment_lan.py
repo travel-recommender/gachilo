@@ -143,7 +143,7 @@ def main():
     expected={'purpose':'h4_user_experiment' if a.mode=='live' else 'local_h4_rehearsal','travel_dates':[a.start,a.end],'recommendation_card_policy':'disabled_in_experiment'}
     if fresh_bundle:support.prepare(bundle,**expected)
     manifest=support.verify(bundle,code=True)
-    config={'commit':commit,'mode':a.mode,'travelDates':[a.start,a.end],'rate':'8.6253','rateDate':'2026-09-30','recommendationCards':'disabled_in_experiment','survey':'google_form','surveyUrl':SURVEY_URL,'groupSize':3,
+    config={'explanationPolicy':support.explanation_policy(),'commit':commit,'mode':a.mode,'travelDates':[a.start,a.end],'rate':'8.6253','rateDate':'2026-09-30','recommendationCards':'disabled_in_experiment','survey':'google_form','surveyUrl':SURVEY_URL,'groupSize':3,
             'osrm':bool(os.getenv('OSRM_FOOT_URL')) if a.mode=='live' else False,'ai':bool(os.getenv('SOMSOM_API_KEY')) if a.mode=='live' else False}
     if any(manifest.get(k)!=v for k,v in expected.items()):raise ValueError('기존 묶음의 날짜·실험 정책이 다릅니다. 새 --bundle 경로를 사용하세요.')
     config_file=bundle/'experiment-config.json'

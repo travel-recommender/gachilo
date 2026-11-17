@@ -47,6 +47,30 @@ class ExportTests(unittest.TestCase):
         for code in ['T-01','T-02','T-03']:
             self.assertEqual({r['letter'] for r in rows if r['participant_code']==code},{'A','B','C'})
         self.assertNotIn('unrelated-room',(out/'evidence.json').read_text())
+    def test_policy_preserved_for_legacy_and_fixed_participant_sessions(self):
+        for policy in (None, 'participant-fixed-v2'):
+            cfg={'mode':'rehearsal'}
+            if policy: cfg['explanationPolicy']=policy
+            (self.bundle/'experiment-config.json').write_text(json.dumps(cfg))
+            out=Path(self.tmp.name)/('fixed' if policy else 'legacy')
+            with patch.object(support,'verify'):
+                self.assertEqual(exporter.export(self.bundle,'team',out,self.node),9)
+            with (out/'candidate_metrics.csv').open(encoding='utf-8-sig') as f:
+                rows=list(csv.DictReader(f))
+            for i in range(3):
+                mine=[r for r in rows if r['participant_code']==f'T-0{i+1}']
+                expected=([0,3,3] if policy else [1,2,1])[i]
+                self.assertEqual(sum(r['explained']=='True' for r in mine),expected)
+                self.assertEqual({r['explanation_policy'] for r in mine},{policy or 'per-candidate-v1'})
+            self.assertEqual(json.loads((out/'config.json').read_text()),cfg)
+
+    def test_unknown_policy_does_not_export_mislabeled_data(self):
+        (self.bundle/'experiment-config.json').write_text('{"mode":"rehearsal","explanationPolicy":"typo"}')
+        out=Path(self.tmp.name)/'out'
+        with patch.object(support,'verify'),self.assertRaisesRegex(ValueError,'설명 배정'):
+            exporter.export(self.bundle,'team',out,self.node)
+        self.assertFalse(out.exists())
+
     def test_batch_matches_single_payload_contract(self):
         command=[self.node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(self.bundle/'catalog.json')]
         batch=json.loads(subprocess.check_output(command,input=json.dumps(self.payloads),text=True))

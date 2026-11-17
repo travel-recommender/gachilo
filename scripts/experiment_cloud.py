@@ -65,7 +65,7 @@ def freeze_bundle(bundle, cfg):
     source = support.read_json(ROOT/'data/runtime_catalog.json')
     identity = {'commit': cfg['commit'], 'mode': cfg['mode'], 'dates': cfg['dates'],
                 'recommendationCards': 'disabled_in_experiment', 'survey': 'google_form',
-                'groupSize': 3, 'ai': cfg['mode'] == 'live',
+                'explanationPolicy': support.explanation_policy(), 'groupSize': 3, 'ai': cfg['mode'] == 'live',
                 'osrm': bool(os.getenv('OSRM_FOOT_URL')) if cfg['mode'] == 'live' else False}
     if (bundle/'manifest.json').exists():
         support.verify(bundle)
@@ -92,7 +92,7 @@ def freeze_bundle(bundle, cfg):
         'commit': cfg['commit'], 'dataset': 'osaka_review_150', 'files': files,
         'catalog_version': source['version'], 'catalog_rows': len(ids),
         'purpose': 'h4_user_experiment' if cfg['mode'] == 'live' else 'local_h4_rehearsal',
-        'travel_dates': cfg['dates'], 'recommendation_card_policy': 'disabled_in_experiment'})
+        'explanation_policy': identity['explanationPolicy'], 'travel_dates': cfg['dates'], 'recommendation_card_policy': 'disabled_in_experiment'})
 
 
 def cloud_entry(group, cfg, invite):

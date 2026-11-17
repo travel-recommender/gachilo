@@ -13,6 +13,8 @@ def export(bundle,group,out,node=None):
  if not source.is_file():raise ValueError('그룹 DB가 없습니다.')
  node=support.node_binary(node);rows=[];details=[];jobs=[]
  config=support.read_json(bundle/'experiment-config.json')
+ policy=config.get('explanationPolicy','per-candidate-v1')
+ if policy not in ('per-candidate-v1','participant-fixed-v2'):raise ValueError('알 수 없는 설명 배정 정책입니다.')
  with sqlite3.connect(source.resolve().as_uri()+'?mode=ro',uri=True) as db:
   db.row_factory=sqlite3.Row;db.execute('BEGIN')
   if not db.execute('SELECT 1 FROM rooms WHERE id=?',(room_id,)).fetchone():raise ValueError('지정한 실험방이 DB에 없습니다.')
@@ -21,13 +23,13 @@ def export(bundle,group,out,node=None):
    subs=[json.loads(x[0]) for x in db.execute('SELECT s.payload FROM submissions s JOIN members m ON m.id=s.member_id WHERE m.room_id=? ORDER BY m.rowid',(row['room_id'],))]
    for member in members:
     for candidate in json.loads(row['payload']):
-     payload={'roomId':row['room_id'],'memberId':member['id'],'memberIds':[m['id'] for m in members],'candidate':candidate,'submissions':subs}
+     payload={'explanationPolicy':policy,'roomId':row['room_id'],'memberId':member['id'],'memberIds':[m['id'] for m in members],'candidate':candidate,'submissions':subs}
      jobs.append((payload,member['name'],row['revision']))
  if jobs:
   results=json.loads(subprocess.check_output([node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(bundle/'catalog.json')],input=json.dumps([job[0] for job in jobs]),text=True,encoding='utf-8',timeout=30))
   if not isinstance(results,list) or len(results)!=len(jobs):raise ValueError('실험 근거 계산 결과 수가 맞지 않습니다.')
   for (payload,name,revision),computed in zip(jobs,results):
-   identity={'group_id':group,'mode':config['mode'],'participant_code':name,'room_id':room_id,'revision':revision,'letter':computed['letter'],'strategy':computed['strategy'],'display_order':computed['order'],'explained':computed['explained'],'metric_basis':computed['metricBasis']}
+   identity={'explanation_policy':computed['explanationPolicy'],'group_id':group,'mode':config['mode'],'participant_code':name,'room_id':room_id,'revision':revision,'letter':computed['letter'],'strategy':computed['strategy'],'display_order':computed['order'],'explained':computed['explained'],'metric_basis':computed['metricBasis']}
    rows.append({**identity,**{k:v for k,v in computed['automatic'].items() if k!='memberId'},**computed['metrics']})
    details.append({**identity,'candidate':payload['candidate'],'groupMetrics':computed['group']})
  out.mkdir(parents=True,mode=0o700)
