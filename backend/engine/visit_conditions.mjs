@@ -15,6 +15,7 @@ import fs from 'node:fs';
 import {pathToFileURL} from 'node:url';
 import {availability, loadRuntimeInputs} from '../../scripts/validate_real_schedule.mjs';
 import {defaultLiveCheck} from './live_check.mjs';
+import {evidenceOf, evidenceForDate, EVIDENCE_NOTICES, safeSourceUrl} from './visit_evidence.mjs';
 
 export const MAX_PLACES = 30;
 export const MAX_DATES = 7;
@@ -52,6 +53,8 @@ const urlsOf = s => (s?.urls ?? (s?.url ? [s.url] : [])).filter(u => typeof u ==
 export function sourcesOf(record, profile) {
   const out = new Map();
   const add = (url, label, checkedAt) => {
+    url = safeSourceUrl(url);
+    if (!url) return;
     const prev = out.get(url);
     if (!prev) out.set(url, {url, label, checkedAt: checkedAt ?? null});
     else if (checkedAt && (!prev.checkedAt || checkedAt > prev.checkedAt)) prev.checkedAt = checkedAt;
@@ -154,15 +157,21 @@ export async function visitConditions(request, dataset, profiles, deps = {}) {
   const places = request.placeIds.map(id => {
     const record = byId.get(id);
     const profile = profiles.places[id];
+    const evidence = evidenceOf(record, profiles, deps.evidencePolicy);
     return {
       placeId: id,
       name: record.place.name_ko ?? record.place.name,
       reviewedThrough: profile?.valid_through ?? profiles.valid_through ?? null,
       sources: sourcesOf(record, profile),
+      evidence,
       dates: request.dates.map(date => {
         const key = `${id}|${date}`;
         const verdict = !asked.has(key) ? null : liveError ? 'unavailable' : live.verdicts.get(key) ?? ['live_lookup_failed'];
-        return conditionOf(record, date, profiles, verdict);
+        const day = conditionOf(record, date, profiles, verdict);
+        const evidenceCheck = evidenceForDate(evidence, date);
+        if (evidenceCheck.status === 'check' && day.status === 'confirmed') day.status = 'check';
+        day.notices.push(...evidenceCheck.reasons.map(code => ({code, source: 'review', text: EVIDENCE_NOTICES[code]})));
+        return {...day, evidenceCheck};
       }),
     };
   });

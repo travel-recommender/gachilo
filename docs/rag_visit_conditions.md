@@ -1,4 +1,4 @@
-# RAG 방문 조건 안내 — 실시간 조회와 화면 연결 (혜인)
+# RAG 방문 조건 안내 — 실시간 조회·출처 관리
 
 관련: [이슈 #6](https://github.com/travel-recommender/gachilo/issues/6) 「RAG 방문 조건 안내 — 역할 분담안」. 역할·적용 범위는 팀 논의 후 확정한다.
 
@@ -6,7 +6,7 @@
 이번 범위는 근거를 **찾아서 그대로 보여주는 것**까지다. AI 답변 문장은 만들지 않는다.
 
 - 근거 안에서 답하는 규칙과 출처 일치 검증은 윤진 담당이다.
-- 출처·확인 시각·적용 기간 관리는 조은 담당이다.
+- 조은의 출처·확인 시각·적용 기간 관리는 `visit_evidence.mjs`로 연결한다. 기존 자료를 구조화하며 새로 웹 검증한 것으로 간주하지 않는다.
 - 이 결과로 장소를 일정에 넣거나 빼지 않는다. 일정 배치 검사는 기존 엔진이 그대로 한다.
 
 ## 흐름
@@ -59,8 +59,7 @@
 ## 남은 것 (팀 논의 후)
 
 - 윤진: 이 근거만으로 답하는 AI 안내 문장 규칙과 출처 일치 검증 → 응답에 답변 필드를 더한다.
-- 조은: 지점별 공식 자료 연결과 적용 기간 관리, 오래되거나 서로 다른 정보 구분.
-  - 지금은 프로필 전역 확인일(`profilesCheckedAt`)과 출처별 확인일만 쓴다.
+- 조은: 아래 자료 관리 구현의 리뷰·main 병합. 출처 미확인·오래된 자료를 실제 사이트에서 재검증하는 수집 작업은 별도다.
 
 ## 검사
 
@@ -71,3 +70,59 @@ cd web && node --test _test/visit-conditions.test.ts
 ```
 
 로컬 확인은 `LIVE_CHECK_MOCK=pass`로 했다. 실제 Google 키로 하는 확인은 아직 하지 않았다.
+
+
+## 자료·출처·날짜 관리 (조은, 이슈 #6)
+
+`backend/engine/visit_evidence.mjs`는 서버가 실제로 읽는 catalog/profiles에서 자료를 만든다. 환경변수로 실험 동결 데이터를 사용하면 그 데이터에서 그대로 읽으며, 별도의 최신 카탈로그를 섞지 않는다. 브랜드가 같아도 다른 지점의 URL·날짜를 복사하지 않는다.
+
+- `place.evidence`: `schemaVersion=1`, 정확한 `placeId`, 평가일 `evaluatedOn`, 재확인 정책 `maxAgeDays=30`, 자료 목록 `entries`.
+- 자료별 `id`, 항목 `field`, 기록된 `value`, 원래 `sourceKind`, URL별 `sources[].kind`, `checkedAt`, `checkedPrecision`, `validFrom/validThrough`, `freshness`, `state`, `note`를 보존한다.
+- 날짜별 `day.evidenceCheck`: 적용 후보 ID, 사용 가능한 근거 ID, 충돌 ID, 확인 필요 사유. 현재 API 계약에 필드를 추가하며 기존 응답도 웹에서 읽을 수 있다.
+- 화면의 **자료별 출처·확인일·적용 기간**에서 상세 내역을 확인한다. 여러 항목이 같은 URL을 참조해도 각 확인일을 합치지 않는다.
+
+### 날짜와 자료 신뢰도
+
+`evaluatedOn`은 자료의 오래됨을 계산한 일본 날짜이며 실제 웹 조회일이 아니다. `checkedAt`에 날짜만 있으면 `checkedPrecision=day`; 시각을 임의로 붙이지 않는다. 개별 확인일이 없으면 `null/unknown`을 유지한다. 수입일, `place.verified_at`, 프로필 파일 전체의 `checked_at`은 개별 확인일로 대체하지 않는다.
+
+30일은 재확인을 안내하는 관리 기준이지 그 기간 영업을 보장하는 기준이 아니다. 하루 단위로 30일 초과는 `stale`, 미래 확인일은 `future`다. 테스트나 별도 수집 도구는 `evidencePolicy`로 평가일·임계값을 명시할 수 있지만 HTTP 요청자가 정책을 바꾸지는 못한다.
+
+운영 프로필은 전체 검토 기간과 지점 검토 기간의 교집합을 사용하고, 양 끝 날짜를 포함한다. 날짜별 예외는 해당 날짜에만 적용한다. 일반 영업시간 문장·가격의 적용 기간이 원자료에 없으면 프로필 기간을 임의로 붙이지 않는다. 확인일·적용 기간·실시간 Google 조회는 서로 다른 정보다.
+
+명시적으로 공식 자료로 분류된 출처와, 검토한 지점의 공식 사이트 도메인에 연결된 지점 자료만 `official`로 표시한다. OSM/Google 지도는 `map`, 사용자 보고는 `manual`, 그 외는 `reviewed`다. 이 분류는 기존 기록의 출처 유형이며 이번 실행이 사이트 진위를 새로 검증했다는 뜻은 아니다. URL은 http(s)만 허용하며 인증정보가 포함된 URL은 제외한다.
+
+### 이전 자료와 충돌 관리
+
+`field_sources.<field>.previous`는 `superseded`로 보존하고 현재 주장과 충돌로 처리하지 않는다. 같은 항목에 아직 해결되지 않은 복수의 자료가 있으면 해당 장소의 `review.visit_evidence`에 다음처럼 추가한다. 자료 수집자가 장소·내용·출처를 확인한 뒤 커밋하며, HTTP 요청으로 임의 근거를 넣는 기능은 없다.
+
+```json
+{
+  "place_id": "branch_example",
+  "field": "opening_hours",
+  "value": "10:00–20:00",
+  "kind": "official_web_review",
+  "urls": ["https://example.org/branch"],
+  "checked_at": "2026-11-18T10:30:00+09:00",
+  "valid_from": "2026-11-01",
+  "valid_through": "2026-11-30",
+  "state": "current"
+}
+```
+
+허용 항목: `opening_hours`, `cost`, `website`, `operating_rules`, `operating_exception`, `reservation`. `place_id`가 다른 지점이면 거부한다. 같은 운영 항목에서 적용 기간이 겹치고 값이 다르면 **잠재적 충돌**로 보류하며 더 최근 값을 자동 채택하지 않는다. 표현만 다른 경우도 포함할 수 있으므로 사람이 검토한다. 수정이 확정되면 이전 자료를 `superseded`로 바꾸고 새 확인일·범위를 기록한다.
+
+`usableEvidenceIds`는 현재 자료·공식 출처·기록된 최신 확인일·방문일을 포함하는 명시적 적용 기간·충돌 없음이 모두 충족되는 근거만 담는다. `applicableEvidenceIds`에는 기간이 미확인인 참고 자료도 포함될 수 있다. AI 답변 담당은 이 둘을 구분하고 ID와 URL을 답변에 연결해야 한다. 이 PR은 자유 문장 생성이나 의미 기반 충돌 판별을 구현하지 않는다.
+
+### 기존 동작과의 경계
+
+근거가 없거나 오래됨·확인일 미상·적용 기간 밖·잠재적 충돌이면 `source=review` 안내와 `status=check`를 준다. Google 영업시간 조회가 성공해도 예약·요금 자료까지 최신이라고 승격하지 않는다. 이미 `closed`인 결과는 유지한다. 이 경고로 `schedule_ready`·추천 엔진·장소 선택 가능 여부를 바꾸지 않는다. 실험 모드의 패널 비활성화도 유지한다. 자료 텍스트는 참고 데이터이며 AI나 프로그램에 실행할 명령으로 전달하면 안 된다.
+
+### 오프라인 감사
+
+```sh
+node scripts/audit_visit_evidence.mjs 2026-11-18 2026-11-19 > evidence-audit.json
+node --test backend/engine/visit_evidence.test.mjs backend/engine/visit_conditions.test.mjs
+node --test web/_test/visit-conditions.test.ts
+```
+
+첫 날짜는 평가일, 둘째는 방문일이다. 유료 호출·웹 수집·원본 수정 없이 모든 장소의 링크와 보완 사유를 출력한다. 2026-11-18 main 카탈로그 기준 238곳을 읽었으며 204곳에 공식 유형 링크(현재 또는 보존된 과거 자료)가 있다. 이는 204곳의 영업 조건이 최신 확인됐다는 뜻이 아니다. 미확인·오래된 항목은 감사 결과대로 보류한다.

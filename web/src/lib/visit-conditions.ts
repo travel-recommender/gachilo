@@ -1,3 +1,4 @@
+import {validEvidence, validEvidenceCheck, type VisitEvidence, type EvidenceCheck} from './visit-evidence.ts';
 /**
  * 방문 조건 안내 (이슈 #6 RAG — 혜인: 실시간 조회와 화면 연결).
  * 서버 POST /rooms/{roomId}/visit-conditions 계약. 검토 자료·실시간 영업 조회·출처를 장소·날짜별로 받는다.
@@ -18,6 +19,7 @@ export interface VisitDay {
   costBasis: string | null;
   live: LiveStatus;
   notices: VisitNotice[];
+  evidenceCheck?: EvidenceCheck;
 }
 export interface VisitSource { url: string; label: string; checkedAt: string | null }
 export interface VisitPlace {
@@ -26,6 +28,7 @@ export interface VisitPlace {
   reviewedThrough: string | null;
   sources: VisitSource[];
   dates: VisitDay[];
+  evidence?: VisitEvidence;
 }
 export interface VisitConditions {
   roomId: string;
@@ -60,10 +63,12 @@ export function decodeVisitConditions(value: unknown, request: VisitRequest): Vi
   places.forEach((p, i) => {
     if (!obj(p) || p.placeId !== request.placeIds[i] || !str(p.name) || !strOrNull(p.reviewedThrough)
       || !Array.isArray(p.sources) || !Array.isArray(p.dates) || p.dates.length !== request.dates.length) throw invalid();
+    if (p.evidence !== undefined && !validEvidence(p.evidence, String(p.placeId))) throw invalid();
     for (const s of p.sources) if (!obj(s) || !safeUrl(s.url) || !str(s.label) || !strOrNull(s.checkedAt)) throw invalid();
     (p.dates as unknown[]).forEach((d, j) => {
       if (!obj(d) || d.date !== request.dates[j] || !str(d.status) || !STATUSES.has(d.status) || !str(d.live) || !LIVE.has(d.live)
         || !strOrNull(d.costBasis) || !strOrNull(d.openingHours) || !Array.isArray(d.scheduleHours) || !Array.isArray(d.notices)) throw invalid();
+      if (p.evidence !== undefined && !validEvidenceCheck(d.evidenceCheck, p.evidence as VisitEvidence, String(d.date))) throw invalid();
       for (const h of d.scheduleHours) if (!obj(h) || !time(h.open) || !time(h.close) || !(h.latestStart === null || time(h.latestStart))) throw invalid();
       for (const n of d.notices) if (!obj(n) || !str(n.code) || (n.source !== "review" && n.source !== "live") || !str(n.text)) throw invalid();
     });

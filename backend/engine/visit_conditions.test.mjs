@@ -30,16 +30,17 @@ test('모르는 장소 ID는 거절한다', async () => {
   await assert.rejects(visitConditions({placeIds: ['nope'], dates: ['2026-11-17']}, dataset, profiles, {liveCheck: live()}), /unknown placeIds/);
 });
 
-test('검토 자료와 실시간 조회가 모두 맞으면 확인됨, 영업시간·출처·확인 시각을 함께 준다', async () => {
+test('실시간 성공에도 오래된 검토 자료를 구분하고 영업시간·출처·확인 시각을 함께 준다', async () => {
   const check = live();
   const out = await visitConditions({placeIds: ['osaka_007'], dates: ['2026-11-17']}, dataset, profiles, {liveCheck: check});
   assert.equal(out.liveSource, 'test');
   assert.equal(out.checkedOn, '2026-11-11');
   const [place] = out.places;
   const [day] = place.dates;
-  assert.equal(day.status, 'confirmed');
+  assert.equal(day.status, 'check');  // 오래된/확인일 없는 검토 자료는 실시간 성공과 별개
+  assert.ok(day.notices.some(n => n.code === 'evidence_stale'));
   assert.equal(day.live, 'confirmed');
-  assert.deepEqual(day.notices, []);
+  assert.ok(day.notices.every(n => n.source === 'review'));
   assert.ok(day.scheduleHours.length >= 1 && /^\d\d:\d\d$/.test(day.scheduleHours[0].open));
   assert.equal(typeof day.openingHours, 'string');
   assert.equal('hours' in day, false);
