@@ -148,7 +148,8 @@ type PlanningLike = {
 };
 type CandidateLike = {
   metrics: { walkStepsPerDay: number; costKrwPerDay: number };
-  days: { items: { placeId: string; source: string }[] }[];
+  /** branch: 지점 자동 배치로 고른 곳 대신 같은 가게의 다른 지점이 들어간 경우 (docs/branch_auto_placement.md) */
+  days: { items: { placeId: string; source: string; branch?: { fromPlaceId: string } | null }[] }[];
   planning?: PlanningLike | null;
 };
 type MineLike = {
@@ -248,23 +249,27 @@ export function groupExplanation(c: CandidateLike, hasMust = false, planningLine
  * 순서: 모두에게 같은 설명(groupExplanation) → 나에게만 보이는 설명.
  */
 export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: (id: string) => string): string[] {
-  const placed = new Set(c.days.flatMap((d) => d.items.map((it) => it.placeId)));
+  const items = c.days.flatMap((d) => d.items);
+  const placed = new Set(items.map((it) => it.placeId));
+  // 고른 곳 대신 같은 가게의 다른 지점이 들어갔으면 엔진과 같이 반영된 것으로 센다(must_satisfied·찜 반영률과 같은 기준).
+  const viaBranch = new Set(items.flatMap((it) => (it.branch ? [it.branch.fromPlaceId] : [])));
+  const reflected = (id: string) => placed.has(id) || viaBranch.has(id);
   const vetoes = mine.vetoes ?? (mine.veto ? [mine.veto] : []);
   const myVetoPlaced = vetoes.some((id) => placed.has(id));
   // 결과 계산 뒤 내 입력이 바뀌어 결과와 어긋나면(내가 제외한 곳이 들어 있음, 1순위를 바꿈, 걸음 한도를 낮춤)
   // planning으로 만든 그룹 문장 전체를 뺀다. 하나씩 막기보다 한 가지 규칙으로 (#71 리뷰)
   const stale = myVetoPlaced
-    || (!!c.planning?.must_satisfied && !!mine.must && !placed.has(mine.must))
+    || (!!c.planning?.must_satisfied && !!mine.must && !reflected(mine.must))
     || (mine.stepLimit > 0 && c.metrics.walkStepsPerDay > mine.stepLimit);
   const lines: string[] = groupExplanation(c, !!mine.must, !stale);
   const picks = mine.picks;
   if (picks.length) {
-    const kept = picks.filter((id) => placed.has(id)).length;
+    const kept = picks.filter(reflected).length;
     lines.push(`내 꼭 가기 ${picks.length}곳 중 ${kept}곳이 들어갔어요.`);
   }
   if (mine.must) {
-    lines.push(placed.has(mine.must)
-      ? `내 1순위 ${nameOf(mine.must)}은(는) 들어갔어요.`
+    lines.push(placed.has(mine.must) ? `내 1순위 ${nameOf(mine.must)}은(는) 들어갔어요.`
+      : viaBranch.has(mine.must) ? `내 1순위 ${nameOf(mine.must)}은(는) 같은 가게의 다른 지점으로 들어갔어요.`
       : `내 1순위 ${nameOf(mine.must)}은(는) 이번 일정에 들어가지 못했어요.`);
   }
   if (vetoes.length) {
