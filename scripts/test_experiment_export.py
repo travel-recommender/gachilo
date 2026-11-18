@@ -66,10 +66,30 @@ class ExportTests(unittest.TestCase):
 
     def test_unknown_policy_does_not_export_mislabeled_data(self):
         (self.bundle/'experiment-config.json').write_text('{"mode":"rehearsal","explanationPolicy":"typo"}')
+        for empty in (False, True):
+            if empty:
+                with sqlite3.connect(self.group/'trips.sqlite3') as db:
+                    db.execute('DELETE FROM candidate_results WHERE room_id=?',('actual-room',))
+            out=Path(self.tmp.name)/('empty' if empty else 'out')
+            with patch.object(support,'verify'),self.assertRaises(subprocess.CalledProcessError):
+                exporter.export(self.bundle,'team',out,self.node)
+            self.assertFalse(out.exists())
+
+    def test_empty_valid_session_exports_no_candidate_rows(self):
+        with sqlite3.connect(self.group/'trips.sqlite3') as db:
+            db.execute('DELETE FROM candidate_results WHERE room_id=?',('actual-room',))
         out=Path(self.tmp.name)/'out'
-        with patch.object(support,'verify'),self.assertRaisesRegex(ValueError,'설명 배정'):
-            exporter.export(self.bundle,'team',out,self.node)
-        self.assertFalse(out.exists())
+        with patch.object(support,'verify'):
+            self.assertEqual(exporter.export(self.bundle,'team',out,self.node),0)
+        self.assertEqual(json.loads((out/'evidence.json').read_text()),[])
+
+    def test_envelope_matches_original_batch_for_both_policies(self):
+        command=[self.node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(self.bundle/'catalog.json')]
+        for policy in (None, 'per-candidate-v1', 'participant-fixed-v2'):
+            envelope={'explanationPolicy':policy,'records':self.payloads}
+            original=[{**p,'explanationPolicy':policy} for p in self.payloads]
+            run=lambda p: json.loads(subprocess.check_output(command,input=json.dumps(p),text=True))
+            self.assertEqual(run(envelope),run(original))
 
     def test_batch_matches_single_payload_contract(self):
         command=[self.node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(self.bundle/'catalog.json')]

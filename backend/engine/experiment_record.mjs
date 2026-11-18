@@ -10,9 +10,10 @@ const metricBasis = records
   ? 'satisfactionOf/v2; frozen catalogue; branch_group_id for picks/musts; exact ID veto; candidate per-day cost and walking; not a participant answer'
   : 'satisfactionOf/v1; exact IDs; scheduled union; candidate per-day cost and walking; not a participant answer';
 
-function record(p) {
-  // Unversioned frozen sessions used the original per-candidate condition.
-  const policy = explanationPolicy(p.explanationPolicy ?? LEGACY_EXPLANATION_POLICY);
+// Unversioned frozen sessions used the original per-candidate condition.
+const resolvePolicy = value => explanationPolicy(value ?? LEGACY_EXPLANATION_POLICY);
+
+function record(p, policy = resolvePolicy(p.explanationPolicy)) {
   const assigned = assignment(p.roomId, p.memberId, p.memberIds, policy);
   if (!assigned) throw Error('unknown member');
   if (!p.candidate) return assigned;
@@ -29,7 +30,15 @@ function record(p) {
     metrics: c.metrics, placeIds: ids, metricBasis};
 }
 const payload = JSON.parse(fs.readFileSync(0, 'utf8'));
-const calculate = () => Array.isArray(payload) ? payload.map(record) : record(payload);
+const calculate = () => {
+  if (Array.isArray(payload.records)) {
+    // Resolve once for the bundle, including exports that have no candidates yet.
+    const policy = resolvePolicy(payload.explanationPolicy);
+    return payload.records.map(p => record(p, policy));
+  }
+  // Preserve the original single-record and batch contracts.
+  return Array.isArray(payload) ? payload.map(p => record(p)) : record(payload);
+};
 // satisfactionOf's must/veto input validation must also see real IDs, not the demo registry.
 const result = records ? withPlaceCatalog(records.map(r => ({id: r.place.place_id})), calculate) : calculate();
 process.stdout.write(JSON.stringify(result));
