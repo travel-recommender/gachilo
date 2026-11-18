@@ -311,7 +311,10 @@
       "valid_from": "2026-11-19",
       "valid_through": "2026-11-19",
       "state": "current",
-      "note": "관람차 휴관 공지와 공식 입점사 2026-11-02 공지의 연도·날짜를 대조. 다른 날짜의 휴무로 확대하지 않음."
+      "note": "HEP FIVE 운영사 관람차 공지는 휴관일의 직접 근거. 반다이남코 입점사 공지는 2026년이라는 연도를 교차 확인하는 보조 검토 자료이며 운영사 공지로 표시하지 않음. 다른 날짜의 휴무로 확대하지 않음.",
+      "reviewed_urls": [
+        "https://bandainamco-am.co.jp/chara_shop/ichibankuji-official-shop/NEWS/hepfive/news/20261102.html"
+      ]
     }
   ],
   "reference_checks": [

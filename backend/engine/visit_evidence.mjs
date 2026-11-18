@@ -37,10 +37,11 @@ function checked(value, today, maxAgeDays) {
 }
 function sourceType(kind, url, officialHost) {
   const host = new URL(url).hostname;
+  const normalizedHost = h => h?.toLowerCase().replace(/^www\./, '');
   if (host === 'openstreetmap.org' || host.endsWith('.openstreetmap.org')
-      || /(^|\.)(google\.[a-z.]+|goo\.gl)$/.test(host) || host === 'maps.app.goo.gl') return 'map';
+      || /(^|\.)(google\.[a-z.]+|goo\.gl)$/.test(host)) return 'map';
   if (kind?.startsWith('user_') || kind === 'google_maps_manual_review') return 'manual';
-  if (OFFICIAL.has(kind) || (['dated_branch_review', 'published_menu', 'reviewed_profile'].includes(kind) && host === officialHost)) return 'official';
+  if (OFFICIAL.has(kind) || (['dated_branch_review', 'published_menu', 'reviewed_profile'].includes(kind) && normalizedHost(host) === normalizedHost(officialHost))) return 'official';
   return 'reviewed';
 }
 function period(from, through) {
@@ -64,7 +65,9 @@ export function evidenceOf(record, profiles, {today = new Date().toLocaleDateStr
   const entries = [];
   const add = (field, value, source = {}, state = 'current', validity = {}) => {
     if (value === undefined || value === null) return;
-    const sourceUrls = urls(source).map(url => ({url, kind: sourceType(source.kind, url, officialHost)}));
+    // A corroborating source may be explicitly downgraded; it cannot promote a URL.
+    const reviewedUrls = new Set((source.reviewed_urls ?? []).map(safeSourceUrl).filter(Boolean));
+    const sourceUrls = urls(source).map(url => ({url, kind: reviewedUrls.has(url) ? 'reviewed' : sourceType(source.kind, url, officialHost)}));
     const entry = {placeId, field, value, state, sourceKind: source.kind ?? 'unrecorded', sources: sourceUrls,
       ...checked(source.checked_at, today, maxAgeDays), ...period(validity.valid_from ?? source.valid_from, validity.valid_through ?? source.valid_through),
       note: typeof source.note === 'string' ? source.note : null};
@@ -104,6 +107,7 @@ export function evidenceOf(record, profiles, {today = new Date().toLocaleDateStr
 }
 
 export const EVIDENCE_NOTICES = {
+  evidence_invalid: '이 장소의 운영 근거 형식에 오류가 있어요. 공식 안내로 확인하세요.',
   evidence_missing: '운영 조건의 출처가 충분히 연결되지 않았어요. 공식 안내를 다시 확인하세요.',
   evidence_stale: '확인한 지 오래된 운영 자료가 있어요. 방문 전 최신 안내를 확인하세요.',
   evidence_unverified: '공식 안내로 확인되지 않은 운영 자료가 있어요. 참고 정보로만 확인하세요.',

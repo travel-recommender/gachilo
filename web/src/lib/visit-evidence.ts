@@ -43,3 +43,19 @@ export function evidencePeriod(e: EvidenceEntry) {
   if(e.periodInvalid)return '적용 기간 재검토 필요';
   return e.validFrom||e.validThrough?`${e.validFrom??'시작일 미확인'} ~ ${e.validThrough??'종료일 미확인'}`:'적용 기간 기록 없음';
 }
+
+/** Maintenance details stay separate from live/visit status. */
+export const EVIDENCE_REASON: Record<string,string> = {
+  evidence_missing:'운영 근거 부족', evidence_stale:'확인한 지 오래된 자료', evidence_unverified:'공식 근거 미확인',
+  evidence_date_unknown:'확인일 기록 없음', evidence_future:'확인일 재검토', evidence_period:'방문일 적용 기간 재확인',
+  evidence_conflict:'자료 간 내용 충돌', evidence_invalid:'운영 근거 형식 오류',
+};
+export function evidenceValueText(e: EvidenceEntry): string | null {
+  if (typeof e.value === 'string') return e.value;
+  if (typeof e.value === 'number' && e.field === 'cost') return `${e.value.toLocaleString()}엔`;
+  if (object(e.value) && e.field === 'operating_exception') return e.value.closed === true
+    ? '공지된 휴무' : '특정 날짜의 운영 조건 · 출처 안내 확인';
+  if (object(e.value) && e.field === 'operating_rules' && Object.keys(e.value).length)
+    return '요일·예약 등에 적용되는 운영 조건 · 출처 안내 확인';
+  return null;
+}

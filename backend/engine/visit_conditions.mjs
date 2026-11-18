@@ -47,7 +47,7 @@ export const LIVE_TEXT = {
 const LIVE_CLOSED = new Set(['live_closed_permanently', 'live_closed_temporarily', 'live_closed_on_visit_date']);
 
 const hhmm = m => `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
-const urlsOf = s => (s?.urls ?? (s?.url ? [s.url] : [])).filter(u => typeof u === 'string' && /^https?:\/\//.test(u));
+const urlsOf = s => (Array.isArray(s?.urls) ? s.urls : s?.url ? [s.url] : []).filter(u => typeof u === 'string' && /^https?:\/\//.test(u));
 
 /** 장소의 출처 목록. 같은 URL은 한 번만, 가장 최근 확인일을 남긴다 */
 export function sourcesOf(record, profile) {
@@ -59,7 +59,7 @@ export function sourcesOf(record, profile) {
     if (!prev) out.set(url, {url, label, checkedAt: checkedAt ?? null});
     else if (checkedAt && (!prev.checkedAt || checkedAt > prev.checkedAt)) prev.checkedAt = checkedAt;
   };
-  for (const url of profile?.source_urls ?? []) add(url, '운영 정보', profile.checked_at ?? null);
+  for (const url of Array.isArray(profile?.source_urls) ? profile.source_urls : []) add(url, '운영 정보', profile.checked_at ?? null);
   const fs_ = record.field_sources ?? {};
   // 지도(OSM)에서 가져온 값은 공식 출처라고 부르지 않는다
   const labelOf = (src, url, official) => src?.kind === 'osm' || /openstreetmap\.org/.test(url) ? '지도 정보' : official;
@@ -157,7 +157,14 @@ export async function visitConditions(request, dataset, profiles, deps = {}) {
   const places = request.placeIds.map(id => {
     const record = byId.get(id);
     const profile = profiles.places[id];
-    const evidence = evidenceOf(record, profiles, deps.evidencePolicy);
+    let evidence, evidenceInvalid = false;
+    try { evidence = evidenceOf(record, profiles, deps.evidencePolicy); }
+    catch {
+      // Isolate malformed provenance to this place. Do not expose raw data/errors
+      // or let partial evidence be used by AI. Invalid global policy still throws.
+      evidenceInvalid = true;
+      evidence = evidenceOf({place: {place_id: id}}, {places: {}}, deps.evidencePolicy);
+    }
     return {
       placeId: id,
       name: record.place.name_ko ?? record.place.name,
@@ -168,9 +175,16 @@ export async function visitConditions(request, dataset, profiles, deps = {}) {
         const key = `${id}|${date}`;
         const verdict = !asked.has(key) ? null : liveError ? 'unavailable' : live.verdicts.get(key) ?? ['live_lookup_failed'];
         const day = conditionOf(record, date, profiles, verdict);
-        const evidenceCheck = evidenceForDate(evidence, date);
-        if (evidenceCheck.status === 'check' && day.status === 'confirmed') day.status = 'check';
-        day.notices.push(...evidenceCheck.reasons.map(code => ({code, source: 'review', text: EVIDENCE_NOTICES[code]})));
+        const evidenceCheck = evidenceInvalid
+          ? {date, status: 'check', reasons: ['evidence_invalid'], conflicts: [], applicableEvidenceIds: [], usableEvidenceIds: []}
+          : evidenceForDate(evidence, date);
+        // Source maintenance warnings do not cancel a successful live check.
+        // Existing reservation/closure/date-range rules are still authoritative.
+        const critical = evidenceCheck.reasons.filter(code => ['evidence_conflict', 'evidence_invalid'].includes(code));
+        if (critical.length) {
+          if (day.status === 'confirmed') day.status = 'check';
+          day.notices.push({code: 'evidence_review_required', source: 'review', text: critical.map(code => EVIDENCE_NOTICES[code]).join(' ')});
+        }
         return {...day, evidenceCheck};
       }),
     };

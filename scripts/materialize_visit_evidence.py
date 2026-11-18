@@ -9,6 +9,7 @@ import copy
 from datetime import date
 import hashlib
 import json
+import tempfile
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -45,6 +46,9 @@ def provenance(item, checked_on):
         parsed = urlsplit(url)
         if parsed.scheme not in ('https', 'http') or not parsed.hostname or parsed.username or parsed.password:
             raise ValueError('Unsafe source URL')
+    reviewed = item.get('reviewed_urls', [])
+    if not isinstance(reviewed, list) or any(u not in urls for u in reviewed):
+        raise ValueError('Corroborating URLs must be present in source URLs')
     start, end = item.get('valid_from'), item.get('valid_through')
     if start is not None: day(start)
     if end is not None: day(end)
@@ -53,7 +57,7 @@ def provenance(item, checked_on):
     if not isinstance(item.get('note'), str) or not item['note'].strip():
         raise ValueError('Review scope and limitations required')
     return {key: copy.deepcopy(item.get(key)) for key in
-            ('kind', 'urls', 'checked_at', 'valid_from', 'valid_through', 'note')}
+            ('kind', 'urls', 'checked_at', 'valid_from', 'valid_through', 'note')} | ({'reviewed_urls': copy.deepcopy(reviewed)} if reviewed else {})
 
 
 def apply(dataset, pack):
@@ -88,6 +92,7 @@ def apply(dataset, pack):
         source = provenance(item, checked_on)
         source['previous'] = {'value': copy.deepcopy(row['place'][field]), 'source': copy.deepcopy(previous)}
         row.setdefault('field_sources', {})[field] = source
+    seen_assertions = set()
     for item in pack['additional_assertions']:
         row = row_for(item)
         source = provenance(item, checked_on)
@@ -95,6 +100,11 @@ def apply(dataset, pack):
             raise ValueError('Only explicit dated exception assertions are supported here')
         if source['valid_from'] is None or source['valid_from'] != source['valid_through']:
             raise ValueError('Exception needs one exact source date')
+        key = (item['place_id'], item['field'], source['valid_from'])
+        existing = row.get('review', {}).get('visit_evidence', [])
+        if key in seen_assertions or any((e.get('place_id'), e.get('field'), e.get('valid_from')) == key and e.get('state', 'current') == 'current' for e in existing):
+            raise ValueError('Repeated dated assertion; reconcile existing evidence before applying')
+        seen_assertions.add(key)
         assertion = dict(source, place_id=item['place_id'], field=item['field'], value=copy.deepcopy(item['value']), state='current')
         row.setdefault('review', {}).setdefault('visit_evidence', []).append(assertion)
     # reference_checks includes failed/partial source checks. It is deliberately
@@ -121,9 +131,25 @@ def materialize(catalog, pack_path, out):
               'dated_assertions': len(pack['additional_assertions']),
               'runtime_manifest_changed': False, 'schedule_profiles_changed': False,
               'paid_calls': 0, 'reference_checks': pack['reference_checks']}
-    out.mkdir(parents=True, exist_ok=False)
-    (out/'catalog.json').write_text(serialized, encoding='utf-8')
-    (out/'review-report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    # Finish both writes before reserving the destination. mkdir is exclusive,
+    # so an existing output (including one created concurrently) is never replaced.
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix='.rag-staging-', dir=out.parent) as temporary:
+        stage = Path(temporary)
+        names = ('catalog.json', 'review-report.json')
+        (stage/names[0]).write_text(serialized, encoding='utf-8')
+        (stage/names[1]).write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+        out.mkdir(mode=0o700, exist_ok=False)
+        published = []
+        try:
+            for name in names:
+                (stage/name).rename(out/name)
+                published.append(out/name)
+        except BaseException:
+            # Clean only our files; never recursively remove someone else's path.
+            for target in published: target.unlink()
+            out.rmdir()
+            raise
     return report
 
 

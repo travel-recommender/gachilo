@@ -2,6 +2,7 @@ import copy
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 from materialize_visit_evidence import ROOT, PACK, read, apply, materialize
 
 
@@ -74,6 +75,51 @@ class EvidencePackTests(unittest.TestCase):
             with self.assertRaises(FileNotFoundError):
                 materialize(Path(temp)/'no-input', PACK, bad)
             self.assertFalse(bad.exists())
+
+    def test_duplicate_assertion_rejected_within_pack_or_existing_catalogue(self):
+        pack = copy.deepcopy(self.pack)
+        pack['additional_assertions'].append(copy.deepcopy(pack['additional_assertions'][0]))
+        with self.assertRaisesRegex(ValueError, 'Repeated dated assertion'): apply(self.dataset, pack)
+        dataset = copy.deepcopy(self.dataset)
+        item = self.pack['additional_assertions'][0]
+        row = next(r for r in dataset['places'] if r['place']['place_id']==item['place_id'])
+        row.setdefault('review', {})['visit_evidence'] = [copy.deepcopy(item)]
+        with self.assertRaisesRegex(ValueError, 'Repeated dated assertion'): apply(dataset, self.pack)
+
+    def test_failed_second_write_or_publication_leaves_no_partial_output(self):
+        original_write, original_rename = Path.write_text, Path.rename
+        for phase in ('write', 'publish'):
+            with self.subTest(phase=phase), tempfile.TemporaryDirectory() as temp:
+                out = Path(temp)/'new'
+                def fail_write(path, *args, **kwargs):
+                    if path.name == 'review-report.json': raise OSError('simulated full disk')
+                    return original_write(path, *args, **kwargs)
+                def fail_rename(path, *args, **kwargs):
+                    if path.name == 'review-report.json': raise OSError('simulated publication error')
+                    return original_rename(path, *args, **kwargs)
+                method, replacement = ('write_text', fail_write) if phase == 'write' else ('rename', fail_rename)
+                with patch.object(Path, method, replacement), self.assertRaises(OSError):
+                    materialize(self.source_path, PACK, out)
+                self.assertFalse(out.exists())
+                self.assertEqual(list(Path(temp).iterdir()), [])
+                self.assertEqual(materialize(self.source_path, PACK, out)['state'], 'prepared_not_activated')
+
+    def test_destination_created_during_staging_is_preserved(self):
+        original_write = Path.write_text
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)/'new'
+            def concurrent(path, *args, **kwargs):
+                if path.name == 'review-report.json': out.mkdir()
+                return original_write(path, *args, **kwargs)
+            with patch.object(Path, 'write_text', concurrent), self.assertRaises(FileExistsError):
+                materialize(self.source_path, PACK, out)
+            self.assertTrue(out.is_dir())
+            self.assertEqual(list(out.iterdir()), [])
+
+    def test_corroborating_source_must_be_a_recorded_url(self):
+        pack = copy.deepcopy(self.pack)
+        pack['additional_assertions'][0]['reviewed_urls'] = ['https://unrelated.example/']
+        with self.assertRaisesRegex(ValueError, 'Corroborating'): apply(self.dataset, pack)
 
 
 if __name__ == '__main__': unittest.main()

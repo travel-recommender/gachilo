@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, {before} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -11,14 +11,16 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const original=read(path.join(root,'data/final/osaka_catalog_20261112.json'));
 const profiles=read(path.join(root,'data/final/osaka_profiles_20261104.json'));
-const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rag-followup-test-'));
-let updated;
-try {
-  execFileSync('python3',[path.join(root,'scripts/materialize_visit_evidence.py'),
-    '--catalog',path.join(root,'data/final/osaka_catalog_20261112.json'),'--out',path.join(tmp,'new')]);
-  updated=read(path.join(tmp,'new/catalog.json'));
-} finally {fs.rmSync(tmp,{recursive:true,force:true});}
-const byId=new Map(updated.places.map(r=>[r.place.place_id,r]));
+let byId;
+before(() => {
+  const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rag-followup-test-'));
+  try {
+    execFileSync('python3',[path.join(root,'scripts/materialize_visit_evidence.py'),
+      '--catalog',path.join(root,'data/final/osaka_catalog_20261112.json'),'--out',path.join(tmp,'new')]);
+    const updated=read(path.join(tmp,'new/catalog.json'));
+    byId=new Map(updated.places.map(r=>[r.place.place_id,r]));
+  } finally {fs.rmSync(tmp,{recursive:true,force:true});}
+});
 
 test('official source refresh leaves all 238 places and four-day scheduling decisions unchanged',()=>{
   for(const row of original.places) for(const date of ['2026-11-16','2026-11-17','2026-11-18','2026-11-19'])
@@ -44,4 +46,11 @@ test('a recheck does not invent a calendar or clear missing profile warnings',()
   assert.ok(check.reasons.includes('evidence_date_unknown')); // Original profile date still unknown.
   assert.ok(e.entries.filter(x=>x.state==='current'&&x.field==='cost').every(x=>x.validThrough===null));
   assert.ok(!check.usableEvidenceIds.some(id=>e.entries.find(x=>x.id===id).field==='cost'));
+});
+
+test('HEP operator notice is official while the tenant year cross-check stays reviewed',()=>{
+  const e=evidenceOf(byId.get('osaka_008'),profiles,{today:'2026-11-18'}).entries
+    .find(e=>e.field==='operating_exception' && e.checkedAt==='2026-11-18');
+  assert.deepEqual(e.sources.map(s=>s.kind),['official','reviewed']);
+  assert.match(e.note,/입점사/);
 });

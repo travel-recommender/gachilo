@@ -63,6 +63,8 @@
 
 ## 검사
 
+Node **24 이상**과 Python **3.10 이상**을 사용한다. Node 16은 TypeScript 직접 import를 지원하지 않는다. 웹 계약 검사에서 Node가 타입만 제거하고 실행할 수 있도록 `./visit-evidence.ts` 확장자를 명시하고 `allowImportingTsExtensions`를 사용한다. Next가 파일을 변환하므로 브라우저 URL 계약 변경은 없다.
+
 ```sh
 node --test backend/engine/visit_conditions.test.mjs
 cd backend && python3 -m unittest test_server.ApiTests.test_visit_conditions_gives_reviewed_and_live_status_with_sources_for_room_members_only
@@ -89,7 +91,7 @@ cd web && node --test _test/visit-conditions.test.ts
 
 운영 프로필은 전체 검토 기간과 지점 검토 기간의 교집합을 사용하고, 양 끝 날짜를 포함한다. 날짜별 예외는 해당 날짜에만 적용한다. 일반 영업시간 문장·가격의 적용 기간이 원자료에 없으면 프로필 기간을 임의로 붙이지 않는다. 확인일·적용 기간·실시간 Google 조회는 서로 다른 정보다.
 
-명시적으로 공식 자료로 분류된 출처와, 검토한 지점의 공식 사이트 도메인에 연결된 지점 자료만 `official`로 표시한다. OSM/Google 지도는 `map`, 사용자 보고는 `manual`, 그 외는 `reviewed`다. 이 분류는 기존 기록의 출처 유형이며 이번 실행이 사이트 진위를 새로 검증했다는 뜻은 아니다. URL은 http(s)만 허용하며 인증정보가 포함된 URL은 제외한다.
+명시적으로 공식 자료로 분류된 출처와, 검토한 지점의 공식 사이트 도메인에 연결된 지점 자료만 `official`로 표시한다. OSM/Google 지도는 `map`, 사용자 보고는 `manual`, 그 외는 `reviewed`다. 운영사가 아닌 입점사 등의 교차 확인 URL은 `reviewed_urls`에 명시하여 `reviewed`로 구분할 수 있다. 이 필드는 공식으로 승격하지 않으며, note에 각 출처의 역할을 남긴다. 이 분류는 기존 기록의 출처 유형이며 이번 실행이 사이트 진위를 새로 검증했다는 뜻은 아니다. URL은 http(s)만 허용하며 인증정보가 포함된 URL은 제외한다.
 
 ### 이전 자료와 충돌 관리
 
@@ -115,7 +117,7 @@ cd web && node --test _test/visit-conditions.test.ts
 
 ### 기존 동작과의 경계
 
-근거가 없거나 오래됨·확인일 미상·적용 기간 밖·잠재적 충돌이면 `source=review` 안내와 `status=check`를 준다. Google 영업시간 조회가 성공해도 예약·요금 자료까지 최신이라고 승격하지 않는다. 이미 `closed`인 결과는 유지한다. 이 경고로 `schedule_ready`·추천 엔진·장소 선택 가능 여부를 바꾸지 않는다. 실험 모드의 패널 비활성화도 유지한다. 자료 텍스트는 참고 데이터이며 AI나 프로그램에 실행할 명령으로 전달하면 안 된다.
+자료 부족·오래됨·확인일 미상 등 관리 사유는 `evidenceCheck`와 펼침 영역에 남기고 기존 `day.status`를 내리지 않는다. 따라서 실시간 영업 확인이 성공하면 원래의 `confirmed`를 유지할 수 있지만, 근거 자체나 요금·예약까지 최신이라고 승격하지 않는다. 실제 근거 충돌(`evidence_conflict`) 또는 잘못된 근거(`evidence_invalid`)일 때만 한 줄 경고와 `check`를 추가한다. 장소별 근거 생성 오류는 빈 entries와 `evidence_invalid`로 격리하여 다른 장소 응답을 보존한다. 감사 스크립트는 잘못된 자료에서 계속 실패하여 수집 단계에서 잡는다. 이미 `closed`인 결과는 유지한다. 이 경고로 `schedule_ready`·추천 엔진·장소 선택 가능 여부를 바꾸지 않는다. 실험 모드의 패널 비활성화도 유지한다. 자료 텍스트는 참고 데이터이며 AI나 프로그램에 실행할 명령으로 전달하면 안 된다.
 
 ### 오프라인 감사
 
@@ -126,3 +128,10 @@ node --test web/_test/visit-conditions.test.ts
 ```
 
 첫 날짜는 평가일, 둘째는 방문일이다. 유료 호출·웹 수집·원본 수정 없이 모든 장소의 링크와 보완 사유를 출력한다. 2026-11-18 main 카탈로그 기준 238곳을 읽었으며 204곳에 공식 유형 링크(현재 또는 보존된 과거 자료)가 있다. 이는 204곳의 영업 조건이 최신 확인됐다는 뜻이 아니다. 미확인·오래된 항목은 감사 결과대로 보류한다.
+
+
+### 검토 기간과 화면 호환성
+
+현재 프로필 검토 종료일은 2026-11-30이다. 가상 여행 11/16~19는 범위 안이지만, 12월 시연은 별도 재검증·새 프로필이 필요하다. 근거 표시를 개선한다고 이 기간을 연장하지 않는다. 기간 밖이라는 기존 availability 안내는 유지하고 근거의 중복 사유는 상세 영역에서만 보여준다.
+
+기존 출처 링크·확인일은 펼치지 않아도 보인다. 자료별 이유와 보존 기록은 펼침 영역으로 분리하며 운영 규칙 객체는 안내 요약으로 표시한다. `profilesCheckedAt`은 기존 API 클라이언트 호환용 전역 메타데이터로 유지하지만, 개별 출처 확인일로 표시하거나 AI 근거로 사용하지 않는다.

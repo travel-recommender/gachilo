@@ -89,8 +89,8 @@ test('238곳 전체 자료를 읽으며, 검토 부족 경고가 실시간 성�
   const liveCheck=async reqs=>({source:'mock',checked_on:day,verdicts:new Map(reqs.map(r=>[`${r.record.place.place_id}|${r.date}`,[]]))});
   const result=await visitConditions({placeIds:['osaka_007'],dates:[day]},dataset,p,{liveCheck,evidencePolicy:policy});
   assert.equal(result.places[0].dates[0].live,'confirmed');
-  assert.equal(result.places[0].dates[0].status,'check');
-  assert.ok(result.places[0].dates[0].notices.some(n=>n.code==='evidence_stale'));
+  assert.equal(result.places[0].dates[0].status,'confirmed');
+  assert.equal(result.places[0].dates[0].evidenceCheck.status,'check');
   assert.equal(JSON.stringify([dataset,p]),before);
 });
 
@@ -109,4 +109,18 @@ test('검토 기간 밖의 예외가 다른 날짜에 끼어들지 않음; 잘�
   assert.ok(!evidenceForDate(e,day).applicableEvidenceIds.includes(id));
   assert.ok(!evidenceForDate(e,'2026-12-01').usableEvidenceIds.includes(id));
   p.valid_from='2026-02-30';assert.ok(assess(record(),p).reasons.includes('evidence_period'));
+});
+
+test('공식 지점 도메인의 www만 정규화하고 다른 하위 도메인은 승격하지 않는다', () => {
+  const r=record();r.place.website='https://www.shop.example/';
+  const p=profiles();p.places.a.source_urls=['https://shop.example/rules'];
+  assert.equal(evidenceOf(r,p,policy).entries.find(e=>e.field==='operating_rules').sources[0].kind,'official');
+  p.places.a.source_urls=['https://other.shop.example/rules'];
+  assert.equal(evidenceOf(r,p,policy).entries.find(e=>e.field==='operating_rules').sources[0].kind,'reviewed');
+});
+
+test('공식 운영사와 입점사 교차 확인 URL을 구분해 보존한다',()=>{
+  const r=record();r.field_sources.cost={...source,urls:[...source.urls,'https://tenant.example/notice'],reviewed_urls:['https://tenant.example/notice']};
+  const e=evidenceOf(r,profiles(),policy).entries.find(e=>e.field==='cost');
+  assert.deepEqual(e.sources.map(s=>s.kind),['official','reviewed']);
 });
