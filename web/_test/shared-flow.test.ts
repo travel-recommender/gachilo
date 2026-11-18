@@ -111,9 +111,10 @@ test("지점 변경: 표시·고른 곳 문구는 두 조건 같고, 이유는 �
   const base = { placeId: "b", aiAdded: false, filled: false, source: "selected" as const, reasonCode: null, reason: null };
   assert.equal(branchNoteOf(base, nameOf, true), null);
   const near = { ...base, branch: { fromPlaceId: "a", reasonCode: "shorter_route" as const, savedMin: 12 } };
-  assert.deepEqual(branchNoteOf(near, nameOf, false), { label: "지점 변경", from: "고른 곳: 이치란 난바점 → 배치: 이치란 도톤보리점" });
+  assert.deepEqual(branchNoteOf(near, nameOf, false), { label: "지점 변경", picked: "고른 곳: 이치란 난바점", placed: "배치: 이치란 도톤보리점" });
   const on = branchNoteOf(near, nameOf, true)!;
-  assert.equal(on.from, "고른 곳: 이치란 난바점 → 배치: 이치란 도톤보리점");
+  assert.equal(on.picked, "고른 곳: 이치란 난바점");
+  assert.equal(on.placed, "배치: 이치란 도톤보리점");
   assert.match(on.reason!, /약 12분 줄었어요/);
   const closed = { ...base, branch: { fromPlaceId: "a", reasonCode: "original_unavailable" as const, savedMin: null } };
   assert.match(branchNoteOf(closed, nameOf, true)!.reason!, /그날 운영하지 않아/);

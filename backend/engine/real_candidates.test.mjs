@@ -201,3 +201,31 @@ test('a few places are spread over the trip instead of all landing on day 1',asy
     assert.deepEqual(c.days.map(d=>d.placeIds.length),[1,1,1],c.strategy);
   }
 });
+
+// #77 후속: P3 목록에만 있는 곳(rankListed)도 전략마다 순서가 달라진다
+test('rankListed: 같은 P3 목록이라도 평균·최소 불만·공정성 순서가 다르다', async () => {
+  const {rankListed} = await import('./real_candidates.mjs');
+  const {loadRuntimeInputs, toEnginePlace} = await import('../../scripts/validate_real_schedule.mjs');
+  const runtime = loadRuntimeInputs();
+  const date = '2026-11-17', listed = ['osaka_003', 'osaka_023', 'osaka_026', 'osaka_025'];
+  const eligible = listed.map(id => {
+    const record = runtime.dataset.places.find(r => r.place.place_id === id);
+    const check = availability(record, date, runtime.profiles, {allowShopping: true});
+    assert.equal(check.eligible_for_model, true, id);
+    return toEnginePlace(record, check, '9.5');
+  });
+  const member = (memberId, longlist) => ({memberId, longlist, picks: [], must: null, veto: null,
+    budgetPerDay: 200000, stepLimit: 30000, activeMin: 720, tradeoffs: {pace: 0.5, distance: 0.5, spend: 0.5}});
+  // a·b가 함께 담은 026, c 혼자 담은 023·025
+  const r = {submissions: [member('a', ['osaka_003', 'osaka_026']), member('b', ['osaka_026']),
+    member('c', ['osaka_003', 'osaka_023', 'osaka_025'])]};
+  const order = s => rankListed(r, s, listed, eligible, new Set());
+  // 평균: 두 명이 담은 026부터
+  assert.deepEqual(order('average'), ['osaka_026', 'osaka_003', 'osaka_025', 'osaka_023']);
+  // 최소 불만: 찜이 가장 덜 반영된 c의 장소(025)부터
+  assert.deepEqual(order('least_misery'), ['osaka_025', 'osaka_026', 'osaka_003', 'osaka_023']);
+  // 공정성: 026은 같지만 둘째부터 평균과 다르다(025가 003보다 앞)
+  assert.deepEqual(order('fairness'), ['osaka_026', 'osaka_025', 'osaka_003', 'osaka_023']);
+  // 순서만 바뀌고 빠지거나 더해지는 곳은 없다
+  for (const s of ['average', 'least_misery', 'fairness']) assert.deepEqual([...order(s)].sort(), [...listed].sort());
+});

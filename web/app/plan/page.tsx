@@ -25,7 +25,7 @@ const HOLD_MS = 450;
 /** 아무도 고르지 않았는데 들어간 곳의 표시. 규칙으로 채운 곳은 "AI 추천"이라 하지 않는다 */
 type Badge = { label: "AI 추천" | "추천"; reason?: string };
 /** 지점 자동 배치로 바뀐 곳. from은 두 조건 모두, reason은 설명 있음 조건에서만 */
-type BranchNote = { label: "지점 변경"; from: string; reason?: string };
+type BranchNote = { label: "지점 변경"; picked: string; placed: string; reason?: string };
 
 /**
  * P8 — 일정과 동선.
@@ -295,7 +295,9 @@ function Reorder({ places, locked, badges, branches, times, onMove, onRemove }: 
               transform: `translateY(${isDrag ? drag!.dy : shiftOf(k)}px)`,
               transition: isDrag ? "none" : "transform .15s ease",
             }}
-            className={`relative flex h-[58px] select-none items-center gap-[4px] border-b border-line pr-[17px] last:border-0 ${
+            // 지점이 바뀐 줄은 지점명이 잘리지 않게 높이를 늘린다. 이 줄은 공용 결과에만 있고 공용 결과는 잠겨 있어 끌어 옮기기(ROW_H)와 겹치지 않는다
+            className={`relative flex select-none items-center gap-[4px] border-b border-line pr-[17px] last:border-0 ${
+              branches[p.id] ? "min-h-[58px] py-[9px]" : "h-[58px]"} ${
               isDrag ? "z-10 rounded-[10px] bg-white shadow-card" : "bg-white"}`}>
             {times[p.id] && (
               <span className="w-[38px] shrink-0 text-center text-[12px] font-extrabold tabular-nums text-wine">{times[p.id]}</span>
@@ -312,10 +314,18 @@ function Reorder({ places, locked, badges, branches, times, onMove, onRemove }: 
                   <span className="shrink-0 rounded-[20px] bg-line-faint px-[7px] py-[2px] text-[10px] font-bold leading-3 text-wine">{branches[p.id].label}</span>
                 )}
               </div>
-              {/* 지점이 바뀌었으면 고른 곳과 배치된 곳을 (두 조건 모두), AI 추천이면 주소 줄 대신 왜 넣었는지를 쓴다 */}
-              <div className={`mt-[3px] truncate leading-3 ${branches[p.id] || (!EXPERIMENT_MODE && badges[p.id]?.reason) ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
-                {branches[p.id]?.from ?? (EXPERIMENT_MODE ? placeLine(p) : badges[p.id]?.reason ?? placeLine(p))}
-              </div>
+              {/* 지점이 바뀌었으면 고른 곳과 배치된 곳을 따로 한 줄씩, 자르지 않고 쓴다 (두 조건 모두).
+                  AI 추천이면 주소 줄 대신 왜 넣었는지를 쓴다 */}
+              {branches[p.id] ? (
+                <div className="mt-[3px] text-[9px] font-semibold leading-3 text-wine [overflow-wrap:anywhere]">
+                  <div>{branches[p.id].picked}</div>
+                  <div className="mt-[1px]">{branches[p.id].placed}</div>
+                </div>
+              ) : (
+                <div className={`mt-[3px] truncate leading-3 ${!EXPERIMENT_MODE && badges[p.id]?.reason ? "text-[9px] font-semibold text-wine" : "text-[8px] font-medium text-line"}`}>
+                  {EXPERIMENT_MODE ? placeLine(p) : badges[p.id]?.reason ?? placeLine(p)}
+                </div>
+              )}
             </div>
             {!locked && <MinusButton label={`${p.name} 빼기`} onClick={() => onRemove(p.id)} />}
           </li>

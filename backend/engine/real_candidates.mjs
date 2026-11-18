@@ -33,6 +33,22 @@ const limitsFor = request => ({
 });
 const passed = (live, id, date) => live.verdicts.get(`${id}|${date}`)?.length === 0;
 
+/** P3 목록에만 있는 그날 후보(listed)를 전략 순위로 줄 세운다.
+ * 각자 P3에 담은 곳을 그 사람의 '고른 곳'으로 보고 같은 합의 점수(buildConsensus)를 쓴다.
+ * 꼭 가기·1순위는 여기 없다(이미 앞에서 시도). 순위에서 빠진 곳은 원래 순서(여러 명이 담은 곳부터)로 뒤에 붙인다. */
+export function rankListed(request, strategy, listed, eligible, picked) {
+  const catalogue = eligible.filter(p => listed.includes(p.id));
+  if (!catalogue.length) return [];
+  const consensus = withPlaceCatalog(catalogue, () => buildConsensus({
+    submissions: request.submissions.map(s => ({...s, picks: (s.longlist ?? []).filter(id => !picked.has(id)), must: null, musts: []})),
+    nights: 0, strategy, allowPartial: false, slotsPerDay: catalogue.length,
+  }));
+  const ranked = [...consensus.core, ...consensus.excluded.filter(s => s.excluded === 'time' || s.excluded === 'budget')]
+    .map(s => s.place.id).filter(id => listed.includes(id));
+  const ids = new Set(catalogue.map(p => p.id));
+  return [...new Set([...ranked, ...listed.filter(id => ids.has(id))])];
+}
+
 /**
  * 실제 장소 경로의 하루 자리 수 — 활동 시간 안에 들어갈 만큼 정한다.
  * 예전에는 속도만 보고 2~4곳(slotsPerDayFor)이라, 그룹에 '여유'가 한 명만 있어도 하루 2곳에서 끝나
@@ -177,8 +193,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       const ranked = [...consensus.core, ...consensus.excluded.filter(s => s.excluded === 'time' || s.excluded === 'budget')]
         .map(s => s.place.id);
       // 꼭 가기는 전략과 무관하게 먼저 시도한다. 검사(운영·예산·걷기·활동시간)는 우회하지 않는다.
-      // My list에만 있는 곳은 전략 순위 뒤에, 여러 명이 담은 곳부터 시도한다.
-      const fillers = listed.filter(id => !covered(id) && eligibleByDate[index].some(p => p.id === id));
+      // P3 목록에만 있는 곳은 꼭 가기 뒤에, 같은 전략의 순위로 시도한다(누가 P3에 담았는지가 그 사람의 선호).
+      // 꼭 가기가 모두 들어가는 작은 그룹에서도 세 후보가 달라질 여지가 여기서 생긴다 (이슈 #6 피드백 11/16).
+      const fillers = rankListed(request, strategy, listed.filter(id => !covered(id)), eligibleByDate[index], picked);
       // 고른 곳이 오늘 운영 조건에 맞지 않고 남은 날에도 영업하지 않으면, 오늘 영업하는 같은 교체 그룹의 다른 지점을 대신 시도한다.
       // 남은 날에 영업하면 원래 지점을 기다린다. 기다렸는데 결국 못 넣으면 plan()을 early로 다시 돌려 휴무인 날 바로 대체한다.
       const eligibleToday = id => eligibleByDate[index].some(p => p.id === id);
@@ -367,7 +384,21 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     };
     const waited = attempt(new Set());
     if (waited && (!branchable.size || (waited.planning.must_satisfied && !waited.planning.unplaced_count))) return waited;
-    const early = attempt(branchable);
+    // 다시 짤 때는 기다린 결과에서 실제로 빠진 곳만 휴무일에 대체한다. 기다려서 원래 지점으로 들어간 다른 곳까지
+    // 형제 지점으로 바뀌지 않게 (#74 재리뷰 2차)
+    const placedIn = c => {
+      const items = c.days.flatMap(d => d.items);
+      const groups = new Set(items.map(i => byId.get(i.placeId)?.place.branch_group_id).filter(Boolean));
+      return id => items.some(i => i.placeId === id || i.branch?.fromPlaceId === id)
+        || groups.has(byId.get(id)?.place.branch_group_id);
+    };
+    const inWaited = waited ? placedIn(waited) : () => false;
+    // 여행 내내 운영 조건을 통과하는 곳은 어느 날에도 형제 지점으로 대체되지 않으므로(substituteFor의 eligibleToday) 넘기지 않는다.
+    // 예산·시간으로만 빠진 곳 때문에 같은 결과를 한 번 더 계획하지 않게 (#74 재리뷰 3차)
+    const closedSomeDay = id => eligibleByDate.some(ps => !ps.some(p => p.id === id));
+    const missed = new Set([...branchable].filter(id => !inWaited(id) && closedSomeDay(id)));
+    if (waited && !missed.size) return waited;
+    const early = attempt(missed);
     if (!early) return waited ?? plan(strategy, new Set());  // 둘 다 못 짜면 원래 오류를 그대로 낸다
     if (!waited) return early;
     const better = (!waited.planning.must_satisfied && early.planning.must_satisfied)
@@ -422,9 +453,10 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
       if (!date) return [];
       return [{record, costKrw: toEnginePlace(record, availability(record, date, profiles, {allowShopping: true}), limits.krw_per_jpy).cost}];
     });
-    // 빈자리 후보 수: 여행 전체 자리(날짜 × 하루 자리 수)만큼, 10~30곳. 예전에는 여행 길이와 상관없이 10곳이라
+    // 빈자리 후보 수: 여행 전체 자리(날짜 × 하루 자리 수)만큼, 10~20곳. 실시간 확인은 후보 × 날짜라 상한을 20으로 둔다
+    // (3일·보통 기준 그룹당 실시간 확인 69 → 90건. 30곳이면 92건인데 종료 시각은 같았다). 예전에는 여행 길이와 상관없이 10곳이라
     // 3일 여행에서 날짜·검사로 걸러지면 빈자리를 다 채우지 못해 오후 4~5시에 일정이 끝났다(11/16 모의 실험)
-    const size = Math.min(30, Math.max(10, dates.length * realSlotsPerDay(groupTradeoffs(request.submissions).pace, limits.active_min)));
+    const size = Math.min(20, Math.max(10, dates.length * realSlotsPerDay(groupTradeoffs(request.submissions).pace, limits.active_min)));
     const draft = buildPool({candidates, submissions: request.submissions, byId, missedMusts, budgetKrw: limits.budget_krw, size});
     // 2) AI 후보도 실시간 확인을 통과한 곳만 모델에 보여 준다
     const poolLive = await liveCheck(liveRequests(draft.map(c => c.id), dates, byId, profiles));

@@ -97,9 +97,26 @@ class LanServer(ThreadingHTTPServer):
         if os.name=='nt':self.socket.setsockopt(socket.SOL_SOCKET,socket.SO_EXCLUSIVEADDRUSE,1)
         super().server_bind()
 
+MAPS_KEY_NAME='NEXT_PUBLIC_GOOGLE_MAPS_API_KEY'
+
+def maps_key(env,env_file=None):
+    """P8 구글 지도 키. 환경변수가 먼저, 없으면 web/.env.local. 없으면 빈 문자열(지도 대신 동선 그림).
+    ASCII가 아닌 경로에서는 커밋된 소스만 임시 폴더에서 빌드하므로 .env.local을 따로 읽어 넘긴다."""
+    if env.get(MAPS_KEY_NAME,'').strip():return env[MAPS_KEY_NAME].strip()
+    path=env_file or ROOT/'web/.env.local'
+    try:lines=path.read_text(encoding='utf-8').splitlines()
+    except OSError:return ''
+    for line in lines:
+        name,sep,value=line.strip().partition('=')
+        if sep and name.strip()==MAPS_KEY_NAME:return value.strip().strip('"\'')
+    return ''
+
 def build(node):
     commit=support.clean_commit()
     env=os.environ.copy();env.update({'NEXT_PUBLIC_EXPERIMENT_MODE':'1','NEXT_PUBLIC_API_BASE_URL':'/backend','NEXT_PUBLIC_BASE_PATH':'','NEXT_TELEMETRY_DISABLED':'1'})
+    key=maps_key(env)
+    env[MAPS_KEY_NAME]=key
+    if not key:print(f'[경고] {MAPS_KEY_NAME}가 없습니다. P8에 구글 지도 대신 동선 그림이 나옵니다. web/.env.local에 키를 넣거나 환경변수로 설정한 뒤 다시 빌드하세요.',file=sys.stderr)
     # Next static export can fail on decomposed Korean macOS checkout paths.
     # Build the exact committed sources in an ASCII temporary path; no credentials travel with it.
     if sys.platform=='darwin' and not str(ROOT).isascii():
