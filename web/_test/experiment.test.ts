@@ -209,3 +209,24 @@ test("실험 안내 문구에는 방장 확정·전략 이름이 없다", () => 
     for (const w of STRATEGY_WORDS) assert.ok(!line.includes(w), w);
   }
 });
+
+test("고른 곳 대신 같은 가게의 다른 지점이 들어가면 반영된 것으로 센다 — 엔진 must_satisfied와 같은 기준 (#74)", () => {
+  // 1순위 h(551 본점)가 휴무라 n(난바워크점)으로 들어감. 엔진은 must_satisfied = true를 준다
+  const cand = {
+    metrics: { walkStepsPerDay: 5000, costKrwPerDay: 50000 },
+    days: [{ items: [
+      { placeId: "n", source: "selected", branch: { fromPlaceId: "h" } },
+      { placeId: "b", source: "selected" },
+    ] }],
+    planning: { must_satisfied: true, unplaced_count: 0, reason_aggregation: "common_across_dates", exclusion_reason_counts: {} },
+  };
+  const mine = { picks: ["h", "b", "c"], must: "h", veto: null, budgetPerDay: 100000, stepLimit: 10000 };
+  const lines = experimentExplanation(cand, mine, (id) => ({ h: "551 본점" })[id] ?? id);
+  assert.ok(lines.includes("내 꼭 가기 3곳 중 2곳이 들어갔어요."));
+  assert.ok(lines.includes("내 1순위 551 본점은(는) 같은 가게의 다른 지점으로 들어갔어요."));
+  // 낡은 결과로 보지 않으므로 그룹 문장이 남는다
+  assert.ok(lines.includes("모두의 1순위 꼭 가기가 모두 들어갔어요."));
+  // 지점 정보가 없으면 예전처럼 못 들어간 것으로 쓴다
+  const plain = { ...cand, days: [{ items: [{ placeId: "n", source: "selected" }, { placeId: "b", source: "selected" }] }] };
+  assert.ok(experimentExplanation(plain, mine, (id) => id).includes("내 1순위 h은(는) 이번 일정에 들어가지 못했어요."));
+});
