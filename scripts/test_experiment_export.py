@@ -1,4 +1,6 @@
 import csv
+import contextlib
+import io
 import json
 import os
 from pathlib import Path
@@ -20,7 +22,7 @@ class ExportTests(unittest.TestCase):
         (self.bundle/'catalog.json').write_text(json.dumps({'places':[{'place':{'place_id':'one','branch_group_id':None}}]}))
         self.payloads=[]
         self.candidates=[{'strategy':s,'days':[{'placeIds':['one']}],'metrics':{'costKrwPerDay':1000,'walkStepsPerDay':2000,'totalKmPerDay':2}} for s in ['average','least_misery','fairness']]
-        with sqlite3.connect(self.group/'trips.sqlite3') as db:
+        with contextlib.closing(sqlite3.connect(self.group/'trips.sqlite3')) as db, db:
             db.executescript('CREATE TABLE rooms(id TEXT,revision INTEGER);CREATE TABLE members(id TEXT,room_id TEXT,name TEXT);CREATE TABLE submissions(member_id TEXT,payload TEXT);CREATE TABLE candidate_results(room_id TEXT,revision INTEGER,payload TEXT);')
             for rid in ['actual-room','unrelated-room']:
                 db.execute('INSERT INTO rooms VALUES(?,3)',(rid,))
@@ -34,8 +36,8 @@ class ExportTests(unittest.TestCase):
                     self.payloads=[{'roomId':rid,'memberId':mid,'memberIds':ids,'candidate':c,'submissions':subs} for mid in ids for c in self.candidates]
     def test_only_registered_room_exported_with_one_node_process(self):
         out=Path(self.tmp.name)/'out'
-        actual=subprocess.check_output
-        with patch.object(support,'verify'),patch.object(exporter.subprocess,'check_output',wraps=actual) as call:
+        actual=subprocess.run
+        with patch.object(support,'verify'),patch.object(exporter.subprocess,'run',wraps=actual) as call:
             self.assertEqual(exporter.export(self.bundle,'team',out,self.node),9)
             # node_binary also queries --version; the scoring worker must run only once.
             workers=[c for c in call.call_args_list if any(str(a).endswith('experiment_record.mjs') for a in c.args[0])]
@@ -68,15 +70,15 @@ class ExportTests(unittest.TestCase):
         (self.bundle/'experiment-config.json').write_text('{"mode":"rehearsal","explanationPolicy":"typo"}')
         for empty in (False, True):
             if empty:
-                with sqlite3.connect(self.group/'trips.sqlite3') as db:
+                with contextlib.closing(sqlite3.connect(self.group/'trips.sqlite3')) as db, db:
                     db.execute('DELETE FROM candidate_results WHERE room_id=?',('actual-room',))
             out=Path(self.tmp.name)/('empty' if empty else 'out')
-            with patch.object(support,'verify'),self.assertRaises(subprocess.CalledProcessError):
+            with patch.object(support,'verify'),self.assertRaisesRegex(ValueError,'설명 배정 정책이 올바르지'):
                 exporter.export(self.bundle,'team',out,self.node)
             self.assertFalse(out.exists())
 
     def test_empty_valid_session_exports_no_candidate_rows(self):
-        with sqlite3.connect(self.group/'trips.sqlite3') as db:
+        with contextlib.closing(sqlite3.connect(self.group/'trips.sqlite3')) as db, db:
             db.execute('DELETE FROM candidate_results WHERE room_id=?',('actual-room',))
         out=Path(self.tmp.name)/'out'
         with patch.object(support,'verify'):
@@ -138,7 +140,7 @@ class ExportTests(unittest.TestCase):
 
     def test_real_missing_must_and_veto_are_not_lost_to_demo_id_filter(self):
         (self.bundle/'catalog.json').write_text(json.dumps({'places':[{'place':{'place_id':pid}} for pid in ['one','missing']]}))
-        with sqlite3.connect(self.group/'trips.sqlite3') as db:
+        with contextlib.closing(sqlite3.connect(self.group/'trips.sqlite3')) as db, db:
             payload=json.loads(db.execute('SELECT payload FROM submissions WHERE member_id=?',('actual-room0',)).fetchone()[0])
             payload.update(must='missing',veto='one')
             db.execute('UPDATE submissions SET payload=? WHERE member_id=?',(json.dumps(payload),'actual-room0'))
@@ -154,5 +156,25 @@ class ExportTests(unittest.TestCase):
             self.assertEqual(row['vetoKept'],'False')
             self.assertIn('satisfactionOf/v2',row['metric_basis'])
         self.assertIn('metric_basis',json.loads((out/'evidence.json').read_text())[0])
+
+    def test_cli_policy_error_is_one_line_without_worker_traceback(self):
+        (self.bundle/'experiment-config.json').write_text('{"mode":"rehearsal","explanationPolicy":"typo"}')
+        out=Path(self.tmp.name)/'out';stderr=io.StringIO()
+        with patch.object(support,'verify'),contextlib.redirect_stderr(stderr),self.assertRaises(SystemExit) as error:
+            exporter.main(['--bundle',str(self.bundle),'--group','team','--out',str(out),'--node',self.node])
+        self.assertEqual(error.exception.code,1)
+        self.assertEqual(len(stderr.getvalue().splitlines()),1)
+        self.assertIn('설명 배정 정책이 올바르지',stderr.getvalue())
+        self.assertNotIn('Traceback',stderr.getvalue())
+        self.assertFalse(out.exists())
+
+    def test_worker_failure_and_timeout_do_not_leak_raw_details_or_write_output(self):
+        for i,failure in enumerate([subprocess.CalledProcessError(1,['worker'],stderr='PRIVATE_PARTICIPANT_DATA'),
+                                    subprocess.TimeoutExpired(['worker'],30)]):
+            out=Path(self.tmp.name)/str(i)
+            with patch.object(support,'verify'),patch.object(support,'node_binary',return_value=self.node),patch.object(exporter.subprocess,'run',side_effect=failure),self.assertRaises(ValueError) as error:
+                exporter.export(self.bundle,'team',out,self.node)
+            self.assertNotIn('PRIVATE_PARTICIPANT_DATA',str(error.exception))
+            self.assertFalse(out.exists())
 
 if __name__=='__main__':unittest.main()

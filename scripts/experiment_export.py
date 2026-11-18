@@ -1,5 +1,6 @@
 """Export saved candidate/assignment evidence; survey answers stay in Google Forms."""
 import argparse,csv,json,sqlite3,subprocess
+from contextlib import closing
 from pathlib import Path
 import experiment_support as support
 
@@ -15,7 +16,7 @@ def export(bundle,group,out,node=None):
  config=support.read_json(bundle/'experiment-config.json')
  # Frozen policy/default validation belongs to the same worker as the UI assignment.
  policy=config.get('explanationPolicy')
- with sqlite3.connect(source.resolve().as_uri()+'?mode=ro',uri=True) as db:
+ with closing(sqlite3.connect(source.resolve().as_uri()+'?mode=ro',uri=True)) as db, db:
   db.row_factory=sqlite3.Row;db.execute('BEGIN')
   if not db.execute('SELECT 1 FROM rooms WHERE id=?',(room_id,)).fetchone():raise ValueError('지정한 실험방이 DB에 없습니다.')
   for row in db.execute('SELECT cr.* FROM candidate_results cr JOIN rooms r ON r.id=cr.room_id WHERE cr.revision=r.revision AND cr.room_id=?',(room_id,)):
@@ -27,13 +28,23 @@ def export(bundle,group,out,node=None):
      jobs.append((payload,member['name'],row['revision']))
  # Validate even an empty export, before creating any output files.
  request={'explanationPolicy':policy,'records':[job[0] for job in jobs]}
- results=json.loads(subprocess.check_output([node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(bundle/'catalog.json')],input=json.dumps(request),text=True,encoding='utf-8',timeout=30))
+ command=[node,str(support.ROOT/'backend/engine/experiment_record.mjs'),str(bundle/'catalog.json')]
+ try:
+  result=subprocess.run(command,input=json.dumps(request),capture_output=True,text=True,encoding='utf-8',timeout=30,check=True)
+ except subprocess.CalledProcessError as error:
+  # Never echo a worker stack or raw catalogue/participant data to the operator.
+  reason='설명 배정 정책이 올바르지 않습니다.' if 'Unknown experiment explanation policy' in (error.stderr or '') else '설명 배정 정책·동결 카탈로그를 확인하세요.'
+  raise ValueError('실험 근거 계산 실패: '+reason) from None
+ except subprocess.TimeoutExpired:
+  raise ValueError('실험 근거 계산 시간이 초과됐습니다. 출력은 생성하지 않았습니다.') from None
+ try: results=json.loads(result.stdout)
+ except json.JSONDecodeError:
+  raise ValueError('실험 근거 계산 응답을 읽을 수 없습니다. 출력은 생성하지 않았습니다.') from None
  if not isinstance(results,list) or len(results)!=len(jobs):raise ValueError('실험 근거 계산 결과 수가 맞지 않습니다.')
- if jobs:
-  for (payload,name,revision),computed in zip(jobs,results):
-   identity={'explanation_policy':computed['explanationPolicy'],'group_id':group,'mode':config['mode'],'participant_code':name,'room_id':room_id,'revision':revision,'letter':computed['letter'],'strategy':computed['strategy'],'display_order':computed['order'],'explained':computed['explained'],'metric_basis':computed['metricBasis']}
-   rows.append({**identity,**{k:v for k,v in computed['automatic'].items() if k!='memberId'},**computed['metrics']})
-   details.append({**identity,'candidate':payload['candidate'],'groupMetrics':computed['group']})
+ for (payload,name,revision),computed in zip(jobs,results):
+  identity={'explanation_policy':computed['explanationPolicy'],'group_id':group,'mode':config['mode'],'participant_code':name,'room_id':room_id,'revision':revision,'letter':computed['letter'],'strategy':computed['strategy'],'display_order':computed['order'],'explained':computed['explained'],'metric_basis':computed['metricBasis']}
+  rows.append({**identity,**{k:v for k,v in computed['automatic'].items() if k!='memberId'},**computed['metrics']})
+  details.append({**identity,'candidate':payload['candidate'],'groupMetrics':computed['group']})
  out.mkdir(parents=True,mode=0o700)
  columns=list(dict.fromkeys(k for r in rows for k in r)) or ['group_id','participant_code','letter']
  def safe(v):
@@ -45,5 +56,10 @@ def export(bundle,group,out,node=None):
  (out/'config.json').write_text(json.dumps(config,ensure_ascii=False,indent=2),encoding='utf-8')
  for p in out.iterdir():p.chmod(0o600)
  return len(rows)
-if __name__=='__main__':
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--bundle',required=True,type=Path);p.add_argument('--group',required=True);p.add_argument('--out',required=True,type=Path);p.add_argument('--node');a=p.parse_args();print(f'{export(a.bundle,a.group,a.out,a.node)}개 참가자×일정 근거 내보내기 완료. Google 설문 응답은 포함하지 않습니다.')
+def main(argv=None):
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--bundle',required=True,type=Path);p.add_argument('--group',required=True);p.add_argument('--out',required=True,type=Path);p.add_argument('--node');a=p.parse_args(argv)
+ try: count=export(a.bundle,a.group,a.out,a.node)
+ except ValueError as error: p.exit(1,str(error)+'\n')
+ print(f'{count}개 참가자×일정 근거 내보내기 완료. Google 설문 응답은 포함하지 않습니다.')
+
+if __name__=='__main__': main()

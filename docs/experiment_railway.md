@@ -78,7 +78,7 @@ python3 scripts/experiment_preflight.py --node node --out .local/preflight-새�
 | --- | --- | --- |
 | 한 사람만 연결 끊김 | 같은 그룹 링크로 다시 열고 본인 번호·PIN 사용. 새 번호를 만들지 않음 | 인터넷 연결을 확인하고 입력/결과 저장 상태를 조회한 뒤 재개 |
 | 제출·계산 중 응답이 사라짐 | 버튼 연타·다른 방 생성 없이 대기 | 먼저 기존 결과 조회. 이미 저장됐다면 그대로 사용. 저장 여부를 모르면 계산을 무조건 다시 보내지 않음 |
-| 모두 접속 불가 / 서버 종료 | 실험을 일시 중단하고 화면·시각만 기록 | 배포 상태·healthz·volume 확인. 같은 코드·session·날짜·환경변수로 서비스 재시작. 새 Deploy로 최신 코드를 섞지 않음 |
+| 모두 접속 불가 / 서버 종료 | 4그룹 모두 실험을 일시 중단하고 화면·시각만 기록 | 백엔드 하나가 종료돼도 공용 게이트웨이가 모든 그룹을 종료함. 배포 상태·healthz·volume 확인 후 아래 같은 배포 Restart 절차 사용 |
 | Google·AI 오류 / 오래 걸림 | 진행자에게 오류 문구 전달 | 키를 공유하지 말고 로그에서 서비스 상태 확인. AI 규칙 대체/실시간 확인 실패 여부를 기록. live→mock 전환으로 진행하지 않음 |
 | 지도만 안 보임 | 사용하는 브라우저와 오류 화면 전달 | 해당 배포의 지도 키 포함·허용 도메인·Maps API 오류 확인. 장소 목록이 보인다고 지도 성공으로 기록하지 않음 |
 | PIN 또는 그룹 오류 | 원래 배정한 번호와 링크 확인 | 다른 그룹 링크·이중 접속 확인. DB의 PIN을 임의 변경하거나 다른 참가자 번호를 주지 않음 |
@@ -104,3 +104,31 @@ python3 scripts/experiment_export.py --bundle /data/세션 --group recovery-team
 2. 실제 영업정보·AI·지도 조회 확인(비용 발생 범위는 운영 승인에 따름). 모의 성공으로 대체하지 않음.
 3. 휴대폰 3대 동시 접속·입력·A/B/C·번호별 설명·지점 두 줄·지도·설문 링크·재접속. 모의 입력용 방에서 진행한 뒤 실제 방에는 응답을 남기지 않음.
 4. 완료 증거가 있을 때만 최종 예비 점검을 체크한다. 장애 대응 **준비·훈련**과 실제 실험 중 대응 완료는 구분한다.
+
+
+### 자동 재시작 한도 이후
+
+저장소 `railway.json` 예시는 `ON_FAILURE`, 최대 3회다. 실제 서비스는 대시보드 설정으로 배포했으므로 **Service Settings의 적용된 Restart Policy와 재시도 수를 먼저 확인**한다. 반복 실패하면 자동 재시작이 멈출 수 있다.
+
+1. 네 그룹 모두 중단을 안내하고 장애 시각·고정 SHA·세션을 기록한다.
+2. Railway의 해당 서비스 → **Deployments → 기존 배포 → Restart**를 사용한다. 최신 커밋 Deploy나 환경변수 변경으로 대체하지 않는다.
+3. 같은 이미지·SHA·세션인지, `/healthz`, 관리자 상태, 기존 그룹 링크·PIN·저장 결과를 확인한 뒤 재개한다. 동일 오류가 반복되면 재시작을 반복하지 말고 원인을 확인한다.
+
+근거: [Railway 배포 작업](https://docs.railway.com/deployments/deployment-actions), [재시작 정책](https://docs.railway.com/deployments/restart-policy). 이번 리뷰 보완에서 실제 서버를 중단해 수동 재시작한 것은 아니다.
+
+### volume 밖으로 백업 내려받기
+
+진행자 Mac에서 비공개 새 폴더를 만들고, Railway 대시보드의 **Copy SSH Command**로 연결한다. SSH 키 등록이 필요할 수 있다. `railway run`은 로컬에서 실행하는 명령이므로 원격 `/data`를 내려받는 수단으로 쓰지 않는다.
+
+1. 원격 `/app`에서 위 `experiment_support.py backup`으로 **새 이름의 SQLite 백업과 `.sqlite3.json` 메타데이터**를 만든다. 실행 중 원본 `trips.sqlite3`를 scp로 직접 복사하지 않는다.
+2. [Railway SSH/SFTP 공식 안내](https://docs.railway.com/cli/ssh)에 따라 해당 서비스 도메인 또는 **Service Instance ID**로 접속한다. 진행자 Mac의 새 비공개 폴더에서 아래 두 파일을 함께 받는다(예시 이름을 실제 백업으로 바꿈).
+
+```sh
+scp 서비스도메인@ssh.railway.com:/data/backups/세션-team-시각.sqlite3 ./
+scp 서비스도메인@ssh.railway.com:/data/backups/세션-team-시각.sqlite3.json ./
+chmod 600 세션-team-시각.sqlite3 세션-team-시각.sqlite3.json
+```
+
+3. 원격의 동결 묶음에서 `catalog.json`, `profiles.json`, `manifest.json`, `experiment-config.json`도 같은 비공개 보관소에 보존한다. 기존 실험 폴더와 별개로 보관하고 키·PIN이 들어 있는 메타데이터를 Git·이슈에 올리지 않는다.
+4. 내려받은 DB의 SHA256이 메타데이터 `db_sha256`과 같고 `PRAGMA quick_check`가 `ok`인지 확인한다. 같은 코드와 동결 데이터 복사본에서 `restore --input <내려받은DB> --new-group <새이름>`을 실행해 복원도 확인한다. live 서버나 기존 그룹에 덮어쓰지 않는다.
+5. 다운로드·해시·복원 성공 여부를 진행자 기록에 남긴다. **실제 Railway 반출과 복원 연습은 아직 대기**다. 문서 작성과 로컬 모의 검사를 실제 반출 완료로 기록하지 않는다.
