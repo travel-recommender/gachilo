@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "version": "official-followup-20261118-v1",
+  "checked_on": "2026-11-18",
+  "source_date_precision": "day",
+  "scope": "Official pages read on the recorded date; no paid Places/AI calls, no scheduling fact or profile changes. Undated general guidance is not assigned a fabricated validity period.",
+  "field_refreshes": [
+    {
+      "place_id": "osaka_002",
+      "name_ko": "쓰텐카쿠",
+      "identity_sha256": "7b225dc25ca35f399d71186bad25ac29eb549540aee2cef3a7b76a0d97578b5c",
+      "field": "opening_hours",
+      "expected_value": "일반 전망대 09:00–21:45, 최종입장21:15; 시간 지정 입장 예약 필수",
+      "expected_source_sha256": "b724b2b2d5e951c0ed9014066cf180c9f0e0e9daa7f3153e5e9c076e9e4accb0",
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.tsutenkaku.co.jp/annai/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "일반 전망대 09:00~21:45, 입장 마감 21:15, 성인(15세 이상) 1500엔. 시간 지정 예약 필요. 특별 전망대는 별도. 날짜별 특별 운영·연말 가격을 일반 조건과 구분한다."
+    },
+    {
+      "place_id": "osaka_002",
+      "name_ko": "쓰텐카쿠",
+      "identity_sha256": "7b225dc25ca35f399d71186bad25ac29eb549540aee2cef3a7b76a0d97578b5c",
+      "field": "cost",
+      "expected_value": 1500,
+      "expected_source_sha256": "45997be8fc07a29845956538067637de9394fb07e0e408cce408b6f3da56c728",
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.tsutenkaku.co.jp/annai/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "일반 전망대 09:00~21:45, 입장 마감 21:15, 성인(15세 이상) 1500엔. 시간 지정 예약 필요. 특별 전망대는 별도. 날짜별 특별 운영·연말 가격을 일반 조건과 구분한다."
+    },
+    {
+      "place_id": "osaka_007",
+      "name_ko": "우메다 공중정원 전망대",
+      "identity_sha256": "a7176a8ed893717530a2eb9976d209e309643b05a47bd786828b87eda61dd040",
+      "field": "opening_hours",
+      "expected_value": "09:30-22:30 (최종입장 22:00; 특별 영업일 별도)",
+      "expected_source_sha256": "64921cee56973d9938291543d8705e3c44ee6b1fe82bef049a1ad21701b32492",
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.skybldg.co.jp/observatory/information/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "일반 09:30~22:30, 입장 마감 22:00, 성인 2000엔. 특별 운영일과 악천후의 옥상 이용 제한은 별도. 웹 사전권과 당일 39층 매표소 구매 가능."
+    },
+    {
+      "place_id": "osaka_007",
+      "name_ko": "우메다 공중정원 전망대",
+      "identity_sha256": "a7176a8ed893717530a2eb9976d209e309643b05a47bd786828b87eda61dd040",
+      "field": "cost",
+      "expected_value": 2000,
+      "expected_source_sha256": "64921cee56973d9938291543d8705e3c44ee6b1fe82bef049a1ad21701b32492",
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.skybldg.co.jp/observatory/information/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "일반 09:30~22:30, 입장 마감 22:00, 성인 2000엔. 특별 운영일과 악천후의 옥상 이용 제한은 별도. 웹 사전권과 당일 39층 매표소 구매 가능."
+    },
+    {
+      "place_id": "osaka_008",
+      "name_ko": "HEP FIVE 관람차",
+      "identity_sha256": "65bdec4f498f688064413a7baa83848fc7d03748261e1403f0bb577d8ab1129d",
+      "field": "opening_hours",
+      "expected_value": "11:00-23:00 (최종탑승 22:45; 휴관 공지 별도)",
+      "expected_source_sha256": "9cca49e0e08d33c36eb412d946557b127d0baa36530ac2a047504b607081cbc8",
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.hepfive.jp/ferriswheel"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "일반 11:00~23:00, 최종 탑승 22:45, 1인 1000엔(5세 이하 무료). 혼잡 시 최종 탑승이 앞당겨질 수 있다. 11/19 휴관 공지는 연도가 명시된 공식 입점사 공지로 2026년임을 교차 확인했다."
+    },
+    {
+      "place_id": "osaka_008",
+      "name_ko": "HEP FIVE 관람차",
+      "identity_sha256": "65bdec4f498f688064413a7baa83848fc7d03748261e1403f0bb577d8ab1129d",
+      "field": "cost",
+      "expected_value": 1000,
+      "expected_source_sha256": "2d2e63609e524a59da349c261ebe8cc5058b28e0f857f86a08657f9e1a66ad4d",
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.hepfive.jp/ferriswheel"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "일반 11:00~23:00, 최종 탑승 22:45, 1인 1000엔(5세 이하 무료). 혼잡 시 최종 탑승이 앞당겨질 수 있다. 11/19 휴관 공지는 연도가 명시된 공식 입점사 공지로 2026년임을 교차 확인했다."
+    },
+    {
+      "place_id": "osaka_009",
+      "name_ko": "오사카성",
+      "identity_sha256": "5cbbe700df60f421da116c2ad44ac284b453ac6f67a2fd407f97cdcb948cf2b6",
+      "field": "opening_hours",
+      "expected_value": "09:00-18:00 (최종입장 17:30; 12월 28일~1월 1일 휴관)",
+      "expected_source_sha256": "51cc5390620c26fc2f1dbb1a1393f33c6279657346779932dcda616ebe230926",
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.osakacastle.net/guide/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": "2025-04-01",
+      "valid_through": null,
+      "note": "2025-04-01부터 천수각 09:00~18:00, 입장 마감 17:30, 12/28~1/1 휴관. 일반 성인 1200엔. 대학생·고등학생 600엔에는 증명이 필요하며 해외 학생은 ISIC 안내를 확인한다. 공원 전체의 운영시간·요금이 아니다."
+    },
+    {
+      "place_id": "osaka_009",
+      "name_ko": "오사카성",
+      "identity_sha256": "5cbbe700df60f421da116c2ad44ac284b453ac6f67a2fd407f97cdcb948cf2b6",
+      "field": "cost",
+      "expected_value": 1200,
+      "expected_source_sha256": "51cc5390620c26fc2f1dbb1a1393f33c6279657346779932dcda616ebe230926",
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.osakacastle.net/guide/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": "2025-04-01",
+      "valid_through": null,
+      "note": "2025-04-01부터 천수각 09:00~18:00, 입장 마감 17:30, 12/28~1/1 휴관. 일반 성인 1200엔. 대학생·고등학생 600엔에는 증명이 필요하며 해외 학생은 ISIC 안내를 확인한다. 공원 전체의 운영시간·요금이 아니다."
+    },
+    {
+      "place_id": "branch_ichiran_shinsaibashi",
+      "name_ko": "이치란 신사이바시점",
+      "identity_sha256": "2f03bcf98077f40c6066b37bae1b2e6f3299980c9ed663aec7d181da3f6fabb8",
+      "field": "opening_hours",
+      "expected_value": "10:00~익일06:00",
+      "expected_source_sha256": "e7d27a5dc9fdd4aaf44f9dc0b4a738b667c96a9019348a1fd69848369ab96e4b",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/shop/kinki/shinsaibashi/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "10:00~다음날06:00, 주문 마감 다음날05:45. 기본 돈코츠 라멘 1그릇 1180엔; 추가 주문 별도. 혼잡 시 입장을 일찍 제한할 수 있다."
+    },
+    {
+      "place_id": "branch_ichiran_shinsaibashi",
+      "name_ko": "이치란 신사이바시점",
+      "identity_sha256": "2f03bcf98077f40c6066b37bae1b2e6f3299980c9ed663aec7d181da3f6fabb8",
+      "field": "cost",
+      "expected_value": 1180,
+      "expected_source_sha256": "7fc4b39899bf1c2b51db3df1d43daaff4bbf4b0b5785f89056464c15e910b0d8",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/shop/kinki/shinsaibashi/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "10:00~다음날06:00, 주문 마감 다음날05:45. 기본 돈코츠 라멘 1그릇 1180엔; 추가 주문 별도. 혼잡 시 입장을 일찍 제한할 수 있다."
+    },
+    {
+      "place_id": "branch_ichiran_abeno",
+      "name_ko": "이치란 아베노점",
+      "identity_sha256": "2c4768358aca5958d4e8528f3d02a852856019501dc758226f372d94a257ba2e",
+      "field": "opening_hours",
+      "expected_value": "10:00~23:00",
+      "expected_source_sha256": "a0e9d3a5bea28b4008c90bef8f20747b9bed915c4835521f6bd0df0dfe5dc1af",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/shop/kinki/abeno/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "10:00~23:00, 최종 입장22:15, 주문 마감22:45. 기본 돈코츠 라멘 1그릇1080엔; 추가 주문 별도. 인원 상황·혼잡에 따른 운영 변경 공지가 있다."
+    },
+    {
+      "place_id": "branch_ichiran_abeno",
+      "name_ko": "이치란 아베노점",
+      "identity_sha256": "2c4768358aca5958d4e8528f3d02a852856019501dc758226f372d94a257ba2e",
+      "field": "cost",
+      "expected_value": 1080,
+      "expected_source_sha256": "32dd569050b7d56b9e50b3fc7b5cc4352efab14f69a72d1e98589bdb95dfa941",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/shop/kinki/abeno/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "10:00~23:00, 최종 입장22:15, 주문 마감22:45. 기본 돈코츠 라멘 1그릇1080엔; 추가 주문 별도. 인원 상황·혼잡에 따른 운영 변경 공지가 있다."
+    },
+    {
+      "place_id": "branch_ichiran_umeda_shibata",
+      "name_ko": "이치란 우메다 시바타점",
+      "identity_sha256": "8e57dbb6b9e534c29428a83f848e746414f2ecf8a2dc96320acb7d7ab74cec52",
+      "field": "opening_hours",
+      "expected_value": "10:00~23:00",
+      "expected_source_sha256": "e55a515a744c91b6e6e76aa66d748134b3a1029728cb647c94dea2e96a50d693",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/shop/kinki/umeda-shibata/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "10:00~23:00, 주문 마감22:45. 기본 돈코츠 라멘1080엔; 22:00~다음날06:00 심야요금 별도 안내가 있다. 2·4·6·8·10월 셋째 일요일과 1/1·1/2 휴무. 임시 변경 가능."
+    },
+    {
+      "place_id": "branch_ichiran_umeda_shibata",
+      "name_ko": "이치란 우메다 시바타점",
+      "identity_sha256": "8e57dbb6b9e534c29428a83f848e746414f2ecf8a2dc96320acb7d7ab74cec52",
+      "field": "cost",
+      "expected_value": 1080,
+      "expected_source_sha256": "b225fea3accdc69477349f1278f83260104e9f0fbdfeebf57b96d665dcdcebb0",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/shop/kinki/umeda-shibata/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "10:00~23:00, 주문 마감22:45. 기본 돈코츠 라멘1080엔; 22:00~다음날06:00 심야요금 별도 안내가 있다. 2·4·6·8·10월 셋째 일요일과 1/1·1/2 휴무. 임시 변경 가능."
+    },
+    {
+      "place_id": "branch_ichiran_umeda_hankyu",
+      "name_ko": "이치란 우메다 한큐 히가시도리점",
+      "identity_sha256": "619dcbb2b28050a60bbfca8a78105d233d920ce3250bac23c405513accc4eda5",
+      "field": "opening_hours",
+      "expected_value": "11:00~익일06:00",
+      "expected_source_sha256": "69e5d4465add65c13bbb780e2d136e5b1da16d3535eb7659e7226f07d4f0f563",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/shop/kinki/umeda-hankyu/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "11:00~다음날06:00, 주문 마감 다음날05:45. 기본 돈코츠 라멘1080엔; 추가 주문 별도. 혼잡 시 조기 입장 제한 가능."
+    },
+    {
+      "place_id": "branch_ichiran_umeda_hankyu",
+      "name_ko": "이치란 우메다 한큐 히가시도리점",
+      "identity_sha256": "619dcbb2b28050a60bbfca8a78105d233d920ce3250bac23c405513accc4eda5",
+      "field": "cost",
+      "expected_value": 1080,
+      "expected_source_sha256": "eba43431a01d327d36e30e9586888bd5c900bfcd8a969c0632ac3eaf617169ac",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/shop/kinki/umeda-hankyu/"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "11:00~다음날06:00, 주문 마감 다음날05:45. 기본 돈코츠 라멘1080엔; 추가 주문 별도. 혼잡 시 조기 입장 제한 가능."
+    },
+    {
+      "place_id": "branch_ichiran_namba_midosuji",
+      "name_ko": "이치란 난바 미도스지점",
+      "identity_sha256": "1860f218600a35883abfc633510fe35f4a0089148304f1bc45e0a285ecbfb294",
+      "field": "opening_hours",
+      "expected_value": "09:00~22:00",
+      "expected_source_sha256": "bde52c98e0c95429d042d4168a123a11f1598e24787aad35268376ee4e985e1f",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/np/shop/kinki/namba-midosuji.html"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "09:00~22:00, 주문 마감21:45. 돼지고기 불사용 라멘1280엔; 일반 돈코츠 지점과 메뉴가 다르다. 혼잡 시 정리권 안내. 페이지의 8/16 연장 운영은 연도 미명시이므로 날짜 예외로 등록하지 않는다."
+    },
+    {
+      "place_id": "branch_ichiran_namba_midosuji",
+      "name_ko": "이치란 난바 미도스지점",
+      "identity_sha256": "1860f218600a35883abfc633510fe35f4a0089148304f1bc45e0a285ecbfb294",
+      "field": "cost",
+      "expected_value": 1280,
+      "expected_source_sha256": "34cdb440eded99296291da6e56fbe5ac5b4ae85e5890a2412ef1f1c14e09e4d4",
+      "kind": "official_web_review",
+      "urls": [
+        "https://ichiran.com/np/shop/kinki/namba-midosuji.html"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": null,
+      "valid_through": null,
+      "note": "09:00~22:00, 주문 마감21:45. 돼지고기 불사용 라멘1280엔; 일반 돈코츠 지점과 메뉴가 다르다. 혼잡 시 정리권 안내. 페이지의 8/16 연장 운영은 연도 미명시이므로 날짜 예외로 등록하지 않는다."
+    }
+  ],
+  "additional_assertions": [
+    {
+      "place_id": "osaka_008",
+      "identity_sha256": "65bdec4f498f688064413a7baa83848fc7d03748261e1403f0bb577d8ab1129d",
+      "field": "operating_exception",
+      "value": {
+        "closed": true
+      },
+      "kind": "official_web_review",
+      "urls": [
+        "https://www.hepfive.jp/ferriswheel",
+        "https://bandainamco-am.co.jp/chara_shop/ichibankuji-official-shop/NEWS/hepfive/news/20261102.html"
+      ],
+      "checked_at": "2026-11-18",
+      "valid_from": "2026-11-19",
+      "valid_through": "2026-11-19",
+      "state": "current",
+      "note": "관람차 휴관 공지와 공식 입점사 2026-11-02 공지의 연도·날짜를 대조. 다른 날짜의 휴무로 확대하지 않음."
+    }
+  ],
+  "reference_checks": [
+    {
+      "place_id": "osaka_001",
+      "status": "partial",
+      "urls": [
+        "https://www.glico.com/jp/health/contents/glicosign/"
+      ],
+      "checked_at": "2026-11-18",
+      "verified": "일몰 후~24시 점등, 상황에 따라 단축. 간판 주소는 도톤보리1-10-4.",
+      "unresolved": "공공 관람 지점의 통행시간·입장료와 별개. 현재 opening_hours 전체와 cost=0을 이 자료 하나로 재검증 처리하지 않음."
+    },
+    {
+      "place_id": "osaka_006",
+      "status": "partial",
+      "urls": [
+        "https://www.shinsaibashi.or.jp/contact/faq"
+      ],
+      "checked_at": "2026-11-18",
+      "verified": "상점가 공식 FAQ는 점포마다 영업시간이 다르므로 개별 점포 확인을 안내한다.",
+      "unresolved": "공통 영업시간·휴무·최종입장은 확정하지 않음. 휴일 범위까지 확인한 것으로 기존 항목 전체의 날짜를 갱신하지 않음."
+    },
+    {
+      "place_id": "osaka_005",
+      "status": "blocked",
+      "urls": [
+        "https://kuromon.com/jp/",
+        "https://kuromon.com/en/"
+      ],
+      "attempted_at": "2026-11-18",
+      "checked_at": null,
+      "verified": null,
+      "unresolved": "공식 사이트 직접 조회가 HTTP429. 검색에 나온 지도 PDF만으로 영업시간을 확인하지 않음. 이후 공식 점포별 운영 페이지 재확인 필요."
+    },
+    {
+      "place_id": "branch_usj",
+      "status": "partial",
+      "urls": [
+        "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour",
+        "https://www.usj.co.jp/web/ja/jp/tickets/lineup"
+      ],
+      "checked_at": "2026-11-18",
+      "verified": "운영시간은 변경 가능, 입장권과 익스프레스 패스는 별도. 1일권은 날짜에 따라 가격이 달라진다.",
+      "unresolved": "날짜별 동적 달력의 11/16~19 가격·시간을 이번 조회로 모두 확정하지 못함. 페이지의 본일 시간·최저가를 전 날짜에 복사하지 않음. #76의 별도 날짜 검증을 대체하거나 연장하지 않음."
+    }
+  ]
+}
