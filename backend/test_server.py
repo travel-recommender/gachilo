@@ -113,6 +113,10 @@ class ApiTests(unittest.TestCase):
   self.assertTrue(any(n['code']=='entry_time_reservation_required' for n in tsutenkaku['dates'][0]['notices']))
   self.assertEqual(umeda['dates'][0]['status'],'confirmed');self.assertEqual(umeda['dates'][0]['live'],'confirmed')
   self.assertTrue(all(s['url'].startswith('http') for s in umeda['sources']))
+  self.assertEqual(umeda['evidence']['placeId'],'osaka_007')
+  self.assertEqual(umeda['evidence']['schemaVersion'],1)
+  self.assertIsInstance(umeda['evidence']['entries'],list)
+  self.assertIsInstance(umeda['dates'][0]['evidenceCheck']['reasons'],list)
   with patch.dict('os.environ',{'LIVE_CHECK_MOCK':'fail'}):
    failed=self.req('POST',path,body,token)[1]
   self.assertEqual(failed['places'][1]['dates'][0]['live'],'failed')

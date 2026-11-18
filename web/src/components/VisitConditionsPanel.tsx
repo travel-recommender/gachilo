@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { EVIDENCE_FIELD, FRESHNESS_LABEL, SOURCE_LABEL, evidencePeriod, EVIDENCE_REASON, evidenceValueText } from "@/lib/visit-evidence";
 import { useVisitConditions } from "@/components/useVisitConditions";
 import { STATUS_LABEL, canRetryLive, liveLine, openingLine, scheduleLine, sourceHost, type VisitRequest, type VisitStatus } from "@/lib/visit-conditions";
 
@@ -75,6 +76,27 @@ export function VisitConditionsPanel({ roomId, token, placeIds, date }: {
                 <p className={`mt-1 text-[11px] leading-snug ${d.live === "confirmed" ? "text-emerald-700" : d.live === "not_checked" ? "text-mute" : "text-amber-700"}`}>
                   {liveLine(d.live, data.checkedOn)}
                 </p>
+                {p.evidence && (
+                  <details className="mt-2 text-[11px] leading-relaxed text-mute">
+                    <summary className="cursor-pointer font-semibold">자료별 출처·확인일·적용 기간{d.evidenceCheck?.reasons.length ? ` · 자료 재확인 ${d.evidenceCheck.reasons.length}건` : ""}</summary>
+                    {!!d.evidenceCheck?.reasons.length && (
+                      <p className="mt-1">{d.evidenceCheck.reasons.map(code => EVIDENCE_REASON[code] ?? "자료 재확인 필요").join(" · ")}</p>
+                    )}
+                    <ul className="mt-1 space-y-2">
+                      {p.evidence.entries.map((e) => (
+                        <li key={e.id} className="break-words rounded-md bg-stone-50 p-2">
+                          <p className="font-semibold">{EVIDENCE_FIELD[e.field]} · {e.state === "superseded" ? "이전 자료" : FRESHNESS_LABEL[e.freshness]}</p>
+                          {evidenceValueText(e) && <p>{evidenceValueText(e)}</p>}
+                          <p>확인: {e.checkedAt ?? "기록 없음"}{e.checkedPrecision === "day" ? " (날짜만 기록)" : ""}</p>
+                          <p>적용: {evidencePeriod(e)}</p>
+                          {e.note && <p>{e.note}</p>}
+                          {e.sources.map((s) => <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer" className="mr-2 underline">{SOURCE_LABEL[s.kind]} ({sourceHost(s.url)})</a>)}
+                          {!e.sources.length && <p>출처 링크 미확인</p>}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
                 {p.sources.length > 0 ? (
                   <ul className="mt-1 space-y-0.5">
                     {p.sources.map((s) => (
@@ -99,7 +121,7 @@ export function VisitConditionsPanel({ roomId, token, placeIds, date }: {
       )}
       {data && (
         <p className="mt-3 text-[10px] leading-relaxed text-mute-soft">
-          검토 자료 기준 {data.profilesCheckedAt ?? "기록 없음"}. 예약 가능 여부·임시 휴무는 바뀔 수 있으니 방문 전 공식 안내를 확인하세요.
+          검토 자료와 실시간 영업 조회는 확인 범위가 달라요. 예약 가능 여부·임시 휴무는 방문 전 공식 안내를 확인하세요.
         </p>
       )}
     </section>
