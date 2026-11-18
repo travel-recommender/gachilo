@@ -241,11 +241,12 @@ function buildDay(
     let chosen = scored[0].sel;
     if (!notBefore) {
       const arrive = (from: Place | null, to: Place, at: number) => fitOpening(to, at + (from ? travel(from, to).min : 0));
-      // 앞당긴 곳이 끝난 시각에 끼니 시간이 시작되고 남은 식당이 있으면, 가까운 곳은 식사 뒤로 밀려 문을 닫을 수 있다 (#79 리뷰)
+      // 앞당긴 곳이 끝난 시각에 끼니 시간이 시작되고 식당이 끼어들 수 있으면(남은 식당 또는 자동 식사 채우기), 가까운 곳은 식사 뒤로 밀려 문을 닫을 수 있다 (#79 리뷰)
       const mealPendingAt = (t: number, skip: Selection[]) =>
         ([[LUNCH, mealsDone.lunch], [DINNER, mealsDone.dinner]] as const)
           .some(([w, done]) => !done && t >= w[0] - MEAL_LEAD && t <= w[1])
-        && remaining.some((x) => !skip.includes(x) && isMeal(x.place));
+        // 자동 식사 채우기가 켜져 있으면 남은 식당이 없어도 끼니 시간에 식당이 끼어든다 (#79 재리뷰)
+        && (!!opts.fillMeals || remaining.some((x) => !skip.includes(x) && isMeal(x.place)));
       const startNear = arrive(prev, chosen.place, clock);
       if (startNear !== null) {
         const endNear = startNear + chosen.place.stayMin;

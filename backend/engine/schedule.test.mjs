@@ -66,3 +66,15 @@ test('가까운 곳이 꼭 가기이고 먼 곳이 아니면 바꾸지 않는다
   const {plans} = buildSchedule([sel(a), {...sel(n), mustOf: 'm1'}, sel(f)], 1, {});
   assert.deepEqual(plans[0].items.map(it => it.place.id).slice(0, 2), ['a', 'n']);
 });
+
+test('자동 식사 채우기가 켜져 있으면 남은 식당이 없어도 끼니 시간으로 보고 바꾸지 않는다 (#79 재리뷰)', (t) => {
+  // 위 경우에서 식당 r 대신 채우기 후보 식당 하나만 둔다. 바꾸면 채운 식당 뒤로 n이 밀려 빠진다
+  const filler = place('filler', 3, 'food', 60, 600, 1260);
+  setCustomPlaces([filler]); t.after(() => setCustomPlaces([]));
+  const vetoed = new Set(allPlaces().map(p => p.id).filter(id => id !== filler.id));
+  const a = place('a', 0, 'culture', 30), n = place('n', 1, 'culture', 60, 540, 810), f = place('f', 20, 'culture', 120, 540, 720);
+  const {plans, dropped} = buildSchedule([a, n, f].map(sel), 1, {fillMeals: true, vetoed});
+  // 바꾸면 a, f, 채운 식당 / n 빠짐(가까운 곳이 빠지고 먼 곳이 남음). 바꾸지 않으면 수정 전과 같이 a, n / f 빠짐
+  assert.deepEqual(plans[0].items.map(it => it.place.id), ['a', 'n']);
+  assert.deepEqual(dropped.map(d => d.place.id), ['f']);
+});
