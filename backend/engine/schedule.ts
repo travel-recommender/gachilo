@@ -234,7 +234,25 @@ function buildDay(
     });
     scored.sort((a, b) => urgency(b.sel) - urgency(a.sel) || a.cost - b.cost);
 
-    const chosen = scored[0].sel;
+    // 가장 가까운 곳을 먼저 가면 그 사이 문을 닫아 못 가게 되는 곳이 있으면, 그곳을 먼저 간다.
+    // 가까운 곳이 그 뒤에도 갈 수 있을 때만 바꾼다(빠지는 곳 없이 순서만 바뀜). 끼니 시각을 기다리는 경우는 그대로 둔다.
+    // 예: 점심을 우메다에서 먹은 뒤 가까운 백화점(오래 머묾)부터 가면 17시에 닫는 오사카 텐만구가 빠지던 문제
+    let chosen = scored[0].sel;
+    if (!notBefore && !urgency(chosen)) {
+      const arrive = (from: Place | null, to: Place, at: number) => fitOpening(to, at + (from ? travel(from, to).min : 0));
+      const startNear = arrive(prev, chosen.place, clock);
+      if (startNear !== null) {
+        const endNear = startNear + chosen.place.stayMin;
+        const near = chosen;
+        const rescue = scored.slice(1).map((x) => x.sel).find((s) => {
+          if (isMeal(s.place) !== isMeal(near.place)) return false;
+          const start = arrive(prev, s.place, clock);
+          if (start === null || arrive(near.place, s.place, endNear) !== null) return false;
+          return arrive(s.place, near.place, start + s.place.stayMin) !== null;
+        });
+        if (rescue) chosen = rescue;
+      }
+    }
     remaining.splice(remaining.indexOf(chosen), 1);
     if(opts.considerBags) for(const s of remaining) {
       onwardSums.set(s,Math.max(0,(onwardSums.get(s)??0)-(onward.get(s)?.get(chosen)??0)));
