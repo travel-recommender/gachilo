@@ -1,0 +1,237 @@
+{
+  "checked_at": "2026-11-16",
+  "valid_from": "2026-11-16",
+  "valid_through": "2026-11-30",
+  "catalog_input": "data/final/osaka_catalog_20261112.json",
+  "profiles_input": "data/final/osaka_profiles_20261104.json",
+  "input_sha256": {
+    "data/final/osaka_catalog_20261112.json": "239206d2f194622766e287d4445032cb2a8877aef80d676cf6f4516bbd061bd3",
+    "data/final/osaka_profiles_20261104.json": "aab215648692820b516037a14551bcbc3977f1f98519df1dd904aa8bf5c0a2bb"
+  },
+  "limits": [
+    "공식 온라인 자료와 공개 지도 대조이며 현장·티켓 구매·당일 입장 보장이 아님.",
+    "시장·공공 관람 지점의 계획 시간은 모든 점포의 영업시간이나 24시간 개방 보장이 아님.",
+    "USJ는 날짜별 가격까지 확인한 11월 17~19일만 사용. 나머지 날짜는 확인 전까지 보류.",
+    "실시간 영업 재확인·예산·활동 시간 검사는 기존대로 적용."
+  ],
+  "updates": {
+    "osaka_001": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "latitude": 34.669074,
+        "longitude": 135.50129,
+        "address": "大阪府大阪市中央区道頓堀1丁目6（戎橋の公共観覧地点）",
+        "opening_hours": "에비스바시에서 외관 관람. 간판 점등은 일몰 후~24:00(단축 가능); 공공 공간의 통행 제한·점등 여부는 당일 확인. 일정상 방문 시간 09:00~22:00은 계획 범위이며 공식 개방시간이 아님.",
+        "stay_min": 30,
+        "cost": 0,
+        "covered": false
+      },
+      "source_urls": [
+        "https://www.glico.com/jp/health/contents/glicosign/",
+        "https://www.ebisubashi.or.jp/sp/ja/tourist_spot3.html",
+        "https://osaka-info.jp/experience/ja/osaka/spot/551",
+        "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+      ],
+      "conditions": [
+        "간판 건물 내부가 아닌 에비스바시 공공 관람 지점에서 사진·외관 감상.",
+        "관람 무료. 점등 관람을 원하면 일몰 후 방문; 점등 단축·통행 제한 가능.",
+        "30분은 사진 촬영을 위한 계획 추정이며 공식 권장 체류시간이 아님."
+      ],
+      "profile": {
+        "window": [
+          540,
+          1320,
+          1290
+        ],
+        "visit_scope": "public_exterior_view",
+        "window_basis": "editorial_visit_window_not_business_hours"
+      },
+      "cost_basis": "공공 관람 지점에서 외관 감상 무료. 유료 시설 입장 없음.",
+      "resolved_blockers": [
+        "public_viewpoint_unconfirmed",
+        "final_calendar_review_required"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 30,
+        "note": "외관 사진 관람 30분 계획 추정. 이동·혼잡 대기 별도."
+      },
+      "field_kinds": {
+        "latitude": "public_map_reference",
+        "longitude": "public_map_reference",
+        "stay_min": "demo_model_estimate"
+      },
+      "field_notes": {
+        "latitude": "토목학회 공개 戎橋 위치. 기존 간판 건물 좌표 대신 공공 관람 지점 참고 위치. 현장 측량 아님.",
+        "longitude": "토목학회 공개 戎橋 위치. 건물 내부로 안내하지 않음."
+      },
+      "coordinates": {
+        "kind": "public_map_reference",
+        "source_urls": [
+          "https://www.glico.com/jp/health/contents/glicosign/",
+          "https://www.ebisubashi.or.jp/sp/ja/tourist_spot3.html",
+          "https://osaka-info.jp/experience/ja/osaka/spot/551",
+          "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+        ],
+        "note": "공개 지도 참고 위치, 현장 측량·출입 보장 아님."
+      },
+      "cost_kind": "free_exterior_view"
+    },
+    "osaka_005": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "opening_hours": "점포별 영업시간·휴무가 다름. 시장 산책·쇼핑 계획 시간은 10:00~17:00(공통 영업시간 아님); 개별 가게 방문은 해당 가게 운영일·품절·휴무 별도 확인.",
+        "stay_min": 120
+      },
+      "source_urls": [
+        "https://osaka-info.jp/spot/kuromon-market/",
+        "https://discover.osaka-info.jp/jp/spots/kuromon-market",
+        "https://kuromon.com/jp/cms/wp-content/uploads/2026/02/kuromonMap_20260224.pdf"
+      ],
+      "conditions": [
+        "시장 전체 산책·쇼핑 대상으로 배치하며 특정 식당의 영업·식사를 보장하지 않음.",
+        "10~17시는 방문 계획 범위; 모든 점포의 공통 영업시간·정기휴무로 해석하지 않음.",
+        "개인 음식·쇼핑 구매액은 일정 비용 합계에서 제외. 120분은 음식·쇼핑 포함 계획 추정."
+      ],
+      "profile": {
+        "window": [
+          600,
+          1020,
+          900
+        ],
+        "visit_scope": "market_walk",
+        "window_basis": "editorial_visit_window_not_business_hours"
+      },
+      "cost_basis": "시장 산책·쇼핑. 개인 음식·쇼핑 구매액 별도(무료 식사 의미 아님).",
+      "resolved_blockers": [
+        "final_calendar_review_required"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 120,
+        "note": "관광국 안내의 음식·쇼핑 1~2시간 중 120분을 계획에 사용. 이동·대기 별도."
+      },
+      "field_kinds": {
+        "stay_min": "demo_model_estimate"
+      },
+      "field_notes": {},
+      "coordinates": {
+        "kind": "retained_reviewed_map_reference",
+        "source_urls": [
+          "https://osaka-info.jp/spot/kuromon-market/",
+          "https://discover.osaka-info.jp/jp/spots/kuromon-market",
+          "https://kuromon.com/jp/cms/wp-content/uploads/2026/02/kuromonMap_20260224.pdf"
+        ],
+        "note": "공개 지도 참고 위치, 현장 측량·출입 보장 아님."
+      },
+      "cost_kind": "not_applicable_shopping"
+    },
+    "branch_usj": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "latitude": 34.6673149,
+        "longitude": 135.4351775,
+        "area": "오사카베이",
+        "cost": 9900,
+        "stay_min": 480,
+        "bag_load": 0,
+        "covered": false,
+        "opening_hours": "2026-11-17 09:00~20:00, 11-18 09:00~21:00, 11-19 09:00~20:00. 날짜별 변동·조기 개장 가능. 입장권은 별도 구매; 일부 구역·체험은 추가 정리권/예약 필요."
+      },
+      "source_urls": [
+        "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
+        "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
+        "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
+        "https://www.usj.co.jp/web/ja/jp/access",
+        "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+        "https://www.openstreetmap.org/node/519909156"
+      ],
+      "conditions": [
+        "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.",
+        "입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.",
+        "실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.",
+        "OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.",
+        "테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음."
+      ],
+      "profile": {
+        "window": [
+          540,
+          1200,
+          720
+        ],
+        "valid_from": "2026-11-17",
+        "valid_through": "2026-11-19",
+        "exceptions": {
+          "2026-11-17": {
+            "window": [
+              540,
+              1200,
+              720
+            ],
+            "cost_jpy": 9900
+          },
+          "2026-11-18": {
+            "window": [
+              540,
+              1260,
+              780
+            ],
+            "cost_jpy": 9900
+          },
+          "2026-11-19": {
+            "window": [
+              540,
+              1200,
+              720
+            ],
+            "cost_jpy": 9900
+          }
+        },
+        "window_basis": "official_calendar_with_480_min_planning_stay"
+      },
+      "cost_basis": "2026-11-17~19 성인 1데이 스튜디오 패스 9,900엔. 공식 티켓 달력 11/16 확인; 입장권 구매·식사·익스프레스 패스·쇼핑 별도.",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "entrance_coordinates_unconfirmed",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed",
+        "category_contract_review_required",
+        "dated_ticket_and_reservation_required"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 480,
+        "note": "기존 팀 테마파크 기준 360~480분 중 480분. 이동·입장 대기 별도."
+      },
+      "field_kinds": {
+        "latitude": "osm_map_reference",
+        "longitude": "osm_map_reference",
+        "stay_min": "demo_model_estimate",
+        "bag_load": "demo_model_estimate",
+        "cost": "dated_official_ticket"
+      },
+      "field_notes": {
+        "latitude": "OSM node/519909156의 정문 부근 보행로(Rodeo Drive) 게이트. 실측·입장 가능 보장이 아닌 이동 계산 참고 위치.",
+        "longitude": "OSM node/519909156 공개 좌표; 지도 보행로 및 공식 접근 안내 대조.",
+        "bag_load": "개인 쇼핑 구매량을 제외한 테마파크 방문의 상대 짐 점수 0. 수하물 반입 허용 의미 아님."
+      },
+      "coordinates": {
+        "kind": "public_map_reference",
+        "source_urls": [
+          "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
+          "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
+          "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
+          "https://www.usj.co.jp/web/ja/jp/access",
+          "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+          "https://www.openstreetmap.org/node/519909156"
+        ],
+        "note": "공개 지도 참고 위치, 현장 측량·출입 보장 아님."
+      },
+      "cost_kind": "dated_official_ticket"
+    }
+  },
+  "additions": []
+}

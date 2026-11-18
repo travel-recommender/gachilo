@@ -52,6 +52,8 @@ export interface Place {
   categoryLabel?: string;
   searchNames?: string[];
   catalogStatus?: string;
+  /** 같은 방문 목적의 지점 교체 그룹. 브랜드 전체와 구분한다. */
+  branchGroupId?: string | null;
   selectionDisabledReason?: string | null;
   costKnown?: boolean;
   costEstimated?: boolean;

@@ -141,10 +141,11 @@ def build(node):
     save_private(ROOT/'.local/experiment-build.json',{'commit':commit,'mode':'h4','api':'/backend'})
 
 def main():
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['build','start']);p.add_argument('--node',default=os.getenv('NODE_BINARY','node'));p.add_argument('--host');p.add_argument('--group',choices=['all']+[x[0] for x in GROUPS],default='all');p.add_argument('--mode',choices=['rehearsal','live'],default='rehearsal');p.add_argument('--bundle',type=Path);p.add_argument('--start',default='2026-11-16');p.add_argument('--end',default='2026-11-19');p.add_argument('--port',type=int,default=3140);p.add_argument('--api-port',type=int,default=8140);p.add_argument('--open',action='store_true')
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('command',choices=['build','start']);p.add_argument('--node',default=os.getenv('NODE_BINARY','node'));p.add_argument('--host');p.add_argument('--group',choices=['all','friends']+[x[0] for x in GROUPS],default='all');p.add_argument('--loopback',action='store_true',help='Shared HTTPS gateway only: bind all LAN gateways to loopback');p.add_argument('--mode',choices=['rehearsal','live'],default='rehearsal');p.add_argument('--bundle',type=Path);p.add_argument('--start',default='2026-11-16');p.add_argument('--end',default='2026-11-19');p.add_argument('--port',type=int,default=3140);p.add_argument('--api-port',type=int,default=8140);p.add_argument('--open',action='store_true')
     a=p.parse_args();node=support.node_binary(a.node)
     if a.command=='build':build(node);return
-    ip=network.choose_host(a.host);network.ensure_local(ip)
+    ip='127.0.0.1' if a.loopback else network.choose_host(a.host)
+    if not a.loopback:network.ensure_local(ip)
     if (support.date.fromisoformat(a.end)-support.date.fromisoformat(a.start)).days!=3:raise ValueError('가상 여행은 4일로 고정합니다.')
     for port in (a.port,a.api_port):
         if not 1024<=port<=65532:raise ValueError('포트 범위는 1024~65532입니다.')
@@ -159,13 +160,13 @@ def main():
     expected={'purpose':'h4_user_experiment' if a.mode=='live' else 'local_h4_rehearsal','travel_dates':[a.start,a.end],'recommendation_card_policy':'disabled_in_experiment'}
     if fresh_bundle:support.prepare(bundle,**expected)
     manifest=support.verify(bundle,code=True)
-    config={'commit':commit,'mode':a.mode,'travelDates':[a.start,a.end],'rate':'8.6253','rateDate':'2026-09-30','recommendationCards':'disabled_in_experiment','survey':'google_form','surveyUrl':SURVEY_URL,'groupSize':3,
+    config={'explanationPolicy':support.explanation_policy(),'commit':commit,'mode':a.mode,'travelDates':[a.start,a.end],'rate':'8.6253','rateDate':'2026-09-30','recommendationCards':'disabled_in_experiment','survey':'google_form','surveyUrl':SURVEY_URL,'groupSize':3,
             'osrm':bool(os.getenv('OSRM_FOOT_URL')) if a.mode=='live' else False,'ai':bool(os.getenv('SOMSOM_API_KEY')) if a.mode=='live' else False}
     if any(manifest.get(k)!=v for k,v in expected.items()):raise ValueError('기존 묶음의 날짜·실험 정책이 다릅니다. 새 --bundle 경로를 사용하세요.')
     config_file=bundle/'experiment-config.json'
     if config_file.exists() and support.read_json(config_file)!=config:raise ValueError('기존 실험과 설정이 다릅니다. 새 --bundle 경로로 준비하세요.')
     if not config_file.exists():save_private(config_file,config)
-    selected=[(i,g) for i,g in enumerate(GROUPS) if a.group in ('all',g[0])]
+    selected=[(i,g) for i,g in enumerate(GROUPS) if a.group in ('all',g[0]) or (a.group=='friends' and g[0]!='team')]
     # Claim ports before spawning, never stop unrelated servers.
     for i,_ in selected:
         for host,port in [(str(ip),a.port+i),('127.0.0.1',a.api_port+i)]:

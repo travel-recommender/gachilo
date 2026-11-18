@@ -311,10 +311,10 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
           return;
         }
         // 전체를 검색하되 방문일 검사에서 탈락한 장소는 사유를 표시하고 선택을 막는다.
-        const [{ places }, { placeIds }] = await Promise.all([
+        const [{ places }, { placeIds, unavailableReasons }] = await Promise.all([
           roomApi.realPlaces(), roomApi.schedulable(roomId, roomToken),
         ]);
-        const list = roomCatalog(places, placeIds);
+        const list = roomCatalog(places, placeIds, unavailableReasons);
         if (live) { setCatalog(list); setCatalogStatus("real"); }
       } catch {
         if (live) setCatalogStatus("error");
