@@ -232,3 +232,17 @@ test('교체 후보 순서는 제외한 장소 근처가 아니라 같이 갈 �
   const top = branchCandidates(dataset, profiles, ['2026-11-16'], ids, new Set([namba])).get('branch_ichiran_abeno');
   assert.deepEqual(top.slice(0, 2).sort(), ['branch_ichiran_umeda_hankyu', 'branch_ichiran_umeda_shibata'], `${namba}: ${top}`);
 });
+
+test('가까운 지점으로 바꿔도 문 닫는 시각이 이른 곳을 먼저 가서 빠지는 곳이 없으면 바꾼다 (11/18 테스트 피드백)', async () => {
+  // 앞뒤가 모두 우메다인데 신사이바시점이 남던 경우: 우메다점으로 바꾸면 가까운 백화점부터 가느라 17시에 닫는 텐만구가 빠져 교체가 탈락했다
+  const picks = ['branch_ichiran_shinsaibashi', 'osaka_007', 'osaka_010', 'osaka_023'];
+  const {candidates} = await run(request('2026-11-18', [member('a', picks, {must: 'osaka_007', activeMin: 600}), member('b', picks, {must: 'osaka_007', activeMin: 600})]));
+  for (const c of candidates) {
+    const ids = items(c).map(i => i.placeId);
+    assert.ok(ids.includes('osaka_010'), c.strategy);
+    assert.ok(!ids.includes('branch_ichiran_shinsaibashi'), c.strategy);
+    const ichiran = items(c).find(i => i.branch?.fromPlaceId === 'branch_ichiran_shinsaibashi');
+    assert.ok(ichiran && /umeda/.test(ichiran.placeId), c.strategy);
+    assert.equal(ichiran.branch.reasonCode, 'shorter_route');
+  }
+});
