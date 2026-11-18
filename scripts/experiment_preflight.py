@@ -197,7 +197,8 @@ def run(out, node, start, end):
             lost_calculation_response_recovered_without_replay=True, live_backups=True)
 
         # Terminate only a backend belonging to the child launched above. Never touch another server.
-        children = subprocess.check_output(['ps', '-o', 'pid=', '--ppid', str(process.pid)], text=True).split()
+        process_rows = subprocess.check_output(['ps', '-axo', 'pid=,ppid='], text=True).splitlines()
+        children = [row.split()[0] for row in process_rows if len(row.split()) == 2 and row.split()[1] == str(process.pid)]
         require(len(children) == 4, 'Unexpected QA child count; refusing fault injection')
         os.kill(int(children[0]), signal.SIGTERM)
         process.wait(timeout=25)
@@ -235,6 +236,8 @@ def run(out, node, start, end):
         report['status'] = 'passed'
     finally:
         stop()
+        if report.get('status') != 'passed':
+            report['status'] = 'failed'
         for log in logs:
             log.close()
         support.write_private_text(out/'verification.json', json.dumps(report, ensure_ascii=False, indent=2)+'\n')
