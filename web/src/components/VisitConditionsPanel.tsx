@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { EVIDENCE_FIELD, FRESHNESS_LABEL, SOURCE_LABEL, evidencePeriod } from "@/lib/visit-evidence";
+import { EVIDENCE_FIELD, FRESHNESS_LABEL, SOURCE_LABEL, evidencePeriod, EVIDENCE_REASON, evidenceValueText } from "@/lib/visit-evidence";
 import { useVisitConditions } from "@/components/useVisitConditions";
 import { STATUS_LABEL, canRetryLive, liveLine, openingLine, scheduleLine, sourceHost, type VisitRequest, type VisitStatus } from "@/lib/visit-conditions";
 
@@ -78,14 +78,18 @@ export function VisitConditionsPanel({ roomId, token, placeIds, date }: {
                 </p>
                 {p.evidence && (
                   <details className="mt-2 text-[11px] leading-relaxed text-mute">
-                    <summary className="cursor-pointer font-semibold">자료별 출처·확인일·적용 기간</summary>
+                    <summary className="cursor-pointer font-semibold">자료별 출처·확인일·적용 기간{d.evidenceCheck?.reasons.length ? ` · 자료 재확인 ${d.evidenceCheck.reasons.length}건` : ""}</summary>
+                    {!!d.evidenceCheck?.reasons.length && (
+                      <p className="mt-1">{d.evidenceCheck.reasons.map(code => EVIDENCE_REASON[code] ?? "자료 재확인 필요").join(" · ")}</p>
+                    )}
                     <ul className="mt-1 space-y-2">
                       {p.evidence.entries.map((e) => (
                         <li key={e.id} className="break-words rounded-md bg-stone-50 p-2">
                           <p className="font-semibold">{EVIDENCE_FIELD[e.field]} · {e.state === "superseded" ? "이전 자료" : FRESHNESS_LABEL[e.freshness]}</p>
-                          <p>{typeof e.value === "string" ? e.value : typeof e.value === "number" && e.field === "cost" ? `${e.value.toLocaleString()}엔` : null}</p>
+                          {evidenceValueText(e) && <p>{evidenceValueText(e)}</p>}
                           <p>확인: {e.checkedAt ?? "기록 없음"}{e.checkedPrecision === "day" ? " (날짜만 기록)" : ""}</p>
                           <p>적용: {evidencePeriod(e)}</p>
+                          {e.note && <p>{e.note}</p>}
                           {e.sources.map((s) => <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer" className="mr-2 underline">{SOURCE_LABEL[s.kind]} ({sourceHost(s.url)})</a>)}
                           {!e.sources.length && <p>출처 링크 미확인</p>}
                         </li>
@@ -93,7 +97,7 @@ export function VisitConditionsPanel({ roomId, token, placeIds, date }: {
                     </ul>
                   </details>
                 )}
-                {!p.evidence && (p.sources.length > 0 ? (
+                {p.sources.length > 0 ? (
                   <ul className="mt-1 space-y-0.5">
                     {p.sources.map((s) => (
                       <li key={s.url} className="truncate text-[10.5px] text-mute">
@@ -104,7 +108,7 @@ export function VisitConditionsPanel({ roomId, token, placeIds, date }: {
                   </ul>
                 ) : (
                   <p className="mt-1 text-[10.5px] text-mute">공식 출처가 연결되지 않았어요. 방문 전에 직접 확인해 주세요.</p>
-                ))}
+                )}
               </li>
             );
           })}
