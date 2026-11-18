@@ -237,18 +237,28 @@ function buildDay(
     // 가장 가까운 곳을 먼저 가면 그 사이 문을 닫아 못 가게 되는 곳이 있으면, 그곳을 먼저 간다.
     // 가까운 곳이 그 뒤에도 갈 수 있을 때만 바꾼다(빠지는 곳 없이 순서만 바뀜). 끼니 시각을 기다리는 경우는 그대로 둔다.
     // 예: 점심을 우메다에서 먹은 뒤 가까운 백화점(오래 머묾)부터 가면 17시에 닫는 오사카 텐만구가 빠지던 문제
+    // 앞당긴 곳이 쇼핑이면 짐 벌점이 조금 늘 수 있다. 장소가 빠지는 것보다 낫다고 본다(docs/branch_auto_placement.md 6.1).
     let chosen = scored[0].sel;
-    if (!notBefore && !urgency(chosen)) {
+    if (!notBefore) {
       const arrive = (from: Place | null, to: Place, at: number) => fitOpening(to, at + (from ? travel(from, to).min : 0));
+      // 앞당긴 곳이 끝난 시각에 끼니 시간이 시작되고 남은 식당이 있으면, 가까운 곳은 식사 뒤로 밀려 문을 닫을 수 있다 (#79 리뷰)
+      const mealPendingAt = (t: number, skip: Selection[]) =>
+        ([[LUNCH, mealsDone.lunch], [DINNER, mealsDone.dinner]] as const)
+          .some(([w, done]) => !done && t >= w[0] - MEAL_LEAD && t <= w[1])
+        && remaining.some((x) => !skip.includes(x) && isMeal(x.place));
       const startNear = arrive(prev, chosen.place, clock);
       if (startNear !== null) {
         const endNear = startNear + chosen.place.stayMin;
         const near = chosen;
         const rescue = scored.slice(1).map((x) => x.sel).find((s) => {
           if (isMeal(s.place) !== isMeal(near.place)) return false;
+          // 꼭 가기를 일반 장소 때문에 위험하게 하지 않는다 (#79 리뷰)
+          if (near.mustOf && !s.mustOf) return false;
           const start = arrive(prev, s.place, clock);
           if (start === null || arrive(near.place, s.place, endNear) !== null) return false;
-          return arrive(s.place, near.place, start + s.place.stayMin) !== null;
+          const endS = start + s.place.stayMin;
+          if (mealPendingAt(endS, [near, s])) return false;
+          return arrive(s.place, near.place, endS) !== null;
         });
         if (rescue) chosen = rescue;
       }
