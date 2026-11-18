@@ -103,6 +103,7 @@ test('P8 retains factual labels and times but hides all recommendation/branch re
   assert.equal(typeof row.badges.ai.reason==='string',i>0,member+letter);
   assert.equal(typeof row.branches.new.reason==='string',i>0,member+letter);
   assert.equal(JSON.stringify(tree).includes('추천 이유 테스트'),i>0);
-  assert.ok(row.branches.new.from.includes('old'));
+  assert.equal(row.branches.new.picked, '고른 곳: old');
+  assert.equal(row.branches.new.placed, '배치: new');
  }
 });
