@@ -2,7 +2,7 @@
 // 실행: cd web && node --test _test/shared-flow.test.ts  (Node 24 이상)
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { badgeOf, calcView, createCalculator, hasCandidates, newer } from "../src/lib/shared-flow.ts";
+import { badgeOf, branchNoteOf, calcView, createCalculator, hasCandidates, newer } from "../src/lib/shared-flow.ts";
 import type { SharedResults } from "../src/lib/shared-results-api";
 
 const snap = (patch: Partial<SharedResults> = {}): SharedResults => ({
@@ -103,4 +103,22 @@ test("규칙으로 채운 곳은 'AI 추천'이 아니라 '추천'이다", () =>
   assert.equal(badgeOf(item("rule_added")), "추천");
   assert.equal(badgeOf(item("meal_fill")), "추천");
   assert.equal(badgeOf(item("selected")), null);
+});
+
+test("지점 변경: 표시·고른 곳 문구는 두 조건 같고, 이유는 설명 있음에서만 정해진 틀로", () => {
+  const names: Record<string, string> = { a: "이치란 난바점", b: "이치란 도톤보리점" };
+  const nameOf = (id: string) => names[id];
+  const base = { placeId: "b", aiAdded: false, filled: false, source: "selected" as const, reasonCode: null, reason: null };
+  assert.equal(branchNoteOf(base, nameOf, true), null);
+  const near = { ...base, branch: { fromPlaceId: "a", reasonCode: "shorter_route" as const, savedMin: 12 } };
+  assert.deepEqual(branchNoteOf(near, nameOf, false), { label: "지점 변경", picked: "고른 곳: 이치란 난바점", placed: "배치: 이치란 도톤보리점" });
+  const on = branchNoteOf(near, nameOf, true)!;
+  assert.equal(on.picked, "고른 곳: 이치란 난바점");
+  assert.equal(on.placed, "배치: 이치란 도톤보리점");
+  assert.match(on.reason!, /약 12분 줄었어요/);
+  const closed = { ...base, branch: { fromPlaceId: "a", reasonCode: "original_unavailable" as const, savedMin: null } };
+  assert.match(branchNoteOf(closed, nameOf, true)!.reason!, /그날 운영하지 않아/);
+  assert.doesNotMatch(branchNoteOf(closed, nameOf, true)!.reason!, /분/);
+  // 전략 이름이 문장에 나오지 않는다 (H4 실험)
+  for (const r of [on.reason!, branchNoteOf(closed, nameOf, true)!.reason!]) assert.doesNotMatch(r, /평균|최소 불만|공정성/);
 });
