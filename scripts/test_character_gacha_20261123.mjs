@@ -16,7 +16,7 @@ test('new catalog keeps prior records and exposes three distinct shops',()=>{
  for(const row of prior.places){
   if(row.place.place_id==='osm_node_2546559085') { assert.equal(get(row.place.place_id),undefined); continue; }
   const actual=get(row.place.place_id); assert.ok(actual);
-  if(!['osaka_004','branch_kiddyland_umeda','branch_kura_sennichimae','branch_kura_dotonbori','branch_wanaka_sennichimae','branch_wanaka_dotonbori'].includes(row.place.place_id))assert.deepEqual(actual,row);
+  if(!['osaka_004','branch_kiddyland_umeda','branch_kura_sennichimae','branch_kura_dotonbori','branch_wanaka_sennichimae','branch_wanaka_dotonbori','osaka_draft_f72944194ef3','osaka_draft_a66fcd05acfb','osaka_draft_c6de5620d3d0','osaka_draft_e102a263e5a8'].includes(row.place.place_id))assert.deepEqual(actual,row);
  }
  for(const id of ids){
   const row=get(id);assert.equal(row.place.category,'쇼핑');assert.equal(row.place.cost,null);
@@ -27,6 +27,14 @@ test('new catalog keeps prior records and exposes three distinct shops',()=>{
  }
  const selected=schedulableDetails(['2026-11-16','2026-11-17','2026-11-18','2026-11-19'],dataset,profiles).placeIds;
  ids.forEach(id=>assert.ok(selected.includes(id)));
+});
+test('reviewed park profiles distinguish opening hours and assumed visit windows',()=>{
+ for(const id of ['osaka_draft_f72944194ef3','osaka_draft_a66fcd05acfb','osaka_draft_c6de5620d3d0','osaka_draft_e102a263e5a8']){
+  const c=check(id,'2026-11-17');assert.equal(c.eligible_for_model,true,id);assert.equal(c.cost_jpy,0);
+  assert.equal(check(id,'2026-12-01').eligible_for_model,false);
+ }
+ assert.equal(profiles.places.osaka_draft_c6de5620d3d0.window_basis,'editorial_visit_window_not_business_hours');
+ assert.deepEqual(check('osaka_draft_e102a263e5a8','2026-11-17').window,[540,1020,900]);
 });
 test('Kura branch estimates are explicit and budget limits remain enforced',()=>{
  for (const id of ['branch_kura_sennichimae','branch_kura_dotonbori']){

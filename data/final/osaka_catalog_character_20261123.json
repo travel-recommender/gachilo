@@ -15166,14 +15166,14 @@
         "address": "大阪市大正区千島2丁目7",
         "latitude": 34.6490799,
         "longitude": 135.4740853,
-        "opening_hours": "연중무휴 24시간 개방",
+        "opening_hours": "공원 야외 산책 계획 09:00~18:00. 시설별 이용시간·현장 통제는 별도 확인.",
         "cost": 0,
         "stay_min": 120,
         "bag_load": 0,
         "covered": false,
         "website": "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/",
-        "opening_hours_source": "https://www.google.com/searchviewer/10?svid=CAwSGxIZCgNwdnESEkNnc3ZaeTh4TWpJNE0zbHdjZxgK",
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/; https://www.openstreetmap.org/way/34993780; https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html",
+        "verified_at": "2026-11-23",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -15195,24 +15195,37 @@
           "url": "https://www.openstreetmap.org/way/34993780"
         },
         "opening_hours": {
-          "kind": "user_reported_google_maps_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 38,
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.google.com/searchviewer/10?svid=CAwSGxIZCgNwdnESEkNnc3ZaeTh4TWpJNE0zbHdjZxgK"
+            "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/",
+            "https://www.openstreetmap.org/way/34993780",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
           "previous": {
-            "value": "상시 개방; 부속 시설은 별도 운영",
+            "value": "연중무휴 24시간 개방",
             "source": {
-              "kind": "official_web_review",
+              "kind": "user_reported_google_maps_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 38,
               "urls": [
-                "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+                "https://www.google.com/searchviewer/10?svid=CAwSGxIZCgNwdnESEkNnc3ZaeTh4TWpJNE0zbHdjZxgK"
               ],
-              "checked_at": "2026-09-26",
-              "evidence_window": "2026-09-24/2026-09-26"
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "상시 개방; 부속 시설은 별도 운영",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+                  ],
+                  "checked_at": "2026-09-26",
+                  "evidence_window": "2026-09-24/2026-09-26"
+                }
+              }
             }
           }
         },
@@ -15269,13 +15282,26 @@
           "note": "공식 출처 주소의 행정구만 추출. 관광 권역·출입구 좌표 추정 아님."
         },
         "covered": {
-          "kind": "classification_from_official_description",
+          "kind": "dated_official_review",
           "urls": [
-            "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+            "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/",
+            "https://www.openstreetmap.org/way/34993780",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-28",
-          "note": "시청 공식 안내의 쇼와산·산책로 등 주요 야외 공간 기준. 공원 안 체육관은 별도.",
-          "revision": "official_fields_20260928_v2"
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": false,
+            "source": {
+              "kind": "classification_from_official_description",
+              "urls": [
+                "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
+              ],
+              "checked_at": "2026-09-28",
+              "note": "시청 공식 안내의 쇼와산·산책로 등 주요 야외 공간 기준. 공원 안 체육관은 별도.",
+              "revision": "official_fields_20260928_v2"
+            }
+          }
         },
         "name_ko": {
           "kind": "editorial_korean_translation",
@@ -15290,20 +15316,46 @@
         "bag_load": {
           "kind": "team_rule_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/",
+            "https://www.openstreetmap.org/way/34993780",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/",
+            "https://www.openstreetmap.org/way/34993780",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": 120,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_reported_google_maps_review",
@@ -15317,18 +15369,31 @@
           "independently_reverified": false
         },
         "cost": {
-          "kind": "user_reported_google_maps_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 38,
+          "kind": "free_public_park",
           "urls": [
-            "https://www.google.com/searchviewer/10?svid=CAwSGxIZCgNwdnESEkNnc3ZaeTh4TWpJNE0zbHdjZxgK"
+            "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/",
+            "https://www.openstreetmap.org/way/34993780",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-23",
+          "note": "일반 공원 산책 무료. 유료·예약 시설 별도.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": 0,
+            "source": {
+              "kind": "user_reported_google_maps_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 38,
+              "urls": [
+                "https://www.google.com/searchviewer/10?svid=CAwSGxIZCgNwdnESEkNnc3ZaeTh4TWpJNE0zbHdjZxgK"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         }
       },
@@ -15349,7 +15414,7 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_f72944194ef3_address_hours_20260926",
           "official_fields_20260928",
@@ -15358,12 +15423,14 @@
         "notes": [
           "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
           "시청 공식 안내의 쇼와산·산책로 등 주요 야외 공간 기준. 공원 안 체육관은 별도.",
-          "2026-10-06: 지시마 공원 상시 개방, 부속 시설 별도. 가격 공지가 없어 cost null을 무료로 바꾸지 않음."
+          "2026-10-06: 지시마 공원 상시 개방, 부속 시설 별도. 가격 공지가 없어 cost null을 무료로 바꾸지 않음.",
+          "2026-11-23: 야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_f72944194ef3",
         "missing_fields": [
-          "cost"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -15377,15 +15444,13 @@
           "hours_status": "verified",
           "notes": []
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "관광 명소(문화·자연 포함)",
-          "min": 90,
+          "type": "시연 추정",
+          "min": 120,
           "max": 120,
           "representative": 120,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "method": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -15408,6 +15473,62 @@
           "manual_review_source_url": "https://www.google.com/searchviewer/10?svid=CAwSGxIZCgNwdnESEkNnc3ZaeTh4TWpJNE0zbHdjZxgK",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "fields": {
+            "opening_hours": "공원 야외 산책 계획 09:00~18:00. 시설별 이용시간·현장 통제는 별도 확인.",
+            "stay_min": 120,
+            "bag_load": 0,
+            "covered": false,
+            "cost": 0
+          },
+          "profile": {
+            "window": [
+              540,
+              1080,
+              960
+            ],
+            "visit_scope": "public_park_walk",
+            "window_basis": "editorial_visit_window_not_business_hours"
+          },
+          "source_urls": [
+            "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/",
+            "https://www.openstreetmap.org/way/34993780",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+          ],
+          "conditions": [
+            "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.",
+            "일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.",
+            "OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음."
+          ],
+          "cost_basis": "일반 공원 산책 무료. 유료·예약 시설 별도.",
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "planning_policy": {
+            "stay_min": 120,
+            "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+          },
+          "field_kinds": {
+            "stay_min": "demo_model_estimate",
+            "bag_load": "team_rule_estimate",
+            "cost": "free_public_park"
+          },
+          "field_notes": {
+            "cost": "일반 공원 산책 무료. 유료·예약 시설 별도."
+          },
+          "coordinates": {
+            "kind": "retained_reviewed_map_reference",
+            "source_urls": [
+              "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/",
+              "https://www.openstreetmap.org/way/34993780",
+              "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+            ],
+            "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+          },
+          "cost_kind": "free_public_park"
         }
       }
     },
@@ -15421,14 +15542,14 @@
         "address": "大阪市北区天神橋1丁目・天満2～4丁目",
         "latitude": 34.691977,
         "longitude": 135.5146066,
-        "opening_hours": "연중무휴 종일 개방",
+        "opening_hours": "공원 야외 산책 계획 09:00~18:00. 시설별 이용시간·현장 통제는 별도 확인.",
         "cost": 0,
         "stay_min": 120,
         "bag_load": 0,
         "covered": false,
         "website": "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
-        "opening_hours_source": "https://blog.naver.com/zz_un/221510739462",
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf; https://www.openstreetmap.org/way/161621411; https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html",
+        "verified_at": "2026-11-23",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -15450,20 +15571,33 @@
           "url": "https://www.openstreetmap.org/way/161621411"
         },
         "opening_hours": {
-          "kind": "user_reported_third_party_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 39,
+          "kind": "dated_official_review",
           "urls": [
-            "https://blog.naver.com/zz_un/221510739462"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf",
+            "https://www.openstreetmap.org/way/161621411",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
           "previous": {
-            "value": "24/7",
+            "value": "연중무휴 종일 개방",
             "source": {
-              "kind": "osm",
-              "url": "https://www.openstreetmap.org/way/161621411"
+              "kind": "user_reported_third_party_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 39,
+              "urls": [
+                "https://blog.naver.com/zz_un/221510739462"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "24/7",
+                "source": {
+                  "kind": "osm",
+                  "url": "https://www.openstreetmap.org/way/161621411"
+                }
+              }
             }
           }
         },
@@ -15510,20 +15644,46 @@
         "bag_load": {
           "kind": "team_rule_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf",
+            "https://www.openstreetmap.org/way/161621411",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf",
+            "https://www.openstreetmap.org/way/161621411",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": 120,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_reported_third_party_review",
@@ -15552,33 +15712,59 @@
           }
         },
         "covered": {
-          "kind": "user_reported_third_party_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 39,
+          "kind": "dated_official_review",
           "urls": [
-            "https://blog.naver.com/zz_un/221510739462"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf",
+            "https://www.openstreetmap.org/way/161621411",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": false,
+            "source": {
+              "kind": "user_reported_third_party_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 39,
+              "urls": [
+                "https://blog.naver.com/zz_un/221510739462"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         },
         "cost": {
-          "kind": "user_reported_third_party_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 39,
+          "kind": "free_public_park",
           "urls": [
-            "https://blog.naver.com/zz_un/221510739462"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf",
+            "https://www.openstreetmap.org/way/161621411",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-23",
+          "note": "일반 공원 산책 무료. 유료·예약 시설 별도.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": 0,
+            "source": {
+              "kind": "user_reported_third_party_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 39,
+              "urls": [
+                "https://blog.naver.com/zz_un/221510739462"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         }
       },
@@ -15604,21 +15790,21 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_a66fcd05acfb_address_hours_20260926",
           "official_fields_20260928"
         ],
         "notes": [
           "공원 소재 지역 주소.",
-          "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+          "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+          "2026-11-23: 야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_a66fcd05acfb",
         "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -15634,15 +15820,13 @@
             "공원 소재 지역 주소."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "관광 명소(문화·자연 포함)",
-          "min": 90,
+          "type": "시연 추정",
+          "min": 120,
           "max": 120,
           "representative": 120,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "method": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -15654,6 +15838,62 @@
           "manual_review_source_url": "https://blog.naver.com/zz_un/221510739462",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "fields": {
+            "opening_hours": "공원 야외 산책 계획 09:00~18:00. 시설별 이용시간·현장 통제는 별도 확인.",
+            "stay_min": 120,
+            "bag_load": 0,
+            "covered": false,
+            "cost": 0
+          },
+          "profile": {
+            "window": [
+              540,
+              1080,
+              960
+            ],
+            "visit_scope": "public_park_walk",
+            "window_basis": "editorial_visit_window_not_business_hours"
+          },
+          "source_urls": [
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf",
+            "https://www.openstreetmap.org/way/161621411",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+          ],
+          "conditions": [
+            "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.",
+            "일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.",
+            "OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음."
+          ],
+          "cost_basis": "일반 공원 산책 무료. 유료·예약 시설 별도.",
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "planning_policy": {
+            "stay_min": 120,
+            "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+          },
+          "field_kinds": {
+            "stay_min": "demo_model_estimate",
+            "bag_load": "team_rule_estimate",
+            "cost": "free_public_park"
+          },
+          "field_notes": {
+            "cost": "일반 공원 산책 무료. 유료·예약 시설 별도."
+          },
+          "coordinates": {
+            "kind": "retained_reviewed_map_reference",
+            "source_urls": [
+              "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf",
+              "https://www.openstreetmap.org/way/161621411",
+              "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+            ],
+            "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+          },
+          "cost_kind": "free_public_park"
         }
       }
     },
@@ -15912,14 +16152,14 @@
         "address": "2 Chome-13-１３地先 Nagaranishi, Kita Ward, Osaka, 531-0061 일본",
         "latitude": 34.7197908,
         "longitude": 135.5136285,
-        "opening_hours": "매일 09:00–17:00; 5월17일–8월16일 09:00–19:00 (재해·공사 통제 별도)",
+        "opening_hours": "일반 산책 09:00~17:00. 기상·현장 통제 및 시설별 시간 확인.",
         "cost": 0,
         "stay_min": 120,
         "bag_load": 0,
         "covered": false,
         "website": "https://www.yodogawa-park.jp/annai/nagara-kahan/",
-        "opening_hours_source": "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
-        "verified_at": "2026-10-06",
+        "opening_hours_source": "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf; https://www.openstreetmap.org/way/162156955; https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html",
+        "verified_at": "2026-11-23",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -15941,14 +16181,27 @@
           "url": "https://www.openstreetmap.org/way/162156955"
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.yodogawa-park.jp/annai/nagara-kahan/",
-            "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+            "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+            "https://www.openstreetmap.org/way/162156955",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-10-06",
-          "revision": "official_followup_20261006",
-          "note": "현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도."
+          "checked_at": "2026-11-23",
+          "note": "11월 공원 운영표의 09~17시. 유료·예약 시설 제외.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": "매일 09:00–17:00; 5월17일–8월16일 09:00–19:00 (재해·공사 통제 별도)",
+            "source": {
+              "kind": "official_web_review",
+              "urls": [
+                "https://www.yodogawa-park.jp/annai/nagara-kahan/",
+                "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
+              ],
+              "checked_at": "2026-10-06",
+              "revision": "official_followup_20261006",
+              "note": "현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도."
+            }
+          }
         },
         "area": {
           "kind": "official_web_review",
@@ -15969,13 +16222,26 @@
           "revision": "official_fields_20260928_v2"
         },
         "covered": {
-          "kind": "classification_from_official_description",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.yodogawa-park.jp/annai/nagara-kahan/"
+            "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+            "https://www.openstreetmap.org/way/162156955",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-28",
-          "note": "나가라 지구 공식 안내의 기타구와 야외 잔디광장 확인. 관리사무소 소재지 모리구치시는 이 장소 주소로 사용하지 않음. 계절별 개원시간은 기존 충돌 표시 유지.",
-          "revision": "official_fields_20260928_v2"
+          "checked_at": "2026-11-23",
+          "note": "11월 공원 운영표의 09~17시. 유료·예약 시설 제외.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": false,
+            "source": {
+              "kind": "classification_from_official_description",
+              "urls": [
+                "https://www.yodogawa-park.jp/annai/nagara-kahan/"
+              ],
+              "checked_at": "2026-09-28",
+              "note": "나가라 지구 공식 안내의 기타구와 야외 잔디광장 확인. 관리사무소 소재지 모리구치시는 이 장소 주소로 사용하지 않음. 계절별 개원시간은 기존 충돌 표시 유지.",
+              "revision": "official_fields_20260928_v2"
+            }
+          }
         },
         "verified_at": {
           "kind": "review_date_only",
@@ -16010,20 +16276,46 @@
         "bag_load": {
           "kind": "team_rule_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+            "https://www.openstreetmap.org/way/162156955",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-23",
+          "note": "11월 공원 운영표의 09~17시. 유료·예약 시설 제외.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+            "https://www.openstreetmap.org/way/162156955",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-23",
+          "note": "11월 공원 운영표의 09~17시. 유료·예약 시설 제외.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": 120,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "official_web_review",
@@ -16045,16 +16337,29 @@
           "independently_reverified": false
         },
         "cost": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 41,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "free_public_park",
+          "urls": [
+            "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+            "https://www.openstreetmap.org/way/162156955",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+          ],
+          "checked_at": "2026-11-23",
+          "note": "일반 공원 산책 무료. 유료·예약 시설 별도.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": 0,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 41,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         }
       },
@@ -16073,7 +16378,7 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "official_fields_20260928_v2"
         ],
@@ -16081,12 +16386,14 @@
           "기존 24시간 표기와 공원 공개 이용시간 자료가 다름. 대상 구역·최신 규정 확인 필요.",
           "나가라 지구 공식 안내의 기타구와 야외 잔디광장 확인. 관리사무소 소재지 모리구치시는 이 장소 주소로 사용하지 않음. 계절별 개원시간은 기존 충돌 표시 유지.",
           "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 58.2m. 주소만 확인했으며 영업시간 검증 아님.",
-          "2026-10-06: 현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도."
+          "2026-10-06: 현행 지구 안내가 연결한 2025.4 운영시간 PDF의 長柄·長柄河畔 행을 시각 대조. 통상 09:00–17:00, 5/17–8/16 09:00–19:00, 정기 휴원 없음. 주차장만의 시간이 아닌 공원 개방시간 표이므로 OSM 24/7보다 우선. 일반 입장료는 명시 근거가 없어 null 유지; 홍수·공사 통제 별도.",
+          "2026-11-23: 11월 공원 운영표의 09~17시. 유료·예약 시설 제외.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_e102a263e5a8",
         "missing_fields": [
-          "cost"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -16100,9 +16407,7 @@
             "기존 24시간 표기와 공원 공개 이용시간 자료가 다름. 대상 구역·최신 규정 확인 필요."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_e102a263e5a8",
           "google_maps_url": "https://maps.google.com/?cid=249497854434163876",
@@ -16113,11 +16418,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "관광 명소(문화·자연 포함)",
-          "min": 90,
+          "type": "시연 추정",
+          "min": 120,
           "max": 120,
           "representative": 120,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "method": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -16141,6 +16446,62 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "fields": {
+            "opening_hours": "일반 산책 09:00~17:00. 기상·현장 통제 및 시설별 시간 확인.",
+            "stay_min": 120,
+            "bag_load": 0,
+            "covered": false,
+            "cost": 0
+          },
+          "profile": {
+            "window": [
+              540,
+              1020,
+              900
+            ],
+            "visit_scope": "public_park_walk",
+            "window_basis": "official_park_hours"
+          },
+          "source_urls": [
+            "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+            "https://www.openstreetmap.org/way/162156955",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+          ],
+          "conditions": [
+            "11월 공원 운영표의 09~17시. 유료·예약 시설 제외.",
+            "일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.",
+            "OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음."
+          ],
+          "cost_basis": "일반 공원 산책 무료. 유료·예약 시설 별도.",
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "planning_policy": {
+            "stay_min": 120,
+            "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+          },
+          "field_kinds": {
+            "stay_min": "demo_model_estimate",
+            "bag_load": "team_rule_estimate",
+            "cost": "free_public_park"
+          },
+          "field_notes": {
+            "cost": "일반 공원 산책 무료. 유료·예약 시설 별도."
+          },
+          "coordinates": {
+            "kind": "retained_reviewed_map_reference",
+            "source_urls": [
+              "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+              "https://www.openstreetmap.org/way/162156955",
+              "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+            ],
+            "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+          },
+          "cost_kind": "free_public_park"
         }
       }
     },
@@ -16364,14 +16725,14 @@
         "address": "3 Chome-11 Nanbanaka, Naniwa Ward, Osaka, 556-0011 일본",
         "latitude": 34.6606878,
         "longitude": 135.4993723,
-        "opening_hours": "매일 08:00~17:00; 연중무휴",
+        "opening_hours": "공원 야외 산책 계획 09:00~18:00. 시설별 이용시간·현장 통제는 별도 확인.",
         "cost": 0,
         "stay_min": 120,
         "bag_load": 0,
         "covered": false,
-        "website": null,
-        "opening_hours_source": "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVdJM2FHczBiamx6GAo",
-        "verified_at": null,
+        "website": "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+        "opening_hours_source": "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf; https://www.openstreetmap.org/way/172844586; https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html",
+        "verified_at": "2026-11-23",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -16393,20 +16754,33 @@
           "url": "https://www.openstreetmap.org/way/172844586"
         },
         "opening_hours": {
-          "kind": "user_reported_google_maps_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 42,
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVdJM2FHczBiamx6GAo"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+            "https://www.openstreetmap.org/way/172844586",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
           "previous": {
-            "value": "08:00-17:00",
+            "value": "매일 08:00~17:00; 연중무휴",
             "source": {
-              "kind": "osm",
-              "url": "https://www.openstreetmap.org/way/172844586"
+              "kind": "user_reported_google_maps_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 42,
+              "urls": [
+                "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVdJM2FHczBiamx6GAo"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "08:00-17:00",
+                "source": {
+                  "kind": "osm",
+                  "url": "https://www.openstreetmap.org/way/172844586"
+                }
+              }
             }
           }
         },
@@ -16443,20 +16817,46 @@
         "bag_load": {
           "kind": "team_rule_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+            "https://www.openstreetmap.org/way/172844586",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+            "https://www.openstreetmap.org/way/172844586",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
+          "previous": {
+            "value": 120,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_reported_google_maps_review",
@@ -16485,33 +16885,59 @@
           }
         },
         "covered": {
-          "kind": "user_reported_google_maps_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 42,
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVdJM2FHczBiamx6GAo"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+            "https://www.openstreetmap.org/way/172844586",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-23",
+          "note": "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": false,
+            "source": {
+              "kind": "user_reported_google_maps_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 42,
+              "urls": [
+                "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVdJM2FHczBiamx6GAo"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         },
         "cost": {
-          "kind": "user_reported_google_maps_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 42,
+          "kind": "free_public_park",
           "urls": [
-            "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVdJM2FHczBiamx6GAo"
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+            "https://www.openstreetmap.org/way/172844586",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-23",
+          "note": "일반 공원 산책 무료. 유료·예약 시설 별도.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": 0,
+            "source": {
+              "kind": "user_reported_google_maps_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 42,
+              "urls": [
+                "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVdJM2FHczBiamx6GAo"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         }
       },
@@ -16529,20 +16955,18 @@
         }
       },
       "review": {
-        "status": "needs_verification",
+        "status": "eligible_for_dated_demo",
         "official_checks": [],
         "notes": [
           "동명 공원과 정확한 위치를 대조할 공식 근거 부족.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 19.3m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 19.3m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-11-23: 야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.; 일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.; OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_c6de5620d3d0",
         "missing_fields": [
-          "cost",
-          "covered",
-          "website",
-          "opening_hours_source",
-          "verified_at"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -16556,9 +16980,7 @@
             "동명 공원과 정확한 위치를 대조할 공식 근거 부족."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_c6de5620d3d0",
           "google_maps_url": "https://maps.google.com/?cid=4908099958180568253",
@@ -16569,11 +16991,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "관광 명소(문화·자연 포함)",
-          "min": 90,
+          "type": "시연 추정",
+          "min": 120,
           "max": 120,
           "representative": 120,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "method": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -16585,6 +17007,62 @@
           "manual_review_source_url": "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVdJM2FHczBiamx6GAo",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "fields": {
+            "opening_hours": "공원 야외 산책 계획 09:00~18:00. 시설별 이용시간·현장 통제는 별도 확인.",
+            "stay_min": 120,
+            "bag_load": 0,
+            "covered": false,
+            "cost": 0
+          },
+          "profile": {
+            "window": [
+              540,
+              1080,
+              960
+            ],
+            "visit_scope": "public_park_walk",
+            "window_basis": "editorial_visit_window_not_business_hours"
+          },
+          "source_urls": [
+            "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+            "https://www.openstreetmap.org/way/172844586",
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+          ],
+          "conditions": [
+            "야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.",
+            "일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.",
+            "OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음."
+          ],
+          "cost_basis": "일반 공원 산책 무료. 유료·예약 시설 별도.",
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "planning_policy": {
+            "stay_min": 120,
+            "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+          },
+          "field_kinds": {
+            "stay_min": "demo_model_estimate",
+            "bag_load": "team_rule_estimate",
+            "cost": "free_public_park"
+          },
+          "field_notes": {
+            "cost": "일반 공원 산책 무료. 유료·예약 시설 별도."
+          },
+          "coordinates": {
+            "kind": "retained_reviewed_map_reference",
+            "source_urls": [
+              "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+              "https://www.openstreetmap.org/way/172844586",
+              "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+            ],
+            "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+          },
+          "cost_kind": "free_public_park"
         }
       }
     },
@@ -59400,9 +59878,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-23",
-    "updated": 3,
+    "updated": 7,
     "new_search_only": 0,
-    "promoted": 3,
+    "promoted": 7,
     "date_range": [
       "2026-11-16",
       "2026-11-30"

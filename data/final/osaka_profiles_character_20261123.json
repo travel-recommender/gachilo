@@ -2401,6 +2401,78 @@
       ],
       "cost_basis": "145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음."
     },
+    "osaka_draft_f72944194ef3": {
+      "window": [
+        540,
+        1080,
+        960
+      ],
+      "visit_scope": "public_park_walk",
+      "window_basis": "editorial_visit_window_not_business_hours",
+      "valid_from": "2026-11-16",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-23",
+      "source_urls": [
+        "https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/",
+        "https://www.openstreetmap.org/way/34993780",
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+      ],
+      "cost_basis": "일반 공원 산책 무료. 유료·예약 시설 별도."
+    },
+    "osaka_draft_a66fcd05acfb": {
+      "window": [
+        540,
+        1080,
+        960
+      ],
+      "visit_scope": "public_park_walk",
+      "window_basis": "editorial_visit_window_not_business_hours",
+      "valid_from": "2026-11-16",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-23",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf",
+        "https://www.openstreetmap.org/way/161621411",
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+      ],
+      "cost_basis": "일반 공원 산책 무료. 유료·예약 시설 별도."
+    },
+    "osaka_draft_c6de5620d3d0": {
+      "window": [
+        540,
+        1080,
+        960
+      ],
+      "visit_scope": "public_park_walk",
+      "window_basis": "editorial_visit_window_not_business_hours",
+      "valid_from": "2026-11-16",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-23",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf",
+        "https://www.openstreetmap.org/way/172844586",
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+      ],
+      "cost_basis": "일반 공원 산책 무료. 유료·예약 시설 별도."
+    },
+    "osaka_draft_e102a263e5a8": {
+      "window": [
+        540,
+        1020,
+        900
+      ],
+      "visit_scope": "public_park_walk",
+      "window_basis": "official_park_hours",
+      "valid_from": "2026-11-16",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-23",
+      "source_urls": [
+        "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf",
+        "https://www.openstreetmap.org/way/162156955",
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html"
+      ],
+      "cost_basis": "일반 공원 산책 무료. 유료·예약 시설 별도."
+    },
     "gacha_shinsaibashi_parco": {
       "valid_from": "2026-11-16",
       "valid_through": "2026-11-30",

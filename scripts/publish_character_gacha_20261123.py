@@ -42,6 +42,29 @@ def build():
            '60분은 식사 시간 추정이며 대기시간은 포함하지 않음.'],
           '145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음.',
           'official_budget_estimate',aliases='초밥|스시|회전초밥|sushi|쿠라스시',meal='meal')
+    park_info = [
+      ('osaka_draft_f72944194ef3','https://parksgreenery.city.osaka.lg.jp/article/parks-chishima/',
+       'https://www.openstreetmap.org/way/34993780',[540,1080,960],False),
+      ('osaka_draft_a66fcd05acfb','https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080331.pdf',
+       'https://www.openstreetmap.org/way/161621411',[540,1080,960],False),
+      ('osaka_draft_c6de5620d3d0','https://www.city.osaka.lg.jp/kikikanrishitsu/cmsfiles/contents/0000012/12054/ichijihinanbasho_R080123.pdf',
+       'https://www.openstreetmap.org/way/172844586',[540,1080,960],False),
+      ('osaka_draft_e102a263e5a8','https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf',
+       'https://www.openstreetmap.org/way/162156955',[540,1020,900],True)]
+    for pid, official, osm, window, timed in park_info:
+        old=next(r for r in data['places'] if r['place']['place_id']==pid)
+        desc=('일반 산책 09:00~17:00. 기상·현장 통제 및 시설별 시간 확인.' if timed else
+              '공원 야외 산책 계획 09:00~18:00. 시설별 이용시간·현장 통제는 별도 확인.')
+        note=('11월 공원 운영표의 09~17시. 유료·예약 시설 제외.' if timed else
+              '야외 공공 공원 산책 범위. 09~18시는 계획시간이며 공원 공식 개방시간을 뜻하지 않음.')
+        updates[pid]=review([official,osm,'https://www.city.osaka.lg.jp/kensetsu/page/0000375468.html'],
+          {'opening_hours':desc,'stay_min':120,'bag_load':0,'covered':False,'cost':0},
+          {'window':window,'visit_scope':'public_park_walk',
+           'window_basis':'official_park_hours' if timed else 'editorial_visit_window_not_business_hours'},
+          old['review']['recommendation_blockers'],
+          [note,'일반 산책 입장료 없음. 스포츠·예약 시설 및 구매 지출은 제외.',
+           'OSM 공원 대표점은 입구가 아니며 현장 통제·날씨에 따라 이용이 달라질 수 있음.'],
+          '일반 공원 산책 무료. 유료·예약 시설 별도.', 'free_public_park')
     data, profiles = apply(data, profiles, {'checked_at':'2026-11-23','valid_from':'2026-11-16',
         'valid_through':'2026-11-30','updates':updates,'additions':[]})
     by_id = {r['place']['place_id']: r for r in data['places']}
