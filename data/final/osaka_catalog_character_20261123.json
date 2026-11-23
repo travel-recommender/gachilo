@@ -56530,14 +56530,14 @@
         "address": "大阪市中央区千日前2-8-4 延田ビル3F",
         "latitude": 34.66632,
         "longitude": 135.50349,
-        "opening_hours": "11:00–24:00; 최종입점23:30",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
+        "opening_hours": "매일 11:00~24:00, 최종 입점 23:30.",
+        "cost": 1450,
+        "stay_min": 60,
+        "bag_load": 0,
         "covered": true,
         "website": "https://shop.kurasushi.co.jp/detail/660",
-        "opening_hours_source": "https://shop.kurasushi.co.jp/detail/660",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://shop.kurasushi.co.jp/detail/660; https://origin.digitalpr.jp/amp/141683/",
+        "verified_at": "2026-11-23",
         "brand_id": "kura",
         "branch_group_id": "kura:standard"
       },
@@ -56607,20 +56607,44 @@
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
         },
         "opening_hours": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://shop.kurasushi.co.jp/detail/660"
+            "https://shop.kurasushi.co.jp/detail/660",
+            "https://origin.digitalpr.jp/amp/141683/"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-23",
+          "note": "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음.",
+          "previous": {
+            "value": "11:00–24:00; 최종입점23:30",
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://shop.kurasushi.co.jp/detail/660"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "covered": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://shop.kurasushi.co.jp/detail/660"
+            "https://shop.kurasushi.co.jp/detail/660",
+            "https://origin.digitalpr.jp/amp/141683/"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-23",
+          "note": "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음.",
+          "previous": {
+            "value": true,
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://shop.kurasushi.co.jp/detail/660"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "website": {
           "kind": "official_source_collection",
@@ -56660,6 +56684,45 @@
           "kind": "conservative_substitution_policy",
           "registry_version": "2026-11-12-brands-v1",
           "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660",
+            "https://origin.digitalpr.jp/amp/141683/"
+          ],
+          "checked_at": "2026-11-23",
+          "note": "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "team_rule_estimate",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660",
+            "https://origin.digitalpr.jp/amp/141683/"
+          ],
+          "checked_at": "2026-11-23",
+          "note": "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "cost": {
+          "kind": "official_budget_estimate",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/660",
+            "https://origin.digitalpr.jp/amp/141683/"
+          ],
+          "checked_at": "2026-11-23",
+          "note": "145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -56671,27 +56734,26 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
         "notes": [
-          "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
+          "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요.",
+          "2026-11-23: 145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음."
         ],
-        "recommendation_blockers": [
-          "collected_visit_conditions_require_profile",
-          "structured_date_profile_missing",
-          "stay_policy_unconfirmed"
-        ],
-        "missing_fields": [
-          "cost",
-          "stay_min",
-          "bag_load"
-        ],
-        "stay_policy": null,
+        "recommendation_blockers": [],
+        "missing_fields": [],
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 60,
+          "max": 60,
+          "representative": 60,
+          "method": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+        },
         "branch_collection": {
           "brand": "쿠라스시",
           "official_name": "くら寿司 なんば千日前店",
-          "aliases": "쿠라스시 난바 센니치마에점|くら寿司 なんば千日前店",
+          "aliases": "쿠라스시 난바 센니치마에점|くら寿司 なんば千日前店|초밥|스시|회전초밥|sushi|쿠라스시",
           "remaining": "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
         },
         "collection_review": {
@@ -56703,7 +56765,64 @@
             "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
           ],
           "ready_for_scheduling": false
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "fields": {
+            "opening_hours": "매일 11:00~24:00, 최종 입점 23:30.",
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true,
+            "cost": 1450
+          },
+          "profile": {
+            "window": [
+              660,
+              1440,
+              1410
+            ]
+          },
+          "source_urls": [
+            "https://shop.kurasushi.co.jp/detail/660",
+            "https://origin.digitalpr.jp/amp/141683/"
+          ],
+          "conditions": [
+            "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.",
+            "평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.",
+            "60분은 식사 시간 추정이며 대기시간은 포함하지 않음."
+          ],
+          "cost_basis": "145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음.",
+          "resolved_blockers": [
+            "collected_visit_conditions_require_profile",
+            "structured_date_profile_missing",
+            "stay_policy_unconfirmed"
+          ],
+          "remaining": [],
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+          },
+          "field_kinds": {
+            "stay_min": "demo_model_estimate",
+            "bag_load": "team_rule_estimate",
+            "cost": "official_budget_estimate"
+          },
+          "field_notes": {
+            "cost": "145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음."
+          },
+          "coordinates": {
+            "kind": "retained_reviewed_map_reference",
+            "source_urls": [
+              "https://shop.kurasushi.co.jp/detail/660",
+              "https://origin.digitalpr.jp/amp/141683/"
+            ],
+            "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+          },
+          "cost_kind": "official_budget_estimate",
+          "aliases": "초밥|스시|회전초밥|sushi|쿠라스시",
+          "meal_role": "meal"
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -56716,14 +56835,14 @@
         "address": "大阪市中央区道頓堀1-4-22 クロ－ドビル2F",
         "latitude": 34.66873953221998,
         "longitude": 135.50361379733647,
-        "opening_hours": "평일11:00–24:00 / 토·일·공휴일10:20–24:00; 최종입점23:30",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
+        "opening_hours": "평일 11:00~24:00, 토·일 10:20~24:00, 최종 입점 23:30.",
+        "cost": 1450,
+        "stay_min": 60,
+        "bag_load": 0,
         "covered": true,
         "website": "https://shop.kurasushi.co.jp/detail/567",
-        "opening_hours_source": "https://shop.kurasushi.co.jp/detail/567",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://shop.kurasushi.co.jp/detail/567; https://origin.digitalpr.jp/amp/141683/",
+        "verified_at": "2026-11-23",
         "brand_id": "kura",
         "branch_group_id": "kura:standard"
       },
@@ -56793,20 +56912,44 @@
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
         },
         "opening_hours": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://shop.kurasushi.co.jp/detail/567"
+            "https://shop.kurasushi.co.jp/detail/567",
+            "https://origin.digitalpr.jp/amp/141683/"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-23",
+          "note": "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음.",
+          "previous": {
+            "value": "평일11:00–24:00 / 토·일·공휴일10:20–24:00; 최종입점23:30",
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://shop.kurasushi.co.jp/detail/567"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "covered": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://shop.kurasushi.co.jp/detail/567"
+            "https://shop.kurasushi.co.jp/detail/567",
+            "https://origin.digitalpr.jp/amp/141683/"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-23",
+          "note": "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음.",
+          "previous": {
+            "value": true,
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://shop.kurasushi.co.jp/detail/567"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "website": {
           "kind": "official_source_collection",
@@ -56846,6 +56989,45 @@
           "kind": "conservative_substitution_policy",
           "registry_version": "2026-11-12-brands-v1",
           "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567",
+            "https://origin.digitalpr.jp/amp/141683/"
+          ],
+          "checked_at": "2026-11-23",
+          "note": "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "team_rule_estimate",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567",
+            "https://origin.digitalpr.jp/amp/141683/"
+          ],
+          "checked_at": "2026-11-23",
+          "note": "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "cost": {
+          "kind": "official_budget_estimate",
+          "urls": [
+            "https://shop.kurasushi.co.jp/detail/567",
+            "https://origin.digitalpr.jp/amp/141683/"
+          ],
+          "checked_at": "2026-11-23",
+          "note": "145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -56857,27 +57039,26 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
         "notes": [
-          "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
+          "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요.",
+          "2026-11-23: 145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.; 평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.; 60분은 식사 시간 추정이며 대기시간은 포함하지 않음."
         ],
-        "recommendation_blockers": [
-          "collected_visit_conditions_require_profile",
-          "structured_date_profile_missing",
-          "stay_policy_unconfirmed"
-        ],
-        "missing_fields": [
-          "cost",
-          "stay_min",
-          "bag_load"
-        ],
-        "stay_policy": null,
+        "recommendation_blockers": [],
+        "missing_fields": [],
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 60,
+          "max": 60,
+          "representative": 60,
+          "method": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+        },
         "branch_collection": {
           "brand": "쿠라스시",
           "official_name": "くら寿司 道頓堀店",
-          "aliases": "쿠라스시 도톤보리점|くら寿司 道頓堀店",
+          "aliases": "쿠라스시 도톤보리점|くら寿司 道頓堀店|초밥|스시|회전초밥|sushi|쿠라스시",
           "remaining": "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
         },
         "collection_review": {
@@ -56889,7 +57070,70 @@
             "공식 지도 참조 좌표이며 층별 입구가 아님. 한 접시145엔부터를 한 끼 가격으로 쓰지 않음; 대표 식사예산 확인 필요."
           ],
           "ready_for_scheduling": false
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "fields": {
+            "opening_hours": "평일 11:00~24:00, 토·일 10:20~24:00, 최종 입점 23:30.",
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true,
+            "cost": 1450
+          },
+          "profile": {
+            "window": [
+              620,
+              1440,
+              1410
+            ],
+            "weekday_window": [
+              660,
+              1440,
+              1410
+            ],
+            "holiday_hours_unconfirmed": true
+          },
+          "source_urls": [
+            "https://shop.kurasushi.co.jp/detail/567",
+            "https://origin.digitalpr.jp/amp/141683/"
+          ],
+          "conditions": [
+            "145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.",
+            "평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.",
+            "60분은 식사 시간 추정이며 대기시간은 포함하지 않음."
+          ],
+          "cost_basis": "145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음.",
+          "resolved_blockers": [
+            "collected_visit_conditions_require_profile",
+            "structured_date_profile_missing",
+            "stay_policy_unconfirmed"
+          ],
+          "remaining": [],
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+          },
+          "field_kinds": {
+            "stay_min": "demo_model_estimate",
+            "bag_load": "team_rule_estimate",
+            "cost": "official_budget_estimate"
+          },
+          "field_notes": {
+            "cost": "145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음."
+          },
+          "coordinates": {
+            "kind": "retained_reviewed_map_reference",
+            "source_urls": [
+              "https://shop.kurasushi.co.jp/detail/567",
+              "https://origin.digitalpr.jp/amp/141683/"
+            ],
+            "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+          },
+          "cost_kind": "official_budget_estimate",
+          "aliases": "초밥|스시|회전초밥|sushi|쿠라스시",
+          "meal_role": "meal"
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -59156,9 +59400,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-23",
-    "updated": 1,
+    "updated": 3,
     "new_search_only": 0,
-    "promoted": 1,
+    "promoted": 3,
     "date_range": [
       "2026-11-16",
       "2026-11-30"

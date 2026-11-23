@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {availability, loadRuntimeInputs} from './validate_real_schedule.mjs';
+import {availability, loadRuntimeInputs, validateDay} from './validate_real_schedule.mjs';
 import {calculateRealCandidates} from '../backend/engine/real_candidates.mjs';
 import {mockLiveCheck} from '../backend/engine/live_check.mjs';
 import {schedulableDetails} from '../backend/engine/schedulable.mjs';
@@ -16,7 +16,7 @@ test('new catalog keeps prior records and exposes three distinct shops',()=>{
  for(const row of prior.places){
   if(row.place.place_id==='osm_node_2546559085') { assert.equal(get(row.place.place_id),undefined); continue; }
   const actual=get(row.place.place_id); assert.ok(actual);
-  if(!['osaka_004','branch_kiddyland_umeda','branch_wanaka_sennichimae','branch_wanaka_dotonbori'].includes(row.place.place_id))assert.deepEqual(actual,row);
+  if(!['osaka_004','branch_kiddyland_umeda','branch_kura_sennichimae','branch_kura_dotonbori','branch_wanaka_sennichimae','branch_wanaka_dotonbori'].includes(row.place.place_id))assert.deepEqual(actual,row);
  }
  for(const id of ids){
   const row=get(id);assert.equal(row.place.category,'쇼핑');assert.equal(row.place.cost,null);
@@ -27,6 +27,15 @@ test('new catalog keeps prior records and exposes three distinct shops',()=>{
  }
  const selected=schedulableDetails(['2026-11-16','2026-11-17','2026-11-18','2026-11-19'],dataset,profiles).placeIds;
  ids.forEach(id=>assert.ok(selected.includes(id)));
+});
+test('Kura branch estimates are explicit and budget limits remain enforced',()=>{
+ for (const id of ['branch_kura_sennichimae','branch_kura_dotonbori']){
+  const c=check(id,'2026-11-17'); assert.equal(c.eligible_for_model,true);assert.equal(c.cost_jpy,1450);
+  assert.match(c.cost_basis,/10개 가정/);assert.match(get(id).review.branch_collection.aliases,/초밥/);
+  const low=validateDay({date:'2026-11-17',place_ids:[id],krw_per_jpy:'9.5',budget_krw:100,step_limit:20000,active_min:720},dataset,profiles,{allowShopping:true});
+  assert.ok(low.violations.some(v=>v.code==='budget_exceeded'));
+ }
+ assert.equal(check('branch_kura_dotonbori','2026-11-23').eligible_for_model,false);
 });
 test('Amerikamura is a street walk with no invented shop-wide opening hours',()=>{
  assert.equal(check('osaka_004','2026-11-17').eligible_for_model,true);

@@ -25,9 +25,28 @@ def build():
       ['거리 산책 범위. 11~19시는 계획시간이며 개별 상점의 공통 영업시간이 아님.',
        '상점별 영업·휴무와 개인 쇼핑 지출은 별도 확인.'],
       '거리 산책 입장료 없음. 개인 구매액 별도.', 'not_applicable_shopping')
+    updates = {'osaka_004':america}
+    for pid, url, hours, window, weekday in [
+      ('branch_kura_sennichimae','https://shop.kurasushi.co.jp/detail/660',
+       '매일 11:00~24:00, 최종 입점 23:30.',[660,1440,1410],None),
+      ('branch_kura_dotonbori','https://shop.kurasushi.co.jp/detail/567',
+       '평일 11:00~24:00, 토·일 10:20~24:00, 최종 입점 23:30.',[620,1440,1410],[660,1440,1410])]:
+        old=next(r for r in data['places'] if r['place']['place_id']==pid)
+        p={'window':window}
+        if weekday: p.update(weekday_window=weekday,holiday_hours_unconfirmed=True)
+        updates[pid]=review([url,'https://origin.digitalpr.jp/amp/141683/'],
+          {'opening_hours':hours,'stay_min':60,'bag_load':0,'covered':True,'cost':1450},p,
+          old['review']['recommendation_blockers'],
+          ['145엔부터인 공식 최저 가격대 접시를 10접시 주문한다고 가정한 일정 예산 하한 추정.',
+           '평균 지출이나 모든 메뉴의 가격이 아님. 실제 주문·가격·재고·방문일 예외는 별도 확인.',
+           '60분은 식사 시간 추정이며 대기시간은 포함하지 않음.'],
+          '145엔 최저 가격대 접시 10개 가정: 1,450엔. 평균·확정 금액이 아니며 실제 주문은 더 비쌀 수 있음.',
+          'official_budget_estimate',aliases='초밥|스시|회전초밥|sushi|쿠라스시',meal='meal')
     data, profiles = apply(data, profiles, {'checked_at':'2026-11-23','valid_from':'2026-11-16',
-        'valid_through':'2026-11-30','updates':{'osaka_004':america},'additions':[]})
+        'valid_through':'2026-11-30','updates':updates,'additions':[]})
     by_id = {r['place']['place_id']: r for r in data['places']}
+    for pid in ('branch_kura_sennichimae','branch_kura_dotonbori'):
+        by_id[pid]['review']['branch_collection']['aliases'] += '|초밥|스시|회전초밥|sushi|쿠라스시'
     # The operator explicitly confirms the main branch has closed. Keep the
     # original snapshot for old experiments but omit it from the new catalog.
     closed_id = 'osm_node_2546559085'
