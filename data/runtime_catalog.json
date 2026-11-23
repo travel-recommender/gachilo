@@ -1,8 +1,8 @@
 {
-  "version": "2026-11-23-week13-v1",
-  "catalog": "final/osaka_catalog_20261123.json",
-  "profiles": "final/osaka_profiles_20261123.json",
-  "searchable_count": 238,
+  "version": "2026-11-23-character-gacha-v1",
+  "catalog": "final/osaka_catalog_character_20261123.json",
+  "profiles": "final/osaka_profiles_character_20261123.json",
+  "searchable_count": 241,
   "new_branch_count": 82,
   "new_branch_dated_eligible_count": 61,
   "supplemental_search_only_count": 23,
