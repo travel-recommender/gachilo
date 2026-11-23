@@ -25,6 +25,7 @@
     "2026-10-26 branch review: map reference coordinates, explicit model estimates and dated restrictions; raw collection unchanged.",
     "2026-11-04: evidence overlay restores only individually reviewed calendars; old snapshots and remaining holds stay intact.",
     "2026-11-16: evidence overlay restores only individually reviewed calendars; old snapshots and remaining holds stay intact.",
+    "2026-11-23: evidence overlay restores only individually reviewed calendars; old snapshots and remaining holds stay intact.",
     "2026-11-23: evidence overlay restores only individually reviewed calendars; old snapshots and remaining holds stay intact."
   ],
   "places": {
@@ -2347,6 +2348,22 @@
         "https://www.akindo-sushiro.co.jp/menu/menu_detail/?s_id=870"
       ],
       "cost_basis": "150엔 기본 접시 10접시를 가정한 1,500엔 예산 추정. 모든 메뉴 또는 평균 식사 가격이 아님."
+    },
+    "osaka_004": {
+      "window": [
+        660,
+        1140,
+        1020
+      ],
+      "visit_scope": "district_street_walk",
+      "window_basis": "editorial_visit_window_not_business_hours",
+      "valid_from": "2026-11-16",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-23",
+      "source_urls": [
+        "https://osaka-info.jp/spot/america-mura-american-village/"
+      ],
+      "cost_basis": "거리 산책 입장료 없음. 개인 구매액 별도."
     },
     "gacha_shinsaibashi_parco": {
       "valid_from": "2026-11-16",

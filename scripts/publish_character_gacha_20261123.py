@@ -2,7 +2,8 @@
 import copy
 import json
 from pathlib import Path
-from publish_verified_catalog import ROOT, read, sha
+from publish_verified_catalog import ROOT, read, sha, apply
+from publish_week13_audit import review
 
 INPUT = ROOT / 'data/final/osaka_catalog_20261123.json'
 PROFILE_INPUT = ROOT / 'data/final/osaka_profiles_20261123.json'
@@ -12,6 +13,20 @@ MANIFEST = ROOT / 'data/runtime_catalog.json'
 
 def build():
     data, profiles = read(INPUT), read(PROFILE_INPUT)
+    # The district is a street-walk destination, not a claim that its shops
+    # all share hours. Preserve the distinction in the date profile.
+    existing = next(r for r in data['places'] if r['place']['place_id']=='osaka_004')
+    america = review(['https://osaka-info.jp/spot/america-mura-american-village/'],
+      {'opening_hours':'거리 산책 계획 11:00~19:00. 개별 상점·카페는 운영시간과 휴무가 다름.',
+       'stay_min':120,'bag_load':1,'cost':0},
+      {'window':[660,1140,1020],'visit_scope':'district_street_walk',
+       'window_basis':'editorial_visit_window_not_business_hours'},
+      existing['review']['recommendation_blockers'],
+      ['거리 산책 범위. 11~19시는 계획시간이며 개별 상점의 공통 영업시간이 아님.',
+       '상점별 영업·휴무와 개인 쇼핑 지출은 별도 확인.'],
+      '거리 산책 입장료 없음. 개인 구매액 별도.', 'not_applicable_shopping')
+    data, profiles = apply(data, profiles, {'checked_at':'2026-11-23','valid_from':'2026-11-16',
+        'valid_through':'2026-11-30','updates':{'osaka_004':america},'additions':[]})
     by_id = {r['place']['place_id']: r for r in data['places']}
     # The operator explicitly confirms the main branch has closed. Keep the
     # original snapshot for old experiments but omit it from the new catalog.

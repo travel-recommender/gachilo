@@ -16,7 +16,7 @@ test('new catalog keeps prior records and exposes three distinct shops',()=>{
  for(const row of prior.places){
   if(row.place.place_id==='osm_node_2546559085') { assert.equal(get(row.place.place_id),undefined); continue; }
   const actual=get(row.place.place_id); assert.ok(actual);
-  if(!['branch_kiddyland_umeda','branch_wanaka_sennichimae','branch_wanaka_dotonbori'].includes(row.place.place_id))assert.deepEqual(actual,row);
+  if(!['osaka_004','branch_kiddyland_umeda','branch_wanaka_sennichimae','branch_wanaka_dotonbori'].includes(row.place.place_id))assert.deepEqual(actual,row);
  }
  for(const id of ids){
   const row=get(id);assert.equal(row.place.category,'쇼핑');assert.equal(row.place.cost,null);
@@ -27,6 +27,12 @@ test('new catalog keeps prior records and exposes three distinct shops',()=>{
  }
  const selected=schedulableDetails(['2026-11-16','2026-11-17','2026-11-18','2026-11-19'],dataset,profiles).placeIds;
  ids.forEach(id=>assert.ok(selected.includes(id)));
+});
+test('Amerikamura is a street walk with no invented shop-wide opening hours',()=>{
+ assert.equal(check('osaka_004','2026-11-17').eligible_for_model,true);
+ assert.equal(profiles.places.osaka_004.window_basis,'editorial_visit_window_not_business_hours');
+ assert.match(get('osaka_004').place.opening_hours,/개별 상점/);
+ assert.equal(check('osaka_004','2026-12-01').eligible_for_model,false);
 });
 test('closed main branch is absent in new catalog while the annex and old snapshot remain',()=>{
  assert.ok(prior.places.find(r=>r.place.place_id==='osm_node_2546559085'));
