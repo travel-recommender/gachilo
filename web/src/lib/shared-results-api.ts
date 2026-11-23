@@ -34,9 +34,10 @@ export interface SharedCandidate {
   /** 실제 장소 결과에만 있는 계획 요약 (backend/candidate_results.py). 실험 설명 문장이 쓴다 */
   planning?: {
     ai_precheck?: {
-      version: "somsom-place-precheck-v1";
-      source: "somsom" | "mock";
-      status: "passed";
+      version: "somsom-place-precheck-v2";
+      source: "somsom" | "rule" | "mock";
+      status: "matched" | "fallback" | "mock";
+      reason_code: "matched" | "mock" | "unavailable" | "timeout" | "input_limit" | "invalid_response" | "disagreement";
       checked_at: string;
       place_date_count: number;
       allowed_place_date_count: number;

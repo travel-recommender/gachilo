@@ -84,24 +84,14 @@ class RealCandidatesTests(unittest.TestCase):
         for candidate in cleared['candidates']:
             self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']},set(ids))
 
-    def test_precheck_metadata_is_shared_validated_and_failures_are_retryable(self):
-        from unittest.mock import patch
-        from subprocess import CalledProcessError
+    def test_precheck_metadata_is_shared_and_validated(self):
         import copy
         room=self.ready_room();path=f"/rooms/{room['roomId']}"
-        for failure in ('AI_PRECHECK_UNAVAILABLE', 'AI_PRECHECK_INPUT_LIMIT'):
-            with patch('candidate_engine.subprocess.run', side_effect=CalledProcessError(1, 'node', stderr=failure)):
-                code,result,_=self.calculate(room)
-            self.assertGreaterEqual(code,400)
-            self.assertIn('검수',result['error'])
-            self.assertEqual(self.req('GET',path+'/results',token=room['ownerToken'])[1]['candidates'],[])
-            with Store(self.db).connect() as connection:
-                self.assertEqual(connection.execute('SELECT COUNT(*) FROM candidate_jobs').fetchone()[0],0)
         code,result,_=self.calculate(room)
         self.assertEqual(code,200)
         audit=result['candidates'][0]['planning']['ai_precheck']
-        self.assertEqual(audit['source'],'mock')
-        self.assertEqual(audit['version'],'somsom-place-precheck-v1')
+        self.assertEqual((audit['source'],audit['status'],audit['reason_code']),('mock','mock','mock'))
+        self.assertEqual(audit['version'],'somsom-place-precheck-v2')
         for candidate in result['candidates']:
             self.assertEqual(candidate['planning']['ai_precheck'],audit)
         for member in room['members']:
@@ -109,7 +99,7 @@ class RealCandidatesTests(unittest.TestCase):
         store=Store(self.db)
         with store.connect() as connection:
             saved_room=store.room(connection,room['roomId'])
-            for change in [lambda a:a.update(source='somsom'), lambda a:a.update(status='unavailable'),
+            for change in [lambda a:a.update(source='somsom'), lambda a:a.update(status='passed'),
                            lambda a:a.update(evidence_digest='bad'), lambda a:a.update(extra='private'),
                            lambda a:a.update(allowed_place_date_count=-1), lambda a:a.update(place_date_count=0)]:
                 damaged=copy.deepcopy({'candidates':result['candidates']})

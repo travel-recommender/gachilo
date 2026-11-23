@@ -469,14 +469,9 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
   const siblingSet = new Set(siblings);
   const failed = new Set([...live.verdicts].filter(([k, v]) => v.length && !siblingSet.has(k.split('|')[0])).map(([k]) => k.split('|')[0]));
   live.failedPlaces = [...failed].filter(id => ![...live.verdicts].some(([k, v]) => k.startsWith(id + '|') && !v.length)).length;
-  // Shared place/date precheck happens before route construction, AI filling and every A/B/C draft.
+  // Compare existing decisions before A/B/C, without changing any place/date verdict.
   const checked = await precheckPlaces({ids: [...human, ...siblings, ...pool.map(c => c.id)], dates,
-    dataset, profiles, live, budgetKrw: limitsFor(request).budget_krw,
-    krwPerJpy: limitsFor(request).krw_per_jpy}, deps.precheckOptions);
-  for (const key of checked.rejected) {
-    live.verdicts.set(key, [...new Set([...(live.verdicts.get(key) ?? []), 'ai_precheck_not_usable'])]);
-  }
-  pool = pool.filter(c => dates.some(date => checked.allowed.has(`${c.id}|${date}`)));
+    dataset, profiles, live}, deps.precheckOptions);
   // AI 후보 전체를 경로 표에 넣는다. 모델이 어느 곳을 고를지 경로 조회 전에는 모른다
   const routed = new Set([...picked, ...listed, ...siblings, ...pool.map(c => c.id)]);
   const points = dataset.places.filter(r => routed.has(r.place.place_id))
