@@ -153,7 +153,6 @@
     "osm_way_303446421": "administrative_ward",
     "osm_way_151816175": "administrative_ward",
     "osm_node_6189996345": "administrative_city",
-    "osm_node_2546559085": "administrative_ward",
     "branch_ichiran_shinsaibashi": "tourism_editorial_v1",
     "branch_ichiran_namba_midosuji": "tourism_editorial_v1",
     "branch_ichiran_umeda_hankyu": "tourism_editorial_v1",
@@ -35285,266 +35284,6 @@
     },
     {
       "place": {
-        "place_id": "osm_node_2546559085",
-        "name": "一蘭 道頓堀店本館",
-        "name_ko": "이치란라멘 도톤보리 본관",
-        "category": "식사",
-        "area": "大阪市中央区",
-        "address": "大阪府大阪市中央区宗右衛門町7-18",
-        "latitude": 34.6692398,
-        "longitude": 135.5030675,
-        "opening_hours": null,
-        "cost": null,
-        "stay_min": 90,
-        "bag_load": 0,
-        "covered": null,
-        "website": "http://www.ichiran.co.jp/tenpo/kin_douton.html",
-        "opening_hours_source": "https://ichiran.com/shop/kinki/",
-        "verified_at": "2026-11-04",
-        "brand_id": "ichiran",
-        "branch_group_id": "ichiran:standard"
-      },
-      "field_sources": {
-        "name": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/2546559085"
-        },
-        "name_ko": {
-          "kind": "official_branch_display_name",
-          "source_urls": [
-            "http://www.ichiran.co.jp/tenpo/kin_douton.html",
-            "https://ichiran.com/shop/kinki/"
-          ],
-          "reviewed_on": "2026-11-13",
-          "note": "공식 일본어 지점명 一蘭 道頓堀店本館에 맞춰 본관 구분을 표시. 기존 검색어 이치란라멘을 유지하며 폐업·일정 보류 상태는 변경하지 않는다.",
-          "previous_value": "이치란라멘",
-          "previous_source": {
-            "kind": "osm",
-            "url": "https://www.openstreetmap.org/node/2546559085"
-          }
-        },
-        "category": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/2546559085"
-        },
-        "latitude": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/2546559085"
-        },
-        "longitude": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/2546559085"
-        },
-        "opening_hours": {
-          "kind": "official_web_review",
-          "urls": [
-            "https://ichiran.com/shop/kinki/dotonbori-main/"
-          ],
-          "checked_at": "2026-09-26",
-          "evidence_window": "2026-09-24/2026-09-26"
-        },
-        "website": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/2546559085"
-        },
-        "address": {
-          "kind": "official_web_review",
-          "urls": [
-            "https://ichiran.com/shop/kinki/dotonbori-main/"
-          ],
-          "checked_at": "2026-09-26",
-          "evidence_window": "2026-09-24/2026-09-26"
-        },
-        "opening_hours_source": {
-          "kind": "official_web_review",
-          "urls": [
-            "https://ichiran.com/shop/kinki/dotonbori-main/"
-          ],
-          "checked_at": "2026-09-26",
-          "evidence_window": "2026-09-24/2026-09-26"
-        },
-        "verified_at": {
-          "kind": "review_date_only",
-          "check_id": "osm_node_2546559085_address_hours_20260926",
-          "note": "장소 전체 또는 일정 사용 가능 판정이 아님. 검증 범위는 필드 출처 참조."
-        },
-        "area": {
-          "kind": "derived_from_official_address",
-          "urls": [
-            "https://ichiran.com/shop/kinki/dotonbori-main/"
-          ],
-          "checked_at": "2026-09-26",
-          "derived_at": "2026-09-28",
-          "note": "공식 출처 주소의 행정구만 추출. 관광 권역·출입구 좌표 추정 아님."
-        },
-        "bag_load": {
-          "kind": "team_rule_estimate",
-          "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
-          ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
-        },
-        "stay_min": {
-          "kind": "team_rule_estimate",
-          "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
-          ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
-        },
-        "manual_review": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 101,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false
-        },
-        "brand_id": {
-          "kind": "explicit_identity_review",
-          "registry_version": "2026-11-12-brands-v1",
-          "source_urls": [
-            "http://www.ichiran.co.jp/tenpo/kin_douton.html",
-            "https://ichiran.com/shop/kinki/"
-          ],
-          "identity_reviewed_on": "2026-11-12",
-          "live_identity_checked_on": "2026-11-12",
-          "note": "Identity review only; existing hours, prices and their verification dates are unchanged."
-        },
-        "branch_group_id": {
-          "kind": "conservative_substitution_policy",
-          "registry_version": "2026-11-12-brands-v1",
-          "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
-        }
-      },
-      "source": {
-        "osm_ref": "node/2546559085",
-        "url": "https://www.openstreetmap.org/node/2546559085",
-        "collected_at": "2026-09-23T04:16:44.319902+00:00",
-        "osm_edited_at": "2025-08-18T10:49:27Z",
-        "coordinate_method": "node",
-        "address_components": {
-          "addr:postcode": "542-0084",
-          "addr:street": "宗右衛門町"
-        },
-        "tags": {
-          "addr:postcode": "542-0084",
-          "addr:street": "宗右衛門町",
-          "amenity": "restaurant",
-          "brand:wikidata": "Q11266830",
-          "cuisine": "ramen",
-          "name": "一蘭 道頓堀店本館",
-          "name:en": "Ichiran Ramen",
-          "name:ko": "이치란라멘",
-          "name:zh": "一蘭拉麵 道頓掘本館",
-          "opening_hours": "24/7",
-          "phone": "+81662121805",
-          "toilets:wheelchair": "no",
-          "website": "http://www.ichiran.co.jp/tenpo/kin_douton.html",
-          "wheelchair": "no"
-        }
-      },
-      "review": {
-        "status": "held",
-        "official_checks": [
-          "osm_node_2546559085_address_hours_20260926"
-        ],
-        "notes": [
-          "공식 지점 페이지에서 영업 종료 확인. 도톤보리 별관과 구분.",
-          "2026-11-04: 도톤보리 본관 폐점 확인. 도톤보리 별관(osaka_026)과 다른 지점이며 기존 폐점 제외 유지."
-        ],
-        "duplicate_osm_refs": [],
-        "missing_fields": [
-          "opening_hours",
-          "cost",
-          "covered"
-        ],
-        "schedule_ready": false,
-        "address_hours_audit": {
-          "reviewed_at": "2026-09-26",
-          "coverage": "all_150",
-          "attempted_sources": [
-            {
-              "url": "http://www.ichiran.co.jp/tenpo/kin_douton.html",
-              "resolved_url": "https://ichiran.com/shop/",
-              "fetch_status": "fetched"
-            },
-            {
-              "url": "https://ichiran.com/shop/kinki/dotonbori-main/",
-              "resolved_url": "https://ichiran.com/shop/kinki/dotonbori-main/",
-              "fetch_status": "fetched"
-            }
-          ],
-          "evidence_urls": [
-            "https://ichiran.com/shop/kinki/dotonbori-main/"
-          ],
-          "address_status": "verified",
-          "hours_status": "not_applicable_closed",
-          "notes": [
-            "공식 지점 페이지에서 영업 종료 확인. 도톤보리 별관과 구분."
-          ]
-        },
-        "recommendation_blockers": [
-          "permanently_closed",
-          "final_record_review_required"
-        ],
-        "operating_status": {
-          "status": "permanently_closed",
-          "source_urls": [
-            "https://ichiran.com/shop/kinki/dotonbori-main/"
-          ],
-          "as_of": "2026-09-26"
-        },
-        "stay_policy": {
-          "type": "식당",
-          "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
-        },
-        "planning_cost_policy": "verified_admission_or_menu_only",
-        "final_csv": {
-          "record_status": "보류·운영/이용 미확인",
-          "record_status_reason": "이치란 지점 미확정; 기존 폐업 표시 해소 근거 없음",
-          "space_type": "",
-          "cost_basis": "",
-          "manual_review_notes": "지점이 너무 많음 (6개).. 함께 검토 필요 (데이터 추가해야함)",
-          "manual_review_source_url": "",
-          "manual_review_date": "",
-          "manual_remaining_questions": ""
-        },
-        "dated_verification": {
-          "status": "held",
-          "fields": {},
-          "source_urls": [
-            "https://ichiran.com/shop/kinki/"
-          ],
-          "conditions": [
-            "도톤보리 본관 폐점 확인. 도톤보리 별관(osaka_026)과 다른 지점이며 기존 폐점 제외 유지."
-          ],
-          "profile": null,
-          "cost_basis": "",
-          "cost_kind": "official_menu",
-          "resolved_blockers": [],
-          "remaining": [
-            "permanently_closed"
-          ],
-          "field_kinds": {},
-          "field_notes": {},
-          "coordinates": {
-            "kind": "node",
-            "entrance_verified": false
-          },
-          "planning_policy": null
-        }
-      }
-    },
-    {
-      "place": {
         "place_id": "branch_ichiran_shinsaibashi",
         "name": "一蘭 心斎橋店",
         "name_ko": "이치란 신사이바시점",
@@ -59271,6 +59010,14 @@
     "character_gacha_20261123": {
       "catalog_input_sha256": "12e074438bd5f64ecb9f61a48897c5c8e5045241b4c671f5d697843061b04e21",
       "profiles_input_sha256": "4914f3a75070d992d1dd4660d7b0c89774eb79dac3b818a7c552bd087f9718e8",
+      "removed_closed": [
+        {
+          "place_id": "osm_node_2546559085",
+          "checked_at": "2026-11-23",
+          "source_url": "https://ichiran.com/shop/hourstable.html",
+          "note": "이치란 도톤보리 본관 영업 종료. 별관과 별개의 지점. 이전 버전 기록은 보존."
+        }
+      ],
       "notes": [
         "기존 카탈로그·실험 스냅샷은 변경하지 않음. 신규 매장은 건물 대표좌표 사용.",
         "확인 가능한 정규 영업시간과 공지된 휴관을 반영. 비공고 임시휴무·입장제한은 보장하지 않음."

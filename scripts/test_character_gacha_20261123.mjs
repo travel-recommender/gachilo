@@ -12,8 +12,9 @@ const ids=['gacha_shinsaibashi_parco','gacha_hep_five','chiikawa_land_umeda'];
 const get=id=>dataset.places.find(x=>x.place.place_id===id);
 const check=(id,date)=>availability(get(id),date,profiles,{allowShopping:true});
 test('new catalog keeps prior records and exposes three distinct shops',()=>{
- assert.equal(dataset.places.length,prior.places.length+3);
+ assert.equal(dataset.places.length,prior.places.length+2);
  for(const row of prior.places){
+  if(row.place.place_id==='osm_node_2546559085') { assert.equal(get(row.place.place_id),undefined); continue; }
   const actual=get(row.place.place_id); assert.ok(actual);
   if(!['branch_kiddyland_umeda','branch_wanaka_sennichimae','branch_wanaka_dotonbori'].includes(row.place.place_id))assert.deepEqual(actual,row);
  }
@@ -26,6 +27,11 @@ test('new catalog keeps prior records and exposes three distinct shops',()=>{
  }
  const selected=schedulableDetails(['2026-11-16','2026-11-17','2026-11-18','2026-11-19'],dataset,profiles).placeIds;
  ids.forEach(id=>assert.ok(selected.includes(id)));
+});
+test('closed main branch is absent in new catalog while the annex and old snapshot remain',()=>{
+ assert.ok(prior.places.find(r=>r.place.place_id==='osm_node_2546559085'));
+ assert.equal(get('osm_node_2546559085'),undefined);
+ assert.ok(get('osaka_026'));
 });
 test('takoyaki aliases do not silently promote places with unverified prices',()=>{
  for(const id of ['branch_wanaka_sennichimae','branch_wanaka_dotonbori']){

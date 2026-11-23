@@ -13,6 +13,13 @@ MANIFEST = ROOT / 'data/runtime_catalog.json'
 def build():
     data, profiles = read(INPUT), read(PROFILE_INPUT)
     by_id = {r['place']['place_id']: r for r in data['places']}
+    # The operator explicitly confirms the main branch has closed. Keep the
+    # original snapshot for old experiments but omit it from the new catalog.
+    closed_id = 'osm_node_2546559085'
+    assert by_id[closed_id]['review']['operating_status']['status'] == 'permanently_closed'
+    data['places'] = [r for r in data['places'] if r['place']['place_id'] != closed_id]
+    data['area_schemes_by_place_id'].pop(closed_id, None)
+    profiles['places'].pop(closed_id, None)
     # Facility and tenant operator each independently announce closure on this date.
     closure_url = 'https://www.h-sanbangai.com/service/'
     kiddy = by_id['branch_kiddyland_umeda']
@@ -91,6 +98,9 @@ def build():
           'cost_basis':cost_note,'window_basis':'official_regular_hours_with_event_period_context'}
     data['input_provenance']['character_gacha_20261123']={
       'catalog_input_sha256':sha(INPUT),'profiles_input_sha256':sha(PROFILE_INPUT),
+      'removed_closed':[{'place_id':closed_id,'checked_at':'2026-11-23',
+        'source_url':'https://ichiran.com/shop/hourstable.html',
+        'note':'이치란 도톤보리 본관 영업 종료. 별관과 별개의 지점. 이전 버전 기록은 보존.'}],
       'notes':['기존 카탈로그·실험 스냅샷은 변경하지 않음. 신규 매장은 건물 대표좌표 사용.',
                '확인 가능한 정규 영업시간과 공지된 휴관을 반영. 비공고 임시휴무·입장제한은 보장하지 않음.']}
     manifest = read(MANIFEST)
