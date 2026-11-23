@@ -204,7 +204,13 @@ test('the 225-place runtime catalogue keeps a split-hours restaurant when Google
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'live-'));
   const liveCheck = googleLiveCheck({key: 'k', fetchImpl: fake, cacheUrl: pathToFileURL(path.join(dir, 'c.json')), now: () => new Date('2026-11-01T03:00:00Z')});
   const r = {...request([id]), startDate: date, endDate: date};
-  const {candidates} = await calculateRealCandidates(r, runtime, runtimeProfiles, {baseUrl: ''}, {liveCheck, choose: null});
+  const {candidates} = await calculateRealCandidates(r, runtime, runtimeProfiles, {baseUrl: ''}, {liveCheck, choose: null,
+    precheckOptions: {key: 'test', fetchImpl: async (_url, init) => {
+      const input = JSON.parse(JSON.parse(init.body).messages[1].content);
+      const checks = input.rows.map(r => r.dataReady && r.liveConfirmed && r.costKrw <= input.budgetKrw
+        && r.windows.some(([o, c, l]) => o <= l && o + r.stayMin <= c));
+      return {ok: true, json: async () => ({choices: [{message: {content: JSON.stringify({checks})}}]})};
+    }}});
   for (const c of candidates) assert.ok(c.days[0].placeIds.includes(id), c.strategy);
 });
 

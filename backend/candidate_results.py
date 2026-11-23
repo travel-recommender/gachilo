@@ -161,7 +161,18 @@ def validate_candidates(output, room, known_ids):
         if room['dataset'] == REAL_DATASET:
             check(bool(seen_ids))  # An empty real schedule is a retryable failure, not a candidate.
             p = candidate['planning']
-            keys(p, 'status schedule_ready exchange_rate catalog_count scheduled_count unplaced_count must_satisfied must_veto_conflict_count empty_day_count reason_aggregation exclusion_reason_counts live_check ai_fill')
+            keys(p, 'status schedule_ready exchange_rate catalog_count scheduled_count unplaced_count must_satisfied must_veto_conflict_count empty_day_count reason_aggregation exclusion_reason_counts live_check ai_fill' + (' ai_precheck' if 'ai_precheck' in p else ''))
+            if 'ai_precheck' in p:
+                audit = p['ai_precheck']
+                keys(audit, 'version source status checked_at place_date_count allowed_place_date_count rejected_place_date_count evidence_digest')
+                check(audit['version'] == 'somsom-place-precheck-v1' and audit['status'] == 'passed')
+                check(audit['source'] == ('mock' if p['live_check']['source'] == 'mock' else 'somsom'))
+                check(isinstance(audit['checked_at'], str) and re.fullmatch(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z', audit['checked_at']) is not None)
+                check(isinstance(audit['evidence_digest'], str) and re.fullmatch(r'[a-f0-9]{64}', audit['evidence_digest']) is not None)
+                for field in ('place_date_count', 'allowed_place_date_count', 'rejected_place_date_count'):
+                    check(type(audit[field]) is int and 0 <= audit[field] <= 15000)
+                check(audit['place_date_count'] == audit['allowed_place_date_count'] + audit['rejected_place_date_count'])
+                check(audit['allowed_place_date_count'] >= len(seen_ids))
             keys(p['live_check'], 'source checked_on failed_place_count fetched_count reused_count')
             check(p['live_check']['source'] in ('google_places', 'mock'))
             check(all(type(p['live_check'][k]) is int and p['live_check'][k] >= 0 for k in ('failed_place_count', 'fetched_count', 'reused_count')))

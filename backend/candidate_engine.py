@@ -22,6 +22,10 @@ class CandidateEngine:
                 capture_output=True, text=True, encoding='utf-8', timeout=135, check=True)
             return json.loads(response.stdout)
         except subprocess.CalledProcessError as error:
+            if real and 'AI_PRECHECK_UNAVAILABLE' in (error.stderr or '').splitlines():
+                raise EngineError('솜솜AI 장소 사전 검수를 완료하지 못해 후보를 만들지 않았습니다. 잠시 후 다시 계산해 주세요.') from error
+            if real and 'AI_PRECHECK_INPUT_LIMIT' in (error.stderr or '').splitlines():
+                raise EngineError('장소·날짜별 검수 자료가 너무 많습니다. 여행 기간이나 장소 후보 수를 줄여 다시 계산해 주세요.') from error
             if real and 'LIVE_CHECK_UNAVAILABLE' in (error.stderr or '').splitlines():
                 raise EngineError('실시간 영업 확인을 할 수 없어 일정을 만들지 않았습니다. 서버에 GOOGLE_PLACES_API_KEY를 설정하세요.') from error
             if real and 'NO_SCHEDULABLE_REAL_CANDIDATE' in (error.stderr or '').splitlines():
