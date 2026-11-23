@@ -218,7 +218,7 @@ export const FILL_SOURCES = FILL_REASON.map(([source]) => source);
  *
  * hasMust: 이 사람에게 1순위가 있는가. 엔진은 1순위가 하나도 없어도 must_satisfied = true를 주므로,
  * 1순위가 있다는 게 확실할 때만 "모두의 1순위 … 들어갔어요"라고 말한다. 화면은 꼭 가기의 첫 곳을 1순위로 보내고,
- * 실험에서는 모두 꼭 가기 5곳을 고르므로 그룹 모두에게 같은 문장이 된다.
+ * 꼭 가기는 선택 사항이다. 1순위가 없는 참가자에게는 이 문장을 보여주지 않는다.
  */
 export function groupExplanation(c: CandidateLike, hasMust = false, planningLines = true): string[] {
   const p = c.planning;

@@ -320,3 +320,17 @@ test('AI fill never adds a vetoed place, and the model sees no member IDs or lim
   const {candidates} = await calculateRealCandidates(r, dataset, profiles, {baseUrl: ''}, {liveCheck: mockLiveCheck('pass')});
   for (const c of candidates) assert.ok(!c.days.flatMap(d => d.placeIds).includes(veto));
 });
+
+test('optional zero picks still produces three schedules from P3 lists and safe AI fill',async()=>{
+ const req=request(['osaka_009','osaka_012','osaka_015'],{days:2});
+ for(const s of req.submissions){s.picks=[];s.must=null;}
+ await withEnv({SOMSOM_API_KEY:'',AI_MOCK:'good',OSRM_FOOT_URL:''},async()=>{
+  const out=await calculateRealCandidates(req,dataset,profiles,{}, {liveCheck:mockLiveCheck('pass')});
+  assert.equal(out.candidates.length,3);
+  for(const c of out.candidates){
+   assert.ok(c.days.some(d=>d.items.length));
+   assert.ok(Number.isFinite(c.metrics.walkStepsPerDay));
+   assert.equal(c.metrics.walkStepsPerDay,Math.round(c.days.reduce((n,d)=>n+d.metrics.walkSteps,0)/c.days.length));
+  }
+ });
+});

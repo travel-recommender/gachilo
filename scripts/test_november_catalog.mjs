@@ -6,7 +6,9 @@ import {calculateRealCandidates} from '../backend/engine/real_candidates.mjs';
 import {mockLiveCheck} from '../backend/engine/live_check.mjs';
 // 새로 검증한 장소가 배치되는지만 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
 const offline={liveCheck:mockLiveCheck('pass'),choose:null};
-const {dataset,profiles}=loadRuntimeInputs();
+// Test the original publication independently of subsequent review overlays.
+const dataset=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_catalog_20261116.json',import.meta.url)));
+const profiles=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_profiles_20261104.json',import.meta.url)));
 const evidence=JSON.parse(fs.readFileSync(new URL('../data/final/catalog_verification_20261104.json',import.meta.url)));
 const byId=new Map(dataset.places.map(r=>[r.place.place_id,r]));
 const available=(id,date='2026-11-04')=>availability(byId.get(id),date,profiles,{allowShopping:true});

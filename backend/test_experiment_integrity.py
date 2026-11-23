@@ -54,10 +54,21 @@ class ExperimentIntegrityTests(unittest.TestCase):
         m=self.room['members'][0]
         for ids in [[],self.ids[:5],self.ids[:5]+self.ids[:1]]:
             self.assertEqual(self.req('PUT',self.path+'/longlists/'+m['id'],{'longlist':ids},m['submissionToken'])[0],400)
-        for fields in [{'longlist':self.ids[:5]},{'picks':self.ids[:4]},{'picks':self.ids}]:
+        for fields in [{'longlist':self.ids[:5]},{'picks':self.ids[:1]*2}]:
             self.assertEqual(self.submit(m,{**self.body,**fields})[0],400)
         self.assertEqual(self.submit(m)[0],200)
         self.assertEqual(self.submit(m,{**self.body,'budgetPerDay':20000})[0],200) # Retry/change before publication remains available.
+    def test_optional_must_accepts_zero_four_six_and_more_than_thirty(self):
+        m=self.room['members'][0]
+        all_ids=[p['id'] for p in Engine().catalog]
+        for n in (0,1,4,5,6,31):
+            picks=all_ids[:n]
+            body={**self.body,'picks':picks,'must':picks[0] if picks else None}
+            self.assertEqual(self.submit(m,body)[0],200,n)
+            saved=self.req('GET',self.path+'/submissions/'+m['id'],token=m['submissionToken'])[1]['submission']
+            self.assertEqual(saved['picks'],picks)
+            self.assertEqual(saved['must'],body['must'])
+        self.assertEqual(self.submit(m,{**self.body,'picks':[]})[0],400) # Orphan first-choice ID remains invalid.
     def test_second_room_rejected_without_changing_database(self):
         before=self.db.read_bytes()
         self.assertEqual(self.req('POST','/rooms',self.room_body)[0],409)

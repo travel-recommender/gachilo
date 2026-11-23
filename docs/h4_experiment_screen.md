@@ -1,3 +1,5 @@
+> 2026-11-23: 새 실험은 P3 추천 활성·꼭 가기 자유 선택으로 변경됐다. 아래는 기존 실험 조건 기록이다. [현재 변경 사항](experiment_feedback_20261123.md)을 함께 확인한다.
+
 # H4 실험용 화면 (혜인)
 
 관련: [실험 설계](실험설계_10주차.md) 2장·5장·7장, [이슈 #6](https://github.com/travel-recommender/gachilo/issues/6), [#67](https://github.com/travel-recommender/gachilo/pull/67)(실험 중 P3 추천 카드 끄기, 병합됨).

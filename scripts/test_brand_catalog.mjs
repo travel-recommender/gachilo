@@ -3,7 +3,9 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {loadRuntimeInputs, availability, toEnginePlace} from './validate_real_schedule.mjs';
 
-const {dataset, profiles} = loadRuntimeInputs();
+// Test the original publication independently of subsequent review overlays.
+const dataset=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_catalog_20261112.json',import.meta.url)));
+const profiles=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_profiles_20261104.json',import.meta.url)));
 const old = JSON.parse(fs.readFileSync(new URL('../data/final/osaka_catalog_20261104.json', import.meta.url)));
 const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
 

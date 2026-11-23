@@ -42,6 +42,8 @@ class CloudTests(unittest.TestCase):
             tokens=share.group_tokens(root,cloud.GROUP_META)
             cloud.freeze_bundle(root,cfg)
             self.assertEqual(support.read_json(root/'experiment-config.json')['explanationPolicy'],'participant-fixed-v2')
+            self.assertEqual(support.read_json(root/'experiment-config.json')['inputPolicy'],'optional-must-v1')
+            self.assertEqual(support.read_json(root/'experiment-config.json')['recommendationCards'],'enabled_all_participants_v1')
             before={p.name:p.read_bytes() for p in root.iterdir() if p.is_file()}
             cloud.freeze_bundle(root,cfg)
             self.assertEqual(tokens,share.group_tokens(root,cloud.GROUP_META))

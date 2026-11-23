@@ -62,8 +62,8 @@ export default function Pick() {
         {EXPERIMENT_MODE && <p className="mb-4 text-sm text-wine">가고 싶은 곳을 6곳 이상 담아 주세요.</p>}
         <PlaceFinder added={longlist} onPick={add} disabled={busy} />
         {busy && <p role="status" className="mt-2 text-sm text-mute">목록을 저장하고 있어요. 잠시 기다려 주세요.</p>}
-        {/* 실험 방에서는 추천 카드를 그리지 않는다 — 마운트되면 추천 API를 부르므로 숨김이 아니라 생략 (실험설계 2.1) */}
-        {!EXPERIMENT_MODE && state.room && recommendFrom?.session === session && <PlaceRecommendations
+        {/* 2026-11-23: 모든 참가자에게 장소를 담은 직후 추천을 제공한다. */}
+        {state.room && recommendFrom?.session === session && <PlaceRecommendations
           room={state.room} catalog={catalog} sourceId={recommendFrom.id} added={longlist} disabled={busy} onAdd={p => add(p, false)}
         />}
 

@@ -14,6 +14,7 @@ from api_errors import ApiError, require
 from candidate_results import CandidateStore, STRATEGIES
 from candidate_engine import CandidateEngine
 from place_recommendations import RecommendationStore
+from place_photo import PhotoService
 def digest(token):return hashlib.sha256(token.encode()).hexdigest()
 def now():return datetime.now(timezone.utc).isoformat()
 PIN_TRIES=5
@@ -194,11 +195,10 @@ class Store(CandidateStore, RecommendationStore):
     def submit(self,rid,mid,token,b):
         require(isinstance(b,dict),'JSON 객체가 필요합니다.')
         for field in ('longlist','picks'):
-            v=b.get(field);require(isinstance(v,list) and len(v)<=30 and all(isinstance(x,str) and 1<=len(x)<=100 for x in v),field+' 형식을 확인하세요.')
+            v=b.get(field);require(isinstance(v,list) and len(v)<=(30 if field=='longlist' else max(len(self.real_ids), len(self.catalog_ids or []))) and all(isinstance(x,str) and 1<=len(x)<=100 for x in v),field+' 형식을 확인하세요.')
             require(len(set(v))==len(v),field+'에 중복 장소가 있습니다.')
         if os.environ.get('EXPERIMENT_SERVER')=='1':
             require(len(b['longlist'])>=6,'실험에서는 장소를 6곳 이상 담아 주세요.')
-            require(len(b['picks'])==5,'실험에서는 꼭 가기 5곳을 선택해 주세요.')
         for field in ('must','veto'):require(b.get(field) is None or isinstance(b[field],str) and 1<=len(b[field])<=100,field+' 형식을 확인하세요.')
         require(b.get('must') is None or b['must'] in b['picks'],'꼭 가는 곳은 picks에 포함되어야 합니다.')
         if 'vetoes' in b:
@@ -393,6 +393,7 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
         except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('방문 조건을 불러오지 못했습니다. 잠시 뒤 다시 시도하세요.')
         return {'roomId':rid,**value}
     store=Store(path,engine.catalog,date_availability=available_ids)
+    photo_service=PhotoService(engine.node, json.loads(DATA.read_text())["places"])
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
             origin=self.headers.get('Origin')
@@ -476,6 +477,11 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 if self.command=='PUT' and m:return self.send_json(200,store.submit(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/longlists/([\w-]+)',path)
                 if self.command=='PUT' and m:return self.send_json(200,store.save_longlist(*m.groups(),token,b))
+                m=re.fullmatch(r'/rooms/([\w-]+)/place-photo',path)
+                if m and self.command=='POST':
+                    dataset,_,_=store.room_dates(m[1],token)
+                    require(dataset==REAL_DATASET,'사진은 실제 장소 방에서 확인할 수 있습니다.')
+                    return self.send_json(200,photo_service.get(m[1],b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/recommendations/([\w-]+)',path)
                 if self.command=='POST' and m:return self.send_json(200,store.recommend_places(*m.groups(),token,b))
                 m=re.fullmatch(r'/rooms/([\w-]+)/visit-conditions',path)
