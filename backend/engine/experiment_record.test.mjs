@@ -39,7 +39,7 @@ test('actual closure replacement agrees across engine, personal text and exporte
       const text = experimentExplanation(candidate,sub,id=>byId.get(id).name_ko,id=>byId.get(id)?.branch_group_id);
       assert.ok(text.includes('내 꼭 가기 1곳 중 1곳이 들어갔어요.'));
       assert.ok(text.some(s=>s.includes('같은 가게의 다른 지점인')));
-      assert.ok(text.includes('모두의 1순위 꼭 가기가 모두 들어갔어요.'));
+      assert.ok(text.includes('1순위를 고른 사람의 꼭 가기가 모두 들어갔어요.'));
     }
   } finally { fs.rmSync(temp,{recursive:true,force:true}); }
 });

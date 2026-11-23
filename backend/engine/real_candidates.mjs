@@ -346,6 +346,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       status: omitted || missingMust || conflicts || emptyDays ? 'needs_review' : 'model_checks_passed',
       schedule_ready: false, exchange_rate: request.exchange_rate, catalog_count: dataset.places.length,
       scheduled_count: scheduled.size, unplaced_count: omitted, must_satisfied: !missingMust && !conflicts,
+      has_must: musts.size > 0,
       must_veto_conflict_count: conflicts, empty_day_count: emptyDays,
       reason_aggregation: 'common_across_dates', exclusion_reason_counts: exclusionReasons,
       live_check: {source: live.source, checked_on: live.checked_on, failed_place_count: live.failedPlaces,
