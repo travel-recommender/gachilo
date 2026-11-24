@@ -3043,6 +3043,21 @@
         "https://asobimiru.com/kaiyukan/"
       ],
       "cost_basis": "11/25 성인 2,800엔은 외부 일정 자료 두 곳의 참고값. 실제 입장료·티켓 잔여 재확인."
+    },
+    "branch_kaldi_namba_city": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        660,
+        1260,
+        1260
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+        "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
+      ],
+      "cost_basis": "쇼핑 구매비는 품목·수량에 따라 달라 미산정."
     }
   }
 }

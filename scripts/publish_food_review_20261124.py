@@ -367,6 +367,20 @@ def build():
              '실내 전시 120분·짐 0은 일정 추정이며 접근로·야외 대기·실제 소요와 짐 보관 허용을 보장하지 않음.'],
             '11/25 성인 2,800엔은 외부 일정 자료 두 곳의 참고값. 실제 입장료·티켓 잔여 재확인.',
             'reported_dated_ticket_estimate',role=None,coordinate='map_listing_reference_not_entrance'),
+        'branch_kaldi_namba_city': eligible(
+            ['https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2',
+             'https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/'],
+            {'latitude':34.66469401,'longitude':135.50114982,
+             'opening_hours':'난바 CITY 본관 1층 11:00~21:00. 시설 휴관·임시 변경 확인.',
+             'stay_min':30,'bag_load':1,'covered':True},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[660,1260,1260]},
+            ['collected_visit_conditions_require_profile','structured_date_profile_missing','stay_policy_unconfirmed'],
+            ['공식 난바 CITY 본관 1층의 주소·전화와 지도 목록을 대조. 난바 마루이점·난바파크스점과 다른 지점.',
+             '공식 점포의 매일 11~21시를 참고. 날짜별 임시 휴업·쇼핑몰 휴관은 방문 전 확인.',
+             '지도 목록의 지점 기준 좌표이며 실제 매장 입구·층간 이동은 실측이 아님.',
+             '30분 체류와 짐 점수 1은 시연 추정. 식품 소매점이며 개인별 쇼핑 구매비는 산정하지 않음.'],
+            '쇼핑 구매비는 품목·수량에 따라 달라 미산정.',
+            'shopping_spend_not_included',role=None,coordinate='map_listing_reference_not_entrance'),
     })
     updates['spot_ebisubashi']['cost_kind'] = 'official_free_admission'
     updates['spot_ebisubashi']['field_kinds']['cost'] = 'dated_official_review'

@@ -60012,16 +60012,16 @@
         "category": "쇼핑",
         "area": "난바·도톤보리",
         "address": "大阪市中央区難波5-1-60 なんばCITY本館1F",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": "11:00–21:00",
+        "latitude": 34.66469401,
+        "longitude": 135.50114982,
+        "opening_hours": "난바 CITY 본관 1층 11:00~21:00. 시설 휴관·임시 변경 확인.",
         "cost": null,
-        "stay_min": null,
-        "bag_load": null,
+        "stay_min": 30,
+        "bag_load": 1,
         "covered": true,
         "website": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
-        "opening_hours_source": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2; https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/",
+        "verified_at": "2026-11-24",
         "brand_id": "kaldi",
         "branch_group_id": "kaldi:standard"
       },
@@ -60075,20 +60075,44 @@
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
         },
         "opening_hours": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+            "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-24",
+          "note": "공식 난바 CITY 본관 1층의 주소·전화와 지도 목록을 대조. 난바 마루이점·난바파크스점과 다른 지점.; 공식 점포의 매일 11~21시를 참고. 날짜별 임시 휴업·쇼핑몰 휴관은 방문 전 확인.; 지도 목록의 지점 기준 좌표이며 실제 매장 입구·층간 이동은 실측이 아님.; 30분 체류와 짐 점수 1은 시연 추정. 식품 소매점이며 개인별 쇼핑 구매비는 산정하지 않음.",
+          "previous": {
+            "value": "11:00–21:00",
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "covered": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+            "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-24",
+          "note": "공식 난바 CITY 본관 1층의 주소·전화와 지도 목록을 대조. 난바 마루이점·난바파크스점과 다른 지점.; 공식 점포의 매일 11~21시를 참고. 날짜별 임시 휴업·쇼핑몰 휴관은 방문 전 확인.; 지도 목록의 지점 기준 좌표이며 실제 매장 입구·층간 이동은 실측이 아님.; 30분 체류와 짐 점수 1은 시연 추정. 식품 소매점이며 개인별 쇼핑 구매비는 산정하지 않음.",
+          "previous": {
+            "value": true,
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "website": {
           "kind": "official_source_collection",
@@ -60128,6 +60152,58 @@
           "kind": "conservative_substitution_policy",
           "registry_version": "2026-11-12-brands-v1",
           "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+            "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+            "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+            "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 난바 CITY 본관 1층의 주소·전화와 지도 목록을 대조. 난바 마루이점·난바파크스점과 다른 지점.; 공식 점포의 매일 11~21시를 참고. 날짜별 임시 휴업·쇼핑몰 휴관은 방문 전 확인.; 지도 목록의 지점 기준 좌표이며 실제 매장 입구·층간 이동은 실측이 아님.; 30분 체류와 짐 점수 1은 시연 추정. 식품 소매점이며 개인별 쇼핑 구매비는 산정하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+            "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 난바 CITY 본관 1층의 주소·전화와 지도 목록을 대조. 난바 마루이점·난바파크스점과 다른 지점.; 공식 점포의 매일 11~21시를 참고. 날짜별 임시 휴업·쇼핑몰 휴관은 방문 전 확인.; 지도 목록의 지점 기준 좌표이며 실제 매장 입구·층간 이동은 실측이 아님.; 30분 체류와 짐 점수 1은 시연 추정. 식품 소매점이며 개인별 쇼핑 구매비는 산정하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -60139,25 +60215,24 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
         "notes": [
-          "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
+          "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입.",
+          "2026-11-24: 공식 난바 CITY 본관 1층의 주소·전화와 지도 목록을 대조. 난바 마루이점·난바파크스점과 다른 지점.; 공식 점포의 매일 11~21시를 참고. 날짜별 임시 휴업·쇼핑몰 휴관은 방문 전 확인.; 지도 목록의 지점 기준 좌표이며 실제 매장 입구·층간 이동은 실측이 아님.; 30분 체류와 짐 점수 1은 시연 추정. 식품 소매점이며 개인별 쇼핑 구매비는 산정하지 않음."
         ],
-        "recommendation_blockers": [
-          "collected_visit_conditions_require_profile",
-          "structured_date_profile_missing",
-          "stay_policy_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "cost",
-          "stay_min",
-          "bag_load"
+          "cost"
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 30,
+          "max": 30,
+          "representative": 30,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "branch_collection": {
           "brand": "칼디",
           "official_name": "カルディコーヒーファーム なんばCITY店",
@@ -60173,6 +60248,69 @@
             "커피·수입식품 소매점으로 카페가 아님. 시설 휴관·지도 참조 좌표·일정 프로필 확인 후 투입."
           ],
           "ready_for_scheduling": false
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+            "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
+          ],
+          "fields": {
+            "latitude": 34.66469401,
+            "longitude": 135.50114982,
+            "opening_hours": "난바 CITY 본관 1층 11:00~21:00. 시설 휴관·임시 변경 확인.",
+            "stay_min": 30,
+            "bag_load": 1,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "official_budget_estimate",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "쇼핑 구매비는 품목·수량에 따라 달라 미산정.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "collected_visit_conditions_require_profile",
+            "structured_date_profile_missing",
+            "stay_policy_unconfirmed"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 난바 CITY 본관 1층의 주소·전화와 지도 목록을 대조. 난바 마루이점·난바파크스점과 다른 지점.",
+            "공식 점포의 매일 11~21시를 참고. 날짜별 임시 휴업·쇼핑몰 휴관은 방문 전 확인.",
+            "지도 목록의 지점 기준 좌표이며 실제 매장 입구·층간 이동은 실측이 아님.",
+            "30분 체류와 짐 점수 1은 시연 추정. 식품 소매점이며 개인별 쇼핑 구매비는 산정하지 않음."
+          ],
+          "cost_basis": "쇼핑 구매비는 품목·수량에 따라 달라 미산정.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              660,
+              1260,
+              1260
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "shopping_spend_not_included",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=567&pgret=2",
+              "https://www.mapion.co.jp/phonebook/M02014/27128/22733043053/"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 30,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -63728,9 +63866,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-24",
-    "updated": 32,
+    "updated": 33,
     "new_search_only": 0,
-    "promoted": 32,
+    "promoted": 33,
     "date_range": [
       "2026-11-24",
       "2026-11-30"
