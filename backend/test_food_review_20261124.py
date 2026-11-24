@@ -21,3 +21,12 @@ class FoodReviewApiTests(unittest.TestCase):
         item=next(p for p in catalog(query='비나인')['places'] if p['name_ko']=='비나인')
         self.assertIn('official_indefinite_closure',item['planning']['review_required'])
         self.assertNotIn('google_maps_permanently_closed',item['planning']['review_required'])
+
+    def test_second_review_is_searchable_with_budget_estimates(self):
+        for name in ('머시 비건 팩토리','사이지키 채식요리','중앙시장 엔도 스시',
+                     '리쿠로 오지상 난바 본점','코코이치방야 난바 에비스바시점',
+                     '비어드파파 난바워크점','비드프랑스 벤텐초점','호젠지 미즈카케차야'):
+            item=next(p for p in catalog(query=name,rate=Decimal('9.5'))['places'] if p['name_ko']==name)
+            self.assertEqual(item['cost_status'],'estimate',name)
+            self.assertIsNone(item['selection_disabled_reason'],name)
+            self.assertTrue(item['cost_basis'],name)

@@ -56,8 +56,31 @@ test('reported closed ramen branch is removed only from new snapshot',()=>{
  assert.ok(dataset.retired_records.some(r=>r.place_id===id && r.source_urls.length>=2));
 });
 
+test('second food review respects identity, meal purpose and opening limits',()=>{
+ const mercy='osaka_draft_c341bbd2440a', saijiki='osaka_draft_7eda017e1ded';
+ const coco='branch_coco_namba_ebisubashi', rikuroNamba='branch_rikuro_namba_honten';
+ const beard='branch_beardpapa_namba_walk', mizukake='branch_mizukakechaya_namba';
+ const endo='osaka_draft_3d97f36846d0', vie='branch_viedefrance_bentencho';
+ for(const id of [mercy,saijiki,coco,rikuroNamba,beard,mizukake,endo,vie]){
+  assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-12-01').eligible_for_model,false,id);
+  assert.ok(record(id).review.dated_verification.cost_basis);
+ }
+ assert.equal(check(mercy,'2026-11-28').eligible_for_model,false);
+ assert.equal(check(saijiki,'2026-11-30').eligible_for_model,false);
+ assert.deepEqual(check(mizukake,'2026-11-25').window,[960,1380,1350]);
+ assert.equal(record(beard).review.meal_role,'snack');
+ assert.equal(record(rikuroNamba).review.meal_role,'snack');
+ assert.equal(record(vie).review.meal_role,'snack');
+ assert.equal(check(endo,'2026-11-29').eligible_for_model,false);
+ assert.equal(record(beard).review.dated_verification.coordinates.kind,'map_listing_reference_not_entrance');
+ assert.match(record(mercy).review.notes.join(' '),/2-4-5/);
+});
+
 test('each reviewed meal can be scheduled through all three strategies',async()=>{
- for(const id of [bistro,sushi,casa,rikuro,ramen]){
+ for(const id of [bistro,sushi,casa,rikuro,ramen,'osaka_draft_c341bbd2440a','osaka_draft_7eda017e1ded',
+   'branch_rikuro_namba_honten','branch_coco_namba_ebisubashi','branch_beardpapa_namba_walk','branch_mizukakechaya_namba',
+   'osaka_draft_3d97f36846d0','branch_viedefrance_bentencho']){
   const request={startDate:'2026-11-25',endDate:'2026-11-25',exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
    submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,
      budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};

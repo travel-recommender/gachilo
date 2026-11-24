@@ -30166,14 +30166,14 @@
         "address": "大阪市中央区瓦屋町2-4-15 1階西側",
         "latitude": 34.669979,
         "longitude": 135.5133594,
-        "opening_hours": "월~금·일 08:00~10:30 모닝, 10:30~17:00 런치(최종주문16:00), 18:00~21:00 디너(최종주문20:00); 토 휴무",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "월~금·일 점심 10:30~16:00; 토요일 휴무. 다른 영업 시간은 별도.",
+        "cost": 1650,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://shop.mercy-vegan.jp/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-26",
+        "opening_hours_source": "https://mercy-vegan-factory.owst.jp/; https://mercy-vegan-factory.owst.jp/foods; https://shop.mercy-vegan.jp/; https://www.mercy-vegan.jp/restaurants/; https://www.openstreetmap.org/node/10259462714",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -30195,15 +30195,57 @@
           "url": "https://www.openstreetmap.org/node/10259462714"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 81,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://mercy-vegan-factory.owst.jp/",
+            "https://mercy-vegan-factory.owst.jp/foods",
+            "https://shop.mercy-vegan.jp/",
+            "https://www.mercy-vegan.jp/restaurants/",
+            "https://www.openstreetmap.org/node/10259462714"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 예약·메뉴 페이지와 공식 쇼핑몰이 2-4-15를 사용. 다른 공식 소개 페이지의 2-4-5는 여전히 충돌하므로 출처와 함께 기록.; 식당 공식 페이지의 점심 김밥 1,650엔(세금 포함)을 예산 참고로 사용. 점포 운영·품절·임시휴무는 방문 전 확인.",
           "previous": {
-            "value": "08:00–17:00, 18:00–21:00; 점심 주문 16:00·저녁 20:00까지; 토요일 휴무",
+            "value": "월~금·일 08:00~10:30 모닝, 10:30~17:00 런치(최종주문16:00), 18:00~21:00 디너(최종주문20:00); 토 휴무",
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 81,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "08:00–17:00, 18:00–21:00; 점심 주문 16:00·저녁 20:00까지; 토요일 휴무",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://shop.mercy-vegan.jp/"
+                  ],
+                  "checked_at": "2026-09-26",
+                  "evidence_window": "2026-09-24/2026-09-26"
+                }
+              }
+            }
+          }
+        },
+        "website": {
+          "kind": "osm",
+          "url": "https://www.openstreetmap.org/node/10259462714"
+        },
+        "address": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://mercy-vegan-factory.owst.jp/",
+            "https://mercy-vegan-factory.owst.jp/foods",
+            "https://shop.mercy-vegan.jp/",
+            "https://www.mercy-vegan.jp/restaurants/",
+            "https://www.openstreetmap.org/node/10259462714"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 예약·메뉴 페이지와 공식 쇼핑몰이 2-4-15를 사용. 다른 공식 소개 페이지의 2-4-5는 여전히 충돌하므로 출처와 함께 기록.; 식당 공식 페이지의 점심 김밥 1,650엔(세금 포함)을 예산 참고로 사용. 점포 운영·품절·임시휴무는 방문 전 확인.",
+          "previous": {
+            "value": "大阪市中央区瓦屋町2-4-15 1階西側",
             "source": {
               "kind": "official_web_review",
               "urls": [
@@ -30213,18 +30255,6 @@
               "evidence_window": "2026-09-24/2026-09-26"
             }
           }
-        },
-        "website": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/10259462714"
-        },
-        "address": {
-          "kind": "official_web_review",
-          "urls": [
-            "https://shop.mercy-vegan.jp/"
-          ],
-          "checked_at": "2026-09-26",
-          "evidence_window": "2026-09-24/2026-09-26"
         },
         "opening_hours_source": {
           "kind": "user_manual_review",
@@ -30271,33 +30301,78 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://mercy-vegan-factory.owst.jp/",
+            "https://mercy-vegan-factory.owst.jp/foods",
+            "https://shop.mercy-vegan.jp/",
+            "https://www.mercy-vegan.jp/restaurants/",
+            "https://www.openstreetmap.org/node/10259462714"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 예약·메뉴 페이지와 공식 쇼핑몰이 2-4-15를 사용. 다른 공식 소개 페이지의 2-4-5는 여전히 충돌하므로 출처와 함께 기록.; 식당 공식 페이지의 점심 김밥 1,650엔(세금 포함)을 예산 참고로 사용. 점포 운영·품절·임시휴무는 방문 전 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://mercy-vegan-factory.owst.jp/",
+            "https://mercy-vegan-factory.owst.jp/foods",
+            "https://shop.mercy-vegan.jp/",
+            "https://www.mercy-vegan.jp/restaurants/",
+            "https://www.openstreetmap.org/node/10259462714"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 예약·메뉴 페이지와 공식 쇼핑몰이 2-4-15를 사용. 다른 공식 소개 페이지의 2-4-5는 여전히 충돌하므로 출처와 함께 기록.; 식당 공식 페이지의 점심 김밥 1,650엔(세금 포함)을 예산 참고로 사용. 점포 운영·품절·임시휴무는 방문 전 확인.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "covered": {
-          "kind": "classification_from_official_description",
+          "kind": "dated_official_review",
           "urls": [
+            "https://mercy-vegan-factory.owst.jp/",
+            "https://mercy-vegan-factory.owst.jp/foods",
+            "https://shop.mercy-vegan.jp/",
             "https://www.mercy-vegan.jp/restaurants/",
-            "https://www.mercy-vegan.jp/service/",
-            "https://shop.mercy-vegan.jp/"
+            "https://www.openstreetmap.org/node/10259462714"
           ],
-          "checked_at": "2026-10-06",
-          "revision": "official_followup_20261006",
-          "note": "공식 서비스 설명에 명시된 밝고 개방적인 실내 매장 이용에 한정. 포장 픽업·외부 좌석·접근 경로 제외."
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 예약·메뉴 페이지와 공식 쇼핑몰이 2-4-15를 사용. 다른 공식 소개 페이지의 2-4-5는 여전히 충돌하므로 출처와 함께 기록.; 식당 공식 페이지의 점심 김밥 1,650엔(세금 포함)을 예산 참고로 사용. 점포 운영·품절·임시휴무는 방문 전 확인.",
+          "previous": {
+            "value": true,
+            "source": {
+              "kind": "classification_from_official_description",
+              "urls": [
+                "https://www.mercy-vegan.jp/restaurants/",
+                "https://www.mercy-vegan.jp/service/",
+                "https://shop.mercy-vegan.jp/"
+              ],
+              "checked_at": "2026-10-06",
+              "revision": "official_followup_20261006",
+              "note": "공식 서비스 설명에 명시된 밝고 개방적인 실내 매장 이용에 한정. 포장 픽업·외부 좌석·접근 경로 제외."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -30307,6 +30382,22 @@
           "checked_at": null,
           "imported_at": "2026-10-13",
           "independently_reverified": false
+        },
+        "cost": {
+          "kind": "restaurant_published_menu_reference",
+          "urls": [
+            "https://mercy-vegan-factory.owst.jp/",
+            "https://mercy-vegan-factory.owst.jp/foods",
+            "https://shop.mercy-vegan.jp/",
+            "https://www.mercy-vegan.jp/restaurants/",
+            "https://www.openstreetmap.org/node/10259462714"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 점심 김밥 1인 1,650엔(세금 포함) 참고. 가격·추가 주문 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -30332,18 +30423,20 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_c341bbd2440a_address_hours_20260926"
         ],
         "notes": [
           "2026-10-01: 오사카 본점 운영시간 확인. 온라인 상품 가격을 매장 식사 가격으로 적용하지 않음.",
-          "2026-10-06: 공식 매장·서비스 본문은 瓦屋町2-4-5, 공식 쇼핑몰과 공통 하단은 2-4-15로 주소가 충돌하여 address_conflict 추가. 어느 번지가 맞는지 임의 선택하지 않음. 쇼핑몰의 냉동 제품 가격을 식당 메뉴 가격으로 쓰지 않음. 공식 서비스 설명의 밝은 실내 공간만 covered 분류."
+          "2026-10-06: 공식 매장·서비스 본문은 瓦屋町2-4-5, 공식 쇼핑몰과 공통 하단은 2-4-15로 주소가 충돌하여 address_conflict 추가. 어느 번지가 맞는지 임의 선택하지 않음. 쇼핑몰의 냉동 제품 가격을 식당 메뉴 가격으로 쓰지 않음. 공식 서비스 설명의 밝은 실내 공간만 covered 분류.",
+          "2026-11-24: 공식 지점 예약·메뉴 페이지와 공식 쇼핑몰이 2-4-15를 사용. 다른 공식 소개 페이지의 2-4-5는 여전히 충돌하므로 출처와 함께 기록.; 식당 공식 페이지의 점심 김밥 1,650엔(세금 포함)을 예산 참고로 사용. 점포 운영·품절·임시휴무는 방문 전 확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_c341bbd2440a",
         "missing_fields": [
-          "cost"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -30363,16 +30456,13 @@
           "hours_status": "verified",
           "notes": []
         },
-        "recommendation_blockers": [
-          "address_conflict",
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "식당",
+          "type": "시연 추정",
           "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -30407,7 +30497,70 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://mercy-vegan-factory.owst.jp/",
+            "https://mercy-vegan-factory.owst.jp/foods",
+            "https://shop.mercy-vegan.jp/",
+            "https://www.mercy-vegan.jp/restaurants/",
+            "https://www.openstreetmap.org/node/10259462714"
+          ],
+          "fields": {
+            "address": "大阪市中央区瓦屋町2-4-15 1階西側",
+            "opening_hours": "월~금·일 점심 10:30~16:00; 토요일 휴무. 다른 영업 시간은 별도.",
+            "cost": 1650,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "restaurant_published_menu_reference",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "공식 지점의 점심 김밥 1인 1,650엔(세금 포함) 참고. 가격·추가 주문 별도 확인."
+          },
+          "resolved_blockers": [
+            "address_conflict",
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 지점 예약·메뉴 페이지와 공식 쇼핑몰이 2-4-15를 사용. 다른 공식 소개 페이지의 2-4-5는 여전히 충돌하므로 출처와 함께 기록.",
+            "식당 공식 페이지의 점심 김밥 1,650엔(세금 포함)을 예산 참고로 사용. 점포 운영·품절·임시휴무는 방문 전 확인."
+          ],
+          "cost_basis": "공식 지점의 점심 김밥 1인 1,650엔(세금 포함) 참고. 가격·추가 주문 별도 확인.",
+          "profile": {
+            "window": [
+              630,
+              960,
+              960
+            ],
+            "closed_weekdays": [
+              6
+            ]
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://mercy-vegan-factory.owst.jp/",
+              "https://mercy-vegan-factory.owst.jp/foods",
+              "https://shop.mercy-vegan.jp/",
+              "https://www.mercy-vegan.jp/restaurants/",
+              "https://www.openstreetmap.org/node/10259462714"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -33098,14 +33251,14 @@
         "address": "大阪市福島区野田1-1-86",
         "latitude": 34.6842674,
         "longitude": 135.4795028,
-        "opening_hours": "월~토06:15~13:30; 일 휴무",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "시장 영업일 평일 06:15~14:00 (주문마감 13:30)만 사용. 일·공휴일·토요일 제외.",
+        "cost": 2800,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://www.endo-sushi.com/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://www.endo-sushi.com/12450124631247512473.html; https://www.uoichi.co.jp/assets/2026.pdf; https://tabelog.com/osaka/A2701/A270108/27002698/dtlrvwlst/B529821964/; https://www.openstreetmap.org/node/4424700690",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -33127,22 +33280,36 @@
           "url": "https://www.openstreetmap.org/node/4424700690"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 88,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.endo-sushi.com/12450124631247512473.html",
+            "https://www.uoichi.co.jp/assets/2026.pdf",
+            "https://tabelog.com/osaka/A2701/A270108/27002698/dtlrvwlst/B529821964/",
+            "https://www.openstreetmap.org/node/4424700690"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026-11-25는 중앙시장 휴장 달력의 휴무일이 아니지만 업소 임시휴무와 실제 영업은 별도 확인. 토요일 표기가 출처마다 달라 제외.; 2026-06 방문 후기의 한 접시(5관) 1,400엔을 1인 2접시로 가정한 예산. 실가격·수량·세금 및 대기 별도.",
           "previous": {
-            "value": "06:00–14:00; 일요일·공휴일 휴무",
+            "value": "월~토06:15~13:30; 일 휴무",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "https://www.endo-sushi.com/1243312435123931235812395123881235612390.html"
-              ],
-              "checked_at": "2026-09-28",
-              "note": "중앙시장점 확인. 같은 페이지 방콕점과 구분."
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 88,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "06:00–14:00; 일요일·공휴일 휴무",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://www.endo-sushi.com/1243312435123931235812395123881235612390.html"
+                  ],
+                  "checked_at": "2026-09-28",
+                  "note": "중앙시장점 확인. 같은 페이지 방콕점과 구분."
+                }
+              }
             }
           }
         },
@@ -33203,22 +33370,50 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.endo-sushi.com/12450124631247512473.html",
+            "https://www.uoichi.co.jp/assets/2026.pdf",
+            "https://tabelog.com/osaka/A2701/A270108/27002698/dtlrvwlst/B529821964/",
+            "https://www.openstreetmap.org/node/4424700690"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "2026-11-25는 중앙시장 휴장 달력의 휴무일이 아니지만 업소 임시휴무와 실제 영업은 별도 확인. 토요일 표기가 출처마다 달라 제외.; 2026-06 방문 후기의 한 접시(5관) 1,400엔을 1인 2접시로 가정한 예산. 실가격·수량·세금 및 대기 별도.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.endo-sushi.com/12450124631247512473.html",
+            "https://www.uoichi.co.jp/assets/2026.pdf",
+            "https://tabelog.com/osaka/A2701/A270108/27002698/dtlrvwlst/B529821964/",
+            "https://www.openstreetmap.org/node/4424700690"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "2026-11-25는 중앙시장 휴장 달력의 휴무일이 아니지만 업소 임시휴무와 실제 영업은 별도 확인. 토요일 표기가 출처마다 달라 제외.; 2026-06 방문 후기의 한 접시(5관) 1,400엔을 1인 2접시로 가정한 예산. 실가격·수량·세금 및 대기 별도.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -33230,15 +33425,44 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 88,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.endo-sushi.com/12450124631247512473.html",
+            "https://www.uoichi.co.jp/assets/2026.pdf",
+            "https://tabelog.com/osaka/A2701/A270108/27002698/dtlrvwlst/B529821964/",
+            "https://www.openstreetmap.org/node/4424700690"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026-11-25는 중앙시장 휴장 달력의 휴무일이 아니지만 업소 임시휴무와 실제 영업은 별도 확인. 토요일 표기가 출처마다 달라 제외.; 2026-06 방문 후기의 한 접시(5관) 1,400엔을 1인 2접시로 가정한 예산. 실가격·수량·세금 및 대기 별도.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 88,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "visitor_reported_menu_estimate",
+          "urls": [
+            "https://www.endo-sushi.com/12450124631247512473.html",
+            "https://www.uoichi.co.jp/assets/2026.pdf",
+            "https://tabelog.com/osaka/A2701/A270108/27002698/dtlrvwlst/B529821964/",
+            "https://www.openstreetmap.org/node/4424700690"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026-06 방문 후기 한 접시 1,400엔 × 2접시를 가정한 2,800엔 참고. 실제 주문·대기·가격 별도.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -33261,7 +33485,7 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "official_fields_20260928"
         ],
@@ -33269,13 +33493,14 @@
           "공식 페이지 본문이 이미지 위주. 해당 지점 상세 안내 확인 필요.",
           "중앙시장점 확인. 같은 페이지 방콕점과 구분.",
           "2026-10-01: 공식 상마제5개 메뉴 설명과 사진은 있으나 현재 가격 미공개. 과거 제3자1100엔을 확정값으로 채우지 않음.",
-          "2026-10-06: 공식 메뉴에서 오마카세 접시 설명을 확인했으나 가격 텍스트를 확인하지 못함. 이미지 메뉴 금액은 판독하지 못했으므로 미확인 유지."
+          "2026-10-06: 공식 메뉴에서 오마카세 접시 설명을 확인했으나 가격 텍스트를 확인하지 못함. 이미지 메뉴 금액은 판독하지 못했으므로 미확인 유지.",
+          "2026-11-24: 2026-11-25는 중앙시장 휴장 달력의 휴무일이 아니지만 업소 임시휴무와 실제 영업은 별도 확인. 토요일 표기가 출처마다 달라 제외.; 2026-06 방문 후기의 한 접시(5관) 1,400엔을 1인 2접시로 가정한 예산. 실가격·수량·세금 및 대기 별도."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_3d97f36846d0",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -33295,15 +33520,13 @@
             "공식 페이지 본문이 이미지 위주. 해당 지점 상세 안내 확인 필요."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "식당",
+          "type": "시연 추정",
           "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -33335,7 +33558,68 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.endo-sushi.com/12450124631247512473.html",
+            "https://www.uoichi.co.jp/assets/2026.pdf",
+            "https://tabelog.com/osaka/A2701/A270108/27002698/dtlrvwlst/B529821964/",
+            "https://www.openstreetmap.org/node/4424700690"
+          ],
+          "fields": {
+            "opening_hours": "시장 영업일 평일 06:15~14:00 (주문마감 13:30)만 사용. 일·공휴일·토요일 제외.",
+            "cost": 2800,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "visitor_reported_menu_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2026-06 방문 후기 한 접시 1,400엔 × 2접시를 가정한 2,800엔 참고. 실제 주문·대기·가격 별도."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "2026-11-25는 중앙시장 휴장 달력의 휴무일이 아니지만 업소 임시휴무와 실제 영업은 별도 확인. 토요일 표기가 출처마다 달라 제외.",
+            "2026-06 방문 후기의 한 접시(5관) 1,400엔을 1인 2접시로 가정한 예산. 실가격·수량·세금 및 대기 별도."
+          ],
+          "cost_basis": "2026-06 방문 후기 한 접시 1,400엔 × 2접시를 가정한 2,800엔 참고. 실제 주문·대기·가격 별도.",
+          "profile": {
+            "window": [
+              375,
+              840,
+              810
+            ],
+            "closed_weekdays": [
+              0,
+              6
+            ],
+            "closed_holidays": true
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://www.endo-sushi.com/12450124631247512473.html",
+              "https://www.uoichi.co.jp/assets/2026.pdf",
+              "https://tabelog.com/osaka/A2701/A270108/27002698/dtlrvwlst/B529821964/",
+              "https://www.openstreetmap.org/node/4424700690"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -33703,14 +33987,14 @@
         "address": "Tennoji Park Villa, 105号, 1 Chome-1-10 Sanno, Nishinari Ward, Osaka, 557-0001 일본",
         "latitude": 34.6481859,
         "longitude": 135.5077342,
-        "opening_hours": "11:00~23:00; 입장 마감21:00; 이용90분 제한; 부정기 휴일",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "수~일 11:30~14:00 점심만 사용. 월·화·공휴일은 자료 차이로 제외.",
+        "cost": 1150,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://saijiki-syojin.com",
-        "opening_hours_source": null,
-        "verified_at": null,
+        "opening_hours_source": "https://saijiki-syojin.com/shop/; https://tabelog.com/osaka/A2701/A270206/27135087/; https://tabelog.com/osaka/A2701/A270206/27135087/dtlrvwlst/B535794812/; https://www.openstreetmap.org/node/10755656305",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -33732,18 +34016,32 @@
           "url": "https://www.openstreetmap.org/node/10755656305"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 91,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://saijiki-syojin.com/shop/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/dtlrvwlst/B535794812/",
+            "https://www.openstreetmap.org/node/10755656305"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "기존의 난바 파크스·23시 표기는 다른 장소와 혼동된 정보로 제외. 텐노지 파크빌라 지점을 공식 주소와 OSM으로 대조.; 공식 페이지와 지도 정보가 다른 영업시간 중 공통 점심 구간만 사용. 공휴일 영업 여부도 충돌해 제외.; 2026-09 방문 기록의 볶음밥 세트 1,150엔은 참고 예산이며 세금과 현행 가격은 별도 확인.",
           "previous": {
-            "value": "We-Fr 11:00-14:00, 17:00-21:00; Sa-Su 09:00-14:00, 17:00-21:00",
+            "value": "11:00~23:00; 입장 마감21:00; 이용90분 제한; 부정기 휴일",
             "source": {
-              "kind": "osm",
-              "url": "https://www.openstreetmap.org/node/10755656305"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 91,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "We-Fr 11:00-14:00, 17:00-21:00; Sa-Su 09:00-14:00, 17:00-21:00",
+                "source": {
+                  "kind": "osm",
+                  "url": "https://www.openstreetmap.org/node/10755656305"
+                }
+              }
             }
           }
         },
@@ -33783,22 +34081,50 @@
           "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.3m. 주소만 확인했으며 영업시간 검증 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://saijiki-syojin.com/shop/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/dtlrvwlst/B535794812/",
+            "https://www.openstreetmap.org/node/10755656305"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "기존의 난바 파크스·23시 표기는 다른 장소와 혼동된 정보로 제외. 텐노지 파크빌라 지점을 공식 주소와 OSM으로 대조.; 공식 페이지와 지도 정보가 다른 영업시간 중 공통 점심 구간만 사용. 공휴일 영업 여부도 충돌해 제외.; 2026-09 방문 기록의 볶음밥 세트 1,150엔은 참고 예산이며 세금과 현행 가격은 별도 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://saijiki-syojin.com/shop/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/dtlrvwlst/B535794812/",
+            "https://www.openstreetmap.org/node/10755656305"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "기존의 난바 파크스·23시 표기는 다른 장소와 혼동된 정보로 제외. 텐노지 파크빌라 지점을 공식 주소와 OSM으로 대조.; 공식 페이지와 지도 정보가 다른 영업시간 중 공통 점심 구간만 사용. 공휴일 영업 여부도 충돌해 제외.; 2026-09 방문 기록의 볶음밥 세트 1,150엔은 참고 예산이며 세금과 현행 가격은 별도 확인.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -33810,15 +34136,44 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 91,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://saijiki-syojin.com/shop/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/dtlrvwlst/B535794812/",
+            "https://www.openstreetmap.org/node/10755656305"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "기존의 난바 파크스·23시 표기는 다른 장소와 혼동된 정보로 제외. 텐노지 파크빌라 지점을 공식 주소와 OSM으로 대조.; 공식 페이지와 지도 정보가 다른 영업시간 중 공통 점심 구간만 사용. 공휴일 영업 여부도 충돌해 제외.; 2026-09 방문 기록의 볶음밥 세트 1,150엔은 참고 예산이며 세금과 현행 가격은 별도 확인.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 91,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "visitor_reported_menu_estimate",
+          "urls": [
+            "https://saijiki-syojin.com/shop/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/dtlrvwlst/B535794812/",
+            "https://www.openstreetmap.org/node/10755656305"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026-09 방문 기록의 볶음밥 세트 1인 1,150엔을 참고한 예산 추정. 현재 가격·세금 별도 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -33841,19 +34196,18 @@
         }
       },
       "review": {
-        "status": "needs_verification",
+        "status": "eligible_for_dated_demo",
         "official_checks": [],
         "notes": [
           "공식 사이트 취득 실패. 현재 운영정보 미확인.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.3m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 3.3m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-11-24: 기존의 난바 파크스·23시 표기는 다른 장소와 혼동된 정보로 제외. 텐노지 파크빌라 지점을 공식 주소와 OSM으로 대조.; 공식 페이지와 지도 정보가 다른 영업시간 중 공통 점심 구간만 사용. 공휴일 영업 여부도 충돌해 제외.; 2026-09 방문 기록의 볶음밥 세트 1,150엔은 참고 예산이며 세금과 현행 가격은 별도 확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_7eda017e1ded",
         "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source",
-          "verified_at"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -33873,9 +34227,7 @@
             "공식 사이트 취득 실패. 현재 운영정보 미확인."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_7eda017e1ded",
           "google_maps_url": "https://maps.google.com/?cid=9917888328142414501",
@@ -33886,11 +34238,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "식당",
+          "type": "시연 추정",
           "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -33902,7 +34254,69 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://saijiki-syojin.com/shop/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/",
+            "https://tabelog.com/osaka/A2701/A270206/27135087/dtlrvwlst/B535794812/",
+            "https://www.openstreetmap.org/node/10755656305"
+          ],
+          "fields": {
+            "opening_hours": "수~일 11:30~14:00 점심만 사용. 월·화·공휴일은 자료 차이로 제외.",
+            "cost": 1150,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "visitor_reported_menu_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2026-09 방문 기록의 볶음밥 세트 1인 1,150엔을 참고한 예산 추정. 현재 가격·세금 별도 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "기존의 난바 파크스·23시 표기는 다른 장소와 혼동된 정보로 제외. 텐노지 파크빌라 지점을 공식 주소와 OSM으로 대조.",
+            "공식 페이지와 지도 정보가 다른 영업시간 중 공통 점심 구간만 사용. 공휴일 영업 여부도 충돌해 제외.",
+            "2026-09 방문 기록의 볶음밥 세트 1,150엔은 참고 예산이며 세금과 현행 가격은 별도 확인."
+          ],
+          "cost_basis": "2026-09 방문 기록의 볶음밥 세트 1인 1,150엔을 참고한 예산 추정. 현재 가격·세금 별도 확인.",
+          "profile": {
+            "window": [
+              690,
+              840,
+              810
+            ],
+            "closed_weekdays": [
+              1,
+              2
+            ],
+            "closed_holidays": true
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://saijiki-syojin.com/shop/",
+              "https://tabelog.com/osaka/A2701/A270206/27135087/",
+              "https://tabelog.com/osaka/A2701/A270206/27135087/dtlrvwlst/B535794812/",
+              "https://www.openstreetmap.org/node/10755656305"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -54979,16 +55393,16 @@
         "category": "식사",
         "area": "난바·도톤보리",
         "address": "大阪府大阪市中央区難波一丁目6-16",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": "11:00 개점; 다음 날 03:00 주문 마감 (폐점 시각 별도 미확인)",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
-        "covered": null,
+        "latitude": 34.66806523,
+        "longitude": 135.50151187,
+        "opening_hours": "11:00 개점, 다음 날 03:00 주문마감. 일정에는 11:00~22:00만 사용.",
+        "cost": 739,
+        "stay_min": 60,
+        "bag_load": 0,
+        "covered": true,
         "website": "https://tenpo.ichibanya.co.jp/map/3123/",
-        "opening_hours_source": "https://tenpo.ichibanya.co.jp/map/3123/",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://tenpo.ichibanya.co.jp/map/3123/; https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/; https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -55008,11 +55422,24 @@
           "checked_at": "2026-10-30"
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://tenpo.ichibanya.co.jp/map/3123/"
+            "https://tenpo.ichibanya.co.jp/map/3123/",
+            "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+            "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
           ],
-          "checked_at": "2026-10-30"
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 주소·전화와 지도 목록이 일치. 지도 점포 기준점은 실제 입구 실측 아님.; 지도 이용자 게시 포크카레 739엔은 게시 시점·다른 지점 혼입 가능성이 있어 예산 참고로만 사용. 현행 가격·세금과 임시휴무 확인 필요.",
+          "previous": {
+            "value": "11:00 개점; 다음 날 03:00 주문 마감 (폐점 시각 별도 미확인)",
+            "source": {
+              "kind": "official_web_review",
+              "urls": [
+                "https://tenpo.ichibanya.co.jp/map/3123/"
+              ],
+              "checked_at": "2026-10-30"
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "official_web_review",
@@ -55041,8 +55468,91 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "pending_cost_review",
-          "note": "지점·메뉴·밥 양·토핑별 가격 확인 필요. 공통 메뉴 가격으로 확정하지 않음."
+          "kind": "visitor_reported_menu_estimate",
+          "urls": [
+            "https://tenpo.ichibanya.co.jp/map/3123/",
+            "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+            "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "지도 이용자 게시 포크카레 739엔은 구 메뉴일 수 있는 예산 참고치. 현행 지점 가격·세금·추가 토핑 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": {
+              "kind": "pending_cost_review",
+              "note": "지점·메뉴·밥 양·토핑별 가격 확인 필요. 공통 메뉴 가격으로 확정하지 않음."
+            }
+          }
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://tenpo.ichibanya.co.jp/map/3123/",
+            "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+            "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://tenpo.ichibanya.co.jp/map/3123/",
+            "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+            "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://tenpo.ichibanya.co.jp/map/3123/",
+            "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+            "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 주소·전화와 지도 목록이 일치. 지도 점포 기준점은 실제 입구 실측 아님.; 지도 이용자 게시 포크카레 739엔은 게시 시점·다른 지점 혼입 가능성이 있어 예산 참고로만 사용. 현행 가격·세금과 임시휴무 확인 필요.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://tenpo.ichibanya.co.jp/map/3123/",
+            "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+            "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 주소·전화와 지도 목록이 일치. 지도 점포 기준점은 실제 입구 실측 아님.; 지도 이용자 게시 포크카레 739엔은 게시 시점·다른 지점 혼입 가능성이 있어 예산 참고로만 사용. 현행 가격·세금과 임시휴무 확인 필요.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://tenpo.ichibanya.co.jp/map/3123/",
+            "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+            "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 주소·전화와 지도 목록이 일치. 지도 점포 기준점은 실제 입구 실측 아님.; 지도 이용자 게시 포크카레 739엔은 게시 시점·다른 지점 혼입 가능성이 있어 예산 참고로만 사용. 현행 가격·세금과 임시휴무 확인 필요.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -55056,36 +55566,29 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
-        "recommendation_blockers": [
-          "branch_collection_review_required",
-          "entrance_coordinates_unconfirmed",
-          "stay_policy_unconfirmed",
-          "covered_unconfirmed",
-          "bag_load_unconfirmed",
-          "structured_date_profile_missing",
-          "area_scheme_unconfirmed",
-          "map_reference_unconfirmed",
-          "current_menu_price_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "cost",
-          "stay_min",
-          "bag_load",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "notes": [
           "악천후·점포 사정에 따라 조기 마감 가능. 익일 시각을 같은 날 03:00으로 처리하지 않음.",
           "출입구 좌표·방문일 영업 예외·가격 적용 조건·체류시간·짐/공간 조건을 검토하고 날짜별 일정 프로필을 작성해야 함.",
           "지점·메뉴·밥 양·토핑별 가격 확인 필요. 공통 메뉴 가격으로 확정하지 않음.",
           "수집표의 기준 가격·추정 체류시간·공간 표시는 자동 확정하지 않음. 포장/간식은 한 끼 식당으로 승격하지 않음.",
-          "2026-11-04: 지점 좌표·현재 메뉴 가격·심야 7% 할증 적용을 추가 대조해야 함."
+          "2026-11-04: 지점 좌표·현재 메뉴 가격·심야 7% 할증 적용을 추가 대조해야 함.",
+          "2026-11-24: 공식 지점 주소·전화와 지도 목록이 일치. 지도 점포 기준점은 실제 입구 실측 아님.; 지도 이용자 게시 포크카레 739엔은 게시 시점·다른 지점 혼입 가능성이 있어 예산 참고로만 사용. 현행 가격·세금과 임시휴무 확인 필요."
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 60,
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "area_scheme": "tourism_editorial_v1",
         "area_basis": "manual_editorial_boundary_unconfirmed",
         "engine_category_id": "food",
@@ -55125,29 +55628,71 @@
           "within": null
         },
         "dated_verification": {
-          "status": "held",
-          "fields": {},
+          "status": "eligible_for_dated_demo",
           "source_urls": [
-            "https://tenpo.ichibanya.co.jp/map/3123/"
+            "https://tenpo.ichibanya.co.jp/map/3123/",
+            "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+            "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
           ],
-          "conditions": [
-            "지점 좌표·현재 메뉴 가격·심야 7% 할증 적용을 추가 대조해야 함."
-          ],
-          "profile": null,
-          "cost_basis": "",
-          "cost_kind": "official_menu",
-          "resolved_blockers": [],
-          "remaining": [
+          "fields": {
+            "latitude": 34.66806523,
+            "longitude": 135.50151187,
+            "opening_hours": "11:00 개점, 다음 날 03:00 주문마감. 일정에는 11:00~22:00만 사용.",
+            "cost": 739,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "visitor_reported_menu_estimate",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "지도 이용자 게시 포크카레 739엔은 구 메뉴일 수 있는 예산 참고치. 현행 지점 가격·세금·추가 토핑 별도 확인.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "branch_collection_review_required",
+            "entrance_coordinates_unconfirmed",
+            "stay_policy_unconfirmed",
+            "covered_unconfirmed",
+            "bag_load_unconfirmed",
+            "structured_date_profile_missing",
+            "area_scheme_unconfirmed",
             "map_reference_unconfirmed",
             "current_menu_price_unconfirmed"
           ],
-          "field_kinds": {},
-          "field_notes": {},
-          "coordinates": {
-            "kind": "existing_reference",
-            "entrance_verified": false
+          "remaining": [],
+          "conditions": [
+            "공식 지점 주소·전화와 지도 목록이 일치. 지도 점포 기준점은 실제 입구 실측 아님.",
+            "지도 이용자 게시 포크카레 739엔은 게시 시점·다른 지점 혼입 가능성이 있어 예산 참고로만 사용. 현행 가격·세금과 임시휴무 확인 필요."
+          ],
+          "cost_basis": "지도 이용자 게시 포크카레 739엔은 구 메뉴일 수 있는 예산 참고치. 현행 지점 가격·세금·추가 토핑 별도 확인.",
+          "profile": {
+            "window": [
+              660,
+              1320,
+              1320
+            ]
           },
-          "planning_policy": null
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://tenpo.ichibanya.co.jp/map/3123/",
+              "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
+              "https://map.yahoo.co.jp/v3/place/GS-Kli2GRMY/menu"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -56116,16 +56661,16 @@
         "category": "식사",
         "area": "난바·도톤보리",
         "address": "大阪府大阪市中央区難波3-2-28",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": "1층 판매 09:00–20:00",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
-        "covered": null,
+        "latitude": 34.66610776,
+        "longitude": 135.50154973,
+        "opening_hours": "1층 포장 판매 09:00~20:00. 2·3층 카페는 별도 운영.",
+        "cost": 1165,
+        "stay_min": 20,
+        "bag_load": 1,
+        "covered": true,
         "website": "https://www.rikuro.co.jp/shoplist/134.html",
-        "opening_hours_source": "https://www.rikuro.co.jp/shoplist/134.html; https://www.rikuro.co.jp/cheesecake/",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://www.rikuro.co.jp/shoplist/134.html; https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/; https://www.nack5.co.jp/oricon/2494475/",
+        "verified_at": "2026-11-24",
         "brand_id": "rikuro",
         "branch_group_id": "rikuro:standard"
       },
@@ -56145,11 +56690,24 @@
           "checked_at": "2026-10-30"
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.rikuro.co.jp/shoplist/134.html"
+            "https://www.rikuro.co.jp/shoplist/134.html",
+            "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+            "https://www.nack5.co.jp/oricon/2494475/"
           ],
-          "checked_at": "2026-10-30"
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 주소 3-2-28과 지도 목록을 대조한 점포 기준점. 출입구 위치 실측이 아니며 대기·매진 별도.; 2026-11-24부터 치즈케이크 한 판 1,165엔 보도 기준. 1인이 한 판 구매한다는 참고 가정; 나눔·구매 수량에 따라 달라짐.; 1층 포장 간식만 일정에 사용. 2·3층 카페 운영·가격은 적용하지 않음.",
+          "previous": {
+            "value": "1층 판매 09:00–20:00",
+            "source": {
+              "kind": "official_web_review",
+              "urls": [
+                "https://www.rikuro.co.jp/shoplist/134.html"
+              ],
+              "checked_at": "2026-10-30"
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "official_web_review",
@@ -56178,8 +56736,21 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "pending_cost_review",
-          "note": "홀 케이크와 1인 간식 비용을 구분; 최신 제품 가격 미확인."
+          "kind": "reported_menu_price_reference",
+          "urls": [
+            "https://www.rikuro.co.jp/shoplist/134.html",
+            "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+            "https://www.nack5.co.jp/oricon/2494475/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "치즈케이크 한 판 1,165엔(세금 포함), 1인 1판 구매 가정. 나눔·가격 변경 별도.",
+          "previous": {
+            "value": null,
+            "source": {
+              "kind": "pending_cost_review",
+              "note": "홀 케이크와 1인 간식 비용을 구분; 최신 제품 가격 미확인."
+            }
+          }
         },
         "brand_id": {
           "kind": "explicit_identity_review",
@@ -56196,6 +56767,76 @@
           "kind": "conservative_substitution_policy",
           "registry_version": "2026-11-12-brands-v1",
           "note": "동일 브랜드 일반 방문. 날짜·가격·예약·이용 목적·전체 일정 유효성은 지점별로 다시 검사한다."
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://www.rikuro.co.jp/shoplist/134.html",
+            "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+            "https://www.nack5.co.jp/oricon/2494475/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://www.rikuro.co.jp/shoplist/134.html",
+            "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+            "https://www.nack5.co.jp/oricon/2494475/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://www.rikuro.co.jp/shoplist/134.html",
+            "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+            "https://www.nack5.co.jp/oricon/2494475/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 주소 3-2-28과 지도 목록을 대조한 점포 기준점. 출입구 위치 실측이 아니며 대기·매진 별도.; 2026-11-24부터 치즈케이크 한 판 1,165엔 보도 기준. 1인이 한 판 구매한다는 참고 가정; 나눔·구매 수량에 따라 달라짐.; 1층 포장 간식만 일정에 사용. 2·3층 카페 운영·가격은 적용하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.rikuro.co.jp/shoplist/134.html",
+            "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+            "https://www.nack5.co.jp/oricon/2494475/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 주소 3-2-28과 지도 목록을 대조한 점포 기준점. 출입구 위치 실측이 아니며 대기·매진 별도.; 2026-11-24부터 치즈케이크 한 판 1,165엔 보도 기준. 1인이 한 판 구매한다는 참고 가정; 나눔·구매 수량에 따라 달라짐.; 1층 포장 간식만 일정에 사용. 2·3층 카페 운영·가격은 적용하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.rikuro.co.jp/shoplist/134.html",
+            "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+            "https://www.nack5.co.jp/oricon/2494475/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점 주소 3-2-28과 지도 목록을 대조한 점포 기준점. 출입구 위치 실측이 아니며 대기·매진 별도.; 2026-11-24부터 치즈케이크 한 판 1,165엔 보도 기준. 1인이 한 판 구매한다는 참고 가정; 나눔·구매 수량에 따라 달라짐.; 1층 포장 간식만 일정에 사용. 2·3층 카페 운영·가격은 적용하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -56209,37 +56850,26 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
-        "recommendation_blockers": [
-          "branch_collection_review_required",
-          "entrance_coordinates_unconfirmed",
-          "stay_policy_unconfirmed",
-          "covered_unconfirmed",
-          "bag_load_unconfirmed",
-          "structured_date_profile_missing",
-          "area_scheme_unconfirmed",
-          "meal_role_not_full_meal",
-          "visit_scope_and_cost_unconfirmed",
-          "map_reference_unconfirmed"
-        ],
-        "missing_fields": [
-          "latitude",
-          "longitude",
-          "cost",
-          "stay_min",
-          "bag_load",
-          "covered"
-        ],
+        "recommendation_blockers": [],
+        "missing_fields": [],
         "notes": [
           "판매점은 매장·온라인·전화 예약 및 택배 접수 불가. 혼잡 시 구매 수량 제한. 위층 카페 11:00–17:30/주문 16:30은 별도 이용 조건이므로 판매점 시간과 혼합하지 않음.",
           "출입구 좌표·방문일 영업 예외·가격 적용 조건·체류시간·짐/공간 조건을 검토하고 날짜별 일정 프로필을 작성해야 함.",
           "홀 케이크와 1인 간식 비용을 구분; 최신 제품 가격 미확인.",
           "수집표의 기준 가격·추정 체류시간·공간 표시는 자동 확정하지 않음. 포장/간식은 한 끼 식당으로 승격하지 않음.",
-          "2026-11-04: 판매점9–20시와 카페11–17:30시(주문16:30)를 구분. 통케이크1095엔을 1인 식사비로 사용하지 않음."
+          "2026-11-04: 판매점9–20시와 카페11–17:30시(주문16:30)를 구분. 통케이크1095엔을 1인 식사비로 사용하지 않음.",
+          "2026-11-24: 공식 지점 주소 3-2-28과 지도 목록을 대조한 점포 기준점. 출입구 위치 실측이 아니며 대기·매진 별도.; 2026-11-24부터 치즈케이크 한 판 1,165엔 보도 기준. 1인이 한 판 구매한다는 참고 가정; 나눔·구매 수량에 따라 달라짐.; 1층 포장 간식만 일정에 사용. 2·3층 카페 운영·가격은 적용하지 않음."
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 20,
+          "max": 20,
+          "representative": 20,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "area_scheme": "tourism_editorial_v1",
         "area_basis": "manual_editorial_boundary_unconfirmed",
         "engine_category_id": "food",
@@ -56279,30 +56909,73 @@
           "within": null
         },
         "dated_verification": {
-          "status": "held",
-          "fields": {},
+          "status": "eligible_for_dated_demo",
           "source_urls": [
             "https://www.rikuro.co.jp/shoplist/134.html",
-            "https://www.rikuro.co.jp/cheesecake/"
+            "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+            "https://www.nack5.co.jp/oricon/2494475/"
           ],
-          "conditions": [
-            "판매점9–20시와 카페11–17:30시(주문16:30)를 구분. 통케이크1095엔을 1인 식사비로 사용하지 않음."
-          ],
-          "profile": null,
-          "cost_basis": "",
-          "cost_kind": "official_menu",
-          "resolved_blockers": [],
-          "remaining": [
+          "fields": {
+            "latitude": 34.66610776,
+            "longitude": 135.50154973,
+            "opening_hours": "1층 포장 판매 09:00~20:00. 2·3층 카페는 별도 운영.",
+            "cost": 1165,
+            "stay_min": 20,
+            "bag_load": 1,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "reported_menu_price_reference",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "치즈케이크 한 판 1,165엔(세금 포함), 1인 1판 구매 가정. 나눔·가격 변경 별도.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "branch_collection_review_required",
+            "entrance_coordinates_unconfirmed",
+            "stay_policy_unconfirmed",
+            "covered_unconfirmed",
+            "bag_load_unconfirmed",
+            "structured_date_profile_missing",
+            "area_scheme_unconfirmed",
+            "meal_role_not_full_meal",
             "visit_scope_and_cost_unconfirmed",
             "map_reference_unconfirmed"
           ],
-          "field_kinds": {},
-          "field_notes": {},
-          "coordinates": {
-            "kind": "existing_reference",
-            "entrance_verified": false
+          "remaining": [],
+          "conditions": [
+            "공식 지점 주소 3-2-28과 지도 목록을 대조한 점포 기준점. 출입구 위치 실측이 아니며 대기·매진 별도.",
+            "2026-11-24부터 치즈케이크 한 판 1,165엔 보도 기준. 1인이 한 판 구매한다는 참고 가정; 나눔·구매 수량에 따라 달라짐.",
+            "1층 포장 간식만 일정에 사용. 2·3층 카페 운영·가격은 적용하지 않음."
+          ],
+          "cost_basis": "치즈케이크 한 판 1,165엔(세금 포함), 1인 1판 구매 가정. 나눔·가격 변경 별도.",
+          "profile": {
+            "window": [
+              540,
+              1200,
+              1200
+            ]
           },
-          "planning_policy": null
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://www.rikuro.co.jp/shoplist/134.html",
+              "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
+              "https://www.nack5.co.jp/oricon/2494475/"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 20,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -56664,16 +57337,16 @@
         "category": "식사",
         "area": "난바·도톤보리",
         "address": "大阪府大阪市中央区難波2 虹のまち1-9 なんばウォーク",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": "10:00–21:00",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
-        "covered": null,
+        "latitude": 34.668039,
+        "longitude": 135.498806,
+        "opening_hours": "10:00~21:00. 난바워크 비정기 휴관 별도 확인.",
+        "cost": 250,
+        "stay_min": 20,
+        "bag_load": 0,
+        "covered": true,
         "website": "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
-        "opening_hours_source": "https://walk.osaka-chikagai.jp/index.php/shopguide/464; https://osakapoint.com/shop/shop-list/157/",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://walk.osaka-chikagai.jp/index.php/shopguide/464; https://osakapoint.com/shop/shop-list/157/; https://www.ekiten.jp/shop_5652011/access/; https://gourmet.watch.impress.co.jp/docs/news/2156970.html",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -56695,12 +57368,26 @@
           "checked_at": "2026-10-30"
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
             "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
-            "https://osakapoint.com/shop/shop-list/157/"
+            "https://osakapoint.com/shop/shop-list/157/",
+            "https://www.ekiten.jp/shop_5652011/access/",
+            "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
           ],
-          "checked_at": "2026-10-30"
+          "checked_at": "2026-11-24",
+          "note": "난바워크 공식 안내의 1번가 지점과 전화·주소를 매장 목록과 대조한 지도 기준점. 지하 출입구·층 이동은 실측 아님.; 2026-11 보도상 파이슈 1개 250엔은 체인 가격 참고로, 해당 지점 당일 가격·품절은 별도 확인.; 포장 간식만 반영하며 끼니로 취급하지 않음. 난바워크 임시휴관·대기시간 별도 확인.",
+          "previous": {
+            "value": "10:00–21:00",
+            "source": {
+              "kind": "official_web_review",
+              "urls": [
+                "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+                "https://osakapoint.com/shop/shop-list/157/"
+              ],
+              "checked_at": "2026-10-30"
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "official_web_review",
@@ -56730,8 +57417,97 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "pending_cost_review",
-          "note": "제품별 가격 미확인. 슈크림 간식은 한 끼 대체 식당으로 자동 추천하지 않음."
+          "kind": "reported_menu_price_reference",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+            "https://osakapoint.com/shop/shop-list/157/",
+            "https://www.ekiten.jp/shop_5652011/access/",
+            "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026-11 체인 보도의 파이슈 1개 250엔을 참고. 지점·가격·세금·수량은 방문 전 확인.",
+          "previous": {
+            "value": null,
+            "source": {
+              "kind": "pending_cost_review",
+              "note": "제품별 가격 미확인. 슈크림 간식은 한 끼 대체 식당으로 자동 추천하지 않음."
+            }
+          }
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+            "https://osakapoint.com/shop/shop-list/157/",
+            "https://www.ekiten.jp/shop_5652011/access/",
+            "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+            "https://osakapoint.com/shop/shop-list/157/",
+            "https://www.ekiten.jp/shop_5652011/access/",
+            "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+            "https://osakapoint.com/shop/shop-list/157/",
+            "https://www.ekiten.jp/shop_5652011/access/",
+            "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "난바워크 공식 안내의 1번가 지점과 전화·주소를 매장 목록과 대조한 지도 기준점. 지하 출입구·층 이동은 실측 아님.; 2026-11 보도상 파이슈 1개 250엔은 체인 가격 참고로, 해당 지점 당일 가격·품절은 별도 확인.; 포장 간식만 반영하며 끼니로 취급하지 않음. 난바워크 임시휴관·대기시간 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+            "https://osakapoint.com/shop/shop-list/157/",
+            "https://www.ekiten.jp/shop_5652011/access/",
+            "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "난바워크 공식 안내의 1번가 지점과 전화·주소를 매장 목록과 대조한 지도 기준점. 지하 출입구·층 이동은 실측 아님.; 2026-11 보도상 파이슈 1개 250엔은 체인 가격 참고로, 해당 지점 당일 가격·품절은 별도 확인.; 포장 간식만 반영하며 끼니로 취급하지 않음. 난바워크 임시휴관·대기시간 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+            "https://osakapoint.com/shop/shop-list/157/",
+            "https://www.ekiten.jp/shop_5652011/access/",
+            "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "난바워크 공식 안내의 1번가 지점과 전화·주소를 매장 목록과 대조한 지도 기준점. 지하 출입구·층 이동은 실측 아님.; 2026-11 보도상 파이슈 1개 250엔은 체인 가격 참고로, 해당 지점 당일 가격·품절은 별도 확인.; 포장 간식만 반영하며 끼니로 취급하지 않음. 난바워크 임시휴관·대기시간 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -56746,38 +57522,29 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
-        "recommendation_blockers": [
-          "branch_collection_review_required",
-          "entrance_coordinates_unconfirmed",
-          "stay_policy_unconfirmed",
-          "covered_unconfirmed",
-          "bag_load_unconfirmed",
-          "structured_date_profile_missing",
-          "area_scheme_unconfirmed",
-          "meal_role_not_full_meal",
-          "facility_relation_unconfirmed",
-          "current_menu_price_unconfirmed",
-          "map_reference_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "cost",
-          "stay_min",
-          "bag_load",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "notes": [
           "난바워크 휴무일에 따름; 임시 변경 가능. 지하상가 층간 접근과 매장취식 가능 여부 미확인.",
           "출입구 좌표·방문일 영업 예외·가격 적용 조건·체류시간·짐/공간 조건을 검토하고 날짜별 일정 프로필을 작성해야 함.",
           "제품별 가격 미확인. 슈크림 간식은 한 끼 대체 식당으로 자동 추천하지 않음.",
           "수집표의 기준 가격·추정 체류시간·공간 표시는 자동 확정하지 않음. 포장/간식은 한 끼 식당으로 승격하지 않음.",
-          "2026-11-04: 11월18일 난바워크 휴관. 최신 지점 메뉴 가격과 좌표 확인 필요."
+          "2026-11-04: 11월18일 난바워크 휴관. 최신 지점 메뉴 가격과 좌표 확인 필요.",
+          "2026-11-24: 난바워크 공식 안내의 1번가 지점과 전화·주소를 매장 목록과 대조한 지도 기준점. 지하 출입구·층 이동은 실측 아님.; 2026-11 보도상 파이슈 1개 250엔은 체인 가격 참고로, 해당 지점 당일 가격·품절은 별도 확인.; 포장 간식만 반영하며 끼니로 취급하지 않음. 난바워크 임시휴관·대기시간 별도 확인."
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 20,
+          "max": 20,
+          "representative": 20,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "area_scheme": "tourism_editorial_v1",
         "area_basis": "manual_editorial_boundary_unconfirmed",
         "engine_category_id": "food",
@@ -56839,30 +57606,76 @@
           }
         },
         "dated_verification": {
-          "status": "held",
-          "fields": {},
+          "status": "eligible_for_dated_demo",
           "source_urls": [
             "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
-            "https://osakapoint.com/shop/shop-list/157/"
+            "https://osakapoint.com/shop/shop-list/157/",
+            "https://www.ekiten.jp/shop_5652011/access/",
+            "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
           ],
-          "conditions": [
-            "11월18일 난바워크 휴관. 최신 지점 메뉴 가격과 좌표 확인 필요."
-          ],
-          "profile": null,
-          "cost_basis": "",
-          "cost_kind": "official_menu",
-          "resolved_blockers": [],
-          "remaining": [
+          "fields": {
+            "latitude": 34.668039,
+            "longitude": 135.498806,
+            "opening_hours": "10:00~21:00. 난바워크 비정기 휴관 별도 확인.",
+            "cost": 250,
+            "stay_min": 20,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "reported_menu_price_reference",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "2026-11 체인 보도의 파이슈 1개 250엔을 참고. 지점·가격·세금·수량은 방문 전 확인.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "branch_collection_review_required",
+            "entrance_coordinates_unconfirmed",
+            "stay_policy_unconfirmed",
+            "covered_unconfirmed",
+            "bag_load_unconfirmed",
+            "structured_date_profile_missing",
+            "area_scheme_unconfirmed",
+            "meal_role_not_full_meal",
+            "facility_relation_unconfirmed",
             "current_menu_price_unconfirmed",
             "map_reference_unconfirmed"
           ],
-          "field_kinds": {},
-          "field_notes": {},
-          "coordinates": {
-            "kind": "existing_reference",
-            "entrance_verified": false
+          "remaining": [],
+          "conditions": [
+            "난바워크 공식 안내의 1번가 지점과 전화·주소를 매장 목록과 대조한 지도 기준점. 지하 출입구·층 이동은 실측 아님.",
+            "2026-11 보도상 파이슈 1개 250엔은 체인 가격 참고로, 해당 지점 당일 가격·품절은 별도 확인.",
+            "포장 간식만 반영하며 끼니로 취급하지 않음. 난바워크 임시휴관·대기시간 별도 확인."
+          ],
+          "cost_basis": "2026-11 체인 보도의 파이슈 1개 250엔을 참고. 지점·가격·세금·수량은 방문 전 확인.",
+          "profile": {
+            "window": [
+              600,
+              1260,
+              1260
+            ]
           },
-          "planning_policy": null
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
+              "https://osakapoint.com/shop/shop-list/157/",
+              "https://www.ekiten.jp/shop_5652011/access/",
+              "https://gourmet.watch.impress.co.jp/docs/news/2156970.html"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 20,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -56874,16 +57687,16 @@
         "category": "식사",
         "area": "벤텐초",
         "address": "大阪府大阪市港区弁天1丁目2番 大阪ベイタワーイースト2F",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": "07:00–20:30; 주문 마감 20:00",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
-        "covered": null,
+        "latitude": 34.67010828,
+        "longitude": 135.46041742,
+        "opening_hours": "07:00~20:30; 음료 주문마감 폐점 30분 전. 시설 휴관 확인.",
+        "cost": 220,
+        "stay_min": 20,
+        "bag_load": 0,
+        "covered": true,
         "website": "https://baytower.jp/omise/viedefrance/",
-        "opening_hours_source": "https://baytower.jp/omise/viedefrance/; https://baytower.jp/access/",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://shop.viedefrance.co.jp/detail/149/; https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/; https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -56905,12 +57718,25 @@
           "checked_at": "2026-10-30"
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://baytower.jp/omise/viedefrance/",
-            "https://baytower.jp/access/"
+            "https://shop.viedefrance.co.jp/detail/149/",
+            "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+            "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
           ],
-          "checked_at": "2026-10-30"
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 베이타워 이스트 2층 주소·전화가 지도에 표시된 오크점과 동일. 점포 지도 기준점이며 출입구·층 이동은 실측 아님.; 지도 이용자가 올린 멜론빵 1개 220엔은 게시 시점과 타 점포 혼입 가능성이 있어 확정가 아닌 간식 예산 참고치.; 빵 1개 기준 간식 방문이며 식사 충족으로 취급하지 않음. 당일 재고·시설 휴관·가격은 별도 확인.",
+          "previous": {
+            "value": "07:00–20:30; 주문 마감 20:00",
+            "source": {
+              "kind": "official_web_review",
+              "urls": [
+                "https://baytower.jp/omise/viedefrance/",
+                "https://baytower.jp/access/"
+              ],
+              "checked_at": "2026-10-30"
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "official_web_review",
@@ -56940,8 +57766,91 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "pending_cost_review",
-          "note": "빵 단품·모닝세트·음료 가격 미확인. 간식을 자동으로 정식 한 끼로 바꾸지 않음."
+          "kind": "visitor_reported_menu_estimate",
+          "urls": [
+            "https://shop.viedefrance.co.jp/detail/149/",
+            "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+            "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "지도 이용자 게시 멜론빵 1개 220엔은 간식 예산 참고치. 당일 판매·가격·세금 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": {
+              "kind": "pending_cost_review",
+              "note": "빵 단품·모닝세트·음료 가격 미확인. 간식을 자동으로 정식 한 끼로 바꾸지 않음."
+            }
+          }
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://shop.viedefrance.co.jp/detail/149/",
+            "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+            "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://shop.viedefrance.co.jp/detail/149/",
+            "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+            "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://shop.viedefrance.co.jp/detail/149/",
+            "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+            "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 베이타워 이스트 2층 주소·전화가 지도에 표시된 오크점과 동일. 점포 지도 기준점이며 출입구·층 이동은 실측 아님.; 지도 이용자가 올린 멜론빵 1개 220엔은 게시 시점과 타 점포 혼입 가능성이 있어 확정가 아닌 간식 예산 참고치.; 빵 1개 기준 간식 방문이며 식사 충족으로 취급하지 않음. 당일 재고·시설 휴관·가격은 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://shop.viedefrance.co.jp/detail/149/",
+            "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+            "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 베이타워 이스트 2층 주소·전화가 지도에 표시된 오크점과 동일. 점포 지도 기준점이며 출입구·층 이동은 실측 아님.; 지도 이용자가 올린 멜론빵 1개 220엔은 게시 시점과 타 점포 혼입 가능성이 있어 확정가 아닌 간식 예산 참고치.; 빵 1개 기준 간식 방문이며 식사 충족으로 취급하지 않음. 당일 재고·시설 휴관·가격은 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://shop.viedefrance.co.jp/detail/149/",
+            "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+            "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 베이타워 이스트 2층 주소·전화가 지도에 표시된 오크점과 동일. 점포 지도 기준점이며 출입구·층 이동은 실측 아님.; 지도 이용자가 올린 멜론빵 1개 220엔은 게시 시점과 타 점포 혼입 가능성이 있어 확정가 아닌 간식 예산 참고치.; 빵 1개 기준 간식 방문이며 식사 충족으로 취급하지 않음. 당일 재고·시설 휴관·가격은 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -56956,38 +57865,29 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
-        "recommendation_blockers": [
-          "branch_collection_review_required",
-          "entrance_coordinates_unconfirmed",
-          "stay_policy_unconfirmed",
-          "covered_unconfirmed",
-          "bag_load_unconfirmed",
-          "structured_date_profile_missing",
-          "area_scheme_unconfirmed",
-          "meal_role_not_full_meal",
-          "facility_relation_unconfirmed",
-          "current_menu_price_unconfirmed",
-          "map_reference_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "cost",
-          "stay_min",
-          "bag_load",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "notes": [
           "무휴 안내이나 시설 임시휴업 확인 필요. 공식 안내상 매장 내 취식 가능. 정확한 우편 건물 호수·입구 검증 필요.",
           "출입구 좌표·방문일 영업 예외·가격 적용 조건·체류시간·짐/공간 조건을 검토하고 날짜별 일정 프로필을 작성해야 함.",
           "빵 단품·모닝세트·음료 가격 미확인. 간식을 자동으로 정식 한 끼로 바꾸지 않음.",
           "수집표의 기준 가격·추정 체류시간·공간 표시는 자동 확정하지 않음. 포장/간식은 한 끼 식당으로 승격하지 않음.",
-          "2026-11-04: 공식시설7–20:30/주문20시 확인. 지점 메뉴 가격과 좌표 확인 필요."
+          "2026-11-04: 공식시설7–20:30/주문20시 확인. 지점 메뉴 가격과 좌표 확인 필요.",
+          "2026-11-24: 공식 지점의 베이타워 이스트 2층 주소·전화가 지도에 표시된 오크점과 동일. 점포 지도 기준점이며 출입구·층 이동은 실측 아님.; 지도 이용자가 올린 멜론빵 1개 220엔은 게시 시점과 타 점포 혼입 가능성이 있어 확정가 아닌 간식 예산 참고치.; 빵 1개 기준 간식 방문이며 식사 충족으로 취급하지 않음. 당일 재고·시설 휴관·가격은 별도 확인."
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 20,
+          "max": 20,
+          "representative": 20,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "area_scheme": "tourism_editorial_v1",
         "area_basis": "manual_editorial_boundary_unconfirmed",
         "engine_category_id": "food",
@@ -57049,30 +57949,74 @@
           }
         },
         "dated_verification": {
-          "status": "held",
-          "fields": {},
+          "status": "eligible_for_dated_demo",
           "source_urls": [
-            "https://baytower.jp/omise/viedefrance/",
-            "https://baytower.jp/access/"
+            "https://shop.viedefrance.co.jp/detail/149/",
+            "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+            "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
           ],
-          "conditions": [
-            "공식시설7–20:30/주문20시 확인. 지점 메뉴 가격과 좌표 확인 필요."
-          ],
-          "profile": null,
-          "cost_basis": "",
-          "cost_kind": "official_menu",
-          "resolved_blockers": [],
-          "remaining": [
+          "fields": {
+            "latitude": 34.67010828,
+            "longitude": 135.46041742,
+            "opening_hours": "07:00~20:30; 음료 주문마감 폐점 30분 전. 시설 휴관 확인.",
+            "cost": 220,
+            "stay_min": 20,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "visitor_reported_menu_estimate",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "지도 이용자 게시 멜론빵 1개 220엔은 간식 예산 참고치. 당일 판매·가격·세금 별도 확인.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "branch_collection_review_required",
+            "entrance_coordinates_unconfirmed",
+            "stay_policy_unconfirmed",
+            "covered_unconfirmed",
+            "bag_load_unconfirmed",
+            "structured_date_profile_missing",
+            "area_scheme_unconfirmed",
+            "meal_role_not_full_meal",
+            "facility_relation_unconfirmed",
             "current_menu_price_unconfirmed",
             "map_reference_unconfirmed"
           ],
-          "field_kinds": {},
-          "field_notes": {},
-          "coordinates": {
-            "kind": "existing_reference",
-            "entrance_verified": false
+          "remaining": [],
+          "conditions": [
+            "공식 지점의 베이타워 이스트 2층 주소·전화가 지도에 표시된 오크점과 동일. 점포 지도 기준점이며 출입구·층 이동은 실측 아님.",
+            "지도 이용자가 올린 멜론빵 1개 220엔은 게시 시점과 타 점포 혼입 가능성이 있어 확정가 아닌 간식 예산 참고치.",
+            "빵 1개 기준 간식 방문이며 식사 충족으로 취급하지 않음. 당일 재고·시설 휴관·가격은 별도 확인."
+          ],
+          "cost_basis": "지도 이용자 게시 멜론빵 1개 220엔은 간식 예산 참고치. 당일 판매·가격·세금 별도 확인.",
+          "profile": {
+            "window": [
+              420,
+              1230,
+              1200
+            ]
           },
-          "planning_policy": null
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://shop.viedefrance.co.jp/detail/149/",
+              "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
+              "https://map.yahoo.co.jp/v3/place/nH4t0iGcyxI/menu"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 20,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -58852,16 +59796,16 @@
         "category": "식사",
         "area": "난바·도톤보리",
         "address": "大阪市中央区難波1-1-20",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": "16:00–23:00; 주문마감22:30",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
+        "latitude": 34.66810476,
+        "longitude": 135.50286065,
+        "opening_hours": "매일 16:00~23:00, 주문마감 22:30. 임시휴무 확인.",
+        "cost": 3000,
+        "stay_min": 90,
+        "bag_load": 0,
         "covered": true,
         "website": "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
-        "opening_hours_source": "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/; https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/; https://www.openstreetmap.org/node/2332913807",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -58915,20 +59859,46 @@
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
         },
         "opening_hours": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+            "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+            "https://www.openstreetmap.org/node/2332913807"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-24",
+          "note": "공식 주소·점포명과 지도 위치를 대조한 기준점. OSM 유사 명칭 점과 약 6m 차이이며 출입구 실측은 아님.; 식당의 공식 평균 예산 3,000엔은 주문·주류·인원에 따라 달라지는 참고치. 예약 불가 시간·대기 및 임시휴무 별도 확인.",
+          "previous": {
+            "value": "16:00–23:00; 주문마감22:30",
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "covered": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+            "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+            "https://www.openstreetmap.org/node/2332913807"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-24",
+          "note": "공식 주소·점포명과 지도 위치를 대조한 기준점. OSM 유사 명칭 점과 약 6m 차이이며 출입구 실측은 아님.; 식당의 공식 평균 예산 3,000엔은 주문·주류·인원에 따라 달라지는 참고치. 예약 불가 시간·대기 및 임시휴무 별도 확인.",
+          "previous": {
+            "value": true,
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "website": {
           "kind": "official_source_collection",
@@ -58953,6 +59923,76 @@
           ],
           "checked_at": "2026-11-04",
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+            "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+            "https://www.openstreetmap.org/node/2332913807"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+            "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+            "https://www.openstreetmap.org/node/2332913807"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "cost": {
+          "kind": "official_average_budget_estimate",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+            "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+            "https://www.openstreetmap.org/node/2332913807"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 안내의 1인 평균 예산 3,000엔 참고. 특정 메뉴 확정 가격이 아니며 주류·주문에 따라 변동.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+            "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+            "https://www.openstreetmap.org/node/2332913807"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 주소·점포명과 지도 위치를 대조한 기준점. OSM 유사 명칭 점과 약 6m 차이이며 출입구 실측은 아님.; 식당의 공식 평균 예산 3,000엔은 주문·주류·인원에 따라 달라지는 참고치. 예약 불가 시간·대기 및 임시휴무 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+            "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+            "https://www.openstreetmap.org/node/2332913807"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 주소·점포명과 지도 위치를 대조한 기준점. OSM 유사 명칭 점과 약 6m 차이이며 출입구 실측은 아님.; 식당의 공식 평균 예산 3,000엔은 주문·주류·인원에 따라 달라지는 참고치. 예약 불가 시간·대기 및 임시휴무 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -58964,25 +60004,25 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
         "notes": [
-          "사용자 제공 주소와 공식 지점 주소 일치. 공식 평균3000엔은 확정 메뉴 가격 아님. 좌표·메뉴 구성·예약 조건 정규화 필요."
+          "사용자 제공 주소와 공식 지점 주소 일치. 공식 평균3000엔은 확정 메뉴 가격 아님. 좌표·메뉴 구성·예약 조건 정규화 필요.",
+          "2026-11-24: 공식 주소·점포명과 지도 위치를 대조한 기준점. OSM 유사 명칭 점과 약 6m 차이이며 출입구 실측은 아님.; 식당의 공식 평균 예산 3,000엔은 주문·주류·인원에 따라 달라지는 참고치. 예약 불가 시간·대기 및 임시휴무 별도 확인."
         ],
-        "recommendation_blockers": [
-          "collected_visit_conditions_require_profile",
-          "structured_date_profile_missing",
-          "stay_policy_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "cost",
-          "stay_min",
-          "bag_load"
+          "brand_id",
+          "branch_group_id"
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 90,
+          "max": 90,
+          "representative": 90,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "branch_collection": {
           "brand": "호젠지",
           "official_name": "炉ばた焼 水かけ茶屋",
@@ -58998,7 +60038,69 @@
             "사용자 제공 주소와 공식 지점 주소 일치. 공식 평균3000엔은 확정 메뉴 가격 아님. 좌표·메뉴 구성·예약 조건 정규화 필요."
           ],
           "ready_for_scheduling": false
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+            "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+            "https://www.openstreetmap.org/node/2332913807"
+          ],
+          "fields": {
+            "latitude": 34.66810476,
+            "longitude": 135.50286065,
+            "opening_hours": "매일 16:00~23:00, 주문마감 22:30. 임시휴무 확인.",
+            "cost": 3000,
+            "stay_min": 90,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "official_average_budget_estimate",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "공식 안내의 1인 평균 예산 3,000엔 참고. 특정 메뉴 확정 가격이 아니며 주류·주문에 따라 변동.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "collected_visit_conditions_require_profile",
+            "structured_date_profile_missing",
+            "stay_policy_unconfirmed"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 주소·점포명과 지도 위치를 대조한 기준점. OSM 유사 명칭 점과 약 6m 차이이며 출입구 실측은 아님.",
+            "식당의 공식 평균 예산 3,000엔은 주문·주류·인원에 따라 달라지는 참고치. 예약 불가 시간·대기 및 임시휴무 별도 확인."
+          ],
+          "cost_basis": "공식 안내의 1인 평균 예산 3,000엔 참고. 특정 메뉴 확정 가격이 아니며 주류·주문에 따라 변동.",
+          "profile": {
+            "window": [
+              960,
+              1380,
+              1350
+            ]
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
+              "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
+              "https://www.openstreetmap.org/node/2332913807"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 90,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -61118,9 +62220,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-24",
-    "updated": 12,
+    "updated": 20,
     "new_search_only": 0,
-    "promoted": 12,
+    "promoted": 20,
     "date_range": [
       "2026-11-24",
       "2026-11-30"
