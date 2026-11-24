@@ -60,7 +60,7 @@
 ### 체험·오락 (6곳)
 
 - **엘레메카 연구소** — 비용 확인 필요 (`osaka_draft_2e4698946819`; stay_policy_unconfirmed, final_calendar_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
-- **오사카성 니시노마루 정원 안 호쇼안 다실** — 운영 조건 또는 날짜별 프로필 확인 필요 (`osaka_draft_a270504b6cd8`; event_access_required, seasonal_event_date_confirmation_required, final_calendar_review_required, structured_date_profile_missing)
+- **오사카성 니시노마루 정원 안 호쇼안 다실** — 11월 25일은 운영자의 목·금 공개일에 해당하지 않음 (`osaka_draft_a270504b6cd8`; event_access_required, seasonal_event_date_confirmation_required, final_calendar_review_required, structured_date_profile_missing)
 - **아키바 카트 오사카** — 입장 시간 예약 확인 필요 (`osaka_draft_300825840acb`; entry_time_reservation_required, driving_eligibility_confirmation_required, final_calendar_review_required, structured_date_profile_missing)
 - **걸즈 미뇽 신사이바시 GATE점** — 비용 확인 필요, 좌표 미확인 (`branch_girlsmignon_shinsaibashi`; official_site_temporarily_unavailable, visitor_admission_conditions_unconfirmed, price_unconfirmed, map_reference_unconfirmed, cost_unknown_or_not_applicable, coordinates_invalid, structured_date_profile_missing)
 - **프티 미뇽 다이마루 신사이바시점** — 비용 확인 필요 (`branch_petitmignon_daimaru`; official_site_temporarily_unavailable, current_branch_hours_unconfirmed, visitor_admission_conditions_unconfirmed, price_unconfirmed, cost_unknown_or_not_applicable, structured_date_profile_missing)

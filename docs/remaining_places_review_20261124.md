@@ -40,3 +40,7 @@
 - **덴포잔 마켓플레이스**: [공식 휴관일 달력](https://pop.kaiyukan.com/thv/marketplace/info.html)은 동적 부분을 읽을 수 없었고, [공식 공지](https://www.kaiyukan.com/thv/marketplace/)상 ‘나니와 구이신보 요코초’는 2026년 9월 29일부터 공사로 휴업 중이다. 시설 전체 폐업을 뜻하지 않으며 방문일 시설 운영시간 확인 전 보류한다.
 - **서브 재즈 카페**: [공식 안내](https://www.subjazzcafe.com/our-shops)는 월~토 17~23시 및 일요일 휴무를 안내하나 공연별 요금·당일 일정 확정이 부족해 보류한다. 일반 카페 시간으로 단정하지 않는다.
 - **헬로 라이프**: [운영 기관](https://co.hellolife.jp/projects/hellolife/)은 취업·진로 지원 거점이고, [1층 카페 안내](https://hellolife.jp/recruit_column/chashitsutime_open)는 별도의 예약 우선 차 체험이다. 시설 전체를 일반 관광지로 처리하지 않는다.
+- **호쇼안 다실**: [운영자 2026년 10~11월 공지](https://www.osakacastle.jp/news/hoshoan2026)는 목·금요일 특별 운영(예외일 있음)으로 11월 25일 수요일은 해당하지 않는다. 말차·과자 1,500엔에 정원 입장료 300엔이 별도이고 당일 변경이 가능하다. 폐업이 아니다.
+- **레 코콜레**: [타베로그의 현 주소 지점](https://tabelog.com/kr/osaka/A2701/A270204/27118450/)은 운영 상태 확인 불가로 게재 보류 중이다. 실제 폐업인지 이전인지 확정할 수 없어 삭제하지 않고 일정 보류를 유지한다.
+- **난바 에키칸**: [공식 안내](https://ekikan.com/faq)에 따르면 매장마다 영업시간과 휴일이 달라 건물 전체에 하나의 매장 시간을 임의 적용하지 않는다. 그 안의 브루클린 난바점은 별도 검토된 지점이다.
+- **돈보리 리버크루즈**: [운항사](https://www.ipponmatsu.co.jp/support/ticket.html)와 [JTB 안내](https://tabisugo.jtb.co.jp/coupons/25429)에 따르면 선착장에서 특정 회차 티켓을 구매하며 매진 가능성이 있다. 선착장 좌표와 원하는 회차·잔여 좌석을 확인하기 전 자동 일정에 무조건 넣지 않는다.
