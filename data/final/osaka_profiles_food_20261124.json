@@ -997,38 +997,36 @@
       "holiday_hours_unconfirmed": true
     },
     "osaka_draft_c99cbfbd0f92": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
       "window": [
         660,
-        1020,
-        1020
+        1080,
+        1080
       ],
-      "valid_from": "2026-10-06",
-      "valid_through": "2026-10-17",
-      "checked_at": "2026-10-06",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://www.artcourtgallery.com/exhibitions/17306/",
-        "https://www.artcourtgallery.com/access/"
+        "https://www.artcourtgallery.com/exhibitions/17274/",
+        "https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1",
+        "https://www.openstreetmap.org/node/12270061636"
       ],
-      "cost_basis": "입장료 미확인으로 일정 제외. 해당 전시 기간의 시간만 정규화.",
-      "closed_weekdays": [
-        0,
-        1
-      ],
-      "closed_holidays": true
+      "cost_basis": "해당 전시의 외부 안내상 무료. 다른 전시와 특별 행사는 요금이 다를 수 있음."
     },
     "osaka_draft_2780be08a88e": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
       "window": [
         420,
         1080,
         1080
       ],
-      "valid_from": "2026-10-06",
-      "valid_through": "2026-11-30",
-      "checked_at": "2026-10-06",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://mitsugu.org/"
+        "https://mitsugu.org/",
+        "https://omairi.club/spots/80725",
+        "https://www.openstreetmap.org/way/243117031"
       ],
-      "cost_basis": "입장료 미확인으로 일정 제외. 명시한 일반 이용 시간만 정규화."
+      "cost_basis": "일반 참배 무료; 기도·부적·행사는 별도."
     },
     "branch_ichiran_shinsaibashi": {
       "valid_from": "2026-10-26",
@@ -3143,6 +3141,238 @@
         "https://solaniwa.com/faq/"
       ],
       "cost_basis": "평일 성인 요금 범위의 상한 2,640엔과 입탕세 150엔을 더한 예산 추정. 날짜별 실제 요금·조건 확인 필요."
+    },
+    "osaka_draft_03cde684bd96": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        540,
+        1260,
+        1260
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+        "https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf",
+        "https://osaka-info.jp/experience/ja/osaka/spot/458",
+        "https://www.openstreetmap.org/relation/7175105"
+      ],
+      "cost_basis": "공원 산책은 무료. 유료 시설·체험은 별도."
+    },
+    "osaka_draft_0cc625078422": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        600,
+        1320,
+        1320
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198",
+        "https://travel.yahoo.co.jp/kanko/spot-00017015/",
+        "https://www.openstreetmap.org/node/4586417789"
+      ],
+      "cost_basis": "광장·일반 산책 입장 참고 0엔. 공연·식당·유료 행사는 포함하지 않음."
+    },
+    "osaka_draft_391fae83b26c": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        420,
+        1320,
+        1320
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.tennoji-park.jp/",
+        "https://www.mapple.net/spot/27015794/",
+        "https://www.openstreetmap.org/way/977755839"
+      ],
+      "cost_basis": "공용 구역 입장 0엔; 동물원·유료 체험·매장 구매비는 별도."
+    },
+    "spot_nippombashi_denden": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+        "https://tenkanodaidokoro.com/161/",
+        "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
+      ],
+      "cost_basis": "야외 거리 통행 기준; 개인 쇼핑 구매비는 미산정."
+    },
+    "onsen_spasuminoe": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        600,
+        1320,
+        1320
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://spasuminoe.jp/guide/",
+        "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+        "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+      ],
+      "cost_basis": "평일 중학생 이상 입욕 800엔. 수건·식사·추가 이용료 제외."
+    },
+    "onsen_spaworld": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        600,
+        1320,
+        1320
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.spaworld.co.jp/info/ryokin/",
+        "https://www.spaworld.co.jp/event/riyouannai/",
+        "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+        "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+      ],
+      "cost_basis": "수영장 미이용 중학생 이상 입장 1,500엔. 심야 할증 및 추가 시설 비용은 별도."
+    },
+    "osaka_draft_006a0c207d8c": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        540,
+        1080,
+        1080
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://odekake.hankyu.co.jp/spots/5",
+        "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
+        "https://www.openstreetmap.org/way/464117222"
+      ],
+      "cost_basis": "일반 참배 0엔. 부적·기도 등은 포함하지 않음."
+    },
+    "osaka_draft_f22cfa23d646": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        480,
+        720,
+        690
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://42195coffee.wixsite.com/toppage",
+        "https://42195coffee.wixsite.com/toppage/menu",
+        "https://tabelog.com/osaka/A2701/A270101/27089054/",
+        "https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu",
+        "https://www.openstreetmap.org/way/226005126"
+      ],
+      "cost_basis": "지도 이용자 게시 블렌드 480엔의 예산 참고치. 세금·현행가 별도 확인."
+    },
+    "osaka_draft_eda93d07ee2b": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        720,
+        1020,
+        1020
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://haikucoffee.thebase.in/about",
+        "https://tabelog.com/osaka/A2701/A270103/27127122/",
+        "https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/",
+        "https://www.openstreetmap.org/node/2293166511"
+      ],
+      "cost_basis": "2026-03 두 음료 1,600엔 후기의 절반인 1인 800엔은 예산 추정. 현재 단가 미확인."
+    },
+    "osaka_draft_718edcaf3985": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        540,
+        1020,
+        1020
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+        "https://yodogawawatch.osaka.jp/archives/3611",
+        "https://www.kuragebunko.com/",
+        "https://www.openstreetmap.org/node/9704704688"
+      ],
+      "cost_basis": "해당 축제 야외 타피스트리 관람 무료. 다른 실내 전시·체험은 별도."
+    },
+    "osaka_draft_74dbaeea6a02": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        690,
+        1320,
+        1320
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://kissaaoiclub.com/",
+        "https://tabelog.com/osaka/A2701/A270301/27139194/",
+        "https://www.openstreetmap.org/node/10044742347"
+      ],
+      "cost_basis": "공식 홍차 1잔 550엔; 다른 주문과 가격 변동 제외."
+    },
+    "osaka_draft_e3ac280c1575": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        420,
+        1140,
+        1110
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://c-united.co.jp/store/detail/085115/",
+        "https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu",
+        "https://www.openstreetmap.org/node/2064207432"
+      ],
+      "cost_basis": "이용자 게시 블렌드 530엔은 혼입 가능성이 있는 예산 참고치. 현행 지점 가격 별도 확인."
+    },
+    "osaka_draft_11ceb1687dfa": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        630,
+        1080,
+        1080
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://gra-fami.com/company",
+        "https://tabelog.com/osaka/A2701/A270101/27075783/",
+        "https://8984.jp/machi/2025/08/000408.html",
+        "https://www.openstreetmap.org/node/7477438893"
+      ],
+      "cost_basis": "2025-05 보도의 아사이볼 1,450엔을 1인 예산으로 참고. 실가격·품절 확인."
+    },
+    "osaka_draft_9342479ef7d7": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        660,
+        1080,
+        1080
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/",
+        "https://tabelog.com/osaka/A2701/A270302/27037918/",
+        "https://www.youtube.com/watch?v=QlF7eatp414",
+        "https://www.openstreetmap.org/node/5875311485"
+      ],
+      "cost_basis": "2024년 방송에서 소개한 커피젤리 550엔의 예산 참고치. 현재 가격·재고 별도 확인."
     }
   }
 }

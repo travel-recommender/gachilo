@@ -125,6 +125,69 @@ test('spa uses an explicitly estimated budget; irregular cafe remains blocked',(
  assert.match(record(cafe).place.opening_hours,/09:00~18:30/);
 });
 
+test('public walks stay scoped to the reviewed date and free outdoor areas',()=>{
+ for(const id of ['osaka_draft_03cde684bd96','osaka_draft_0cc625078422','osaka_draft_391fae83b26c','spot_nippombashi_denden','osaka_draft_2780be08a88e','osaka_draft_006a0c207d8c']){
+  assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-11-26').eligible_for_model,false,id);
+  assert.equal(record(id).place.covered,false,id);
+ }
+ assert.equal(check('osaka_draft_03cde684bd96','2026-11-25').cost_jpy,0);
+ assert.equal(check('osaka_draft_0cc625078422','2026-11-25').cost_jpy,0);
+ assert.equal(record('osaka_draft_391fae83b26c').place.cost,0);
+ assert.equal(check('osaka_draft_391fae83b26c','2026-11-25').cost_jpy,null);
+ assert.equal(check('spot_nippombashi_denden','2026-11-25').cost_jpy,null);
+ assert.match(record('spot_nippombashi_denden').review.dated_verification.conditions.join(' '),/길찾기 기준/);
+});
+
+test('reviewed spas disclose admission limits and daytime price',()=>{
+ for(const [id,price] of [['onsen_spasuminoe',800],['onsen_spaworld',1500]]){
+  assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-11-25').cost_jpy,price,id);
+  assert.equal(check(id,'2026-11-26').eligible_for_model,false,id);
+  assert.match(record(id).review.dated_verification.conditions.join(' '),/문신/);
+  assert.deepEqual(check(id,'2026-11-25').window,[600,1320,1320]);
+ }
+});
+
+test('reviewed cafes use dated hours and explicitly estimated prices',()=>{
+ for(const [id,price,window] of [
+  ['osaka_draft_f22cfa23d646',480,[480,720,690]],
+  ['osaka_draft_eda93d07ee2b',800,[720,1020,1020]],
+  ['osaka_draft_e3ac280c1575',530,[420,1140,1110]],
+  ['osaka_draft_11ceb1687dfa',1450,[630,1080,1080]],
+  ['osaka_draft_9342479ef7d7',550,[660,1080,1080]],
+ ]){
+  assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-11-26').eligible_for_model,false,id);
+  assert.equal(check(id,'2026-11-25').cost_jpy,price,id);
+  assert.deepEqual(check(id,'2026-11-25').window,window,id);
+  assert.equal(record(id).review.meal_role,'snack');
+  assert.equal(record(id).field_sources.cost.kind,'reported_budget_estimate');
+ }
+});
+
+test('tea shop uses official tea price',()=>{
+ const id='osaka_draft_74dbaeea6a02';
+ assert.equal(check(id,'2026-11-25').eligible_for_model,true);
+ assert.equal(check(id,'2026-11-26').eligible_for_model,false);
+ assert.equal(check(id,'2026-11-25').cost_jpy,550);
+ assert.deepEqual(check(id,'2026-11-25').window,[690,1320,1320]);
+ assert.equal(record(id).review.meal_role,'snack');
+});
+
+test('art exhibitions distinguish the indoor gallery and outdoor event',()=>{
+ const inside='osaka_draft_c99cbfbd0f92',outside='osaka_draft_718edcaf3985';
+ for(const id of [inside,outside]){
+  assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-11-26').eligible_for_model,false,id);
+  assert.equal(check(id,'2026-11-25').cost_jpy,0,id);
+ }
+ assert.equal(record(inside).place.covered,true);
+ assert.equal(record(outside).place.covered,false);
+ assert.match(record(outside).place.name_ko,/야외 전시/);
+ assert.match(record(outside).review.dated_verification.conditions.join(' '),/실내 갤러리 개방을 뜻하지 않음/);
+});
+
 test('reviewed meals use correct opening dates and stay blocked outside review',()=>{
  assert.equal(check(bistro,'2026-11-25').eligible_for_model,true);
  assert.equal(check(bistro,'2026-11-28').eligible_for_model,false);
@@ -200,7 +263,11 @@ test('each reviewed meal can be scheduled through all three strategies',async()=
    'osaka_draft_e5eb4dd70807','osaka_draft_d52fee5c2304','osaka_draft_b0a5c9b0d460',
    'osaka_draft_5a3ef73c2b4b','osaka_013','branch_usj','branch_kaiyukan','branch_kaldi_namba_city',
    'branch_kaldi_tennoji_mio','branch_kaldi_lucua1100','branch_starbucks_ebisubashi','branch_starbucks_namba_nankai',
-   'onsen_solaniwa']){
+   'onsen_solaniwa','osaka_draft_03cde684bd96','osaka_draft_0cc625078422',
+   'osaka_draft_391fae83b26c','spot_nippombashi_denden','osaka_draft_2780be08a88e','osaka_draft_006a0c207d8c',
+   'onsen_spasuminoe','onsen_spaworld','osaka_draft_f22cfa23d646','osaka_draft_eda93d07ee2b',
+   'osaka_draft_c99cbfbd0f92','osaka_draft_718edcaf3985',
+   'osaka_draft_74dbaeea6a02','osaka_draft_e3ac280c1575','osaka_draft_11ceb1687dfa','osaka_draft_9342479ef7d7']){
   const request={startDate:'2026-11-25',endDate:'2026-11-25',exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
    submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,
      budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};

@@ -18,3 +18,19 @@
 - **파르페 드 메릴리**: [현재 바바초 지점의 공식 안내](https://parfait-de-merrily.owst.jp/)와 [타베로그](https://tabelog.com/osaka/A2701/A270104/27148141/)를 대조해 종전 시간 표기를 월~목·토·일 09:00~18:30, 금요일 09:00~20:00으로 고쳤다. [이전 남선바 지점은 이전](https://tabelog.com/osaka/A2701/A270201/27132337/)한 곳이다. 비정기 휴무와 실제 가격은 아직 확인이 필요해 일정 투입은 보류한다.
 
 좌표는 지도·건물 기준점으로 실제 입구 실측은 아니다. 날짜별 적격성과 A·B·C 후보 배치는 유료 외부 호출 없는 모의 확인으로 검사한다.
+
+## 추가 검토: 11월 25일 한정 적용
+
+- **게마 공원·미나토마치 리버플레이스·덴시바 이나·덴덴타운**: 각각 [오사카시 공원 자료](https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf), [리버플레이스 안내](https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198), [덴시바 공식 안내](https://www.tennoji-park.jp/), [오사카 관광 안내](https://osaka-info.jp/modelcourse/course-pop-culture-osaka/)를 대조했다. 유료시설·매장 전체가 아니라 무료 야외 공공 공간 또는 거리 산책만 반영한다. 덴덴타운의 좌표는 인근 가게를 기준으로 한 길찾기 참고점이지 실제 거리 입구가 아니다. 각 영업점 운영·행사 통제, 구매비는 별도다.
+- **스파 스미노에·스파월드**: [스미노에 공식 요금](https://spasuminoe.jp/guide/)과 [스파월드 공식 요금](https://www.spaworld.co.jp/info/ryokin/)에서 각각 일반 성인 평일 800엔과 수영장 제외 기본 1,500엔을 확인했다. 심야·수영장·수건 등은 별도이며 두 시설 모두 문신 입장 제한을 확인해 화면 안내에 기록했다. 노천탕이 있어 전체를 실내로 간주하지 않는다.
+- **미쓰 하치만구·치아 신사**: [미쓰 하치만구 공식 안내](https://mitsugu.org/)와 [한큐 치아 신사 안내](https://odekake.hankyu.co.jp/spots/5)를 대조했다. 일반 참배 기준이며 제례·부적 등은 별도다. 치아 신사의 09~18시는 실제 공식 개방시간이 아닌 산책 계획 범위다.
+- **42195 커피·하이쿠 커피**: [42195 공식 메뉴](https://42195coffee.wixsite.com/toppage/menu)에서 수요일 08~12시 및 음료 주문 마감 11:30을, [하이쿠 공식 주소](https://haikucoffee.thebase.in/about)와 [현 지점 안내](https://tabelog.com/osaka/A2701/A270103/27127122/)에서 우키타 이전 후 12~17시를 확인했다. 음료 가격은 이용자 자료에 근거한 예산 추정이며 임시휴무 확인이 필요하다.
+- **찻집 아오이·카페 디 에스프레소 오사카텐만구점·라 그란다 파밀리오·카페 윳테**: [아오이 공식 안내](https://kissaaoiclub.com/)의 홍차 550엔, [오사카텐만구점 공식 안내](https://c-united.co.jp/store/detail/085115/), [그란다 공식 안내](https://gra-fami.com/company)와 [타베로그](https://tabelog.com/osaka/A2701/A270101/27075783/), [윳테 11월 25일 전시 안내](https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/)를 대조했다. 그란다는 휴무 요일 안내가 서로 달라 수요일 양쪽 공통 시간만 사용한다. 아오이 외 가격은 과거·이용자 자료에서 산출한 추정치다. 윳테는 당일 전시 개최 안내이며 카페 메뉴·임시 변경은 별도 확인한다.
+- **아트코트 갤러리·구라게 문고**: [아트코트 전시 일정](https://www.artcourtgallery.com/exhibitions/17274/)과 [지역 야외전 안내](https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition)를 대조했다. 구라게 문고는 해당일 야외 전시만 포함하며 실내 갤러리가 열린다는 뜻이 아니다. 09~17시는 공식 전시 시각이 아닌 일정 계획 범위다.
+
+## 계속 보류하는 근거
+
+- 포켓몬센터와 닌텐도 오사카는 [운영사의 13층 입장 안내](https://shop.pokemon.co.jp/ja/shop/pokemoncenter-osaka/news/202611/000730.html)에 시간 지정 정리권·추첨이 필요할 수 있어 임의 배치하지 않는다.
+- [오사카 주택박물관](https://www.osaka-angenet.jp/konjyakukan/topic/260001173)과 [시립동양도자미술관](https://www.moco.or.jp/guide/info/)은 공사 휴관 공지가 있다. 영구 폐업으로 처리하지 않는다.
+- [쓰텐카쿠](https://www.tsutenkaku.co.jp/annai/)는 전망대 시간 지정 입장 확인이 필요하다. [다이코 견학시설](https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html)과 [보온병 기념관](https://www.zojirushi.co.jp/corp/kinenkan/)은 사전 예약이 필요하다.
+- [이메이드](https://www.e-maid.net/shopinfo.html), [파르페 드 메릴리](https://parfait-de-merrily.com/), [내추럴 키친 메다카 2호점](https://shin-medaka.com/event/)은 부정기 휴무나 특정 행사가 있어 일반 방문이 가능한지 추가 확인한다. 행사 개최만으로 일반 식사 가능을 확정하지 않는다.

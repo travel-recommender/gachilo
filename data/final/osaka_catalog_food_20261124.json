@@ -9857,14 +9857,14 @@
         "address": "大阪市浪速区湊町1-3-1",
         "latitude": 34.6687571,
         "longitude": 135.4954509,
-        "opening_hours": "10:00–22:00; 점포별 예외; 1월 1–3일 휴관",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "미나토마치 리버플레이스의 야외 광장·산책 범위 10:00~22:00. 공연장·점포 별도.",
+        "cost": 0,
+        "stay_min": 45,
         "bag_load": 0,
-        "covered": null,
+        "covered": false,
         "website": "https://osaka-heartfulweb.jp/facility-info.php?n=114",
-        "opening_hours_source": "https://osaka-heartfulweb.jp/facility-info.php?n=114",
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198; https://travel.yahoo.co.jp/kanko/spot-00017015/; https://www.openstreetmap.org/node/4586417789",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -9894,12 +9894,25 @@
           "evidence_window": "2026-09-24/2026-09-26"
         },
         "opening_hours": {
-          "kind": "official_tourism_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://osaka-heartfulweb.jp/facility-info.php?n=114"
+            "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198",
+            "https://travel.yahoo.co.jp/kanko/spot-00017015/",
+            "https://www.openstreetmap.org/node/4586417789"
           ],
-          "checked_at": "2026-09-26",
-          "evidence_window": "2026-09-24/2026-09-26"
+          "checked_at": "2026-11-24",
+          "note": "오사카시 안내는 야외 광장·산책로와 공연장을 구분하며 여행 안내는 일반 입장 무료, 공연장 별도 요금으로 표시.; 10~22시는 외부 관광 안내의 시설 이용시간 참고. 행사·공사와 임시 통행 제한은 방문 전 확인.; 기존 OSM 장소 기준점은 실제 광장 입구가 아니며 산책 45분은 추정.",
+          "previous": {
+            "value": "10:00–22:00; 점포별 예외; 1월 1–3일 휴관",
+            "source": {
+              "kind": "official_tourism_review",
+              "urls": [
+                "https://osaka-heartfulweb.jp/facility-info.php?n=114"
+              ],
+              "checked_at": "2026-09-26",
+              "evidence_window": "2026-09-24/2026-09-26"
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "official_tourism_review",
@@ -9942,22 +9955,48 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198",
+            "https://travel.yahoo.co.jp/kanko/spot-00017015/",
+            "https://www.openstreetmap.org/node/4586417789"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "오사카시 안내는 야외 광장·산책로와 공연장을 구분하며 여행 안내는 일반 입장 무료, 공연장 별도 요금으로 표시.; 10~22시는 외부 관광 안내의 시설 이용시간 참고. 행사·공사와 임시 통행 제한은 방문 전 확인.; 기존 OSM 장소 기준점은 실제 광장 입구가 아니며 산책 45분은 추정.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198",
+            "https://travel.yahoo.co.jp/kanko/spot-00017015/",
+            "https://www.openstreetmap.org/node/4586417789"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 전망대. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "오사카시 안내는 야외 광장·산책로와 공연장을 구분하며 여행 안내는 일반 입장 무료, 공연장 별도 요금으로 표시.; 10~22시는 외부 관광 안내의 시설 이용시간 참고. 행사·공사와 임시 통행 제한은 방문 전 확인.; 기존 OSM 장소 기준점은 실제 광장 입구가 아니며 산책 45분은 추정.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 전망대. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -9967,6 +10006,34 @@
           "checked_at": null,
           "imported_at": "2026-10-13",
           "independently_reverified": false
+        },
+        "cost": {
+          "kind": "dated_external_review",
+          "urls": [
+            "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198",
+            "https://travel.yahoo.co.jp/kanko/spot-00017015/",
+            "https://www.openstreetmap.org/node/4586417789"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "광장·일반 산책 입장 참고 0엔. 공연·식당·유료 행사는 포함하지 않음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198",
+            "https://travel.yahoo.co.jp/kanko/spot-00017015/",
+            "https://www.openstreetmap.org/node/4586417789"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "오사카시 안내는 야외 광장·산책로와 공연장을 구분하며 여행 안내는 일반 입장 무료, 공연장 별도 요금으로 표시.; 10~22시는 외부 관광 안내의 시설 이용시간 참고. 행사·공사와 임시 통행 제한은 방문 전 확인.; 기존 OSM 장소 기준점은 실제 광장 입구가 아니며 산책 45분은 추정.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -9982,19 +10049,20 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_0cc625078422_address_hours_20260926",
           "official_fields_20260928"
         ],
         "notes": [
-          "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+          "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+          "2026-11-24: 오사카시 안내는 야외 광장·산책로와 공연장을 구분하며 여행 안내는 일반 입장 무료, 공연장 별도 요금으로 표시.; 10~22시는 외부 관광 안내의 시설 이용시간 참고. 행사·공사와 임시 통행 제한은 방문 전 확인.; 기존 OSM 장소 기준점은 실제 광장 입구가 아니며 산책 45분은 추정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_0cc625078422",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -10010,11 +10078,11 @@
         },
         "recommendation_blockers": [],
         "stay_policy": {
-          "type": "전망대",
-          "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 45,
+          "max": 45,
+          "representative": 45,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -10026,6 +10094,61 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198",
+            "https://travel.yahoo.co.jp/kanko/spot-00017015/",
+            "https://www.openstreetmap.org/node/4586417789"
+          ],
+          "fields": {
+            "opening_hours": "미나토마치 리버플레이스의 야외 광장·산책 범위 10:00~22:00. 공연장·점포 별도.",
+            "cost": 0,
+            "stay_min": 45,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_external_review",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "광장·일반 산책 입장 참고 0엔. 공연·식당·유료 행사는 포함하지 않음."
+          },
+          "resolved_blockers": [],
+          "remaining": [],
+          "conditions": [
+            "오사카시 안내는 야외 광장·산책로와 공연장을 구분하며 여행 안내는 일반 입장 무료, 공연장 별도 요금으로 표시.",
+            "10~22시는 외부 관광 안내의 시설 이용시간 참고. 행사·공사와 임시 통행 제한은 방문 전 확인.",
+            "기존 OSM 장소 기준점은 실제 광장 입구가 아니며 산책 45분은 추정."
+          ],
+          "cost_basis": "광장·일반 산책 입장 참고 0엔. 공연·식당·유료 행사는 포함하지 않음.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              600,
+              1320,
+              1320
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "reported_free_admission",
+          "price_evidence_kind": "reported_free_public_area",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://www.osaka-city-callcenter.jp/faq/detail.aspx?id=1198",
+              "https://travel.yahoo.co.jp/kanko/spot-00017015/",
+              "https://www.openstreetmap.org/node/4586417789"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 45,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -11080,14 +11203,14 @@
         "address": "大阪市北区天満橋1-8-5 OAPアートコート1F",
         "latitude": 34.6990843,
         "longitude": 135.5209862,
-        "opening_hours": "화–금 11:00–18:00; 토 11:00–17:00; 전시 일정 별도 확인",
-        "cost": null,
-        "stay_min": 120,
+        "opening_hours": "11/25 전시 「水辺景」 11:00~18:00. 특별 행사·임시 변경은 별도 확인.",
+        "cost": 0,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://www.artcourtgallery.com/",
-        "opening_hours_source": "https://www.artcourtgallery.com/eng/access/",
-        "verified_at": "2026-09-26",
+        "opening_hours_source": "https://www.artcourtgallery.com/exhibitions/17274/; https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1; https://www.openstreetmap.org/node/12270061636",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -11109,12 +11232,25 @@
           "url": "https://www.openstreetmap.org/node/12270061636"
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.artcourtgallery.com/eng/access/"
+            "https://www.artcourtgallery.com/exhibitions/17274/",
+            "https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1",
+            "https://www.openstreetmap.org/node/12270061636"
           ],
-          "checked_at": "2026-09-26",
-          "evidence_window": "2026-09-24/2026-09-26"
+          "checked_at": "2026-11-24",
+          "note": "공식 전시 일정에서 2026-10-31~12-05, 화~금 11~18시를 확인. 11/25에 해당 전시만 반영.; ArtSticker가 이 전시를 무료로 안내하지만 공식 전시 페이지에는 금액이 명시되지 않아 방문 전 재확인.; 기존 OSM 위치는 건물 내부 전시장 입구 실측이 아니며 60분은 계획 추정.",
+          "previous": {
+            "value": "화–금 11:00–18:00; 토 11:00–17:00; 전시 일정 별도 확인",
+            "source": {
+              "kind": "official_web_review",
+              "urls": [
+                "https://www.artcourtgallery.com/eng/access/"
+              ],
+              "checked_at": "2026-09-26",
+              "evidence_window": "2026-09-24/2026-09-26"
+            }
+          }
         },
         "website": {
           "kind": "osm",
@@ -11161,31 +11297,70 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.artcourtgallery.com/exhibitions/17274/",
+            "https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1",
+            "https://www.openstreetmap.org/node/12270061636"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 전시 일정에서 2026-10-31~12-05, 화~금 11~18시를 확인. 11/25에 해당 전시만 반영.; ArtSticker가 이 전시를 무료로 안내하지만 공식 전시 페이지에는 금액이 명시되지 않아 방문 전 재확인.; 기존 OSM 위치는 건물 내부 전시장 입구 실측이 아니며 60분은 계획 추정.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.artcourtgallery.com/exhibitions/17274/",
+            "https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1",
+            "https://www.openstreetmap.org/node/12270061636"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 전시 일정에서 2026-10-31~12-05, 화~금 11~18시를 확인. 11/25에 해당 전시만 반영.; ArtSticker가 이 전시를 무료로 안내하지만 공식 전시 페이지에는 금액이 명시되지 않아 방문 전 재확인.; 기존 OSM 위치는 건물 내부 전시장 입구 실측이 아니며 60분은 계획 추정.",
+          "previous": {
+            "value": 120,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "covered": {
-          "kind": "classification_from_official_description",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.artcourtgallery.com/access/"
+            "https://www.artcourtgallery.com/exhibitions/17274/",
+            "https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1",
+            "https://www.openstreetmap.org/node/12270061636"
           ],
-          "checked_at": "2026-10-01",
-          "revision": "official_menu_followup_20261001",
-          "note": "OAP아트코트1F의 갤러리 실내 전시 관람 범위. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
+          "checked_at": "2026-11-24",
+          "note": "공식 전시 일정에서 2026-10-31~12-05, 화~금 11~18시를 확인. 11/25에 해당 전시만 반영.; ArtSticker가 이 전시를 무료로 안내하지만 공식 전시 페이지에는 금액이 명시되지 않아 방문 전 재확인.; 기존 OSM 위치는 건물 내부 전시장 입구 실측이 아니며 60분은 계획 추정.",
+          "previous": {
+            "value": true,
+            "source": {
+              "kind": "classification_from_official_description",
+              "urls": [
+                "https://www.artcourtgallery.com/access/"
+              ],
+              "checked_at": "2026-10-01",
+              "revision": "official_menu_followup_20261001",
+              "note": "OAP아트코트1F의 갤러리 실내 전시 관람 범위. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -11195,6 +11370,20 @@
           "checked_at": null,
           "imported_at": "2026-10-13",
           "independently_reverified": false
+        },
+        "cost": {
+          "kind": "dated_external_review",
+          "urls": [
+            "https://www.artcourtgallery.com/exhibitions/17274/",
+            "https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1",
+            "https://www.openstreetmap.org/node/12270061636"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "해당 전시의 외부 안내상 무료. 다른 전시와 특별 행사는 요금이 다를 수 있음.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -11231,19 +11420,21 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_c99cbfbd0f92_address_hours_20260926"
         ],
         "notes": [
           "2026-10-01: OAP아트코트1F의 갤러리 실내 전시 관람 범위. 공식 시설 설명에 따른 주요 실내 이용 공간의 분류. 외부 대기·접근로·테라스는 범위 밖.",
           "2026-10-01: Autumn Show 2026 전시9/24~10/17,일·월·공휴일 휴관 안내를 확인. 공식 입장료 공개 근거는 찾지 못했으며 날짜의 요일 표기 불일치도 있어 자동 투입은 계속 보류.",
-          "2026-10-06: ACG eyes: Autumn Show 전시 기간 2026-09-24~10-17, 평일 11:00–18:00·토요일 11:00–17:00, 일·월·공휴일 휴관. 공통 11:00–17:00만 사용하고 10/17 이후는 이 전시 근거로 배치하지 않음. 일반 입장료는 페이지에 명시되지 않아 무료라고 추정하지 않음."
+          "2026-10-06: ACG eyes: Autumn Show 전시 기간 2026-09-24~10-17, 평일 11:00–18:00·토요일 11:00–17:00, 일·월·공휴일 휴관. 공통 11:00–17:00만 사용하고 10/17 이후는 이 전시 근거로 배치하지 않음. 일반 입장료는 페이지에 명시되지 않아 무료라고 추정하지 않음.",
+          "2026-11-24: 공식 전시 일정에서 2026-10-31~12-05, 화~금 11~18시를 확인. 11/25에 해당 전시만 반영.; ArtSticker가 이 전시를 무료로 안내하지만 공식 전시 페이지에는 금액이 명시되지 않아 방문 전 재확인.; 기존 OSM 위치는 건물 내부 전시장 입구 실측이 아니며 60분은 계획 추정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_c99cbfbd0f92",
         "missing_fields": [
-          "cost"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -11270,11 +11461,11 @@
         },
         "recommendation_blockers": [],
         "stay_policy": {
-          "type": "관광 명소(문화·자연 포함)",
-          "min": 90,
-          "max": 120,
-          "representative": 120,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 60,
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -11316,6 +11507,61 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.artcourtgallery.com/exhibitions/17274/",
+            "https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1",
+            "https://www.openstreetmap.org/node/12270061636"
+          ],
+          "fields": {
+            "opening_hours": "11/25 전시 「水辺景」 11:00~18:00. 특별 행사·임시 변경은 별도 확인.",
+            "cost": 0,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "dated_external_review",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "해당 전시의 외부 안내상 무료. 다른 전시와 특별 행사는 요금이 다를 수 있음."
+          },
+          "resolved_blockers": [],
+          "remaining": [],
+          "conditions": [
+            "공식 전시 일정에서 2026-10-31~12-05, 화~금 11~18시를 확인. 11/25에 해당 전시만 반영.",
+            "ArtSticker가 이 전시를 무료로 안내하지만 공식 전시 페이지에는 금액이 명시되지 않아 방문 전 재확인.",
+            "기존 OSM 위치는 건물 내부 전시장 입구 실측이 아니며 60분은 계획 추정."
+          ],
+          "cost_basis": "해당 전시의 외부 안내상 무료. 다른 전시와 특별 행사는 요금이 다를 수 있음.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              660,
+              1080,
+              1080
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "reported_free_admission",
+          "price_evidence_kind": "reported_exhibition_admission",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://www.artcourtgallery.com/exhibitions/17274/",
+              "https://artsticker.app/ja/discover/events?is_free_entrance=true%2F1000&page=1",
+              "https://www.openstreetmap.org/node/12270061636"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -12148,14 +12394,14 @@
         "address": "大阪府大阪市中央区西心斎橋2-10-7",
         "latitude": 34.6714458,
         "longitude": 135.4992777,
-        "opening_hours": "개문 07:00–18:00; 사무소 09:00–17:00",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "경내 일반 참배 07:00~18:00. 기도·행사와 접수는 별도.",
+        "cost": 0,
+        "stay_min": 20,
         "bag_load": 0,
         "covered": false,
         "website": "https://mitsugu.org/",
-        "opening_hours_source": "https://mitsugu.org/",
-        "verified_at": "2026-09-26",
+        "opening_hours_source": "https://mitsugu.org/; https://omairi.club/spots/80725; https://www.openstreetmap.org/way/243117031",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -12185,12 +12431,25 @@
           "url": "https://www.openstreetmap.org/way/243117031"
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://mitsugu.org/"
+            "https://mitsugu.org/",
+            "https://omairi.club/spots/80725",
+            "https://www.openstreetmap.org/way/243117031"
           ],
-          "checked_at": "2026-09-26",
-          "evidence_window": "2026-09-24/2026-09-26"
+          "checked_at": "2026-11-24",
+          "note": "공식 경내 안내의 07~18시를 일반 참배에만 적용. 외부 참배 안내는 무료로 표기.; 기도·부적·행사와 접수는 별도이며 임시 통행 제한은 확인 필요.; 기존 OSM 시설 기준점은 실제 입구가 아니며 20분은 계획 추정.",
+          "previous": {
+            "value": "개문 07:00–18:00; 사무소 09:00–17:00",
+            "source": {
+              "kind": "official_web_review",
+              "urls": [
+                "https://mitsugu.org/"
+              ],
+              "checked_at": "2026-09-26",
+              "evidence_window": "2026-09-24/2026-09-26"
+            }
+          }
         },
         "website": {
           "kind": "osm",
@@ -12229,22 +12488,48 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://mitsugu.org/",
+            "https://omairi.club/spots/80725",
+            "https://www.openstreetmap.org/way/243117031"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 경내 안내의 07~18시를 일반 참배에만 적용. 외부 참배 안내는 무료로 표기.; 기도·부적·행사와 접수는 별도이며 임시 통행 제한은 확인 필요.; 기존 OSM 시설 기준점은 실제 입구가 아니며 20분은 계획 추정.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://mitsugu.org/",
+            "https://omairi.club/spots/80725",
+            "https://www.openstreetmap.org/way/243117031"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~90분, 신사·사찰·종교시설. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 경내 안내의 07~18시를 일반 참배에만 적용. 외부 참배 안내는 무료로 표기.; 기도·부적·행사와 접수는 별도이며 임시 통행 제한은 확인 필요.; 기존 OSM 시설 기준점은 실제 입구가 아니며 20분은 계획 추정.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~90분, 신사·사찰·종교시설. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -12256,15 +12541,42 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 29,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://mitsugu.org/",
+            "https://omairi.club/spots/80725",
+            "https://www.openstreetmap.org/way/243117031"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 경내 안내의 07~18시를 일반 참배에만 적용. 외부 참배 안내는 무료로 표기.; 기도·부적·행사와 접수는 별도이며 임시 통행 제한은 확인 필요.; 기존 OSM 시설 기준점은 실제 입구가 아니며 20분은 계획 추정.",
           "previous": {
-            "value": "",
+            "value": false,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 29,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "dated_external_review",
+          "urls": [
+            "https://mitsugu.org/",
+            "https://omairi.club/spots/80725",
+            "https://www.openstreetmap.org/way/243117031"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "일반 참배 무료; 기도·부적·행사는 별도.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -12309,18 +12621,19 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_2780be08a88e_address_hours_20260926"
         ],
         "notes": [
-          "2026-10-06: 미쓰 하치만구 개문 07:00–18:00만 사용. 사무소 09:00–17:00와 구분. 일반 참배 요금의 명시 근거가 없어 null 유지; 기도·축제·행사 별도."
+          "2026-10-06: 미쓰 하치만구 개문 07:00–18:00만 사용. 사무소 09:00–17:00와 구분. 일반 참배 요금의 명시 근거가 없어 null 유지; 기도·축제·행사 별도.",
+          "2026-11-24: 공식 경내 안내의 07~18시를 일반 참배에만 적용. 외부 참배 안내는 무료로 표기.; 기도·부적·행사와 접수는 별도이며 임시 통행 제한은 확인 필요.; 기존 OSM 시설 기준점은 실제 입구가 아니며 20분은 계획 추정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_2780be08a88e",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -12342,11 +12655,11 @@
         },
         "recommendation_blockers": [],
         "stay_policy": {
-          "type": "신사·사찰·종교시설",
-          "min": 45,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 20,
+          "max": 20,
+          "representative": 20,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -12369,6 +12682,61 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://mitsugu.org/",
+            "https://omairi.club/spots/80725",
+            "https://www.openstreetmap.org/way/243117031"
+          ],
+          "fields": {
+            "opening_hours": "경내 일반 참배 07:00~18:00. 기도·행사와 접수는 별도.",
+            "cost": 0,
+            "stay_min": 20,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_external_review",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "일반 참배 무료; 기도·부적·행사는 별도."
+          },
+          "resolved_blockers": [],
+          "remaining": [],
+          "conditions": [
+            "공식 경내 안내의 07~18시를 일반 참배에만 적용. 외부 참배 안내는 무료로 표기.",
+            "기도·부적·행사와 접수는 별도이며 임시 통행 제한은 확인 필요.",
+            "기존 OSM 시설 기준점은 실제 입구가 아니며 20분은 계획 추정."
+          ],
+          "cost_basis": "일반 참배 무료; 기도·부적·행사는 별도.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              420,
+              1080,
+              1080
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "reported_free_admission",
+          "price_evidence_kind": "reported_free_general_worship",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://mitsugu.org/",
+              "https://omairi.club/spots/80725",
+              "https://www.openstreetmap.org/way/243117031"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 20,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -14014,14 +14382,14 @@
         "address": "大阪市北区角田町2-8",
         "latitude": 34.7047429,
         "longitude": 135.5010093,
-        "opening_hours": "정기휴일 없음으로 입력되었으나 임시 신사 수요일 휴관·주말 13:00~17:00 개방 정보 혼재; 동일 시설 적용 여부 확인",
+        "opening_hours": "우메다 각다초 치아 신사 일반 참배. 09:00~18:00은 계획 범위; 부적 수여는 다른 신사에서 별도.",
         "cost": 0,
-        "stay_min": 90,
+        "stay_min": 15,
         "bag_load": 0,
-        "covered": null,
+        "covered": false,
         "website": "https://www.hagamisan.com/",
-        "opening_hours_source": "https://enjoy-osaka-kyoto-kobe.com/ko/article/a/shrine_for_health/#block2",
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://odekake.hankyu.co.jp/spots/5; https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf; https://www.openstreetmap.org/way/464117222",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -14056,25 +14424,38 @@
           "revision": "official_fields_20260928_v2"
         },
         "opening_hours": {
-          "kind": "user_reported_third_party_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 36,
+          "kind": "dated_official_review",
           "urls": [
-            "https://enjoy-osaka-kyoto-kobe.com/ko/article/a/shrine_for_health/#block2"
+            "https://odekake.hankyu.co.jp/spots/5",
+            "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
+            "https://www.openstreetmap.org/way/464117222"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-24",
+          "note": "한큐 안내는 각다초 2-8의 치아 신사 자체 참배는 자유·무료라고 명시. 주말 13~17시는 다른 장소인 오타비샤 부적 수여 시간.; 09~18시는 참배 계획용 범위이지 공식 영업시간이 아님. 현장 행사·통행 통제는 별도 확인.; OSM 구역 중심 좌표는 입구 실측이 아니며 15분은 계획 추정.",
           "previous": {
-            "value": "무인 소규모 신사로 수시 참배 가능; 부적 수여는 별도 오타비샤에서 진행",
+            "value": "정기휴일 없음으로 입력되었으나 임시 신사 수요일 휴관·주말 13:00~17:00 개방 정보 혼재; 동일 시설 적용 여부 확인",
             "source": {
-              "kind": "official_web_review",
+              "kind": "user_reported_third_party_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 36,
               "urls": [
-                "https://tunashiki.sakura.ne.jp/koutuu.html"
+                "https://enjoy-osaka-kyoto-kobe.com/ko/article/a/shrine_for_health/#block2"
               ],
-              "checked_at": "2026-09-28",
-              "note": "하 신사 항목만 적용. 같은 페이지의 본사·오타비샤 주소 및 접수시간과 구분.",
-              "revision": "official_fields_20260928_v2"
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "무인 소규모 신사로 수시 참배 가능; 부적 수여는 별도 오타비샤에서 진행",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://tunashiki.sakura.ne.jp/koutuu.html"
+                  ],
+                  "checked_at": "2026-09-28",
+                  "note": "하 신사 항목만 적용. 같은 페이지의 본사·오타비샤 주소 및 접수시간과 구분.",
+                  "revision": "official_fields_20260928_v2"
+                }
+              }
             }
           }
         },
@@ -14131,22 +14512,48 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://odekake.hankyu.co.jp/spots/5",
+            "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
+            "https://www.openstreetmap.org/way/464117222"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "한큐 안내는 각다초 2-8의 치아 신사 자체 참배는 자유·무료라고 명시. 주말 13~17시는 다른 장소인 오타비샤 부적 수여 시간.; 09~18시는 참배 계획용 범위이지 공식 영업시간이 아님. 현장 행사·통행 통제는 별도 확인.; OSM 구역 중심 좌표는 입구 실측이 아니며 15분은 계획 추정.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://odekake.hankyu.co.jp/spots/5",
+            "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
+            "https://www.openstreetmap.org/way/464117222"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~90분, 신사·사찰·종교시설. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "한큐 안내는 각다초 2-8의 치아 신사 자체 참배는 자유·무료라고 명시. 주말 13~17시는 다른 장소인 오타비샤 부적 수여 시간.; 09~18시는 참배 계획용 범위이지 공식 영업시간이 아님. 현장 행사·통행 통제는 별도 확인.; OSM 구역 중심 좌표는 입구 실측이 아니며 15분은 계획 추정.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~90분, 신사·사찰·종교시설. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_reported_third_party_review",
@@ -14160,17 +14567,44 @@
           "independently_reverified": false
         },
         "cost": {
-          "kind": "user_reported_third_party_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 36,
+          "kind": "dated_external_review",
           "urls": [
-            "https://enjoy-osaka-kyoto-kobe.com/ko/article/a/shrine_for_health/#block2"
+            "https://odekake.hankyu.co.jp/spots/5",
+            "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
+            "https://www.openstreetmap.org/way/464117222"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-24",
+          "note": "일반 참배 0엔. 부적·기도 등은 포함하지 않음.",
           "previous": {
-            "value": "",
+            "value": 0,
+            "source": {
+              "kind": "user_reported_third_party_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 36,
+              "urls": [
+                "https://enjoy-osaka-kyoto-kobe.com/ko/article/a/shrine_for_health/#block2"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://odekake.hankyu.co.jp/spots/5",
+            "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
+            "https://www.openstreetmap.org/way/464117222"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "한큐 안내는 각다초 2-8의 치아 신사 자체 참배는 자유·무료라고 명시. 주말 13~17시는 다른 장소인 오타비샤 부적 수여 시간.; 09~18시는 참배 계획용 범위이지 공식 영업시간이 아님. 현장 행사·통행 통제는 별도 확인.; OSM 구역 중심 좌표는 입구 실측이 아니며 15분은 계획 추정.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -14190,19 +14624,20 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "official_fields_20260928_v2"
         ],
         "notes": [
           "자유 참배 안내는 있으나 상세 주소·적용 범위 재확인 필요.",
-          "하 신사 항목만 적용. 같은 페이지의 본사·오타비샤 주소 및 접수시간과 구분."
+          "하 신사 항목만 적용. 같은 페이지의 본사·오타비샤 주소 및 접수시간과 구분.",
+          "2026-11-24: 한큐 안내는 각다초 2-8의 치아 신사 자체 참배는 자유·무료라고 명시. 주말 13~17시는 다른 장소인 오타비샤 부적 수여 시간.; 09~18시는 참배 계획용 범위이지 공식 영업시간이 아님. 현장 행사·통행 통제는 별도 확인.; OSM 구역 중심 좌표는 입구 실측이 아니며 15분은 계획 추정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_006a0c207d8c",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -14222,15 +14657,13 @@
             "자유 참배 안내는 있으나 상세 주소·적용 범위 재확인 필요."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "신사·사찰·종교시설",
-          "min": 45,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 15,
+          "max": 15,
+          "representative": 15,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -14242,6 +14675,63 @@
           "manual_review_source_url": "https://enjoy-osaka-kyoto-kobe.com/ko/article/a/shrine_for_health/#block2",
           "manual_review_date": "",
           "manual_remaining_questions": "츠나시키 덴진샤 맛샤 바신사(綱敷天神社 末社 歯神社) - 정식 명칭"
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://odekake.hankyu.co.jp/spots/5",
+            "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
+            "https://www.openstreetmap.org/way/464117222"
+          ],
+          "fields": {
+            "opening_hours": "우메다 각다초 치아 신사 일반 참배. 09:00~18:00은 계획 범위; 부적 수여는 다른 신사에서 별도.",
+            "cost": 0,
+            "stay_min": 15,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_external_review",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "일반 참배 0엔. 부적·기도 등은 포함하지 않음."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "한큐 안내는 각다초 2-8의 치아 신사 자체 참배는 자유·무료라고 명시. 주말 13~17시는 다른 장소인 오타비샤 부적 수여 시간.",
+            "09~18시는 참배 계획용 범위이지 공식 영업시간이 아님. 현장 행사·통행 통제는 별도 확인.",
+            "OSM 구역 중심 좌표는 입구 실측이 아니며 15분은 계획 추정."
+          ],
+          "cost_basis": "일반 참배 0엔. 부적·기도 등은 포함하지 않음.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              540,
+              1080,
+              1080
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "reported_free_admission",
+          "price_evidence_kind": "reported_free_general_worship",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://odekake.hankyu.co.jp/spots/5",
+              "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
+              "https://www.openstreetmap.org/way/464117222"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 15,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -14249,20 +14739,20 @@
       "place": {
         "place_id": "osaka_draft_718edcaf3985",
         "name": "海月文庫アートスペース",
-        "name_ko": "구라게 문고 아트스페이스",
+        "name_ko": "구라게 문고 아트스페이스 (야외 전시)",
         "category": "문화",
         "area": "大阪市淀川区",
         "address": "大阪市淀川区木川東3-3-12",
         "latitude": 34.7265771,
         "longitude": 135.4930465,
-        "opening_hours": "전시 개최일에 11:00~19:00, 최종일 16:00 또는 17:00 종료. 전시 날짜·연도·최종일 시간은 공식 공지 확인",
+        "opening_hours": "11/25~29 야외 타피스트리 전시. 09:00~17:00은 계획 범위; 실내 전시는 별도.",
         "cost": 0,
-        "stay_min": 120,
+        "stay_min": 30,
         "bag_load": 0,
-        "covered": true,
+        "covered": false,
         "website": "https://www.kuragebunko.com/",
-        "opening_hours_source": "https://www.kuragebunko.com/",
-        "verified_at": "2026-09-26",
+        "opening_hours_source": "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition; https://yodogawawatch.osaka.jp/archives/3611; https://www.kuragebunko.com/; https://www.openstreetmap.org/node/9704704688",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -14296,24 +14786,38 @@
           "evidence_window": "2026-09-24/2026-09-26"
         },
         "opening_hours": {
-          "kind": "user_reported_official_web_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 37,
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.kuragebunko.com/"
+            "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+            "https://yodogawawatch.osaka.jp/archives/3611",
+            "https://www.kuragebunko.com/",
+            "https://www.openstreetmap.org/node/9704704688"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-24",
+          "note": "지역 주최 측 축제 안내와 지역 보도에서 11/25~29 무료 야외 타피스트리 전시를 확인. 일반 실내 갤러리 개방을 뜻하지 않음.; 09~17시는 시연을 위한 외부 관람 계획 범위이며 공식 전시시간으로 확인된 값이 아님.; 행사·날씨로 변경될 수 있으며 기존 OSM 장소 좌표는 전시 입구 실측이 아님.",
           "previous": {
-            "value": "전시 기간 중 11:00–19:00; 마지막 날 16:00 또는 17:00 종료",
+            "value": "전시 개최일에 11:00~19:00, 최종일 16:00 또는 17:00 종료. 전시 날짜·연도·최종일 시간은 공식 공지 확인",
             "source": {
-              "kind": "official_web_review",
+              "kind": "user_reported_official_web_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 37,
               "urls": [
                 "https://www.kuragebunko.com/"
               ],
-              "checked_at": "2026-09-26",
-              "evidence_window": "2026-09-24/2026-09-26"
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "전시 기간 중 11:00–19:00; 마지막 날 16:00 또는 17:00 종료",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://www.kuragebunko.com/"
+                  ],
+                  "checked_at": "2026-09-26",
+                  "evidence_window": "2026-09-24/2026-09-26"
+                }
+              }
             }
           }
         },
@@ -14340,33 +14844,75 @@
           "note": "공식 출처 주소의 행정구만 추출. 관광 권역·출입구 좌표 추정 아님."
         },
         "name_ko": {
-          "kind": "editorial_korean_translation",
+          "kind": "editorial_scope_label",
           "urls": [
-            "https://www.openstreetmap.org/node/9704704688",
-            "https://www.kuragebunko.com/about/"
+            "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+            "https://yodogawawatch.osaka.jp/archives/3611",
+            "https://www.kuragebunko.com/",
+            "https://www.openstreetmap.org/node/9704704688"
           ],
-          "checked_at": "2026-09-28",
-          "revision": "korean_display_names_20260928",
-          "original_name": "海月文庫アートスペース",
-          "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
+          "checked_at": "2026-11-24",
+          "note": "지역 주최 측 축제 안내와 지역 보도에서 11/25~29 무료 야외 타피스트리 전시를 확인. 일반 실내 갤러리 개방을 뜻하지 않음.; 09~17시는 시연을 위한 외부 관람 계획 범위이며 공식 전시시간으로 확인된 값이 아님.; 행사·날씨로 변경될 수 있으며 기존 OSM 장소 좌표는 전시 입구 실측이 아님.",
+          "previous": {
+            "value": "구라게 문고 아트스페이스",
+            "source": {
+              "kind": "editorial_korean_translation",
+              "urls": [
+                "https://www.openstreetmap.org/node/9704704688",
+                "https://www.kuragebunko.com/about/"
+              ],
+              "checked_at": "2026-09-28",
+              "revision": "korean_display_names_20260928",
+              "original_name": "海月文庫アートスペース",
+              "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
+            }
+          }
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+            "https://yodogawawatch.osaka.jp/archives/3611",
+            "https://www.kuragebunko.com/",
+            "https://www.openstreetmap.org/node/9704704688"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "지역 주최 측 축제 안내와 지역 보도에서 11/25~29 무료 야외 타피스트리 전시를 확인. 일반 실내 갤러리 개방을 뜻하지 않음.; 09~17시는 시연을 위한 외부 관람 계획 범위이며 공식 전시시간으로 확인된 값이 아님.; 행사·날씨로 변경될 수 있으며 기존 OSM 장소 좌표는 전시 입구 실측이 아님.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+            "https://yodogawawatch.osaka.jp/archives/3611",
+            "https://www.kuragebunko.com/",
+            "https://www.openstreetmap.org/node/9704704688"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "지역 주최 측 축제 안내와 지역 보도에서 11/25~29 무료 야외 타피스트리 전시를 확인. 일반 실내 갤러리 개방을 뜻하지 않음.; 09~17시는 시연을 위한 외부 관람 계획 범위이며 공식 전시시간으로 확인된 값이 아님.; 행사·날씨로 변경될 수 있으며 기존 OSM 장소 좌표는 전시 입구 실측이 아님.",
+          "previous": {
+            "value": 120,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_reported_official_web_review",
@@ -14380,33 +14926,61 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_reported_official_web_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 37,
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.kuragebunko.com/"
+            "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+            "https://yodogawawatch.osaka.jp/archives/3611",
+            "https://www.kuragebunko.com/",
+            "https://www.openstreetmap.org/node/9704704688"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-24",
+          "note": "지역 주최 측 축제 안내와 지역 보도에서 11/25~29 무료 야외 타피스트리 전시를 확인. 일반 실내 갤러리 개방을 뜻하지 않음.; 09~17시는 시연을 위한 외부 관람 계획 범위이며 공식 전시시간으로 확인된 값이 아님.; 행사·날씨로 변경될 수 있으며 기존 OSM 장소 좌표는 전시 입구 실측이 아님.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": true,
+            "source": {
+              "kind": "user_reported_official_web_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 37,
+              "urls": [
+                "https://www.kuragebunko.com/"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         },
         "cost": {
-          "kind": "user_reported_official_web_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 37,
+          "kind": "dated_external_review",
           "urls": [
-            "https://www.kuragebunko.com/"
+            "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+            "https://yodogawawatch.osaka.jp/archives/3611",
+            "https://www.kuragebunko.com/",
+            "https://www.openstreetmap.org/node/9704704688"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-24",
+          "note": "해당 축제 야외 타피스트리 관람 무료. 다른 실내 전시·체험은 별도.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": 0,
+            "source": {
+              "kind": "user_reported_official_web_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 37,
+              "urls": [
+                "https://www.kuragebunko.com/"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         }
       },
@@ -14436,18 +15010,19 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_718edcaf3985_address_hours_20260926"
         ],
         "notes": [
-          "전시가 없는 날 개방 여부는 별도 확인."
+          "전시가 없는 날 개방 여부는 별도 확인.",
+          "2026-11-24: 지역 주최 측 축제 안내와 지역 보도에서 11/25~29 무료 야외 타피스트리 전시를 확인. 일반 실내 갤러리 개방을 뜻하지 않음.; 09~17시는 시연을 위한 외부 관람 계획 범위이며 공식 전시시간으로 확인된 값이 아님.; 행사·날씨로 변경될 수 있으며 기존 OSM 장소 좌표는 전시 입구 실측이 아님."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_718edcaf3985",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -14469,16 +15044,13 @@
             "전시가 없는 날 개방 여부는 별도 확인."
           ]
         },
-        "recommendation_blockers": [
-          "exhibition_schedule_required",
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "관광 명소(문화·자연 포함)",
-          "min": 90,
-          "max": 120,
-          "representative": 120,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 30,
+          "max": 30,
+          "representative": 30,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -14490,6 +15062,68 @@
           "manual_review_source_url": "https://www.kuragebunko.com/",
           "manual_review_date": "",
           "manual_remaining_questions": "여기에 전시 일정이 올라와서 이 곳을 참고하도록 하면 계속 업데이트 하지 않아도 될 거 같음"
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+            "https://yodogawawatch.osaka.jp/archives/3611",
+            "https://www.kuragebunko.com/",
+            "https://www.openstreetmap.org/node/9704704688"
+          ],
+          "fields": {
+            "name_ko": "구라게 문고 아트스페이스 (야외 전시)",
+            "opening_hours": "11/25~29 야외 타피스트리 전시. 09:00~17:00은 계획 범위; 실내 전시는 별도.",
+            "cost": 0,
+            "stay_min": 30,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_external_review",
+            "stay_min": "demo_model_estimate",
+            "name_ko": "editorial_scope_label"
+          },
+          "field_notes": {
+            "cost": "해당 축제 야외 타피스트리 관람 무료. 다른 실내 전시·체험은 별도."
+          },
+          "resolved_blockers": [
+            "exhibition_schedule_required",
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "지역 주최 측 축제 안내와 지역 보도에서 11/25~29 무료 야외 타피스트리 전시를 확인. 일반 실내 갤러리 개방을 뜻하지 않음.",
+            "09~17시는 시연을 위한 외부 관람 계획 범위이며 공식 전시시간으로 확인된 값이 아님.",
+            "행사·날씨로 변경될 수 있으며 기존 OSM 장소 좌표는 전시 입구 실측이 아님."
+          ],
+          "cost_basis": "해당 축제 야외 타피스트리 관람 무료. 다른 실내 전시·체험은 별도.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              540,
+              1020,
+              1020
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "reported_free_admission",
+          "price_evidence_kind": "reported_free_outdoor_event",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://yodogawaartnet.sakura.ne.jp/category/artfes2026/east-2026/?type=exhibition",
+              "https://yodogawawatch.osaka.jp/archives/3611",
+              "https://www.kuragebunko.com/",
+              "https://www.openstreetmap.org/node/9704704688"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 30,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -16300,14 +16934,14 @@
         "address": "大阪市北区長柄東1～2丁目・国分寺1丁目",
         "latitude": 34.7128217,
         "longitude": 135.5193564,
-        "opening_hours": "연중무휴 상시 개방(조폐국 특별 공개는 별도 시설·별도 예약 조건)",
+        "opening_hours": "게마·사쿠라노미야 공원의 게마 구역 산책. 09:00~21:00은 일정 계획 범위.",
         "cost": 0,
-        "stay_min": 120,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": false,
         "website": "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
-        "opening_hours_source": "https://japanspecialtraveler.com/ko/guides/osaka-kema-sakuranomiya-guide/",
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://www.city.osaka.lg.jp/kita/page/0000001658.html; https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf; https://osaka-info.jp/experience/ja/osaka/spot/458; https://www.openstreetmap.org/relation/7175105",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -16329,20 +16963,34 @@
           "url": "https://www.openstreetmap.org/relation/7175105"
         },
         "opening_hours": {
-          "kind": "user_reported_third_party_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 40,
+          "kind": "dated_official_review",
           "urls": [
-            "https://japanspecialtraveler.com/ko/guides/osaka-kema-sakuranomiya-guide/"
+            "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+            "https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf",
+            "https://osaka-info.jp/experience/ja/osaka/spot/458",
+            "https://www.openstreetmap.org/relation/7175105"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-24",
+          "note": "시청 자료상 게마 공원은 게마·사쿠라노미야 도시계획공원에 포함되며 관광 안내상 일반 산책은 무료.; 09:00~21:00은 공식 제한시간이 아닌 계획용 범위. 행사·공사 통제와 조폐국 등 별도 시설은 별도 확인.; 공원 영역 중심점은 실제 입구가 아니며 60분은 시연 산책 추정.",
           "previous": {
-            "value": "24/7",
+            "value": "연중무휴 상시 개방(조폐국 특별 공개는 별도 시설·별도 예약 조건)",
             "source": {
-              "kind": "osm",
-              "url": "https://www.openstreetmap.org/relation/7175105"
+              "kind": "user_reported_third_party_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 40,
+              "urls": [
+                "https://japanspecialtraveler.com/ko/guides/osaka-kema-sakuranomiya-guide/"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "24/7",
+                "source": {
+                  "kind": "osm",
+                  "url": "https://www.openstreetmap.org/relation/7175105"
+                }
+              }
             }
           }
         },
@@ -16387,22 +17035,50 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+            "https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf",
+            "https://osaka-info.jp/experience/ja/osaka/spot/458",
+            "https://www.openstreetmap.org/relation/7175105"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "시청 자료상 게마 공원은 게마·사쿠라노미야 도시계획공원에 포함되며 관광 안내상 일반 산책은 무료.; 09:00~21:00은 공식 제한시간이 아닌 계획용 범위. 행사·공사 통제와 조폐국 등 별도 시설은 별도 확인.; 공원 영역 중심점은 실제 입구가 아니며 60분은 시연 산책 추정.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+            "https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf",
+            "https://osaka-info.jp/experience/ja/osaka/spot/458",
+            "https://www.openstreetmap.org/relation/7175105"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "시청 자료상 게마 공원은 게마·사쿠라노미야 도시계획공원에 포함되며 관광 안내상 일반 산책은 무료.; 09:00~21:00은 공식 제한시간이 아닌 계획용 범위. 행사·공사 통제와 조폐국 등 별도 시설은 별도 확인.; 공원 영역 중심점은 실제 입구가 아니며 60분은 시연 산책 추정.",
+          "previous": {
+            "value": 120,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~120분, 관광 명소(문화·자연 포함). 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_reported_third_party_review",
@@ -16431,33 +17107,61 @@
           }
         },
         "covered": {
-          "kind": "user_reported_third_party_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 40,
+          "kind": "dated_official_review",
           "urls": [
-            "https://japanspecialtraveler.com/ko/guides/osaka-kema-sakuranomiya-guide/"
+            "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+            "https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf",
+            "https://osaka-info.jp/experience/ja/osaka/spot/458",
+            "https://www.openstreetmap.org/relation/7175105"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-24",
+          "note": "시청 자료상 게마 공원은 게마·사쿠라노미야 도시계획공원에 포함되며 관광 안내상 일반 산책은 무료.; 09:00~21:00은 공식 제한시간이 아닌 계획용 범위. 행사·공사 통제와 조폐국 등 별도 시설은 별도 확인.; 공원 영역 중심점은 실제 입구가 아니며 60분은 시연 산책 추정.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": false,
+            "source": {
+              "kind": "user_reported_third_party_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 40,
+              "urls": [
+                "https://japanspecialtraveler.com/ko/guides/osaka-kema-sakuranomiya-guide/"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         },
         "cost": {
-          "kind": "user_reported_third_party_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 40,
+          "kind": "dated_official_review",
           "urls": [
-            "https://japanspecialtraveler.com/ko/guides/osaka-kema-sakuranomiya-guide/"
+            "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+            "https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf",
+            "https://osaka-info.jp/experience/ja/osaka/spot/458",
+            "https://www.openstreetmap.org/relation/7175105"
           ],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "checked_at": "2026-11-24",
+          "note": "공원 산책은 무료. 유료 시설·체험은 별도.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": 0,
+            "source": {
+              "kind": "user_reported_third_party_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 40,
+              "urls": [
+                "https://japanspecialtraveler.com/ko/guides/osaka-kema-sakuranomiya-guide/"
+              ],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         }
       },
@@ -16482,21 +17186,21 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_03cde684bd96_address_hours_20260926",
           "official_fields_20260928"
         ],
         "notes": [
           "공원 소재 지역 주소.",
-          "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용."
+          "기존 공식 검증 기록의 시설 안내 페이지를 다시 열어 관련 시설·지점을 확인. 전용 홈페이지가 없는 공원은 시청 공식 소개 링크 사용.",
+          "2026-11-24: 시청 자료상 게마 공원은 게마·사쿠라노미야 도시계획공원에 포함되며 관광 안내상 일반 산책은 무료.; 09:00~21:00은 공식 제한시간이 아닌 계획용 범위. 행사·공사 통제와 조폐국 등 별도 시설은 별도 확인.; 공원 영역 중심점은 실제 입구가 아니며 60분은 시연 산책 추정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_03cde684bd96",
         "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -16512,15 +17216,13 @@
             "공원 소재 지역 주소."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "관광 명소(문화·자연 포함)",
-          "min": 90,
-          "max": 120,
-          "representative": 120,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 60,
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -16532,6 +17234,65 @@
           "manual_review_source_url": "https://japanspecialtraveler.com/ko/guides/osaka-kema-sakuranomiya-guide/",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+            "https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf",
+            "https://osaka-info.jp/experience/ja/osaka/spot/458",
+            "https://www.openstreetmap.org/relation/7175105"
+          ],
+          "fields": {
+            "opening_hours": "게마·사쿠라노미야 공원의 게마 구역 산책. 09:00~21:00은 일정 계획 범위.",
+            "cost": 0,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_official_review",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "공원 산책은 무료. 유료 시설·체험은 별도."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "시청 자료상 게마 공원은 게마·사쿠라노미야 도시계획공원에 포함되며 관광 안내상 일반 산책은 무료.",
+            "09:00~21:00은 공식 제한시간이 아닌 계획용 범위. 행사·공사 통제와 조폐국 등 별도 시설은 별도 확인.",
+            "공원 영역 중심점은 실제 입구가 아니며 60분은 시연 산책 추정."
+          ],
+          "cost_basis": "공원 산책은 무료. 유료 시설·체험은 별도.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              540,
+              1260,
+              1260
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "official_free_admission",
+          "price_evidence_kind": "public_park_walking",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://www.city.osaka.lg.jp/kita/page/0000001658.html",
+              "https://www.city.osaka.lg.jp/kensetsu/cmsfiles/contents/0000505/505253/arikata1.pdf",
+              "https://osaka-info.jp/experience/ja/osaka/spot/458",
+              "https://www.openstreetmap.org/relation/7175105"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -21455,14 +22216,14 @@
         "address": "5-55号 Chausuyamacho, Tennoji Ward, Osaka, 543-0063 일본",
         "latitude": 34.648699,
         "longitude": 135.5094357,
-        "opening_hours": "연중무휴로 입력; 시설별 시간 미명시. 기상 악화 시 실외 코스 중단 가능",
-        "cost": null,
-        "stay_min": 180,
-        "bag_load": 2,
-        "covered": null,
+        "opening_hours": "덴시바 이나 무료 공용 공간 산책 07:00~22:00. 상점·유료 체험은 별도.",
+        "cost": 0,
+        "stay_min": 45,
+        "bag_load": 0,
+        "covered": false,
         "website": "https://www.tennoji-park.jp/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://www.tennoji-park.jp/; https://www.mapple.net/spot/27015794/; https://www.openstreetmap.org/way/977755839",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -21513,22 +22274,35 @@
           "note": "공식 안내에서 텐시바 이나 별도 구역 확인. 개별 유료 시설 이용시간·요금은 별도."
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 51,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.tennoji-park.jp/",
+            "https://www.mapple.net/spot/27015794/",
+            "https://www.openstreetmap.org/way/977755839"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 시설 안내의 동물원 입구 광장과 별도 유료 시설·점포를 구분. 공용 구역만 일정에 산책으로 반영.; 관광 안내의 07~22시·무료 입장 기준. 11/25 크리스마스 마켓 진행 중으로 특정 구역·시간에 혼잡 또는 접근 제한 가능.; 기존 OSM 구역 중심점은 출입구가 아님. 45분·짐 점수는 시연 추정.",
           "previous": {
-            "value": "공원 07:00–22:00; 이나 구역 점포·활동시설은 개별 시간 확인",
+            "value": "연중무휴로 입력; 시설별 시간 미명시. 기상 악화 시 실외 코스 중단 가능",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "https://www.tennoji-park.jp/"
-              ],
-              "checked_at": "2026-09-28",
-              "note": "공식 안내에서 텐시바 이나 별도 구역 확인. 개별 유료 시설 이용시간·요금은 별도."
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 51,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "공원 07:00–22:00; 이나 구역 점포·활동시설은 개별 시간 확인",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://www.tennoji-park.jp/"
+                  ],
+                  "checked_at": "2026-09-28",
+                  "note": "공식 안내에서 텐시바 이나 별도 구역 확인. 개별 유료 시설 이용시간·요금은 별도."
+                }
+              }
             }
           }
         },
@@ -21588,22 +22362,48 @@
           "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 2.9m. 주소만 확인했으며 영업시간 검증 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.tennoji-park.jp/",
+            "https://www.mapple.net/spot/27015794/",
+            "https://www.openstreetmap.org/way/977755839"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 시설 안내의 동물원 입구 광장과 별도 유료 시설·점포를 구분. 공용 구역만 일정에 산책으로 반영.; 관광 안내의 07~22시·무료 입장 기준. 11/25 크리스마스 마켓 진행 중으로 특정 구역·시간에 혼잡 또는 접근 제한 가능.; 기존 OSM 구역 중심점은 출입구가 아님. 45분·짐 점수는 시연 추정.",
+          "previous": {
+            "value": 2,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.tennoji-park.jp/",
+            "https://www.mapple.net/spot/27015794/",
+            "https://www.openstreetmap.org/way/977755839"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~180분, 쇼핑몰·백화점. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 시설 안내의 동물원 입구 광장과 별도 유료 시설·점포를 구분. 공용 구역만 일정에 산책으로 반영.; 관광 안내의 07~22시·무료 입장 기준. 11/25 크리스마스 마켓 진행 중으로 특정 구역·시간에 혼잡 또는 접근 제한 가능.; 기존 OSM 구역 중심점은 출입구가 아님. 45분·짐 점수는 시연 추정.",
+          "previous": {
+            "value": 180,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~180분, 쇼핑몰·백화점. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -21657,6 +22457,34 @@
           "scope": "텐시바 i:na 복합 구역 방문",
           "note": "사용자가 정한 방문 연령 정책. 모든 개별 체험이 전연령 이용 가능하다고 공식 확인한 값은 아님.",
           "previous": null
+        },
+        "cost": {
+          "kind": "dated_external_review",
+          "urls": [
+            "https://www.tennoji-park.jp/",
+            "https://www.mapple.net/spot/27015794/",
+            "https://www.openstreetmap.org/way/977755839"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공용 구역 입장 0엔; 동물원·유료 체험·매장 구매비는 별도.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.tennoji-park.jp/",
+            "https://www.mapple.net/spot/27015794/",
+            "https://www.openstreetmap.org/way/977755839"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 시설 안내의 동물원 입구 광장과 별도 유료 시설·점포를 구분. 공용 구역만 일정에 산책으로 반영.; 관광 안내의 07~22시·무료 입장 기준. 11/25 크리스마스 마켓 진행 중으로 특정 구역·시간에 혼잡 또는 접근 제한 가능.; 기존 OSM 구역 중심점은 출입구가 아님. 45분·짐 점수는 시연 추정.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -21674,7 +22502,7 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "official_fields_20260928"
         ],
@@ -21682,13 +22510,14 @@
           "텐시바 전체와 i:na 시설 구분, 점포별 시간 확인 필요.",
           "공식 안내에서 텐시바 이나 별도 구역 확인. 개별 유료 시설 이용시간·요금은 별도.",
           "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 2.9m. 주소만 확인했으며 영업시간 검증 아님.",
-          "2026-10-06: 텐시바 공원 07:00–22:00를 INA 입점 상점들의 공통 영업시간으로 복사하지 않음. 방문 점포·유료 활동 범위 확인 필요."
+          "2026-10-06: 텐시바 공원 07:00–22:00를 INA 입점 상점들의 공통 영업시간으로 복사하지 않음. 방문 점포·유료 활동 범위 확인 필요.",
+          "2026-11-24: 공식 시설 안내의 동물원 입구 광장과 별도 유료 시설·점포를 구분. 공용 구역만 일정에 산책으로 반영.; 관광 안내의 07~22시·무료 입장 기준. 11/25 크리스마스 마켓 진행 중으로 특정 구역·시간에 혼잡 또는 접근 제한 가능.; 기존 OSM 구역 중심점은 출입구가 아님. 45분·짐 점수는 시연 추정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_391fae83b26c",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -21702,11 +22531,7 @@
             "텐시바 전체와 i:na 시설 구분, 점포별 시간 확인 필요."
           ]
         },
-        "recommendation_blockers": [
-          "tenant_scope_confirmation_required",
-          "final_record_review_required",
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_391fae83b26c",
           "google_maps_url": "https://maps.google.com/?cid=2093338456744825032",
@@ -21717,11 +22542,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "쇼핑몰·백화점",
-          "min": 90,
-          "max": 180,
-          "representative": 180,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 45,
+          "max": 45,
+          "representative": 45,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "exclude_personal_shopping_spend",
         "operating_checks": [
@@ -21744,6 +22569,65 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": "복합 구역 방문 기준 운영시간·체류시간·짐 증가량 확인. 개별 체험 이용 시 해당 코스의 연령·신장·체중·보호자 동반 및 복장 조건 확인."
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.tennoji-park.jp/",
+            "https://www.mapple.net/spot/27015794/",
+            "https://www.openstreetmap.org/way/977755839"
+          ],
+          "fields": {
+            "opening_hours": "덴시바 이나 무료 공용 공간 산책 07:00~22:00. 상점·유료 체험은 별도.",
+            "cost": 0,
+            "stay_min": 45,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_external_review",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "공용 구역 입장 0엔; 동물원·유료 체험·매장 구매비는 별도."
+          },
+          "resolved_blockers": [
+            "tenant_scope_confirmation_required",
+            "final_record_review_required",
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 시설 안내의 동물원 입구 광장과 별도 유료 시설·점포를 구분. 공용 구역만 일정에 산책으로 반영.",
+            "관광 안내의 07~22시·무료 입장 기준. 11/25 크리스마스 마켓 진행 중으로 특정 구역·시간에 혼잡 또는 접근 제한 가능.",
+            "기존 OSM 구역 중심점은 출입구가 아님. 45분·짐 점수는 시연 추정."
+          ],
+          "cost_basis": "공용 구역 입장 0엔; 동물원·유료 체험·매장 구매비는 별도.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              420,
+              1320,
+              1320
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "reported_free_admission",
+          "price_evidence_kind": "reported_free_public_area",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://www.tennoji-park.jp/",
+              "https://www.mapple.net/spot/27015794/",
+              "https://www.openstreetmap.org/way/977755839"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 45,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -23534,14 +24418,14 @@
         "address": "大阪市北区中津3-12-15",
         "latitude": 34.7123735,
         "longitude": 135.4937555,
-        "opening_hours": "월·화 08:00~12:00; 금·일 08:00~16:00; 토 08:00~13:00; 수·목 휴무",
-        "cost": null,
-        "stay_min": 60,
+        "opening_hours": "수요일 08:00~12:00, 음료 주문마감 11:30. 임시 휴무 달력은 방문 전 확인.",
+        "cost": 480,
+        "stay_min": 40,
         "bag_load": 0,
         "covered": true,
         "website": "https://42195coffee.wixsite.com/toppage",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-26",
+        "opening_hours_source": "https://42195coffee.wixsite.com/toppage; https://42195coffee.wixsite.com/toppage/menu; https://tabelog.com/osaka/A2701/A270101/27089054/; https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu; https://www.openstreetmap.org/way/226005126",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -23563,22 +24447,37 @@
           "url": "https://www.openstreetmap.org/way/226005126"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 56,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://42195coffee.wixsite.com/toppage",
+            "https://42195coffee.wixsite.com/toppage/menu",
+            "https://tabelog.com/osaka/A2701/A270101/27089054/",
+            "https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu",
+            "https://www.openstreetmap.org/way/226005126"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 홈페이지와 메뉴 하단, 타베로그에 수요일 08~12시·음료 주문마감 30분 전이 일치한다. 공식 연락 페이지의 이전 08~18시 표기는 충돌로 기록.; 공식 임시휴무 달력은 내용을 읽지 못해 11/25 예외를 확인하지 못했으므로 방문 전 재확인.; 지도 이용자 게시 블렌드 480엔은 게재 시점·현행가 확인 전 1잔 예산 참고치. 휴식 40분은 시연 추정.",
           "previous": {
-            "value": "08:00–17:00; 수요일 08:00–12:00; 목요일 휴무; 음료 주문 종료 30분 전, 식사 1시간 전",
+            "value": "월·화 08:00~12:00; 금·일 08:00~16:00; 토 08:00~13:00; 수·목 휴무",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "https://42195coffee.wixsite.com/toppage"
-              ],
-              "checked_at": "2026-09-26",
-              "evidence_window": "2026-09-24/2026-09-26"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 56,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "08:00–17:00; 수요일 08:00–12:00; 목요일 휴무; 음료 주문 종료 30분 전, 식사 1시간 전",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://42195coffee.wixsite.com/toppage"
+                  ],
+                  "checked_at": "2026-09-26",
+                  "evidence_window": "2026-09-24/2026-09-26"
+                }
+              }
             }
           }
         },
@@ -23639,22 +24538,52 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://42195coffee.wixsite.com/toppage",
+            "https://42195coffee.wixsite.com/toppage/menu",
+            "https://tabelog.com/osaka/A2701/A270101/27089054/",
+            "https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu",
+            "https://www.openstreetmap.org/way/226005126"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 홈페이지와 메뉴 하단, 타베로그에 수요일 08~12시·음료 주문마감 30분 전이 일치한다. 공식 연락 페이지의 이전 08~18시 표기는 충돌로 기록.; 공식 임시휴무 달력은 내용을 읽지 못해 11/25 예외를 확인하지 못했으므로 방문 전 재확인.; 지도 이용자 게시 블렌드 480엔은 게재 시점·현행가 확인 전 1잔 예산 참고치. 휴식 40분은 시연 추정.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://42195coffee.wixsite.com/toppage",
+            "https://42195coffee.wixsite.com/toppage/menu",
+            "https://tabelog.com/osaka/A2701/A270101/27089054/",
+            "https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu",
+            "https://www.openstreetmap.org/way/226005126"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 홈페이지와 메뉴 하단, 타베로그에 수요일 08~12시·음료 주문마감 30분 전이 일치한다. 공식 연락 페이지의 이전 08~18시 표기는 충돌로 기록.; 공식 임시휴무 달력은 내용을 읽지 못해 11/25 예외를 확인하지 못했으므로 방문 전 재확인.; 지도 이용자 게시 블렌드 480엔은 게재 시점·현행가 확인 전 1잔 예산 참고치. 휴식 40분은 시연 추정.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -23666,15 +24595,46 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 56,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://42195coffee.wixsite.com/toppage",
+            "https://42195coffee.wixsite.com/toppage/menu",
+            "https://tabelog.com/osaka/A2701/A270101/27089054/",
+            "https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu",
+            "https://www.openstreetmap.org/way/226005126"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 홈페이지와 메뉴 하단, 타베로그에 수요일 08~12시·음료 주문마감 30분 전이 일치한다. 공식 연락 페이지의 이전 08~18시 표기는 충돌로 기록.; 공식 임시휴무 달력은 내용을 읽지 못해 11/25 예외를 확인하지 못했으므로 방문 전 재확인.; 지도 이용자 게시 블렌드 480엔은 게재 시점·현행가 확인 전 1잔 예산 참고치. 휴식 40분은 시연 추정.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 56,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "reported_budget_estimate",
+          "urls": [
+            "https://42195coffee.wixsite.com/toppage",
+            "https://42195coffee.wixsite.com/toppage/menu",
+            "https://tabelog.com/osaka/A2701/A270101/27089054/",
+            "https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu",
+            "https://www.openstreetmap.org/way/226005126"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "지도 이용자 게시 블렌드 480엔의 예산 참고치. 세금·현행가 별도 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -23706,18 +24666,19 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_f22cfa23d646_address_hours_20260926"
         ],
         "notes": [
-          "2026-10-06: 공식 첫 화면은 수요일 08:00–12:00·목요일 휴무지만 메뉴 페이지 하단은 매주 수요일·둘째 목요일 휴무로 서로 다름. 게시 시점으로 우선순위를 확정할 수 없어 hours_conflict 추가. 기존 원문 시간은 남기되 일정 배치 보류. 메뉴명은 있으나 확인한 페이지에는 가격이 없어 cost null 유지."
+          "2026-10-06: 공식 첫 화면은 수요일 08:00–12:00·목요일 휴무지만 메뉴 페이지 하단은 매주 수요일·둘째 목요일 휴무로 서로 다름. 게시 시점으로 우선순위를 확정할 수 없어 hours_conflict 추가. 기존 원문 시간은 남기되 일정 배치 보류. 메뉴명은 있으나 확인한 페이지에는 가격이 없어 cost null 유지.",
+          "2026-11-24: 공식 홈페이지와 메뉴 하단, 타베로그에 수요일 08~12시·음료 주문마감 30분 전이 일치한다. 공식 연락 페이지의 이전 08~18시 표기는 충돌로 기록.; 공식 임시휴무 달력은 내용을 읽지 못해 11/25 예외를 확인하지 못했으므로 방문 전 재확인.; 지도 이용자 게시 블렌드 480엔은 게재 시점·현행가 확인 전 1잔 예산 참고치. 휴식 40분은 시연 추정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_f22cfa23d646",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -23737,16 +24698,13 @@
           "hours_status": "verified",
           "notes": []
         },
-        "recommendation_blockers": [
-          "hours_conflict",
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "카페",
-          "min": 45,
-          "max": 60,
-          "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 40,
+          "max": 40,
+          "representative": 40,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -23770,7 +24728,70 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://42195coffee.wixsite.com/toppage",
+            "https://42195coffee.wixsite.com/toppage/menu",
+            "https://tabelog.com/osaka/A2701/A270101/27089054/",
+            "https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu",
+            "https://www.openstreetmap.org/way/226005126"
+          ],
+          "fields": {
+            "opening_hours": "수요일 08:00~12:00, 음료 주문마감 11:30. 임시 휴무 달력은 방문 전 확인.",
+            "cost": 480,
+            "stay_min": 40,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "reported_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "지도 이용자 게시 블렌드 480엔의 예산 참고치. 세금·현행가 별도 확인."
+          },
+          "resolved_blockers": [
+            "hours_conflict",
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 홈페이지와 메뉴 하단, 타베로그에 수요일 08~12시·음료 주문마감 30분 전이 일치한다. 공식 연락 페이지의 이전 08~18시 표기는 충돌로 기록.",
+            "공식 임시휴무 달력은 내용을 읽지 못해 11/25 예외를 확인하지 못했으므로 방문 전 재확인.",
+            "지도 이용자 게시 블렌드 480엔은 게재 시점·현행가 확인 전 1잔 예산 참고치. 휴식 40분은 시연 추정."
+          ],
+          "cost_basis": "지도 이용자 게시 블렌드 480엔의 예산 참고치. 세금·현행가 별도 확인.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              480,
+              720,
+              690
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "user_reported_drink_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://42195coffee.wixsite.com/toppage",
+              "https://42195coffee.wixsite.com/toppage/menu",
+              "https://tabelog.com/osaka/A2701/A270101/27089054/",
+              "https://map.yahoo.co.jp/v3/place/CqwA5wajk3o/menu",
+              "https://www.openstreetmap.org/way/226005126"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 40,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       }
     },
     {
@@ -24697,14 +25718,14 @@
         "address": "大阪府大阪市北区東天満2-6-8 篠原東天満ビル1F",
         "latitude": 34.6975145,
         "longitude": 135.514626,
-        "opening_hours": "07:00-19:00 (공식 매장 페이지 공통 표기; 요일별 차이·정기휴일·최종 주문은 미공개)",
-        "cost": null,
-        "stay_min": 60,
+        "opening_hours": "오사카텐만구점 07:00~19:00. 마지막 주문과 임시휴무는 방문 전 확인.",
+        "cost": 530,
+        "stay_min": 40,
         "bag_load": 0,
-        "covered": null,
+        "covered": true,
         "website": "https://c-united.co.jp/store/detail/085115/",
-        "opening_hours_source": "https://c-united.co.jp/store/detail/085115/",
-        "verified_at": "2026-10-13",
+        "opening_hours_source": "https://c-united.co.jp/store/detail/085115/; https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu; https://www.openstreetmap.org/node/2064207432",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -24738,18 +25759,31 @@
           "url": "https://www.openstreetmap.org/node/2064207432"
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://c-united.co.jp/store/detail/085115/"
+            "https://c-united.co.jp/store/detail/085115/",
+            "https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu",
+            "https://www.openstreetmap.org/node/2064207432"
           ],
-          "checked_at": "2026-10-13",
-          "revision": "identity_reconciled_20261013",
-          "note": "2026-10-13 재확인본의 시간 및 예외 조건. 방문일의 임시 변경은 별도 확인.",
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 주소·지점명·07~19시를 기존 위치와 대조. 정기휴무와 최종주문 시각은 공식 페이지에서 확인하지 못함.; 지도 이용자 메뉴의 블렌드 530엔은 다른 지점 이미지가 섞일 수 있고 게시 시점 미확인. 확정 지점 가격이 아닌 1잔 예산 참고치.; 계획상 종료 30분 전까지만 배치하며 40분 체류·짐 점수는 추정. 실내 좌석 방문 기준.",
           "previous": {
-            "value": "07:00-20:00",
+            "value": "07:00-19:00 (공식 매장 페이지 공통 표기; 요일별 차이·정기휴일·최종 주문은 미공개)",
             "source": {
-              "kind": "osm",
-              "url": "https://www.openstreetmap.org/node/2064207432"
+              "kind": "official_web_review",
+              "urls": [
+                "https://c-united.co.jp/store/detail/085115/"
+              ],
+              "checked_at": "2026-10-13",
+              "revision": "identity_reconciled_20261013",
+              "note": "2026-10-13 재확인본의 시간 및 예외 조건. 방문일의 임시 변경은 별도 확인.",
+              "previous": {
+                "value": "07:00-20:00",
+                "source": {
+                  "kind": "osm",
+                  "url": "https://www.openstreetmap.org/node/2064207432"
+                }
+              }
             }
           }
         },
@@ -24824,22 +25858,48 @@
           "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 5.8m. 주소만 확인했으며 영업시간 검증 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://c-united.co.jp/store/detail/085115/",
+            "https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu",
+            "https://www.openstreetmap.org/node/2064207432"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 주소·지점명·07~19시를 기존 위치와 대조. 정기휴무와 최종주문 시각은 공식 페이지에서 확인하지 못함.; 지도 이용자 메뉴의 블렌드 530엔은 다른 지점 이미지가 섞일 수 있고 게시 시점 미확인. 확정 지점 가격이 아닌 1잔 예산 참고치.; 계획상 종료 30분 전까지만 배치하며 40분 체류·짐 점수는 추정. 실내 좌석 방문 기준.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://c-united.co.jp/store/detail/085115/",
+            "https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu",
+            "https://www.openstreetmap.org/node/2064207432"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 주소·지점명·07~19시를 기존 위치와 대조. 정기휴무와 최종주문 시각은 공식 페이지에서 확인하지 못함.; 지도 이용자 메뉴의 블렌드 530엔은 다른 지점 이미지가 섞일 수 있고 게시 시점 미확인. 확정 지점 가격이 아닌 1잔 예산 참고치.; 계획상 종료 30분 전까지만 배치하며 40분 체류·짐 점수는 추정. 실내 좌석 방문 기준.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -24952,6 +26012,34 @@
             "cost_basis": ""
           },
           "previous_review": null
+        },
+        "cost": {
+          "kind": "reported_budget_estimate",
+          "urls": [
+            "https://c-united.co.jp/store/detail/085115/",
+            "https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu",
+            "https://www.openstreetmap.org/node/2064207432"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "이용자 게시 블렌드 530엔은 혼입 가능성이 있는 예산 참고치. 현행 지점 가격 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://c-united.co.jp/store/detail/085115/",
+            "https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu",
+            "https://www.openstreetmap.org/node/2064207432"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 지점의 주소·지점명·07~19시를 기존 위치와 대조. 정기휴무와 최종주문 시각은 공식 페이지에서 확인하지 못함.; 지도 이용자 메뉴의 블렌드 530엔은 다른 지점 이미지가 섞일 수 있고 게시 시점 미확인. 확정 지점 가격이 아닌 1잔 예산 참고치.; 계획상 종료 30분 전까지만 배치하며 40분 체류·짐 점수는 추정. 실내 좌석 방문 기준.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -24973,19 +26061,18 @@
         }
       },
       "review": {
-        "status": "needs_verification",
+        "status": "eligible_for_dated_demo",
         "official_checks": [],
         "notes": [
           "정확한 Cafe Di Espresso 지점 확인 필요.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 5.8m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 5.8m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-11-24: 공식 지점의 주소·지점명·07~19시를 기존 위치와 대조. 정기휴무와 최종주문 시각은 공식 페이지에서 확인하지 못함.; 지도 이용자 메뉴의 블렌드 530엔은 다른 지점 이미지가 섞일 수 있고 게시 시점 미확인. 확정 지점 가격이 아닌 1잔 예산 참고치.; 계획상 종료 30분 전까지만 배치하며 40분 체류·짐 점수는 추정. 실내 좌석 방문 기준."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_e3ac280c1575",
         "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source",
-          "verified_at"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -25005,11 +26092,7 @@
             "정확한 Cafe Di Espresso 지점 확인 필요."
           ]
         },
-        "recommendation_blockers": [
-          "branch_unconfirmed",
-          "final_record_review_required",
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_e3ac280c1575",
           "google_maps_url": "https://maps.google.com/?cid=10290661718380662293",
@@ -25020,11 +26103,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "카페",
-          "min": 45,
-          "max": 60,
-          "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 40,
+          "max": 40,
+          "representative": 40,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -25036,7 +26119,67 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://c-united.co.jp/store/detail/085115/",
+            "https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu",
+            "https://www.openstreetmap.org/node/2064207432"
+          ],
+          "fields": {
+            "opening_hours": "오사카텐만구점 07:00~19:00. 마지막 주문과 임시휴무는 방문 전 확인.",
+            "cost": 530,
+            "stay_min": 40,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "reported_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "이용자 게시 블렌드 530엔은 혼입 가능성이 있는 예산 참고치. 현행 지점 가격 별도 확인."
+          },
+          "resolved_blockers": [
+            "branch_unconfirmed",
+            "final_record_review_required",
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 지점의 주소·지점명·07~19시를 기존 위치와 대조. 정기휴무와 최종주문 시각은 공식 페이지에서 확인하지 못함.",
+            "지도 이용자 메뉴의 블렌드 530엔은 다른 지점 이미지가 섞일 수 있고 게시 시점 미확인. 확정 지점 가격이 아닌 1잔 예산 참고치.",
+            "계획상 종료 30분 전까지만 배치하며 40분 체류·짐 점수는 추정. 실내 좌석 방문 기준."
+          ],
+          "cost_basis": "이용자 게시 블렌드 530엔은 혼입 가능성이 있는 예산 참고치. 현행 지점 가격 별도 확인.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              420,
+              1140,
+              1110
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "user_reported_drink_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://c-united.co.jp/store/detail/085115/",
+              "https://map.yahoo.co.jp/v3/place/OzG3o--cP-M/menu",
+              "https://www.openstreetmap.org/node/2064207432"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 40,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       }
     },
     {
@@ -25049,14 +26192,14 @@
         "address": "2 Chome-24-18 Kikawanishi, Yodogawa Ward, Osaka, 532-0013 일본",
         "latitude": 34.725377,
         "longitude": 135.4882807,
-        "opening_hours": "화~토 10:00~18:00; 일·월·공휴일 휴무; 런치 플레이트 11:00~14:30",
-        "cost": 1000,
-        "stay_min": 60,
+        "opening_hours": "11/25 축제 전시 11:00~18:00. 저녁 행사와 카페 임시 변경은 별도 확인.",
+        "cost": 550,
+        "stay_min": 45,
         "bag_load": 0,
         "covered": true,
         "website": "https://www.instagram.com/cafe_yutte",
-        "opening_hours_source": null,
-        "verified_at": null,
+        "opening_hours_source": "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/; https://tabelog.com/osaka/A2701/A270302/27037918/; https://www.youtube.com/watch?v=QlF7eatp414; https://www.openstreetmap.org/node/5875311485",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -25078,18 +26221,32 @@
           "url": "https://www.openstreetmap.org/node/5875311485"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 61,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/",
+            "https://tabelog.com/osaka/A2701/A270302/27037918/",
+            "https://www.youtube.com/watch?v=QlF7eatp414",
+            "https://www.openstreetmap.org/node/5875311485"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "지역 축제 주최 측은 11/25 같은 주소 카페에서 전시 11~18시·저녁 행사 연장을 공지. 일정에는 공통 11~18시만 적용.; 2024년 방송의 커피젤리 550엔은 현행 확정가가 아닌 간식 예산 참고치. 식사·다른 음료 별도.; 실내 좌석·45분은 계획 기준이며 좌석 대기·임시 변경 및 실제 가격 확인 필요.",
           "previous": {
-            "value": "Tu-Sa 10:00-18:00",
+            "value": "화~토 10:00~18:00; 일·월·공휴일 휴무; 런치 플레이트 11:00~14:30",
             "source": {
-              "kind": "osm",
-              "url": "https://www.openstreetmap.org/node/5875311485"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 61,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "Tu-Sa 10:00-18:00",
+                "source": {
+                  "kind": "osm",
+                  "url": "https://www.openstreetmap.org/node/5875311485"
+                }
+              }
             }
           }
         },
@@ -25128,22 +26285,50 @@
           "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 0.7m. 주소만 확인했으며 영업시간 검증 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/",
+            "https://tabelog.com/osaka/A2701/A270302/27037918/",
+            "https://www.youtube.com/watch?v=QlF7eatp414",
+            "https://www.openstreetmap.org/node/5875311485"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "지역 축제 주최 측은 11/25 같은 주소 카페에서 전시 11~18시·저녁 행사 연장을 공지. 일정에는 공통 11~18시만 적용.; 2024년 방송의 커피젤리 550엔은 현행 확정가가 아닌 간식 예산 참고치. 식사·다른 음료 별도.; 실내 좌석·45분은 계획 기준이며 좌석 대기·임시 변경 및 실제 가격 확인 필요.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/",
+            "https://tabelog.com/osaka/A2701/A270302/27037918/",
+            "https://www.youtube.com/watch?v=QlF7eatp414",
+            "https://www.openstreetmap.org/node/5875311485"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "지역 축제 주최 측은 11/25 같은 주소 카페에서 전시 11~18시·저녁 행사 연장을 공지. 일정에는 공통 11~18시만 적용.; 2024년 방송의 커피젤리 550엔은 현행 확정가가 아닌 간식 예산 참고치. 식사·다른 음료 별도.; 실내 좌석·45분은 계획 기준이며 좌석 대기·임시 변경 및 실제 가격 확인 필요.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -25155,29 +26340,57 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 61,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/",
+            "https://tabelog.com/osaka/A2701/A270302/27037918/",
+            "https://www.youtube.com/watch?v=QlF7eatp414",
+            "https://www.openstreetmap.org/node/5875311485"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "지역 축제 주최 측은 11/25 같은 주소 카페에서 전시 11~18시·저녁 행사 연장을 공지. 일정에는 공통 11~18시만 적용.; 2024년 방송의 커피젤리 550엔은 현행 확정가가 아닌 간식 예산 참고치. 식사·다른 음료 별도.; 실내 좌석·45분은 계획 기준이며 좌석 대기·임시 변경 및 실제 가격 확인 필요.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 61,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         },
         "cost": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 61,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "reported_budget_estimate",
+          "urls": [
+            "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/",
+            "https://tabelog.com/osaka/A2701/A270302/27037918/",
+            "https://www.youtube.com/watch?v=QlF7eatp414",
+            "https://www.openstreetmap.org/node/5875311485"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2024년 방송에서 소개한 커피젤리 550엔의 예산 참고치. 현재 가격·재고 별도 확인.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": 1000,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 61,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         }
       },
@@ -25220,19 +26433,18 @@
         }
       },
       "review": {
-        "status": "needs_verification",
+        "status": "eligible_for_dated_demo",
         "official_checks": [],
         "notes": [
           "공식 소셜 페이지에서 최신 운영시간 추가 확인 필요.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 0.7m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 0.7m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-11-24: 지역 축제 주최 측은 11/25 같은 주소 카페에서 전시 11~18시·저녁 행사 연장을 공지. 일정에는 공통 11~18시만 적용.; 2024년 방송의 커피젤리 550엔은 현행 확정가가 아닌 간식 예산 참고치. 식사·다른 음료 별도.; 실내 좌석·45분은 계획 기준이며 좌석 대기·임시 변경 및 실제 가격 확인 필요."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_9342479ef7d7",
         "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source",
-          "verified_at"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -25246,9 +26458,7 @@
             "공식 소셜 페이지에서 최신 운영시간 추가 확인 필요."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_9342479ef7d7",
           "google_maps_url": "https://maps.google.com/?cid=8309990315285248752",
@@ -25259,11 +26469,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "카페",
+          "type": "시연 추정",
           "min": 45,
-          "max": 60,
-          "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 45,
+          "representative": 45,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -25275,7 +26485,67 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/",
+            "https://tabelog.com/osaka/A2701/A270302/27037918/",
+            "https://www.youtube.com/watch?v=QlF7eatp414",
+            "https://www.openstreetmap.org/node/5875311485"
+          ],
+          "fields": {
+            "opening_hours": "11/25 축제 전시 11:00~18:00. 저녁 행사와 카페 임시 변경은 별도 확인.",
+            "cost": 550,
+            "stay_min": 45,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "reported_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2024년 방송에서 소개한 커피젤리 550엔의 예산 참고치. 현재 가격·재고 별도 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "지역 축제 주최 측은 11/25 같은 주소 카페에서 전시 11~18시·저녁 행사 연장을 공지. 일정에는 공통 11~18시만 적용.",
+            "2024년 방송의 커피젤리 550엔은 현행 확정가가 아닌 간식 예산 참고치. 식사·다른 음료 별도.",
+            "실내 좌석·45분은 계획 기준이며 좌석 대기·임시 변경 및 실제 가격 확인 필요."
+          ],
+          "cost_basis": "2024년 방송에서 소개한 커피젤리 550엔의 예산 참고치. 현재 가격·재고 별도 확인.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              660,
+              1080,
+              1080
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_past_snack_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://yodogawaartnet.sakura.ne.jp/venue/cafe_yutte/",
+              "https://tabelog.com/osaka/A2701/A270302/27037918/",
+              "https://www.youtube.com/watch?v=QlF7eatp414",
+              "https://www.openstreetmap.org/node/5875311485"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 45,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       }
     },
     {
@@ -25509,14 +26779,14 @@
         "address": "大阪市北区浮田2-4-4",
         "latitude": 34.7101879,
         "longitude": 135.5074534,
-        "opening_hours": "12:00~17:00; 부정기 휴무",
-        "cost": null,
-        "stay_min": 60,
+        "opening_hours": "우키타 2-4-4 현재 지점 12:00~17:00. 휴무·임시 변경은 방문 전 확인.",
+        "cost": 800,
+        "stay_min": 40,
         "bag_load": 0,
         "covered": true,
         "website": "https://haikucoffee.thebase.in/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-26",
+        "opening_hours_source": "https://haikucoffee.thebase.in/about; https://tabelog.com/osaka/A2701/A270103/27127122/; https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/; https://www.openstreetmap.org/node/2293166511",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -25538,22 +26808,36 @@
           "url": "https://www.openstreetmap.org/node/2293166511"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 63,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://haikucoffee.thebase.in/about",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/",
+            "https://www.openstreetmap.org/node/2293166511"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 주소·시간 및 현재 지점 타베로그를 확인. 이전 구로사키초 점포의 수·목 휴무를 현재 지점에 그대로 적용하지 않음.; 2026년 3월 두 음료 1,600엔 방문 후기의 절반인 800엔은 개인 예산 추정이며 각 메뉴의 실제 단가는 알 수 없음.; 부정기 휴무·대기는 방문 전 확인. 실내 휴식 40분은 추정, 외부 이동과 야외 좌석은 별도.",
           "previous": {
-            "value": "12:00–17:00; 정기 휴무일 미확인",
+            "value": "12:00~17:00; 부정기 휴무",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "https://haikucoffee.thebase.in/about"
-              ],
-              "checked_at": "2026-09-26",
-              "evidence_window": "2026-09-24/2026-09-26"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 63,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "12:00–17:00; 정기 휴무일 미확인",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://haikucoffee.thebase.in/about"
+                  ],
+                  "checked_at": "2026-09-26",
+                  "evidence_window": "2026-09-24/2026-09-26"
+                }
+              }
             }
           }
         },
@@ -25614,22 +26898,50 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://haikucoffee.thebase.in/about",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/",
+            "https://www.openstreetmap.org/node/2293166511"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 주소·시간 및 현재 지점 타베로그를 확인. 이전 구로사키초 점포의 수·목 휴무를 현재 지점에 그대로 적용하지 않음.; 2026년 3월 두 음료 1,600엔 방문 후기의 절반인 800엔은 개인 예산 추정이며 각 메뉴의 실제 단가는 알 수 없음.; 부정기 휴무·대기는 방문 전 확인. 실내 휴식 40분은 추정, 외부 이동과 야외 좌석은 별도.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://haikucoffee.thebase.in/about",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/",
+            "https://www.openstreetmap.org/node/2293166511"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 주소·시간 및 현재 지점 타베로그를 확인. 이전 구로사키초 점포의 수·목 휴무를 현재 지점에 그대로 적용하지 않음.; 2026년 3월 두 음료 1,600엔 방문 후기의 절반인 800엔은 개인 예산 추정이며 각 메뉴의 실제 단가는 알 수 없음.; 부정기 휴무·대기는 방문 전 확인. 실내 휴식 40분은 추정, 외부 이동과 야외 좌석은 별도.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -25641,15 +26953,44 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 63,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://haikucoffee.thebase.in/about",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/",
+            "https://www.openstreetmap.org/node/2293166511"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 주소·시간 및 현재 지점 타베로그를 확인. 이전 구로사키초 점포의 수·목 휴무를 현재 지점에 그대로 적용하지 않음.; 2026년 3월 두 음료 1,600엔 방문 후기의 절반인 800엔은 개인 예산 추정이며 각 메뉴의 실제 단가는 알 수 없음.; 부정기 휴무·대기는 방문 전 확인. 실내 휴식 40분은 추정, 외부 이동과 야외 좌석은 별도.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 63,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "reported_budget_estimate",
+          "urls": [
+            "https://haikucoffee.thebase.in/about",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/",
+            "https://www.openstreetmap.org/node/2293166511"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026-03 두 음료 1,600엔 후기의 절반인 1인 800엔은 예산 추정. 현재 단가 미확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -25680,16 +27021,18 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_eda93d07ee2b_address_hours_20260926"
         ],
-        "notes": [],
+        "notes": [
+          "2026-11-24: 공식 주소·시간 및 현재 지점 타베로그를 확인. 이전 구로사키초 점포의 수·목 휴무를 현재 지점에 그대로 적용하지 않음.; 2026년 3월 두 음료 1,600엔 방문 후기의 절반인 800엔은 개인 예산 추정이며 각 메뉴의 실제 단가는 알 수 없음.; 부정기 휴무·대기는 방문 전 확인. 실내 휴식 40분은 추정, 외부 이동과 야외 좌석은 별도."
+        ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_eda93d07ee2b",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -25714,15 +27057,13 @@
           "hours_status": "verified",
           "notes": []
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "카페",
-          "min": 45,
-          "max": 60,
-          "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 40,
+          "max": 40,
+          "representative": 40,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -25734,7 +27075,67 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://haikucoffee.thebase.in/about",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/",
+            "https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/",
+            "https://www.openstreetmap.org/node/2293166511"
+          ],
+          "fields": {
+            "opening_hours": "우키타 2-4-4 현재 지점 12:00~17:00. 휴무·임시 변경은 방문 전 확인.",
+            "cost": 800,
+            "stay_min": 40,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "reported_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2026-03 두 음료 1,600엔 후기의 절반인 1인 800엔은 예산 추정. 현재 단가 미확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 주소·시간 및 현재 지점 타베로그를 확인. 이전 구로사키초 점포의 수·목 휴무를 현재 지점에 그대로 적용하지 않음.",
+            "2026년 3월 두 음료 1,600엔 방문 후기의 절반인 800엔은 개인 예산 추정이며 각 메뉴의 실제 단가는 알 수 없음.",
+            "부정기 휴무·대기는 방문 전 확인. 실내 휴식 40분은 추정, 외부 이동과 야외 좌석은 별도."
+          ],
+          "cost_basis": "2026-03 두 음료 1,600엔 후기의 절반인 1인 800엔은 예산 추정. 현재 단가 미확인.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              720,
+              1020,
+              1020
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "two_drinks_average_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://haikucoffee.thebase.in/about",
+              "https://tabelog.com/osaka/A2701/A270103/27127122/",
+              "https://tabelog.com/osaka/A2701/A270103/27127122/dtlrvwlst/B477294767/",
+              "https://www.openstreetmap.org/node/2293166511"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 40,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       }
     },
     {
@@ -26260,14 +27661,14 @@
         "address": "大阪市北区中崎西1-1-18",
         "latitude": 34.7070237,
         "longitude": 135.504145,
-        "opening_hours": "화~토 10:30~19:00; 일 10:30~18:00; 월요일 운영 미입력",
-        "cost": null,
-        "stay_min": 60,
+        "opening_hours": "수요일 공통 확인 10:30~18:00. 휴무 안내가 상충해 방문일 재확인.",
+        "cost": 1450,
+        "stay_min": 40,
         "bag_load": 0,
         "covered": true,
         "website": "http://www.grandafamilio.com/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-26",
+        "opening_hours_source": "https://gra-fami.com/company; https://tabelog.com/osaka/A2701/A270101/27075783/; https://8984.jp/machi/2025/08/000408.html; https://www.openstreetmap.org/node/7477438893",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -26289,22 +27690,36 @@
           "url": "https://www.openstreetmap.org/node/7477438893"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 65,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://gra-fami.com/company",
+            "https://tabelog.com/osaka/A2701/A270101/27075783/",
+            "https://8984.jp/machi/2025/08/000408.html",
+            "https://www.openstreetmap.org/node/7477438893"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 자료는 화요일, 타베로그는 월요일 휴무로 상충하지만 수요일 10:30~18:00은 두 자료의 공통 구간.; 2025년 5월 기준 보도의 아사이볼 1,450엔은 당일 가격·수량을 보장하지 않는 참고 예산.; 실내 좌석 수가 적어 만석·품절 가능. 임시휴무와 40분 체류는 별도 확인.",
           "previous": {
-            "value": "월·수–토 10:30–19:00; 일 10:30–18:00; 화 휴무",
+            "value": "화~토 10:30~19:00; 일 10:30~18:00; 월요일 운영 미입력",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "http://www.grandafamilio.com/store.html"
-              ],
-              "checked_at": "2026-09-26",
-              "evidence_window": "2026-09-24/2026-09-26"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 65,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "월·수–토 10:30–19:00; 일 10:30–18:00; 화 휴무",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "http://www.grandafamilio.com/store.html"
+                  ],
+                  "checked_at": "2026-09-26",
+                  "evidence_window": "2026-09-24/2026-09-26"
+                }
+              }
             }
           }
         },
@@ -26365,22 +27780,50 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://gra-fami.com/company",
+            "https://tabelog.com/osaka/A2701/A270101/27075783/",
+            "https://8984.jp/machi/2025/08/000408.html",
+            "https://www.openstreetmap.org/node/7477438893"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 자료는 화요일, 타베로그는 월요일 휴무로 상충하지만 수요일 10:30~18:00은 두 자료의 공통 구간.; 2025년 5월 기준 보도의 아사이볼 1,450엔은 당일 가격·수량을 보장하지 않는 참고 예산.; 실내 좌석 수가 적어 만석·품절 가능. 임시휴무와 40분 체류는 별도 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://gra-fami.com/company",
+            "https://tabelog.com/osaka/A2701/A270101/27075783/",
+            "https://8984.jp/machi/2025/08/000408.html",
+            "https://www.openstreetmap.org/node/7477438893"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 자료는 화요일, 타베로그는 월요일 휴무로 상충하지만 수요일 10:30~18:00은 두 자료의 공통 구간.; 2025년 5월 기준 보도의 아사이볼 1,450엔은 당일 가격·수량을 보장하지 않는 참고 예산.; 실내 좌석 수가 적어 만석·품절 가능. 임시휴무와 40분 체류는 별도 확인.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -26392,15 +27835,44 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 65,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://gra-fami.com/company",
+            "https://tabelog.com/osaka/A2701/A270101/27075783/",
+            "https://8984.jp/machi/2025/08/000408.html",
+            "https://www.openstreetmap.org/node/7477438893"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 자료는 화요일, 타베로그는 월요일 휴무로 상충하지만 수요일 10:30~18:00은 두 자료의 공통 구간.; 2025년 5월 기준 보도의 아사이볼 1,450엔은 당일 가격·수량을 보장하지 않는 참고 예산.; 실내 좌석 수가 적어 만석·품절 가능. 임시휴무와 40분 체류는 별도 확인.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 65,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "reported_budget_estimate",
+          "urls": [
+            "https://gra-fami.com/company",
+            "https://tabelog.com/osaka/A2701/A270101/27075783/",
+            "https://8984.jp/machi/2025/08/000408.html",
+            "https://www.openstreetmap.org/node/7477438893"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2025-05 보도의 아사이볼 1,450엔을 1인 예산으로 참고. 실가격·품절 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -26436,19 +27908,20 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_11ceb1687dfa_address_hours_20260926"
         ],
         "notes": [
           "기존 주소 1-1-8을 공식 점포 주소 1-1-18로 정정.",
-          "2026-10-06: 페이지는 이미지 중심이며 공식 메뉴 이미지 판독을 완료하지 못함. 미확인 금액은 채우지 않음."
+          "2026-10-06: 페이지는 이미지 중심이며 공식 메뉴 이미지 판독을 완료하지 못함. 미확인 금액은 채우지 않음.",
+          "2026-11-24: 공식 자료는 화요일, 타베로그는 월요일 휴무로 상충하지만 수요일 10:30~18:00은 두 자료의 공통 구간.; 2025년 5월 기준 보도의 아사이볼 1,450엔은 당일 가격·수량을 보장하지 않는 참고 예산.; 실내 좌석 수가 적어 만석·품절 가능. 임시휴무와 40분 체류는 별도 확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_11ceb1687dfa",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -26475,15 +27948,13 @@
             "기존 주소 1-1-8을 공식 점포 주소 1-1-18로 정정."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "카페",
-          "min": 45,
-          "max": 60,
-          "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "type": "시연 추정",
+          "min": 40,
+          "max": 40,
+          "representative": 40,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -26506,7 +27977,67 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://gra-fami.com/company",
+            "https://tabelog.com/osaka/A2701/A270101/27075783/",
+            "https://8984.jp/machi/2025/08/000408.html",
+            "https://www.openstreetmap.org/node/7477438893"
+          ],
+          "fields": {
+            "opening_hours": "수요일 공통 확인 10:30~18:00. 휴무 안내가 상충해 방문일 재확인.",
+            "cost": 1450,
+            "stay_min": 40,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "reported_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2025-05 보도의 아사이볼 1,450엔을 1인 예산으로 참고. 실가격·품절 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 자료는 화요일, 타베로그는 월요일 휴무로 상충하지만 수요일 10:30~18:00은 두 자료의 공통 구간.",
+            "2025년 5월 기준 보도의 아사이볼 1,450엔은 당일 가격·수량을 보장하지 않는 참고 예산.",
+            "실내 좌석 수가 적어 만석·품절 가능. 임시휴무와 40분 체류는 별도 확인."
+          ],
+          "cost_basis": "2025-05 보도의 아사이볼 1,450엔을 1인 예산으로 참고. 실가격·품절 확인.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              630,
+              1080,
+              1080
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_past_food_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://gra-fami.com/company",
+              "https://tabelog.com/osaka/A2701/A270101/27075783/",
+              "https://8984.jp/machi/2025/08/000408.html",
+              "https://www.openstreetmap.org/node/7477438893"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 40,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       }
     },
     {
@@ -28597,14 +30128,14 @@
         "address": "大阪府大阪市東淀川区西淡路1-17-3 MURAKAMI1F",
         "latitude": 34.7400123,
         "longitude": 135.5060998,
-        "opening_hours": "화~목 11:30~24:00; 금 11:30~20:00; 토 11:00~24:00; 일 11:00~20:00; 월 휴무",
+        "opening_hours": "수요일 11:30~23:30. 일정은 11:30~22:00만 계획.",
         "cost": 550,
-        "stay_min": 60,
+        "stay_min": 45,
         "bag_load": 0,
         "covered": true,
         "website": "https://kissaaoiclub.com/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://kissaaoiclub.com/; https://tabelog.com/osaka/A2701/A270301/27139194/; https://www.openstreetmap.org/node/10044742347",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -28626,22 +30157,35 @@
           "url": "https://www.openstreetmap.org/node/10044742347"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 75,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://kissaaoiclub.com/",
+            "https://tabelog.com/osaka/A2701/A270301/27139194/",
+            "https://www.openstreetmap.org/node/10044742347"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 홈페이지 접근·문의 두 곳 모두 월화 휴무, 수목토 11:30~23:30으로 일치. 기존 수집시간을 정정.; 공식 메뉴의 홍차 550엔(세금 포함) 1잔 기준이며 커피 최저가나 전체 주문 총액을 뜻하지 않음.; 22시 종료는 일정 계획 범위. 임시휴무·주문 마감·실제 가격과 45분 체류는 별도 확인.",
           "previous": {
-            "value": "",
+            "value": "화~목 11:30~24:00; 금 11:30~20:00; 토 11:00~24:00; 일 11:00~20:00; 월 휴무",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "https://kissaaoiclub.com/"
-              ],
-              "checked_at": "2026-09-26",
-              "evidence_window": "2026-09-24/2026-09-26"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 75,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://kissaaoiclub.com/"
+                  ],
+                  "checked_at": "2026-09-26",
+                  "evidence_window": "2026-09-24/2026-09-26"
+                }
+              }
             }
           }
         },
@@ -28671,13 +30215,26 @@
           "check_id": "official_fields_20260928"
         },
         "cost": {
-          "kind": "official_site",
+          "kind": "dated_official_review",
           "urls": [
-            "https://kissaaoiclub.com/"
+            "https://kissaaoiclub.com/",
+            "https://tabelog.com/osaka/A2701/A270301/27139194/",
+            "https://www.openstreetmap.org/node/10044742347"
           ],
-          "checked_at": "2026-09-30",
-          "revision": "schedule_followup_20260930",
-          "note": "정확한 메뉴 가격 홍차 550 JPY로 근거를 한정. 커피 550엔부터(하한)는 고정가격으로 쓰지 않음. 동일 공식 페이지의 월요일/화요일 휴무 및 종료시간 충돌이 남아 hours=null·제외 유지."
+          "checked_at": "2026-11-24",
+          "note": "공식 홍차 1잔 550엔; 다른 주문과 가격 변동 제외.",
+          "previous": {
+            "value": 550,
+            "source": {
+              "kind": "official_site",
+              "urls": [
+                "https://kissaaoiclub.com/"
+              ],
+              "checked_at": "2026-09-30",
+              "revision": "schedule_followup_20260930",
+              "note": "정확한 메뉴 가격 홍차 550 JPY로 근거를 한정. 커피 550엔부터(하한)는 고정가격으로 쓰지 않음. 동일 공식 페이지의 월요일/화요일 휴무 및 종료시간 충돌이 남아 hours=null·제외 유지."
+            }
+          }
         },
         "area": {
           "kind": "derived_from_official_address",
@@ -28699,22 +30256,48 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://kissaaoiclub.com/",
+            "https://tabelog.com/osaka/A2701/A270301/27139194/",
+            "https://www.openstreetmap.org/node/10044742347"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 홈페이지 접근·문의 두 곳 모두 월화 휴무, 수목토 11:30~23:30으로 일치. 기존 수집시간을 정정.; 공식 메뉴의 홍차 550엔(세금 포함) 1잔 기준이며 커피 최저가나 전체 주문 총액을 뜻하지 않음.; 22시 종료는 일정 계획 범위. 임시휴무·주문 마감·실제 가격과 45분 체류는 별도 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://kissaaoiclub.com/",
+            "https://tabelog.com/osaka/A2701/A270301/27139194/",
+            "https://www.openstreetmap.org/node/10044742347"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 홈페이지 접근·문의 두 곳 모두 월화 휴무, 수목토 11:30~23:30으로 일치. 기존 수집시간을 정정.; 공식 메뉴의 홍차 550엔(세금 포함) 1잔 기준이며 커피 최저가나 전체 주문 총액을 뜻하지 않음.; 22시 종료는 일정 계획 범위. 임시휴무·주문 마감·실제 가격과 45분 체류는 별도 확인.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -28726,16 +30309,29 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 75,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://kissaaoiclub.com/",
+            "https://tabelog.com/osaka/A2701/A270301/27139194/",
+            "https://www.openstreetmap.org/node/10044742347"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 홈페이지 접근·문의 두 곳 모두 월화 휴무, 수목토 11:30~23:30으로 일치. 기존 수집시간을 정정.; 공식 메뉴의 홍차 550엔(세금 포함) 1잔 기준이며 커피 최저가나 전체 주문 총액을 뜻하지 않음.; 22시 종료는 일정 계획 범위. 임시휴무·주문 마감·실제 가격과 45분 체류는 별도 확인.",
           "previous": {
-            "value": "",
-            "source": null
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 75,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
           }
         }
       },
@@ -28776,7 +30372,7 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_74dbaeea6a02_address_hours_20260926",
           "official_fields_20260928"
@@ -28785,14 +30381,14 @@
           "공식 페이지 본문과 하단의 운영시간·휴무일이 충돌하여 영업시간을 미확인 처리.",
           "기준 메뉴: 홍차 1인 550엔 JPY. 커피 550엔부터와 구분, 식사/추가 주문 별도.",
           "2026-09-30: 공식 ACCESS와 하단 영업시간·휴무일이 서로 다름(월 휴무/화 휴무). 충돌 해소 전 영업시간 null 유지.",
-          "정확한 메뉴 가격 홍차 550 JPY로 근거를 한정. 커피 550엔부터(하한)는 고정가격으로 쓰지 않음. 동일 공식 페이지의 월요일/화요일 휴무 및 종료시간 충돌이 남아 hours=null·제외 유지."
+          "정확한 메뉴 가격 홍차 550 JPY로 근거를 한정. 커피 550엔부터(하한)는 고정가격으로 쓰지 않음. 동일 공식 페이지의 월요일/화요일 휴무 및 종료시간 충돌이 남아 hours=null·제외 유지.",
+          "2026-11-24: 공식 홈페이지 접근·문의 두 곳 모두 월화 휴무, 수목토 11:30~23:30으로 일치. 기존 수집시간을 정정.; 공식 메뉴의 홍차 550엔(세금 포함) 1잔 기준이며 커피 최저가나 전체 주문 총액을 뜻하지 않음.; 22시 종료는 일정 계획 범위. 임시휴무·주문 마감·실제 가격과 45분 체류는 별도 확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_74dbaeea6a02",
         "missing_fields": [
-          "opening_hours",
-          "covered",
-          "opening_hours_source"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -28814,16 +30410,13 @@
             "공식 페이지 본문과 하단의 운영시간·휴무일이 충돌하여 영업시간을 미확인 처리."
           ]
         },
-        "recommendation_blockers": [
-          "hours_conflict",
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "카페",
+          "type": "시연 추정",
           "min": 45,
-          "max": 60,
-          "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 45,
+          "representative": 45,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -28855,7 +30448,66 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://kissaaoiclub.com/",
+            "https://tabelog.com/osaka/A2701/A270301/27139194/",
+            "https://www.openstreetmap.org/node/10044742347"
+          ],
+          "fields": {
+            "opening_hours": "수요일 11:30~23:30. 일정은 11:30~22:00만 계획.",
+            "cost": 550,
+            "stay_min": 45,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "dated_official_review",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "공식 홍차 1잔 550엔; 다른 주문과 가격 변동 제외."
+          },
+          "resolved_blockers": [
+            "hours_conflict",
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 홈페이지 접근·문의 두 곳 모두 월화 휴무, 수목토 11:30~23:30으로 일치. 기존 수집시간을 정정.",
+            "공식 메뉴의 홍차 550엔(세금 포함) 1잔 기준이며 커피 최저가나 전체 주문 총액을 뜻하지 않음.",
+            "22시 종료는 일정 계획 범위. 임시휴무·주문 마감·실제 가격과 45분 체류는 별도 확인."
+          ],
+          "cost_basis": "공식 홍차 1잔 550엔; 다른 주문과 가격 변동 제외.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              690,
+              1320,
+              1320
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "official_tea_menu_reference",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://kissaaoiclub.com/",
+              "https://tabelog.com/osaka/A2701/A270301/27139194/",
+              "https://www.openstreetmap.org/node/10044742347"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 45,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       }
     },
     {
@@ -62784,16 +64436,16 @@
         "category": "쇼핑",
         "area": "닛폰바시",
         "address": "大阪市浪速区日本橋3～5丁目",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": null,
+        "latitude": 34.659875,
+        "longitude": 135.5054083,
+        "opening_hours": "닛폰바시 3~5초메 상점가의 야외 거리 산책. 10:00~20:00은 계획 범위; 점포별 시간 별도.",
         "cost": null,
-        "stay_min": null,
-        "bag_load": null,
+        "stay_min": 60,
+        "bag_load": 0,
         "covered": false,
         "website": "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
-        "opening_hours_source": "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/; https://tenkanodaidokoro.com/161/; https://mapfan.com/spots/SCQYI%2CJK6%2CL7",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -62847,12 +64499,25 @@
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
         },
         "covered": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+            "https://tenkanodaidokoro.com/161/",
+            "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-24",
+          "note": "상점가 거리 산책의 범위이며 특정 점포의 영업이나 상품 재고를 뜻하지 않음. 10~20시는 계획 범위.; 지도 좌표는 지역 안의 왕쇼 덴덴타운점 부근을 길찾기 기준으로 택한 값. 상점가 전체의 입구나 방문 대상 점포를 뜻하지 않음.; 60분 산책은 추정. 쇼핑 구매비 및 각 점포의 시간·통제는 별도.",
+          "previous": {
+            "value": false,
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "website": {
           "kind": "official_source_collection",
@@ -62877,6 +64542,76 @@
           ],
           "checked_at": "2026-11-04",
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+            "https://tenkanodaidokoro.com/161/",
+            "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+            "https://tenkanodaidokoro.com/161/",
+            "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "opening_hours": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+            "https://tenkanodaidokoro.com/161/",
+            "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "상점가 거리 산책의 범위이며 특정 점포의 영업이나 상품 재고를 뜻하지 않음. 10~20시는 계획 범위.; 지도 좌표는 지역 안의 왕쇼 덴덴타운점 부근을 길찾기 기준으로 택한 값. 상점가 전체의 입구나 방문 대상 점포를 뜻하지 않음.; 60분 산책은 추정. 쇼핑 구매비 및 각 점포의 시간·통제는 별도.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+            "https://tenkanodaidokoro.com/161/",
+            "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "상점가 거리 산책의 범위이며 특정 점포의 영업이나 상품 재고를 뜻하지 않음. 10~20시는 계획 범위.; 지도 좌표는 지역 안의 왕쇼 덴덴타운점 부근을 길찾기 기준으로 택한 값. 상점가 전체의 입구나 방문 대상 점포를 뜻하지 않음.; 60분 산책은 추정. 쇼핑 구매비 및 각 점포의 시간·통제는 별도.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+            "https://tenkanodaidokoro.com/161/",
+            "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "상점가 거리 산책의 범위이며 특정 점포의 영업이나 상품 재고를 뜻하지 않음. 10~20시는 계획 범위.; 지도 좌표는 지역 안의 왕쇼 덴덴타운점 부근을 길찾기 기준으로 택한 값. 상점가 전체의 입구나 방문 대상 점포를 뜻하지 않음.; 60분 산책은 추정. 쇼핑 구매비 및 각 점포의 시간·통제는 별도.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -62888,26 +64623,26 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
         "notes": [
-          "상점별 시간이 다름. 안내소11–19시를 상점가 전체 시간으로 쓰지 않음. 가게·방문 구역을 특정한 프로필 필요."
+          "상점별 시간이 다름. 안내소11–19시를 상점가 전체 시간으로 쓰지 않음. 가게·방문 구역을 특정한 프로필 필요.",
+          "2026-11-24: 상점가 거리 산책의 범위이며 특정 점포의 영업이나 상품 재고를 뜻하지 않음. 10~20시는 계획 범위.; 지도 좌표는 지역 안의 왕쇼 덴덴타운점 부근을 길찾기 기준으로 택한 값. 상점가 전체의 입구나 방문 대상 점포를 뜻하지 않음.; 60분 산책은 추정. 쇼핑 구매비 및 각 점포의 시간·통제는 별도."
         ],
-        "recommendation_blockers": [
-          "collected_visit_conditions_require_profile",
-          "structured_date_profile_missing",
-          "stay_policy_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "opening_hours",
           "cost",
-          "stay_min",
-          "bag_load"
+          "brand_id",
+          "branch_group_id"
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 60,
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "branch_collection": {
           "brand": "닛폰바시",
           "official_name": "日本橋でんでんタウン",
@@ -62923,6 +64658,70 @@
             "상점별 시간이 다름. 안내소11–19시를 상점가 전체 시간으로 쓰지 않음. 가게·방문 구역을 특정한 프로필 필요."
           ],
           "ready_for_scheduling": false
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+            "https://tenkanodaidokoro.com/161/",
+            "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
+          ],
+          "fields": {
+            "latitude": 34.659875,
+            "longitude": 135.5054083,
+            "opening_hours": "닛폰바시 3~5초메 상점가의 야외 거리 산책. 10:00~20:00은 계획 범위; 점포별 시간 별도.",
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "official_budget_estimate",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "야외 거리 통행 기준; 개인 쇼핑 구매비는 미산정.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "collected_visit_conditions_require_profile",
+            "structured_date_profile_missing",
+            "stay_policy_unconfirmed"
+          ],
+          "remaining": [],
+          "conditions": [
+            "상점가 거리 산책의 범위이며 특정 점포의 영업이나 상품 재고를 뜻하지 않음. 10~20시는 계획 범위.",
+            "지도 좌표는 지역 안의 왕쇼 덴덴타운점 부근을 길찾기 기준으로 택한 값. 상점가 전체의 입구나 방문 대상 점포를 뜻하지 않음.",
+            "60분 산책은 추정. 쇼핑 구매비 및 각 점포의 시간·통제는 별도."
+          ],
+          "cost_basis": "야외 거리 통행 기준; 개인 쇼핑 구매비는 미산정.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              600,
+              1200,
+              1200
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "shopping_spend_not_included",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://osaka-info.jp/modelcourse/course-pop-culture-osaka/",
+              "https://tenkanodaidokoro.com/161/",
+              "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -63471,16 +65270,16 @@
         "category": "체험·오락",
         "area": "신세카이",
         "address": "大阪市浪速区恵美須東3-4-24",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": "목욕10:00–다음날08:45; 청소08:45–10:00",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
-        "covered": null,
+        "latitude": 34.6499091,
+        "longitude": 135.5055985,
+        "opening_hours": "접수는 08:45~10:00 중단. 일정은 주간 10:00~22:00만 사용.",
+        "cost": 1500,
+        "stay_min": 120,
+        "bag_load": 0,
+        "covered": false,
         "website": "https://www.spaworld.co.jp/info/ryokin/",
-        "opening_hours_source": "https://www.spaworld.co.jp/info/ryokin/; https://www.spaworld.co.jp/info/eigyo/; https://www.spaworld.co.jp/about/access.html",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://www.spaworld.co.jp/info/ryokin/; https://www.spaworld.co.jp/event/riyouannai/; https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf; https://mapfan.com/spots/SC5CH%2CJ%2CNSW",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -63546,14 +65345,28 @@
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
         },
         "opening_hours": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
             "https://www.spaworld.co.jp/info/ryokin/",
-            "https://www.spaworld.co.jp/info/eigyo/",
-            "https://www.spaworld.co.jp/about/access.html"
+            "https://www.spaworld.co.jp/event/riyouannai/",
+            "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+            "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-24",
+          "note": "공식 안내의 수영장 미이용 중학생 이상 1,500엔 기준. 수영장·유료 시설은 별도이고 0~5시는 심야 할증과 입탕세가 붙음.; 시설 이용 안내상 문신·타투 및 스티커를 포함해 입장 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 건물 지도 기준 좌표는 온천 접수 입구의 실측값이 아님. 실내외 시설이 섞여 전체를 실내로 표시하지 않음.; 접수 중단과 심야할증을 피해 주간 10~22시만 계획하며 120분은 추정. 임시 점검은 방문 전 확인.",
+          "previous": {
+            "value": "목욕10:00–다음날08:45; 청소08:45–10:00",
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://www.spaworld.co.jp/info/ryokin/",
+                "https://www.spaworld.co.jp/info/eigyo/",
+                "https://www.spaworld.co.jp/about/access.html"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "website": {
           "kind": "official_source_collection",
@@ -63584,6 +65397,96 @@
           ],
           "checked_at": "2026-11-04",
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/event/riyouannai/",
+            "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+            "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/event/riyouannai/",
+            "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+            "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "cost": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/event/riyouannai/",
+            "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+            "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "수영장 미이용 중학생 이상 입장 1,500엔. 심야 할증 및 추가 시설 비용은 별도.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/event/riyouannai/",
+            "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+            "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 안내의 수영장 미이용 중학생 이상 1,500엔 기준. 수영장·유료 시설은 별도이고 0~5시는 심야 할증과 입탕세가 붙음.; 시설 이용 안내상 문신·타투 및 스티커를 포함해 입장 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 건물 지도 기준 좌표는 온천 접수 입구의 실측값이 아님. 실내외 시설이 섞여 전체를 실내로 표시하지 않음.; 접수 중단과 심야할증을 피해 주간 10~22시만 계획하며 120분은 추정. 임시 점검은 방문 전 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/event/riyouannai/",
+            "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+            "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 안내의 수영장 미이용 중학생 이상 1,500엔 기준. 수영장·유료 시설은 별도이고 0~5시는 심야 할증과 입탕세가 붙음.; 시설 이용 안내상 문신·타투 및 스티커를 포함해 입장 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 건물 지도 기준 좌표는 온천 접수 입구의 실측값이 아님. 실내외 시설이 섞여 전체를 실내로 표시하지 않음.; 접수 중단과 심야할증을 피해 주간 10~22시만 계획하며 120분은 추정. 임시 점검은 방문 전 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/event/riyouannai/",
+            "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+            "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 안내의 수영장 미이용 중학생 이상 1,500엔 기준. 수영장·유료 시설은 별도이고 0~5시는 심야 할증과 입탕세가 붙음.; 시설 이용 안내상 문신·타투 및 스티커를 포함해 입장 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 건물 지도 기준 좌표는 온천 접수 입구의 실측값이 아님. 실내외 시설이 섞여 전체를 실내로 표시하지 않음.; 접수 중단과 심야할증을 피해 주간 10~22시만 계획하며 120분은 추정. 임시 점검은 방문 전 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -63597,26 +65500,25 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
         "notes": [
-          "수영장 제외 성인1500엔. 자정–05시 심야요금1300엔+입탕세150엔 별도. 문신(스티커 포함)입장 불가; 입구좌표·입장자 조건 확인 후 투입. 실내+야외 혼합."
+          "수영장 제외 성인1500엔. 자정–05시 심야요금1300엔+입탕세150엔 별도. 문신(스티커 포함)입장 불가; 입구좌표·입장자 조건 확인 후 투입. 실내+야외 혼합.",
+          "2026-11-24: 공식 안내의 수영장 미이용 중학생 이상 1,500엔 기준. 수영장·유료 시설은 별도이고 0~5시는 심야 할증과 입탕세가 붙음.; 시설 이용 안내상 문신·타투 및 스티커를 포함해 입장 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 건물 지도 기준 좌표는 온천 접수 입구의 실측값이 아님. 실내외 시설이 섞여 전체를 실내로 표시하지 않음.; 접수 중단과 심야할증을 피해 주간 10~22시만 계획하며 120분은 추정. 임시 점검은 방문 전 확인."
         ],
-        "recommendation_blockers": [
-          "collected_visit_conditions_require_profile",
-          "structured_date_profile_missing",
-          "stay_policy_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "cost",
-          "stay_min",
-          "bag_load",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 120,
+          "max": 120,
+          "representative": 120,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "branch_collection": {
           "brand": "스파월드",
           "official_name": "SPAWORLD HOTEL & RESORT",
@@ -63634,6 +65536,74 @@
             "수영장 제외 성인1500엔. 자정–05시 심야요금1300엔+입탕세150엔 별도. 문신(스티커 포함)입장 불가; 입구좌표·입장자 조건 확인 후 투입. 실내+야외 혼합."
           ],
           "ready_for_scheduling": false
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.spaworld.co.jp/info/ryokin/",
+            "https://www.spaworld.co.jp/event/riyouannai/",
+            "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+            "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+          ],
+          "fields": {
+            "latitude": 34.6499091,
+            "longitude": 135.5055985,
+            "opening_hours": "접수는 08:45~10:00 중단. 일정은 주간 10:00~22:00만 사용.",
+            "cost": 1500,
+            "stay_min": 120,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_official_review",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "수영장 미이용 중학생 이상 입장 1,500엔. 심야 할증 및 추가 시설 비용은 별도.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "collected_visit_conditions_require_profile",
+            "structured_date_profile_missing",
+            "stay_policy_unconfirmed"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 안내의 수영장 미이용 중학생 이상 1,500엔 기준. 수영장·유료 시설은 별도이고 0~5시는 심야 할증과 입탕세가 붙음.",
+            "시설 이용 안내상 문신·타투 및 스티커를 포함해 입장 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.",
+            "건물 지도 기준 좌표는 온천 접수 입구의 실측값이 아님. 실내외 시설이 섞여 전체를 실내로 표시하지 않음.",
+            "접수 중단과 심야할증을 피해 주간 10~22시만 계획하며 120분은 추정. 임시 점검은 방문 전 확인."
+          ],
+          "cost_basis": "수영장 미이용 중학생 이상 입장 1,500엔. 심야 할증 및 추가 시설 비용은 별도.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              600,
+              1320,
+              1320
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "official_admission",
+          "price_evidence_kind": "official_nopool_admission",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://www.spaworld.co.jp/info/ryokin/",
+              "https://www.spaworld.co.jp/event/riyouannai/",
+              "https://www.spaworld.co.jp/wp-spa/wp-content/uploads/2023/06/53391ee922b3876a5727c27f781ae7be.pdf",
+              "https://mapfan.com/spots/SC5CH%2CJ%2CNSW"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 120,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -63645,16 +65615,16 @@
         "category": "체험·오락",
         "area": "스미노에",
         "address": "大阪市住之江区泉1-1-82",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": "10:00–다음날02:00; 최종접수01:00",
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
-        "covered": null,
+        "latitude": 34.6105634,
+        "longitude": 135.4686858,
+        "opening_hours": "온천 10:00~다음날 02:00, 최종 접수 01:00. 일정은 10:00~22:00만 사용.",
+        "cost": 800,
+        "stay_min": 120,
+        "bag_load": 0,
+        "covered": false,
         "website": "https://spasuminoe.jp/guide/",
-        "opening_hours_source": "https://spasuminoe.jp/guide/; https://metronine.osaka/spot-details/?spot_id=15623465631789",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://spasuminoe.jp/guide/; https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf; https://mapfan.com/spots/S55WH%2CJ%2C828ZP0",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -63714,13 +65684,26 @@
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
         },
         "opening_hours": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
             "https://spasuminoe.jp/guide/",
-            "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+            "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+            "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-24",
+          "note": "공식 시설 안내와 요금 자료상 평일 중학생 이상 입욕 800엔. 수건 대여와 추가 서비스는 별도.; 공식 이용 규정상 문신·타투가 있으면 입장 불가하며 미성년자는 시간 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 기존 부지에 대한 지도 기준점이며 실제 입구는 실측하지 않음. 야외탕이 있어 전체를 실내라고 표시하지 않음.; 120분 및 10~22시 계획 범위는 시연 추정. 실제 임시휴무·혼잡은 재확인.",
+          "previous": {
+            "value": "10:00–다음날02:00; 최종접수01:00",
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://spasuminoe.jp/guide/",
+                "https://metronine.osaka/spot-details/?spot_id=15623465631789"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "website": {
           "kind": "official_source_collection",
@@ -63748,6 +65731,90 @@
           ],
           "checked_at": "2026-11-04",
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+            "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+            "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "cost": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+            "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "평일 중학생 이상 입욕 800엔. 수건·식사·추가 이용료 제외.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+            "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 시설 안내와 요금 자료상 평일 중학생 이상 입욕 800엔. 수건 대여와 추가 서비스는 별도.; 공식 이용 규정상 문신·타투가 있으면 입장 불가하며 미성년자는 시간 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 기존 부지에 대한 지도 기준점이며 실제 입구는 실측하지 않음. 야외탕이 있어 전체를 실내라고 표시하지 않음.; 120분 및 10~22시 계획 범위는 시연 추정. 실제 임시휴무·혼잡은 재확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+            "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 시설 안내와 요금 자료상 평일 중학생 이상 입욕 800엔. 수건 대여와 추가 서비스는 별도.; 공식 이용 규정상 문신·타투가 있으면 입장 불가하며 미성년자는 시간 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 기존 부지에 대한 지도 기준점이며 실제 입구는 실측하지 않음. 야외탕이 있어 전체를 실내라고 표시하지 않음.; 120분 및 10~22시 계획 범위는 시연 추정. 실제 임시휴무·혼잡은 재확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+            "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 시설 안내와 요금 자료상 평일 중학생 이상 입욕 800엔. 수건 대여와 추가 서비스는 별도.; 공식 이용 규정상 문신·타투가 있으면 입장 불가하며 미성년자는 시간 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 기존 부지에 대한 지도 기준점이며 실제 입구는 실측하지 않음. 야외탕이 있어 전체를 실내라고 표시하지 않음.; 120분 및 10~22시 계획 범위는 시연 추정. 실제 임시휴무·혼잡은 재확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -63760,26 +65827,25 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
         "notes": [
-          "성인 평일800엔/토일공휴일900엔. 문신입장불가·미성년 단독이용 제한·수건 별도; 입구좌표·날짜/입장자 조건 확인 필요. 실내+노천 혼합."
+          "성인 평일800엔/토일공휴일900엔. 문신입장불가·미성년 단독이용 제한·수건 별도; 입구좌표·날짜/입장자 조건 확인 필요. 실내+노천 혼합.",
+          "2026-11-24: 공식 시설 안내와 요금 자료상 평일 중학생 이상 입욕 800엔. 수건 대여와 추가 서비스는 별도.; 공식 이용 규정상 문신·타투가 있으면 입장 불가하며 미성년자는 시간 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.; 기존 부지에 대한 지도 기준점이며 실제 입구는 실측하지 않음. 야외탕이 있어 전체를 실내라고 표시하지 않음.; 120분 및 10~22시 계획 범위는 시연 추정. 실제 임시휴무·혼잡은 재확인."
         ],
-        "recommendation_blockers": [
-          "collected_visit_conditions_require_profile",
-          "structured_date_profile_missing",
-          "stay_policy_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "cost",
-          "stay_min",
-          "bag_load",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 120,
+          "max": 120,
+          "representative": 120,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "branch_collection": {
           "brand": "스파",
           "official_name": "スパスミノエ",
@@ -63796,6 +65862,72 @@
             "성인 평일800엔/토일공휴일900엔. 문신입장불가·미성년 단독이용 제한·수건 별도; 입구좌표·날짜/입장자 조건 확인 필요. 실내+노천 혼합."
           ],
           "ready_for_scheduling": false
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://spasuminoe.jp/guide/",
+            "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+            "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+          ],
+          "fields": {
+            "latitude": 34.6105634,
+            "longitude": 135.4686858,
+            "opening_hours": "온천 10:00~다음날 02:00, 최종 접수 01:00. 일정은 10:00~22:00만 사용.",
+            "cost": 800,
+            "stay_min": 120,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_official_review",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "평일 중학생 이상 입욕 800엔. 수건·식사·추가 이용료 제외.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "collected_visit_conditions_require_profile",
+            "structured_date_profile_missing",
+            "stay_policy_unconfirmed"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 시설 안내와 요금 자료상 평일 중학생 이상 입욕 800엔. 수건 대여와 추가 서비스는 별도.",
+            "공식 이용 규정상 문신·타투가 있으면 입장 불가하며 미성년자는 시간 제한이 있다. 참가자의 이용 가능 여부를 반드시 확인.",
+            "기존 부지에 대한 지도 기준점이며 실제 입구는 실측하지 않음. 야외탕이 있어 전체를 실내라고 표시하지 않음.",
+            "120분 및 10~22시 계획 범위는 시연 추정. 실제 임시휴무·혼잡은 재확인."
+          ],
+          "cost_basis": "평일 중학생 이상 입욕 800엔. 수건·식사·추가 이용료 제외.",
+          "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-25",
+            "window": [
+              600,
+              1320,
+              1320
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "official_admission",
+          "price_evidence_kind": "official_weekday_admission",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://spasuminoe.jp/guide/",
+              "https://spasuminoe.jp/wp-content/uploads/2025/05/yuutai20250520.pdf",
+              "https://mapfan.com/spots/S55WH%2CJ%2C828ZP0"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 120,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -64617,9 +66749,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-24",
-    "updated": 38,
+    "updated": 54,
     "new_search_only": 0,
-    "promoted": 38,
+    "promoted": 54,
     "date_range": [
       "2026-11-24",
       "2026-11-30"
