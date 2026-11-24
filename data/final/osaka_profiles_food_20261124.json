@@ -2534,6 +2534,22 @@
       "cost_basis": "상품·가챠 이용료는 개인 구매액으로 일정 예산에서 제외. 무료라는 뜻이 아님.",
       "window_basis": "official_regular_hours_with_event_period_context"
     },
+    "branch_rikuro_daimaru_umeda": {
+      "window": [
+        600,
+        1200,
+        1200
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.rikuro.co.jp/shoplist/136.html",
+        "https://www.daimaru.co.jp/umedamise/topics/260915rikuro.html",
+        "https://www.nack5.co.jp/oricon/2494475/"
+      ],
+      "cost_basis": "치즈케이크 1개 1,165엔(세금 포함), 1인 1개 구매 가정. 나눔·구매 수량·가격 변경 별도."
+    },
     "osaka_draft_ff20bd4cf6b7": {
       "window": [
         420,

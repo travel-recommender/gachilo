@@ -8,21 +8,39 @@ OUTPUT = ROOT / 'data/final/osaka_catalog_food_20261124.json'
 PROFILE_OUTPUT = ROOT / 'data/final/osaka_profiles_food_20261124.json'
 MANIFEST = ROOT / 'data/runtime_catalog.json'
 
-def eligible(urls, fields, profile, blockers, conditions, basis, price_kind):
+def eligible(urls, fields, profile, blockers, conditions, basis, price_kind, *, role='meal', coordinate='openstreetmap_node_reference_not_entrance'):
     return {'status':'eligible_for_dated_demo', 'source_urls':urls, 'fields':fields,
-        'field_kinds':{'cost':price_kind, 'stay_min':'demo_model_estimate'},
-        'field_notes':{'cost':basis}, 'resolved_blockers':blockers, 'remaining':[],
-        'conditions':conditions, 'cost_basis':basis, 'profile':profile, 'meal_role':'meal',
+        'field_kinds':{'cost':price_kind, 'stay_min':'demo_model_estimate',
+                       **({'latitude':'reviewed_building_reference','longitude':'reviewed_building_reference'} if coordinate=='reviewed_building_reference_not_entrance' else {})},
+        'field_notes':{'cost':basis, **({'latitude':'기존 백화점 건물 대표 좌표. 매장 입구 실측 아님.',
+                      'longitude':'기존 백화점 건물 대표 좌표. 매장 입구 실측 아님.'} if coordinate=='reviewed_building_reference_not_entrance' else {})},
+        'resolved_blockers':blockers, 'remaining':[],
+        'conditions':conditions, 'cost_basis':basis, 'profile':profile, 'meal_role':role,
         'cost_kind':'official_budget_estimate',
-        'coordinates':{'kind':'openstreetmap_node_reference_not_entrance',
-                       'source_urls':urls,'note':'기존 OSM 점포 기준 좌표. 출입구 실측 아님.'},
-        'planning_policy':{'stay_min':60,'note':'식사 60분 계획 추정; 줄 대기는 별도.'}}
+        'coordinates':{'kind':coordinate,'source_urls':urls,'note':'기존 참조 좌표. 매장 출입구 실측 아님.'},
+        'planning_policy':{'stay_min':fields['stay_min'],'note':'일정 시간 계획 추정; 줄 대기는 별도.'}}
 
 def build():
     if sha(CATALOG) != '7e59c366be1ec7853af1d040f3359d3bce050db336cfea75247c0a37896acb1d' or sha(PROFILES) != '761aa2afc9fa376bd9c9662c834f94d88ebda7e1169330d8bb69bb86428dda6f':
         raise ValueError('Reviewed input changed; reconcile the evidence before publishing')
     catalog, profiles = read(CATALOG), read(PROFILES)
     updates = {
+        'branch_rikuro_daimaru_umeda':eligible(
+            ['https://www.rikuro.co.jp/shoplist/136.html',
+             'https://www.daimaru.co.jp/umedamise/topics/260915rikuro.html',
+             'https://www.nack5.co.jp/oricon/2494475/'],
+            {'latitude':34.701731,'longitude':135.496386,'opening_hours':'판매 10:00~20:00. 백화점 휴관·품절 및 재개 일정 별도 확인.',
+             'cost':1165,'stay_min':20,'bag_load':1,'covered':True},
+            {'window':[600,1200,1200]},
+            ['branch_collection_review_required','entrance_coordinates_unconfirmed','stay_policy_unconfirmed',
+             'covered_unconfirmed','bag_load_unconfirmed','structured_date_profile_missing','area_scheme_unconfirmed',
+             'meal_role_not_full_meal','facility_relation_unconfirmed','visit_scope_and_cost_unconfirmed','map_reference_unconfirmed'],
+            ['공식 지점은 다이마루 우메다 지하 1층. 같은 건물의 기존 다이마루 대표 좌표를 사용해 실제 매장 입구·층 이동은 추정.',
+             '치즈케이크 1개 1,165엔은 2026-11-24 전 점포 가격 변경 보도 기준. 1인 1개 구매 가정이며 나눠 먹으면 실제 개인 부담은 다름.',
+             '쇼핑·포장 간식으로만 취급하며 점심·저녁 대체 식사가 아님. 대기·매진 및 백화점 휴관 별도 확인.',
+             '갓 구운 판매 재개는 11/24 예정이라는 공지이며, 실제 재개·재고는 보장하지 않음.'],
+            '치즈케이크 1개 1,165엔(세금 포함), 1인 1개 구매 가정. 나눔·구매 수량·가격 변경 별도.',
+            'reported_menu_price_reference',role='snack',coordinate='reviewed_building_reference_not_entrance'),
         'osaka_draft_ff20bd4cf6b7':eligible(
             ['https://www.casablanca-osaka.jp/', 'https://casablancanamba.owst.jp/',
              'https://www.openstreetmap.org/node/13059162987'],

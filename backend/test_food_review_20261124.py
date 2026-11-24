@@ -11,6 +11,10 @@ class FoodReviewApiTests(unittest.TestCase):
             self.assertIsNone(item['selection_disabled_reason'])
             self.assertEqual(item['coordinate_basis'],'openstreetmap_node_reference_not_entrance')
             self.assertTrue(item['cost_basis'])
+        cake=next(p for p in catalog(query='리쿠로 오지상 다이마루 우메다점',rate=Decimal('9.5'))['places'] if p['place_id']=='branch_rikuro_daimaru_umeda')
+        self.assertEqual(cake['cost_status'],'estimate')
+        self.assertEqual(cake['coordinate_basis'],'reviewed_building_reference_not_entrance')
+        self.assertIn('1개',cake['cost_basis'])
 
     def test_indefinite_closure_is_not_claimed_permanent(self):
         item=next(p for p in catalog(query='비나인')['places'] if p['name_ko']=='비나인')
