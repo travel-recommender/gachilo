@@ -381,6 +381,85 @@ def build():
              '30분 체류와 짐 점수 1은 시연 추정. 식품 소매점이며 개인별 쇼핑 구매비는 산정하지 않음.'],
             '쇼핑 구매비는 품목·수량에 따라 달라 미산정.',
             'shopping_spend_not_included',role=None,coordinate='map_listing_reference_not_entrance'),
+        'branch_kaldi_tennoji_mio': eligible(
+            ['https://www.tennoji-mio.co.jp/shop/detail/186',
+             'https://map.kaldi.co.jp/kaldi/detailMap?account=kaldi&adr=27&bid=364&pgret=2',
+             'https://mapfan.com/spots/S5W34%2C6661%2CMGPJP0'],
+            {'latitude':34.6476438,'longitude':135.5140327,
+             'opening_hours':'덴노지 MIO 플라자관 지하 1층 09:00~21:00. 임시 휴업 및 건물 휴관은 방문 전 확인.',
+             'stay_min':30,'bag_load':1,'covered':True},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[540,1260,1260]},
+            ['collected_visit_conditions_require_profile','structured_date_profile_missing','stay_policy_unconfirmed'],
+            ['점포와 쇼핑몰 공식 안내의 플라자관 B1층·전화·매일 09~21시를 대조. 건물과 점포 사정에 따른 변경은 방문 전 확인.',
+             '지도 목록의 매장 기준 좌표이며 출입구와 층간 이동은 실측하지 않음.',
+             '30분 체류와 짐 점수 1은 시연 추정이며 구매비는 포함하지 않음.'],
+            '쇼핑 구매비는 품목·수량에 따라 달라 미산정.',
+            'shopping_spend_not_included',role=None,coordinate='map_listing_reference_not_entrance'),
+        'branch_kaldi_lucua1100': eligible(
+            ['https://map.kaldi.co.jp/kaldi/detailMap?accmd=0&account=kaldi&arg=&bid=375',
+             'https://www.lucua.jp/information/index.html',
+             'https://mapfan.com/spots/S5W34%2C6661%2C4WAXP0'],
+            {'latitude':34.7028763,'longitude':135.4953183,
+             'opening_hours':'루쿠아 이레 2층 10:30~20:30. 임시 휴업 및 건물 휴관은 방문 전 확인.',
+             'stay_min':30,'bag_load':1,'covered':True},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[630,1230,1230]},
+            ['collected_visit_conditions_require_profile','structured_date_profile_missing','stay_policy_unconfirmed'],
+            ['점포 공식 안내에서 루쿠아 이레 2층 주소·전화·매일 10:30~20:30을 확인. 루쿠아 오사카의 다른 매장과 구분.',
+             '지도 목록의 매장 기준 좌표이며 출입구와 층간 이동은 실측하지 않음.',
+             '30분 체류와 짐 점수 1은 시연 추정이며 구매비는 포함하지 않음.'],
+            '쇼핑 구매비는 품목·수량에 따라 달라 미산정.',
+            'shopping_spend_not_included',role=None,coordinate='map_listing_reference_not_entrance'),
+        'branch_starbucks_ebisubashi': eligible(
+            ['https://store.starbucks.co.jp/detail-2005/',
+             'https://ebisubashisuji.or.jp/shops/tsutaya_ebisubashi/',
+             'https://mapfan.com/spots/SCQYI%2CIJ%2CN6',
+             'https://www.foodrink.co.jp/sp/detail.php?blog_id=4&entry_id=17482'],
+            {'latitude':34.6685524,'longitude':135.5014511,
+             'opening_hours':'공식 점포 08:00~22:30이나 상점가 안내는 22:00 종료. 일정에는 공통 08:00~22:00 적용.',
+             'cost':460,'stay_min':40,'bag_load':0,'covered':True},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[480,1320,1320]},
+            ['branch_collection_review_required','stay_policy_unconfirmed','covered_unconfirmed','bag_load_unconfirmed',
+             'structured_date_profile_missing','area_scheme_unconfirmed','branch_specific_menu_price_unconfirmed'],
+            ['점포와 상점가의 종료 시각이 달라 더 이른 22시까지만 계산. 부정기 휴업·실제 이용 가능 시간 재확인.',
+             '공식 지점 지도와 지도 목록은 건물 부근 기준이며 입구·층간 이동은 실측이 아님.',
+             '2026년 10월 보도의 입지 A 브루드 커피 톨 460엔을 1잔 예산 참고치로 사용. 지점 현장 판매가·재고는 별도 확인.',
+             '카페 간식·휴식 40분과 짐 점수 0은 일정 추정이며 식사 대체나 짐 보관을 뜻하지 않음.'],
+            '입지 A 커피 톨 460엔은 2026년 가격 보도 기반 추정치. 지점 실제 판매가는 확정하지 않음.',
+            'reported_location_a_drink_estimate',role='snack',coordinate='map_listing_reference_not_entrance'),
+        'branch_starbucks_namba_nankai': eligible(
+            ['https://store.starbucks.co.jp/detail-4555/',
+             'https://nambanankai.com/shoplist/',
+             'https://mapfan.com/spots/SCQYI%2CIJ%2C9T',
+             'https://www.foodrink.co.jp/sp/detail.php?blog_id=4&entry_id=17482'],
+            {'latitude':34.6650849,'longitude':135.5020198,
+             'opening_hours':'공식 점포 07:00~22:30. 부정기 휴업·주문 마감은 방문 전 확인.',
+             'cost':460,'stay_min':40,'bag_load':0,'covered':True},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[420,1350,1320]},
+            ['branch_collection_review_required','stay_policy_unconfirmed','covered_unconfirmed','bag_load_unconfirmed',
+             'structured_date_profile_missing','area_scheme_unconfirmed','branch_specific_menu_price_unconfirmed'],
+            ['공식 점포와 상점가의 주소 및 07:00~22:30을 대조. 부정기 휴업·주문 마감은 방문 전 확인.',
+             '지도 목록의 매장 기준 좌표이며 실제 입구는 실측하지 않음.',
+             '입지 B 지점 실제 메뉴 가격은 확인되지 않아 입지 A 톨 커피 보도 가격 460엔을 임시 예산으로만 사용; 현장 가격과 다를 수 있음.',
+             '카페 간식·휴식 40분과 짐 점수 0은 일정 추정이며 식사 대체나 짐 보관을 뜻하지 않음.'],
+            '입지 A 톨 커피 460엔을 B지점의 임시 예산으로 차용한 추정치. B지점 실제 가격은 미확인.',
+            'reported_other_location_drink_estimate',role='snack',coordinate='map_listing_reference_not_entrance'),
+        'onsen_solaniwa': eligible(
+            ['https://solaniwa.com/access/', 'https://solaniwa.com/news/christmas26/',
+             'https://www.kyodo.co.jp/pr/2026-11-13_4049108/',
+             'https://www.club-off.com/dxfukuri/apps/top/AASC22411.cfm?AREA=0&LNO=1&PNO=2&RECID=29487&TNO=1&action=AASC22411003&sub_action=',
+             'https://locationsdb.com/ja/brands/gashapon-department-store',
+             'https://solaniwa.com/faq/'],
+            {'latitude':34.67040,'longitude':135.45955,
+             'opening_hours':'11:00~23:00, 최종 입장 22:00. 부정기 휴관과 이용 조건은 방문 전 확인.',
+             'cost':2790,'stay_min':120,'bag_load':0,'covered':False},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[660,1380,1320]},
+            ['collected_visit_conditions_require_profile','structured_date_profile_missing','stay_policy_unconfirmed'],
+            ['공식 행사 기간 안내와 운영사 발표의 11~23시·월 1회 부정기 휴관을 대조. 11/25 실제 영업 및 입장권 잔여는 방문 전 확인.',
+             '평일 정상 성인 요금 범위 2,310~2,640엔에 입탕세 150엔을 더한 상한 2,790엔을 예산 추정치로 사용. 해당 날짜 확정가 아님.',
+             '동일 건물 2층 시설 목록 좌표이며 온천 입구·층간 이동 위치 실측 아님.',
+             '옥상 정원을 포함하므로 전체 실내로 표시하지 않음. 120분은 일정 추정이며 입욕 제한·문신 등 시설 규정, 수건·추가시설 요금을 사전 확인.'],
+            '평일 성인 요금 범위의 상한 2,640엔과 입탕세 150엔을 더한 예산 추정. 날짜별 실제 요금·조건 확인 필요.',
+            'weekday_upper_bound_budget_estimate',role=None,coordinate='reviewed_building_reference_not_entrance'),
     })
     updates['spot_ebisubashi']['cost_kind'] = 'official_free_admission'
     updates['spot_ebisubashi']['field_kinds']['cost'] = 'dated_official_review'
@@ -422,6 +501,19 @@ def build():
     bee['review']['notes'].append('2026-11-24: 공식 공지상 2026-04-25부터 무기한 휴업. 영구 폐업으로 단정하지 않고 보류 유지. https://bee9-osaka.com/')
     bee['review']['food_recheck']={'checked_at':'2026-11-24','status':'indefinitely_closed_not_permanent',
                                   'source_url':'https://bee9-osaka.com/'}
+    port=next(r for r in catalog['places'] if r['place']['place_id']=='osaka_draft_bdd1ec5175d0')
+    port['review']['notes'].append('2026-11-24: 아쿠아라이너 운영사의 2026년 4월 안내는 OAP항 운항 중지를 명시. 영구 폐쇄로 단정하지 않고 재개 확인 전 일정 투입 보류. https://suijo-bus.osaka/pdf/Aqualiner.pdf')
+    port['review']['service_recheck']={'checked_at':'2026-11-24','status':'port_service_suspended_in_operator_guide',
+        'source_url':'https://suijo-bus.osaka/pdf/Aqualiner.pdf'}
+    parfait=next(r for r in catalog['places'] if r['place']['place_id']=='osaka_draft_2a9b88c21411')
+    old_hours=parfait['place']['opening_hours']
+    parfait['place']['opening_hours']='월~목·토·일 09:00~18:30(주문 마감 18:00); 금 09:00~20:00(주문 마감 19:00). 비정기 휴무.'
+    parfait['field_sources']['opening_hours']={'kind':'official_web_review','checked_at':'2026-11-24',
+        'urls':['https://parfait-de-merrily.owst.jp/','https://tabelog.com/osaka/A2701/A270104/27148141/'],
+        'previous':{'value':old_hours},'note':'이전 남선바 지점이 아닌 현재 바바초 지점. 실제 방문일 임시 휴무 확인 필요.'}
+    parfait['review']['notes'].append('2026-11-24: 공식 안내로 현재 바바초 지점 시간을 정정. 비정기 휴무는 당일 확인 필요. https://parfait-de-merrily.owst.jp/')
+    profiles['places']['osaka_draft_2a9b88c21411']['window']=[540,1110,1080]
+    profiles['places']['osaka_draft_2a9b88c21411']['requires_visit_confirmation']=True
     catalog['input_provenance']['food_review_20261124']={'catalog_input_sha256':sha(CATALOG),
       'profiles_input_sha256':sha(PROFILES),'valid_from':'2026-11-24','valid_through':'2026-11-30',
       'notes':['휴무 미공고·재고·가격 변동은 보장하지 않음. 기존 실험 스냅샷 미변경.',
