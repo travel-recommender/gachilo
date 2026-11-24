@@ -10,6 +10,24 @@ const bistro='osaka_draft_89458a1abeda', sushi='osaka_draft_7d6ecfb032b6', casa=
 const record=id=>dataset.places.find(r=>r.place.place_id===id);
 const check=(id,date)=>availability(record(id),date,profiles,{allowShopping:true});
 
+test('Tabelog cross-check preserves cafe estimates and date restrictions',()=>{
+ const cafes=['osaka_draft_35640888fa49','osm_node_2296903605','osm_node_9875632529'];
+ for(const id of cafes){
+  assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-12-01').eligible_for_model,false,id);
+  assert.equal(record(id).review.meal_role,'snack');
+  assert.equal(record(id).field_sources.cost.kind,'official_budget_estimate');
+  assert.match(record(id).review.dated_verification.cost_basis,/참고/);
+ }
+ assert.deepEqual(check('osm_node_9875632529','2026-11-25').window,[660,1020,990]);
+ const shopping='osaka_draft_c85fa26beb80';
+ assert.equal(check(shopping,'2026-11-25').eligible_for_model,true);
+ assert.equal(record(shopping).place.cost,null);
+ assert.equal(check(shopping,'2026-12-01').eligible_for_model,false);
+ for(const id of ['osaka_draft_7c98da5a96f9','osaka_draft_9cd21dc062f7'])
+  assert.equal(check(id,'2026-11-25').eligible_for_model,false,id);
+});
+
 test('reviewed meals use correct opening dates and stay blocked outside review',()=>{
  assert.equal(check(bistro,'2026-11-25').eligible_for_model,true);
  assert.equal(check(bistro,'2026-11-28').eligible_for_model,false);
@@ -80,7 +98,8 @@ test('second food review respects identity, meal purpose and opening limits',()=
 test('each reviewed meal can be scheduled through all three strategies',async()=>{
  for(const id of [bistro,sushi,casa,rikuro,ramen,'osaka_draft_c341bbd2440a','osaka_draft_7eda017e1ded',
    'branch_rikuro_namba_honten','branch_coco_namba_ebisubashi','branch_beardpapa_namba_walk','branch_mizukakechaya_namba',
-   'osaka_draft_3d97f36846d0','branch_viedefrance_bentencho']){
+   'osaka_draft_3d97f36846d0','branch_viedefrance_bentencho',
+   'osaka_draft_35640888fa49','osm_node_2296903605','osm_node_9875632529','osaka_draft_c85fa26beb80']){
   const request={startDate:'2026-11-25',endDate:'2026-11-25',exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
    submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,
      budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};

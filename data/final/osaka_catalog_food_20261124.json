@@ -6896,14 +6896,14 @@
         "address": "大阪市中央区千日前1-9-1",
         "latitude": 34.6676233,
         "longitude": 135.5041516,
-        "opening_hours": "08:00-23:00 (공식 지점 페이지 안내; 임시 변경 가능)",
-        "cost": null,
+        "opening_hours": "센니치마에 본점 08:00~23:00. 임시 변경 확인.",
+        "cost": 700,
         "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
-        "opening_hours_source": "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
-        "verified_at": "2026-09-23",
+        "opening_hours_source": "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/; https://tabelog.com/osaka/A2702/A270202/27001450/; https://news.livedoor.com/article/detail/30565796/; https://www.mapple.net/spot/27010540/; https://www.openstreetmap.org/node/2296903605",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -6935,9 +6935,24 @@
           "checked_at": "2026-09-23"
         },
         "opening_hours": {
-          "kind": "official_branch_page_review",
-          "url": "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
-          "checked_at": "2026-09-23"
+          "kind": "dated_official_review",
+          "urls": [
+            "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+            "https://tabelog.com/osaka/A2702/A270202/27001450/",
+            "https://news.livedoor.com/article/detail/30565796/",
+            "https://www.mapple.net/spot/27010540/",
+            "https://www.openstreetmap.org/node/2296903605"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 본점 08:00~23:00 및 주소를 타베로그 지점 정보와 대조.; 2026-02 보도 속 블렌드 700엔을 음료 예산 참고로 사용. 공식 메뉴 가격이 아니며 실제 가격·세금은 확인 필요.; 주문마감 22:30은 보조 안내를 기준으로 보수적으로 적용. 임시휴무와 좌석 대기는 별도 확인.",
+          "previous": {
+            "value": "08:00-23:00 (공식 지점 페이지 안내; 임시 변경 가능)",
+            "source": {
+              "kind": "official_branch_page_review",
+              "url": "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+              "checked_at": "2026-09-23"
+            }
+          }
         },
         "website": {
           "kind": "official_branch_page_review",
@@ -6964,31 +6979,76 @@
           "note": "공식 출처 주소의 행정구만 추출. 관광 권역·출입구 좌표 추정 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+            "https://tabelog.com/osaka/A2702/A270202/27001450/",
+            "https://news.livedoor.com/article/detail/30565796/",
+            "https://www.mapple.net/spot/27010540/",
+            "https://www.openstreetmap.org/node/2296903605"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 본점 08:00~23:00 및 주소를 타베로그 지점 정보와 대조.; 2026-02 보도 속 블렌드 700엔을 음료 예산 참고로 사용. 공식 메뉴 가격이 아니며 실제 가격·세금은 확인 필요.; 주문마감 22:30은 보조 안내를 기준으로 보수적으로 적용. 임시휴무와 좌석 대기는 별도 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+            "https://tabelog.com/osaka/A2702/A270202/27001450/",
+            "https://news.livedoor.com/article/detail/30565796/",
+            "https://www.mapple.net/spot/27010540/",
+            "https://www.openstreetmap.org/node/2296903605"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 본점 08:00~23:00 및 주소를 타베로그 지점 정보와 대조.; 2026-02 보도 속 블렌드 700엔을 음료 예산 참고로 사용. 공식 메뉴 가격이 아니며 실제 가격·세금은 확인 필요.; 주문마감 22:30은 보조 안내를 기준으로 보수적으로 적용. 임시휴무와 좌석 대기는 별도 확인.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "covered": {
-          "kind": "classification_from_official_description",
+          "kind": "dated_official_review",
           "urls": [
-            "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+            "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+            "https://tabelog.com/osaka/A2702/A270202/27001450/",
+            "https://news.livedoor.com/article/detail/30565796/",
+            "https://www.mapple.net/spot/27010540/",
+            "https://www.openstreetmap.org/node/2296903605"
           ],
-          "checked_at": "2026-10-01",
-          "revision": "teammate_review_20261001",
-          "note": "센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+          "checked_at": "2026-11-24",
+          "note": "공식 본점 08:00~23:00 및 주소를 타베로그 지점 정보와 대조.; 2026-02 보도 속 블렌드 700엔을 음료 예산 참고로 사용. 공식 메뉴 가격이 아니며 실제 가격·세금은 확인 필요.; 주문마감 22:30은 보조 안내를 기준으로 보수적으로 적용. 임시휴무와 좌석 대기는 별도 확인.",
+          "previous": {
+            "value": true,
+            "source": {
+              "kind": "classification_from_official_description",
+              "urls": [
+                "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+              ],
+              "checked_at": "2026-10-01",
+              "revision": "teammate_review_20261001",
+              "note": "센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -6998,6 +7058,22 @@
           "checked_at": null,
           "imported_at": "2026-10-13",
           "independently_reverified": false
+        },
+        "cost": {
+          "kind": "official_budget_estimate",
+          "urls": [
+            "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+            "https://tabelog.com/osaka/A2702/A270202/27001450/",
+            "https://news.livedoor.com/article/detail/30565796/",
+            "https://www.mapple.net/spot/27010540/",
+            "https://www.openstreetmap.org/node/2296903605"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026-02 보도상 블렌드 700엔은 1인 음료 예산 참고. 현재 가격·세금 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -7013,7 +7089,7 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "marufuku_sennichimae_20260923"
         ],
@@ -7021,12 +7097,14 @@
           "사용자 지정 지점으로 150개 목록에 편입. 기존 지점 ID는 재사용하지 않음.",
           "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
           "2026-10-01: 센니치마에 본점 1층 95석·2층 22석 안내. 점내 좌석 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
-          "2026-10-06: 본점 주소·08:00–23:00·실내 좌석 안내 재확인. 공식 페이지에서 음료 가격 확인 안 됨. 외부 목록의 블렌드 630엔을 공식 검증 가격으로 승격하지 않음."
+          "2026-10-06: 본점 주소·08:00–23:00·실내 좌석 안내 재확인. 공식 페이지에서 음료 가격 확인 안 됨. 외부 목록의 블렌드 630엔을 공식 검증 가격으로 승격하지 않음.",
+          "2026-11-24: 공식 본점 08:00~23:00 및 주소를 타베로그 지점 정보와 대조.; 2026-02 보도 속 블렌드 700엔을 음료 예산 참고로 사용. 공식 메뉴 가격이 아니며 실제 가격·세금은 확인 필요.; 주문마감 22:30은 보조 안내를 기준으로 보수적으로 적용. 임시휴무와 좌석 대기는 별도 확인."
         ],
         "duplicate_osm_refs": [],
         "schedule_ready": false,
         "missing_fields": [
-          "cost"
+          "brand_id",
+          "branch_group_id"
         ],
         "replaces_selection_id": "osaka_029",
         "address_hours_audit": {
@@ -7048,11 +7126,11 @@
         },
         "recommendation_blockers": [],
         "stay_policy": {
-          "type": "카페",
-          "min": 45,
+          "type": "시연 추정",
+          "min": 60,
           "max": 60,
           "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -7084,7 +7162,65 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+            "https://tabelog.com/osaka/A2702/A270202/27001450/",
+            "https://news.livedoor.com/article/detail/30565796/",
+            "https://www.mapple.net/spot/27010540/",
+            "https://www.openstreetmap.org/node/2296903605"
+          ],
+          "fields": {
+            "opening_hours": "센니치마에 본점 08:00~23:00. 임시 변경 확인.",
+            "cost": 700,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "official_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2026-02 보도상 블렌드 700엔은 1인 음료 예산 참고. 현재 가격·세금 별도 확인."
+          },
+          "resolved_blockers": [],
+          "remaining": [],
+          "conditions": [
+            "공식 본점 08:00~23:00 및 주소를 타베로그 지점 정보와 대조.",
+            "2026-02 보도 속 블렌드 700엔을 음료 예산 참고로 사용. 공식 메뉴 가격이 아니며 실제 가격·세금은 확인 필요.",
+            "주문마감 22:30은 보조 안내를 기준으로 보수적으로 적용. 임시휴무와 좌석 대기는 별도 확인."
+          ],
+          "cost_basis": "2026-02 보도상 블렌드 700엔은 1인 음료 예산 참고. 현재 가격·세금 별도 확인.",
+          "profile": {
+            "window": [
+              480,
+              1380,
+              1350
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_menu_price_reference",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+              "https://tabelog.com/osaka/A2702/A270202/27001450/",
+              "https://news.livedoor.com/article/detail/30565796/",
+              "https://www.mapple.net/spot/27010540/",
+              "https://www.openstreetmap.org/node/2296903605"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       },
       "identity_comparison": {
         "legacy_place_id": "osaka_029",
@@ -7109,14 +7245,14 @@
         "address": "大阪市浪速区敷津東1-1-21 なんばEKIKAN",
         "latitude": 34.659163,
         "longitude": 135.502599,
-        "opening_hours": "기본 09:00~20:00; 주말·공휴일 08:00 개점 등 변동 가능(해당 요일 재확인)",
-        "cost": null,
+        "opening_hours": "난바 에키칸점 공통 11:00~17:00만 계획. 부정기 휴무·임시 단축 확인.",
+        "cost": 450,
         "stay_min": 60,
         "bag_load": 0,
-        "covered": null,
+        "covered": true,
         "website": "https://brooklynroasting.jp/location/namba/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-24",
+        "opening_hours_source": "https://ekikan.com/shops/485; https://tabelog.com/osaka/A2701/A270206/27091465/; https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu; https://www.openstreetmap.org/node/9875632529",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -7158,22 +7294,36 @@
           "checked_at": "2026-09-24"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 15,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://ekikan.com/shops/485",
+            "https://tabelog.com/osaka/A2701/A270206/27091465/",
+            "https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu",
+            "https://www.openstreetmap.org/node/9875632529"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 입점시설은 평일 09~20시·주말 08~20시, 타베로그는 11~20시와 단축 09~17시를 함께 표기. 서로 공통인 11~17시만 계획.; 지도 사용자 게시 드립커피 380~450엔 중 상한 450엔을 1인 음료 예산 참고로 사용. 게시 시점과 실제 가격·세금 확인.; 부정기 휴무와 임시 단축이 공지될 수 있으므로 방문 전 확인. 실내 좌석 기준이며 이동 경로의 지붕은 별개.",
           "previous": {
-            "value": "평일 09:00-20:00; 토·일·일본 공휴일 08:00-20:00 (부정기 휴무)",
+            "value": "기본 09:00~20:00; 주말·공휴일 08:00 개점 등 변동 가능(해당 요일 재확인)",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "https://brooklynroasting.jp/location/namba/",
-                "https://ekikan.com/shops/485"
-              ],
-              "checked_at": "2026-09-24"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 15,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "평일 09:00-20:00; 토·일·일본 공휴일 08:00-20:00 (부정기 휴무)",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://brooklynroasting.jp/location/namba/",
+                    "https://ekikan.com/shops/485"
+                  ],
+                  "checked_at": "2026-09-24"
+                }
+              }
             }
           }
         },
@@ -7212,22 +7362,50 @@
           "note": "공식 출처 주소의 행정구만 추출. 관광 권역·출입구 좌표 추정 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://ekikan.com/shops/485",
+            "https://tabelog.com/osaka/A2701/A270206/27091465/",
+            "https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu",
+            "https://www.openstreetmap.org/node/9875632529"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 입점시설은 평일 09~20시·주말 08~20시, 타베로그는 11~20시와 단축 09~17시를 함께 표기. 서로 공통인 11~17시만 계획.; 지도 사용자 게시 드립커피 380~450엔 중 상한 450엔을 1인 음료 예산 참고로 사용. 게시 시점과 실제 가격·세금 확인.; 부정기 휴무와 임시 단축이 공지될 수 있으므로 방문 전 확인. 실내 좌석 기준이며 이동 경로의 지붕은 별개.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://ekikan.com/shops/485",
+            "https://tabelog.com/osaka/A2701/A270206/27091465/",
+            "https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu",
+            "https://www.openstreetmap.org/node/9875632529"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 입점시설은 평일 09~20시·주말 08~20시, 타베로그는 11~20시와 단축 09~17시를 함께 표기. 서로 공통인 11~17시만 계획.; 지도 사용자 게시 드립커피 380~450엔 중 상한 450엔을 1인 음료 예산 참고로 사용. 게시 시점과 실제 가격·세금 확인.; 부정기 휴무와 임시 단축이 공지될 수 있으므로 방문 전 확인. 실내 좌석 기준이며 이동 경로의 지붕은 별개.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -7237,6 +7415,36 @@
           "checked_at": null,
           "imported_at": "2026-10-13",
           "independently_reverified": false
+        },
+        "cost": {
+          "kind": "official_budget_estimate",
+          "urls": [
+            "https://ekikan.com/shops/485",
+            "https://tabelog.com/osaka/A2701/A270206/27091465/",
+            "https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu",
+            "https://www.openstreetmap.org/node/9875632529"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "지도 사용자 게시 드립커피 380~450엔 중 450엔을 참고한 예산. 현재 지점 가격·세금 별도 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "covered": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://ekikan.com/shops/485",
+            "https://tabelog.com/osaka/A2701/A270206/27091465/",
+            "https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu",
+            "https://www.openstreetmap.org/node/9875632529"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 입점시설은 평일 09~20시·주말 08~20시, 타베로그는 11~20시와 단축 09~17시를 함께 표기. 서로 공통인 11~17시만 계획.; 지도 사용자 게시 드립커피 380~450엔 중 상한 450엔을 1인 음료 예산 참고로 사용. 게시 시점과 실제 가격·세금 확인.; 부정기 휴무와 임시 단축이 공지될 수 있으므로 방문 전 확인. 실내 좌석 기준이며 이동 경로의 지붕은 별개.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -7256,7 +7464,7 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osm_node_9875632529_official_20260924"
         ],
@@ -7264,13 +7472,14 @@
           "OSM branch=Namba. 공식 지점 페이지 취득 실패로 주소·최신 영업시간을 새로 확인하지 못함. 과거 난바 영업시간도 복사하지 않음.",
           "사용자 지정 지점으로 150개 목록에 편입. 기존 지점 ID는 재사용하지 않음.",
           "주소는 브랜드 공식 지점 페이지 검색 결과에서 확인(직접 열기는 시간 초과). 영업시간은 입점 시설 난바 EKIKAN 공식 안내의 BRC 항목에서 확인. 함께 표시된 WBG 베이커리 시간과 구분. 특별 영업일은 재확인 필요.",
-          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
+          "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음.",
+          "2026-11-24: 공식 입점시설은 평일 09~20시·주말 08~20시, 타베로그는 11~20시와 단축 09~17시를 함께 표기. 서로 공통인 11~17시만 계획.; 지도 사용자 게시 드립커피 380~450엔 중 상한 450엔을 1인 음료 예산 참고로 사용. 게시 시점과 실제 가격·세금 확인.; 부정기 휴무와 임시 단축이 공지될 수 있으므로 방문 전 확인. 실내 좌석 기준이며 이동 경로의 지붕은 별개."
         ],
         "duplicate_osm_refs": [],
         "schedule_ready": false,
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "replaces_selection_id": "osaka_030",
         "address_hours_audit": {
@@ -7290,15 +7499,13 @@
             "기존 출처와 필드 상태 검토. 이번 회차에서 새로 확정한 주소·영업시간 없음."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "카페",
-          "min": 45,
+          "type": "시연 추정",
+          "min": 60,
           "max": 60,
           "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -7310,7 +7517,65 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://ekikan.com/shops/485",
+            "https://tabelog.com/osaka/A2701/A270206/27091465/",
+            "https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu",
+            "https://www.openstreetmap.org/node/9875632529"
+          ],
+          "fields": {
+            "opening_hours": "난바 에키칸점 공통 11:00~17:00만 계획. 부정기 휴무·임시 단축 확인.",
+            "cost": 450,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "official_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "지도 사용자 게시 드립커피 380~450엔 중 450엔을 참고한 예산. 현재 지점 가격·세금 별도 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 입점시설은 평일 09~20시·주말 08~20시, 타베로그는 11~20시와 단축 09~17시를 함께 표기. 서로 공통인 11~17시만 계획.",
+            "지도 사용자 게시 드립커피 380~450엔 중 상한 450엔을 1인 음료 예산 참고로 사용. 게시 시점과 실제 가격·세금 확인.",
+            "부정기 휴무와 임시 단축이 공지될 수 있으므로 방문 전 확인. 실내 좌석 기준이며 이동 경로의 지붕은 별개."
+          ],
+          "cost_basis": "지도 사용자 게시 드립커피 380~450엔 중 450엔을 참고한 예산. 현재 지점 가격·세금 별도 확인.",
+          "profile": {
+            "window": [
+              660,
+              1020,
+              990
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://ekikan.com/shops/485",
+              "https://tabelog.com/osaka/A2701/A270206/27091465/",
+              "https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu",
+              "https://www.openstreetmap.org/node/9875632529"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       },
       "identity_comparison": {
         "legacy_place_id": "osaka_030",
@@ -22449,14 +22714,14 @@
         "address": "大阪市中央区難波3丁目8-9",
         "latitude": 34.6655694,
         "longitude": 135.5010595,
-        "opening_hours": "11:00–20:00; 비정기 휴무",
+        "opening_hours": "판매장 기본 11:00~20:00. 일부 매장 운영시간은 다름.",
         "cost": null,
         "stay_min": 180,
         "bag_load": 2,
         "covered": true,
         "website": "https://www.0101.co.jp/085/",
-        "opening_hours_source": "https://osaka-info.jp/spot/o1o1-namba-marui/",
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://www.0101.co.jp/085/index.html; https://www.0101.co.jp/085/event/; https://www.0101.co.jp/085/access/; https://www.openstreetmap.org/node/13026741817",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -22494,12 +22759,26 @@
           "note": "오사카 관광국 공식 시설 안내. 개별 점포 예외는 별도 확인."
         },
         "opening_hours": {
-          "kind": "official_web_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://osaka-info.jp/spot/o1o1-namba-marui/"
+            "https://www.0101.co.jp/085/index.html",
+            "https://www.0101.co.jp/085/event/",
+            "https://www.0101.co.jp/085/access/",
+            "https://www.openstreetmap.org/node/13026741817"
           ],
-          "checked_at": "2026-09-28",
-          "note": "오사카 관광국 공식 시설 안내. 개별 점포 예외는 별도 확인."
+          "checked_at": "2026-11-24",
+          "note": "운영사의 2026년 11월 행사 달력과 해당 월 무휴 안내를 확인. 임시 변경과 매장별 휴무는 별도 확인.; 판매장 방문만 계산하며 쇼핑 구매금액은 개인에 따라 달라 미산정.",
+          "previous": {
+            "value": "11:00–20:00; 비정기 휴무",
+            "source": {
+              "kind": "official_web_review",
+              "urls": [
+                "https://osaka-info.jp/spot/o1o1-namba-marui/"
+              ],
+              "checked_at": "2026-09-28",
+              "note": "오사카 관광국 공식 시설 안내. 개별 점포 예외는 별도 확인."
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "official_web_review",
@@ -22534,31 +22813,73 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.0101.co.jp/085/index.html",
+            "https://www.0101.co.jp/085/event/",
+            "https://www.0101.co.jp/085/access/",
+            "https://www.openstreetmap.org/node/13026741817"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "운영사의 2026년 11월 행사 달력과 해당 월 무휴 안내를 확인. 임시 변경과 매장별 휴무는 별도 확인.; 판매장 방문만 계산하며 쇼핑 구매금액은 개인에 따라 달라 미산정.",
+          "previous": {
+            "value": 2,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.0101.co.jp/085/index.html",
+            "https://www.0101.co.jp/085/event/",
+            "https://www.0101.co.jp/085/access/",
+            "https://www.openstreetmap.org/node/13026741817"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 90~180분, 쇼핑몰·백화점. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "운영사의 2026년 11월 행사 달력과 해당 월 무휴 안내를 확인. 임시 변경과 매장별 휴무는 별도 확인.; 판매장 방문만 계산하며 쇼핑 구매금액은 개인에 따라 달라 미산정.",
+          "previous": {
+            "value": 180,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 90~180분, 쇼핑몰·백화점. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "covered": {
-          "kind": "classification_from_official_description",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.0101.co.jp/085/"
+            "https://www.0101.co.jp/085/index.html",
+            "https://www.0101.co.jp/085/event/",
+            "https://www.0101.co.jp/085/access/",
+            "https://www.openstreetmap.org/node/13026741817"
           ],
-          "checked_at": "2026-10-01",
-          "revision": "teammate_review_20261001",
-          "note": "난바 마루이 관내 판매장·B1/1F 취식 공간 안내. 실내 판매장 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+          "checked_at": "2026-11-24",
+          "note": "운영사의 2026년 11월 행사 달력과 해당 월 무휴 안내를 확인. 임시 변경과 매장별 휴무는 별도 확인.; 판매장 방문만 계산하며 쇼핑 구매금액은 개인에 따라 달라 미산정.",
+          "previous": {
+            "value": true,
+            "source": {
+              "kind": "classification_from_official_description",
+              "urls": [
+                "https://www.0101.co.jp/085/"
+              ],
+              "checked_at": "2026-10-01",
+              "revision": "teammate_review_20261001",
+              "note": "난바 마루이 관내 판매장·B1/1F 취식 공간 안내. 실내 판매장 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -22593,19 +22914,22 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "official_fields_20260928"
         ],
         "notes": [
           "백화점 공통 사이트로 이동. 난바 마루이 지점 전용 안내 필요.",
           "오사카 관광국 공식 시설 안내. 개별 점포 예외는 별도 확인.",
-          "2026-10-01: 난바 마루이 관내 판매장·B1/1F 취식 공간 안내. 실내 판매장 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다."
+          "2026-10-01: 난바 마루이 관내 판매장·B1/1F 취식 공간 안내. 실내 판매장 기준. 공식 시설 설명을 주요 체험 공간 기준으로 해석한 값이며 접근 경로 전체의 우천 안전을 보장하지 않는다.",
+          "2026-11-24: 운영사의 2026년 11월 행사 달력과 해당 월 무휴 안내를 확인. 임시 변경과 매장별 휴무는 별도 확인.; 판매장 방문만 계산하며 쇼핑 구매금액은 개인에 따라 달라 미산정."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_c85fa26beb80",
         "missing_fields": [
-          "cost"
+          "cost",
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -22627,11 +22951,11 @@
         },
         "recommendation_blockers": [],
         "stay_policy": {
-          "type": "쇼핑몰·백화점",
-          "min": 90,
+          "type": "시연 추정",
+          "min": 180,
           "max": 180,
           "representative": 180,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "exclude_personal_shopping_spend",
         "operating_checks": [
@@ -22654,6 +22978,59 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.0101.co.jp/085/index.html",
+            "https://www.0101.co.jp/085/event/",
+            "https://www.0101.co.jp/085/access/",
+            "https://www.openstreetmap.org/node/13026741817"
+          ],
+          "fields": {
+            "opening_hours": "판매장 기본 11:00~20:00. 일부 매장 운영시간은 다름.",
+            "stay_min": 180,
+            "bag_load": 2,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "official_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "입장료가 아닌 개인 쇼핑 구매비는 산정하지 않음."
+          },
+          "resolved_blockers": [],
+          "remaining": [],
+          "conditions": [
+            "운영사의 2026년 11월 행사 달력과 해당 월 무휴 안내를 확인. 임시 변경과 매장별 휴무는 별도 확인.",
+            "판매장 방문만 계산하며 쇼핑 구매금액은 개인에 따라 달라 미산정."
+          ],
+          "cost_basis": "입장료가 아닌 개인 쇼핑 구매비는 산정하지 않음.",
+          "profile": {
+            "window": [
+              660,
+              1200,
+              1200
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "shopping_spend_not_included",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://www.0101.co.jp/085/index.html",
+              "https://www.0101.co.jp/085/event/",
+              "https://www.0101.co.jp/085/access/",
+              "https://www.openstreetmap.org/node/13026741817"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 180,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -22667,14 +23044,14 @@
         "address": "大阪市中央区北浜2-1-1 北浜ライオンビルディング",
         "latitude": 34.6920707,
         "longitude": 135.5064765,
-        "opening_hours": "월~일 11:00~18:00",
-        "cost": null,
+        "opening_hours": "북하마점 11:00~18:00, 주문마감 17:30. 부정기 휴무·임시 변경 확인.",
+        "cost": 650,
         "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://shelf-keybridge.com/jp/moto/kitahama/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://shelf-keybridge.com/jp/moto/kitahama/; https://tabelog.com/osaka/A2701/A270102/27049833/; https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/; https://www.openstreetmap.org/node/4572487891",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -22700,22 +23077,36 @@
           "url": "https://www.openstreetmap.org/node/4572487891"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 55,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://shelf-keybridge.com/jp/moto/kitahama/",
+            "https://tabelog.com/osaka/A2701/A270102/27049833/",
+            "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+            "https://www.openstreetmap.org/node/4572487891"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 북하마점 및 타베로그의 주소가 일치. 11월 무휴 안내는 공지 연도를 독립 확인하지 못해 정규시간 참고로만 사용.; 방문 후기의 아이스커피 650엔은 1인 음료 예산 참고치이며 게시 시점·현행 가격·세금 확인 필요.; 실내 좌석과 야외 테라스가 함께 있어 실내 좌석 선택을 가정. 실외 이동까지 지붕이 보장되는 것은 아님.; 점포의 임시휴무·대기는 방문 전 별도 확인.",
           "previous": {
-            "value": "11:00–18:00(주문 17:30까지); 비정기 휴무",
+            "value": "월~일 11:00~18:00",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "https://shelf-keybridge.com/jp/moto/kitahama/"
-              ],
-              "checked_at": "2026-09-28",
-              "note": "공식 북하마점 안내. 내혼마치·혼마치도리점과 구분. 실내·테라스가 혼합되어 covered 보류."
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 55,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "11:00–18:00(주문 17:30까지); 비정기 휴무",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://shelf-keybridge.com/jp/moto/kitahama/"
+                  ],
+                  "checked_at": "2026-09-28",
+                  "note": "공식 북하마점 안내. 내혼마치·혼마치도리점과 구분. 실내·테라스가 혼합되어 covered 보류."
+                }
+              }
             }
           }
         },
@@ -22770,22 +23161,50 @@
           "note": "공식 출처 주소의 행정구만 추출. 관광 권역·출입구 좌표 추정 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://shelf-keybridge.com/jp/moto/kitahama/",
+            "https://tabelog.com/osaka/A2701/A270102/27049833/",
+            "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+            "https://www.openstreetmap.org/node/4572487891"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 북하마점 및 타베로그의 주소가 일치. 11월 무휴 안내는 공지 연도를 독립 확인하지 못해 정규시간 참고로만 사용.; 방문 후기의 아이스커피 650엔은 1인 음료 예산 참고치이며 게시 시점·현행 가격·세금 확인 필요.; 실내 좌석과 야외 테라스가 함께 있어 실내 좌석 선택을 가정. 실외 이동까지 지붕이 보장되는 것은 아님.; 점포의 임시휴무·대기는 방문 전 별도 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://shelf-keybridge.com/jp/moto/kitahama/",
+            "https://tabelog.com/osaka/A2701/A270102/27049833/",
+            "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+            "https://www.openstreetmap.org/node/4572487891"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 북하마점 및 타베로그의 주소가 일치. 11월 무휴 안내는 공지 연도를 독립 확인하지 못해 정규시간 참고로만 사용.; 방문 후기의 아이스커피 650엔은 1인 음료 예산 참고치이며 게시 시점·현행 가격·세금 확인 필요.; 실내 좌석과 야외 테라스가 함께 있어 실내 좌석 선택을 가정. 실외 이동까지 지붕이 보장되는 것은 아님.; 점포의 임시휴무·대기는 방문 전 별도 확인.",
+          "previous": {
+            "value": 60,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 45~60분, 카페. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -22797,15 +23216,44 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 55,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://shelf-keybridge.com/jp/moto/kitahama/",
+            "https://tabelog.com/osaka/A2701/A270102/27049833/",
+            "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+            "https://www.openstreetmap.org/node/4572487891"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 북하마점 및 타베로그의 주소가 일치. 11월 무휴 안내는 공지 연도를 독립 확인하지 못해 정규시간 참고로만 사용.; 방문 후기의 아이스커피 650엔은 1인 음료 예산 참고치이며 게시 시점·현행 가격·세금 확인 필요.; 실내 좌석과 야외 테라스가 함께 있어 실내 좌석 선택을 가정. 실외 이동까지 지붕이 보장되는 것은 아님.; 점포의 임시휴무·대기는 방문 전 별도 확인.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 55,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "official_budget_estimate",
+          "urls": [
+            "https://shelf-keybridge.com/jp/moto/kitahama/",
+            "https://tabelog.com/osaka/A2701/A270102/27049833/",
+            "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+            "https://www.openstreetmap.org/node/4572487891"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "방문 후기의 아이스커피 1잔 650엔을 예산 참고치로 사용. 현재 가격·세금 별도 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -22834,19 +23282,20 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "official_fields_20260928"
         ],
         "notes": [
           "정확한 MOTO 지점과 최신 공식 운영시간 미확인.",
-          "공식 북하마점 안내. 내혼마치·혼마치도리점과 구분. 실내·테라스가 혼합되어 covered 보류."
+          "공식 북하마점 안내. 내혼마치·혼마치도리점과 구분. 실내·테라스가 혼합되어 covered 보류.",
+          "2026-11-24: 공식 북하마점 및 타베로그의 주소가 일치. 11월 무휴 안내는 공지 연도를 독립 확인하지 못해 정규시간 참고로만 사용.; 방문 후기의 아이스커피 650엔은 1인 음료 예산 참고치이며 게시 시점·현행 가격·세금 확인 필요.; 실내 좌석과 야외 테라스가 함께 있어 실내 좌석 선택을 가정. 실외 이동까지 지붕이 보장되는 것은 아님.; 점포의 임시휴무·대기는 방문 전 별도 확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_35640888fa49",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -22866,15 +23315,13 @@
             "정확한 MOTO 지점과 최신 공식 운영시간 미확인."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "카페",
-          "min": 45,
+          "type": "시연 추정",
+          "min": 60,
           "max": 60,
           "representative": 60,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -22886,7 +23333,66 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://shelf-keybridge.com/jp/moto/kitahama/",
+            "https://tabelog.com/osaka/A2701/A270102/27049833/",
+            "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+            "https://www.openstreetmap.org/node/4572487891"
+          ],
+          "fields": {
+            "opening_hours": "북하마점 11:00~18:00, 주문마감 17:30. 부정기 휴무·임시 변경 확인.",
+            "cost": 650,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "official_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "방문 후기의 아이스커피 1잔 650엔을 예산 참고치로 사용. 현재 가격·세금 별도 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 북하마점 및 타베로그의 주소가 일치. 11월 무휴 안내는 공지 연도를 독립 확인하지 못해 정규시간 참고로만 사용.",
+            "방문 후기의 아이스커피 650엔은 1인 음료 예산 참고치이며 게시 시점·현행 가격·세금 확인 필요.",
+            "실내 좌석과 야외 테라스가 함께 있어 실내 좌석 선택을 가정. 실외 이동까지 지붕이 보장되는 것은 아님.",
+            "점포의 임시휴무·대기는 방문 전 별도 확인."
+          ],
+          "cost_basis": "방문 후기의 아이스커피 1잔 650엔을 예산 참고치로 사용. 현재 가격·세금 별도 확인.",
+          "profile": {
+            "window": [
+              660,
+              1080,
+              1050
+            ]
+          },
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://shelf-keybridge.com/jp/moto/kitahama/",
+              "https://tabelog.com/osaka/A2701/A270102/27049833/",
+              "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+              "https://www.openstreetmap.org/node/4572487891"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "snack"
       }
     },
     {
@@ -28099,7 +28605,7 @@
           }
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://tabelog.com/osaka/A2701/A270101/27061816/",
             "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
@@ -28213,7 +28719,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -28241,6 +28747,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -29246,7 +29753,7 @@
           "independently_reverified": false
         },
         "cost": {
-          "kind": "restaurant_published_menu_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.casablanca-osaka.jp/",
             "https://casablancanamba.owst.jp/",
@@ -29381,7 +29888,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "restaurant_published_menu_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -29406,6 +29913,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "restaurant_published_menu_reference",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -30384,7 +30892,7 @@
           "independently_reverified": false
         },
         "cost": {
-          "kind": "restaurant_published_menu_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://mercy-vegan-factory.owst.jp/",
             "https://mercy-vegan-factory.owst.jp/foods",
@@ -30516,7 +31024,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "restaurant_published_menu_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -30544,6 +31052,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "restaurant_published_menu_reference",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -31287,7 +31796,7 @@
           }
         },
         "cost": {
-          "kind": "reported_menu_price_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://tabelog.com/osaka/A2701/A270307/27040224/",
             "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
@@ -31402,7 +31911,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "reported_menu_price_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -31429,6 +31938,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_menu_price_reference",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -31666,7 +32176,7 @@
           }
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://suzume-group.co.jp/kirinji/",
             "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
@@ -31770,7 +32280,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -31807,6 +32317,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -32047,7 +32558,7 @@
           "independently_reverified": false
         },
         "cost": {
-          "kind": "historical_published_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.aeon.jp/sc/osakadomecity/shop/store/food-185.html",
             "https://tabelog.com/osaka/A2701/A270401/27073333/dtlmenu/",
@@ -32153,7 +32664,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "historical_published_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -32179,6 +32690,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "historical_published_menu_estimate",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -32620,7 +33132,7 @@
           }
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
             "https://travel.yahoo.co.jp/kanko/spot-00017077/",
@@ -32743,7 +33255,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -32771,6 +33283,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -33452,7 +33965,7 @@
           }
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.endo-sushi.com/12450124631247512473.html",
             "https://www.uoichi.co.jp/assets/2026.pdf",
@@ -33575,7 +34088,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -33604,6 +34117,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -33809,7 +34323,7 @@
           }
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.unchi-co.com/jinrui_renewal/",
             "https://www.jinrui-minamenrui.com/access/",
@@ -33930,7 +34444,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -33956,6 +34470,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -34163,7 +34678,7 @@
           }
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://saijiki-syojin.com/shop/",
             "https://tabelog.com/osaka/A2701/A270206/27135087/",
@@ -34271,7 +34786,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -34301,6 +34816,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -34991,7 +35507,7 @@
           }
         },
         "cost": {
-          "kind": "restaurant_published_menu_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://tabelog.com/osaka/A2701/A270302/27084326/dtlmenu/lunch/",
             "https://www.openstreetmap.org/node/7461081830"
@@ -35095,7 +35611,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "restaurant_published_menu_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -35125,6 +35641,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "restaurant_published_menu_reference",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -35794,7 +36311,7 @@
           }
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.hotpepper.jp/strJ004612001/",
             "https://tsunaguuu.com/gourmet/5525/",
@@ -35916,7 +36433,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -35944,6 +36461,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
@@ -51346,7 +51864,7 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "reported_menu_price_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
             "https://www.mapple.net/spot/27010533/",
@@ -51589,7 +52107,7 @@
             "covered": false
           },
           "field_kinds": {
-            "cost": "reported_menu_price_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -51613,6 +52131,7 @@
           },
           "meal_role": "snack",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_menu_price_reference",
           "coordinates": {
             "kind": "official_linked_map_poi",
             "source_urls": [
@@ -51714,7 +52233,7 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "reported_menu_price_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
             "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
@@ -51952,7 +52471,7 @@
             "covered": false
           },
           "field_kinds": {
-            "cost": "reported_menu_price_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate"
           },
           "field_notes": {
@@ -51976,6 +52495,7 @@
           },
           "meal_role": "snack",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_menu_price_reference",
           "coordinates": {
             "kind": "official_linked_map_poi",
             "source_urls": [
@@ -55468,7 +55988,7 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://tenpo.ichibanya.co.jp/map/3123/",
             "https://www.mapion.co.jp/phonebook/M01011/27128/ILSP0084917238_ipclm/",
@@ -55644,7 +56164,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate",
             "latitude": "map_listing_reference",
             "longitude": "map_listing_reference"
@@ -55680,6 +56200,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "map_listing_reference_not_entrance",
             "source_urls": [
@@ -56736,7 +57257,7 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "reported_menu_price_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.rikuro.co.jp/shoplist/134.html",
             "https://www.mapion.co.jp/phonebook/M02047/27128/22731170820/",
@@ -56925,7 +57446,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "reported_menu_price_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate",
             "latitude": "map_listing_reference",
             "longitude": "map_listing_reference"
@@ -56963,6 +57484,7 @@
           },
           "meal_role": "snack",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_menu_price_reference",
           "coordinates": {
             "kind": "map_listing_reference_not_entrance",
             "source_urls": [
@@ -57062,7 +57584,7 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "reported_menu_price_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.rikuro.co.jp/shoplist/136.html",
             "https://www.daimaru.co.jp/umedamise/topics/260915rikuro.html",
@@ -57273,7 +57795,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "reported_menu_price_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate",
             "latitude": "reviewed_building_reference",
             "longitude": "reviewed_building_reference"
@@ -57313,6 +57835,7 @@
           },
           "meal_role": "snack",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_menu_price_reference",
           "coordinates": {
             "kind": "reviewed_building_reference_not_entrance",
             "source_urls": [
@@ -57417,7 +57940,7 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "reported_menu_price_reference",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://walk.osaka-chikagai.jp/index.php/shopguide/464",
             "https://osakapoint.com/shop/shop-list/157/",
@@ -57623,7 +58146,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "reported_menu_price_reference",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate",
             "latitude": "map_listing_reference",
             "longitude": "map_listing_reference"
@@ -57662,6 +58185,7 @@
           },
           "meal_role": "snack",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_menu_price_reference",
           "coordinates": {
             "kind": "map_listing_reference_not_entrance",
             "source_urls": [
@@ -57766,7 +58290,7 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "visitor_reported_menu_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://shop.viedefrance.co.jp/detail/149/",
             "https://www.mapion.co.jp/phonebook/M01012/27107/G6712876-001/",
@@ -57965,7 +58489,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "visitor_reported_menu_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate",
             "latitude": "map_listing_reference",
             "longitude": "map_listing_reference"
@@ -58004,6 +58528,7 @@
           },
           "meal_role": "snack",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "visitor_reported_menu_estimate",
           "coordinates": {
             "kind": "map_listing_reference_not_entrance",
             "source_urls": [
@@ -59953,7 +60478,7 @@
           }
         },
         "cost": {
-          "kind": "official_average_budget_estimate",
+          "kind": "official_budget_estimate",
           "urls": [
             "https://www.rikimarugroup.com/brands/mizukakechaya/shops/namba/outline/",
             "https://www.mapion.co.jp/phonebook/M01018/27128/GJ000957569-001/",
@@ -60056,7 +60581,7 @@
             "covered": true
           },
           "field_kinds": {
-            "cost": "official_average_budget_estimate",
+            "cost": "official_budget_estimate",
             "stay_min": "demo_model_estimate",
             "latitude": "map_listing_reference",
             "longitude": "map_listing_reference"
@@ -60086,6 +60611,7 @@
           },
           "meal_role": "meal",
           "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "official_average_budget_estimate",
           "coordinates": {
             "kind": "map_listing_reference_not_entrance",
             "source_urls": [
@@ -62220,9 +62746,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-24",
-    "updated": 20,
+    "updated": 24,
     "new_search_only": 0,
-    "promoted": 20,
+    "promoted": 24,
     "date_range": [
       "2026-11-24",
       "2026-11-30"

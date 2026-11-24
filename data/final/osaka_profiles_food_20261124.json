@@ -745,13 +745,19 @@
       "window": [
         480,
         1380,
-        1380
+        1350
       ],
-      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
+        "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/",
+        "https://tabelog.com/osaka/A2702/A270202/27001450/",
+        "https://news.livedoor.com/article/detail/30565796/",
+        "https://www.mapple.net/spot/27010540/",
+        "https://www.openstreetmap.org/node/2296903605"
       ],
-      "checked_at": "2026-09-30"
+      "cost_basis": "2026-02 보도상 블렌드 700엔은 1인 음료 예산 참고. 현재 가격·세금 별도 확인."
     },
     "osaka_draft_e5eb4dd70807": {
       "window": [
@@ -783,12 +789,16 @@
         1200,
         1200
       ],
-      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://osaka-info.jp/spot/o1o1-namba-marui/"
+        "https://www.0101.co.jp/085/index.html",
+        "https://www.0101.co.jp/085/event/",
+        "https://www.0101.co.jp/085/access/",
+        "https://www.openstreetmap.org/node/13026741817"
       ],
-      "checked_at": "2026-09-30",
-      "requires_visit_confirmation": true
+      "cost_basis": "입장료가 아닌 개인 쇼핑 구매비는 산정하지 않음."
     },
     "osaka_draft_2a9b88c21411": {
       "window": [
@@ -2871,6 +2881,40 @@
         "https://www.openstreetmap.org/node/12403674701"
       ],
       "cost_basis": "2025-12-30 지점 공개 11종 오마카세 세트 2,120엔(세금 포함)을 예산 참고치로 사용. 가격 변동·추가 주문 별도."
+    },
+    "osaka_draft_35640888fa49": {
+      "window": [
+        660,
+        1080,
+        1050
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://shelf-keybridge.com/jp/moto/kitahama/",
+        "https://tabelog.com/osaka/A2701/A270102/27049833/",
+        "https://retty.me/area/PRE27/ARE91/SUB9104/100000018854/",
+        "https://www.openstreetmap.org/node/4572487891"
+      ],
+      "cost_basis": "방문 후기의 아이스커피 1잔 650엔을 예산 참고치로 사용. 현재 가격·세금 별도 확인."
+    },
+    "osm_node_9875632529": {
+      "window": [
+        660,
+        1020,
+        990
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://ekikan.com/shops/485",
+        "https://tabelog.com/osaka/A2701/A270206/27091465/",
+        "https://map.yahoo.co.jp/v3/place/Y9b3pT5ihvg/menu",
+        "https://www.openstreetmap.org/node/9875632529"
+      ],
+      "cost_basis": "지도 사용자 게시 드립커피 380~450엔 중 450엔을 참고한 예산. 현재 지점 가격·세금 별도 확인."
     }
   }
 }
