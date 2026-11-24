@@ -763,13 +763,18 @@
       "window": [
         480,
         1140,
-        1140
+        1110
       ],
-      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://www.sotcoffee.com/en/pages/shop-osaka"
+        "https://www.sotcoffee.com/pages/shop-osaka",
+        "https://tabelog.com/osaka/A2701/A270104/27112223/",
+        "https://retty.me/area/PRE27/ARE92/SUB9203/100001562439/",
+        "https://www.openstreetmap.org/node/6886072023"
       ],
-      "checked_at": "2026-09-30"
+      "cost_basis": "2026-09 방문 후기의 아메리카노 680엔을 예산 참고. 실제 가격·세금 확인."
     },
     "osaka_draft_5a3ef73c2b4b": {
       "window": [
@@ -2931,6 +2936,40 @@
         "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
       ],
       "cost_basis": "공공 보행교 관람 무료. 인근 상점 구매·크루즈는 별도."
+    },
+    "osaka_draft_d52fee5c2304": {
+      "window": [
+        420,
+        1260,
+        1230
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://hollys-corp.jp/shop/o_sakaisujihon/",
+        "https://hollys-corp.jp/menu/",
+        "https://tabelog.com/osaka/A2701/A270106/27017523/",
+        "https://www.openstreetmap.org/node/2389282617"
+      ],
+      "cost_basis": "공식 체인 메뉴의 블렌드 R 300엔 참고. 지점별 가격·세금 별도 확인."
+    },
+    "osaka_draft_b0a5c9b0d460": {
+      "window": [
+        600,
+        1320,
+        1290
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.herbis.jp/restaurant-cafe/detail/154",
+        "https://tabelog.com/osaka/A2701/A270101/27002136/",
+        "https://map.yahoo.co.jp/v3/place/rEl62eSvS16/menu",
+        "https://www.openstreetmap.org/node/4572487893"
+      ],
+      "cost_basis": "지도 이용자 게시 블렌드 350~430엔 중 430엔 참고. 동일 메뉴의 타 지점·옛 가격 혼입 가능."
     }
   }
 }
