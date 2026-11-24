@@ -305,9 +305,36 @@ def build():
              '실내 좌석 선택 기준이며 야외 테라스와 외부 접근 경로는 별도. 시설 임시휴관·대기 확인.'],
             '지도 이용자 게시 블렌드 350~430엔 중 430엔 참고. 동일 메뉴의 타 지점·옛 가격 혼입 가능.',
             'visitor_reported_menu_estimate',role='snack'),
+        'osaka_draft_5a3ef73c2b4b': eligible(
+            ['https://store.bluebottlecoffee.jp/pages/umeda-chayamachi',
+             'https://tabelog.com/osaka/A2701/A270101/27123735/dtlrvwlst/B530108959/',
+             'https://www.openstreetmap.org/node/7144593677'],
+            {'opening_hours':'우메다 차야마치점 08:00~21:00. 임시휴무 확인.',
+             'cost':737,'stay_min':60,'bag_load':0,'covered':True},
+            {'window':[480,1260,1260]}, [],
+            ['공식 지점 주소·08~21시 및 49석을 확인. 임시 영업시간 변경과 대기 별도.',
+             '2026-06 타베로그 방문 후기의 라테 737엔은 1인 음료 예산 참고치이며 최신 가격·세금은 확인 필요.',
+             '실내 좌석 기준이고 외부 접근 경로는 별도. 기존 OSM 좌표는 점포 입구 실측이 아님.'],
+            '2026-06 해당 지점 방문 후기의 라테 737엔을 예산 참고. 현행 가격·세금 확인.',
+            'visitor_reported_menu_estimate',role='snack'),
+        'osaka_013': eligible(
+            ['https://nakka-art.jp/exhibition-post/daiei-ten2026/',
+             'https://www.openstreetmap.org/way/343837388'],
+            {'opening_hours':'4층 대영박물관 일본미술 전시 10:00~17:00, 최종입장 16:30. 월요일과 2026-11-24 휴관.',
+             'cost':2300,'stay_min':120,'bag_load':0,'covered':True},
+            {'window':[600,1020,990], 'closed_weekdays':[1], 'exceptions':{'2026-11-24':{'closed':True}}},
+            ['final_calendar_review_required'],
+            ['2026-10-31~2027-01-31 4층 해당 전시 한정. 11/23 공휴일 개관 대체휴관으로 11/24는 휴관하며, 11/30은 월요일 휴관.',
+             '성인 일반 당일권 2,300엔(세금 포함)을 기준으로 계산. 고등학생·대학생 1,400엔 등은 증명 및 대상 조건 별도.',
+             '금요일은 20시까지 연장하지만 모든 운영일 공통 17시까지만 계산. 티켓 매진·임시휴관은 별도 확인.',
+             'OSM 미술관 건물 기준 좌표이며 출입구 및 층간 이동은 실측이 아님.'],
+            '특정 4층 전시의 성인 일반 당일권 2,300엔(세금 포함). 할인·다른 전시는 별도.',
+            'official_exhibition_admission',role=None),
     })
     updates['spot_ebisubashi']['cost_kind'] = 'official_free_admission'
     updates['spot_ebisubashi']['field_kinds']['cost'] = 'dated_official_review'
+    updates['osaka_013']['cost_kind'] = 'official_admission'
+    updates['osaka_013']['field_kinds']['cost'] = 'dated_official_review'
     evidence={'checked_at':'2026-11-24','valid_from':'2026-11-24','valid_through':'2026-11-30',
               'updates':updates,'additions':[]}
     catalog, profiles = apply(catalog, profiles, evidence)

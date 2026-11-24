@@ -782,11 +782,15 @@
         1260,
         1260
       ],
-      "cost_basis": "가격 미확인: 일정 제외; 시간 규칙만 정규화.",
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
+        "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi",
+        "https://tabelog.com/osaka/A2701/A270101/27123735/dtlrvwlst/B530108959/",
+        "https://www.openstreetmap.org/node/7144593677"
       ],
-      "checked_at": "2026-09-30"
+      "cost_basis": "2026-06 해당 지점 방문 후기의 라테 737엔을 예산 참고. 현행 가격·세금 확인."
     },
     "osaka_draft_c85fa26beb80": {
       "window": [
@@ -2970,6 +2974,29 @@
         "https://www.openstreetmap.org/node/4572487893"
       ],
       "cost_basis": "지도 이용자 게시 블렌드 350~430엔 중 430엔 참고. 동일 메뉴의 타 지점·옛 가격 혼입 가능."
+    },
+    "osaka_013": {
+      "window": [
+        600,
+        1020,
+        990
+      ],
+      "closed_weekdays": [
+        1
+      ],
+      "exceptions": {
+        "2026-11-24": {
+          "closed": true
+        }
+      },
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://nakka-art.jp/exhibition-post/daiei-ten2026/",
+        "https://www.openstreetmap.org/way/343837388"
+      ],
+      "cost_basis": "특정 4층 전시의 성인 일반 당일권 2,300엔(세금 포함). 할인·다른 전시는 별도."
     }
   }
 }
