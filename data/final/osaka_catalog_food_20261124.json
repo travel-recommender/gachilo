@@ -140,7 +140,6 @@
     "osaka_draft_1875c31c058c": "administrative_ward",
     "osaka_draft_3d97f36846d0": "administrative_ward",
     "osaka_draft_1cdebcaa6534": "administrative_ward",
-    "osaka_draft_20aa5444aadd": "administrative_ward",
     "osaka_draft_7eda017e1ded": "administrative_ward",
     "osaka_draft_3c015925bf31": "administrative_ward",
     "osaka_draft_6789f7f9c22f": "administrative_ward",
@@ -27929,14 +27928,14 @@
         "address": "일본 〒531-0071 Osaka, Kita Ward, Nakatsu, 3 Chome−23−8 １F",
         "latitude": 34.712006,
         "longitude": 135.492029,
-        "opening_hours": "월·금 09:00~22:00; 화·목·일 12:00~22:00; 토 12:00~24:00; 수 휴무",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "월·목~일 12:00~21:00 공통 시간만 사용; 화·수 제외.",
+        "cost": 1800,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "http://34sunsea.com/main/category/newsinfo/kitchen/",
-        "opening_hours_source": null,
-        "verified_at": null,
+        "opening_hours_source": "https://tabelog.com/osaka/A2701/A270101/27061816/; https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/; https://www.openstreetmap.org/node/3432264291",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -27958,18 +27957,31 @@
           "url": "https://www.openstreetmap.org/node/3432264291"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 76,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://tabelog.com/osaka/A2701/A270101/27061816/",
+            "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
+            "https://www.openstreetmap.org/node/3432264291"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "업소가 공개한 시간과 다른 자료의 차이를 피하려 화·수는 일정에서 제외.; 방문자가 적은 점심 세트 1,800엔은 참고 예산이며 현재 가격·메뉴·예약·임시휴무는 별도 확인.",
           "previous": {
-            "value": "11:00-23:00",
+            "value": "월·금 09:00~22:00; 화·목·일 12:00~22:00; 토 12:00~24:00; 수 휴무",
             "source": {
-              "kind": "osm",
-              "url": "https://www.openstreetmap.org/node/3432264291"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 76,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "11:00-23:00",
+                "source": {
+                  "kind": "osm",
+                  "url": "https://www.openstreetmap.org/node/3432264291"
+                }
+              }
             }
           }
         },
@@ -28008,22 +28020,48 @@
           "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.7m. 주소만 확인했으며 영업시간 검증 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://tabelog.com/osaka/A2701/A270101/27061816/",
+            "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
+            "https://www.openstreetmap.org/node/3432264291"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "업소가 공개한 시간과 다른 자료의 차이를 피하려 화·수는 일정에서 제외.; 방문자가 적은 점심 세트 1,800엔은 참고 예산이며 현재 가격·메뉴·예약·임시휴무는 별도 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://tabelog.com/osaka/A2701/A270101/27061816/",
+            "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
+            "https://www.openstreetmap.org/node/3432264291"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "업소가 공개한 시간과 다른 자료의 차이를 피하려 화·수는 일정에서 제외.; 방문자가 적은 점심 세트 1,800엔은 참고 예산이며 현재 가격·메뉴·예약·임시휴무는 별도 확인.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -28035,15 +28073,42 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 76,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://tabelog.com/osaka/A2701/A270101/27061816/",
+            "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
+            "https://www.openstreetmap.org/node/3432264291"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "업소가 공개한 시간과 다른 자료의 차이를 피하려 화·수는 일정에서 제외.; 방문자가 적은 점심 세트 1,800엔은 참고 예산이며 현재 가격·메뉴·예약·임시휴무는 별도 확인.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 76,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "visitor_reported_menu_estimate",
+          "urls": [
+            "https://tabelog.com/osaka/A2701/A270101/27061816/",
+            "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
+            "https://www.openstreetmap.org/node/3432264291"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "방문 후기에 나온 점심 세트 1,800엔의 예산 참고치. 가격·세금·실제 메뉴 별도 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -28074,19 +28139,18 @@
         }
       },
       "review": {
-        "status": "needs_verification",
+        "status": "eligible_for_dated_demo",
         "official_checks": [],
         "notes": [
           "공식 페이지에서 현재 운영시간 근거 확보 실패.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.7m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.7m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-11-24: 업소가 공개한 시간과 다른 자료의 차이를 피하려 화·수는 일정에서 제외.; 방문자가 적은 점심 세트 1,800엔은 참고 예산이며 현재 가격·메뉴·예약·임시휴무는 별도 확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_f729469c78c5",
         "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source",
-          "verified_at"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -28106,9 +28170,7 @@
             "공식 페이지에서 현재 운영시간 근거 확보 실패."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_f729469c78c5",
           "google_maps_url": "https://maps.google.com/?cid=3177627592851906159",
@@ -28119,11 +28181,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "식당",
+          "type": "시연 추정",
           "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -28135,7 +28197,65 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://tabelog.com/osaka/A2701/A270101/27061816/",
+            "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
+            "https://www.openstreetmap.org/node/3432264291"
+          ],
+          "fields": {
+            "opening_hours": "월·목~일 12:00~21:00 공통 시간만 사용; 화·수 제외.",
+            "cost": 1800,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "visitor_reported_menu_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "방문 후기에 나온 점심 세트 1,800엔의 예산 참고치. 가격·세금·실제 메뉴 별도 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "업소가 공개한 시간과 다른 자료의 차이를 피하려 화·수는 일정에서 제외.",
+            "방문자가 적은 점심 세트 1,800엔은 참고 예산이며 현재 가격·메뉴·예약·임시휴무는 별도 확인."
+          ],
+          "cost_basis": "방문 후기에 나온 점심 세트 1,800엔의 예산 참고치. 가격·세금·실제 메뉴 별도 확인.",
+          "profile": {
+            "window": [
+              720,
+              1260,
+              1260
+            ],
+            "closed_weekdays": [
+              2,
+              3
+            ]
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://tabelog.com/osaka/A2701/A270101/27061816/",
+              "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
+              "https://www.openstreetmap.org/node/3432264291"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -30817,14 +30937,14 @@
         "address": "大阪市東淀川区淡路4-32-16 レジデンスyamaki1F",
         "latitude": 34.7406154,
         "longitude": 135.5158676,
-        "opening_hours": "월·수~일 11:30~21:30; 최종주문21:00; 화 휴무",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "화요일 휴무; 월·수~일 영업. 일정에는 점심 11:30~14:00만 사용.",
+        "cost": 1050,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "http://papalina68.web.fc2.com/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-26",
+        "opening_hours_source": "https://tabelog.com/osaka/A2701/A270307/27040224/; https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw; https://www.openstreetmap.org/node/7425697907",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -30846,22 +30966,35 @@
           "url": "https://www.openstreetmap.org/node/7425697907"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 83,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://tabelog.com/osaka/A2701/A270307/27040224/",
+            "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
+            "https://www.openstreetmap.org/node/7425697907"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "동일 주소·영업시간과 2026년 방문 기록 확인. 점심 가격은 지도에 게시된 1,050엔을 예산 참고치로만 사용.; 점심 메뉴 판매 시간·임시휴무 및 세금은 방문 전 확인. 기존 OSM 위치는 입구 실측 아님.",
           "previous": {
-            "value": "11:30–21:30(주문 21:00까지); 화요일 휴무",
+            "value": "월·수~일 11:30~21:30; 최종주문21:00; 화 휴무",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "http://papalina68.web.fc2.com/access.html"
-              ],
-              "checked_at": "2026-09-26",
-              "evidence_window": "2026-09-24/2026-09-26"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 83,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "11:30–21:30(주문 21:00까지); 화요일 휴무",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "http://papalina68.web.fc2.com/access.html"
+                  ],
+                  "checked_at": "2026-09-26",
+                  "evidence_window": "2026-09-24/2026-09-26"
+                }
+              }
             }
           }
         },
@@ -30922,22 +31055,48 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://tabelog.com/osaka/A2701/A270307/27040224/",
+            "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
+            "https://www.openstreetmap.org/node/7425697907"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "동일 주소·영업시간과 2026년 방문 기록 확인. 점심 가격은 지도에 게시된 1,050엔을 예산 참고치로만 사용.; 점심 메뉴 판매 시간·임시휴무 및 세금은 방문 전 확인. 기존 OSM 위치는 입구 실측 아님.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://tabelog.com/osaka/A2701/A270307/27040224/",
+            "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
+            "https://www.openstreetmap.org/node/7425697907"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "동일 주소·영업시간과 2026년 방문 기록 확인. 점심 가격은 지도에 게시된 1,050엔을 예산 참고치로만 사용.; 점심 메뉴 판매 시간·임시휴무 및 세금은 방문 전 확인. 기존 OSM 위치는 입구 실측 아님.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -30949,15 +31108,42 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 83,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://tabelog.com/osaka/A2701/A270307/27040224/",
+            "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
+            "https://www.openstreetmap.org/node/7425697907"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "동일 주소·영업시간과 2026년 방문 기록 확인. 점심 가격은 지도에 게시된 1,050엔을 예산 참고치로만 사용.; 점심 메뉴 판매 시간·임시휴무 및 세금은 방문 전 확인. 기존 OSM 위치는 입구 실측 아님.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 83,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "reported_menu_price_reference",
+          "urls": [
+            "https://tabelog.com/osaka/A2701/A270307/27040224/",
+            "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
+            "https://www.openstreetmap.org/node/7425697907"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "지도 게시 점심 세트 1,050엔을 참고한 점심 예산 추정. 당일 메뉴·가격·세금 별도 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -30981,18 +31167,19 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "osaka_draft_f8831852f028_address_hours_20260926"
         ],
         "notes": [
-          "2026-10-06: 공식 사이트 조회 실패. 과거 리뷰나 다른 지점 메뉴로 가격을 대체하지 않음."
+          "2026-10-06: 공식 사이트 조회 실패. 과거 리뷰나 다른 지점 메뉴로 가격을 대체하지 않음.",
+          "2026-11-24: 동일 주소·영업시간과 2026년 방문 기록 확인. 점심 가격은 지도에 게시된 1,050엔을 예산 참고치로만 사용.; 점심 메뉴 판매 시간·임시휴무 및 세금은 방문 전 확인. 기존 OSM 위치는 입구 실측 아님."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_f8831852f028",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -31017,15 +31204,13 @@
           "hours_status": "verified",
           "notes": []
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "식당",
+          "type": "시연 추정",
           "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -31048,7 +31233,64 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://tabelog.com/osaka/A2701/A270307/27040224/",
+            "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
+            "https://www.openstreetmap.org/node/7425697907"
+          ],
+          "fields": {
+            "opening_hours": "화요일 휴무; 월·수~일 영업. 일정에는 점심 11:30~14:00만 사용.",
+            "cost": 1050,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "reported_menu_price_reference",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "지도 게시 점심 세트 1,050엔을 참고한 점심 예산 추정. 당일 메뉴·가격·세금 별도 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "동일 주소·영업시간과 2026년 방문 기록 확인. 점심 가격은 지도에 게시된 1,050엔을 예산 참고치로만 사용.",
+            "점심 메뉴 판매 시간·임시휴무 및 세금은 방문 전 확인. 기존 OSM 위치는 입구 실측 아님."
+          ],
+          "cost_basis": "지도 게시 점심 세트 1,050엔을 참고한 점심 예산 추정. 당일 메뉴·가격·세금 별도 확인.",
+          "profile": {
+            "window": [
+              690,
+              840,
+              840
+            ],
+            "closed_weekdays": [
+              2
+            ]
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://tabelog.com/osaka/A2701/A270307/27040224/",
+              "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
+              "https://www.openstreetmap.org/node/7425697907"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -31061,14 +31303,14 @@
         "address": "大阪市浪速区日本橋5-11-12",
         "latitude": 34.6572929,
         "longitude": 135.5055213,
-        "opening_hours": "매일 11:30~16:30 및18:00~22:00",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "매일 11:30~16:30, 18:00~22:00. 임시휴무·재료 소진은 별도 확인.",
+        "cost": 800,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://suzume-group.co.jp/kirinji/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-28",
+        "opening_hours_source": "https://suzume-group.co.jp/kirinji/; https://blog.weblabo.jp/kirinji-osaka-aburasoba/; https://www.openstreetmap.org/node/6349557186",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -31090,23 +31332,36 @@
           "url": "https://www.openstreetmap.org/node/6349557186"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 84,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://suzume-group.co.jp/kirinji/",
+            "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
+            "https://www.openstreetmap.org/node/6349557186"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 총본점 주소와 기존 OSM 점포 좌표 일치. 공식 및 OSM 공통 영업 구간만 사용.; 2026-09 방문 자료의 기본 아부라소바 800엔은 예산 참고치; 당일 가격과 임시휴무는 별도 확인.",
           "previous": {
-            "value": "11:00–16:30, 18:00–22:00; 연중무휴",
+            "value": "매일 11:30~16:30 및18:00~22:00",
             "source": {
-              "kind": "official_web_review",
-              "urls": [
-                "https://suzume-group.co.jp/kirinji/"
-              ],
-              "checked_at": "2026-09-28",
-              "note": "오사카 총본점 주소·전화가 기존 OSM 지점 정보와 일치. OSM의 11:30 개점 대신 공식 11:00 적용. 기존 지점 주의 표시는 검토 이력으로 유지.",
-              "revision": "official_fields_20260928_v2"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 84,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "11:00–16:30, 18:00–22:00; 연중무휴",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://suzume-group.co.jp/kirinji/"
+                  ],
+                  "checked_at": "2026-09-28",
+                  "note": "오사카 총본점 주소·전화가 기존 OSM 지점 정보와 일치. OSM의 11:30 개점 대신 공식 11:00 적용. 기존 지점 주의 표시는 검토 이력으로 유지.",
+                  "revision": "official_fields_20260928_v2"
+                }
+              }
             }
           }
         },
@@ -31179,22 +31434,48 @@
           "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://suzume-group.co.jp/kirinji/",
+            "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
+            "https://www.openstreetmap.org/node/6349557186"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "공식 총본점 주소와 기존 OSM 점포 좌표 일치. 공식 및 OSM 공통 영업 구간만 사용.; 2026-09 방문 자료의 기본 아부라소바 800엔은 예산 참고치; 당일 가격과 임시휴무는 별도 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://suzume-group.co.jp/kirinji/",
+            "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
+            "https://www.openstreetmap.org/node/6349557186"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "공식 총본점 주소와 기존 OSM 점포 좌표 일치. 공식 및 OSM 공통 영업 구간만 사용.; 2026-09 방문 자료의 기본 아부라소바 800엔은 예산 참고치; 당일 가격과 임시휴무는 별도 확인.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -31206,15 +31487,42 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 84,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://suzume-group.co.jp/kirinji/",
+            "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
+            "https://www.openstreetmap.org/node/6349557186"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공식 총본점 주소와 기존 OSM 점포 좌표 일치. 공식 및 OSM 공통 영업 구간만 사용.; 2026-09 방문 자료의 기본 아부라소바 800엔은 예산 참고치; 당일 가격과 임시휴무는 별도 확인.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 84,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "visitor_reported_menu_estimate",
+          "urls": [
+            "https://suzume-group.co.jp/kirinji/",
+            "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
+            "https://www.openstreetmap.org/node/6349557186"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026-09 소개 자료의 아부라소바 800엔을 1인 예산 참고치로 사용. 현재 가격·세금 별도 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -31242,19 +31550,20 @@
         }
       },
       "review": {
-        "status": "partially_verified",
+        "status": "eligible_for_dated_demo",
         "official_checks": [
           "official_fields_20260928_v2"
         ],
         "notes": [
           "브랜드 전환·지점 혼동 가능. 회사 주소를 점포 주소로 사용하지 않음.",
-          "오사카 총본점 주소·전화가 기존 OSM 지점 정보와 일치. OSM의 11:30 개점 대신 공식 11:00 적용. 기존 지점 주의 표시는 검토 이력으로 유지."
+          "오사카 총본점 주소·전화가 기존 OSM 지점 정보와 일치. OSM의 11:30 개점 대신 공식 11:00 적용. 기존 지점 주의 표시는 검토 이력으로 유지.",
+          "2026-11-24: 공식 총본점 주소와 기존 OSM 점포 좌표 일치. 공식 및 OSM 공통 영업 구간만 사용.; 2026-09 방문 자료의 기본 아부라소바 800엔은 예산 참고치; 당일 가격과 임시휴무는 별도 확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_98a4211ed755",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -31274,16 +31583,13 @@
             "브랜드 전환·지점 혼동 가능. 회사 주소를 점포 주소로 사용하지 않음."
           ]
         },
-        "recommendation_blockers": [
-          "branch_unconfirmed",
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "stay_policy": {
-          "type": "식당",
+          "type": "시연 추정",
           "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -31295,7 +31601,74 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://suzume-group.co.jp/kirinji/",
+            "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
+            "https://www.openstreetmap.org/node/6349557186"
+          ],
+          "fields": {
+            "opening_hours": "매일 11:30~16:30, 18:00~22:00. 임시휴무·재료 소진은 별도 확인.",
+            "cost": 800,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "visitor_reported_menu_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2026-09 소개 자료의 아부라소바 800엔을 1인 예산 참고치로 사용. 현재 가격·세금 별도 확인."
+          },
+          "resolved_blockers": [
+            "branch_unconfirmed",
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "공식 총본점 주소와 기존 OSM 점포 좌표 일치. 공식 및 OSM 공통 영업 구간만 사용.",
+            "2026-09 방문 자료의 기본 아부라소바 800엔은 예산 참고치; 당일 가격과 임시휴무는 별도 확인."
+          ],
+          "cost_basis": "2026-09 소개 자료의 아부라소바 800엔을 1인 예산 참고치로 사용. 현재 가격·세금 별도 확인.",
+          "profile": {
+            "window": [
+              690,
+              990,
+              990
+            ],
+            "windows": [
+              [
+                690,
+                990,
+                990
+              ],
+              [
+                1080,
+                1320,
+                1320
+              ]
+            ]
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://suzume-group.co.jp/kirinji/",
+              "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
+              "https://www.openstreetmap.org/node/6349557186"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -31923,14 +32296,14 @@
         "address": "4 Chome-16-13 Shinmachi, Nishi Ward, Osaka, 550-0013 일본",
         "latitude": 34.6761315,
         "longitude": 135.4837548,
-        "opening_hours": "월·목~일10:00~15:00; 화·수 휴무",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "월·목~일 10:00~15:00. 화·수는 자료 간 차이로 일정에서 제외.",
+        "cost": 1480,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://ramenadventures.com/listing/kadoya-shokudo/",
-        "opening_hours_source": null,
-        "verified_at": null,
+        "opening_hours_source": "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/; https://travel.yahoo.co.jp/kanko/spot-00017077/; https://www.openstreetmap.org/node/3923003857",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -31952,18 +32325,31 @@
           "url": "https://www.openstreetmap.org/node/3923003857"
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 86,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
+            "https://travel.yahoo.co.jp/kanko/spot-00017077/",
+            "https://www.openstreetmap.org/node/3923003857"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "동일 주소의 2026년 방문 기록과 다수 자료에서 월·목~일 영업 확인. 수요일 휴무 정보는 자료 간 불일치하여 보수적으로 제외.; 후기에 기재된 중화소바 1,480엔은 현행 확정가가 아닌 예산 참고치. 임시휴무 및 줄 대기는 방문 전 확인.",
           "previous": {
-            "value": "11:00+",
+            "value": "월·목~일10:00~15:00; 화·수 휴무",
             "source": {
-              "kind": "osm",
-              "url": "https://www.openstreetmap.org/node/3923003857"
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 86,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "11:00+",
+                "source": {
+                  "kind": "osm",
+                  "url": "https://www.openstreetmap.org/node/3923003857"
+                }
+              }
             }
           }
         },
@@ -32002,22 +32388,48 @@
           "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 8.9m. 주소만 확인했으며 영업시간 검증 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
+            "https://travel.yahoo.co.jp/kanko/spot-00017077/",
+            "https://www.openstreetmap.org/node/3923003857"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "동일 주소의 2026년 방문 기록과 다수 자료에서 월·목~일 영업 확인. 수요일 휴무 정보는 자료 간 불일치하여 보수적으로 제외.; 후기에 기재된 중화소바 1,480엔은 현행 확정가가 아닌 예산 참고치. 임시휴무 및 줄 대기는 방문 전 확인.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
+            "https://travel.yahoo.co.jp/kanko/spot-00017077/",
+            "https://www.openstreetmap.org/node/3923003857"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "동일 주소의 2026년 방문 기록과 다수 자료에서 월·목~일 영업 확인. 수요일 휴무 정보는 자료 간 불일치하여 보수적으로 제외.; 후기에 기재된 중화소바 1,480엔은 현행 확정가가 아닌 예산 참고치. 임시휴무 및 줄 대기는 방문 전 확인.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "manual_review": {
           "kind": "user_manual_review",
@@ -32029,15 +32441,42 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 86,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
+            "https://travel.yahoo.co.jp/kanko/spot-00017077/",
+            "https://www.openstreetmap.org/node/3923003857"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "동일 주소의 2026년 방문 기록과 다수 자료에서 월·목~일 영업 확인. 수요일 휴무 정보는 자료 간 불일치하여 보수적으로 제외.; 후기에 기재된 중화소바 1,480엔은 현행 확정가가 아닌 예산 참고치. 임시휴무 및 줄 대기는 방문 전 확인.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 86,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "visitor_reported_menu_estimate",
+          "urls": [
+            "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
+            "https://travel.yahoo.co.jp/kanko/spot-00017077/",
+            "https://www.openstreetmap.org/node/3923003857"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026년 방문 후기에 나온 중화소바 1,480엔을 예산 참고치로 사용. 당일 가격·세금 별도 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -32077,19 +32516,18 @@
         }
       },
       "review": {
-        "status": "needs_verification",
+        "status": "eligible_for_dated_demo",
         "official_checks": [],
         "notes": [
           "등록 링크는 음식 블로그. 공식 검증으로 간주하지 않음.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 8.9m. 주소만 확인했으며 영업시간 검증 아님."
+          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 8.9m. 주소만 확인했으며 영업시간 검증 아님.",
+          "2026-11-24: 동일 주소의 2026년 방문 기록과 다수 자료에서 월·목~일 영업 확인. 수요일 휴무 정보는 자료 간 불일치하여 보수적으로 제외.; 후기에 기재된 중화소바 1,480엔은 현행 확정가가 아닌 예산 참고치. 임시휴무 및 줄 대기는 방문 전 확인."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_3b1acd991668",
         "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source",
-          "verified_at"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -32109,9 +32547,7 @@
             "등록 링크는 음식 블로그. 공식 검증으로 간주하지 않음."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_3b1acd991668",
           "google_maps_url": "https://maps.google.com/?cid=4715903537433432411",
@@ -32122,11 +32558,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "식당",
+          "type": "시연 추정",
           "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "final_csv": {
@@ -32138,7 +32574,65 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
+            "https://travel.yahoo.co.jp/kanko/spot-00017077/",
+            "https://www.openstreetmap.org/node/3923003857"
+          ],
+          "fields": {
+            "opening_hours": "월·목~일 10:00~15:00. 화·수는 자료 간 차이로 일정에서 제외.",
+            "cost": 1480,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "visitor_reported_menu_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2026년 방문 후기에 나온 중화소바 1,480엔을 예산 참고치로 사용. 당일 가격·세금 별도 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "동일 주소의 2026년 방문 기록과 다수 자료에서 월·목~일 영업 확인. 수요일 휴무 정보는 자료 간 불일치하여 보수적으로 제외.",
+            "후기에 기재된 중화소바 1,480엔은 현행 확정가가 아닌 예산 참고치. 임시휴무 및 줄 대기는 방문 전 확인."
+          ],
+          "cost_basis": "2026년 방문 후기에 나온 중화소바 1,480엔을 예산 참고치로 사용. 당일 가격·세금 별도 확인.",
+          "profile": {
+            "window": [
+              600,
+              900,
+              900
+            ],
+            "closed_weekdays": [
+              2,
+              3
+            ]
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
+              "https://travel.yahoo.co.jp/kanko/spot-00017077/",
+              "https://www.openstreetmap.org/node/3923003857"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -33196,207 +33690,6 @@
         "meal_role": "meal",
         "branch_collection": {
           "aliases": "라멘|라면|라멘집|ramen|らーめん"
-        }
-      }
-    },
-    {
-      "place": {
-        "place_id": "osaka_draft_20aa5444aadd",
-        "name": "傾奇御麺 天神橋・本店",
-        "name_ko": "가부키오멘 덴진바시 본점",
-        "category": "식사",
-        "area": "大阪市北区",
-        "address": "4-23 Naniwacho, Kita Ward, Osaka, 530-0022 일본",
-        "latitude": 34.7075822,
-        "longitude": 135.5106449,
-        "opening_hours": "11:30-02:00",
-        "cost": null,
-        "stay_min": 90,
-        "bag_load": 0,
-        "covered": null,
-        "website": "http://kabuki-gomen.com/",
-        "opening_hours_source": null,
-        "verified_at": null,
-        "brand_id": null,
-        "branch_group_id": null
-      },
-      "field_sources": {
-        "name": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/7477484852"
-        },
-        "category": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/7477484852"
-        },
-        "latitude": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/7477484852"
-        },
-        "longitude": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/7477484852"
-        },
-        "opening_hours": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/7477484852"
-        },
-        "website": {
-          "kind": "osm",
-          "url": "https://www.openstreetmap.org/node/7477484852"
-        },
-        "name_ko": {
-          "kind": "editorial_korean_translation",
-          "urls": [
-            "https://www.openstreetmap.org/node/7477484852"
-          ],
-          "checked_at": "2026-09-28",
-          "revision": "korean_display_names_20260928",
-          "original_name": "傾奇御麺 天神橋・本店",
-          "note": "검토 편의를 위한 원문 기반 한국어 번역·음역. 공식 한국어 명칭 또는 지점 검증 완료를 의미하지 않음. 원문 name을 검색 시 함께 사용."
-        },
-        "address": {
-          "kind": "google_maps_ui_review",
-          "urls": [
-            "https://maps.google.com/?cid=4479733544869607912",
-            "https://www.openstreetmap.org/node/7477484852"
-          ],
-          "checked_at": "2026-09-28",
-          "revision": "map_addresses_20260928",
-          "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.6m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
-        },
-        "area": {
-          "kind": "derived_from_map_address",
-          "urls": [
-            "https://maps.google.com/?cid=4479733544869607912",
-            "https://www.openstreetmap.org/node/7477484852"
-          ],
-          "checked_at": "2026-09-28",
-          "revision": "map_addresses_20260928",
-          "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.6m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
-        },
-        "bag_load": {
-          "kind": "team_rule_estimate",
-          "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
-          ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
-        },
-        "stay_min": {
-          "kind": "team_rule_estimate",
-          "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
-          ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
-        },
-        "manual_review": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 90,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false
-        }
-      },
-      "source": {
-        "osm_ref": "node/7477484852",
-        "url": "https://www.openstreetmap.org/node/7477484852",
-        "collected_at": "2026-09-23T04:16:44.319902+00:00",
-        "osm_edited_at": "2023-07-23T08:33:02Z",
-        "coordinate_method": "node",
-        "address_components": {
-          "addr:block_number": "4",
-          "addr:city": "大阪市",
-          "addr:housenumber": "23",
-          "addr:neighbourhood": "浪花町",
-          "addr:province": "大阪府",
-          "addr:suburb": "北区"
-        },
-        "tags": {
-          "addr:block_number": "4",
-          "addr:city": "大阪市",
-          "addr:housenumber": "23",
-          "addr:neighbourhood": "浪花町",
-          "addr:province": "大阪府",
-          "addr:suburb": "北区",
-          "amenity": "restaurant",
-          "check_date": "2023-03-29",
-          "cuisine": "ramen",
-          "name": "傾奇御麺 天神橋・本店",
-          "opening_hours": "11:30-02:00",
-          "phone": "06-6147-4446",
-          "takeaway": "yes",
-          "website": "http://kabuki-gomen.com/"
-        }
-      },
-      "review": {
-        "status": "needs_verification",
-        "official_checks": [],
-        "notes": [
-          "웹사이트 종료 안내는 식당 폐업의 증거가 아님. 점포 운영 재확인 필요.",
-          "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 1.6m. 주소만 확인했으며 영업시간 검증 아님. 지도에 폐업 표시가 있는 과거 주소."
-        ],
-        "duplicate_osm_refs": [],
-        "previous_place_id": "osaka_draft_20aa5444aadd",
-        "missing_fields": [
-          "cost",
-          "covered",
-          "opening_hours_source",
-          "verified_at"
-        ],
-        "schedule_ready": false,
-        "address_hours_audit": {
-          "reviewed_at": "2026-09-26",
-          "coverage": "all_150",
-          "attempted_sources": [
-            {
-              "url": "http://kabuki-gomen.com/",
-              "resolved_url": "http://kabuki-gomen.com/",
-              "fetch_status": "fetched"
-            }
-          ],
-          "evidence_urls": [],
-          "address_status": "mapped_closed_location",
-          "hours_status": "unverified",
-          "notes": [
-            "웹사이트 종료 안내는 식당 폐업의 증거가 아님. 점포 운영 재확인 필요."
-          ]
-        },
-        "recommendation_blockers": [
-          "google_maps_permanently_closed",
-          "final_record_review_required"
-        ],
-        "map_address_check": {
-          "place_id": "osaka_draft_20aa5444aadd",
-          "google_maps_url": "https://maps.google.com/?cid=4479733544869607912",
-          "displayed_address": "4-23 Naniwacho, Kita Ward, Osaka, 530-0022 일본",
-          "google_latitude": 34.7075851,
-          "google_longitude": 135.510662,
-          "distance_from_osm_m": 1.6,
-          "displayed_closure": "closed"
-        },
-        "stay_policy": {
-          "type": "식당",
-          "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
-        },
-        "planning_cost_policy": "verified_admission_or_menu_only",
-        "final_csv": {
-          "record_status": "보류·운영/이용 미확인",
-          "record_status_reason": "폐업 예상; 운영 상태 미확정",
-          "space_type": "",
-          "cost_basis": "",
-          "manual_review_notes": "폐업 예상",
-          "manual_review_source_url": "",
-          "manual_review_date": "",
-          "manual_remaining_questions": ""
         }
       }
     },
@@ -34877,14 +35170,14 @@
         "address": "2 Chome-4-1 Funakoshicho, Chuo Ward, Osaka, 540-0036 일본",
         "latitude": 34.6879231,
         "longitude": 135.5130323,
-        "opening_hours": "월~금08:00~21:00; 토11:00~14:00; 일·공휴일 휴무",
-        "cost": null,
-        "stay_min": 90,
+        "opening_hours": "월~토 11:00~14:00 공통 시간만 사용; 일요일·공휴일 제외.",
+        "cost": 1100,
+        "stay_min": 60,
         "bag_load": 0,
         "covered": true,
         "website": "https://maywinds.on.omisenomikata.jp/",
-        "opening_hours_source": null,
-        "verified_at": "2026-09-30",
+        "opening_hours_source": "https://www.hotpepper.jp/strJ004612001/; https://tsunaguuu.com/gourmet/5525/; https://mrs.living.jp/osaka/town_gourmet/reporter/6774243; https://www.openstreetmap.org/node/6930081836",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -34940,41 +35233,83 @@
           "note": "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 15.0m. 주소만 확인했으며 영업시간 검증 아님."
         },
         "bag_load": {
-          "kind": "team_rule_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.hotpepper.jp/strJ004612001/",
+            "https://tsunaguuu.com/gourmet/5525/",
+            "https://mrs.living.jp/osaka/town_gourmet/reporter/6774243",
+            "https://www.openstreetmap.org/node/6930081836"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+          "checked_at": "2026-11-24",
+          "note": "2026년 지역 자료와 업소 안내의 공통 점심 시간만 사용. 실제 점심 메뉴·휴무는 현장 확인.; 2026년 방문 보도의 함박스테이크 1,100엔은 당일 확정 가격이 아닌 예산 참고치.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "기존 get_luggage_score와 동일: 쇼핑 2, 지정 시장·상점가·아메리카무라·신세카이 1, 나머지 0. kg가 아닌 상대 점수."
+            }
+          }
         },
         "stay_min": {
-          "kind": "team_rule_estimate",
+          "kind": "demo_model_estimate",
           "urls": [
-            "https://github.com/travel-recommender/gachilo/issues/1"
+            "https://www.hotpepper.jp/strJ004612001/",
+            "https://tsunaguuu.com/gourmet/5525/",
+            "https://mrs.living.jp/osaka/town_gourmet/reporter/6774243",
+            "https://www.openstreetmap.org/node/6930081836"
           ],
-          "checked_at": "2026-09-29",
-          "revision": "team_planning_rules_20260929",
-          "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+          "checked_at": "2026-11-24",
+          "note": "2026년 지역 자료와 업소 안내의 공통 점심 시간만 사용. 실제 점심 메뉴·휴무는 현장 확인.; 2026년 방문 보도의 함박스테이크 1,100엔은 당일 확정 가격이 아닌 예산 참고치.",
+          "previous": {
+            "value": 90,
+            "source": {
+              "kind": "team_rule_estimate",
+              "urls": [
+                "https://github.com/travel-recommender/gachilo/issues/1"
+              ],
+              "checked_at": "2026-09-29",
+              "revision": "team_planning_rules_20260929",
+              "note": "사용자 제공 체류시간 범위 60~90분, 식당. 일정 여유를 위해 상한 적용. 실제 관람 소요시간이 아닌 추정값."
+            }
+          }
         },
         "opening_hours": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 95,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.hotpepper.jp/strJ004612001/",
+            "https://tsunaguuu.com/gourmet/5525/",
+            "https://mrs.living.jp/osaka/town_gourmet/reporter/6774243",
+            "https://www.openstreetmap.org/node/6930081836"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026년 지역 자료와 업소 안내의 공통 점심 시간만 사용. 실제 점심 메뉴·휴무는 현장 확인.; 2026년 방문 보도의 함박스테이크 1,100엔은 당일 확정 가격이 아닌 예산 참고치.",
           "previous": {
-            "value": "월~금 08:00~21:00; 토 11:00~14:00; 일 휴무 (공휴일 별도 확인)",
+            "value": "월~금08:00~21:00; 토11:00~14:00; 일·공휴일 휴무",
             "source": {
-              "kind": "google_maps_manual_review",
-              "urls": [
-                "https://maps.google.com/?cid=17132172652483626966"
-              ],
-              "checked_at": "2026-09-30",
-              "revision": "operating_review_20260930",
-              "note": "MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음."
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 95,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "월~금 08:00~21:00; 토 11:00~14:00; 일 휴무 (공휴일 별도 확인)",
+                "source": {
+                  "kind": "google_maps_manual_review",
+                  "urls": [
+                    "https://maps.google.com/?cid=17132172652483626966"
+                  ],
+                  "checked_at": "2026-09-30",
+                  "revision": "operating_review_20260930",
+                  "note": "MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음."
+                }
+              }
             }
           }
         },
@@ -35018,15 +35353,44 @@
           "independently_reverified": false
         },
         "covered": {
-          "kind": "user_manual_review",
-          "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
-          "source_row": 95,
-          "urls": [],
-          "checked_at": null,
-          "imported_at": "2026-10-13",
-          "independently_reverified": false,
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.hotpepper.jp/strJ004612001/",
+            "https://tsunaguuu.com/gourmet/5525/",
+            "https://mrs.living.jp/osaka/town_gourmet/reporter/6774243",
+            "https://www.openstreetmap.org/node/6930081836"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026년 지역 자료와 업소 안내의 공통 점심 시간만 사용. 실제 점심 메뉴·휴무는 현장 확인.; 2026년 방문 보도의 함박스테이크 1,100엔은 당일 확정 가격이 아닌 예산 참고치.",
           "previous": {
-            "value": "",
+            "value": true,
+            "source": {
+              "kind": "user_manual_review",
+              "source_file": "오사카_보류95곳_직접확인 - 직접 확인.csv",
+              "source_row": 95,
+              "urls": [],
+              "checked_at": null,
+              "imported_at": "2026-10-13",
+              "independently_reverified": false,
+              "previous": {
+                "value": "",
+                "source": null
+              }
+            }
+          }
+        },
+        "cost": {
+          "kind": "visitor_reported_menu_estimate",
+          "urls": [
+            "https://www.hotpepper.jp/strJ004612001/",
+            "https://tsunaguuu.com/gourmet/5525/",
+            "https://mrs.living.jp/osaka/town_gourmet/reporter/6774243",
+            "https://www.openstreetmap.org/node/6930081836"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "2026년 방문 보도의 함박스테이크 1,100엔을 식사 예산 참고치로 사용. 세금·메뉴·변동 별도 확인.",
+          "previous": {
+            "value": null,
             "source": null
           }
         }
@@ -35051,18 +35415,19 @@
         }
       },
       "review": {
-        "status": "needs_verification",
+        "status": "eligible_for_dated_demo",
         "official_checks": [],
         "notes": [
           "점포 홈페이지 취득 실패. 운영정보 미확인.",
           "Google Maps 장소명·주소와 기존 OSM 위치 대조. 지도 지점 좌표 차이 15.0m. 주소만 확인했으며 영업시간 검증 아님.",
-          "2026-09-30: MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음."
+          "2026-09-30: MayWinds, 船越町2-4-1 지점의 Google Maps 요일별 7일 시간표 확인. 사용자 제공 가격 범위는 비용에 반영하지 않음.",
+          "2026-11-24: 2026년 지역 자료와 업소 안내의 공통 점심 시간만 사용. 실제 점심 메뉴·휴무는 현장 확인.; 2026년 방문 보도의 함박스테이크 1,100엔은 당일 확정 가격이 아닌 예산 참고치."
         ],
         "duplicate_osm_refs": [],
         "previous_place_id": "osaka_draft_d996a4118ab0",
         "missing_fields": [
-          "cost",
-          "covered"
+          "brand_id",
+          "branch_group_id"
         ],
         "schedule_ready": false,
         "address_hours_audit": {
@@ -35082,9 +35447,7 @@
             "점포 홈페이지 취득 실패. 운영정보 미확인."
           ]
         },
-        "recommendation_blockers": [
-          "final_calendar_review_required"
-        ],
+        "recommendation_blockers": [],
         "map_address_check": {
           "place_id": "osaka_draft_d996a4118ab0",
           "google_maps_url": "https://maps.google.com/?cid=17132172652483626966",
@@ -35095,11 +35458,11 @@
           "displayed_closure": null
         },
         "stay_policy": {
-          "type": "식당",
+          "type": "시연 추정",
           "min": 60,
-          "max": 90,
-          "representative": 90,
-          "method": "사용자 제공 범위의 상한; 이동·대기시간 별도"
+          "max": 60,
+          "representative": 60,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "planning_cost_policy": "verified_admission_or_menu_only",
         "operating_checks": [
@@ -35122,7 +35485,67 @@
           "manual_review_source_url": "",
           "manual_review_date": "",
           "manual_remaining_questions": ""
-        }
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.hotpepper.jp/strJ004612001/",
+            "https://tsunaguuu.com/gourmet/5525/",
+            "https://mrs.living.jp/osaka/town_gourmet/reporter/6774243",
+            "https://www.openstreetmap.org/node/6930081836"
+          ],
+          "fields": {
+            "opening_hours": "월~토 11:00~14:00 공통 시간만 사용; 일요일·공휴일 제외.",
+            "cost": 1100,
+            "stay_min": 60,
+            "bag_load": 0,
+            "covered": true
+          },
+          "field_kinds": {
+            "cost": "visitor_reported_menu_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2026년 방문 보도의 함박스테이크 1,100엔을 식사 예산 참고치로 사용. 세금·메뉴·변동 별도 확인."
+          },
+          "resolved_blockers": [
+            "final_calendar_review_required"
+          ],
+          "remaining": [],
+          "conditions": [
+            "2026년 지역 자료와 업소 안내의 공통 점심 시간만 사용. 실제 점심 메뉴·휴무는 현장 확인.",
+            "2026년 방문 보도의 함박스테이크 1,100엔은 당일 확정 가격이 아닌 예산 참고치."
+          ],
+          "cost_basis": "2026년 방문 보도의 함박스테이크 1,100엔을 식사 예산 참고치로 사용. 세금·메뉴·변동 별도 확인.",
+          "profile": {
+            "window": [
+              660,
+              840,
+              840
+            ],
+            "closed_weekdays": [
+              0
+            ],
+            "closed_holidays": true
+          },
+          "meal_role": "meal",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "openstreetmap_node_reference_not_entrance",
+            "source_urls": [
+              "https://www.hotpepper.jp/strJ004612001/",
+              "https://tsunaguuu.com/gourmet/5525/",
+              "https://mrs.living.jp/osaka/town_gourmet/reporter/6774243",
+              "https://www.openstreetmap.org/node/6930081836"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 60,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
+        },
+        "meal_role": "meal"
       }
     },
     {
@@ -50434,14 +50857,14 @@
         "address": "大阪府大阪市中央区難波千日前11-19",
         "latitude": 34.6652167,
         "longitude": 135.5033629,
-        "opening_hours": "월~금10:30~21:00 / 토·일·공휴일09:30~21:00",
-        "cost": null,
+        "opening_hours": "10:30~21:00 공통 시간 사용. 임시휴무 별도 확인.",
+        "cost": 650,
         "stay_min": 20,
         "bag_load": 0,
         "covered": false,
         "website": "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
-        "opening_hours_source": "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://takoyaki-wanaka.com/tenpo-sennichimae.html; https://www.mapple.net/spot/27010533/; https://chun--blog.com/posts/namba-wanaka/",
+        "verified_at": "2026-11-24",
         "brand_id": "wanaka",
         "branch_group_id": "wanaka:standard"
       },
@@ -50461,12 +50884,25 @@
           "checked_at": "2026-10-19"
         },
         "opening_hours": {
-          "kind": "dated_branch_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+            "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
+            "https://www.mapple.net/spot/27010533/",
+            "https://chun--blog.com/posts/namba-wanaka/"
           ],
-          "checked_at": "2026-10-26",
-          "note": "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.; 검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.; 타코야키 간식 방문. 가격이 과거 보도마다 달라 공식 최신 메뉴 확인 필요; 다른 지점 가격을 복사하지 않음."
+          "checked_at": "2026-11-24",
+          "note": "본점 8개 가격 자료가 500엔과 650엔으로 충돌해 650엔은 확정가가 아닌 예산 참고치.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.",
+          "previous": {
+            "value": "월~금10:30~21:00 / 토·일·공휴일09:30~21:00",
+            "source": {
+              "kind": "dated_branch_review",
+              "urls": [
+                "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+              ],
+              "checked_at": "2026-10-26",
+              "note": "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.; 검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.; 타코야키 간식 방문. 가격이 과거 보도마다 달라 공식 최신 메뉴 확인 필요; 다른 지점 가격을 복사하지 않음."
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "dated_branch_review",
@@ -50496,12 +50932,25 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "unconfirmed",
+          "kind": "reported_menu_price_reference",
           "urls": [
-            "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+            "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
+            "https://www.mapple.net/spot/27010533/",
+            "https://chun--blog.com/posts/namba-wanaka/"
           ],
-          "checked_at": "2026-10-26",
-          "note": null
+          "checked_at": "2026-11-24",
+          "note": "본점 관광 안내의 8개 650엔을 1인 간식 예산 참고치로 사용. 다른 자료와 차이가 있어 실제 가격 확인.",
+          "previous": {
+            "value": null,
+            "source": {
+              "kind": "unconfirmed",
+              "urls": [
+                "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+              ],
+              "checked_at": "2026-10-26",
+              "note": null
+            }
+          }
         },
         "latitude": {
           "kind": "official_linked_map_poi",
@@ -50520,20 +50969,59 @@
           "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
         },
         "covered": {
-          "kind": "dated_branch_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+            "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
+            "https://www.mapple.net/spot/27010533/",
+            "https://chun--blog.com/posts/namba-wanaka/"
           ],
-          "checked_at": "2026-10-26",
-          "note": "mixed_queue_and_indoor"
+          "checked_at": "2026-11-24",
+          "note": "본점 8개 가격 자료가 500엔과 650엔으로 충돌해 650엔은 확정가가 아닌 예산 참고치.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.",
+          "previous": {
+            "value": false,
+            "source": {
+              "kind": "dated_branch_review",
+              "urls": [
+                "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+              ],
+              "checked_at": "2026-10-26",
+              "note": "mixed_queue_and_indoor"
+            }
+          }
         },
         "stay_min": {
           "kind": "demo_model_estimate",
-          "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+          "urls": [
+            "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
+            "https://www.mapple.net/spot/27010533/",
+            "https://chun--blog.com/posts/namba-wanaka/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "본점 8개 가격 자료가 500엔과 650엔으로 충돌해 650엔은 확정가가 아닌 예산 참고치.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.",
+          "previous": {
+            "value": 20,
+            "source": {
+              "kind": "demo_model_estimate",
+              "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+            }
+          }
         },
         "bag_load": {
-          "kind": "demo_model_estimate",
-          "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+          "kind": "dated_official_review",
+          "urls": [
+            "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
+            "https://www.mapple.net/spot/27010533/",
+            "https://chun--blog.com/posts/namba-wanaka/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "본점 8개 가격 자료가 500엔과 650엔으로 충돌해 650엔은 확정가가 아닌 예산 참고치.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "demo_model_estimate",
+              "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+            }
+          }
         },
         "brand_id": {
           "kind": "explicit_identity_review",
@@ -50562,27 +51050,24 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
-        "recommendation_blockers": [
-          "current_menu_price_unconfirmed"
-        ],
-        "missing_fields": [
-          "cost"
-        ],
+        "recommendation_blockers": [],
+        "missing_fields": [],
         "notes": [
           "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
           "검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.",
           "타코야키 간식 방문. 가격이 과거 보도마다 달라 공식 최신 메뉴 확인 필요; 다른 지점 가격을 복사하지 않음.",
-          "2026-11-04: 영업시간 확인. 블로그의8개650엔을 공식 최신 지점 가격으로 확정하지 않음."
+          "2026-11-04: 영업시간 확인. 블로그의8개650엔을 공식 최신 지점 가격으로 확정하지 않음.",
+          "2026-11-24: 본점 8개 가격 자료가 500엔과 650엔으로 충돌해 650엔은 확정가가 아닌 예산 참고치.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도."
         ],
         "stay_policy": {
-          "type": "지점별 시연 추정",
-          "representative": 20,
+          "type": "시연 추정",
           "min": 20,
           "max": 20,
-          "method": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+          "representative": 20,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "area_scheme": "tourism_editorial_v1",
         "area_basis": "editorial_demo_grouping_by_verified_branch_location",
@@ -50676,28 +51161,57 @@
           ]
         },
         "dated_verification": {
-          "status": "held",
-          "fields": {},
+          "status": "eligible_for_dated_demo",
           "source_urls": [
-            "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
+            "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
+            "https://www.mapple.net/spot/27010533/",
+            "https://chun--blog.com/posts/namba-wanaka/"
           ],
-          "conditions": [
-            "영업시간 확인. 블로그의8개650엔을 공식 최신 지점 가격으로 확정하지 않음."
-          ],
-          "profile": null,
-          "cost_basis": "",
-          "cost_kind": "official_menu",
-          "resolved_blockers": [],
-          "remaining": [
+          "fields": {
+            "opening_hours": "10:30~21:00 공통 시간 사용. 임시휴무 별도 확인.",
+            "cost": 650,
+            "stay_min": 20,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "reported_menu_price_reference",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "본점 관광 안내의 8개 650엔을 1인 간식 예산 참고치로 사용. 다른 자료와 차이가 있어 실제 가격 확인."
+          },
+          "resolved_blockers": [
             "current_menu_price_unconfirmed"
           ],
-          "field_kinds": {},
-          "field_notes": {},
-          "coordinates": {
-            "kind": "existing_reference",
-            "entrance_verified": false
+          "remaining": [],
+          "conditions": [
+            "본점 8개 가격 자료가 500엔과 650엔으로 충돌해 650엔은 확정가가 아닌 예산 참고치.",
+            "공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도."
+          ],
+          "cost_basis": "본점 관광 안내의 8개 650엔을 1인 간식 예산 참고치로 사용. 다른 자료와 차이가 있어 실제 가격 확인.",
+          "profile": {
+            "window": [
+              630,
+              1260,
+              1260
+            ]
           },
-          "planning_policy": null
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "official_linked_map_poi",
+            "source_urls": [
+              "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
+              "https://www.mapple.net/spot/27010533/",
+              "https://chun--blog.com/posts/namba-wanaka/"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 20,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -50711,14 +51225,14 @@
         "address": "大阪府大阪市中央区道頓堀1-6-7",
         "latitude": 34.6688502,
         "longitude": 135.5027323,
-        "opening_hours": "10:30~21:00",
-        "cost": null,
+        "opening_hours": "11:00~21:00 공통 시간 사용. 부정기 휴무 별도 확인.",
+        "cost": 700,
         "stay_min": 20,
         "bag_load": 0,
         "covered": false,
         "website": "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
-        "opening_hours_source": "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514; https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2; https://www.mapple.net/spot/27015656/",
+        "verified_at": "2026-11-24",
         "brand_id": "wanaka",
         "branch_group_id": "wanaka:standard"
       },
@@ -50738,12 +51252,25 @@
           "checked_at": "2026-10-19"
         },
         "opening_hours": {
-          "kind": "dated_branch_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
+            "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
+            "https://www.mapple.net/spot/27015656/"
           ],
-          "checked_at": "2026-10-26",
-          "note": "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.; 검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.; 타코야키 간식 방문. 가격이 과거 보도마다 달라 공식 최신 메뉴 확인 필요; 다른 지점 가격을 복사하지 않음."
+          "checked_at": "2026-11-24",
+          "note": "MBS 2026-06 도톤보리점의 8개 700엔을 참고; 다른 보도의 가격과 달라 확정가가 아님.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.",
+          "previous": {
+            "value": "10:30~21:00",
+            "source": {
+              "kind": "dated_branch_review",
+              "urls": [
+                "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+              ],
+              "checked_at": "2026-10-26",
+              "note": "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.; 검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.; 타코야키 간식 방문. 가격이 과거 보도마다 달라 공식 최신 메뉴 확인 필요; 다른 지점 가격을 복사하지 않음."
+            }
+          }
         },
         "opening_hours_source": {
           "kind": "dated_branch_review",
@@ -50773,12 +51300,25 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "unconfirmed",
+          "kind": "reported_menu_price_reference",
           "urls": [
-            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
+            "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
+            "https://www.mapple.net/spot/27015656/"
           ],
-          "checked_at": "2026-10-26",
-          "note": null
+          "checked_at": "2026-11-24",
+          "note": "2026-06 도톤보리점 방송 자료 8개 700엔을 1인 간식 예산 참고치로 사용. 다른 보도와 차이가 있어 실제 가격 확인.",
+          "previous": {
+            "value": null,
+            "source": {
+              "kind": "unconfirmed",
+              "urls": [
+                "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+              ],
+              "checked_at": "2026-10-26",
+              "note": null
+            }
+          }
         },
         "latitude": {
           "kind": "official_linked_map_poi",
@@ -50797,20 +51337,59 @@
           "note": "공식 지도에 연결된 점포/건물 기준점. 실측 출입구가 아니며, 건물 내부 동선·층 이동은 별도 추정."
         },
         "covered": {
-          "kind": "dated_branch_review",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
+            "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
+            "https://www.mapple.net/spot/27015656/"
           ],
-          "checked_at": "2026-10-26",
-          "note": "mixed_queue_and_indoor"
+          "checked_at": "2026-11-24",
+          "note": "MBS 2026-06 도톤보리점의 8개 700엔을 참고; 다른 보도의 가격과 달라 확정가가 아님.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.",
+          "previous": {
+            "value": false,
+            "source": {
+              "kind": "dated_branch_review",
+              "urls": [
+                "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+              ],
+              "checked_at": "2026-10-26",
+              "note": "mixed_queue_and_indoor"
+            }
+          }
         },
         "stay_min": {
           "kind": "demo_model_estimate",
-          "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+          "urls": [
+            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
+            "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
+            "https://www.mapple.net/spot/27015656/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "MBS 2026-06 도톤보리점의 8개 700엔을 참고; 다른 보도의 가격과 달라 확정가가 아님.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.",
+          "previous": {
+            "value": 20,
+            "source": {
+              "kind": "demo_model_estimate",
+              "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+            }
+          }
         },
         "bag_load": {
-          "kind": "demo_model_estimate",
-          "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
+            "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
+            "https://www.mapple.net/spot/27015656/"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "MBS 2026-06 도톤보리점의 8개 700엔을 참고; 다른 보도의 가격과 달라 확정가가 아님.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.",
+          "previous": {
+            "value": 0,
+            "source": {
+              "kind": "demo_model_estimate",
+              "note": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+            }
+          }
         },
         "brand_id": {
           "kind": "explicit_identity_review",
@@ -50839,27 +51418,24 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
-        "recommendation_blockers": [
-          "current_menu_price_unconfirmed"
-        ],
-        "missing_fields": [
-          "cost"
-        ],
+        "recommendation_blockers": [],
+        "missing_fields": [],
         "notes": [
           "확인 범위 2026-10-26~2026-11-30. 미공고 임시휴무·입장 대기·상품 재고는 보장하지 않음.",
           "검색·희망선택 유지, 남은 사실 확인 전 자동 일정 배치 보류.",
           "타코야키 간식 방문. 가격이 과거 보도마다 달라 공식 최신 메뉴 확인 필요; 다른 지점 가격을 복사하지 않음.",
-          "2026-11-04: 영업시간 확인. 블로그의8개650엔을 공식 최신 지점 가격으로 확정하지 않음."
+          "2026-11-04: 영업시간 확인. 블로그의8개650엔을 공식 최신 지점 가격으로 확정하지 않음.",
+          "2026-11-24: MBS 2026-06 도톤보리점의 8개 700엔을 참고; 다른 보도의 가격과 달라 확정가가 아님.; 공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도."
         ],
         "stay_policy": {
-          "type": "지점별 시연 추정",
-          "representative": 20,
+          "type": "시연 추정",
           "min": 20,
           "max": 20,
-          "method": "쇼핑30분/백화점180분/식당90분은 기존 사용자 체류 범위 상한 재사용. 포장·간식20분은 이번 시연용 추정. 대기열 제외, 실제 소요시간 보장 아님."
+          "representative": 20,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "area_scheme": "tourism_editorial_v1",
         "area_basis": "editorial_demo_grouping_by_verified_branch_location",
@@ -50948,28 +51524,57 @@
           ]
         },
         "dated_verification": {
-          "status": "held",
-          "fields": {},
+          "status": "eligible_for_dated_demo",
           "source_urls": [
-            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+            "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
+            "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
+            "https://www.mapple.net/spot/27015656/"
           ],
-          "conditions": [
-            "영업시간 확인. 블로그의8개650엔을 공식 최신 지점 가격으로 확정하지 않음."
-          ],
-          "profile": null,
-          "cost_basis": "",
-          "cost_kind": "official_menu",
-          "resolved_blockers": [],
-          "remaining": [
+          "fields": {
+            "opening_hours": "11:00~21:00 공통 시간 사용. 부정기 휴무 별도 확인.",
+            "cost": 700,
+            "stay_min": 20,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "reported_menu_price_reference",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "2026-06 도톤보리점 방송 자료 8개 700엔을 1인 간식 예산 참고치로 사용. 다른 보도와 차이가 있어 실제 가격 확인."
+          },
+          "resolved_blockers": [
             "current_menu_price_unconfirmed"
           ],
-          "field_kinds": {},
-          "field_notes": {},
-          "coordinates": {
-            "kind": "existing_reference",
-            "entrance_verified": false
+          "remaining": [],
+          "conditions": [
+            "MBS 2026-06 도톤보리점의 8개 700엔을 참고; 다른 보도의 가격과 달라 확정가가 아님.",
+            "공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도."
+          ],
+          "cost_basis": "2026-06 도톤보리점 방송 자료 8개 700엔을 1인 간식 예산 참고치로 사용. 다른 보도와 차이가 있어 실제 가격 확인.",
+          "profile": {
+            "window": [
+              660,
+              1260,
+              1260
+            ]
           },
-          "planning_policy": null
+          "meal_role": "snack",
+          "cost_kind": "official_budget_estimate",
+          "coordinates": {
+            "kind": "official_linked_map_poi",
+            "source_urls": [
+              "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
+              "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
+              "https://www.mapple.net/spot/27015656/"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 20,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -60513,9 +61118,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-24",
-    "updated": 5,
+    "updated": 12,
     "new_search_only": 0,
-    "promoted": 5,
+    "promoted": 12,
     "date_range": [
       "2026-11-24",
       "2026-11-30"
@@ -60528,5 +61133,18 @@
     "grouped_places": 66,
     "ungrouped_places": 172,
     "scope": "Identity and reviewed display names only. Date eligibility, prices, coordinates and operating facts unchanged."
-  }
+  },
+  "retired_records": [
+    {
+      "place_id": "osaka_draft_20aa5444aadd",
+      "checked_at": "2026-11-24",
+      "reason": "closure_reported_2026",
+      "source_urls": [
+        "https://ameblo.jp/ramania/entry-12971473370.html",
+        "https://ramendays.jp/restaurant/QZKNUPrXcbu5WMBI",
+        "https://toyotune.blog107.fc2.com/?tag=%E9%BB%92%E9%86%A4%E6%B2%B9%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3"
+      ],
+      "note": "복수의 2026년 폐점 보도와 지점별 식당 목록을 근거로 새 서비스 목록에서 제외. 옛 실험 스냅샷은 유지. 다른 목록은 운영상태를 미확인으로 표시."
+    }
+  ]
 }

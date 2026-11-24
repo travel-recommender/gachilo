@@ -25,6 +25,56 @@ def build():
         raise ValueError('Reviewed input changed; reconcile the evidence before publishing')
     catalog, profiles = read(CATALOG), read(PROFILES)
     updates = {
+        'osaka_draft_3b1acd991668':eligible(
+            ['https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/', 'https://travel.yahoo.co.jp/kanko/spot-00017077/', 'https://www.openstreetmap.org/node/3923003857'],
+            {'opening_hours':'월·목~일 10:00~15:00. 화·수는 자료 간 차이로 일정에서 제외.', 'cost':1480,'stay_min':60,'bag_load':0,'covered':True},
+            {'window':[600,900,900], 'closed_weekdays':[2,3]}, ['final_calendar_review_required'],
+            ['동일 주소의 2026년 방문 기록과 다수 자료에서 월·목~일 영업 확인. 수요일 휴무 정보는 자료 간 불일치하여 보수적으로 제외.',
+             '후기에 기재된 중화소바 1,480엔은 현행 확정가가 아닌 예산 참고치. 임시휴무 및 줄 대기는 방문 전 확인.'],
+            '2026년 방문 후기에 나온 중화소바 1,480엔을 예산 참고치로 사용. 당일 가격·세금 별도 확인.', 'visitor_reported_menu_estimate'),
+        'osaka_draft_98a4211ed755':eligible(
+            ['https://suzume-group.co.jp/kirinji/', 'https://blog.weblabo.jp/kirinji-osaka-aburasoba/', 'https://www.openstreetmap.org/node/6349557186'],
+            {'opening_hours':'매일 11:30~16:30, 18:00~22:00. 임시휴무·재료 소진은 별도 확인.', 'cost':800,'stay_min':60,'bag_load':0,'covered':True},
+            {'window':[690,990,990], 'windows':[[690,990,990],[1080,1320,1320]]},
+            ['branch_unconfirmed','final_calendar_review_required'],
+            ['공식 총본점 주소와 기존 OSM 점포 좌표 일치. 공식 및 OSM 공통 영업 구간만 사용.',
+             '2026-09 방문 자료의 기본 아부라소바 800엔은 예산 참고치; 당일 가격과 임시휴무는 별도 확인.'],
+            '2026-09 소개 자료의 아부라소바 800엔을 1인 예산 참고치로 사용. 현재 가격·세금 별도 확인.', 'visitor_reported_menu_estimate'),
+        'osaka_draft_f8831852f028':eligible(
+            ['https://tabelog.com/osaka/A2701/A270307/27040224/', 'https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw', 'https://www.openstreetmap.org/node/7425697907'],
+            {'opening_hours':'화요일 휴무; 월·수~일 영업. 일정에는 점심 11:30~14:00만 사용.', 'cost':1050,'stay_min':60,'bag_load':0,'covered':True},
+            {'window':[690,840,840], 'closed_weekdays':[2]}, ['final_calendar_review_required'],
+            ['동일 주소·영업시간과 2026년 방문 기록 확인. 점심 가격은 지도에 게시된 1,050엔을 예산 참고치로만 사용.',
+             '점심 메뉴 판매 시간·임시휴무 및 세금은 방문 전 확인. 기존 OSM 위치는 입구 실측 아님.'],
+            '지도 게시 점심 세트 1,050엔을 참고한 점심 예산 추정. 당일 메뉴·가격·세금 별도 확인.', 'reported_menu_price_reference'),
+        'osaka_draft_d996a4118ab0':eligible(
+            ['https://www.hotpepper.jp/strJ004612001/', 'https://tsunaguuu.com/gourmet/5525/', 'https://mrs.living.jp/osaka/town_gourmet/reporter/6774243', 'https://www.openstreetmap.org/node/6930081836'],
+            {'opening_hours':'월~토 11:00~14:00 공통 시간만 사용; 일요일·공휴일 제외.', 'cost':1100,'stay_min':60,'bag_load':0,'covered':True},
+            {'window':[660,840,840], 'closed_weekdays':[0], 'closed_holidays':True}, ['final_calendar_review_required'],
+            ['2026년 지역 자료와 업소 안내의 공통 점심 시간만 사용. 실제 점심 메뉴·휴무는 현장 확인.',
+             '2026년 방문 보도의 함박스테이크 1,100엔은 당일 확정 가격이 아닌 예산 참고치.'],
+            '2026년 방문 보도의 함박스테이크 1,100엔을 식사 예산 참고치로 사용. 세금·메뉴·변동 별도 확인.', 'visitor_reported_menu_estimate'),
+        'osaka_draft_f729469c78c5':eligible(
+            ['https://tabelog.com/osaka/A2701/A270101/27061816/', 'https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/', 'https://www.openstreetmap.org/node/3432264291'],
+            {'opening_hours':'월·목~일 12:00~21:00 공통 시간만 사용; 화·수 제외.', 'cost':1800,'stay_min':60,'bag_load':0,'covered':True},
+            {'window':[720,1260,1260], 'closed_weekdays':[2,3]}, ['final_calendar_review_required'],
+            ['업소가 공개한 시간과 다른 자료의 차이를 피하려 화·수는 일정에서 제외.',
+             '방문자가 적은 점심 세트 1,800엔은 참고 예산이며 현재 가격·메뉴·예약·임시휴무는 별도 확인.'],
+            '방문 후기에 나온 점심 세트 1,800엔의 예산 참고치. 가격·세금·실제 메뉴 별도 확인.', 'visitor_reported_menu_estimate'),
+        'branch_wanaka_dotonbori':eligible(
+            ['https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514','https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2','https://www.mapple.net/spot/27015656/'],
+            {'opening_hours':'11:00~21:00 공통 시간 사용. 부정기 휴무 별도 확인.', 'cost':700,'stay_min':20,'bag_load':0,'covered':False},
+            {'window':[660,1260,1260]}, ['current_menu_price_unconfirmed'],
+            ['MBS 2026-06 도톤보리점의 8개 700엔을 참고; 다른 보도의 가격과 달라 확정가가 아님.',
+             '공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.'],
+            '2026-06 도톤보리점 방송 자료 8개 700엔을 1인 간식 예산 참고치로 사용. 다른 보도와 차이가 있어 실제 가격 확인.', 'reported_menu_price_reference',role='snack',coordinate='official_linked_map_poi'),
+        'branch_wanaka_sennichimae':eligible(
+            ['https://takoyaki-wanaka.com/tenpo-sennichimae.html','https://www.mapple.net/spot/27010533/','https://chun--blog.com/posts/namba-wanaka/'],
+            {'opening_hours':'10:30~21:00 공통 시간 사용. 임시휴무 별도 확인.', 'cost':650,'stay_min':20,'bag_load':0,'covered':False},
+            {'window':[630,1260,1260]}, ['current_menu_price_unconfirmed'],
+            ['본점 8개 가격 자료가 500엔과 650엔으로 충돌해 650엔은 확정가가 아닌 예산 참고치.',
+             '공식 지도 점포 기준점은 실측 출입구가 아님. 포장 간식이며 대기시간 별도.'],
+            '본점 관광 안내의 8개 650엔을 1인 간식 예산 참고치로 사용. 다른 자료와 차이가 있어 실제 가격 확인.', 'reported_menu_price_reference',role='snack',coordinate='official_linked_map_poi'),
         'osaka_draft_1cdebcaa6534':eligible(
             ['https://www.unchi-co.com/jinrui_renewal/', 'https://www.jinrui-minamenrui.com/access/',
              'https://tabelog.com/osaka/A2701/A270301/27064584/', 'https://www.openstreetmap.org/node/6423399288'],
@@ -92,6 +142,21 @@ def build():
     evidence={'checked_at':'2026-11-24','valid_from':'2026-11-24','valid_through':'2026-11-30',
               'updates':updates,'additions':[]}
     catalog, profiles = apply(catalog, profiles, evidence)
+    # Published 2026 reports and a restaurant directory identify this exact
+    # branch as closed. Remove only from the new snapshot, keeping history.
+    closed_id = 'osaka_draft_20aa5444aadd'
+    before = len(catalog['places'])
+    catalog['places'] = [r for r in catalog['places'] if r['place']['place_id'] != closed_id]
+    if len(catalog['places']) != before - 1:
+        raise ValueError('Closed branch identity changed; review before removing')
+    profiles['places'].pop(closed_id, None)
+    catalog.get('area_schemes_by_place_id', {}).pop(closed_id, None)
+    catalog.setdefault('retired_records', []).append({
+        'place_id':closed_id, 'checked_at':'2026-11-24', 'reason':'closure_reported_2026',
+        'source_urls':['https://ameblo.jp/ramania/entry-12971473370.html',
+                       'https://ramendays.jp/restaurant/QZKNUPrXcbu5WMBI',
+                       'https://toyotune.blog107.fc2.com/?tag=%E9%BB%92%E9%86%A4%E6%B2%B9%E3%83%A9%E3%83%BC%E3%83%A1%E3%83%B3'],
+        'note':'복수의 2026년 폐점 보도와 지점별 식당 목록을 근거로 새 서비스 목록에서 제외. 옛 실험 스냅샷은 유지. 다른 목록은 운영상태를 미확인으로 표시.'})
     ramen=next(r for r in catalog['places'] if r['place']['place_id']=='osaka_draft_1cdebcaa6534')
     collection=ramen['review'].setdefault('branch_collection',{})
     collection['aliases']='|'.join(filter(None,[collection.get('aliases',''),'라멘|라면|라멘집|ramen|らーめん']))

@@ -1923,37 +1923,36 @@
       "cost_basis": "공식 그랜드프런트 안내 평균예산 점심1,500/저녁2,500엔 중 높은2,500엔을 시연 예산에 사용. 확정 메뉴 가격 아님."
     },
     "branch_wanaka_sennichimae": {
-      "valid_from": "2026-10-26",
-      "valid_through": "2026-11-30",
       "window": [
-        570,
-        1260,
-        1260
-      ],
-      "source_urls": [
-        "https://takoyaki-wanaka.com/tenpo-sennichimae.html"
-      ],
-      "exceptions": {},
-      "weekday_window": [
         630,
         1260,
         1260
       ],
-      "cost_basis": null
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://takoyaki-wanaka.com/tenpo-sennichimae.html",
+        "https://www.mapple.net/spot/27010533/",
+        "https://chun--blog.com/posts/namba-wanaka/"
+      ],
+      "cost_basis": "본점 관광 안내의 8개 650엔을 1인 간식 예산 참고치로 사용. 다른 자료와 차이가 있어 실제 가격 확인."
     },
     "branch_wanaka_dotonbori": {
-      "valid_from": "2026-10-26",
-      "valid_through": "2026-11-30",
       "window": [
-        630,
+        660,
         1260,
         1260
       ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514"
+        "https://www.takoyaki-wanaka.com/tenpo-dotonbori.html?250514",
+        "https://mahou-contents.mbs.jp/shops/35b1ba44-6731-454b-a111-d2f0e80894e2",
+        "https://www.mapple.net/spot/27015656/"
       ],
-      "exceptions": {},
-      "cost_basis": null
+      "cost_basis": "2026-06 도톤보리점 방송 자료 8개 700엔을 1인 간식 예산 참고치로 사용. 다른 보도와 차이가 있어 실제 가격 확인."
     },
     "branch_komeda_namba_sennichimae": {
       "window": [
@@ -2533,6 +2532,114 @@
       "checked_at": "2026-11-23",
       "cost_basis": "상품·가챠 이용료는 개인 구매액으로 일정 예산에서 제외. 무료라는 뜻이 아님.",
       "window_basis": "official_regular_hours_with_event_period_context"
+    },
+    "osaka_draft_3b1acd991668": {
+      "window": [
+        600,
+        900,
+        900
+      ],
+      "closed_weekdays": [
+        2,
+        3
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://retty.me/area/PRE27/ARE94/SUB9404/100000020105/",
+        "https://travel.yahoo.co.jp/kanko/spot-00017077/",
+        "https://www.openstreetmap.org/node/3923003857"
+      ],
+      "cost_basis": "2026년 방문 후기에 나온 중화소바 1,480엔을 예산 참고치로 사용. 당일 가격·세금 별도 확인."
+    },
+    "osaka_draft_98a4211ed755": {
+      "window": [
+        690,
+        990,
+        990
+      ],
+      "windows": [
+        [
+          690,
+          990,
+          990
+        ],
+        [
+          1080,
+          1320,
+          1320
+        ]
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://suzume-group.co.jp/kirinji/",
+        "https://blog.weblabo.jp/kirinji-osaka-aburasoba/",
+        "https://www.openstreetmap.org/node/6349557186"
+      ],
+      "cost_basis": "2026-09 소개 자료의 아부라소바 800엔을 1인 예산 참고치로 사용. 현재 가격·세금 별도 확인."
+    },
+    "osaka_draft_f8831852f028": {
+      "window": [
+        690,
+        840,
+        840
+      ],
+      "closed_weekdays": [
+        2
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://tabelog.com/osaka/A2701/A270307/27040224/",
+        "https://map.yahoo.co.jp/v3/place/FYTBNJwaTtw",
+        "https://www.openstreetmap.org/node/7425697907"
+      ],
+      "cost_basis": "지도 게시 점심 세트 1,050엔을 참고한 점심 예산 추정. 당일 메뉴·가격·세금 별도 확인."
+    },
+    "osaka_draft_d996a4118ab0": {
+      "window": [
+        660,
+        840,
+        840
+      ],
+      "closed_weekdays": [
+        0
+      ],
+      "closed_holidays": true,
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.hotpepper.jp/strJ004612001/",
+        "https://tsunaguuu.com/gourmet/5525/",
+        "https://mrs.living.jp/osaka/town_gourmet/reporter/6774243",
+        "https://www.openstreetmap.org/node/6930081836"
+      ],
+      "cost_basis": "2026년 방문 보도의 함박스테이크 1,100엔을 식사 예산 참고치로 사용. 세금·메뉴·변동 별도 확인."
+    },
+    "osaka_draft_f729469c78c5": {
+      "window": [
+        720,
+        1260,
+        1260
+      ],
+      "closed_weekdays": [
+        2,
+        3
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://tabelog.com/osaka/A2701/A270101/27061816/",
+        "https://retty.me/area/PRE27/ARE89/SUB8907/100000697442/",
+        "https://www.openstreetmap.org/node/3432264291"
+      ],
+      "cost_basis": "방문 후기에 나온 점심 세트 1,800엔의 예산 참고치. 가격·세금·실제 메뉴 별도 확인."
     },
     "osaka_draft_1cdebcaa6534": {
       "window": [

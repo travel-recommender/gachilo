@@ -8,7 +8,7 @@ class RuntimeCatalogTests(unittest.TestCase):
         with patch.dict('os.environ',{'REAL_CATALOG_PATH':'','REAL_PROFILES_PATH':''}):
             paths=runtime_paths()
         self.assertEqual(paths,(DATA,PROFILES))
-        self.assertEqual(catalog()['total'],240)
+        self.assertEqual(catalog()['total'],239)
         self.assertNotIn('osm_node_2546559085',{p['place_id'] for p in catalog(query='도톤보리 본관')['places']})
         for query in ('가챠','가차','타코야키','타코야끼','치이카와'):
             self.assertGreater(catalog(query=query)['total'],0,query)
