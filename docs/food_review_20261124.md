@@ -8,6 +8,7 @@
 | 모리모리 스시 이온몰 오사카돔점 | 선택 가능, 통상 개점 10시→11시 정정 | [쇼핑몰 지점](https://www.aeon.jp/sc/osakadomecity/shop/store/food-185.html)의 11~21시·최종입점 20시. [점포 공개 메뉴](https://tabelog.com/osaka/A2701/A270401/27073333/dtlmenu/)의 2025-12-30 오마카세 11종 2,120엔은 현재 확정 가격이 아닌 예산 참고치. |
 | 카사블랑카 난바 리버사이드 | 아침 메뉴 시간에 선택 가능 | [점포](https://www.casablanca-osaka.jp/)와 [점포 공개 메뉴](https://casablancanamba.owst.jp/): 아보카도 비건 베이글 1,600엔, 아침 7~12시. |
 | 리쿠로 오지상 다이마루 우메다점 | 포장 간식으로 선택 가능 | [공식 지점](https://www.rikuro.co.jp/shoplist/136.html)은 백화점 B1F, [가격 보도](https://www.nack5.co.jp/oricon/2494475/)는 11/24부터 케이크 1개 1,165엔. 1인 1개 가정이며 함께 나누면 실제 개인 부담은 달라짐. 백화점 건물 기준 좌표를 사용해 입구·층 이동 미확인. 갓 구운 제품 재개는 11/24 예정으로 [공지](https://www.daimaru.co.jp/umedamise/topics/260915rikuro.html)됨. |
+| 진루이 미나 멘루이 | 라멘 검색·선택 가능 | [운영사](https://www.unchi-co.com/jinrui_renewal/)와 [기존 안내](https://www.jinrui-minamenrui.com/access/)의 공통 범위인 11~23시를 사용. [11/14 방문 후기](https://tabelog.com/osaka/A2701/A270301/27064584/)의 1,060엔은 세금·현재 가격 미확인 예산 참고치. 11/21~26 한정 메뉴는 추가비용 가능. |
 | 비나인 | 선택 보류 유지, 영구 폐업 표기는 정정 | [점포 공지](https://bee9-osaka.com/)의 2026-04-25부터 무기한 휴업. 폐업 확정이 아니므로 이력 보존. |
 | 기린지 오사카 총본점 | 가격 재확인 전 보류 | [운영사](https://suzume-group.co.jp/kirinji/) 11:00~16:30, 18:00~22:00. 제3자 가격 780엔·800엔이 달라 최신 세금 포함 금액 확인 필요. |
 | 와나카 도톤보리점·센니치마에 본점 | 가격 재확인 전 보류 | 도톤보리의 [안내](https://www.mapple.net/spot/27015656/)는 650엔, 2026-10 [방문 기록](https://map.yahoo.co.jp/v3/place/wa0-BmQ2zv2/review)은 700엔. 지점별 최신 가격을 확정하지 않음. |

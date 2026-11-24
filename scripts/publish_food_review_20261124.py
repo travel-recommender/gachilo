@@ -25,6 +25,18 @@ def build():
         raise ValueError('Reviewed input changed; reconcile the evidence before publishing')
     catalog, profiles = read(CATALOG), read(PROFILES)
     updates = {
+        'osaka_draft_1cdebcaa6534':eligible(
+            ['https://www.unchi-co.com/jinrui_renewal/', 'https://www.jinrui-minamenrui.com/access/',
+             'https://tabelog.com/osaka/A2701/A270301/27064584/', 'https://www.openstreetmap.org/node/6423399288'],
+            {'opening_hours':'월~일 정규 영업 안내에서 공통으로 확인된 11:00~23:00만 일정에 사용. 재료 소진 시 조기 마감.',
+             'cost':1060,'stay_min':60,'bag_load':0,'covered':True},
+            {'window':[660,1380,1320]}, ['final_calendar_review_required'],
+            ['공식 안내 둘의 공통 영업 범위만 사용. 실제 영업·재료 소진·리뉴얼 공지는 방문 전 확인.',
+             '2026-11-14 실제 방문 후기의 macro 얇은 차슈 1,060엔은 메뉴별 확정 가격이 아닌 예산 참고치.',
+             '2026-11-21~26 기간 한정 메뉴는 추가 요금이 있을 수 있음. 실제 주문·가격은 별도 확인.',
+             '기존 OSM 점포 기준 좌표는 출입구 실측 아님. 체류 60분은 줄 대기 제외 추정.'],
+            '2026-11-14 방문 후기에 나온 macro 얇은 차슈 1,060엔을 예산 참고. 세금 포함 여부·현재 가격과 한정 메뉴 추가비용 확인 필요.',
+            'visitor_reported_menu_estimate'),
         'branch_rikuro_daimaru_umeda':eligible(
             ['https://www.rikuro.co.jp/shoplist/136.html',
              'https://www.daimaru.co.jp/umedamise/topics/260915rikuro.html',
@@ -80,6 +92,9 @@ def build():
     evidence={'checked_at':'2026-11-24','valid_from':'2026-11-24','valid_through':'2026-11-30',
               'updates':updates,'additions':[]}
     catalog, profiles = apply(catalog, profiles, evidence)
+    ramen=next(r for r in catalog['places'] if r['place']['place_id']=='osaka_draft_1cdebcaa6534')
+    collection=ramen['review'].setdefault('branch_collection',{})
+    collection['aliases']='|'.join(filter(None,[collection.get('aliases',''),'라멘|라면|라멘집|ramen|らーめん']))
     bee=next(r for r in catalog['places'] if r['place']['place_id']=='osaka_draft_94d63b518da4')
     bee['review']['recommendation_blockers']=[b for b in bee['review']['recommendation_blockers']
         if b != 'google_maps_permanently_closed'] + ['official_indefinite_closure']

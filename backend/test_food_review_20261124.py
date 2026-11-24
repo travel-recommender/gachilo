@@ -15,6 +15,7 @@ class FoodReviewApiTests(unittest.TestCase):
         self.assertEqual(cake['cost_status'],'estimate')
         self.assertEqual(cake['coordinate_basis'],'reviewed_building_reference_not_entrance')
         self.assertIn('1개',cake['cost_basis'])
+        self.assertIn('osaka_draft_1cdebcaa6534',{p['place_id'] for p in catalog(query='라멘',rate=Decimal('9.5'),limit=240)['places']})
 
     def test_indefinite_closure_is_not_claimed_permanent(self):
         item=next(p for p in catalog(query='비나인')['places'] if p['name_ko']=='비나인')
