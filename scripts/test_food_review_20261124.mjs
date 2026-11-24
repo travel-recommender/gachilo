@@ -61,6 +61,16 @@ test('USJ retains old dates, blocks unreviewed gaps, and checks new dated estima
  assert.match(record(id).review.dated_verification.cost_basis,/보도/);
 });
 
+test('aquarium estimate applies only to the corroborated visit date',()=>{
+ const id='branch_kaiyukan';
+ assert.equal(check(id,'2026-11-25').eligible_for_model,true);
+ assert.deepEqual(check(id,'2026-11-25').window,[630,1200,1140]);
+ assert.equal(check(id,'2026-11-25').cost_jpy,2800);
+ assert.equal(check(id,'2026-11-24').eligible_for_model,false);
+ assert.equal(check(id,'2026-11-26').eligible_for_model,false);
+ assert.match(record(id).review.dated_verification.conditions.join(' '),/시간 지정/);
+});
+
 test('reviewed meals use correct opening dates and stay blocked outside review',()=>{
  assert.equal(check(bistro,'2026-11-25').eligible_for_model,true);
  assert.equal(check(bistro,'2026-11-28').eligible_for_model,false);
@@ -134,7 +144,7 @@ test('each reviewed meal can be scheduled through all three strategies',async()=
    'osaka_draft_3d97f36846d0','branch_viedefrance_bentencho',
    'osaka_draft_35640888fa49','osm_node_2296903605','osm_node_9875632529','osaka_draft_c85fa26beb80','spot_ebisubashi',
    'osaka_draft_e5eb4dd70807','osaka_draft_d52fee5c2304','osaka_draft_b0a5c9b0d460',
-   'osaka_draft_5a3ef73c2b4b','osaka_013','branch_usj']){
+   'osaka_draft_5a3ef73c2b4b','osaka_013','branch_usj','branch_kaiyukan']){
   const request={startDate:'2026-11-25',endDate:'2026-11-25',exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
    submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,
      budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};

@@ -348,6 +348,25 @@ def build():
              '공개 지도 정문 근처 기준 좌표는 실제 입구 실측이 아니며 480분 체류는 팀 시연 추정.'],
             '11/17~19 성인 9,900엔은 과거 공식 확인값; 11/25~26 9,400엔은 복수 보도의 참고치. 현재 판매가·매진 확인 필요.',
             'reported_dated_ticket_estimate',role=None),
+        'branch_kaiyukan': eligible(
+            ['https://www.kaiyukan.com/info/faq/',
+             'https://www.kaiyukan.com/info/access/',
+             'https://www.kaiyukan.com/info/hours/',
+             'https://jptripcard.com/osaka/kaiyukan/',
+             'https://asobimiru.com/kaiyukan/'],
+            {'latitude':34.654518,'longitude':135.428964,
+             'opening_hours':'11/25 10:30~20:00, 최종입장 19:00은 외부 일정 자료 대조값. 시간 지정 입장권·당일 잔여 확인 필요.',
+             'cost':2800,'stay_min':120,'bag_load':0,'covered':True},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[630,1200,1140]},
+            ['branch_collection_review_required','entrance_coordinates_unconfirmed','stay_policy_unconfirmed',
+             'covered_unconfirmed','bag_load_unconfirmed','structured_date_profile_missing',
+             'area_scheme_unconfirmed','category_contract_review_required','dated_ticket_and_reservation_required'],
+            ['11/25 10:30~20:00, 성인 2,800엔은 두 외부 일정 자료가 일치한 참고값이며 공식 동적 달력을 직접 읽지 못해 구매 전 재확인 필요.',
+             '공식 안내상 사전 예약 없이도 당일 시간 지정 입장권을 살 수 있지만 희망 시간 매진·대기 가능. 입장 시간은 티켓에 맞춰 직접 확정해야 함.',
+             '공식 접근 지도에 연결된 기존 시설 기준 좌표. 실제 출입구·계단·대기열은 현장 실측하지 않음.',
+             '실내 전시 120분·짐 0은 일정 추정이며 접근로·야외 대기·실제 소요와 짐 보관 허용을 보장하지 않음.'],
+            '11/25 성인 2,800엔은 외부 일정 자료 두 곳의 참고값. 실제 입장료·티켓 잔여 재확인.',
+            'reported_dated_ticket_estimate',role=None,coordinate='map_listing_reference_not_entrance'),
     })
     updates['spot_ebisubashi']['cost_kind'] = 'official_free_admission'
     updates['spot_ebisubashi']['field_kinds']['cost'] = 'dated_official_review'

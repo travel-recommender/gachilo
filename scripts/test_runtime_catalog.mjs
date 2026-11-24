@@ -14,12 +14,14 @@ test('service and historical audit inputs stay separate without local path setti
       assert.ok(runtime.dataset.places.some(r=>r.place.place_id===id));
       assert.ok(runtime.profiles.places[id]);
     }
-    for(const id of ['branch_starbucks_ebisubashi','branch_kaiyukan']) {
+    for(const id of ['branch_starbucks_ebisubashi']) {
       const place=runtime.dataset.places.find(r=>r.place.place_id===id);
       assert.ok(place);
       assert.equal(place.review.schedule_ready,false);
       assert.equal(runtime.profiles.places[id],undefined);
     }
+    assert.equal(runtime.profiles.places.branch_kaiyukan.valid_from,'2026-11-25');
+    assert.equal(runtime.profiles.places.branch_kaiyukan.valid_through,'2026-11-25');
     assert.ok(runtime.profiles.places.branch_sushiro_namba_amza);
     assert.equal(runtime.profiles.places.branch_usj.valid_from,'2026-11-17');
     assert.equal(runtime.profiles.places.branch_usj.valid_through,'2026-11-26');

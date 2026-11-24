@@ -8,4 +8,4 @@
 | 가이유칸 (`branch_kaiyukan`) | [오사카 수족관 안내](https://www.japan.travel/ko/spot/1113/)를 장소 식별에 사용한다. | [공식 단체 예약 달력](https://www.kaiyukan.com/assets/pdf/info/group/2026businessCalendar_JP.pdf)은 11월 24~30일 단체 예약을 종일 받을 수 있다고 표시한다. 단체 예약 가능 표시가 개인 입장권의 잔여 좌석이나 가격·시간을 보장하지는 않는다. [시설 시간 안내](https://www.kaiyukan.com/info/hours/) 및 [입장료 안내](https://www.kaiyukan.com/info/ticket/kaiyukan/)를 방문일에 확인해야 하며, 좌표·날짜별 조건을 완전히 확정하기 전까지 보류한다. |
 | 닛폰바시 덴덴타운 (`spot_nippombashi_denden`) | [JNTO 안내](https://www.japan.travel/ko/spot/1105/)는 단일 건물이 아닌 사카이스지와 주변 골목의 상점 구역으로 소개한다. | [상점가 공식 지도](https://www.nippombashi.jp/images/pdfs/japanese_shopmap_20260820_upd.pdf)도 복수 거리를 포함한다. 한 매장의 주소나 운영시간을 지역 전체의 운영시간으로 쓰지 않으며, 대표 좌표와 산책 범위·체류 계획을 정하기 전 보류한다. |
 
-상기 세 장소는 이번 교차 확인만으로 추천 가능 상태를 바꾸지 않았다. 임시휴무·행사·매진 여부는 별도로 갱신해야 한다.
+위 JNTO 교차 확인 자체는 추천 가능 상태를 바꾸지 않았다. 이후 가이유칸의 11/25 제한 프로필을 별도 자료와 공식 FAQ로 검토해 추가했으며, 가격·시간은 공식 동적 달력을 직접 확인하지 못한 참고값이고 시간 지정 티켓 구매·잔여 확인이 필요하다. `remaining_places_review_20261124.md` 참조. 임시휴무·행사·매진 여부는 별도로 갱신해야 한다.

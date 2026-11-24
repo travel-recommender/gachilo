@@ -3025,6 +3025,24 @@
         "https://www.openstreetmap.org/way/343837388"
       ],
       "cost_basis": "특정 4층 전시의 성인 일반 당일권 2,300엔(세금 포함). 할인·다른 전시는 별도."
+    },
+    "branch_kaiyukan": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        630,
+        1200,
+        1140
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.kaiyukan.com/info/faq/",
+        "https://www.kaiyukan.com/info/access/",
+        "https://www.kaiyukan.com/info/hours/",
+        "https://jptripcard.com/osaka/kaiyukan/",
+        "https://asobimiru.com/kaiyukan/"
+      ],
+      "cost_basis": "11/25 성인 2,800엔은 외부 일정 자료 두 곳의 참고값. 실제 입장료·티켓 잔여 재확인."
     }
   }
 }
