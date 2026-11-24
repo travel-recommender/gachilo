@@ -1,7 +1,7 @@
 {
-  "version": "2026-11-24-food-review-v1",
-  "catalog": "final/osaka_catalog_food_20261124.json",
-  "profiles": "final/osaka_profiles_food_20261124.json",
+  "version": "2026-11-24-remaining-review-v1",
+  "catalog": "final/osaka_catalog_remaining_20261124.json",
+  "profiles": "final/osaka_profiles_remaining_20261124.json",
   "searchable_count": 239,
   "new_branch_count": 82,
   "new_branch_dated_eligible_count": 61,
