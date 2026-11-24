@@ -207,11 +207,14 @@ test('the 225-place runtime catalogue keeps a split-hours restaurant when Google
   const {candidates} = await calculateRealCandidates(r, runtime, runtimeProfiles, {baseUrl: ''}, {liveCheck, choose: null,
     precheckOptions: {key: 'test', fetchImpl: async (_url, init) => {
       const input = JSON.parse(JSON.parse(init.body).messages[1].content);
-      const checks = input.rows.map(r => r.dataReady && r.liveConfirmed && r.costKrw <= input.budgetKrw
-        && r.windows.some(([o, c, l]) => o <= l && o + r.stayMin <= c));
+      const checks = input.rows.map(r => r.dataReady && r.livePassed);
       return {ok: true, json: async () => ({choices: [{message: {content: JSON.stringify({checks})}}]})};
     }}});
-  for (const c of candidates) assert.ok(c.days[0].placeIds.includes(id), c.strategy);
+  for (const c of candidates) {
+    assert.ok(c.days[0].placeIds.includes(id), c.strategy);
+    assert.equal(c.planning.ai_precheck.source, 'somsom');
+    assert.equal(c.planning.ai_precheck.status, 'matched');
+  }
 });
 
 // 리뷰 #63 2차 P2: 예산·걸음 때문에 비는 날도 보충한다

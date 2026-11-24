@@ -56,6 +56,45 @@ test('missing key, network error, timeout, oversized input and mocks are truthfu
  assert.equal((await precheckPlaces(mock,{fetchImpl:()=>assert.fail('no paid call')})).audit.source,'mock');
 });
 
+test('AI_MOCK with a real live source skips the AI request and records the existing fallback',async()=>{
+ const previous=process.env.AI_MOCK;
+ process.env.AI_MOCK='1';
+ try {
+  const out=await precheckPlaces(context(),{key:'test',fetchImpl:()=>assert.fail('no paid call')});
+  assert.equal(out.audit.source,'rule');
+  assert.equal(out.audit.status,'fallback');
+  assert.equal(out.audit.reason_code,'unavailable');
+ } finally {
+  if(previous===undefined) delete process.env.AI_MOCK; else process.env.AI_MOCK=previous;
+ }
+});
+
+test('routing preparation overlaps precheck but scheduling waits for precheck', {timeout:5000}, async()=>{
+ const events=[];
+ let release;
+ const gate=new Promise(resolve=>{release=resolve;});
+ const request={startDate:dates[0],endDate:dates[0],exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-09-30'},
+  submissions:['a','b'].map(memberId=>({memberId,longlist:ids,picks:ids,must:ids[0],veto:null,
+   budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};
+ const result=await calculateRealCandidates(request,dataset,profiles,{baseUrl:'http://routing.invalid',
+  fetchImpl:async()=>{events.push('routing');release();return {ok:false};}}, {
+  liveCheck:async reqs=>({source:'google_places',checked_on:'2026-10-01',fetched:0,reused:0,
+   verdicts:new Map(reqs.map(r=>[`${r.record.place.place_id}|${r.date}`,[]]))}),
+  precheckOptions:{key:'k',fetchImpl:async(_url,init)=>{
+   events.push('precheck-start');
+   const input=JSON.parse(JSON.parse(init.body).messages[1].content);
+   await gate;
+   events.push('precheck-end');
+   return response(input.rows.map(r=>r.dataReady&&r.livePassed));
+  }},
+  choose:async pool=>{events.push('fill');return {source:'rule_added',picks:pool.map(c=>({id:c.id,reasonCode:'budget_fits'}))};},
+ });
+ assert.ok(events.indexOf('precheck-start')<events.indexOf('routing'));
+ assert.ok(events.indexOf('routing')<events.indexOf('precheck-end'));
+ assert.ok(events.indexOf('fill')>events.indexOf('precheck-end'));
+ assert.equal(result.candidates[0].planning.ai_precheck.status,'matched');
+});
+
 test('precheck runs after live lookup and before AI fill, without changing A/B/C across success, failure, or disagreement',async()=>{
  const events=[];
  const request={startDate:dates[0],endDate:dates[1],exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-09-30'},
