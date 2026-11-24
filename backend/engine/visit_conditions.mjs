@@ -75,6 +75,14 @@ export function conditionOf(record, date, profiles, live) {
     if (s === 'closed') status = 'closed';
     else if (s === 'check' && status === 'confirmed') status = 'check';
   };
+  if (check.date_needs_confirmation) {
+    notices.push({code:'regular_reference_unverified', source:'review', text:'일반 운영 정보를 사용한 가안이에요. 선택한 날짜의 휴무·변경·예약 가능 여부는 확인되지 않았어요.'});
+    worse('check');
+  }
+  if (check.reservation_required) {
+    notices.push({code: 'entry_time_reservation_required', source: 'review', text: '입장 시간 예약이 필요해요. 일정은 가안이며 예약 가능 여부와 시간을 직접 확인해 주세요.'});
+    worse('check');
+  }
   const known = check.reasons.filter(r => REVIEW_NOTICES[r]);
   for (const code of known) {
     notices.push({code, source: 'review', text: REVIEW_NOTICES[code].text});

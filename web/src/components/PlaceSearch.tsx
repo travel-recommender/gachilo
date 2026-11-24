@@ -149,6 +149,8 @@ export function PlaceRow({ place: p, picked, vetoed, isMust, disabled, votes, on
                 <span className="chip bg-surface text-ink-500">{votes}명이 올림</span>
               )}
             </div>
+            {p.visitNotice && <p className="mt-1 text-[12px] text-wine">{p.visitNotice}</p>}
+            {p.reservationNotice && <p className="mt-1 text-[12px] font-bold text-wine">{p.reservationNotice}</p>}
             <p className="mt-1 text-[11.5px] leading-relaxed text-ink-500">{p.blurb}</p>
             {p.selectionDisabledReason && <p className="mt-1 text-[12px] font-medium leading-relaxed text-coral-600">{p.selectionDisabledReason}</p>}
           </div>

@@ -30,3 +30,14 @@ class FoodReviewApiTests(unittest.TestCase):
             self.assertEqual(item['cost_status'],'estimate',name)
             self.assertIsNone(item['selection_disabled_reason'],name)
             self.assertTrue(item['cost_basis'],name)
+
+    def test_reservation_and_outdoor_warnings_are_visible_in_search(self):
+        tower=next(p for p in catalog(query='쓰텐카쿠')['places'] if p['place_id']=='osaka_002')
+        self.assertIn('직접 예약',tower['reservation_notice'])
+        self.assertIn('예약', ' '.join(tower['visit_conditions']))
+        museum=next(p for p in catalog(query='보온병 기념관')['places'] if p['place_id']=='osaka_draft_50b7a6cc608f')
+        self.assertIn('예약',museum['reservation_notice'])
+        self.assertIn('final_calendar_review_required',museum['planning']['review_required'])
+        self.assertNotIn('예약 완료를 입력받기 전에는 자동 배정 보류', ' '.join(tower['visit_conditions']))
+        park=next(p for p in catalog(query='게마 공원')['places'] if p['place_id']=='osaka_draft_03cde684bd96')
+        self.assertIn('선택한 날짜',park['visit_notice'])

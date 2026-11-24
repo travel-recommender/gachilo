@@ -1,14 +1,15 @@
 # 11월 25일 장소별 적격 검사 — 2026-11-24
 
-서비스 목록 239곳(제외 9곳 포함) 중 230곳을 검사해 185곳이 저장된 데이터 기준으로 해당 날짜 일정 조건을 통과했다. 아래 45곳은 통과하지 못했다.
+서비스 목록 239곳(제외 9곳 포함) 중 230곳을 검사해 186곳이 저장된 데이터 기준으로 해당 날짜 일정 조건을 통과했다. 아래 44곳은 통과하지 못했다.
+
+11월 25일은 사용자 여행 날짜를 고정하는 값이 아니라 점검 예시다. 11월 24일에 검토한 공공 산책 장소 8곳은 다른 날짜에도 참고 정보로 선택할 수 있지만 행사·통제는 확인되지 않았다. 쓰텐카쿠는 예약 필요 안내를 보여주고 가안으로 배치하며 실제 예약을 하지 않는다.
 
 이 결과는 저장된 조건을 대조한 것으로 실시간 영업·예약을 보장하지 않는다. 장소별 확인 근거와 수정 사항은 `remaining_places_review_20261124.md` 및 기존 식당·카페 검토 기록을 참고한다. 날짜와 실행한 코드 버전에 따라 달라질 수 있다.
 
 ## 날짜별 보류 목록
 
-### 명소 (3곳)
+### 명소 (2곳)
 
-- **쓰텐카쿠** — 입장 시간 예약 확인 필요 (`osaka_002`; entry_time_reservation_required)
 - **오에이피 항구** — 임시 운영 중단 표시, 운영시간 미확인, 비용 확인 필요 (`osaka_draft_bdd1ec5175d0`; google_maps_temporarily_closed, final_record_review_required, opening_hours_missing, cost_unknown_or_not_applicable, structured_date_profile_missing)
 - **수상버스 타는곳** — 지점 확인 필요, 비용 확인 필요 (`osm_way_303446421`; branch_unconfirmed, final_record_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
 

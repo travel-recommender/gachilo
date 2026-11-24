@@ -125,10 +125,12 @@ test('spa uses an explicitly estimated budget; irregular cafe remains blocked',(
  assert.match(record(cafe).place.opening_hours,/09:00~18:30/);
 });
 
-test('public walks stay scoped to the reviewed date and free outdoor areas',()=>{
+test('public walks use explicitly unconfirmed regular references outside reviewed day',()=>{
  for(const id of ['osaka_draft_03cde684bd96','osaka_draft_0cc625078422','osaka_draft_391fae83b26c','spot_nippombashi_denden','osaka_draft_2780be08a88e','osaka_draft_006a0c207d8c']){
   assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
-  assert.equal(check(id,'2026-11-26').eligible_for_model,false,id);
+  assert.equal(check(id,'2026-11-26').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-12-02').date_needs_confirmation,true,id);
+  assert.equal(check(id,'2026-11-23').eligible_for_model,false,id);
   assert.equal(record(id).place.covered,false,id);
  }
  assert.equal(check('osaka_draft_03cde684bd96','2026-11-25').cost_jpy,0);
@@ -175,14 +177,55 @@ test('tea shop uses official tea price',()=>{
  assert.equal(record(id).review.meal_role,'snack');
 });
 
-test('newly reviewed garden, park and cafe have date-limited profiles',()=>{
- for(const id of ['osaka_draft_f852e8e07cf8','osaka_draft_0cf4fe2e0afe','osaka_draft_32974d974e62']){
+test('garden and park use regular references, cafe remains date-limited',()=>{
+ for(const id of ['osaka_draft_f852e8e07cf8','osaka_draft_0cf4fe2e0afe']){
   assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
-  assert.equal(check(id,'2026-11-26').eligible_for_model,false,id);
+  assert.equal(check(id,'2026-11-26').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-12-02').date_needs_confirmation,true,id);
  }
+ assert.equal(check('osaka_draft_32974d974e62','2026-11-26').eligible_for_model,false);
  assert.equal(check('osaka_draft_32974d974e62','2026-11-25').cost_jpy,495);
  assert.equal(record('osaka_draft_32974d974e62').review.meal_role,'snack');
  assert.deepEqual(check('osaka_draft_32974d974e62','2026-11-25').window,[900,1260,1200]);
+});
+
+test('user-selected future date uses outdoor reference with an explicit warning, not a confirmed opening',async()=>{
+ const id='osaka_draft_03cde684bd96', date='2027-02-10';
+ const c=check(id,date);assert.equal(c.eligible_for_model,true);assert.equal(c.date_needs_confirmation,true);
+ const {conditionOf}=await import('../backend/engine/visit_conditions.mjs');
+ const notice=conditionOf(record(id),date,profiles,[]);
+ assert.equal(notice.status,'check');assert.ok(notice.notices.some(n=>n.code==='regular_reference_unverified'));
+ const request={startDate:date,endDate:date,exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
+  submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};
+ const result=await calculateRealCandidates(request,dataset,profiles,{baseUrl:''},{liveCheck:mockLiveCheck('pass'),choose:null});
+ for(const candidate of result.candidates) assert.ok(candidate.days[0].placeIds.includes(id));
+ const closed=structuredClone(profiles);closed.places[id].exceptions={[date]:{closed:true}};
+ assert.equal(availability(record(id),date,closed,{allowShopping:true}).eligible_for_model,false);
+ assert.equal(check('osaka_draft_718edcaf3985',date).eligible_for_model,false);
+});
+
+test('reservation requirement is explicitly provisional and does not bypass other conditions',async()=>{
+ const id='osaka_002', tower=record(id);
+ assert.equal(check(id,'2026-11-25').eligible_for_model,true);
+ assert.equal(check(id,'2026-11-25').reservation_required,true);
+ assert.match(tower.review.reservation_notice,/직접 예약/);
+ assert.equal(check(id,'2026-12-02').eligible_for_model,true);
+ assert.equal(check(id,'2026-12-02').date_needs_confirmation,true);
+ assert.deepEqual(check(id,'2026-12-25').window,[570,1305,1275]);
+ assert.deepEqual(check(id,'2026-12-31').window,[540,1140,1110]);
+ assert.equal(check(id,'2026-12-31').cost_jpy,1800);
+ assert.equal(check(id,'2027-01-01').cost_jpy,1800);
+ assert.deepEqual(check(id,'2027-02-01').window,[570,1305,1275]);
+ const closed=structuredClone(profiles); closed.places[id].exceptions={'2026-11-25':{closed:true}};
+ assert.equal(availability(tower,'2026-11-25',closed,{allowShopping:true}).eligible_for_model,false);
+ const missing=structuredClone(tower); missing.place.latitude=null;
+ assert.equal(availability(missing,'2026-11-25',profiles,{allowShopping:true}).eligible_for_model,false);
+ const {schedulableDetails}=await import('../backend/engine/schedulable.mjs');
+ assert.ok(schedulableDetails(['2026-11-25'],dataset,profiles).placeIds.includes(id));
+ const request={startDate:'2026-11-25',endDate:'2026-11-25',exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
+  submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};
+ const {candidates}=await calculateRealCandidates(request,dataset,profiles,{baseUrl:''},{liveCheck:mockLiveCheck('pass'),choose:null});
+ for(const c of candidates) assert.ok(c.days[0].placeIds.includes(id));
 });
 
 test('art exhibitions distinguish the indoor gallery and outdoor event',()=>{

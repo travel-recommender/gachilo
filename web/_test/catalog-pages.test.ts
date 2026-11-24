@@ -53,3 +53,10 @@ test("dated reasons reach the card while explicit exclusions retain priority",as
  assert.equal(list[1].selectionDisabledReason,"입장 시간 예약 조건 확인 필요");
  assert.equal(list[2].selectionDisabledReason,"폐업");
 });
+
+
+test("reservation and unverified visit warnings survive catalog mapping",()=>{
+ const p=toPlace({...place(1),reservation_notice:"예약 필요 · 직접 확인",visit_notice:"방문 전 확인"});
+ assert.match(p.reservationNotice!,/예약 필요/);
+ assert.equal(p.visitNotice,"방문 전 확인");
+});

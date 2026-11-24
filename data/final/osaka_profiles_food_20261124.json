@@ -1026,7 +1026,8 @@
         "https://omairi.club/spots/80725",
         "https://www.openstreetmap.org/way/243117031"
       ],
-      "cost_basis": "일반 참배 무료; 기도·부적·행사는 별도."
+      "cost_basis": "일반 참배 무료; 기도·부적·행사는 별도.",
+      "regular_reference_unverified": true
     },
     "branch_ichiran_shinsaibashi": {
       "valid_from": "2026-10-26",
@@ -2158,11 +2159,54 @@
       "entry_time_reservation": true,
       "valid_from": "2026-11-04",
       "valid_through": "2026-11-30",
-      "checked_at": "2026-11-04",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://www.tsutenkaku.co.jp/"
+        "https://www.tsutenkaku.co.jp/annai/"
       ],
-      "cost_basis": "일반 전망대 성인1500엔; 특별 전망대 등 별도."
+      "cost_basis": "일반 전망대 성인1500엔; 특별 전망대 등 별도.",
+      "provisional_reservation": true,
+      "regular_reference_unverified": true,
+      "exceptions": {
+        "2026-12-25": {
+          "window": [
+            570,
+            1305,
+            1275
+          ]
+        },
+        "2026-12-30": {
+          "cost_jpy": 1800
+        },
+        "2026-12-31": {
+          "window": [
+            540,
+            1140,
+            1110
+          ],
+          "cost_jpy": 1800
+        },
+        "2027-01-01": {
+          "window": [
+            600,
+            1200,
+            1170
+          ],
+          "cost_jpy": 1800
+        },
+        "2027-01-02": {
+          "cost_jpy": 1800
+        },
+        "2027-01-03": {
+          "cost_jpy": 1800
+        },
+        "2027-02-01": {
+          "window": [
+            570,
+            1305,
+            1275
+          ]
+        }
+      }
     },
     "osaka_001": {
       "window": [
@@ -3157,7 +3201,8 @@
         "https://osaka-info.jp/experience/ja/osaka/spot/458",
         "https://www.openstreetmap.org/relation/7175105"
       ],
-      "cost_basis": "공원 산책은 무료. 유료 시설·체험은 별도."
+      "cost_basis": "공원 산책은 무료. 유료 시설·체험은 별도.",
+      "regular_reference_unverified": true
     },
     "osaka_draft_0cc625078422": {
       "valid_from": "2026-11-25",
@@ -3173,7 +3218,8 @@
         "https://travel.yahoo.co.jp/kanko/spot-00017015/",
         "https://www.openstreetmap.org/node/4586417789"
       ],
-      "cost_basis": "광장·일반 산책 입장 참고 0엔. 공연·식당·유료 행사는 포함하지 않음."
+      "cost_basis": "광장·일반 산책 입장 참고 0엔. 공연·식당·유료 행사는 포함하지 않음.",
+      "regular_reference_unverified": true
     },
     "osaka_draft_391fae83b26c": {
       "valid_from": "2026-11-25",
@@ -3189,7 +3235,8 @@
         "https://www.mapple.net/spot/27015794/",
         "https://www.openstreetmap.org/way/977755839"
       ],
-      "cost_basis": "공용 구역 입장 0엔; 동물원·유료 체험·매장 구매비는 별도."
+      "cost_basis": "공용 구역 입장 0엔; 동물원·유료 체험·매장 구매비는 별도.",
+      "regular_reference_unverified": true
     },
     "spot_nippombashi_denden": {
       "valid_from": "2026-11-25",
@@ -3205,7 +3252,8 @@
         "https://tenkanodaidokoro.com/161/",
         "https://mapfan.com/spots/SCQYI%2CJK6%2CL7"
       ],
-      "cost_basis": "야외 거리 통행 기준; 개인 쇼핑 구매비는 미산정."
+      "cost_basis": "야외 거리 통행 기준; 개인 쇼핑 구매비는 미산정.",
+      "regular_reference_unverified": true
     },
     "onsen_spasuminoe": {
       "valid_from": "2026-11-25",
@@ -3254,7 +3302,8 @@
         "https://www.city.osaka.lg.jp/kita/cmsfiles/contents/0000532/532510/28.29.pdf",
         "https://www.openstreetmap.org/way/464117222"
       ],
-      "cost_basis": "일반 참배 0엔. 부적·기도 등은 포함하지 않음."
+      "cost_basis": "일반 참배 0엔. 부적·기도 등은 포함하지 않음.",
+      "regular_reference_unverified": true
     },
     "osaka_draft_f22cfa23d646": {
       "valid_from": "2026-11-25",
@@ -3388,7 +3437,8 @@
         "https://miyakojimaosaka.com/kasugae/",
         "https://www.kokuminhogo.go.jp/pdf/list/hinan_osaka.pdf"
       ],
-      "cost_basis": "미야코지마구 공원 산책, 입장료 미부과 기준. 유료 활동 별도."
+      "cost_basis": "미야코지마구 공원 산책, 입장료 미부과 기준. 유료 활동 별도.",
+      "regular_reference_unverified": true
     },
     "osaka_draft_0cf4fe2e0afe": {
       "valid_from": "2026-11-25",
@@ -3404,7 +3454,8 @@
         "https://www.umepota.jp/access/citymap.html",
         "https://myano787.wixsite.com/garden/post/kibonokabe"
       ],
-      "cost_basis": "무료 공개 야외 정원 산책만 포함. 실내 전망대는 별도 요금."
+      "cost_basis": "무료 공개 야외 정원 산책만 포함. 실내 전망대는 별도 요금.",
+      "regular_reference_unverified": true
     },
     "osaka_draft_32974d974e62": {
       "valid_from": "2026-11-25",

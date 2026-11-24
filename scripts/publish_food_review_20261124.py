@@ -744,6 +744,40 @@ def build():
               'updates':updates,'additions':[]}
     historical_usj = copy.deepcopy(profiles['places']['branch_usj'])
     catalog, profiles = apply(catalog, profiles, evidence)
+    # A selected time-reservation venue is provisional, not an actual booking.
+    # Only this reviewed venue opts in; other unresolved data stays blocked.
+    tower_profile = profiles['places']['osaka_002']
+    tower_profile['provisional_reservation'] = True
+    tower_profile['regular_reference_unverified'] = True
+    tower_profile['checked_at'] = '2026-11-24'
+    tower_profile['source_urls'] = ['https://www.tsutenkaku.co.jp/annai/']
+    tower_profile['exceptions'] = {
+        **tower_profile.get('exceptions', {}),
+        '2026-12-25': {'window':[570,1305,1275]},
+        '2026-12-30': {'cost_jpy':1800},
+        '2026-12-31': {'window':[540,1140,1110], 'cost_jpy':1800},
+        '2027-01-01': {'window':[600,1200,1170], 'cost_jpy':1800},
+        '2027-01-02': {'cost_jpy':1800},
+        '2027-01-03': {'cost_jpy':1800},
+        '2027-02-01': {'window':[570,1305,1275]},
+    }
+    tower = next(r for r in catalog['places'] if r['place']['place_id'] == 'osaka_002')
+    tower['review']['visit_notice'] = '일반 운영시간 기준 가안 · 선택한 날짜의 휴무와 요금 변경을 확인해 주세요.'
+    tower['review']['reservation_notice'] = '입장 시간 예약 필요 · 일정은 가안이며 직접 예약을 확인해 주세요.'
+    tower['review']['dated_verification']['status'] = 'eligible_for_dated_demo'
+    tower['review']['dated_verification']['conditions'] = ['일반 전망대는 입장 시간 예약이 필요해요. 일정은 가안이며 공식 사이트에서 직접 예약 가능 여부와 시간을 확인하세요. 특별 전망대·슬라이더는 별도예요.']
+    tower['review']['notes'].append('2026-11-24: 사용자가 예약 필요 안내 후 선택하도록 요청. 자동 예약이나 예약 가능 시간 확인은 하지 않으며 방문일 자료 범위와 다른 검사는 유지.')
+    # Public outdoor spaces have no date-specific opening claim; allow a regular
+    # walking reference after the review date, explicitly marked as unconfirmed.
+    # Ticketed attractions, cafes, seasonal exhibitions and closed venues never
+    # inherit this policy merely because their reviewed window has expired.
+    for public_id in ('osaka_draft_03cde684bd96','osaka_draft_0cc625078422',
+        'osaka_draft_391fae83b26c','spot_nippombashi_denden',
+        'osaka_draft_f852e8e07cf8','osaka_draft_0cf4fe2e0afe',
+        'osaka_draft_2780be08a88e','osaka_draft_006a0c207d8c'):
+        profiles['places'][public_id]['regular_reference_unverified'] = True
+        item = next(r for r in catalog['places'] if r['place']['place_id'] == public_id)
+        item['review']['visit_notice'] = '야외 산책 기준 가안 · 선택한 날짜의 통제·행사는 방문 전 확인해 주세요.'
     # Preserve the previously verified dates while keeping the intervening gap blocked.
     usj_profile = profiles['places']['branch_usj']
     usj_profile['valid_from'] = historical_usj['valid_from']

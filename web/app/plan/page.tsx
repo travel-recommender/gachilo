@@ -187,6 +187,12 @@ function PlanInner() {
               }}
               onRemove={(id) => save(ids.filter((x) => x !== id))} />
           </Box>
+          {places.some((p) => p.visitNotice) && <ul className="mt-3 space-y-2 text-xs text-wine">
+            {places.filter((p) => p.visitNotice).map((p) => <li key={p.id}>{p.name}: {p.visitNotice}</li>)}
+          </ul>}
+          {places.some((p) => p.reservationNotice) && <ul className="mt-3 space-y-2 text-xs font-semibold text-wine">
+            {places.filter((p) => p.reservationNotice).map((p) => <li key={p.id}>{p.name}: {p.reservationNotice}</li>)}
+          </ul>}
           {reasons.length > 0 && <ul className="mt-3 space-y-2 text-xs text-wine">{reasons.map((r) => <li key={r.key}>{r.text}</li>)}</ul>}
           {!confirmed && places.length > 1 && (
             <p className="mt-2 text-right text-[11px] font-medium text-mute-soft">한 칸을 꾹 누르면 순서를 바꿀 수 있어요</p>

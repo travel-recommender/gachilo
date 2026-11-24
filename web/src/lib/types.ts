@@ -55,6 +55,8 @@ export interface Place {
   /** 같은 방문 목적의 지점 교체 그룹. 브랜드 전체와 구분한다. */
   branchGroupId?: string | null;
   selectionDisabledReason?: string | null;
+  reservationNotice?: string | null;
+  visitNotice?: string | null;
   costKnown?: boolean;
   costEstimated?: boolean;
   shoppingSpendExcluded?: boolean;
