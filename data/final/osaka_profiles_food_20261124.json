@@ -2915,6 +2915,22 @@
         "https://www.openstreetmap.org/node/9875632529"
       ],
       "cost_basis": "지도 사용자 게시 드립커피 380~450엔 중 450엔을 참고한 예산. 현재 지점 가격·세금 별도 확인."
+    },
+    "spot_ebisubashi": {
+      "window": [
+        540,
+        1260,
+        1260
+      ],
+      "valid_from": "2026-11-24",
+      "valid_through": "2026-11-30",
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+        "https://osaka-info.jp/experience/ja/osaka/spot/551",
+        "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+      ],
+      "cost_basis": "공공 보행교 관람 무료. 인근 상점 구매·크루즈는 별도."
     }
   }
 }

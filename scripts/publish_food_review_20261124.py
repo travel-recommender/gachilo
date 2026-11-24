@@ -253,7 +253,23 @@ def build():
             ['운영사의 2026년 11월 행사 달력과 해당 월 무휴 안내를 확인. 임시 변경과 매장별 휴무는 별도 확인.',
              '판매장 방문만 계산하며 쇼핑 구매금액은 개인에 따라 달라 미산정.'],
             '입장료가 아닌 개인 쇼핑 구매비는 산정하지 않음.', 'shopping_spend_not_included',role=None),
+        'spot_ebisubashi': eligible(
+            ['https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html',
+             'https://osaka-info.jp/experience/ja/osaka/spot/551',
+             'https://heritage.jsce-kansai.net/heritage/detail.html?id=236'],
+            {'latitude':34.669074,'longitude':135.501290,
+             'opening_hours':'공공 보행교 산책; 일정은 09:00~21:00으로 한정. 행사·공사 등 통행 제한 별도 확인.',
+             'cost':0,'stay_min':20,'bag_load':0,'covered':False},
+            {'window':[540,1260,1260]},
+            ['collected_visit_conditions_require_profile','structured_date_profile_missing','stay_policy_unconfirmed'],
+            ['오사카 관광안내는 다리를 무료 명소로 소개. 글리코 간판 건물과 다른 공공 보행교.',
+             '좌표는 토목학회가 공개한 다리 대표 좌표이며 실제 사진 촬영 위치나 입구 실측이 아님.',
+             '09~21시는 공식 개방시간을 확인했다는 의미가 아닌 시연용 산책 계획 범위. 행사·공사 시 통행 제한을 확인.'],
+            '공공 보행교 관람 무료. 인근 상점 구매·크루즈는 별도.',
+            'official_public_access_free',role=None,coordinate='map_listing_reference_not_entrance'),
     })
+    updates['spot_ebisubashi']['cost_kind'] = 'official_free_admission'
+    updates['spot_ebisubashi']['field_kinds']['cost'] = 'dated_official_review'
     evidence={'checked_at':'2026-11-24','valid_from':'2026-11-24','valid_through':'2026-11-30',
               'updates':updates,'additions':[]}
     catalog, profiles = apply(catalog, profiles, evidence)

@@ -24,6 +24,12 @@ test('Tabelog cross-check preserves cafe estimates and date restrictions',()=>{
  assert.equal(check(shopping,'2026-11-25').eligible_for_model,true);
  assert.equal(record(shopping).place.cost,null);
  assert.equal(check(shopping,'2026-12-01').eligible_for_model,false);
+ const bridge='spot_ebisubashi';
+ assert.equal(check(bridge,'2026-11-25').eligible_for_model,true);
+ assert.equal(check(bridge,'2026-12-01').eligible_for_model,false);
+ assert.equal(record(bridge).place.cost,0);
+ assert.equal(record(bridge).place.covered,false);
+ assert.deepEqual(check(bridge,'2026-11-25').window,[540,1260,1260]);
  for(const id of ['osaka_draft_7c98da5a96f9','osaka_draft_9cd21dc062f7'])
   assert.equal(check(id,'2026-11-25').eligible_for_model,false,id);
 });
@@ -99,7 +105,7 @@ test('each reviewed meal can be scheduled through all three strategies',async()=
  for(const id of [bistro,sushi,casa,rikuro,ramen,'osaka_draft_c341bbd2440a','osaka_draft_7eda017e1ded',
    'branch_rikuro_namba_honten','branch_coco_namba_ebisubashi','branch_beardpapa_namba_walk','branch_mizukakechaya_namba',
    'osaka_draft_3d97f36846d0','branch_viedefrance_bentencho',
-   'osaka_draft_35640888fa49','osm_node_2296903605','osm_node_9875632529','osaka_draft_c85fa26beb80']){
+   'osaka_draft_35640888fa49','osm_node_2296903605','osm_node_9875632529','osaka_draft_c85fa26beb80','spot_ebisubashi']){
   const request={startDate:'2026-11-25',endDate:'2026-11-25',exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
    submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,
      budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};

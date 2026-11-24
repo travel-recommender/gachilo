@@ -60952,16 +60952,16 @@
         "category": "명소",
         "area": "난바·도톤보리",
         "address": "大阪市中央区道頓堀1丁目～心斎橋筋2丁目",
-        "latitude": null,
-        "longitude": null,
-        "opening_hours": null,
-        "cost": null,
-        "stay_min": null,
-        "bag_load": null,
+        "latitude": 34.669074,
+        "longitude": 135.50129,
+        "opening_hours": "공공 보행교 산책; 일정은 09:00~21:00으로 한정. 행사·공사 등 통행 제한 별도 확인.",
+        "cost": 0,
+        "stay_min": 20,
+        "bag_load": 0,
         "covered": false,
         "website": "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
-        "opening_hours_source": "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
-        "verified_at": "2026-11-04",
+        "opening_hours_source": "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html; https://osaka-info.jp/experience/ja/osaka/spot/551; https://heritage.jsce-kansai.net/heritage/detail.html?id=236",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -61015,12 +61015,25 @@
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
         },
         "covered": {
-          "kind": "official_source_collection",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+            "https://osaka-info.jp/experience/ja/osaka/spot/551",
+            "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
           ],
-          "checked_at": "2026-11-04",
-          "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+          "checked_at": "2026-11-24",
+          "note": "오사카 관광안내는 다리를 무료 명소로 소개. 글리코 간판 건물과 다른 공공 보행교.; 좌표는 토목학회가 공개한 다리 대표 좌표이며 실제 사진 촬영 위치나 입구 실측이 아님.; 09~21시는 공식 개방시간을 확인했다는 의미가 아닌 시연용 산책 계획 범위. 행사·공사 시 통행 제한을 확인.",
+          "previous": {
+            "value": false,
+            "source": {
+              "kind": "official_source_collection",
+              "urls": [
+                "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html"
+              ],
+              "checked_at": "2026-11-04",
+              "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+            }
+          }
         },
         "website": {
           "kind": "official_source_collection",
@@ -61045,6 +61058,90 @@
           ],
           "checked_at": "2026-11-04",
           "note": "수집 확인값; 날짜별 일정 프로필 검증은 별도."
+        },
+        "latitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+            "https://osaka-info.jp/experience/ja/osaka/spot/551",
+            "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "longitude": {
+          "kind": "map_listing_reference",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+            "https://osaka-info.jp/experience/ja/osaka/spot/551",
+            "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "opening_hours": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+            "https://osaka-info.jp/experience/ja/osaka/spot/551",
+            "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "오사카 관광안내는 다리를 무료 명소로 소개. 글리코 간판 건물과 다른 공공 보행교.; 좌표는 토목학회가 공개한 다리 대표 좌표이며 실제 사진 촬영 위치나 입구 실측이 아님.; 09~21시는 공식 개방시간을 확인했다는 의미가 아닌 시연용 산책 계획 범위. 행사·공사 시 통행 제한을 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "cost": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+            "https://osaka-info.jp/experience/ja/osaka/spot/551",
+            "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "공공 보행교 관람 무료. 인근 상점 구매·크루즈는 별도.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "stay_min": {
+          "kind": "demo_model_estimate",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+            "https://osaka-info.jp/experience/ja/osaka/spot/551",
+            "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "오사카 관광안내는 다리를 무료 명소로 소개. 글리코 간판 건물과 다른 공공 보행교.; 좌표는 토목학회가 공개한 다리 대표 좌표이며 실제 사진 촬영 위치나 입구 실측이 아님.; 09~21시는 공식 개방시간을 확인했다는 의미가 아닌 시연용 산책 계획 범위. 행사·공사 시 통행 제한을 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
+        },
+        "bag_load": {
+          "kind": "dated_official_review",
+          "urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+            "https://osaka-info.jp/experience/ja/osaka/spot/551",
+            "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+          ],
+          "checked_at": "2026-11-24",
+          "note": "오사카 관광안내는 다리를 무료 명소로 소개. 글리코 간판 건물과 다른 공공 보행교.; 좌표는 토목학회가 공개한 다리 대표 좌표이며 실제 사진 촬영 위치나 입구 실측이 아님.; 09~21시는 공식 개방시간을 확인했다는 의미가 아닌 시연용 산책 계획 범위. 행사·공사 시 통행 제한을 확인.",
+          "previous": {
+            "value": null,
+            "source": null
+          }
         }
       },
       "source": {
@@ -61056,26 +61153,25 @@
         "tags": {}
       },
       "review": {
-        "status": "held",
+        "status": "eligible_for_dated_demo",
         "schedule_ready": false,
         "official_checks": [],
         "notes": [
-          "공공 보행교. 글리코 간판 건물과 다른 장소. 실제 관람 지점 좌표·통행 제한 조건 검증 필요."
+          "공공 보행교. 글리코 간판 건물과 다른 장소. 실제 관람 지점 좌표·통행 제한 조건 검증 필요.",
+          "2026-11-24: 오사카 관광안내는 다리를 무료 명소로 소개. 글리코 간판 건물과 다른 공공 보행교.; 좌표는 토목학회가 공개한 다리 대표 좌표이며 실제 사진 촬영 위치나 입구 실측이 아님.; 09~21시는 공식 개방시간을 확인했다는 의미가 아닌 시연용 산책 계획 범위. 행사·공사 시 통행 제한을 확인."
         ],
-        "recommendation_blockers": [
-          "collected_visit_conditions_require_profile",
-          "structured_date_profile_missing",
-          "stay_policy_unconfirmed"
-        ],
+        "recommendation_blockers": [],
         "missing_fields": [
-          "latitude",
-          "longitude",
-          "opening_hours",
-          "cost",
-          "stay_min",
-          "bag_load"
+          "brand_id",
+          "branch_group_id"
         ],
-        "stay_policy": null,
+        "stay_policy": {
+          "type": "시연 추정",
+          "min": 20,
+          "max": 20,
+          "representative": 20,
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
+        },
         "branch_collection": {
           "brand": "에비스바시",
           "official_name": "戎橋",
@@ -61091,6 +61187,69 @@
             "공공 보행교. 글리코 간판 건물과 다른 장소. 실제 관람 지점 좌표·통행 제한 조건 검증 필요."
           ],
           "ready_for_scheduling": false
+        },
+        "dated_verification": {
+          "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+            "https://osaka-info.jp/experience/ja/osaka/spot/551",
+            "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+          ],
+          "fields": {
+            "latitude": 34.669074,
+            "longitude": 135.50129,
+            "opening_hours": "공공 보행교 산책; 일정은 09:00~21:00으로 한정. 행사·공사 등 통행 제한 별도 확인.",
+            "cost": 0,
+            "stay_min": 20,
+            "bag_load": 0,
+            "covered": false
+          },
+          "field_kinds": {
+            "cost": "dated_official_review",
+            "stay_min": "demo_model_estimate",
+            "latitude": "map_listing_reference",
+            "longitude": "map_listing_reference"
+          },
+          "field_notes": {
+            "cost": "공공 보행교 관람 무료. 인근 상점 구매·크루즈는 별도.",
+            "latitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님.",
+            "longitude": "외부 지도에 표시된 지점 기준점. 입구 실측 아님."
+          },
+          "resolved_blockers": [
+            "collected_visit_conditions_require_profile",
+            "structured_date_profile_missing",
+            "stay_policy_unconfirmed"
+          ],
+          "remaining": [],
+          "conditions": [
+            "오사카 관광안내는 다리를 무료 명소로 소개. 글리코 간판 건물과 다른 공공 보행교.",
+            "좌표는 토목학회가 공개한 다리 대표 좌표이며 실제 사진 촬영 위치나 입구 실측이 아님.",
+            "09~21시는 공식 개방시간을 확인했다는 의미가 아닌 시연용 산책 계획 범위. 행사·공사 시 통행 제한을 확인."
+          ],
+          "cost_basis": "공공 보행교 관람 무료. 인근 상점 구매·크루즈는 별도.",
+          "profile": {
+            "window": [
+              540,
+              1260,
+              1260
+            ]
+          },
+          "meal_role": null,
+          "cost_kind": "official_free_admission",
+          "price_evidence_kind": "official_public_access_free",
+          "coordinates": {
+            "kind": "map_listing_reference_not_entrance",
+            "source_urls": [
+              "https://www.city.osaka.lg.jp/kensetsu/page/0000021695.html",
+              "https://osaka-info.jp/experience/ja/osaka/spot/551",
+              "https://heritage.jsce-kansai.net/heritage/detail.html?id=236"
+            ],
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
+          },
+          "planning_policy": {
+            "stay_min": 20,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -62746,9 +62905,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-24",
-    "updated": 24,
+    "updated": 25,
     "new_search_only": 0,
-    "promoted": 24,
+    "promoted": 25,
     "date_range": [
       "2026-11-24",
       "2026-11-30"
