@@ -3373,6 +3373,54 @@
         "https://www.openstreetmap.org/node/5875311485"
       ],
       "cost_basis": "2024년 방송에서 소개한 커피젤리 550엔의 예산 참고치. 현재 가격·재고 별도 확인."
+    },
+    "osaka_draft_f852e8e07cf8": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        540,
+        1080,
+        1080
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/miyakojima/page/0000655198.html",
+        "https://miyakojimaosaka.com/kasugae/",
+        "https://www.kokuminhogo.go.jp/pdf/list/hinan_osaka.pdf"
+      ],
+      "cost_basis": "미야코지마구 공원 산책, 입장료 미부과 기준. 유료 활동 별도."
+    },
+    "osaka_draft_0cf4fe2e0afe": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        540,
+        1080,
+        1080
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://www.env.go.jp/content/000248154.pdf",
+        "https://www.umepota.jp/access/citymap.html",
+        "https://myano787.wixsite.com/garden/post/kibonokabe"
+      ],
+      "cost_basis": "무료 공개 야외 정원 산책만 포함. 실내 전망대는 별도 요금."
+    },
+    "osaka_draft_32974d974e62": {
+      "valid_from": "2026-11-25",
+      "valid_through": "2026-11-25",
+      "window": [
+        900,
+        1260,
+        1200
+      ],
+      "checked_at": "2026-11-24",
+      "source_urls": [
+        "https://bonandbon.owst.jp/",
+        "https://tabelog.com/osaka/A2701/A270302/27043905/",
+        "https://www.openstreetmap.org/node/6984070689"
+      ],
+      "cost_basis": "공식 블렌드 커피 495엔 1잔. 케이크·식사·예약 취소비는 별도."
     }
   }
 }

@@ -681,6 +681,48 @@ def build():
             '2024년 방송에서 소개한 커피젤리 550엔의 예산 참고치. 현재 가격·재고 별도 확인.',
             'reported_past_snack_estimate',role='snack'),
     })
+    updates.update({
+        'osaka_draft_f852e8e07cf8': eligible(
+            ['https://www.city.osaka.lg.jp/miyakojima/page/0000655198.html', 'https://miyakojimaosaka.com/kasugae/',
+             'https://www.kokuminhogo.go.jp/pdf/list/hinan_osaka.pdf'],
+            {'opening_hours':'공개 공원 산책. 09:00~18:00은 계획 범위이며 공식 개방시간 확인 필요.',
+             'cost':0,'stay_min':30,'bag_load':0,'covered':False},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[540,1080,1080]},
+            ['final_record_review_required','final_calendar_review_required'],
+            ['오사카시와 정부 방재자료의 미야코지마구 공원 주소를 대조. 이 공원은 고노하나구의 비슷한 이름과 다름.',
+             '09~18시는 야외 산책 계획 범위이지 공식 운영시간이 아님. 공사·행사로 제한될 수 있음.',
+             '일반 공공 공원 산책은 입장료를 계산하지 않으며 30분과 좌표는 계획값.'],
+            '미야코지마구 공원 산책, 입장료 미부과 기준. 유료 활동 별도.',
+            'public_park_reference',role=None),
+        'osaka_draft_0cf4fe2e0afe': eligible(
+            ['https://www.env.go.jp/content/000248154.pdf', 'https://www.umepota.jp/access/citymap.html',
+             'https://myano787.wixsite.com/garden/post/kibonokabe'],
+            {'opening_hours':'야외 공개 정원 산책. 09:00~18:00은 계획 범위이며 통제 가능.',
+             'cost':0,'stay_min':40,'bag_load':0,'covered':False},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[540,1080,1080]},
+            ['final_record_review_required'],
+            ['환경성 자료에서 신 우메다시티 공개 공간임을, 시설 지도에서 위치를 확인. 무료 야외 정원 범위만 포함.',
+             '09~18시는 공식 운영시간이 아닌 계획 범위. 행사·공사 통제 여부를 확인해야 함.',
+             '유료 공중정원 전망대 입장료는 포함하지 않으며 40분과 지도 좌표는 계획값.'],
+            '무료 공개 야외 정원 산책만 포함. 실내 전망대는 별도 요금.',
+            'reported_free_outdoor_space',role=None),
+        'osaka_draft_32974d974e62': eligible(
+            ['https://bonandbon.owst.jp/', 'https://tabelog.com/osaka/A2701/A270302/27043905/',
+             'https://www.openstreetmap.org/node/6984070689'],
+            {'opening_hours':'수요일 09:00~21:00, 음식·음료 주문 마감 20:00. 간식은 15:00 이후 기준.',
+             'cost':495,'stay_min':45,'bag_load':0,'covered':True},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-25','window':[900,1260,1200]},
+            ['final_calendar_review_required'],
+            ['공식 사이트는 수요일 09~21시, 주문마감 20시 및 연말연시 외 부정기 휴무를 안내.',
+             '공식 메뉴의 블렌드 커피 495엔 세금 포함 1잔 기준. 15시 이전 모닝·런치 운영은 주문 조건이 달라 이 프로필에 넣지 않음.',
+             '1인 1음료 조건과 임시휴무·예약 취소 규정을 확인. 좌석 45분은 계획 추정.'],
+            '공식 블렌드 커피 495엔 1잔. 케이크·식사·예약 취소비는 별도.',
+            'official_coffee_menu_reference',role='snack'),
+    })
+    for public_id in ('osaka_draft_f852e8e07cf8','osaka_draft_0cf4fe2e0afe'):
+        updates[public_id]['cost_kind']='reported_free_admission'
+        updates[public_id]['field_kinds']['cost']='dated_external_review'
+    updates['osaka_draft_32974d974e62']['field_kinds']['cost']='dated_official_review'
     updates['spot_ebisubashi']['cost_kind'] = 'official_free_admission'
     updates['spot_ebisubashi']['field_kinds']['cost'] = 'dated_official_review'
     updates['osaka_013']['cost_kind'] = 'official_admission'

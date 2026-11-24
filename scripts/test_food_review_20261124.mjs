@@ -175,6 +175,16 @@ test('tea shop uses official tea price',()=>{
  assert.equal(record(id).review.meal_role,'snack');
 });
 
+test('newly reviewed garden, park and cafe have date-limited profiles',()=>{
+ for(const id of ['osaka_draft_f852e8e07cf8','osaka_draft_0cf4fe2e0afe','osaka_draft_32974d974e62']){
+  assert.equal(check(id,'2026-11-25').eligible_for_model,true,id);
+  assert.equal(check(id,'2026-11-26').eligible_for_model,false,id);
+ }
+ assert.equal(check('osaka_draft_32974d974e62','2026-11-25').cost_jpy,495);
+ assert.equal(record('osaka_draft_32974d974e62').review.meal_role,'snack');
+ assert.deepEqual(check('osaka_draft_32974d974e62','2026-11-25').window,[900,1260,1200]);
+});
+
 test('art exhibitions distinguish the indoor gallery and outdoor event',()=>{
  const inside='osaka_draft_c99cbfbd0f92',outside='osaka_draft_718edcaf3985';
  for(const id of [inside,outside]){
@@ -267,7 +277,8 @@ test('each reviewed meal can be scheduled through all three strategies',async()=
    'osaka_draft_391fae83b26c','spot_nippombashi_denden','osaka_draft_2780be08a88e','osaka_draft_006a0c207d8c',
    'onsen_spasuminoe','onsen_spaworld','osaka_draft_f22cfa23d646','osaka_draft_eda93d07ee2b',
    'osaka_draft_c99cbfbd0f92','osaka_draft_718edcaf3985',
-   'osaka_draft_74dbaeea6a02','osaka_draft_e3ac280c1575','osaka_draft_11ceb1687dfa','osaka_draft_9342479ef7d7']){
+   'osaka_draft_74dbaeea6a02','osaka_draft_e3ac280c1575','osaka_draft_11ceb1687dfa','osaka_draft_9342479ef7d7',
+   'osaka_draft_f852e8e07cf8','osaka_draft_0cf4fe2e0afe','osaka_draft_32974d974e62']){
   const request={startDate:'2026-11-25',endDate:'2026-11-25',exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
    submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,
      budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};

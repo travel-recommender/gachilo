@@ -34,3 +34,9 @@
 - [오사카 주택박물관](https://www.osaka-angenet.jp/konjyakukan/topic/260001173)과 [시립동양도자미술관](https://www.moco.or.jp/guide/info/)은 공사 휴관 공지가 있다. 영구 폐업으로 처리하지 않는다.
 - [쓰텐카쿠](https://www.tsutenkaku.co.jp/annai/)는 전망대 시간 지정 입장 확인이 필요하다. [다이코 견학시설](https://www.city.osaka.lg.jp/kensetsu/page/0000010446.html)과 [보온병 기념관](https://www.zojirushi.co.jp/corp/kinenkan/)은 사전 예약이 필요하다.
 - [이메이드](https://www.e-maid.net/shopinfo.html), [파르페 드 메릴리](https://parfait-de-merrily.com/), [내추럴 키친 메다카 2호점](https://shin-medaka.com/event/)은 부정기 휴무나 특정 행사가 있어 일반 방문이 가능한지 추가 확인한다. 행사 개최만으로 일반 식사 가능을 확정하지 않는다.
+
+- **가스가에 공원·신 우메다시티 하나노 신 사토야마**: [오사카시 주소](https://www.city.osaka.lg.jp/miyakojima/page/0000655198.html)와 [일본 환경성 공개 공간 자료](https://www.env.go.jp/content/000248154.pdf)를 대조해 무료 공원·야외 정원 산책으로만 반영했다. 같은 이름의 다른 공원이나 유료 공중정원 전망대와 구분한다. 두 곳 모두 09~18시는 공식 개방시간이 아닌 계획 범위다.
+- **보나본**: [공식 안내·메뉴](https://bonandbon.owst.jp/)의 수요일 09~21시, 최종 주문 20시, 블렌드 커피 495엔을 대조했다. 15시 이후 음료 한 잔을 기준으로 하며 앞선 모닝·점심과 가격이 다르다. 비정기 휴무 및 예약 취소 조건을 확인해야 한다.
+- **덴포잔 마켓플레이스**: [공식 휴관일 달력](https://pop.kaiyukan.com/thv/marketplace/info.html)은 동적 부분을 읽을 수 없었고, [공식 공지](https://www.kaiyukan.com/thv/marketplace/)상 ‘나니와 구이신보 요코초’는 2026년 9월 29일부터 공사로 휴업 중이다. 시설 전체 폐업을 뜻하지 않으며 방문일 시설 운영시간 확인 전 보류한다.
+- **서브 재즈 카페**: [공식 안내](https://www.subjazzcafe.com/our-shops)는 월~토 17~23시 및 일요일 휴무를 안내하나 공연별 요금·당일 일정 확정이 부족해 보류한다. 일반 카페 시간으로 단정하지 않는다.
+- **헬로 라이프**: [운영 기관](https://co.hellolife.jp/projects/hellolife/)은 취업·진로 지원 거점이고, [1층 카페 안내](https://hellolife.jp/recruit_column/chashitsutime_open)는 별도의 예약 우선 차 체험이다. 시설 전체를 일반 관광지로 처리하지 않는다.

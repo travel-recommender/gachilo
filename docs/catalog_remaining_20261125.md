@@ -1,6 +1,6 @@
 # 11월 25일 장소별 적격 검사 — 2026-11-24
 
-서비스 목록 239곳(제외 9곳 포함) 중 230곳을 검사해 182곳이 저장된 데이터 기준으로 해당 날짜 일정 조건을 통과했다. 아래 48곳은 통과하지 못했다.
+서비스 목록 239곳(제외 9곳 포함) 중 230곳을 검사해 185곳이 저장된 데이터 기준으로 해당 날짜 일정 조건을 통과했다. 아래 45곳은 통과하지 못했다.
 
 이 결과는 저장된 조건을 대조한 것으로 실시간 영업·예약을 보장하지 않는다. 장소별 확인 근거와 수정 사항은 `remaining_places_review_20261124.md` 및 기존 식당·카페 검토 기록을 참고한다. 날짜와 실행한 코드 버전에 따라 달라질 수 있다.
 
@@ -53,10 +53,8 @@
 - **파르페 드 메릴리** — 해당 날짜 운영 확인 필요 (`osaka_draft_2a9b88c21411`; visit_confirmation_required)
 - **사가노** — 예약 조건 확인 필요, 비용 확인 필요 (`osaka_draft_5fa8876a4657`; price_conflict, reservation_required, final_calendar_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
 
-### 자연 (3곳)
+### 자연 (1곳)
 
-- **신 우메다시티 하나노·신 사토야마(야외 정원)** — 운영시간 미확인, 비용 확인 필요 (`osaka_draft_0cf4fe2e0afe`; final_record_review_required, opening_hours_missing, cost_unknown_or_not_applicable, structured_date_profile_missing)
-- **가스가에 공원(오사카 미야코지마구)** — 비용 확인 필요 (`osaka_draft_f852e8e07cf8`; final_record_review_required, final_calendar_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
 - **호타루마치 광장** — 운영 조건 또는 날짜별 프로필 확인 필요 (`osaka_draft_0adb7945fbda`; parent_facility_address, final_calendar_review_required, structured_date_profile_missing)
 
 ### 체험·오락 (6곳)
@@ -68,12 +66,11 @@
 - **프티 미뇽 다이마루 신사이바시점** — 비용 확인 필요 (`branch_petitmignon_daimaru`; official_site_temporarily_unavailable, current_branch_hours_unconfirmed, visitor_admission_conditions_unconfirmed, price_unconfirmed, cost_unknown_or_not_applicable, structured_date_profile_missing)
 - **돈보리 리버크루즈** — 운영시간 미확인, 비용 확인 필요, 좌표 미확인 (`cruise_tombori`; collected_visit_conditions_require_profile, structured_date_profile_missing, stay_policy_unconfirmed, opening_hours_missing, cost_unknown_or_not_applicable, stay_min_invalid, bag_load_invalid, coordinates_invalid)
 
-### 카페 (7곳)
+### 카페 (6곳)
 
 - **이메이드** — 해당 날짜 운영 확인 필요 (`osaka_draft_243b34cd6761`; visit_confirmation_required)
 - **멜버른 커피** — 지점 확인 필요, 비용 확인 필요 (`osaka_draft_2f4886b3a5b6`; branch_unconfirmed, final_calendar_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
 - **서브 재즈 카페** — 운영시간 출처 충돌, 비용 확인 필요 (`osaka_draft_4af3a5a14578`; hours_conflict, final_calendar_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
 - **고치카제** — 비용 확인 필요 (`osaka_draft_af11af018972`; final_calendar_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
-- **케이크 앤 카페 다이닝 보나본** — 비용 확인 필요 (`osaka_draft_32974d974e62`; final_calendar_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
 - **보호고양이 카페 노이** — 해당 날짜 운영 확인 필요 (`osaka_draft_57eaac2e578d`; visit_confirmation_required, final_record_review_required)
 - **가도데 카페(효고현 아마가사키)** — 오사카시 외 지역, 비용 확인 필요 (`osm_node_6189996345`; outside_osaka_city, final_record_review_required, final_calendar_review_required, cost_unknown_or_not_applicable, structured_date_profile_missing)
