@@ -59184,14 +59184,14 @@
         "address": "大阪府大阪市此花区桜島2丁目1番33号",
         "latitude": 34.6673149,
         "longitude": 135.4351775,
-        "opening_hours": "2026-11-17 09:00~20:00, 11-18 09:00~21:00, 11-19 09:00~20:00. 날짜별 변동·조기 개장 가능. 입장권은 별도 구매; 일부 구역·체험은 추가 정리권/예약 필요.",
+        "opening_hours": "11/17 09:00~20:00, 11/18 09:00~21:00, 11/19 09:00~20:00, 11/25 09:00~21:00, 11/26 08:30~21:30. 입장권 별도 구매.",
         "cost": 9900,
         "stay_min": 480,
         "bag_load": 0,
         "covered": false,
         "website": "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour",
-        "opening_hours_source": "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2; https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true; https://www.usj.co.jp/web/ja/jp/tickets/lineup; https://www.usj.co.jp/web/ja/jp/access; https://www.usj.co.jp/web/ja/jp/service-guide/parkmap; https://www.openstreetmap.org/node/519909156",
-        "verified_at": "2026-11-16",
+        "opening_hours_source": "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2; https://jp.trip.com/blog/usj-golden-week/; https://kansai-tabijitaku.com/usj-christmas/; https://www.openstreetmap.org/node/519909156",
+        "verified_at": "2026-11-24",
         "brand_id": null,
         "branch_group_id": null
       },
@@ -59217,25 +59217,39 @@
         "opening_hours": {
           "kind": "dated_official_review",
           "urls": [
-            "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
-            "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
-            "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-            "https://www.usj.co.jp/web/ja/jp/access",
-            "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+            "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2",
+            "https://jp.trip.com/blog/usj-golden-week/",
+            "https://kansai-tabijitaku.com/usj-christmas/",
             "https://www.openstreetmap.org/node/519909156"
           ],
-          "checked_at": "2026-11-16",
-          "note": "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+          "checked_at": "2026-11-24",
+          "note": "11/25 09~21시 및 11/26 08:30~21:30은 공식 운영시간 안내. 예고 없이 변경될 수 있음.; 두 독립 보도의 11/25·26 성인 1데이권 9,400엔을 예산 참고치로 사용. 공식 판매 페이지 직접 확인에 실패했으며 다른 보도와 가격이 충돌하므로 구매 전 확인.; 11/17~19의 기존 공식 확인 가격 9,900엔과 개별 시간을 새 스냅샷에도 유지. 11/20~24는 공백이므로 재확인 전 차단.; 입장권 사전 구매 및 어트랙션·특정 구역 정리권은 별도. 혼잡·매진·식사비·추가권은 보장하거나 포함하지 않음.; 공개 지도 정문 근처 기준 좌표는 실제 입구 실측이 아니며 480분 체류는 팀 시연 추정.",
           "previous": {
-            "value": "날짜별 공식 운영 캘린더 확인 필요",
+            "value": "2026-11-17 09:00~20:00, 11-18 09:00~21:00, 11-19 09:00~20:00. 날짜별 변동·조기 개장 가능. 입장권은 별도 구매; 일부 구역·체험은 추가 정리권/예약 필요.",
             "source": {
-              "kind": "official_web_review",
+              "kind": "dated_official_review",
               "urls": [
-                "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour",
+                "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
+                "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
                 "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-                "https://www.usj.co.jp/web/ja/jp/access/car"
+                "https://www.usj.co.jp/web/ja/jp/access",
+                "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+                "https://www.openstreetmap.org/node/519909156"
               ],
-              "checked_at": "2026-10-30"
+              "checked_at": "2026-11-16",
+              "note": "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+              "previous": {
+                "value": "날짜별 공식 운영 캘린더 확인 필요",
+                "source": {
+                  "kind": "official_web_review",
+                  "urls": [
+                    "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour",
+                    "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
+                    "https://www.usj.co.jp/web/ja/jp/access/car"
+                  ],
+                  "checked_at": "2026-10-30"
+                }
+              }
             }
           }
         },
@@ -59284,22 +59298,36 @@
           "note": "출처 확인일. 장소 전체 승격일 아님."
         },
         "cost": {
-          "kind": "dated_official_ticket",
+          "kind": "official_budget_estimate",
           "urls": [
-            "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
-            "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
-            "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-            "https://www.usj.co.jp/web/ja/jp/access",
-            "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+            "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2",
+            "https://jp.trip.com/blog/usj-golden-week/",
+            "https://kansai-tabijitaku.com/usj-christmas/",
             "https://www.openstreetmap.org/node/519909156"
           ],
-          "checked_at": "2026-11-16",
-          "note": "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+          "checked_at": "2026-11-24",
+          "note": "11/17~19 성인 9,900엔은 과거 공식 확인값; 11/25~26 9,400엔은 복수 보도의 참고치. 현재 판매가·매진 확인 필요.",
           "previous": {
-            "value": null,
+            "value": 9900,
             "source": {
-              "kind": "pending_cost_review",
-              "note": "성인(12세 이상) 1일 스튜디오 패스 세금 포함 8,400엔부터. 방문일 가격 확정 필요. 익스프레스 패스만으로 입장 불가."
+              "kind": "dated_official_ticket",
+              "urls": [
+                "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
+                "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
+                "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
+                "https://www.usj.co.jp/web/ja/jp/access",
+                "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+                "https://www.openstreetmap.org/node/519909156"
+              ],
+              "checked_at": "2026-11-16",
+              "note": "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+              "previous": {
+                "value": null,
+                "source": {
+                  "kind": "pending_cost_review",
+                  "note": "성인(12세 이상) 1일 스튜디오 패스 세금 포함 8,400엔부터. 방문일 가격 확정 필요. 익스프레스 패스만으로 입장 불가."
+                }
+              }
             }
           }
         },
@@ -59340,52 +59368,94 @@
         "stay_min": {
           "kind": "demo_model_estimate",
           "urls": [
-            "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
-            "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
-            "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-            "https://www.usj.co.jp/web/ja/jp/access",
-            "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+            "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2",
+            "https://jp.trip.com/blog/usj-golden-week/",
+            "https://kansai-tabijitaku.com/usj-christmas/",
             "https://www.openstreetmap.org/node/519909156"
           ],
-          "checked_at": "2026-11-16",
-          "note": "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+          "checked_at": "2026-11-24",
+          "note": "11/25 09~21시 및 11/26 08:30~21:30은 공식 운영시간 안내. 예고 없이 변경될 수 있음.; 두 독립 보도의 11/25·26 성인 1데이권 9,400엔을 예산 참고치로 사용. 공식 판매 페이지 직접 확인에 실패했으며 다른 보도와 가격이 충돌하므로 구매 전 확인.; 11/17~19의 기존 공식 확인 가격 9,900엔과 개별 시간을 새 스냅샷에도 유지. 11/20~24는 공백이므로 재확인 전 차단.; 입장권 사전 구매 및 어트랙션·특정 구역 정리권은 별도. 혼잡·매진·식사비·추가권은 보장하거나 포함하지 않음.; 공개 지도 정문 근처 기준 좌표는 실제 입구 실측이 아니며 480분 체류는 팀 시연 추정.",
           "previous": {
-            "value": null,
-            "source": null
+            "value": 480,
+            "source": {
+              "kind": "demo_model_estimate",
+              "urls": [
+                "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
+                "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
+                "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
+                "https://www.usj.co.jp/web/ja/jp/access",
+                "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+                "https://www.openstreetmap.org/node/519909156"
+              ],
+              "checked_at": "2026-11-16",
+              "note": "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+              "previous": {
+                "value": null,
+                "source": null
+              }
+            }
           }
         },
         "bag_load": {
-          "kind": "demo_model_estimate",
+          "kind": "dated_official_review",
           "urls": [
-            "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
-            "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
-            "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-            "https://www.usj.co.jp/web/ja/jp/access",
-            "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+            "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2",
+            "https://jp.trip.com/blog/usj-golden-week/",
+            "https://kansai-tabijitaku.com/usj-christmas/",
             "https://www.openstreetmap.org/node/519909156"
           ],
-          "checked_at": "2026-11-16",
-          "note": "개인 쇼핑 구매량을 제외한 테마파크 방문의 상대 짐 점수 0. 수하물 반입 허용 의미 아님.",
+          "checked_at": "2026-11-24",
+          "note": "11/25 09~21시 및 11/26 08:30~21:30은 공식 운영시간 안내. 예고 없이 변경될 수 있음.; 두 독립 보도의 11/25·26 성인 1데이권 9,400엔을 예산 참고치로 사용. 공식 판매 페이지 직접 확인에 실패했으며 다른 보도와 가격이 충돌하므로 구매 전 확인.; 11/17~19의 기존 공식 확인 가격 9,900엔과 개별 시간을 새 스냅샷에도 유지. 11/20~24는 공백이므로 재확인 전 차단.; 입장권 사전 구매 및 어트랙션·특정 구역 정리권은 별도. 혼잡·매진·식사비·추가권은 보장하거나 포함하지 않음.; 공개 지도 정문 근처 기준 좌표는 실제 입구 실측이 아니며 480분 체류는 팀 시연 추정.",
           "previous": {
-            "value": null,
-            "source": null
+            "value": 0,
+            "source": {
+              "kind": "demo_model_estimate",
+              "urls": [
+                "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
+                "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
+                "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
+                "https://www.usj.co.jp/web/ja/jp/access",
+                "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+                "https://www.openstreetmap.org/node/519909156"
+              ],
+              "checked_at": "2026-11-16",
+              "note": "개인 쇼핑 구매량을 제외한 테마파크 방문의 상대 짐 점수 0. 수하물 반입 허용 의미 아님.",
+              "previous": {
+                "value": null,
+                "source": null
+              }
+            }
           }
         },
         "covered": {
           "kind": "dated_official_review",
           "urls": [
-            "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
-            "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
-            "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-            "https://www.usj.co.jp/web/ja/jp/access",
-            "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+            "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2",
+            "https://jp.trip.com/blog/usj-golden-week/",
+            "https://kansai-tabijitaku.com/usj-christmas/",
             "https://www.openstreetmap.org/node/519909156"
           ],
-          "checked_at": "2026-11-16",
-          "note": "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+          "checked_at": "2026-11-24",
+          "note": "11/25 09~21시 및 11/26 08:30~21:30은 공식 운영시간 안내. 예고 없이 변경될 수 있음.; 두 독립 보도의 11/25·26 성인 1데이권 9,400엔을 예산 참고치로 사용. 공식 판매 페이지 직접 확인에 실패했으며 다른 보도와 가격이 충돌하므로 구매 전 확인.; 11/17~19의 기존 공식 확인 가격 9,900엔과 개별 시간을 새 스냅샷에도 유지. 11/20~24는 공백이므로 재확인 전 차단.; 입장권 사전 구매 및 어트랙션·특정 구역 정리권은 별도. 혼잡·매진·식사비·추가권은 보장하거나 포함하지 않음.; 공개 지도 정문 근처 기준 좌표는 실제 입구 실측이 아니며 480분 체류는 팀 시연 추정.",
           "previous": {
-            "value": null,
-            "source": null
+            "value": false,
+            "source": {
+              "kind": "dated_official_review",
+              "urls": [
+                "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
+                "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
+                "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
+                "https://www.usj.co.jp/web/ja/jp/access",
+                "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+                "https://www.openstreetmap.org/node/519909156"
+              ],
+              "checked_at": "2026-11-16",
+              "note": "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+              "previous": {
+                "value": null,
+                "source": null
+              }
+            }
           }
         }
       },
@@ -59416,14 +59486,15 @@
           "성인(12세 이상) 1일 스튜디오 패스 세금 포함 8,400엔부터. 방문일 가격 확정 필요. 익스프레스 패스만으로 입장 불가.",
           "수집표의 기준 가격·추정 체류시간·공간 표시는 자동 확정하지 않음. 포장/간식은 한 끼 식당으로 승격하지 않음.",
           "2026-11-04: 날짜별 입장료·예약·파크 운영시간과 실제 입구를 확인해야 함. 지도 영역 중심을 입구로 쓰지 않음.",
-          "2026-11-16: 2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음."
+          "2026-11-16: 2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.; 입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.; 실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.; OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.; 테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음.",
+          "2026-11-24: 11/25 09~21시 및 11/26 08:30~21:30은 공식 운영시간 안내. 예고 없이 변경될 수 있음.; 두 독립 보도의 11/25·26 성인 1데이권 9,400엔을 예산 참고치로 사용. 공식 판매 페이지 직접 확인에 실패했으며 다른 보도와 가격이 충돌하므로 구매 전 확인.; 11/17~19의 기존 공식 확인 가격 9,900엔과 개별 시간을 새 스냅샷에도 유지. 11/20~24는 공백이므로 재확인 전 차단.; 입장권 사전 구매 및 어트랙션·특정 구역 정리권은 별도. 혼잡·매진·식사비·추가권은 보장하거나 포함하지 않음.; 공개 지도 정문 근처 기준 좌표는 실제 입구 실측이 아니며 480분 체류는 팀 시연 추정."
         ],
         "stay_policy": {
           "type": "시연 추정",
           "min": 480,
           "max": 480,
           "representative": 480,
-          "method": "기존 팀 테마파크 기준 360~480분 중 480분. 이동·입장 대기 별도."
+          "method": "일정 시간 계획 추정; 줄 대기는 별도."
         },
         "area_scheme": "tourism_editorial_v1",
         "area_basis": "manual_editorial_boundary_unconfirmed",
@@ -59465,109 +59536,80 @@
         },
         "dated_verification": {
           "status": "eligible_for_dated_demo",
+          "source_urls": [
+            "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2",
+            "https://jp.trip.com/blog/usj-golden-week/",
+            "https://kansai-tabijitaku.com/usj-christmas/",
+            "https://www.openstreetmap.org/node/519909156"
+          ],
           "fields": {
-            "latitude": 34.6673149,
-            "longitude": 135.4351775,
-            "area": "오사카베이",
+            "opening_hours": "11/17 09:00~20:00, 11/18 09:00~21:00, 11/19 09:00~20:00, 11/25 09:00~21:00, 11/26 08:30~21:30. 입장권 별도 구매.",
             "cost": 9900,
             "stay_min": 480,
             "bag_load": 0,
-            "covered": false,
-            "opening_hours": "2026-11-17 09:00~20:00, 11-18 09:00~21:00, 11-19 09:00~20:00. 날짜별 변동·조기 개장 가능. 입장권은 별도 구매; 일부 구역·체험은 추가 정리권/예약 필요."
+            "covered": false
           },
-          "source_urls": [
-            "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
-            "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
-            "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-            "https://www.usj.co.jp/web/ja/jp/access",
-            "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
-            "https://www.openstreetmap.org/node/519909156"
-          ],
+          "field_kinds": {
+            "cost": "official_budget_estimate",
+            "stay_min": "demo_model_estimate"
+          },
+          "field_notes": {
+            "cost": "11/17~19 성인 9,900엔은 과거 공식 확인값; 11/25~26 9,400엔은 복수 보도의 참고치. 현재 판매가·매진 확인 필요."
+          },
+          "resolved_blockers": [],
+          "remaining": [],
           "conditions": [
-            "2026-11-16 공식 WEB 티켓 달력: 11/17·18·19 성인(12세 이상) 1데이 스튜디오 패스 각 9,900엔. 구매·잔여 수량 보장 아님.",
-            "입장권 사전 구매 필요. 익스프레스 패스·식사·쇼핑 별도; 특정 구역 입장 보장 없음.",
-            "실내 시설과 야외 이동이 혼합되어 실내 전용 장소로 분류하지 않음.",
-            "OSM 정문 부근 보행 게이트 참고 좌표. 현장 출입구·대기열 길찾기 검증 아님.",
-            "테마파크 체류 480분은 기존 팀 기준(360~480분)의 상한. 예산·활동 시간이 부족하면 일정에 배치되지 않을 수 있음."
+            "11/25 09~21시 및 11/26 08:30~21:30은 공식 운영시간 안내. 예고 없이 변경될 수 있음.",
+            "두 독립 보도의 11/25·26 성인 1데이권 9,400엔을 예산 참고치로 사용. 공식 판매 페이지 직접 확인에 실패했으며 다른 보도와 가격이 충돌하므로 구매 전 확인.",
+            "11/17~19의 기존 공식 확인 가격 9,900엔과 개별 시간을 새 스냅샷에도 유지. 11/20~24는 공백이므로 재확인 전 차단.",
+            "입장권 사전 구매 및 어트랙션·특정 구역 정리권은 별도. 혼잡·매진·식사비·추가권은 보장하거나 포함하지 않음.",
+            "공개 지도 정문 근처 기준 좌표는 실제 입구 실측이 아니며 480분 체류는 팀 시연 추정."
           ],
+          "cost_basis": "11/17~19 성인 9,900엔은 과거 공식 확인값; 11/25~26 9,400엔은 복수 보도의 참고치. 현재 판매가·매진 확인 필요.",
           "profile": {
+            "valid_from": "2026-11-25",
+            "valid_through": "2026-11-26",
             "window": [
               540,
-              1200,
-              720
+              1260,
+              780
             ],
-            "valid_from": "2026-11-17",
-            "valid_through": "2026-11-19",
             "exceptions": {
-              "2026-11-17": {
-                "window": [
-                  540,
-                  1200,
-                  720
-                ],
-                "cost_jpy": 9900
-              },
-              "2026-11-18": {
+              "2026-11-25": {
                 "window": [
                   540,
                   1260,
                   780
                 ],
-                "cost_jpy": 9900
+                "cost_jpy": 9400
               },
-              "2026-11-19": {
+              "2026-11-26": {
                 "window": [
-                  540,
-                  1200,
-                  720
+                  510,
+                  1290,
+                  810
                 ],
-                "cost_jpy": 9900
+                "cost_jpy": 9400
               }
-            },
-            "window_basis": "official_calendar_with_480_min_planning_stay"
+            }
           },
-          "cost_basis": "2026-11-17~19 성인 1데이 스튜디오 패스 9,900엔. 공식 티켓 달력 11/16 확인; 입장권 구매·식사·익스프레스 패스·쇼핑 별도.",
-          "resolved_blockers": [
-            "branch_collection_review_required",
-            "entrance_coordinates_unconfirmed",
-            "stay_policy_unconfirmed",
-            "covered_unconfirmed",
-            "bag_load_unconfirmed",
-            "structured_date_profile_missing",
-            "area_scheme_unconfirmed",
-            "category_contract_review_required",
-            "dated_ticket_and_reservation_required"
-          ],
-          "remaining": [],
-          "planning_policy": {
-            "stay_min": 480,
-            "note": "기존 팀 테마파크 기준 360~480분 중 480분. 이동·입장 대기 별도."
-          },
-          "field_kinds": {
-            "latitude": "osm_map_reference",
-            "longitude": "osm_map_reference",
-            "stay_min": "demo_model_estimate",
-            "bag_load": "demo_model_estimate",
-            "cost": "dated_official_ticket"
-          },
-          "field_notes": {
-            "latitude": "OSM node/519909156의 정문 부근 보행로(Rodeo Drive) 게이트. 실측·입장 가능 보장이 아닌 이동 계산 참고 위치.",
-            "longitude": "OSM node/519909156 공개 좌표; 지도 보행로 및 공식 접근 안내 대조.",
-            "bag_load": "개인 쇼핑 구매량을 제외한 테마파크 방문의 상대 짐 점수 0. 수하물 반입 허용 의미 아님."
-          },
+          "meal_role": null,
+          "cost_kind": "official_budget_estimate",
+          "price_evidence_kind": "reported_dated_ticket_estimate",
           "coordinates": {
-            "kind": "public_map_reference",
+            "kind": "openstreetmap_node_reference_not_entrance",
             "source_urls": [
-              "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
-              "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
-              "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-              "https://www.usj.co.jp/web/ja/jp/access",
-              "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+              "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2",
+              "https://jp.trip.com/blog/usj-golden-week/",
+              "https://kansai-tabijitaku.com/usj-christmas/",
               "https://www.openstreetmap.org/node/519909156"
             ],
-            "note": "공개 지도 참고 위치, 현장 측량·출입 보장 아님."
+            "note": "기존 참조 좌표. 매장 출입구 실측 아님."
           },
-          "cost_kind": "dated_official_ticket"
+          "planning_policy": {
+            "stay_min": 480,
+            "note": "일정 시간 계획 추정; 줄 대기는 별도."
+          }
         }
       }
     },
@@ -63534,9 +63576,9 @@
   },
   "dated_verification_summary": {
     "checked_at": "2026-11-24",
-    "updated": 30,
+    "updated": 31,
     "new_search_only": 0,
-    "promoted": 30,
+    "promoted": 31,
     "date_range": [
       "2026-11-24",
       "2026-11-30"

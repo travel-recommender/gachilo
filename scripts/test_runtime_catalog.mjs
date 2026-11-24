@@ -22,7 +22,7 @@ test('service and historical audit inputs stay separate without local path setti
     }
     assert.ok(runtime.profiles.places.branch_sushiro_namba_amza);
     assert.equal(runtime.profiles.places.branch_usj.valid_from,'2026-11-17');
-    assert.equal(runtime.profiles.places.branch_usj.valid_through,'2026-11-19');
+    assert.equal(runtime.profiles.places.branch_usj.valid_through,'2026-11-26');
     process.env.REAL_CATALOG_PATH='custom.json';
     assert.throws(()=>loadRuntimeInputs(),/configured together/);
   } finally {

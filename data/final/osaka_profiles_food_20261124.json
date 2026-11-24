@@ -2204,13 +2204,13 @@
       "cost_basis": "시장 산책·쇼핑. 개인 음식·쇼핑 구매액 별도(무료 식사 의미 아님)."
     },
     "branch_usj": {
+      "valid_from": "2026-11-17",
+      "valid_through": "2026-11-26",
       "window": [
         540,
-        1200,
-        720
+        1260,
+        780
       ],
-      "valid_from": "2026-11-17",
-      "valid_through": "2026-11-19",
       "exceptions": {
         "2026-11-17": {
           "window": [
@@ -2235,19 +2235,47 @@
             720
           ],
           "cost_jpy": 9900
+        },
+        "2026-11-20": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-21": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-22": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-23": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-24": {
+          "requires_visit_confirmation": true
+        },
+        "2026-11-25": {
+          "window": [
+            540,
+            1260,
+            780
+          ],
+          "cost_jpy": 9400
+        },
+        "2026-11-26": {
+          "window": [
+            510,
+            1290,
+            810
+          ],
+          "cost_jpy": 9400
         }
       },
-      "window_basis": "official_calendar_with_480_min_planning_stay",
-      "checked_at": "2026-11-16",
+      "checked_at": "2026-11-24",
       "source_urls": [
-        "https://www.usj.co.jp/web/en/us/park-guide/schedule/park-hour2",
-        "https://store.usj.co.jp/ja/jp/store/c/ticket/1DBASIC?config=true",
-        "https://www.usj.co.jp/web/ja/jp/tickets/lineup",
-        "https://www.usj.co.jp/web/ja/jp/access",
-        "https://www.usj.co.jp/web/ja/jp/service-guide/parkmap",
+        "https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2",
+        "https://jp.trip.com/blog/usj-golden-week/",
+        "https://kansai-tabijitaku.com/usj-christmas/",
         "https://www.openstreetmap.org/node/519909156"
       ],
-      "cost_basis": "2026-11-17~19 성인 1데이 스튜디오 패스 9,900엔. 공식 티켓 달력 11/16 확인; 입장권 구매·식사·익스프레스 패스·쇼핑 별도."
+      "cost_basis": "11/17~19 성인 9,900엔은 과거 공식 확인값; 11/25~26 9,400엔은 복수 보도의 참고치. 현재 판매가·매진 확인 필요."
     },
     "osaka_draft_316598fb77c9": {
       "window": [

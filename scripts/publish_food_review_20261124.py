@@ -1,5 +1,6 @@
 """Publish a date-limited food review as a new snapshot; preserve prior experiments."""
 import json
+import copy
 from publish_verified_catalog import ROOT, apply, read, sha
 
 CATALOG = ROOT / 'data/final/osaka_catalog_character_20261123.json'
@@ -330,6 +331,23 @@ def build():
              'OSM 미술관 건물 기준 좌표이며 출입구 및 층간 이동은 실측이 아님.'],
             '특정 4층 전시의 성인 일반 당일권 2,300엔(세금 포함). 할인·다른 전시는 별도.',
             'official_exhibition_admission',role=None),
+        'branch_usj': eligible(
+            ['https://www.usj.co.jp/web/ja/jp/park-guide/schedule/park-hour2',
+             'https://jp.trip.com/blog/usj-golden-week/',
+             'https://kansai-tabijitaku.com/usj-christmas/',
+             'https://www.openstreetmap.org/node/519909156'],
+            {'opening_hours':'11/17 09:00~20:00, 11/18 09:00~21:00, 11/19 09:00~20:00, 11/25 09:00~21:00, 11/26 08:30~21:30. 입장권 별도 구매.',
+             'cost':9900,'stay_min':480,'bag_load':0,'covered':False},
+            {'valid_from':'2026-11-25','valid_through':'2026-11-26','window':[540,1260,780],
+             'exceptions':{'2026-11-25':{'window':[540,1260,780],'cost_jpy':9400},
+                           '2026-11-26':{'window':[510,1290,810],'cost_jpy':9400}}}, [],
+            ['11/25 09~21시 및 11/26 08:30~21:30은 공식 운영시간 안내. 예고 없이 변경될 수 있음.',
+             '두 독립 보도의 11/25·26 성인 1데이권 9,400엔을 예산 참고치로 사용. 공식 판매 페이지 직접 확인에 실패했으며 다른 보도와 가격이 충돌하므로 구매 전 확인.',
+             '11/17~19의 기존 공식 확인 가격 9,900엔과 개별 시간을 새 스냅샷에도 유지. 11/20~24는 공백이므로 재확인 전 차단.',
+             '입장권 사전 구매 및 어트랙션·특정 구역 정리권은 별도. 혼잡·매진·식사비·추가권은 보장하거나 포함하지 않음.',
+             '공개 지도 정문 근처 기준 좌표는 실제 입구 실측이 아니며 480분 체류는 팀 시연 추정.'],
+            '11/17~19 성인 9,900엔은 과거 공식 확인값; 11/25~26 9,400엔은 복수 보도의 참고치. 현재 판매가·매진 확인 필요.',
+            'reported_dated_ticket_estimate',role=None),
     })
     updates['spot_ebisubashi']['cost_kind'] = 'official_free_admission'
     updates['spot_ebisubashi']['field_kinds']['cost'] = 'dated_official_review'
@@ -337,7 +355,16 @@ def build():
     updates['osaka_013']['field_kinds']['cost'] = 'dated_official_review'
     evidence={'checked_at':'2026-11-24','valid_from':'2026-11-24','valid_through':'2026-11-30',
               'updates':updates,'additions':[]}
+    historical_usj = copy.deepcopy(profiles['places']['branch_usj'])
     catalog, profiles = apply(catalog, profiles, evidence)
+    # Preserve the previously verified dates while keeping the intervening gap blocked.
+    usj_profile = profiles['places']['branch_usj']
+    usj_profile['valid_from'] = historical_usj['valid_from']
+    usj_profile['exceptions'] = {
+        **historical_usj['exceptions'],
+        **{f'2026-11-{day:02d}': {'requires_visit_confirmation':True} for day in range(20,25)},
+        **usj_profile['exceptions'],
+    }
     # Published 2026 reports and a restaurant directory identify this exact
     # branch as closed. Remove only from the new snapshot, keeping history.
     closed_id = 'osaka_draft_20aa5444aadd'

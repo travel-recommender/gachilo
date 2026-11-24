@@ -41,6 +41,26 @@ test('Tabelog cross-check preserves cafe estimates and date restrictions',()=>{
   assert.equal(check(id,'2026-11-25').eligible_for_model,false,id);
 });
 
+test('USJ retains old dates, blocks unreviewed gaps, and checks new dated estimates',()=>{
+ const id='branch_usj';
+ for(const d of ['2026-11-17','2026-11-18','2026-11-19']){
+  assert.equal(check(id,d).eligible_for_model,true,d);
+  assert.equal(check(id,d).cost_jpy,9900,d);
+ }
+ for(const d of ['2026-11-20','2026-11-21','2026-11-22','2026-11-23','2026-11-24']){
+  assert.equal(check(id,d).eligible_for_model,false,d);
+  assert.ok(check(id,d).reasons.includes('visit_confirmation_required'));
+ }
+ for(const d of ['2026-11-25','2026-11-26']){
+  assert.equal(check(id,d).eligible_for_model,true,d);
+  assert.equal(check(id,d).cost_jpy,9400,d);
+ }
+ assert.deepEqual(check(id,'2026-11-25').window,[540,1260,780]);
+ assert.deepEqual(check(id,'2026-11-26').window,[510,1290,810]);
+ assert.equal(check(id,'2026-11-27').eligible_for_model,false);
+ assert.match(record(id).review.dated_verification.cost_basis,/보도/);
+});
+
 test('reviewed meals use correct opening dates and stay blocked outside review',()=>{
  assert.equal(check(bistro,'2026-11-25').eligible_for_model,true);
  assert.equal(check(bistro,'2026-11-28').eligible_for_model,false);
@@ -114,7 +134,7 @@ test('each reviewed meal can be scheduled through all three strategies',async()=
    'osaka_draft_3d97f36846d0','branch_viedefrance_bentencho',
    'osaka_draft_35640888fa49','osm_node_2296903605','osm_node_9875632529','osaka_draft_c85fa26beb80','spot_ebisubashi',
    'osaka_draft_e5eb4dd70807','osaka_draft_d52fee5c2304','osaka_draft_b0a5c9b0d460',
-   'osaka_draft_5a3ef73c2b4b','osaka_013']){
+   'osaka_draft_5a3ef73c2b4b','osaka_013','branch_usj']){
   const request={startDate:'2026-11-25',endDate:'2026-11-25',exchange_rate:{krw_per_jpy:'9.5',as_of:'2026-11-24'},
    submissions:['a','b'].map(memberId=>({memberId,longlist:[id],picks:[id],must:id,veto:null,
      budgetPerDay:100000,stepLimit:20000,activeMin:720,tradeoffs:{pace:1,distance:0.5,spend:1}}))};
