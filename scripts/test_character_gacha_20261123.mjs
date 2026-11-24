@@ -1,11 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {availability, loadRuntimeInputs, validateDay} from './validate_real_schedule.mjs';
+import {availability, validateDay} from './validate_real_schedule.mjs';
 import {calculateRealCandidates} from '../backend/engine/real_candidates.mjs';
 import {mockLiveCheck} from '../backend/engine/live_check.mjs';
 import {schedulableDetails} from '../backend/engine/schedulable.mjs';
-const {dataset,profiles}=loadRuntimeInputs();
+// This suite verifies the immutable 11/23 snapshot even as the runtime points
+// to a later reviewed catalog. Later snapshots have their own focused tests.
+const dataset=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_catalog_character_20261123.json',import.meta.url)));
+const profiles=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_profiles_character_20261123.json',import.meta.url)));
 const prior=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_catalog_20261123.json',import.meta.url)));
 const priorProfiles=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_profiles_20261123.json',import.meta.url)));
 const ids=['gacha_shinsaibashi_parco','gacha_hep_five','chiikawa_land_umeda'];
