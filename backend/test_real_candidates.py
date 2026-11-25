@@ -206,6 +206,41 @@ class RealCandidatesTests(unittest.TestCase):
                     with self.assertRaises(EngineError):validate_candidates(output,metadata,ids)
         validate_candidates(good,metadata,ids)
 
+    def test_meal_fill_is_saved_and_strictly_shaped(self):
+        # 끼니 식당(#88): /calculate가 planning.meal_fill이 든 결과를 저장까지 하고, 모양이 다르면 저장하지 않는다
+        room=self.ready_room()
+        code,result,_=self.calculate(room)
+        self.assertEqual(code,200)
+        saved=Store(self.db).result(room['roomId'],room['ownerToken'])
+        self.assertEqual(len(saved['candidates']),len(STRATEGIES))
+        for candidate in saved['candidates']:
+            meal=candidate['planning']['meal_fill']
+            filled=[i for d in candidate['days'] for i in d['items'] if i['filled']]
+            self.assertTrue(meal['windows'])
+            self.assertEqual(meal['added_count'],len(filled))
+            self.assertGreater(meal['added_count'],0)
+        store=Store(self.db,Engine().catalog)
+        good=CandidateEngine(Engine().node).calculate(store.snapshot(room['roomId'],room['ownerToken']))
+        metadata={'dataset':'osaka_review_150','start':'2026-10-01','end':'2026-10-02'}
+        ids=store.real_ids
+        count=good['candidates'][0]['planning']['meal_fill']['added_count']
+        bad=[{'windows':['breakfast','lunch','dinner'],'added_count':count+1},
+             {'windows':['breakfast','lunch','dinner'],'added_count':str(count)},
+             {'windows':['lunch','lunch'],'added_count':count},
+             {'windows':['brunch'],'added_count':count},
+             {'windows':[],'added_count':count},
+             {'windows':['lunch'],'added_count':count,'note':'free text'},
+             {'windows':['lunch']}]
+        for meal in bad:
+            with self.subTest(meal=meal):
+                output=copy.deepcopy(good)
+                output['candidates'][0]['planning']['meal_fill']=meal
+                with self.assertRaises(EngineError):validate_candidates(output,metadata,ids)
+        missing=copy.deepcopy(good)
+        del missing['candidates'][0]['planning']['meal_fill']
+        with self.assertRaises(EngineError):validate_candidates(missing,metadata,ids)
+        validate_candidates(good,metadata,ids)
+
     def test_missing_fx_and_empty_candidates_fail_cleanly_then_retry(self):
         room=self.ready_room()
         with patch.dict(os.environ,{'JPY_TO_KRW_SOURCE':''}):
