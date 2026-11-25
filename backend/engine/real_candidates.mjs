@@ -9,7 +9,7 @@ import {withPlaceCatalog} from './places.ts';
 import {MEAL_WINDOWS, isMeal} from './schedule.ts';
 import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 import {defaultLiveCheck} from './live_check.mjs';
-import {buildPool, choose, REASON_TEXT} from './real_ai.mjs';
+import {buildPool, choose, memberFits, REASON_TEXT} from './real_ai.mjs';
 
 const STRATEGIES = ['average', 'least_misery', 'fairness'];
 const LABELS = {average: '평균 만족', least_misery: '최소 불만', fairness: '공정성'};
@@ -206,6 +206,9 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
     const branchOf = new Map();
     // 빈 끼니 시간에 규칙으로 넣은 식당
     const mealFilled = new Set();
+    // 공정성: 여행 전체에서 빈자리 채우기로 각 구성원이 받은 적합도 합. 찜 반영률이 같을 때 덜 받은 사람을 먼저 챙긴다
+    const fillGain = request.submissions.map(() => 0);
+    const fillReason = new Map();
     const placedNow = (id, accepted) => scheduled.has(id) || accepted.includes(id);
     // 같은 교체 그룹(branch_group_id)은 같은 곳으로 본다. 그룹의 어느 지점이든 이미 들어갔으면 반영된 것이고
     // 다시 넣지 않는다 — 두 사람이 같은 가게의 다른 지점을 골라도 한 번만 방문한다
@@ -310,10 +313,42 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       }
       // 4) 하루 최소 장소 수(3시간마다 2곳, 오래 머무는 곳 제외)와 pace 자리 수 중 큰 쪽까지,
       //    구성원 장소로 다 못 채운 날만 아무도 담지 않은 AI 후보로 남은 자리를 채운다.
+      //    채우는 순서는 전략마다 다르다 (11/25 피드백: 구성원 장소가 다 들어가면 A·B·C가 같았다).
+      //    평균 만족: AI(또는 규칙)가 그룹 취향으로 고른 순서 그대로. 최소 불만: 가장 덜 맞는 사람의 적합도가 높은 곳부터.
+      //    공정성: 지금까지 찜이 가장 덜 반영된 사람의 적합도가 높은 곳부터(한 곳 넣을 때마다 다시 고른다).
       const target = () => Math.max(paceSlotsFor(tradeoffs.pace, limits.active_min), minPlacesFor(limits.active_min, longStays(trial)));
-      for (const {id} of aiPicks) {
-        if (accepted.length >= target()) break;
-        if (!scheduled.has(id) && !accepted.includes(id) && aiEligibleByDate[index].has(id)) tryAdd(id);
+      const fillOrder = aiPicks.map(p => p.id)
+        .filter((id, i, all) => all.indexOf(id) === i && !scheduled.has(id) && aiEligibleByDate[index].has(id));
+      const fitOf = id => ai?.fits?.get(id) ?? request.submissions.map(() => 0);
+      // 최소 불만은 누군가에게 맞지 않는 곳(적합도 0.2 미만)은 채우지 않는다
+      const nextFill = () => {
+        const open = fillOrder.filter(id => !accepted.includes(id) && !tried.has(id)
+          && (strategy !== 'least_misery' || Math.min(...fitOf(id)) >= 0.2));
+        if (!open.length || strategy === 'average') return open[0];
+        const rank = new Map(open.map((id, i) => [id, i]));
+        let score;
+        if (strategy === 'least_misery') score = id => Math.min(...fitOf(id));
+        else {
+          // 덜 반영된 사람부터 차례로: 그 사람에게 맞는 곳(0.2 이상)이 남아 있으면 그중 가장 맞는 곳, 없으면 다음 사람
+          const rates = request.submissions.map(keptRate);
+          const order = rates.map((r, k) => k).sort((a, b) => rates[a] - rates[b] || fillGain[a] - fillGain[b] || a - b);
+          const k = order.find(m => open.some(id => fitOf(id)[m] >= 0.2));
+          fairFor = k ?? null;
+          if (k === undefined) return open[0];
+          score = id => fitOf(id)[k];
+        }
+        return [...open].sort((a, b) => score(b) - score(a) || rank.get(a) - rank.get(b))[0];
+      };
+      const tried = new Set();
+      let fairFor = null;
+      for (let id = nextFill(); id && accepted.length < target(); id = nextFill()) {
+        tried.add(id);
+        tryAdd(id);
+        if (!accepted.includes(id)) continue;
+        fitOf(id).forEach((f, k) => { fillGain[k] += f; });
+        // 공정성이 한 사람의 취향으로 고른 곳은 그 근거를 쓴다 (누구인지는 밝히지 않는다)
+        if (strategy === 'fairness' && fairFor !== null && fitOf(id)[fairFor] >= 0.2
+          && aiById.get(id)?.reasonCode !== 'similar_to_must') fillReason.set(id, 'member_taste');
       }
       for (const [sub, origin] of substitute) {
         if (accepted.includes(sub)) branchOf.set(sub, {fromPlaceId: origin, reasonCode: 'original_unavailable', savedMin: null});
@@ -375,8 +410,8 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         };
         const added = aiById.get(item.place_id);
         if (added && !picked.has(item.place_id) && !listed.includes(item.place_id)) return {
-          placeId: item.place_id, aiAdded: true, filled: false, source: added.source, reasonCode: added.reasonCode,
-          reason: REASON_TEXT[added.reasonCode] + ' 방문일 운영 조건, 실시간 영업 확인과 일일 한도 검사 통과.' + costNote,
+          placeId: item.place_id, aiAdded: true, filled: false, source: added.source, reasonCode: fillReason.get(item.place_id) ?? added.reasonCode,
+          reason: REASON_TEXT[fillReason.get(item.place_id) ?? added.reasonCode] + ' 방문일 운영 조건, 실시간 영업 확인과 일일 한도 검사 통과.' + costNote,
           startMin: item.start_min, endMin: item.end_min,
         };
         return {
@@ -517,6 +552,8 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
   // 1) 구성원의 장소부터 실시간 확인한다. 확인 결과로 '꼭 가기인데 못 넣는 곳'을 알아야 비슷한 곳을 찾는다
   const live = await liveCheck(liveRequests([...human, ...siblings], dates, byId, profiles));
   let pool = [];
+  // 빈자리 후보의 구성원별 적합도. 전략마다 채우는 순서를 정하는 데만 쓰고 모델에는 보내지 않는다
+  const fitsById = new Map();
   if (chooser) {
     const limits = limitsFor(request);
     const usable = id => dates.some(date => passed(live, id, date) && availability(byId.get(id), date, profiles, {allowShopping: true}).eligible_for_model);
@@ -541,6 +578,11 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
     poolLive.verdicts.forEach((v, k) => live.verdicts.set(k, v));
     live.fetched += poolLive.fetched; live.reused += poolLive.reused;
     pool = draft.filter(c => dates.some(date => passed(live, c.id, date)));
+    const costOf = new Map(candidates.map(c => [c.record.place.place_id, c]));
+    for (const c of pool) {
+      const {record, costKrw} = costOf.get(c.id);
+      fitsById.set(c.id, memberFits(record, costKrw, request.submissions, byId, missedMusts));
+    }
   }
   // 끼니 채우기 후보: 아무도 담지 않은 식당 중 여행일에 운영하는 곳을 구성원 장소에 가까운 순으로 MEAL_POOL_SIZE곳.
   // 구성원 장소·제외·교체 후보·AI 후보와 같은 교체 그룹은 뺀다. AI가 꺼져 있어도 규칙으로 채운다.
@@ -594,6 +636,7 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
           empty = Math.max(...candidates.map(c => c.days.reduce((n, d) => n + Math.max(0, slots - d.placeIds.length), 0)));
         } catch (error) { if (error.message !== 'NO_SCHEDULABLE_REAL_CANDIDATE') throw error; }
         if (empty) ai = await chooser(pool, Math.min(empty, pool.length));
+        if (ai) ai = {...ai, fits: fitsById};
       }
       const run=()=>calculatePrepared(request,dataset,profiles,dates,picked,listed,live,ai,mealPool);
       let wet;
