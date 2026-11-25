@@ -16,3 +16,13 @@ test('검증된 방문일의 일정 후보는 추천 대상에도 들어간다',
   assert.ok(result.recommendationPlaceIds.length > 0);
   assert.ok(result.recommendationPlaceIds.every(id => result.placeIds.includes(id)));
 });
+
+test('예약이 필요한 장소는 방문일 조건이 검증된 경우에만 추천한다', () => {
+  const {dataset, profiles} = loadRuntimeInputs();
+  const id = 'osaka_002'; // 쓰텐카쿠: 사전 예약 안내가 필요한 전망대
+  const confirmed = schedulableDetails(['2026-11-25'], dataset, profiles);
+  assert.ok(confirmed.recommendationPlaceIds.includes(id));
+  const draft = schedulableDetails(['2026-12-25'], dataset, profiles);
+  assert.ok(draft.placeIds.includes(id));
+  assert.ok(!draft.recommendationPlaceIds.includes(id));
+});
