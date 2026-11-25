@@ -9,6 +9,7 @@ import {withPlaceCatalog} from './places.ts';
 import {withRouting, conditionSummary, routingSummary} from './routing.ts';
 import {defaultLiveCheck} from './live_check.mjs';
 import {buildPool, choose, REASON_TEXT} from './real_ai.mjs';
+import {precheckPlaces} from './place_precheck.mjs';
 
 const STRATEGIES = ['average', 'least_misery', 'fairness'];
 const LABELS = {average: '평균 만족', least_misery: '최소 불만', fairness: '공정성'};
@@ -468,13 +469,19 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
   const siblingSet = new Set(siblings);
   const failed = new Set([...live.verdicts].filter(([k, v]) => v.length && !siblingSet.has(k.split('|')[0])).map(([k]) => k.split('|')[0]));
   live.failedPlaces = [...failed].filter(id => ![...live.verdicts].some(([k, v]) => k.startsWith(id + '|') && !v.length)).length;
+  // Compare existing decisions before A/B/C, without changing any place/date verdict.
+  const checking = precheckPlaces({ids: [...human, ...siblings, ...pool.map(c => c.id)], dates,
+    dataset, profiles, live}, deps.precheckOptions);
   // AI 후보 전체를 경로 표에 넣는다. 모델이 어느 곳을 고를지 경로 조회 전에는 모른다
   const routed = new Set([...picked, ...listed, ...siblings, ...pool.map(c => c.id)]);
   const points = dataset.places.filter(r => routed.has(r.place.place_id))
     .map(r => ({lat: r.place.latitude, lng: r.place.longitude}));
   // One routing snapshot is reused by every strategy so OSRM work is bounded, not tripled.
-  return withTripConditions(request.weather, request.startDate, () =>
+  const calculating = withTripConditions(request.weather, request.startDate, () =>
     withRouting(points, async () => {
+      // Prepare the independent routing snapshot concurrently, but never start
+      // either member-only placement or A/B/C generation before the precheck.
+      await checking;
       // 3) 빈자리는 후보 수가 아니라 구성원 장소를 실제로 배치해 본 결과로 센다.
       //    예산·걸음·활동시간 때문에 같이 못 넣는 곳은 자리를 채운 것이 아니다
       let ai = null;
@@ -505,6 +512,8 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
           ? plain.candidates[i] : candidate;
       })};
     }, routingOptions));
+  const [checked, output] = await Promise.all([checking, calculating]);
+  return {candidates: output.candidates.map(c => ({...c, planning: {...c.planning, ai_precheck: checked.audit}}))};
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

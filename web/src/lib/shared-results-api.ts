@@ -33,6 +33,17 @@ export interface SharedCandidate {
   }[];
   /** 실제 장소 결과에만 있는 계획 요약 (backend/candidate_results.py). 실험 설명 문장이 쓴다 */
   planning?: {
+    ai_precheck?: {
+      version: "somsom-place-precheck-v2";
+      source: "somsom" | "rule" | "mock";
+      status: "matched" | "fallback" | "mock";
+      reason_code: "matched" | "mock" | "unavailable" | "timeout" | "input_limit" | "invalid_response" | "disagreement";
+      checked_at: string;
+      place_date_count: number;
+      allowed_place_date_count: number;
+      rejected_place_date_count: number;
+      evidence_digest: string;
+    };
     must_satisfied: boolean;
     unplaced_count: number;
     /** 예전 결과에는 없을 수 있다. "common_across_dates"일 때만 이유를 쓴다 */
