@@ -98,3 +98,25 @@ test("출처 사이트 이름: www를 빼고 호스트만", async () => {
   assert.equal(sourceHost("https://www.skybldg.co.jp/observatory/information/"), "skybldg.co.jp");
   assert.equal(sourceHost("https://hepfive.jp/ferris/"), "hepfive.jp");
 });
+
+test('새 근거 계약: 지점·근거 ID·출처 링크를 검증하고 이전 서버 응답도 호환', async () => {
+  const {evidenceOf,evidenceForDate}=await import('../../backend/engine/visit_evidence.mjs');
+  const r={place:{place_id:'osaka_007',opening_hours:'09:30–22:30',website:'https://www.skybldg.co.jp/'},field_sources:{opening_hours:{kind:'official_web_review',url:'https://www.skybldg.co.jp/',checked_at:'2026-11-18'}}};
+  const evidence=evidenceOf(r,{valid_from:'2026-11-01',valid_through:'2026-11-30',places:{osaka_007:{window:[570,1350,1320],checked_at:'2026-11-18',source_urls:['https://www.skybldg.co.jp/']}}},{today:'2026-11-18'});
+  const value=ok() as any;value.places[0].evidence=evidence;
+  value.places[0].dates[0].evidenceCheck=evidenceForDate(evidence,'2026-11-17');
+  assert.equal(decodeVisitConditions(value,request).places[0].evidence?.schemaVersion,1);
+  const bad=(edit:(x:any)=>void)=>{const x=structuredClone(value);edit(x);assert.throws(()=>decodeVisitConditions(x,request),VisitConditionsError);};
+  bad(x=>{x.places[0].evidence.entries[0].placeId='other-branch';});
+  bad(x=>{x.places[0].evidence.entries[0].sources[0].url='javascript:alert(1)';});
+  bad(x=>{x.places[0].dates[0].evidenceCheck.usableEvidenceIds=['missing'];});
+  bad(x=>{delete x.places[0].dates[0].evidenceCheck;});
+  assert.ok(decodeVisitConditions(ok(),request));
+});
+
+test('확인 날짜·적용 기간을 구분하여 표시', async () => {
+  const {evidencePeriod,FRESHNESS_LABEL}=await import('../src/lib/visit-evidence.ts');
+  assert.equal(evidencePeriod({periodInvalid:false,validFrom:null,validThrough:null} as never),'적용 기간 기록 없음');
+  assert.equal(evidencePeriod({periodInvalid:false,validFrom:'2026-11-01',validThrough:'2026-11-30'} as never),'2026-11-01 ~ 2026-11-30');
+  assert.equal(FRESHNESS_LABEL.current,'확인일 기록 있음'); // 현재 영업 보장이라는 표현을 쓰지 않음
+});

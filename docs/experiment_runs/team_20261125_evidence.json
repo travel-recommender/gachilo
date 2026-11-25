@@ -1,0 +1,65 @@
+{
+  "session": "rehearsal-20261125-reviewed-v2",
+  "mode": "live",
+  "deployed_commit": "732e46e4d97535958f0af770589f12ef6a83ed7f",
+  "pr76_commit": "178fbf866a5b03c86088cab830d8ca42507ede0d",
+  "virtual_travel_dates": [
+    "2026-11-25",
+    "2026-11-28"
+  ],
+  "group": "team",
+  "member_count": 3,
+  "longlist_count": 3,
+  "submission_count": 3,
+  "database_quick_check": "ok",
+  "http_evidence": {
+    "window_start": "2026-11-25T02:17:41.513253032Z",
+    "window_end": "2026-11-25T02:26:27.974245872Z",
+    "counters": {
+      "recommendations": {
+        "POST_200": 17
+      },
+      "place-photo": {
+        "POST_200": 27,
+        "POST_429": 1
+      },
+      "submissions": {
+        "GET_200": 2,
+        "PUT_200": 3,
+        "PUT_409": 16
+      },
+      "longlists": {
+        "PUT_200": 3
+      },
+      "calculate": {
+        "POST_200": 1
+      },
+      "results": {
+        "GET_200": 224
+      }
+    },
+    "calculate": [
+      {
+        "timestamp": "2026-11-25T02:21:09.438051452Z",
+        "http_status": 200,
+        "method": "POST"
+      }
+    ]
+  },
+  "raw_records_exported": true,
+  "google_form_verified": false,
+  "completion_source": "User reported team experiment complete; verified submission counts and successful calculate/result HTTP responses. Full candidate payload and actual-device UI coverage are not independently verified.",
+  "backup_verification": {
+    "db_hash_matches": true,
+    "manifest_hash_matches": true,
+    "catalog_hash_matches": true,
+    "profiles_hash_matches": true,
+    "sqlite_quick_check": "ok",
+    "restore_local_separate_group": true,
+    "candidate_result_bundles": 1,
+    "participants": 3,
+    "exported_participant_candidate_rows": 9,
+    "google_form_included": false,
+    "temporary_ssh_key_removed": true
+  }
+}

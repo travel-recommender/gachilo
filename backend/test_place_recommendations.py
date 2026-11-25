@@ -20,6 +20,21 @@ def place(pid, area='난바', category='food'):
 
 
 class RankingTests(unittest.TestCase):
+    def test_selected_brand_is_filtered_before_co_pick_ranking_and_fallback(self):
+        source = {**place('horai_restaurant'), 'brandId': '551_horai'}
+        sibling = {**place('horai_takeout'), 'brandId': '551_horai'}
+        places = {p['id']: p for p in [source, sibling, place('other_restaurant')]}
+        counts = {'pairs': [{'placeIds': ['horai_restaurant', 'horai_takeout'], 'listCount': 99}]}
+        for evidence in [counts, {'pairs': []}]:
+            got = rank_places(source['id'], places, evidence, set(places), set(), 1)
+            self.assertEqual([p['placeId'] for p in got], ['other_restaurant'])
+
+    def test_all_selected_brands_are_excluded_without_guessing_unknown_brands(self):
+        places = {p['id']: p for p in [place('source'), place('independent'),
+            {**place('saved'), 'brandId': 'ichiran'}, {**place('other_branch'), 'brandId': 'ichiran'}]}
+        got = rank_places('source', places, {'pairs': []}, set(places), {'saved', 'custom_unknown'}, 10)
+        self.assertEqual([p['placeId'] for p in got], ['independent'])
+
     def test_count_then_affinity_then_stable_id_and_no_duplicates(self):
         places = {p['id']: p for p in [place('s'), place('b'), place('a'), place('far', '우메다', 'cafe')]}
         counts = {'pairs': [{'placeIds': ['s', pid], 'listCount': n} for pid, n in [('a', 3), ('b', 3), ('far', 4)]]}
@@ -193,6 +208,26 @@ class RecommendationStoreTests(unittest.TestCase):
         self.assertEqual(got['eligibility'], 'at_least_one_trip_date')
         self.store.date_availability = lambda *_: []
         self.assertEqual(self.recommend({'placeId': 'osaka_001'}, real)['recommendations'], [])
+
+    def test_real_horai_branches_are_not_additional_recommendations(self):
+        real = self.create(REAL_DATASET)
+        ids = {'branch_551_honten', 'branch_551_namba_walk', 'branch_551_takashimaya_osaka'}
+        self.assertTrue(ids <= set(self.store.recommendation_real_places))
+        self.store.date_availability = lambda *_: set(self.store.recommendation_real_places)
+        # The source branch must suppress both restaurant and takeaway branches.
+        self.save(0, ['branch_551_honten'], real)
+        got = self.recommend({'placeId': 'branch_551_honten', 'limit': 10}, real)
+        self.assertTrue(got['recommendations'])
+        self.assertTrue(ids.isdisjoint(p['placeId'] for p in got['recommendations']))
+        # Exclude a saved branch, or an unsaved client selection, even when the
+        # currently expanded source is from a different brand.
+        for saved in [True, False]:
+            self.save(0, ['osaka_009', 'branch_551_honten'] if saved else ['osaka_009'], real)
+            body = {'placeId': 'osaka_009', 'limit': 10}
+            if not saved:
+                body['excludePlaceIds'] = ['branch_551_honten']
+            got = self.recommend(body, real)
+            self.assertTrue(ids.isdisjoint(p['placeId'] for p in got['recommendations']))
 
     def test_revoked_token_during_date_check_is_rejected(self):
         real = self.create(REAL_DATASET)
