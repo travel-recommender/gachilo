@@ -7,10 +7,11 @@
  * - 일정은 "일정 A · B · C"로만 보여준다. 어느 전략이 어느 글자인지는 그룹(방)마다 섞고,
  *   같은 그룹 안에서는 모두 같은 글자를 본다 (5.1 — 철수와 영희의 일정 A는 같은 일정).
  * - 화면에 놓이는 순서는 사람마다 섞는다 (2장).
- * - 설명 문장은 참가자 순번(방 참여자 목록 순서)에 따라 5.3 표대로 일정마다 켜고 끈다.
+ * - 설명 문장은 참가자별로 고정한다. 1번은 세 일정 모두 없음, 나머지는 세 일정 모두 있음.
  *
  * 무작위는 방·참여자 id에서 만든 시드로 정한다. 같은 사람은 몇 번을 들어와도 같은 배정을 본다.
  */
+import experimentConfig from "../../../config/experiment.json" with { type: "json" };
 import type { SharedStrategy } from "./shared-results-api";
 
 export const EXPERIMENT_MODE = process.env.NEXT_PUBLIC_EXPERIMENT_MODE === "1";
@@ -19,7 +20,17 @@ export type Letter = "A" | "B" | "C";
 export const LETTERS: Letter[] = ["A", "B", "C"];
 const STRATEGIES: SharedStrategy[] = ["average", "least_misery", "fairness"];
 
-/** 5.3 — 순번별 설명을 붙이는 일정. 7번째부터 다시 1번 */
+export type ExplanationPolicy = "participant-fixed-v2" | "per-candidate-v1";
+export const LEGACY_EXPLANATION_POLICY = "per-candidate-v1" as const;
+export function explanationPolicy(value: unknown): ExplanationPolicy {
+  if (value !== "participant-fixed-v2" && value !== LEGACY_EXPLANATION_POLICY) {
+    throw new Error("Unknown experiment explanation policy");
+  }
+  return value;
+}
+export const EXPLANATION_POLICY = explanationPolicy(experimentConfig.explanationPolicy);
+
+/** 과거 실험 내보내기 전용. 새 실험 화면에는 사용하지 않는다. */
 export const EXPLAIN_TABLE: Letter[][] = [
   ["A"],
   ["B", "C"],
@@ -79,8 +90,10 @@ export function seatOf(memberId: string, memberIds: readonly string[]): number |
 }
 
 /** 이 순번이 설명을 보는 일정 */
-export function explainedLetters(seat: number): Letter[] {
-  return EXPLAIN_TABLE[(seat - 1) % EXPLAIN_TABLE.length];
+export function explainedLetters(seat: number, policy: ExplanationPolicy = EXPLANATION_POLICY): Letter[] {
+  if (!Number.isInteger(seat) || seat < 1) throw new Error("Invalid participant seat");
+  if (explanationPolicy(policy) === "participant-fixed-v2") return seat === 1 ? [] : [...LETTERS];
+  return [...EXPLAIN_TABLE[(seat - 1) % EXPLAIN_TABLE.length]];
 }
 
 export interface ExperimentSlot {
@@ -93,6 +106,7 @@ export interface ExperimentSlot {
 }
 
 export interface ExperimentAssignment {
+  explanationPolicy: ExplanationPolicy;
   seat: number;
   /** 화면에 놓이는 순서대로 */
   slots: ExperimentSlot[];
@@ -102,17 +116,17 @@ export interface ExperimentAssignment {
  * 한 참가자의 배정. 순번을 모르면(참여자 목록에 없음) null — 화면은 일정을 보여주지 않는다.
  * 응답 저장(조은)은 이 값으로 표시 이름·전략·표시 순서·설명 조건을 함께 남긴다.
  */
-export function assignment(roomId: string, memberId: string, memberIds: readonly string[]): ExperimentAssignment | null {
+export function assignment(roomId: string, memberId: string, memberIds: readonly string[], policy: ExplanationPolicy = EXPLANATION_POLICY): ExperimentAssignment | null {
   const seat = seatOf(memberId, memberIds);
   if (seat === null) return null;
   const map = letterMap(roomId);
-  const explained = new Set(explainedLetters(seat));
+  const explained = new Set(explainedLetters(seat, policy));
   const order = shuffled(LETTERS, `order:${roomId}:${memberId}`);
   const slots = order.map((letter, i) => {
     const strategy = STRATEGIES.find((s) => map[s] === letter)!;
     return { strategy, letter, order: i + 1, explained: explained.has(letter) };
   });
-  return { seat, slots };
+  return { seat, slots, explanationPolicy: policy };
 }
 
 export const scheduleName = (letter: Letter) => `일정 ${letter}`;
@@ -242,29 +256,47 @@ export function groupExplanation(c: CandidateLike, hasMust = false, planningLine
   return lines;
 }
 
+/** Exact IDs take priority; only a verified non-empty replacement group implies equivalence.
+ * Used by participant text and frozen-catalogue export. Vetoes remain exact IDs.
+ */
+export function placedEquivalentOf(ids: readonly string[], groupOf: (id: string) => string | null | undefined) {
+  const placed = new Set(ids);
+  const groups = new Map<string, string>();
+  for (const id of ids) {
+    const group = groupOf(id);
+    if (group && !groups.has(group)) groups.set(group, id);
+  }
+  return (id: string): string | undefined => placed.has(id) ? id : groups.get(groupOf(id) || "");
+}
+
 /**
  * 실험 모드의 설명 문장 (5.4). 엔진 결과와 내 입력으로 정해진 틀을 채운다. 문장을 만드는 데 AI는 쓰지 않는다.
  * 서버 요약(summary)은 첫 문장에 전략 이름이 들어 있어 실험 화면에 쓰지 않는다.
  * 순서: 모두에게 같은 설명(groupExplanation) → 나에게만 보이는 설명.
  */
-export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: (id: string) => string): string[] {
-  const placed = new Set(c.days.flatMap((d) => d.items.map((it) => it.placeId)));
+export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: (id: string) => string,
+  groupOf: (id: string) => string | null | undefined = () => null): string[] {
+  const ids = c.days.flatMap((d) => d.items.map((it) => it.placeId));
+  const placed = new Set(ids);
+  const represented = placedEquivalentOf(ids, groupOf);
   const vetoes = mine.vetoes ?? (mine.veto ? [mine.veto] : []);
   const myVetoPlaced = vetoes.some((id) => placed.has(id));
   // 결과 계산 뒤 내 입력이 바뀌어 결과와 어긋나면(내가 제외한 곳이 들어 있음, 1순위를 바꿈, 걸음 한도를 낮춤)
   // planning으로 만든 그룹 문장 전체를 뺀다. 하나씩 막기보다 한 가지 규칙으로 (#71 리뷰)
   const stale = myVetoPlaced
-    || (!!c.planning?.must_satisfied && !!mine.must && !placed.has(mine.must))
+    || (!!c.planning?.must_satisfied && !!mine.must && !represented(mine.must))
     || (mine.stepLimit > 0 && c.metrics.walkStepsPerDay > mine.stepLimit);
   const lines: string[] = groupExplanation(c, !!mine.must, !stale);
   const picks = mine.picks;
   if (picks.length) {
-    const kept = picks.filter((id) => placed.has(id)).length;
+    const kept = picks.filter((id) => !!represented(id)).length;
     lines.push(`내 꼭 가기 ${picks.length}곳 중 ${kept}곳이 들어갔어요.`);
   }
   if (mine.must) {
-    lines.push(placed.has(mine.must)
+    const actual = represented(mine.must);
+    lines.push(actual === mine.must
       ? `내 1순위 ${nameOf(mine.must)}은(는) 들어갔어요.`
+      : actual ? `내 1순위 ${nameOf(mine.must)}은(는) 같은 가게의 다른 지점인 ${nameOf(actual)}으로 들어갔어요.`
       : `내 1순위 ${nameOf(mine.must)}은(는) 이번 일정에 들어가지 못했어요.`);
   }
   if (vetoes.length) {

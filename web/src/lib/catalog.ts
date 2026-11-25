@@ -20,6 +20,7 @@ export interface ApiCatalogPlace {
   longitude: number | null;
   search_names?: string[];
   record_status?: string;
+  branch_group_id?: string | null;
   cost_basis?: string | null;
   cost_status?: string;
   visit_conditions?: string[];
@@ -47,6 +48,7 @@ export function toPlace(p: ApiCatalogPlace): Place {
     categoryLabel: p.category || "분류 확인 중",
     searchNames: p.search_names ?? [p.name],
     catalogStatus: p.record_status,
+    branchGroupId: p.branch_group_id ?? null,
     selectionDisabledReason: p.selection_disabled_reason,
     costKnown: p.cost_krw !== null,
     costEstimated: p.cost_status === "estimate",
@@ -65,8 +67,8 @@ export function toPlace(p: ApiCatalogPlace): Place {
 }
 
 /** Keep every record searchable; unavailable records explain why they cannot be selected. */
-export function roomCatalog(places: ApiCatalogPlace[], placeIds: string[] | null): Place[] {
+export function roomCatalog(places: ApiCatalogPlace[], placeIds: string[] | null, unavailableReasons: Record<string, string> = {}): Place[] {
   const usable = placeIds ? new Set(placeIds) : null;
   return places.map(p => ({ ...toPlace(p), selectionDisabledReason: p.selection_disabled_reason
-    || (usable && !usable.has(p.place_id) ? "방문일 운영 조건이 확인되지 않아 일정에 담을 수 없어요." : null) }));
+    || (usable && !usable.has(p.place_id) ? unavailableReasons[p.place_id] || "방문일 운영 조건이 확인되지 않아 일정에 담을 수 없어요." : null) }));
 }

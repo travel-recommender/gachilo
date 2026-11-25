@@ -188,7 +188,7 @@ export const roomApi = {
 
   /** 150곳 중 이 방 날짜에 일정 검사를 통과할 수 있는 곳 (36곳 방이면 null) */
   schedulable: (roomId: string, token: string) =>
-    request<{ roomId: string; placeIds: string[] | null }>(`/rooms/${encodeURIComponent(roomId)}/schedulable`, "GET", undefined, token, { timeoutMs: SCHEDULABLE_TIMEOUT_MS }),
+    request<{ roomId: string; placeIds: string[] | null; unavailableReasons?: Record<string, string> }>(`/rooms/${encodeURIComponent(roomId)}/schedulable`, "GET", undefined, token, { timeoutMs: SCHEDULABLE_TIMEOUT_MS }),
 
   /** 방 날짜·명단. 그 방의 방장·참여자 토큰이면 누구나 읽는다 */
   info: (roomId: string, token: string) =>

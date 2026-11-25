@@ -44,3 +44,12 @@ test("room date checks preserve all 205 searchable entries but disable unavailab
  assert.ok(list[0].selectionDisabledReason);
  assert.equal(roomCatalog([{...rows[0],selection_disabled_reason:"폐업"}],["branch_0"])[0].selectionDisabledReason,"폐업");
 });
+
+test("dated reasons reach the card while explicit exclusions retain priority",async()=>{
+ const {roomCatalog}=await import("../src/lib/catalog.ts");
+ const rows=[place(1),place(2),{...place(3),selection_disabled_reason:"폐업"}];
+ const list=roomCatalog(rows,["branch_1"],{branch_1:"stale",branch_2:"입장 시간 예약 조건 확인 필요",branch_3:"날짜 확인"});
+ assert.equal(list[0].selectionDisabledReason,null);
+ assert.equal(list[1].selectionDisabledReason,"입장 시간 예약 조건 확인 필요");
+ assert.equal(list[2].selectionDisabledReason,"폐업");
+});

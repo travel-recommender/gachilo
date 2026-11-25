@@ -15,7 +15,7 @@ Module._resolveFilename=function(request,...args){
  return originalResolve.call(this,request,...args);
 };
 Module._extensions['.ts']=(mod,filename)=>mod._compile(ts.transpileModule(fs.readFileSync(filename,'utf8'),{
- compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020},fileName:filename,
+ compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,esModuleInterop:true},fileName:filename,
 }).outputText,filename);
 const require=Module.createRequire(import.meta.url);
 const consensus=require('../src/lib/consensus.ts');
@@ -47,7 +47,7 @@ function preview(exclusions) {
  const mod=new Module(filename);mod.filename=filename;mod.paths=Module._nodeModulePaths(path.dirname(filename));
  mod.require=request=>request in mocks?mocks[request]:require(request);
  mod._compile(ts.transpileModule(fs.readFileSync(filename,'utf8'),{
-  compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,jsx:ts.JsxEmit.ReactJSX},fileName:filename,
+  compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020,jsx:ts.JsxEmit.ReactJSX,esModuleInterop:true},fileName:filename,
  }).outputText,filename);
  setCatalog(catalog);
  try{mod.exports.default();return schedules;}finally{setCatalog(null);}

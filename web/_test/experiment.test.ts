@@ -3,19 +3,19 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  EXPLAIN_TABLE, LETTERS, STRATEGY_WORDS, assignment, experimentExplanation, experimentStatusLine, explainedLetters, FILL_SOURCES, groupExplanation, letterMap, seatOf, strategyOf,
+  EXPLAIN_TABLE, EXPLANATION_POLICY, LEGACY_EXPLANATION_POLICY, LETTERS, explanationPolicy, STRATEGY_WORDS, assignment, experimentExplanation, experimentStatusLine, explainedLetters, FILL_SOURCES, groupExplanation, letterMap, seatOf, strategyOf,
 } from "../src/lib/experiment.ts";
 
 const members = ["m1", "m2", "m3", "m4", "m5", "m6", "m7"];
 
-test("5.3 표: 모든 순번이 설명 있음·없음을 둘 다 겪고, 7번째부터 다시 1번", () => {
+test("과거 정책: 기존 실험 내보내기는 당시 일정별 배정을 보존한다", () => {
   for (const row of EXPLAIN_TABLE) {
     assert.ok(row.length >= 1 && row.length <= 2);
   }
-  assert.deepEqual(explainedLetters(1), ["A"]);
-  assert.deepEqual(explainedLetters(2), ["B", "C"]);
-  assert.deepEqual(explainedLetters(6), ["A", "B"]);
-  assert.deepEqual(explainedLetters(7), explainedLetters(1));
+  assert.deepEqual(explainedLetters(1, LEGACY_EXPLANATION_POLICY), ["A"]);
+  assert.deepEqual(explainedLetters(2, LEGACY_EXPLANATION_POLICY), ["B", "C"]);
+  assert.deepEqual(explainedLetters(6, LEGACY_EXPLANATION_POLICY), ["A", "B"]);
+  assert.deepEqual(explainedLetters(7, LEGACY_EXPLANATION_POLICY), explainedLetters(1, LEGACY_EXPLANATION_POLICY));
   // 6명이 돌면 각 일정이 설명 있음으로 3번씩
   for (const l of LETTERS) assert.equal(EXPLAIN_TABLE.filter((r) => r.includes(l)).length, 3);
 });
@@ -57,8 +57,9 @@ test("설명 배정은 순번(참여자 목록 순서)을 따른다", () => {
     assert.equal(a.seat, i + 1);
     const on = a.slots.filter((s) => s.explained).map((s) => s.letter).sort();
     assert.deepEqual(on, [...explainedLetters(i + 1)].sort());
-    // 누구나 설명 있음과 없음을 둘 다 본다
-    assert.ok(a.slots.some((s) => s.explained) && a.slots.some((s) => !s.explained));
+    // 1번은 전부 없음, 나머지는 전부 있음. 일정 글자나 순서가 바뀌어도 같다.
+    assert.ok(a.slots.every((s) => s.explained === (i > 0)));
+    assert.equal(a.explanationPolicy, "participant-fixed-v2");
   });
 });
 
@@ -208,4 +209,46 @@ test("실험 안내 문구에는 방장 확정·전략 이름이 없다", () => 
     assert.ok(!line.includes("방장") && !line.includes("확정"), line);
     for (const w of STRATEGY_WORDS) assert.ok(!line.includes(w), w);
   }
+});
+
+
+test("지점 교체는 동일 교체 그룹으로만 반영하고 제외는 정확한 지점으로 검사한다", () => {
+  const group = (id: string) => ({old: "dine", next: "dine", takeout: "takeout"} as Record<string,string>)[id] ?? null;
+  const mine = {picks: ["old", "takeout", "unrelated"], must: "old", veto: "old", budgetPerDay: 100000, stepLimit: 10000};
+  // Another member selected next: no branch metadata is necessary for group equivalence.
+  const candidate = {...realCand(planning()), days: [{items: [{placeId: "next", source: "selected"}]}]};
+  const lines = experimentExplanation(candidate, mine, id => id, group);
+  assert.ok(lines.includes("내 꼭 가기 3곳 중 1곳이 들어갔어요."));
+  assert.ok(lines.includes("내 1순위 old은(는) 같은 가게의 다른 지점인 next으로 들어갔어요."));
+  assert.ok(lines.includes("내가 제외한 곳은 넣지 않았어요."));
+  assert.ok(lines.includes("모두의 1순위 꼭 가기가 모두 들어갔어요."));
+  const denied = experimentExplanation(candidate, {...mine, veto: "next"}, id => id, group);
+  assert.ok(denied.includes("내가 제외한 곳 중 일부가 들어 있어요."));
+  assert.ok(!denied.includes("모두의 1순위 꼭 가기가 모두 들어갔어요."));
+  const otherPurpose = experimentExplanation(candidate, {...mine, must: "takeout"}, id => id, group);
+  assert.ok(otherPurpose.includes("내 1순위 takeout은(는) 이번 일정에 들어가지 못했어요."));
+  const unknownGroups = experimentExplanation(candidate, mine, id => id);
+  assert.ok(unknownGroups.includes("내 꼭 가기 3곳 중 0곳이 들어갔어요."));
+});
+
+test("원래 고른 지점도 있으면 다른 지점 문장보다 정확한 지점 방문이 우선한다", () => {
+  const mine = {picks: ["old"], must: "old", veto: null, budgetPerDay: 0, stepLimit: 0};
+  const candidate = {...realCand(planning()), days: [{items: ["next", "old"].map(placeId => ({placeId, source: "selected"}))}]};
+  const lines = experimentExplanation(candidate, mine, id => id, () => "same");
+  assert.ok(lines.includes("내 1순위 old은(는) 들어갔어요."));
+  assert.ok(!lines.some(line => line.includes("다른 지점인")));
+});
+
+
+test("새 정책은 모든 방에서 1번만 설명 없음이며 재접속해도 같다", () => {
+  assert.equal(EXPLANATION_POLICY, "participant-fixed-v2");
+  for (const room of ["team", "joeun", "hyein", "yunjin"]) {
+    for (const [i, member] of members.slice(0, 3).entries()) {
+      const first = assignment(room, member, members)!;
+      assert.deepEqual(first.slots.map(s => s.explained), [i > 0, i > 0, i > 0]);
+      assert.deepEqual(assignment(room, member, members), first);
+    }
+  }
+  assert.throws(() => explanationPolicy("unknown"), /Unknown/);
+  assert.throws(() => explainedLetters(0), /Invalid/);
 });

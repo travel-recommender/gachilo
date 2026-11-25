@@ -352,7 +352,7 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
     real_engine=RealEngine(engine.node)
     candidate_engine=CandidateEngine(engine.node)
     schedulable_cache={}
-    def available_ids(start,end):
+    def availability_details(start,end):
         # Shared by P3/P4 reads and new submissions; eligible on at least one trip date.
         if (start,end) not in schedulable_cache:
             d0,d1=date.fromisoformat(start),date.fromisoformat(end)
@@ -362,12 +362,16 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 value=json.loads(out.stdout)
                 ids=value.get('placeIds') if isinstance(value,dict) else None
                 if not isinstance(ids,list) or not all(isinstance(x,str) for x in ids):raise ValueError('invalid placeIds')
-                schedulable_cache[(start,end)]=ids
+                reasons=value.get('unavailableReasons',{})
+                if not isinstance(reasons,dict) or not all(isinstance(k,str) and isinstance(v,str) for k,v in reasons.items()):raise ValueError('invalid unavailableReasons')
+                schedulable_cache[(start,end)]={'placeIds':ids,'unavailableReasons':reasons}
             except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('일정에 넣을 수 있는 장소를 확인하지 못했습니다. 다시 시도하세요.')
         return schedulable_cache[(start,end)]
+    def available_ids(start,end):
+        return availability_details(start,end)['placeIds']
     def schedulable(rid,token):
         dataset,start,end=store.room_dates(rid,token)
-        return {'roomId':rid,'placeIds':available_ids(start,end) if dataset==REAL_DATASET else None}
+        return {'roomId':rid,**(availability_details(start,end) if dataset==REAL_DATASET else {'placeIds':None,'unavailableReasons':{}})}
     def visit_conditions(rid,token,b):
         # 이슈 #6 RAG 방문 조건 안내: 검토 자료·실시간 영업 조회·출처를 장소·날짜별로 돌려준다. 방 참여자만, 실제 장소 방만.
         dataset,start,end=store.room_dates(rid,token)

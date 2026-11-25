@@ -150,6 +150,7 @@ export function PlaceRow({ place: p, picked, vetoed, isMust, disabled, votes, on
               )}
             </div>
             <p className="mt-1 text-[11.5px] leading-relaxed text-ink-500">{p.blurb}</p>
+            {p.selectionDisabledReason && <p className="mt-1 text-[12px] font-medium leading-relaxed text-coral-600">{p.selectionDisabledReason}</p>}
           </div>
           <div className="shrink-0 text-right">
             <div className="text-[12px] font-semibold tabular-nums">{p.shoppingSpendExcluded ? "구매액 제외" : p.costKnown === false ? "비용 확인 필요" : p.cost ? `${p.costEstimated ? "예산 추정 " : ""}${won(p.cost)}` : "무료"}</div>

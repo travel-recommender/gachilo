@@ -32,6 +32,13 @@ def read_json(path):
     return json.loads(path.read_text(encoding='utf-8'))
 
 
+def explanation_policy():
+    policy = read_json(ROOT/'config/experiment.json')['explanationPolicy']
+    if policy != 'participant-fixed-v2':
+        raise ValueError('Unsupported explanation policy for a new experiment')
+    return policy
+
+
 def write_private_text(path, text, *, exclusive=False):
     # Mode 0600 applies at creation, including under umask 022. Restrict an existing
     # file before replacing its contents. Windows relies on the user's directory ACL.
