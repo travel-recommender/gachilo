@@ -68,3 +68,23 @@ test('시작 시각이 없는 옛 입력은 예전처럼 09:00에 시작한다',
   const {candidates} = await calculateRealCandidates(r, dataset, profiles, {baseUrl: ''}, offline);
   for (const c of candidates) assert.ok(c.days[0].items.every(i => i.startMin >= 540), c.strategy);
 });
+
+// 11/25 화면 확인: 08–21시 2일 여행에서 비싼 점심(17,034원) 뒤 예산이 모자라 1일차 저녁이 빠졌다.
+// 뒤 끼니 예산을 남기고 고르며, 끼니 후보를 끼니마다 따로 뽑아(저녁 영업 식당이 모자라지 않게) 두 날 모두 세 끼를 채운다.
+test('예산이 빠듯해도 뒤 끼니 몫을 남겨 두 날 모두 아침·점심·저녁 식당이 들어간다', async () => {
+  const submissions = [
+    {memberId: 'a', longlist: ['osaka_010', 'osaka_007', 'osaka_008'], picks: ['osaka_007'], musts: ['osaka_007'], vetoes: [],
+      budgetPerDay: 70000, stepLimit: 9000, activeMin: 780, dayStartMin: 480, tradeoffs: {pace: 0.5, distance: 0.5, spend: 0.5}},
+    {memberId: 'b', longlist: ['osaka_009', 'osaka_015', 'osaka_011', 'osaka_018', 'osaka_003', 'osaka_012'],
+      picks: ['osaka_009', 'osaka_015', 'osaka_011', 'osaka_018', 'osaka_003'], musts: [], vetoes: [],
+      budgetPerDay: 120000, stepLimit: 18000, activeMin: 780, dayStartMin: 480, tradeoffs: {pace: 0.5, distance: 0.5, spend: 0.5}},
+  ];
+  const r = {startDate: '2026-11-27', endDate: '2026-11-28', exchange_rate: {krw_per_jpy: '9.5', as_of: '2026-11-25'}, submissions};
+  const {candidates} = await calculateRealCandidates(r, dataset, profiles, {baseUrl: ''}, offline);
+  const food = new Set(dataset.places.filter(p => p.place.category === '식사').map(p => p.place.place_id));
+  for (const c of candidates) for (const d of c.days) {
+    for (const [name, [from, to]] of [['아침', [480, 600]], ['점심', [660, 840]], ['저녁', [1020, 1200]]]) {
+      assert.ok(d.items.some(i => food.has(i.placeId) && i.startMin >= from && i.startMin < to), `${c.strategy} ${d.date} ${name}`);
+    }
+  }
+});
