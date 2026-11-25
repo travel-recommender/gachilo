@@ -9,6 +9,10 @@ from real_engine import REAL_DATASET
 
 def rank_places(source_id, places, counts, eligible, excluded, limit):
     source = places[source_id]
+    # P3 suggests an additional stop. Alternative branches belong to the
+    # itinerary's branch-placement flow, even when their visit purposes differ.
+    selected_brands = {places[pid].get('brandId') for pid in set(excluded) | {source_id}
+                       if pid in places and places[pid].get('brandId')}
     votes = {}
     for pair in counts['pairs']:
         a, b = pair['placeIds']
@@ -19,6 +23,8 @@ def rank_places(source_id, places, counts, eligible, excluded, limit):
     ranked = []
     for pid, p in places.items():
         if pid == source_id or pid in excluded or pid not in eligible or pid.startswith('custom_'):
+            continue
+        if p.get('brandId') and p['brandId'] in selected_brands:
             continue
         same_area = bool(source['areaKey'] and source['areaKey'] == p['areaKey'])
         same_category = bool(source['category'] and source['category'] == p['category'])

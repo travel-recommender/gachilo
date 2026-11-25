@@ -46,7 +46,8 @@ def recommendation_places(real_records, demo_places):
             continue
         p = row['place']
         real[p['place_id']] = {'id': p['place_id'], 'name': p.get('name_ko') or p['name'],
-            'category': p.get('category'), 'area': p.get('area'), 'areaKey': area_key(p)}
+            'category': p.get('category'), 'area': p.get('area'), 'areaKey': area_key(p),
+            'brandId': p.get('brand_id')}
     demo = {p['id']: {**p, 'areaKey': area_key(p)} for p in (demo_places or [])}
     return real, demo
 
