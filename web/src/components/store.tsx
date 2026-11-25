@@ -14,7 +14,7 @@ import {
 } from "@/lib/places";
 import { DRAFT_KEY, SESSION_KEY, restore, save, submitBlocker } from "@/lib/persist";
 import { ApiError, nightsBetween, roomApi, toDateRange, type ApiPool, type ApiResult, type RoomMember } from "@/lib/room-api";
-import { editedState, joinedState, rejoinedState, restoredFromServer, vetoFields } from "@/lib/room-state";
+import { dayStartField, editedState, joinedState, rejoinedState, restoredFromServer, vetoFields } from "@/lib/room-state";
 import type { TripExtras } from "@/lib/extras";
 import { EXTRAS_DEFAULT } from "@/lib/room-state";
 import { REAL_DATASET, roomCatalog } from "@/lib/catalog";
@@ -249,6 +249,8 @@ export function TripProvider({ children }: { children: React.ReactNode }) {
       budgetPerDay: mine.budgetPerDay,
       stepLimit: mine.stepLimit,
       activeMin: mine.activeMin,
+      // P6에서 고른 시작 시각. 엔진이 이 시각부터 일정을 짜고 끼니 시간대를 정한다
+      ...dayStartField(stateRef.current.extra.dayStart, mine.activeMin),
       tradeoffs: toServerTradeoffs(stateRef.current.extra.tradeoff),
     });
   };

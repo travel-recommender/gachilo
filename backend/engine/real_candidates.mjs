@@ -26,12 +26,31 @@ function datesFor(request) {
 
 const vetoesOf = request => new Set(request.submissions.flatMap(s => s.vetoes ?? (s.veto ? [s.veto] : [])));
 const mustsOf = request => new Set(request.submissions.flatMap(s => s.musts ?? (s.must ? [s.must] : [])));
-const limitsFor = request => ({
-  budget_krw: spendCapFor(Math.min(...request.submissions.map(s => s.budgetPerDay)), groupTradeoffs(request.submissions).spend),
-  step_limit: Math.min(...request.submissions.map(s => s.stepLimit)),
-  active_min: Math.min(...request.submissions.map(s => s.activeMin)),
-  krw_per_jpy: request.exchange_rate.krw_per_jpy,
-});
+/**
+ * 그룹이 함께 다닐 수 있는 시간. 구성원마다 시작 시각(dayStartMin, 없으면 09:00)과 활동 시간이 있으면
+ * 가장 늦은 시작 ~ 가장 이른 끝이다. 겹치는 시간이 1시간도 안 되면 가장 늦은 시작부터 가장 짧은 활동 시간으로 본다.
+ * 아무도 시작 시각을 보내지 않은 옛 입력은 예전처럼 09:00 시작 · 가장 짧은 활동 시간이고 day_start_min을 넣지 않는다.
+ */
+export function groupDay(submissions) {
+  const shortest = Math.min(...submissions.map(s => s.activeMin));
+  if (!submissions.some(s => Number.isInteger(s.dayStartMin))) return {start: DAY_START_MIN, active: shortest, explicit: false};
+  const startOf = s => Number.isInteger(s.dayStartMin) ? s.dayStartMin : DAY_START_MIN;
+  const start = Math.max(...submissions.map(startOf));
+  const end = Math.min(...submissions.map(s => startOf(s) + s.activeMin));
+  return {start, active: end - start >= 60 ? end - start : shortest, explicit: true};
+}
+/** 시작 시각을 보내지 않은 입력의 하루 시작 (validateDay와 같음) */
+export const DAY_START_MIN = 9 * 60;
+const limitsFor = request => {
+  const day = groupDay(request.submissions);
+  return {
+    budget_krw: spendCapFor(Math.min(...request.submissions.map(s => s.budgetPerDay)), groupTradeoffs(request.submissions).spend),
+    step_limit: Math.min(...request.submissions.map(s => s.stepLimit)),
+    active_min: day.active,
+    ...(day.explicit ? {day_start_min: day.start} : {}),
+    krw_per_jpy: request.exchange_rate.krw_per_jpy,
+  };
+};
 const passed = (live, id, date) => live.verdicts.get(`${id}|${date}`)?.length === 0;
 
 /** P3 목록에만 있는 그날 후보(listed)를 전략 순위로 줄 세운다.
@@ -70,8 +89,8 @@ export function realSlotsPerDay(pace, activeMin) {
 
 /** 이만큼 이상 머무는 곳(USJ·수족관 등)은 '3시간에 2곳' 규칙에서 따로 센다 */
 export const LONG_STAY_MIN = 180;
-/** 끼니 채우기 후보 식당 수. 실시간 확인이 후보 × 날짜라 묶어 둔다 */
-export const MEAL_POOL_SIZE = 10;
+/** 끼니 창 하나당 후보 식당 수 상한. 실시간 확인이 후보 × 날짜라 묶어 둔다 */
+export const MEAL_POOL_PER_WINDOW_MAX = 8;
 /** 못 채운 끼니마다 구성원 장소를 넣을 때 남겨 두는 시간(분) */
 const MEAL_RESERVE_MIN = 90;  // 식당 체류는 보통 60–90분
 /** 하루 최소 장소 수의 상한. 실제로 들어가는지는 그날 검사(활동 시간·예산·걷기·영업)가 다시 막는다 */
@@ -87,14 +106,13 @@ export function minPlacesFor(activeMin, longStays = []) {
 }
 
 /**
- * 활동 시간에 걸친 끼니 창. 하루는 09:00에 시작한다(validateDay와 같음). 창과 1시간 이상 겹치면 그 끼니를 채운다.
- * 예: 활동 9시간(09–18시) → 아침·점심·저녁, 활동 6시간(09–15시) → 아침·점심.
+ * 활동 시간에 걸친 끼니 창. 하루는 dayStart(기본 09:00)에 시작한다(validateDay와 같음). 창과 1시간 이상 겹치면 그 끼니를 채운다.
+ * 예: 09–18시 → 아침·점심·저녁, 09–15시 → 아침·점심, 10–19시 → 점심·저녁(아침 창과 0분).
  */
-export const DAY_START_MIN = 9 * 60;
-export function mealWindowsFor(activeMin) {
-  const end = DAY_START_MIN + activeMin;
+export function mealWindowsFor(activeMin, dayStart = DAY_START_MIN) {
+  const end = dayStart + activeMin;
   return Object.entries(MEAL_WINDOWS)
-    .filter(([, [from, to]]) => Math.min(end, to) - Math.max(DAY_START_MIN, from) >= 60)
+    .filter(([, [from, to]]) => Math.min(end, to) - Math.max(dayStart, from) >= 60)
     .map(([name, window]) => ({name, window}));
 }
 
@@ -182,12 +200,13 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
   // 그 끼니 창 안에 들어가 식사할 수 있게 여는 곳 (창이 끝나기 30분 전까지 열고, 창이 시작하고 1시간 뒤까지 영업)
   const servesIn = (p, [from, to]) => (p.openingWindows ?? [[p.openFrom, p.openTo, p.lastEntry]])
     .some(([open, close, last]) => open <= to - 30 && close >= from + 60 && (last ?? close) >= from);
-  const meals = mealPool ? mealWindowsFor(limits.active_min) : [];
+  const dayStart = limits.day_start_min ?? DAY_START_MIN;
+  const meals = mealPool ? mealWindowsFor(limits.active_min, dayStart) : [];
   // 아침 끼니를 채우는 날은 고른 식당 중 아침에 열린 곳을 첫 일정으로 둔다
   if (meals.some(m => m.name === 'breakfast')) validationOptions.breakfast = true;
   // 활동이 일찍 끝나는 날은 점심·저녁 목표 시각을 끼니 창 안에서 당긴다 (예: 09–18시 → 저녁 17:00)
   if (meals.length) {
-    const end = DAY_START_MIN + limits.active_min;
+    const end = dayStart + limits.active_min;
     const at = (preferred, [from]) => Math.max(from, Math.min(preferred, end - 90));  // 식당 체류는 보통 90분
     validationOptions.mealAt = {lunch: at(12 * 60, MEAL_WINDOWS.lunch), dinner: at(18 * 60, MEAL_WINDOWS.dinner)};
   }
@@ -255,12 +274,18 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       // reserve: 아직 못 채운 끼니마다 식사 시간(MEAL_RESERVE_MIN)을 활동 시간에서 남겨 두고 검사한다.
       // 구성원 장소가 하루를 다 채워 식당이 못 들어가는 것을 막는다. 1순위 꼭 가기는 남겨 두지 않는다
       const reserved = () => meals.filter(({window}) => !mealMet(trial, window)).length * MEAL_RESERVE_MIN;
+      // 예산도 같다: 못 채운 끼니마다 그날 갈 수 있는 가장 싼 식당 값만큼 남겨 둔다 (11/25 화면 확인: 점심이 비싸 저녁이 예산 초과로 빠졌다)
+      const mealOptions = [...eligibleByDate[index].filter(isMeal), ...mealEligibleByDate[index]];
+      const cheapest = window => Math.min(Infinity, ...mealOptions.filter(p => servesIn(p, window)).map(p => p.cost));
+      const budgetFor = later => later.reduce((sum, {window}) => sum + (Number.isFinite(cheapest(window)) ? cheapest(window) : 0), 0);
+      const spent = () => trial?.totals.selected_admission_and_menu_krw ?? 0;
       // 이미 채운 끼니 시간대를 그대로 두는 결과인가
       const keepsMeals = next => meals.every(({window}) => !mealMet(trial, window) || mealMet(next, window));
       const tryAdd = (id, reserve = false) => {
         if (covered(substitute.get(id) ?? id, accepted) || covered(id, accepted)) return;
         const activeMin = reserve ? Math.max(0, limits.active_min - reserved()) : limits.active_min;
-        const next = validateDay({...limits, active_min: activeMin, date, place_ids: [...accepted, id]}, dataset, profiles, validationOptions);
+        const budget = reserve ? Math.max(0, limits.budget_krw - budgetFor(meals.filter(({window}) => !mealMet(trial, window)))) : limits.budget_krw;
+        const next = validateDay({...limits, active_min: activeMin, budget_krw: budget, date, place_ids: [...accepted, id]}, dataset, profiles, validationOptions);
         // Must-places do not bypass date, cost, last-entry, walking or active-time checks.
         // 끼니로 채운 시간대를 밀어내는 곳은 받지 않는다
         if (next.passed_model_checks && keepsMeals(next)) {
@@ -296,13 +321,20 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
         if (!p || !here.length) return 0;
         return Math.min(...here.map(o => Math.hypot(o.latitude - p.latitude, o.longitude - p.longitude)));
       };
-      for (const {window} of meals) {
-        if (mealMet(trial, window)) continue;
+      //    뒤에 남은 끼니에 쓸 최소 금액(그 창의 가장 싼 식당 값)을 남기는 식당 중에서 가까운 곳을 먼저 고른다.
+      //    그런 곳이 없으면 비싼 곳도 시도한다(뒤 끼니를 못 채울 수 있다)
+      meals.forEach(({window}, w) => {
+        if (mealMet(trial, window)) return;
+        const later = meals.slice(w + 1).filter(m => !mealMet(trial, m.window));
+        const room = limits.budget_krw - spent() - budgetFor(later);
+        const costOf = new Map(mealOptions.map(p => [p.id, p.cost]));
         const member = eligibleByDate[index].filter(p => isMeal(p) && servesIn(p, window) && !covered(p.id, accepted)).map(p => p.id);
         const ruled = mealEligibleByDate[index].filter(p => servesIn(p, window)).map(p => p.id)
           .filter(id => !scheduled.has(id) && !accepted.includes(id) && !mealFilled.has(id) && !covered(id, accepted))
           .sort((a, b) => near(a) - near(b));
-        for (const id of [...member, ...ruled].slice(0, 8)) {
+        const affordable = id => (costOf.get(id) ?? 0) <= room;
+        const order = [...member.filter(affordable), ...ruled.filter(affordable), ...member.filter(id => !affordable(id)), ...ruled.filter(id => !affordable(id))];
+        for (const id of order.slice(0, 8)) {
           const next = validateDay({...limits, date, place_ids: [...accepted, id]}, dataset, profiles, validationOptions);
           if (!next.passed_model_checks || !mealMet(next, window) || !keepsMeals(next)) continue;
           trial = next;
@@ -310,7 +342,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
           if (!human.has(id)) mealFilled.add(id);
           break;
         }
-      }
+      });
       // 4) 하루 최소 장소 수(3시간마다 2곳, 오래 머무는 곳 제외)와 pace 자리 수 중 큰 쪽까지,
       //    구성원 장소로 다 못 채운 날만 아무도 담지 않은 AI 후보로 남은 자리를 채운다.
       //    채우는 순서는 전략마다 다르다 (11/25 피드백: 구성원 장소가 다 들어가면 A·B·C가 같았다).
@@ -563,7 +595,11 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
     const humanGroups = new Set(human.map(id => byId.get(id)?.place.branch_group_id).filter(Boolean));
     const sameGroup = dataset.places.filter(r => humanGroups.has(r.place.branch_group_id)).map(r => r.place.place_id);
     const taken = new Set([...human, ...vetoes, ...siblings, ...sameGroup]);
-    const candidates = dataset.places.filter(r => !taken.has(r.place.place_id)).flatMap(record => {
+    // 끼니 채우기가 켜져 있으면 식당(식사 역할)은 끼니 규칙이 맡는다. AI 빈자리 후보에 넣으면 끼니 후보에서 빠져
+    // (같은 체인 지점까지) 저녁 식당이 모자랐다(11/25). 간식·포장은 그대로 후보로 둔다
+    const mealOwned = r => deps.mealFill !== false && mealWindowsFor(limits.active_min, limits.day_start_min).length > 0
+      && isMeal({category: r.place.category === '식사' ? 'food' : '', name: r.place.name_ko, mealRole: r.review.meal_role});
+    const candidates = dataset.places.filter(r => !taken.has(r.place.place_id) && !mealOwned(r)).flatMap(record => {
       const date = dates.find(d => availability(record, d, profiles, {allowShopping: true}).eligible_for_model);
       if (!date) return [];
       return [{record, costKrw: toEnginePlace(record, availability(record, date, profiles, {allowShopping: true}), limits.krw_per_jpy).cost}];
@@ -584,10 +620,10 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
       fitsById.set(c.id, memberFits(record, costKrw, request.submissions, byId, missedMusts));
     }
   }
-  // 끼니 채우기 후보: 아무도 담지 않은 식당 중 여행일에 운영하는 곳을 구성원 장소에 가까운 순으로 MEAL_POOL_SIZE곳.
+  // 끼니 채우기 후보: 아무도 담지 않은 식당 중 여행일에 운영하는 곳을 구성원 장소에 가까운 순으로, 끼니 창마다 따로 고른다.
   // 구성원 장소·제외·교체 후보·AI 후보와 같은 교체 그룹은 뺀다. AI가 꺼져 있어도 규칙으로 채운다.
   let mealPool = deps.mealFill === false ? null : [];
-  if (mealPool && mealWindowsFor(limitsFor(request).active_min).length) {
+  if (mealPool && mealWindowsFor(limitsFor(request).active_min, limitsFor(request).day_start_min).length) {
     const vetoedBrands = new Set([...vetoes].map(id => byId.get(id)?.place.brand_id).filter(Boolean));
     const taken = new Set([...human, ...vetoes, ...siblings, ...pool.map(c => c.id)]);
     const takenGroups = new Set([...taken].map(id => byId.get(id)?.place.branch_group_id).filter(Boolean));
@@ -600,13 +636,20 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
         && dates.some(date => availability(r, date, profiles, {allowShopping: true}).eligible_for_model);
     }).sort((a, b) => near(a.place) - near(b.place) || a.place.place_id.localeCompare(b.place.place_id))
       ;
-    // 아침(8–10시)에 문을 여는 식당은 드물어 가까운 순만으로는 후보에 안 들어온다. 따로 몇 곳을 더한다
-    const opensEarly = r => dates.some(date => {
+    // 끼니 창마다 따로, 그 창에 식사할 수 있게 여는 가까운 식당을 (여행 일수 + 2)곳씩 담는다.
+    // 예전에는 가까운 10곳을 한 번에 뽑아 점심만 하는 곳이 섞이면 저녁 후보가 1~3곳뿐이었고, 날마다 다른 식당을 쓰니 금방 바닥났다.
+    // 아침(8–10시)에 여는 곳은 카탈로그 전체에 몇 곳뿐이라 가까운 순만으로는 안 들어온다
+    const serves = (r, [from, to]) => dates.some(date => {
       const check = availability(r, date, profiles, {allowShopping: true});
-      return check.eligible_for_model && check.windows.some(([open, close]) => open <= MEAL_WINDOWS.breakfast[1] - 30 && close >= MEAL_WINDOWS.breakfast[0] + 60);
+      return check.eligible_for_model && check.windows.some(([open, close, last]) => open <= to - 30 && close >= from + 60 && last >= from);
     });
-    const ids = [...draft.slice(0, MEAL_POOL_SIZE), ...draft.filter(opensEarly).slice(0, 4)];
-    draft = [...new Set(ids.map(r => r.place.place_id))];
+    const perWindow = Math.min(MEAL_POOL_PER_WINDOW_MAX, dates.length + 2);
+    // 점심·저녁을 다 하는 식당이 두 끼니 몫으로 겹치지 않게, 끼니마다 아직 고르지 않은 식당으로 채운다
+    const chosen = new Set();
+    for (const {window} of mealWindowsFor(limitsFor(request).active_min, limitsFor(request).day_start_min)) {
+      draft.filter(r => !chosen.has(r.place.place_id) && serves(r, window)).slice(0, perWindow).forEach(r => chosen.add(r.place.place_id));
+    }
+    draft = [...chosen];
     const mealLive = await liveCheck(liveRequests(draft, dates, byId, profiles));
     mealLive.verdicts.forEach((v, k) => live.verdicts.set(k, v));
     live.fetched += mealLive.fetched ?? 0; live.reused += mealLive.reused ?? 0;

@@ -201,3 +201,21 @@ test("P4 전체 제외의 제출 계약은 JSON 왕복과 마지막 제외 해�
     assert.deepEqual(vetoFields(restored.mine.vetoes!), fields);
   }
 });
+
+// 11/25: 하루 시작 시각을 서버로 보내고, 다시 들어오면 되살린다
+test("제출에는 P6 시작 시각을 분으로 넣고, 잘못된 값이나 자정을 넘는 값은 넣지 않는다", async () => {
+  const { dayStartField } = await import("../src/lib/room-state.ts");
+  assert.deepEqual(dayStartField("08:00", 780), { dayStartMin: 480 });
+  assert.deepEqual(dayStartField("09:30", 60), { dayStartMin: 570 });
+  assert.deepEqual(dayStartField("8:00", 600), {});
+  assert.deepEqual(dayStartField("20:00", 300), {});
+});
+
+test("저장된 시작 시각이 있으면 시작·종료를 되살리고, 없으면 기본 09:00을 쓴다", async () => {
+  const { extrasFrom } = await import("../src/lib/room-state.ts");
+  const withStart = extrasFrom({ ...SAVED, dayStartMin: 480, activeMin: 780 });
+  assert.equal(withStart.dayStart, "08:00");
+  assert.equal(withStart.dayEnd, "21:00");
+  const old = extrasFrom(SAVED);
+  assert.equal(old.dayStart, EXTRAS_DEFAULT.dayStart);
+});

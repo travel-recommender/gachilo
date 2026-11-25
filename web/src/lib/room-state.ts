@@ -138,10 +138,14 @@ export const EXTRAS_DEFAULT: TripExtras = {
 };
 
 /** 서버에 저장된 입력으로 새 자리의 extra를 만든다. 제외 목록이 없는 옛 입력은 veto에서 되살린다 */
-export function extrasFrom(saved: Pick<ApiSubmission, "picks" | "veto" | "vetoes" | "tradeoffs"> | null): TripExtras {
+export function extrasFrom(saved: Pick<ApiSubmission, "picks" | "veto" | "vetoes" | "tradeoffs"> & Partial<Pick<ApiSubmission, "activeMin" | "dayStartMin">> | null): TripExtras {
   if (!saved) return EXTRAS_DEFAULT;
+  // 저장된 시작 시각이 있으면 시작·종료를 되살린다 (없으면 기본 09:00, 종료는 P6 화면이 activeMin에 맞춘다)
+  const hhmm = (min: number) => `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
+  const day = typeof saved.dayStartMin === "number" && typeof saved.activeMin === "number"
+    ? { dayStart: hhmm(saved.dayStartMin), dayEnd: hhmm(saved.dayStartMin + saved.activeMin) } : {};
   return {
-    ...EXTRAS_DEFAULT, mustList: [...saved.picks], vetoList: [...(saved.vetoes ?? (saved.veto ? [saved.veto] : []))],
+    ...EXTRAS_DEFAULT, ...day, mustList: [...saved.picks], vetoList: [...(saved.vetoes ?? (saved.veto ? [saved.veto] : []))],
     // 서버는 엔진 방향이라 pace만 뒤집는다 (tradeoff.ts의 toServerTradeoffs의 역. 값 import 없이 node 검사가 돌게 여기 둔다)
     tradeoff: saved.tradeoffs
       ? { pace: Math.round((1 - saved.tradeoffs.pace) * 100) / 100, distance: saved.tradeoffs.distance, spend: saved.tradeoffs.spend }
@@ -152,4 +156,12 @@ export function extrasFrom(saved: Pick<ApiSubmission, "picks" | "veto" | "vetoes
 /** P4와 최종 제출이 공유하는 계약. 빈 목록도 명시해 이전 제외를 해제한다. */
 export function vetoFields(vetoes: string[]): Pick<Submission, "veto" | "vetoes"> {
   return { veto: vetoes[0] ?? null, vetoes: [...vetoes] };
+}
+
+/** 제출에 넣을 시작 시각. "HH:MM"이 아니거나 시작 + 활동 시간이 자정을 넘으면 보내지 않는다(서버가 09:00으로 본다) */
+export function dayStartField(dayStart: string, activeMin: number): { dayStartMin?: number } {
+  const m = /^(\d{2}):(\d{2})$/.exec(dayStart);
+  if (!m) return {};
+  const min = Number(m[1]) * 60 + Number(m[2]);
+  return min < 1440 && min + activeMin <= 1440 ? { dayStartMin: min } : {};
 }

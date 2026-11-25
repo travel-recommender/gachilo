@@ -64,12 +64,12 @@ export const isBar = (p: Place) => /이자카야|술집|와인바|칵테일|izak
 export const isMeal = (p: Place) => p.category === "food" && !isBar(p) && (!p.mealRole || p.mealRole === "meal");
 
 /** 영업시간 안으로 들어오는 시작 시각. 못 넣으면 null. 술집만 자정까지 둔다 */
-function fitOpening(place: Place, arrive: number): number | null {
+function fitOpening(place: Place, arrive: number, dayEnd = DAY_END): number | null {
   const windows = place.openingWindows ?? [[place.openFrom, place.openTo, place.lastEntry ?? place.openTo]];
   for (const [open, close, lastEntry] of windows) {
     const start = Math.max(arrive, open);
     if (start <= lastEntry && start + place.stayMin <= close
-        && start + place.stayMin <= (isBar(place) ? NIGHT_END : DAY_END)) return start;
+        && start + place.stayMin <= (isBar(place) ? NIGHT_END : dayEnd)) return start;
   }
   return null;
 }
@@ -111,6 +111,9 @@ export interface ScheduleOptions {
   breakfast?: boolean;
   /** 점심·저녁 목표 시각(분) 덮어쓰기. 없으면 12:00·18:00 */
   mealAt?: { lunch?: number; dinner?: number };
+  /** 하루 시작·끝 시각(분). 없으면 09:00·21:00. 실제 장소 경로는 구성원이 정한 활동 시간을 넘긴다 */
+  dayStart?: number;
+  dayEnd?: number;
   /** 1인 여행 전체 예산(원). 자동 추가 식사는 선택 장소 비용을 뺀 나머지 안에서만 고른다 */
   budget?: number;
   vetoed?: Set<string>;
@@ -142,7 +145,9 @@ function buildDay(
   const used = globalUsed;
   const vetoed = opts.vetoed ?? new Set<string>();
 
-  let clock = DAY_START;
+  let clock = opts.dayStart ?? DAY_START;
+  const dayEnd = Math.max(opts.dayEnd ?? DAY_END, clock);
+  const fit = (p: Place, arrive: number) => fitOpening(p, arrive, dayEnd);
   // 끼니 목표 시각. 기본 점심 12시·저녁 18시. 실제 장소 경로는 활동이 일찍 끝나는 날 끼니 창 안으로 당긴다
   const lunchAt = opts.mealAt?.lunch ?? LUNCH[0];
   const dinnerAt = opts.mealAt?.dinner ?? DINNER[0];
@@ -155,7 +160,7 @@ function buildDay(
   /** notBefore: 끼니·술집처럼 그 시각까지 기다렸다 시작하는 곳 */
   const place = (p: Place, tier: ScheduleItem["tier"], participants: string[], notBefore = 0) => {
     const move = prev ? travel(prev, p) : { km: 0, min: 0, walkKm: 0, mode: "walk" as const };
-    const start = fitOpening(p, Math.max(clock + move.min, notBefore));
+    const start = fit(p, Math.max(clock + move.min, notBefore));
     if (start === null) return false;
     items.push({
       place: p,
@@ -187,7 +192,7 @@ function buildDay(
   if (opts.breakfast) {
     const early = remaining
       .filter((s) => isMeal(s.place) && !isBar(s.place))
-      .map((s) => ({ s, start: fitOpening(s.place, clock + (prev ? travel(prev, s.place).min : 0)) }))
+      .map((s) => ({ s, start: fit(s.place, clock + (prev ? travel(prev, s.place).min : 0)) }))
       .filter((x): x is { s: Selection; start: number } =>
         x.start !== null && inMealWindow(x.start, MEAL_WINDOWS.breakfast))
       .sort((a, b) => a.start - b.start)[0];
@@ -246,7 +251,7 @@ function buildDay(
     // 이번 끼니를 넘기면 문을 닫는 식당은 이번 끼니에 먼저 넣는다. 그중에서도 '꼭 가기'가 먼저다
     const later = notBefore === lunchAt ? dinnerAt : notBefore === dinnerAt ? DINNER[1] : 0;
     const urgency = (s: Selection) =>
-      later && isMeal(s.place) && fitOpening(s.place, later) === null ? (s.mustOf ? 2 : 1) : 0;
+      later && isMeal(s.place) && fit(s.place, later) === null ? (s.mustOf ? 2 : 1) : 0;
 
     // 거리 + 짐 부담으로 다음 장소를 고른다
     const scored = pool.map((s) => {
@@ -272,7 +277,7 @@ function buildDay(
     // 앞당긴 곳이 쇼핑이면 짐 벌점이 조금 늘 수 있다. 장소가 빠지는 것보다 낫다고 본다(docs/branch_auto_placement.md 6.1).
     let chosen = scored[0].sel;
     if (!notBefore) {
-      const arrive = (from: Place | null, to: Place, at: number) => fitOpening(to, at + (from ? travel(from, to).min : 0));
+      const arrive = (from: Place | null, to: Place, at: number) => fit(to, at + (from ? travel(from, to).min : 0));
       // 앞당긴 곳이 끝난 시각에 끼니 시간이 시작되고 식당이 끼어들 수 있으면(남은 식당 또는 자동 식사 채우기), 가까운 곳은 식사 뒤로 밀려 문을 닫을 수 있다 (#79 리뷰)
       const mealPendingAt = (t: number, skip: Selection[]) =>
         ([[LUNCH, mealsDone.lunch], [DINNER, mealsDone.dinner]] as const)
