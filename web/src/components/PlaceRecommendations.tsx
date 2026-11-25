@@ -39,7 +39,7 @@ export function PlaceRecommendations({ room, catalog, sourceId, added, disabled,
             <div className="min-w-0 flex-1">
               <p className="break-words text-[15px] font-bold leading-6">{place.name}</p>
               <p className="mt-0.5 text-[12px] leading-5 text-mute">{[place.area, place.categoryLabel || CATEGORIES.find(c => c.id === place.category)?.label].filter(Boolean).join(" · ")}</p>
-              {place.reservationNotice && <p className="mt-1 text-[12px] leading-5 text-wine">{place.reservationNotice}</p>}
+              {place.reservationNotice && <p className="mt-1 text-[12px] leading-5 text-wine">{place.reservationNotice.replace(' 목록에 담을 수 있어도 자동 일정 배치는 방문일 조건 확인 결과에 따라 보류될 수 있어요.', '')}</p>}
             </div>
             <button type="button" aria-label={`${place.name} 담기`} disabled={disabled || added.length >= P3_LIST_LIMIT}
               onClick={() => onAdd(place)} className="shrink-0 rounded-full border border-wine px-3 py-2 text-[13px] font-bold text-wine disabled:opacity-40">담기</button>

@@ -127,7 +127,7 @@ test('actual P3 add updates longlist only and never persists a recommendation or
 });
 
 
-test('experiment mode: P3 never mounts the recommendation card, so no recommendation request can start (실험설계 2.1)',()=>{
+test('experiment mode: P3 mounts recommendations after choosing a place (실험설계 2.1)',()=>{
  const h=hooks();const state={room:{roomId:'r',memberId:'m',token:'one'},mine:{longlist:['a'],picks:[],must:null}};
  const PlaceFinder=()=>null,PlaceRecommendations=()=>null;
  const {default:Pick}=load('../app/pick/page.tsx',{
@@ -141,7 +141,10 @@ test('experiment mode: P3 never mounts the recommendation card, so no recommenda
  let tree=h.render(Pick);nodes(tree).find(n=>n.type===PlaceFinder).props.onPick(places.get('b'));
  tree=h.render(Pick);
  assert.deepEqual(state.mine.longlist,['a','b']);
- assert.equal(nodes(tree).some(n=>n.type===PlaceRecommendations),false);
+ const card=nodes(tree).find(n=>n.type===PlaceRecommendations);
+ assert.ok(card);
+ assert.equal(card.props.sourceId,'b');
+ assert.deepEqual(card.props.added,['a','b']);
 });
 
 test('list edits preserve the batch without refetch; explicit retry captures current exclusions',async()=>{

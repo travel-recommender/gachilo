@@ -8,7 +8,7 @@ import * as jsx from 'react/jsx-runtime';
 
 test('추천 카드에 예약 조건을 표시하고 해당 장소를 담을 수 있다', () => {
   const source={id:'source',name:'출발지'};
-  const tower={id:'tower',name:'쓰텐카쿠',area:'오사카',reservationNotice:'입장 시간 예약 필요'};
+  const tower={id:'tower',name:'쓰텐카쿠',area:'오사카',reservationNotice:'입장 시간 예약 필요. 목록에 담을 수 있어도 자동 일정 배치는 방문일 조건 확인 결과에 따라 보류될 수 있어요.'};
   const mocks={
     'react/jsx-runtime':jsx,
     '@/components/usePlaceRecommendations':{usePlaceRecommendations:()=>({data:{recommendations:[{placeId:'tower'}],eligibility:'at_least_one_trip_date'}})},
@@ -23,7 +23,8 @@ test('추천 카드에 예약 조건을 표시하고 해당 장소를 담을 수
   const root=mod.exports.PlaceRecommendations({room:{roomId:'r',memberId:'m',token:'t'},catalog:'real',sourceId:'source',added:['source'],disabled:false,onAdd:p=>{chosen=p;}});
   const nodes=x=>Array.isArray(x)?x.flatMap(nodes):x&&typeof x==='object'?[x,...nodes(x.props?.children)]:[];
   const all=nodes(root);
-  assert.ok(all.some(n=>n.props?.children==='입장 시간 예약 필요'));
+  assert.ok(all.some(n=>n.props?.children==='입장 시간 예약 필요.'));
+  assert.ok(!all.some(n=>typeof n.props?.children==='string' && n.props.children.includes('자동 일정 배치는 방문일 조건')));
   all.find(n=>n.type==='button' && n.props['aria-label']==='쓰텐카쿠 담기').props.onClick();
   assert.equal(chosen,tower);
 });
