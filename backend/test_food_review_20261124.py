@@ -38,6 +38,7 @@ class FoodReviewApiTests(unittest.TestCase):
         museum=next(p for p in catalog(query='보온병 기념관')['places'] if p['place_id']=='osaka_draft_50b7a6cc608f')
         self.assertIn('예약',museum['reservation_notice'])
         self.assertIn('2일 전',museum['reservation_notice'])
+        self.assertIn('자동 일정 배치는 방문일 조건 확인 결과에 따라 보류',museum['reservation_notice'])
         self.assertIn('entry_time_reservation_required',museum['planning']['review_required'])
         self.assertIsNone(museum['selection_disabled_reason'])
         for name in ('포켓몬센터 오사카','닌텐도 오사카'):

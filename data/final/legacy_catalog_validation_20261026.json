@@ -25,6 +25,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -51,6 +53,8 @@
       "source_urls": [
         "https://www.tsutenkaku.co.jp/annai/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -78,6 +82,8 @@
         "https://shinsekaiofficial.com/",
         "https://maps.google.com/?cid=3941168473429300987"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -93,6 +99,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -108,6 +116,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -123,6 +133,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -147,6 +159,8 @@
       "source_urls": [
         "https://www.skybldg.co.jp/observatory/information/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -171,6 +185,8 @@
       "source_urls": [
         "https://www.hepfive.jp/ferriswheel"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -195,6 +211,8 @@
       "source_urls": [
         "https://www.osakacastle.net/guide/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -220,6 +238,8 @@
         "https://discover.osaka-info.jp/jp/articles/tenjin-matsuri-festivals",
         "https://osaka-info.jp/special/dc/event/detail369/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -245,6 +265,8 @@
         "https://www.shitennoji.or.jp/admission.html",
         "https://www.shitennoji.or.jp/map.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -269,6 +291,8 @@
       "source_urls": [
         "https://www.osakamushis.jp/visit/fee.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -284,6 +308,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -308,6 +334,8 @@
       "source_urls": [
         "https://www.sci-museum.jp/info/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -332,6 +360,8 @@
       "source_urls": [
         "https://osaka-info.jp/spot/osaka-castle-park/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -359,6 +389,8 @@
       "source_urls": [
         "https://osaka-info.jp/spot/nakanoshima-park/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -384,6 +416,8 @@
         "https://osaka-info.jp/experience/ja/osaka/spot/244",
         "https://osaka-info.jp/spot/nakanoshima-park/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -408,6 +442,8 @@
       "source_urls": [
         "https://osaka-info.jp/spot/tennoji-park-entrance-area-ten-shiba/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -433,6 +469,8 @@
         "https://utsubotennis.osaka/rose_garden/",
         "https://parksgreenery.city.osaka.lg.jp/article/parks-utsubo/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -459,6 +497,8 @@
       "source_urls": [
         "https://nambaparks.com/facilities"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -485,6 +525,8 @@
       "source_urls": [
         "https://www.takashimaya.co.jp/osaka/businesshours/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -511,6 +553,8 @@
       "source_urls": [
         "https://www.daimaru.co.jp/shinsaibashi/hours.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -537,6 +581,8 @@
       "source_urls": [
         "https://www.hanshin-dept.jp/hshonten/map/index.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -563,6 +609,8 @@
       "source_urls": [
         "https://shinsaibashi.parco.jp/info/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -588,6 +636,8 @@
         "https://douraku.co.jp/kansai/honten/",
         "https://douraku.co.jp/area/shop/menu/?shop_id=1&category=3"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -612,6 +662,8 @@
       "source_urls": [
         "https://ichiran.com/shop/kinki/dotonbori-south/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -636,6 +688,8 @@
       "source_urls": [
         "https://www.soudaisyou.com/access.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -662,6 +716,8 @@
       "source_urls": [
         "https://marufukucoffeeten.com/store/marufukucoffee-sennichimae/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -677,6 +733,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -693,6 +751,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -708,6 +768,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -736,6 +798,8 @@
       "source_urls": [
         "https://osaka-info.jp/special/dc/event/detail605/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -753,6 +817,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -781,6 +847,8 @@
         "https://maps.google.com/?cid=4275703018452935561",
         "https://www.openstreetmap.org/node/12781301802"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -800,6 +868,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -816,6 +886,8 @@
       "cost_jpy": 0,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -842,6 +914,8 @@
       "source_urls": [
         "https://www.shoyeido.co.jp/shop-info/osaka.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -859,6 +933,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -874,6 +950,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -890,6 +968,8 @@
       "cost_jpy": 7000,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -905,6 +985,8 @@
       "cost_jpy": 600,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -929,6 +1011,8 @@
       "source_urls": [
         "https://www.sinnosan.jp/kusuri/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -956,6 +1040,8 @@
       "source_urls": [
         "https://www.zojirushi.co.jp/corp/kinenkan/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -984,6 +1070,8 @@
         "https://www.artcourtgallery.com/exhibitions/17306/",
         "https://www.artcourtgallery.com/access/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1008,6 +1096,8 @@
       "source_urls": [
         "https://osaka-info.jp/special/coolosaka/cool-spot/1186/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1032,6 +1122,8 @@
       "source_urls": [
         "https://www.nmao.go.jp/events/event/collection20260719/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1058,6 +1150,8 @@
       "source_urls": [
         "https://www.osaka-art-museum.jp/information"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1085,6 +1179,8 @@
       "source_urls": [
         "https://mitsugu.org/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1110,6 +1206,8 @@
         "https://osaka-info.jp/experience/ja/osaka/spot/246",
         "https://osaka-info.jp/special/dc/event/detail12/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1129,6 +1227,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1146,6 +1246,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1164,6 +1266,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1180,6 +1284,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1196,6 +1302,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1213,6 +1321,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1228,6 +1338,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1244,6 +1356,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1268,6 +1382,8 @@
       "source_urls": [
         "https://www.kinutani-tenku.jp/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1292,6 +1408,8 @@
       "source_urls": [
         "https://osaka-info.jp/experience/ja/osaka/spot/529"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1316,6 +1434,8 @@
       "source_urls": [
         "https://www.city.osaka.lg.jp/kensetsu/page/0000524172.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1340,6 +1460,8 @@
       "source_urls": [
         "https://osaka-info.jp/experience/ja/osaka/spot/458"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1365,6 +1487,8 @@
         "https://osaka-chushin.jp/en/routes/33146",
         "https://www.osakacastlepark.jp/news/?lang=ja"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1392,6 +1516,8 @@
       "source_urls": [
         "https://parksgreenery.city.osaka.lg.jp/article/expo_park7/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1407,6 +1533,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1422,6 +1550,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1450,6 +1580,8 @@
         "https://www.yodogawa-park.jp/annai/nagara-kahan/",
         "https://www.yodogawa-park.jp/cms/wp-content/uploads/2025/04/1a70aa284aa3d9b47315d6a7958e48e8.pdf"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1474,6 +1606,8 @@
       "source_urls": [
         "https://osaka-info.jp/experience/ja/osaka/spot/617"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1489,6 +1623,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1505,6 +1641,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1533,6 +1671,8 @@
         "https://parksgreenery.city.osaka.lg.jp/article/expo_park16/",
         "https://umekita.com/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1548,6 +1688,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1565,6 +1707,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1589,6 +1733,8 @@
       "source_urls": [
         "https://nambaparks.com/garden"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -1607,6 +1753,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1633,6 +1781,8 @@
       "source_urls": [
         "https://nu-chayamachi.com/info/openclose/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1659,6 +1809,8 @@
       "source_urls": [
         "https://www.herbis.jp/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1686,6 +1838,8 @@
         "https://whity.osaka-chikagai.jp/",
         "https://osaka-info.jp/spot/whity-umeda/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1713,6 +1867,8 @@
         "https://www.arde-shinosaka.jp/access",
         "https://www.arde-shinosaka.jp/shopguide?category%5B0%5D=1"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1739,6 +1895,8 @@
       "source_urls": [
         "https://www.aeon.jp/sc/osakadomecity/info/time.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1765,6 +1923,8 @@
       "source_urls": [
         "https://www.wiste.jp/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1782,6 +1942,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1808,6 +1970,8 @@
       "source_urls": [
         "https://www.d-kintetsu.co.jp/uehonmachi/business-hours/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1834,6 +1998,8 @@
       "source_urls": [
         "https://citymall.jp/access/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1851,6 +2017,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1870,6 +2038,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1887,6 +2057,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1903,6 +2075,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1918,6 +2092,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1944,6 +2120,8 @@
       "source_urls": [
         "https://page.line.me/hvk0696d"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1970,6 +2148,8 @@
       "source_urls": [
         "https://mitsui-shopping-park.com/odona/top.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -1996,6 +2176,8 @@
       "source_urls": [
         "https://www.hankyu-dept.co.jp/honten/map/index.html"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2023,6 +2205,8 @@
       "source_urls": [
         "https://www.breeze-breeze.jp/info/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2050,6 +2234,8 @@
       "source_urls": [
         "https://osaka-info.jp/spot/o1o1-namba-marui/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2065,6 +2251,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2081,6 +2269,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2098,6 +2288,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2124,6 +2316,8 @@
       "source_urls": [
         "https://store.bluebottlecoffee.jp/pages/umeda-chayamachi"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2140,6 +2334,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2156,6 +2352,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2171,6 +2369,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2199,6 +2399,8 @@
         "https://www.e-maid.net/concept.html",
         "https://www.e-maid.net/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2214,6 +2416,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2230,6 +2434,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2245,6 +2451,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2261,6 +2469,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2277,6 +2487,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2294,6 +2506,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2320,6 +2534,8 @@
       "source_urls": [
         "https://www.sotcoffee.com/en/pages/shop-osaka"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2335,6 +2551,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2351,6 +2569,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2367,6 +2587,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2382,6 +2604,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2409,6 +2633,8 @@
         "https://neu-catcafe.com/archives/news/%E5%96%B6%E6%A5%AD%E6%99%82%E9%96%93%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B",
         "https://neu-catcafe.com/price"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2425,6 +2651,8 @@
       "cost_jpy": 550,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2449,6 +2677,8 @@
       "source_urls": [
         "https://chaenjin.jimdofree.com/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -2464,6 +2694,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2489,6 +2721,8 @@
         "https://superfoodcafe-an39.jp/menu/",
         "https://www.openstreetmap.org/node/9468409531"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -2506,6 +2740,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2522,6 +2758,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2546,6 +2784,8 @@
       "source_urls": [
         "https://www.rihga.co.jp/osaka/restaurant/list/cafeteria-agora"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -2561,6 +2801,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2586,6 +2828,8 @@
         "https://osaka.hiltonjapan.co.jp/plans/restaurants/lunch/centrum-grilllunch",
         "https://osaka.hiltonjapan.co.jp/restaurants/centrum/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -2614,6 +2858,8 @@
       "source_urls": [
         "https://difference.upper.jp/jp/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2641,6 +2887,8 @@
         "https://garbweeks.com/menu/lunch_h.pdf?2026092802=",
         "https://garbweeks.com/shop/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -2657,6 +2905,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2681,6 +2931,8 @@
       "source_urls": [
         "https://montomworks.com/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -2709,6 +2961,8 @@
         "https://shin-medaka.com/wp-content/uploads/2025/10/c2c9ec8b1fc2a76961b85d1faa8d3469.webp",
         "https://shin-medaka.com/access/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2724,6 +2978,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2740,6 +2996,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2755,6 +3013,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2780,6 +3040,8 @@
         "https://albar-awaji.owst.jp/lunches",
         "https://albar-awaji.owst.jp/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -2795,6 +3057,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2820,6 +3084,8 @@
         "https://www.saizeriya.co.jp/menu-popular/2101/",
         "https://shop.saizeriya.co.jp/sz_restaurant/spot/detail?code=1031"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -2836,6 +3102,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2851,6 +3119,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2866,6 +3136,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2882,6 +3154,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2897,6 +3171,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2912,6 +3188,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2940,6 +3218,8 @@
         "https://www.funaya.co.jp/menu/",
         "https://www.funaya.co.jp/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2955,6 +3235,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -2979,6 +3261,8 @@
       "source_urls": [
         "https://cherryjam.owst.jp/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": true,
       "schedule_ready": false
     },
@@ -3005,6 +3289,8 @@
       "source_urls": [
         "https://comfortzone8kyoitarian.com/lunch-menu/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -3020,6 +3306,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -3046,6 +3334,8 @@
       "source_urls": [
         "https://parfait-de-merrily.owst.jp/"
       ],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -3063,6 +3353,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -3079,6 +3371,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -3095,6 +3389,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -3111,6 +3407,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     },
@@ -3128,6 +3426,8 @@
       "cost_jpy": null,
       "cost_basis": null,
       "source_urls": [],
+      "reservation_required": false,
+      "date_needs_confirmation": false,
       "eligible_for_model": false,
       "schedule_ready": false
     }
@@ -3206,7 +3506,7 @@
         "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
         "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
         "Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.",
-        "Stay times are team estimates. Weather, entry queues and unannounced closures are not verified."
+        "Stay times are team estimates. Forecast rain probability is a preference, not a live safety or weather guarantee; entry queues and unannounced closures are not verified."
       ]
     },
     {
@@ -3282,7 +3582,7 @@
         "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
         "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
         "Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.",
-        "Stay times are team estimates. Weather, entry queues and unannounced closures are not verified."
+        "Stay times are team estimates. Forecast rain probability is a preference, not a live safety or weather guarantee; entry queues and unannounced closures are not verified."
       ]
     },
     {
@@ -3358,7 +3658,7 @@
         "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
         "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
         "Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.",
-        "Stay times are team estimates. Weather, entry queues and unannounced closures are not verified."
+        "Stay times are team estimates. Forecast rain probability is a preference, not a live safety or weather guarantee; entry queues and unannounced closures are not verified."
       ]
     },
     {
@@ -3406,7 +3706,7 @@
         "JPY→KRW rate is a caller-supplied simulation value, not a live quote.",
         "Travel uses straight-line distance × 1.35 and a transit heuristic, not routing or timetables.",
         "Walk count excludes movement inside venues and to/from accommodation; elapsed time starts at 09:00.",
-        "Stay times are team estimates. Weather, entry queues and unannounced closures are not verified."
+        "Stay times are team estimates. Forecast rain probability is a preference, not a live safety or weather guarantee; entry queues and unannounced closures are not verified."
       ]
     }
   ]

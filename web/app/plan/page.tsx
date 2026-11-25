@@ -187,11 +187,8 @@ function PlanInner() {
               }}
               onRemove={(id) => save(ids.filter((x) => x !== id))} />
           </Box>
-          {places.some((p) => p.visitNotice) && <ul className="mt-3 space-y-2 text-xs text-wine">
-            {places.filter((p) => p.visitNotice).map((p) => <li key={p.id}>{p.name}: {p.visitNotice}</li>)}
-          </ul>}
-          {places.some((p) => p.reservationNotice) && <ul className="mt-3 space-y-2 text-xs font-semibold text-wine">
-            {places.filter((p) => p.reservationNotice).map((p) => <li key={p.id}>{p.name}: {p.reservationNotice}</li>)}
+          {places.some((p) => p.visitNotice || p.reservationNotice) && <ul className="mt-3 space-y-2 text-xs text-wine">
+            {places.filter((p) => p.visitNotice || p.reservationNotice).map((p) => <li key={p.id}>{p.name}: {[p.visitNotice, p.reservationNotice].filter(Boolean).join(' · ')}</li>)}
           </ul>}
           {reasons.length > 0 && <ul className="mt-3 space-y-2 text-xs text-wine">{reasons.map((r) => <li key={r.key}>{r.text}</li>)}</ul>}
           {!confirmed && places.length > 1 && (

@@ -25,14 +25,17 @@ function unavailableReason(checks, profile) {
 
 export function schedulableDetails(dates, dataset, profiles) {
   if (!Array.isArray(dates) || dates.length === 0) throw Error('nonempty dates required');
-  const placeIds = [], unavailableReasons = {};
+  const placeIds = [], recommendationPlaceIds = [], unavailableReasons = {};
   for (const record of dataset.places) {
     const id = record.place.place_id;
     const checks = dates.map(date => availability(record, date, profiles, {allowShopping: true}));
-    if (checks.some(c => c.eligible_for_model)) placeIds.push(id);
+    if (checks.some(c => c.eligible_for_model)) {
+      placeIds.push(id);
+      if (checks.some(c => c.eligible_for_model && !c.date_needs_confirmation)) recommendationPlaceIds.push(id);
+    }
     else unavailableReasons[id] = unavailableReason(checks, profiles.places[id]);
   }
-  return {placeIds, unavailableReasons};
+  return {placeIds, recommendationPlaceIds, unavailableReasons};
 }
 export const schedulableIds = (dates, dataset, profiles) => schedulableDetails(dates, dataset, profiles).placeIds;
 

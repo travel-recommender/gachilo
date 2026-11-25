@@ -148,6 +148,8 @@ def project(record,rate):
     blockers=record['review'].get('recommendation_blockers',[])
     needs_reservation=any(x in blockers for x in ('reservation_required','entry_time_reservation_required','reservation_or_exhibition_required'))
     out['reservation_notice']=record['review'].get('reservation_notice') or ('예약 또는 입장 조건 확인 필요 · 방문 전 직접 확인해 주세요.' if needs_reservation else None)
+    if needs_reservation and out['reservation_notice']:
+        out['reservation_notice'] += ' 목록에 담을 수 있어도 자동 일정 배치는 방문일 조건 확인 결과에 따라 보류될 수 있어요.'
     out['visit_notice']=record['review'].get('visit_notice')
     out['search_names']=search_names(record)
     out['selection_disabled_reason']='제외된 장소예요: '+out['record_status_reason'] if is_excluded(record) else None
