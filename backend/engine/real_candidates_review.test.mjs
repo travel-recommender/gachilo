@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {calculateRealCandidates} from './real_candidates.mjs';
 import {mockLiveCheck} from './live_check.mjs';
 // 기존 검사는 구성원 장소만 쓰는 경로를 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
-const offline = {liveCheck: mockLiveCheck('pass'), choose: null};
+// 끼니 채우기는 meal_windows.test.mjs에서 따로 본다. 여기서는 끄고 배치 규칙만 본다
+const offline = {liveCheck: mockLiveCheck('pass'), choose: null, mealFill: false};
 import {loadInputs} from '../../scripts/validate_real_schedule.mjs';
 const {dataset, profiles} = loadInputs();
 const request = (ids, extra = {}) => ({startDate:'2026-10-01',endDate:'2026-10-01',

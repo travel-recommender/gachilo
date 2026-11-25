@@ -266,9 +266,9 @@ test('without the model, rules fill empty slots with unlisted places that pass e
       assert.match(c.summary, /규칙이 추가/);
       for (const d of c.days) {
         const v = validateDay({date: d.date, place_ids: d.placeIds, budget_krw: 100000, step_limit: 20000, active_min: 720, krw_per_jpy: '9.5'},
-          dataset, profiles, {allowShopping: true, candidateMetrics: true, distanceWeight: 1.2});
+          dataset, profiles, {allowShopping: true, candidateMetrics: true, distanceWeight: 1.2, breakfast: true});
         assert.equal(v.passed_model_checks, true);
-        assert.ok(d.placeIds.length <= 4); // pace 1 → 하루 4자리
+        // 자리 수(AI·규칙 채우기 상한)는 pace 1 → 4곳과 3시간에 2곳 하한 중 큰 쪽. 끼니 식당과 구성원 장소는 그 전에 들어간다
       }
     }
   });

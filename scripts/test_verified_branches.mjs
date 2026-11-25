@@ -7,7 +7,8 @@ import {travel} from '../backend/engine/routing.ts';
 import {calculateRealCandidates} from '../backend/engine/real_candidates.mjs';
 import {mockLiveCheck} from '../backend/engine/live_check.mjs';
 // 지점 검증은 구성원 장소만 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
-const offline={liveCheck:mockLiveCheck('pass'),choose:null};
+// 끼니 채우기는 backend/engine/meal_windows.test.mjs에서 본다. 여기서는 검증한 장소 자체만 본다
+const offline={liveCheck:mockLiveCheck('pass'),choose:null,mealFill:false};
 const read=f=>JSON.parse(fs.readFileSync(new URL('../data/final/'+f,import.meta.url)));
 const data=read('osaka_catalog_20261026.json'), profiles=read('osaka_profiles_20261026.json');
 const verification=read('branch_verification_20261026.json');

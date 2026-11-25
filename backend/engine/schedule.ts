@@ -10,6 +10,17 @@ const DAY_END = 21 * 60;
 const BREAKFAST_AT = DAY_START;
 const LUNCH: [number, number] = [12 * 60, 13 * 60 + 30];
 const DINNER: [number, number] = [18 * 60, 19 * 60 + 30];
+/**
+ * 끼니로 인정하는 시간대 (11/25 실험 피드백). 아침 8–10시 · 점심 11–14시 · 저녁 17–20시.
+ * 위 LUNCH·DINNER는 식당을 '맞춰 넣는' 목표 시각이고, 이 창은 그 끼니를 먹었다고 보는 범위다.
+ * 실제 장소 경로(real_candidates.mjs)는 활동 시간에 걸친 창마다 식당 하나를 채운다.
+ */
+export const MEAL_WINDOWS = {
+  breakfast: [8 * 60, 10 * 60],
+  lunch: [11 * 60, 14 * 60],
+  dinner: [17 * 60, 20 * 60],
+} as const;
+const inMealWindow = (t: number, w: readonly [number, number]) => t >= w[0] && t < w[1];
 /** 끼니 시각 이만큼 전부터 식당을 고르기 시작한다 (그 사이는 기다린다) */
 const MEAL_LEAD = 45;
 /** 술집은 21시 이후, 자정까지만 */
@@ -93,6 +104,13 @@ export interface ScheduleOptions {
   considerBags?: boolean;
   /** 빈 식사 시간을 자동으로 채울 것인가 */
   fillMeals?: boolean;
+  /**
+   * 고른 식당 중 아침 시간대(MEAL_WINDOWS.breakfast)에 시작할 수 있는 곳을 하루 첫 일정으로 둘 것인가.
+   * 끄면(기본) 식당은 점심·저녁 시각까지 미룬다. 실제 장소 경로가 아침 끼니를 채울 때 켠다.
+   */
+  breakfast?: boolean;
+  /** 점심·저녁 목표 시각(분) 덮어쓰기. 없으면 12:00·18:00 */
+  mealAt?: { lunch?: number; dinner?: number };
   /** 1인 여행 전체 예산(원). 자동 추가 식사는 선택 장소 비용을 뺀 나머지 안에서만 고른다 */
   budget?: number;
   vetoed?: Set<string>;
@@ -125,6 +143,9 @@ function buildDay(
   const vetoed = opts.vetoed ?? new Set<string>();
 
   let clock = DAY_START;
+  // 끼니 목표 시각. 기본 점심 12시·저녁 18시. 실제 장소 경로는 활동이 일찍 끝나는 날 끼니 창 안으로 당긴다
+  const lunchAt = opts.mealAt?.lunch ?? LUNCH[0];
+  const dinnerAt = opts.mealAt?.dinner ?? DINNER[0];
   // 숙소가 있으면 하루의 출발점이 숙소다. 첫 장소까지의 이동이 그만큼 더해진다.
   let prev: Place | null = stay;
   let load = 0;
@@ -150,8 +171,8 @@ function buildDay(
     used.add(p.id);
     load += bagIncrement(p.bagLoad);
     if (tier === "filled") mealSpent += p.cost;
-    if (isMeal(p) && inWindow(start, LUNCH)) mealsDone.lunch = true;
-    if (isMeal(p) && inWindow(start, DINNER)) mealsDone.dinner = true;
+    if (isMeal(p) && (inWindow(start, LUNCH) || inMealWindow(start, MEAL_WINDOWS.lunch))) mealsDone.lunch = true;
+    if (isMeal(p) && (inWindow(start, DINNER) || inMealWindow(start, MEAL_WINDOWS.dinner))) mealsDone.dinner = true;
     return true;
   };
 
@@ -160,6 +181,17 @@ function buildDay(
     const b = pickFiller(prev, BREAKFAST_AT, used, vetoed, false, true, mealBudget)
       ?? pickFiller(prev, BREAKFAST_AT, used, vetoed, true, true, mealBudget);
     if (b) place(b, "filled", [], BREAKFAST_AT);
+  }
+
+  // 아침 — 고른 식당 중 아침 시간대에 시작할 수 있는 곳을 먼저 둔다 (가장 일찍 시작하는 곳)
+  if (opts.breakfast) {
+    const early = remaining
+      .filter((s) => isMeal(s.place) && !isBar(s.place))
+      .map((s) => ({ s, start: fitOpening(s.place, clock + (prev ? travel(prev, s.place).min : 0)) }))
+      .filter((x): x is { s: Selection; start: number } =>
+        x.start !== null && inMealWindow(x.start, MEAL_WINDOWS.breakfast))
+      .sort((a, b) => a.start - b.start)[0];
+    if (early && place(early.s.place, early.s.tier, early.s.participants)) remaining.splice(remaining.indexOf(early.s), 1);
   }
 
   // 술집은 맨 뒤로 미룬다
@@ -179,10 +211,10 @@ function buildDay(
   }
 
   while (remaining.length) {
-    const nearLunch = inWindow(clock, [LUNCH[0] - MEAL_LEAD, LUNCH[1]]) && !mealsDone.lunch;
-    const nearDinner = inWindow(clock, [DINNER[0] - MEAL_LEAD, DINNER[1]]) && !mealsDone.dinner;
+    const nearLunch = inWindow(clock, [lunchAt - MEAL_LEAD, LUNCH[1]]) && !mealsDone.lunch;
+    const nearDinner = inWindow(clock, [dinnerAt - MEAL_LEAD, DINNER[1]]) && !mealsDone.dinner;
     const mealTime = nearLunch || nearDinner;
-    const mealAt = nearLunch ? LUNCH[0] : nearDinner ? DINNER[0] : 0;
+    const mealAt = nearLunch ? lunchAt : nearDinner ? dinnerAt : 0;
 
     // 식사 시간이면 남은 후보 중 식당을 우선 고르고, 아니면 식당은 끼니 때로 미룬다
     let pool = remaining;
@@ -197,7 +229,7 @@ function buildDay(
     } else if (meals.length < remaining.length) {
       // 다음 끼니 시각 + MEAL_LEAD 안에 끝나는 곳을 먼저 고른다. 오래 머무는 곳이 끼니를 밀어내지 않게
       const others = remaining.filter((s) => !isMeal(s.place));
-      const nextMeal = !mealsDone.lunch && clock < LUNCH[0] ? LUNCH[0] : !mealsDone.dinner && clock < DINNER[0] ? DINNER[0] : 0;
+      const nextMeal = !mealsDone.lunch && clock < lunchAt ? lunchAt : !mealsDone.dinner && clock < dinnerAt ? dinnerAt : 0;
       const fits = others.filter((s) =>
         !nextMeal || clock + (prev ? travel(prev, s.place).min : 0) + s.place.stayMin <= nextMeal + MEAL_LEAD);
       if (fits.length) pool = fits;
@@ -208,11 +240,11 @@ function buildDay(
       } else pool = others;
     } else {
       // 식당만 남았으면 다음 끼니 시각까지 기다린다
-      notBefore = !mealsDone.lunch && clock < LUNCH[0] ? LUNCH[0] : !mealsDone.dinner && clock < DINNER[0] ? DINNER[0] : 0;
+      notBefore = !mealsDone.lunch && clock < lunchAt ? lunchAt : !mealsDone.dinner && clock < dinnerAt ? dinnerAt : 0;
     }
 
     // 이번 끼니를 넘기면 문을 닫는 식당은 이번 끼니에 먼저 넣는다. 그중에서도 '꼭 가기'가 먼저다
-    const later = notBefore === LUNCH[0] ? DINNER[0] : notBefore === DINNER[0] ? DINNER[1] : 0;
+    const later = notBefore === lunchAt ? dinnerAt : notBefore === dinnerAt ? DINNER[1] : 0;
     const urgency = (s: Selection) =>
       later && isMeal(s.place) && fitOpening(s.place, later) === null ? (s.mustOf ? 2 : 1) : 0;
 
@@ -278,8 +310,8 @@ function buildDay(
   // 남은 식사 시간 채우기
   if (opts.fillMeals) {
     // 마지막 일정이 너무 일찍 끝났으면 저녁까지 억지로 끌지 않는다
-    if (!mealsDone.dinner && clock < DINNER[1] && DINNER[0] - clock <= 150) {
-      const c = Math.max(clock, DINNER[0]);
+    if (!mealsDone.dinner && clock < DINNER[1] && dinnerAt - clock <= 150) {
+      const c = Math.max(clock, dinnerAt);
       const f = pickFiller(prev, c, used, vetoed, false, false, mealBudget - mealSpent);
       if (f) place(f, "filled", [], c);
     }
