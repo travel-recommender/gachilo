@@ -42,6 +42,8 @@ export interface ApiSubmission {
   stepLimit: number;
   /** 분/하루 */
   activeMin: number;
+  /** 하루 활동 시작 시각(자정부터 분). 11/25 전에 낸 입력에는 없고, 그때 서버는 09:00으로 본다 */
+  dayStartMin?: number;
   /** 엔진 방향의 trade off 세 축 (0~1). 7주차 전에 낸 입력에는 없다 */
   tradeoffs?: { pace: number; distance: number; spend: number };
 }

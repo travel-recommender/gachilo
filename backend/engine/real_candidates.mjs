@@ -26,12 +26,31 @@ function datesFor(request) {
 
 const vetoesOf = request => new Set(request.submissions.flatMap(s => s.vetoes ?? (s.veto ? [s.veto] : [])));
 const mustsOf = request => new Set(request.submissions.flatMap(s => s.musts ?? (s.must ? [s.must] : [])));
-const limitsFor = request => ({
-  budget_krw: spendCapFor(Math.min(...request.submissions.map(s => s.budgetPerDay)), groupTradeoffs(request.submissions).spend),
-  step_limit: Math.min(...request.submissions.map(s => s.stepLimit)),
-  active_min: Math.min(...request.submissions.map(s => s.activeMin)),
-  krw_per_jpy: request.exchange_rate.krw_per_jpy,
-});
+/**
+ * 그룹이 함께 다닐 수 있는 시간. 구성원마다 시작 시각(dayStartMin, 없으면 09:00)과 활동 시간이 있으면
+ * 가장 늦은 시작 ~ 가장 이른 끝이다. 겹치는 시간이 1시간도 안 되면 가장 늦은 시작부터 가장 짧은 활동 시간으로 본다.
+ * 아무도 시작 시각을 보내지 않은 옛 입력은 예전처럼 09:00 시작 · 가장 짧은 활동 시간이고 day_start_min을 넣지 않는다.
+ */
+export function groupDay(submissions) {
+  const shortest = Math.min(...submissions.map(s => s.activeMin));
+  if (!submissions.some(s => Number.isInteger(s.dayStartMin))) return {start: DAY_START_MIN, active: shortest, explicit: false};
+  const startOf = s => Number.isInteger(s.dayStartMin) ? s.dayStartMin : DAY_START_MIN;
+  const start = Math.max(...submissions.map(startOf));
+  const end = Math.min(...submissions.map(s => startOf(s) + s.activeMin));
+  return {start, active: end - start >= 60 ? end - start : shortest, explicit: true};
+}
+/** 시작 시각을 보내지 않은 입력의 하루 시작 (validateDay와 같음) */
+export const DAY_START_MIN = 9 * 60;
+const limitsFor = request => {
+  const day = groupDay(request.submissions);
+  return {
+    budget_krw: spendCapFor(Math.min(...request.submissions.map(s => s.budgetPerDay)), groupTradeoffs(request.submissions).spend),
+    step_limit: Math.min(...request.submissions.map(s => s.stepLimit)),
+    active_min: day.active,
+    ...(day.explicit ? {day_start_min: day.start} : {}),
+    krw_per_jpy: request.exchange_rate.krw_per_jpy,
+  };
+};
 const passed = (live, id, date) => live.verdicts.get(`${id}|${date}`)?.length === 0;
 
 /** P3 목록에만 있는 그날 후보(listed)를 전략 순위로 줄 세운다.
@@ -87,14 +106,13 @@ export function minPlacesFor(activeMin, longStays = []) {
 }
 
 /**
- * 활동 시간에 걸친 끼니 창. 하루는 09:00에 시작한다(validateDay와 같음). 창과 1시간 이상 겹치면 그 끼니를 채운다.
- * 예: 활동 9시간(09–18시) → 아침·점심·저녁, 활동 6시간(09–15시) → 아침·점심.
+ * 활동 시간에 걸친 끼니 창. 하루는 dayStart(기본 09:00)에 시작한다(validateDay와 같음). 창과 1시간 이상 겹치면 그 끼니를 채운다.
+ * 예: 09–18시 → 아침·점심·저녁, 09–15시 → 아침·점심, 10–19시 → 점심·저녁(아침 창과 0분).
  */
-export const DAY_START_MIN = 9 * 60;
-export function mealWindowsFor(activeMin) {
-  const end = DAY_START_MIN + activeMin;
+export function mealWindowsFor(activeMin, dayStart = DAY_START_MIN) {
+  const end = dayStart + activeMin;
   return Object.entries(MEAL_WINDOWS)
-    .filter(([, [from, to]]) => Math.min(end, to) - Math.max(DAY_START_MIN, from) >= 60)
+    .filter(([, [from, to]]) => Math.min(end, to) - Math.max(dayStart, from) >= 60)
     .map(([name, window]) => ({name, window}));
 }
 
@@ -182,12 +200,13 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
   // 그 끼니 창 안에 들어가 식사할 수 있게 여는 곳 (창이 끝나기 30분 전까지 열고, 창이 시작하고 1시간 뒤까지 영업)
   const servesIn = (p, [from, to]) => (p.openingWindows ?? [[p.openFrom, p.openTo, p.lastEntry]])
     .some(([open, close, last]) => open <= to - 30 && close >= from + 60 && (last ?? close) >= from);
-  const meals = mealPool ? mealWindowsFor(limits.active_min) : [];
+  const dayStart = limits.day_start_min ?? DAY_START_MIN;
+  const meals = mealPool ? mealWindowsFor(limits.active_min, dayStart) : [];
   // 아침 끼니를 채우는 날은 고른 식당 중 아침에 열린 곳을 첫 일정으로 둔다
   if (meals.some(m => m.name === 'breakfast')) validationOptions.breakfast = true;
   // 활동이 일찍 끝나는 날은 점심·저녁 목표 시각을 끼니 창 안에서 당긴다 (예: 09–18시 → 저녁 17:00)
   if (meals.length) {
-    const end = DAY_START_MIN + limits.active_min;
+    const end = dayStart + limits.active_min;
     const at = (preferred, [from]) => Math.max(from, Math.min(preferred, end - 90));  // 식당 체류는 보통 90분
     validationOptions.mealAt = {lunch: at(12 * 60, MEAL_WINDOWS.lunch), dinner: at(18 * 60, MEAL_WINDOWS.dinner)};
   }
@@ -587,7 +606,7 @@ export async function calculateRealCandidates(request, dataset, profiles, routin
   // 끼니 채우기 후보: 아무도 담지 않은 식당 중 여행일에 운영하는 곳을 구성원 장소에 가까운 순으로 MEAL_POOL_SIZE곳.
   // 구성원 장소·제외·교체 후보·AI 후보와 같은 교체 그룹은 뺀다. AI가 꺼져 있어도 규칙으로 채운다.
   let mealPool = deps.mealFill === false ? null : [];
-  if (mealPool && mealWindowsFor(limitsFor(request).active_min).length) {
+  if (mealPool && mealWindowsFor(limitsFor(request).active_min, limitsFor(request).day_start_min).length) {
     const vetoedBrands = new Set([...vetoes].map(id => byId.get(id)?.place.brand_id).filter(Boolean));
     const taken = new Set([...human, ...vetoes, ...siblings, ...pool.map(c => c.id)]);
     const takenGroups = new Set([...taken].map(id => byId.get(id)?.place.branch_group_id).filter(Boolean));

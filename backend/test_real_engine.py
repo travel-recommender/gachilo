@@ -33,6 +33,19 @@ class RealRoomTests(unittest.TestCase):
         with patch.dict(os.environ,FX):
             return self.req('POST',f"/rooms/{room['roomId']}/calculate",{'strategy':'average',**kwargs},room['ownerToken'])
 
+    def test_day_start_is_optional_validated_and_returned_to_its_owner(self):
+        # 11/25: P6 시작 시각(분). 없으면 엔진이 09:00으로 본다
+        room=self.room();m=room['members'][0];picked=['osaka_009']
+        for bad in (-1,'08:00',1.5,1000):
+            code,data,_=self.save(room,m,picked,dayStartMin=bad)  # 1000분 + 활동 720분은 자정을 넘는다
+            self.assertEqual(code,400,bad);self.assertIn('dayStartMin',data['error'])
+        self.assertEqual(self.save(room,m,picked,dayStartMin=480)[0],200)
+        own=self.req('GET',f"/rooms/{room['roomId']}/submissions/{m['id']}",token=m['submissionToken'])[1]['submission']
+        self.assertEqual(own['dayStartMin'],480)
+        self.assertEqual(self.save(room,m,picked)[0],200)
+        own=self.req('GET',f"/rooms/{room['roomId']}/submissions/{m['id']}",token=m['submissionToken'])[1]['submission']
+        self.assertNotIn('dayStartMin',own)
+
     def test_legacy_nonexcluded_inputs_remain_readable_but_dated_blockers_are_not_scheduled(self):
         room=self.room(count=6)
         places=self.req('GET','/api/places?limit=150')[1]['places']

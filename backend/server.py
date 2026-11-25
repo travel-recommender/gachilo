@@ -212,9 +212,13 @@ class Store(CandidateStore, RecommendationStore):
         # trade off three axes in engine direction (pace 1 = packed). Optional: inputs saved before week 7 have none.
         t=b.get('tradeoffs')
         require(t is None or isinstance(t,dict) and set(t)=={'pace','distance','spend'} and all(type(v) in (int,float) and 0<=v<=1 for v in t.values()),'tradeoffs 형식을 확인하세요.')
+        # 하루 활동 시작 시각(분, 선택). 없으면 엔진이 09:00으로 본다. 시작 + 활동 시간이 자정을 넘지 않아야 한다
+        ds=b.get('dayStartMin')
+        require(ds is None or type(ds) is int and 0<=ds and ds+b['activeMin']<=1440,'dayStartMin 범위를 확인하세요.')
         payload={k:b.get(k) for k in ['longlist','picks','must','veto','budgetPerDay','stepLimit','activeMin']};payload['memberId']=mid
         if 'vetoes' in b:payload['vetoes']=list(vetoes)
         if t is not None:payload['tradeoffs']={k:float(t[k]) for k in ('pace','distance','spend')}
+        if ds is not None:payload['dayStartMin']=ds
         # Validate new real-place choices before taking a write lock. Existing saved inputs stay readable.
         usable=None
         if self.date_availability is not None:

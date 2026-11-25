@@ -142,6 +142,8 @@ function validatePreparedDay(request, dataset, profiles, options) {
   for (const key of ['budget_krw', 'step_limit', 'active_min']) {
     if (!Number.isSafeInteger(request[key]) || request[key] < 0) throw Error(key + ' must be a nonnegative integer');
   }
+  if (request.day_start_min !== undefined && (!Number.isSafeInteger(request.day_start_min)
+      || request.day_start_min < 0 || request.day_start_min + request.active_min > 1440)) throw Error('day_start_min must be a minute of the day');
   costKrw(0, request.krw_per_jpy); // Validate the rate even if all candidates are blocked.
   const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
   const rejected = [], accepted = [], windows = new Map(), visitCosts = new Map();
@@ -155,7 +157,8 @@ function validatePreparedDay(request, dataset, profiles, options) {
     accepted.push({place: toEnginePlace(r, check, request.krw_per_jpy),
       votes: 1, mustOf: null, tier: 'core', participants: []});
   }
-  const built = buildSchedule(accepted, 1, {fillMeals: false, breakfast: options.breakfast, mealAt: options.mealAt, considerBags: options.considerBags ?? true, distanceWeight: options.distanceWeight});
+  const built = buildSchedule(accepted, 1, {fillMeals: false, breakfast: options.breakfast, mealAt: options.mealAt,
+    dayStart: request.day_start_min, dayEnd: request.day_start_min === undefined ? undefined : request.day_start_min + request.active_min, considerBags: options.considerBags ?? true, distanceWeight: options.distanceWeight});
   const plan = built.plans[0];
   const violations = rejected.map(r => ({code: 'place_not_eligible', place_id: r.place_id, reasons: r.reasons}));
   let walkingKm = 0, previous = null;
@@ -180,7 +183,8 @@ function validatePreparedDay(request, dataset, profiles, options) {
     if (!included.has(id)) violations.push({code: 'requested_place_not_scheduled', place_id: id});
   }
   const steps = kmToSteps(walkingKm);
-  const elapsed = items.length ? items.at(-1).end_min - 540 : 0; // Include waiting after 09:00.
+  // Include waiting after the day start (09:00 unless the group set its own start, day_start_min).
+  const elapsed = items.length ? items.at(-1).end_min - (request.day_start_min ?? 540) : 0;
   if (plan.cost > request.budget_krw) violations.push({code: 'budget_exceeded'});
   if (steps > request.step_limit) violations.push({code: 'step_limit_exceeded'});
   if (elapsed > request.active_min) violations.push({code: 'active_minutes_exceeded'});
