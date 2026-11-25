@@ -46,7 +46,20 @@
       }
     ]
   },
-  "raw_records_exported": false,
+  "raw_records_exported": true,
   "google_form_verified": false,
-  "completion_source": "User reported team experiment complete; verified submission counts and successful calculate/result HTTP responses. Full candidate payload and actual-device UI coverage are not independently verified."
+  "completion_source": "User reported team experiment complete; verified submission counts and successful calculate/result HTTP responses. Full candidate payload and actual-device UI coverage are not independently verified.",
+  "backup_verification": {
+    "db_hash_matches": true,
+    "manifest_hash_matches": true,
+    "catalog_hash_matches": true,
+    "profiles_hash_matches": true,
+    "sqlite_quick_check": "ok",
+    "restore_local_separate_group": true,
+    "candidate_result_bundles": 1,
+    "participants": 3,
+    "exported_participant_candidate_rows": 9,
+    "google_form_included": false,
+    "temporary_ssh_key_removed": true
+  }
 }
