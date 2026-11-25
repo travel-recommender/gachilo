@@ -461,7 +461,7 @@ function calculatePrepared(request, dataset, profiles, dates, picked, listed = [
       live_check: {source: live.source, checked_on: live.checked_on, failed_place_count: live.failedPlaces,
         fetched_count: live.fetched, reused_count: live.reused},
       ai_fill: {source: ai ? ai.source : 'off', added_count: aiAdded},
-      meal_fill: {windows: meals.map(m => m.name), added_count: mealFilled.size},
+      meal_fill: {windows: meals.map(m => m.name), added_count: days.reduce((n, day) => n + day.items.filter(item => item.filled).length, 0)},
     };
     const mean = key => days.reduce((total, day) => total + day.metrics[key], 0) / days.length;
     const routes = days.map(day => day.placeIds.map(id => {

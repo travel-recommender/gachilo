@@ -79,9 +79,10 @@ class RoutingIntegrationTests(unittest.TestCase):
         self.assertEqual(len(self.calls),1)
         for candidate in got['candidates']:
             day = candidate['days'][0]
-            # 두 선택 장소는 그대로, 남은 자리는 규칙 채우기 장소. 그 장소까지 같은 OSRM 표 하나로 계산한다
-            self.assertEqual([i['placeId'] for i in day['items'] if not i['aiAdded']],['osaka_009','osaka_015'])
+            # 두 선택 장소는 그대로, 남은 자리는 규칙 채우기 장소와 끼니 식당. 그 장소까지 같은 OSRM 표 하나로 계산한다
+            self.assertEqual([i['placeId'] for i in day['items'] if i['source']=='selected'],['osaka_009','osaka_015'])
             self.assertTrue(all(i['source']=='rule_added' for i in day['items'] if i['aiAdded']))
+            self.assertTrue(all(i['source']=='meal_fill' for i in day['items'] if i['filled']))
             self.assertGreater(day['metrics']['totalKm'],0)
             self.assertRegex(candidate['summary'],r'OSRM 도보 [1-9]')
 
