@@ -33,8 +33,9 @@ def pin_ok(pin,stored):
     return hmac.compare_digest(hashlib.pbkdf2_hmac('sha256',pin.encode(),bytes.fromhex(salt),100_000).hex(),h)
 
 class Store(CandidateStore, RecommendationStore):
-    def __init__(self,path,catalog=None,*,date_availability=None):
+    def __init__(self,path,catalog=None,*,date_availability=None,recommendation_availability=None):
         self.date_availability=date_availability
+        self.recommendation_availability=recommendation_availability or date_availability
         self.catalog_ids=set(p["id"] for p in catalog) if catalog is not None else None
         real_records=json.loads(DATA.read_text(encoding="utf-8"))["places"]
         self.real_ids={r["place"]["place_id"] for r in real_records}
@@ -362,9 +363,11 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
                 value=json.loads(out.stdout)
                 ids=value.get('placeIds') if isinstance(value,dict) else None
                 if not isinstance(ids,list) or not all(isinstance(x,str) for x in ids):raise ValueError('invalid placeIds')
+                recommendation_ids=value.get('recommendationPlaceIds')
+                if not isinstance(recommendation_ids,list) or not all(isinstance(x,str) for x in recommendation_ids):raise ValueError('invalid recommendationPlaceIds')
                 reasons=value.get('unavailableReasons',{})
                 if not isinstance(reasons,dict) or not all(isinstance(k,str) and isinstance(v,str) for k,v in reasons.items()):raise ValueError('invalid unavailableReasons')
-                schedulable_cache[(start,end)]={'placeIds':ids,'unavailableReasons':reasons}
+                schedulable_cache[(start,end)]={'placeIds':ids,'recommendationPlaceIds':recommendation_ids,'unavailableReasons':reasons}
             except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('일정에 넣을 수 있는 장소를 확인하지 못했습니다. 다시 시도하세요.')
         return schedulable_cache[(start,end)]
     def available_ids(start,end):
@@ -392,7 +395,8 @@ def make_server(path,host='127.0.0.1',port=8000,allowed_origin='http://localhost
             if not isinstance(value,dict) or not isinstance(value.get('places'),list):raise ValueError('invalid visit conditions')
         except (OSError,ValueError,subprocess.SubprocessError):raise EngineError('방문 조건을 불러오지 못했습니다. 잠시 뒤 다시 시도하세요.')
         return {'roomId':rid,**value}
-    store=Store(path,engine.catalog,date_availability=available_ids)
+    store=Store(path,engine.catalog,date_availability=available_ids,
+                recommendation_availability=lambda start,end: availability_details(start,end)['recommendationPlaceIds'])
     photo_service=PhotoService(engine.node, json.loads(DATA.read_text())["places"])
     class Handler(BaseHTTPRequestHandler):
         def trusted_origin(self):
