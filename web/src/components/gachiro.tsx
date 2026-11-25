@@ -11,13 +11,13 @@ import { useRouter } from "next/navigation";
 export const asset = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
 
 /**
- * 하단 동덕여대 크레딧 — 모든 화면 공통 (높이 62px).
- * 휴대폰에서는 아래 브라우저 바·홈 막대에 가리지 않게 같은 색 여백을 아래에 더 둔다.
+ * 하단 동덕여대 크레딧 — 모든 화면 공통. 높이는 로고(39px)에 맞춘다 (11/25 실험 피드백: 하단 바가 너무 높았다).
+ * 예전 62px + 휴대폰 아래 여백 44px을 줄이고, 홈 막대가 있는 휴대폰에서만 그만큼(safe-area) 여백을 둔다.
  */
 export function Credit() {
   return (
-    <div className="shrink-0 bg-line pb-[max(env(safe-area-inset-bottom),44px)] sm:pb-0">
-      <div className="flex h-[62px] items-center justify-between pl-[9px] pr-[13px]">
+    <div className="shrink-0 bg-line pb-[env(safe-area-inset-bottom)] sm:pb-0">
+      <div className="flex h-[43px] items-center justify-between pl-[9px] pr-[13px]">
         <div className="text-[12.867px] font-bold leading-[1.2] text-wine">
           <p>동덕여자대학교</p>
           <p>
