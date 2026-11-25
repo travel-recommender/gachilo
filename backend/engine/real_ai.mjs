@@ -13,6 +13,8 @@ export const REASON_TEXT = {
   similar_to_must: '꼭 가고 싶은 장소로 꼽혔지만 일정에 넣지 못한 곳과 같은 유형의 가까운 장소입니다.',
   group_taste: '구성원들이 고른 장소 유형과 맞고 누구에게도 부담이 크지 않은 장소입니다.',
   budget_fits: '하루 예산 안에서 빈자리를 채울 수 있는 장소입니다.',
+  // 공정성 전략이 빈자리를 채울 때만 쓴다(모델이 고르는 코드가 아니다)
+  member_taste: '지금까지 고른 곳이 덜 반영된 구성원이 담은 장소 유형과 맞는 곳입니다.',
 };
 // Each reason must be backed by the pool entry the code built, not by the model's say-so.
 const REASON_OK = {
@@ -31,29 +33,35 @@ const r2 = n => Math.round(n * 100) / 100;
 /** Rule-built pool. candidates: [{record, costKrw}] already date-eligible and not listed by anyone.
  * missedMusts: 꼭 가기 records that cannot be scheduled on any trip date. Never sent to the model by ID.
  */
-export function buildPool({candidates, submissions, byId, missedMusts, budgetKrw, size = POOL_SIZE}) {
-  const tasteOf = s => {
+/** 구성원별 적합도(0~1): 취향 + 예산 비중 + 긴 체류 부담. ai.ts/utilityOf와 같은 꼴이고 실제 데이터에 없는 인기도 항은 뺀다.
+ * buildPool과 전략별 빈자리 채우기(real_candidates.mjs)가 같은 값을 쓴다. 모델에는 보내지 않는다(구성원별 값). */
+export function memberFits(record, costKrw, submissions, byId, missedMusts = []) {
+  const p = record.place;
+  const similar = missedMusts.some(m => m.place.category === p.category && km(m.place, p) <= NEAR_KM);
+  return submissions.map(s => {
     const cats = [...s.picks, ...(s.longlist ?? [])].map(id => byId.get(id)?.place.category).filter(Boolean);
-    const out = {};
-    cats.forEach(c => (out[c] = (out[c] ?? 0) + 1 / cats.length));
-    return out;
-  };
-  const tastes = submissions.map(tasteOf);
+    const taste = cats.filter(c => c === p.category).length / Math.max(1, cats.length);
+    let u = 0.08 + 0.42 * taste + (similar ? 0.3 : 0);
+    const share = s.budgetPerDay ? costKrw / s.budgetPerDay : 0;
+    if (share > 0.25) u *= Math.max(0.25, 1 - (share - 0.25) * 2);
+    if (p.stay_min > 120 && s.activeMin < 450) u *= 0.8;
+    return Math.max(0, Math.min(1, u));
+  });
+}
+
+export function buildPool({candidates, submissions, byId, missedMusts, budgetKrw, size = POOL_SIZE}) {
   const scored = candidates.map(({record, costKrw}) => {
     const p = record.place;
     const similar = missedMusts.some(m => m.place.category === p.category && km(m.place, p) <= NEAR_KM);
-    // ai.ts/utilityOf와 같은 꼴: 취향 + 예산 비중 + 긴 체류 부담. 실제 데이터에 없는 인기도 항은 뺀다
-    const fits = submissions.map((s, i) => {
-      let u = 0.08 + 0.42 * (tastes[i][p.category] ?? 0) + (similar ? 0.3 : 0);
-      const share = s.budgetPerDay ? costKrw / s.budgetPerDay : 0;
-      if (share > 0.25) u *= Math.max(0.25, 1 - (share - 0.25) * 2);
-      if (p.stay_min > 120 && s.activeMin < 450) u *= 0.8;
-      return Math.max(0, Math.min(1, u));
-    });
+    const fits = memberFits(record, costKrw, submissions, byId, missedMusts);
     return {id: p.place_id, name: p.name_ko || p.name, category: engineCategory(p.category), cost_krw: costKrw,
       stay_min: p.stay_min, fit_avg: r2(fits.reduce((a, b) => a + b, 0) / fits.length), fit_min: r2(Math.min(...fits)),
-      similar_to_must: similar, cost_ok: costKrw <= budgetKrw};
-  }).filter(c => c.cost_ok && c.fit_min >= 0.2)
+      similar_to_must: similar, cost_ok: costKrw <= budgetKrw, liked: Math.max(...fits) >= 0.2};
+  })
+    // 모두에게 무난한 곳(fit_min 0.2 이상)과 누군가는 좋아할 곳(구성원 하나라도 0.2 이상)을 남긴다.
+    // 예전에는 무난한 곳만 남겨 세 전략이 같은 후보에서 같은 곳을 골랐다(11/25). 최소 불만은 채울 때 0.2 기준을 다시 적용한다
+    .filter(c => c.cost_ok && (c.fit_min >= 0.2 || c.liked))
+    .map(({liked, ...c}) => c)
     .sort((a, b) => Number(b.similar_to_must) - Number(a.similar_to_must) || b.fit_avg - a.fit_avg || a.id.localeCompare(b.id));
   // 비슷한 곳을 먼저 두되 한 유형으로 몰리지 않게 유형별로 돌아가며 뽑는다
   const byCat = new Map();

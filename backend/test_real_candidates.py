@@ -45,10 +45,13 @@ class RealCandidatesTests(unittest.TestCase):
         code,before,_=self.calculate(room,revision=2)
         self.assertEqual(code,200)
         # Both veto targets were genuinely schedulable before being excluded.
-        # 남은 자리는 AI 채우기 장소(aiAdded)이고 구성원 장소는 모두 들어간다
+        # 남은 자리는 AI 채우기 장소(aiAdded)와 끼니 식당(filled)이고 구성원 장소는 모두 들어간다
         for candidate in before['candidates']:
-            mine={i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']}
+            mine={i['placeId'] for day in candidate['days'] for i in day['items'] if i['source']=='selected'}
             self.assertEqual(mine,set(ids))
+            filled=[i for day in candidate['days'] for i in day['items'] if i['filled']]
+            self.assertEqual(candidate['planning']['meal_fill']['added_count'],len(filled))
+            self.assertTrue(all(i['source']=='meal_fill' and i['reasonCode']=='meal_slot' for i in filled))
 
         self.assertEqual(self.save(room,b,['osaka_017'],longlist=ids,veto=vetoes[0],vetoes=vetoes)[0],200)
         pool=self.req('GET',path+'/pool',token=a['submissionToken'])[1]
@@ -65,7 +68,7 @@ class RealCandidatesTests(unittest.TestCase):
         self.assertEqual([candidate['strategy'] for candidate in result['candidates']],STRATEGIES)
         for candidate in result['candidates']:
             placed={pid for day in candidate['days'] for pid in day['placeIds']}
-            self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']},{'osaka_017'})
+            self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if i['source']=='selected'},{'osaka_017'})
             self.assertFalse(placed & set(vetoes))
             self.assertEqual(candidate['planning']['must_veto_conflict_count'],1)
             choice={'strategy':candidate['strategy'],'revision':3,'selectionVersion':result['selectionVersion']}
@@ -82,7 +85,7 @@ class RealCandidatesTests(unittest.TestCase):
         code,cleared,_=self.calculate(room,revision=4)
         self.assertEqual(code,200)
         for candidate in cleared['candidates']:
-            self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if not i['aiAdded']},set(ids))
+            self.assertEqual({i['placeId'] for day in candidate['days'] for i in day['items'] if i['source']=='selected'},set(ids))
 
     def test_three_clients_select_persist_and_cache_same_real_candidates(self):
         room=self.ready_room();path=f"/rooms/{room['roomId']}"

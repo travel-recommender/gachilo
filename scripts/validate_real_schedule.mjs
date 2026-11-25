@@ -155,7 +155,7 @@ function validatePreparedDay(request, dataset, profiles, options) {
     accepted.push({place: toEnginePlace(r, check, request.krw_per_jpy),
       votes: 1, mustOf: null, tier: 'core', participants: []});
   }
-  const built = buildSchedule(accepted, 1, {fillMeals: false, considerBags: options.considerBags ?? true, distanceWeight: options.distanceWeight});
+  const built = buildSchedule(accepted, 1, {fillMeals: false, breakfast: options.breakfast, mealAt: options.mealAt, considerBags: options.considerBags ?? true, distanceWeight: options.distanceWeight});
   const plan = built.plans[0];
   const violations = rejected.map(r => ({code: 'place_not_eligible', place_id: r.place_id, reasons: r.reasons}));
   let walkingKm = 0, previous = null;

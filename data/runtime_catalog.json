@@ -1,6 +1,6 @@
 {
-  "version": "2026-11-12-brands-v1",
-  "catalog": "final/osaka_catalog_20261112.json",
+  "version": "2026-11-25-stay-lower-bound-v1",
+  "catalog": "final/osaka_catalog_20261125.json",
   "profiles": "final/osaka_profiles_20261104.json",
   "searchable_count": 238,
   "new_branch_count": 82,

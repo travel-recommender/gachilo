@@ -7,7 +7,8 @@ import {loadRuntimeInputs, availability, validateDay} from '../../scripts/valida
 
 const {dataset, profiles} = loadRuntimeInputs();
 const byId = new Map(dataset.places.map(r => [r.place.place_id, r]));
-const offline = {liveCheck: mockLiveCheck('pass'), choose: null};
+// 끼니 채우기는 meal_windows.test.mjs에서 따로 본다. 여기서는 끄고 배치 규칙만 본다
+const offline = {liveCheck: mockLiveCheck('pass'), choose: null, mealFill: false};
 const member = (id, picks, extra = {}) => ({memberId: id, longlist: picks, picks, must: picks[0], veto: null,
   budgetPerDay: 200000, stepLimit: 30000, activeMin: 720, tradeoffs: {pace: 0.5, distance: 0.5, spend: 0.5}, ...extra});
 const request = (date, submissions) => ({startDate: date, endDate: date, submissions,
@@ -187,10 +188,11 @@ test('예전 카탈로그(브랜드 정보 없음)에서는 아무것도 바꾸�
 // 11/16 모의 실험: 활동 시간을 10~19시로 넣어도 '여유'가 한 명 있으면 하루 2곳에서 끝나 오후 1시쯤 일정이 끝났다
 test('하루 자리 수는 활동 시간에 맞춘다 — 여유라도 9시간이면 하루 2곳에서 끝내지 않는다', async () => {
   const {realSlotsPerDay} = await import('./real_candidates.mjs');
-  assert.equal(realSlotsPerDay(0, 540), 4);    // 여유, 10~19시: 120분에 한 곳
+  // 3시간에 2곳 하한(11/25 피드백)이 더해져 9시간이면 여유도 6곳이다
+  assert.equal(realSlotsPerDay(0, 540), 6);    // 여유, 10~19시: 120분에 한 곳(4) < 하한 6
   assert.equal(realSlotsPerDay(0.5, 540), 7);  // 보통: 75분에 한 곳
   assert.equal(realSlotsPerDay(1, 540), 8);    // 빡빡: 60분에 한 곳, 상한 8
-  assert.equal(realSlotsPerDay(0, 240), 2);    // 짧은 활동 시간은 그대로 적게
+  assert.equal(realSlotsPerDay(0, 240), 3);    // 4시간 → 하한 3
   assert.equal(realSlotsPerDay(0, 60), 2);     // 하한
   // 실제 장소 12곳을 셋이 나눠 고른 하루 여행: 예전(여유 = 하루 2곳)보다 많이 넣는다
   const picks = ['branch_kiddyland_umeda', 'branch_nintendo_osaka', 'branch_ichiran_umeda_shibata', 'osaka_015', 'osaka_011', 'osaka_012'];

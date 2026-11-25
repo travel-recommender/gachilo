@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {calculateRealCandidates} from './real_candidates.mjs';
 import {mockLiveCheck} from './live_check.mjs';
 // 기존 검사는 구성원 장소만 쓰는 경로를 본다. 실시간 확인은 모두 통과, AI 채우기는 끈다
-const offline = {liveCheck: mockLiveCheck('pass'), choose: null};
+// 끼니 채우기는 meal_windows.test.mjs에서 따로 본다. 여기서는 끄고 배치 규칙만 본다
+const offline = {liveCheck: mockLiveCheck('pass'), choose: null, mealFill: false};
 import {allPlaces, findPlace, withPlaceCatalog} from './places.ts';
 import {loadInputs, availability, validateDay} from '../../scripts/validate_real_schedule.mjs';
 const {dataset, profiles} = loadInputs();
@@ -107,8 +108,9 @@ test('real strategy selection is not three renamed average results; pace also ch
   const fixtureProfiles={...profiles,places:Object.fromEntries(records.map(r=>[r.place.place_id,{window:[540,1260,1230]}]))};
   const r=request([]);r.exchange_rate.krw_per_jpy='1';
   const picks=[['1','3','4'],['2','5','6'],['0','1','4','5']];
-  // 하루 자리 수는 활동 시간과 속도로 정한다(realSlotsPerDay). 활동 4시간·여유면 2곳, 빡빡이면 3곳이다.
-  r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],budgetPerDay:[11000,10000,17000][i],activeMin:240,tradeoffs:{pace:0,distance:0.5,spend:1}}));
+  // 하루 자리 수는 활동 시간과 속도로 정한다(realSlotsPerDay). 활동 3시간·여유면 2곳(3시간에 2곳 하한과 같음), 빡빡이면 3곳이다.
+  // 4시간이면 하한(3곳)이 여유·빡빡 차이를 지워 자리가 세 전략의 찜을 다 담는다 — 전략 차이를 보려고 자리가 모자란 3시간으로 둔다
+  r.submissions.forEach((s,i)=>Object.assign(s,{picks:picks[i],budgetPerDay:[11000,10000,17000][i],activeMin:180,tradeoffs:{pace:0,distance:0.5,spend:1}}));
   const runFixture=()=>calculateRealCandidates(r,{places:records},fixtureProfiles,{baseUrl:''},offline);
   const low=await runFixture();
   // least_misery는 찜이 하나도 안 들어간 멤버(picks 2·5·6)의 찜 5를 넣는다. 예전 ['1','0']은 그 멤버가 0/3이었다.

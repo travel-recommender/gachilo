@@ -161,7 +161,7 @@ def validate_candidates(output, room, known_ids):
         if room['dataset'] == REAL_DATASET:
             check(bool(seen_ids))  # An empty real schedule is a retryable failure, not a candidate.
             p = candidate['planning']
-            keys(p, 'status schedule_ready exchange_rate catalog_count scheduled_count unplaced_count must_satisfied must_veto_conflict_count empty_day_count reason_aggregation exclusion_reason_counts live_check ai_fill')
+            keys(p, 'status schedule_ready exchange_rate catalog_count scheduled_count unplaced_count must_satisfied must_veto_conflict_count empty_day_count reason_aggregation exclusion_reason_counts live_check ai_fill meal_fill')
             keys(p['live_check'], 'source checked_on failed_place_count fetched_count reused_count')
             check(p['live_check']['source'] in ('google_places', 'mock'))
             check(all(type(p['live_check'][k]) is int and p['live_check'][k] >= 0 for k in ('failed_place_count', 'fetched_count', 'reused_count')))
@@ -169,6 +169,14 @@ def validate_candidates(output, room, known_ids):
             keys(p['ai_fill'], 'source added_count')
             check(p['ai_fill']['source'] in ('ai_added', 'rule_added', 'off') and type(p['ai_fill']['added_count']) is int)
             check(p['ai_fill']['added_count'] == sum(i['aiAdded'] for d in days for i in d['items']))
+            # 끼니 식당 자동 추가 (#88): 활동 시간에 걸친 끼니 창과, 그 창에 규칙으로 넣은 식당 수
+            keys(p['meal_fill'], 'windows added_count')
+            windows = p['meal_fill']['windows']
+            check(isinstance(windows, list) and len(set(windows)) == len(windows))
+            check(all(w in ('breakfast', 'lunch', 'dinner') for w in windows))
+            check(type(p['meal_fill']['added_count']) is int)
+            check(p['meal_fill']['added_count'] == sum(i['filled'] for d in days for i in d['items']))
+            check(windows or not p['meal_fill']['added_count'])
             check(p['schedule_ready'] is False and type(p['must_satisfied']) is bool)
             for name in ('catalog_count', 'scheduled_count', 'unplaced_count', 'must_veto_conflict_count', 'empty_day_count'):
                 check(type(p[name]) is int and 0 <= p[name] <= 100000)
