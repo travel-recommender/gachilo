@@ -93,6 +93,7 @@ class RealCandidatesTests(unittest.TestCase):
         self.assertIsNone(result['planning'])
         for c in result['candidates']:
             self.assertEqual(c['planning']['scheduled_count'],sum(len(d['placeIds']) for d in c['days']))
+            self.assertIs(c['planning']['has_must'],True)
             self.assertEqual(c['planning']['exchange_rate']['source'],test_real_engine.FX['JPY_TO_KRW_SOURCE'])
         self.assertEqual([c['strategy'] for c in result['candidates']],STRATEGIES)
         self.assertEqual(self.calculate(room)[1],result)
@@ -158,6 +159,27 @@ class RealCandidatesTests(unittest.TestCase):
                 self.assertEqual(self.calculate(room)[0],503)
             self.assertEqual(store.result(room['roomId'],room['ownerToken'])['candidates'],[])
         self.assertEqual(self.calculate(room)[0],200)
+
+    def test_group_must_flag_is_shared_private_and_legacy_compatible(self):
+        room=self.room(count=3); members=room['members']
+        for index,member in enumerate(members):
+            self.assertEqual(self.save(room,member,['osaka_009','osaka_015'],must='osaka_009' if index == 0 else None)[0],200)
+        code,result,_=self.calculate(room)
+        self.assertEqual(code,200)
+        self.assertTrue(all(c['planning']['has_must'] is True for c in result['candidates']))
+        for member in members:
+            self.assertEqual(self.req('GET',f"/rooms/{room['roomId']}/results",token=member['submissionToken'])[1],result)
+        store=Store(self.db,Engine().catalog)
+        good=CandidateEngine(Engine().node).calculate(store.snapshot(room['roomId'],room['ownerToken']))
+        metadata={'dataset':'osaka_review_150','start':'2026-10-01','end':'2026-10-02'}
+        legacy=copy.deepcopy(good)
+        for c in legacy['candidates']:c['planning'].pop('has_must')
+        validate_candidates(legacy,metadata,store.real_ids)
+        for val in ('yes',1,None):
+            bad=copy.deepcopy(good);bad['candidates'][0]['planning']['has_must']=val
+            with self.assertRaises(EngineError):validate_candidates(bad,metadata,store.real_ids)
+        bad=copy.deepcopy(good);bad['candidates'][0]['planning']['has_must']=False
+        with self.assertRaises(EngineError):validate_candidates(bad,metadata,store.real_ids)
 
     def test_data_reason_codes_accept_ascii_letters_digits_but_not_free_text(self):
         room=self.ready_room();store=Store(self.db,Engine().catalog)

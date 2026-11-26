@@ -6,7 +6,7 @@ import { useTrip } from "@/components/store";
 import { placeLine } from "@/components/PlaceFinder";
 import { CATEGORIES, findPlace } from "@/lib/places";
 import { Box, NavButtons, Page, PlanHeader, TextTabs, asset } from "@/components/gachiro";
-import { EXPERIMENT_MODE } from "@/lib/experiment";
+import { PlacePhoto } from "@/components/PlacePhoto";
 import type { CategoryId, Place } from "@/lib/types";
 
 type Choice = "must" | "veto";
@@ -83,10 +83,10 @@ export default function Shortlist() {
   };
 
   return (
-    <Page nav={<NavButtons prev="/pick" next={() => router.push("/budget")} nextDisabled={poolBlocked || (EXPERIMENT_MODE ? mustList.length !== 5 : mustList.length === 0)} />}>
+    <Page nav={<NavButtons prev="/pick" next={() => router.push("/budget")} nextDisabled={poolBlocked} nextLabel={mustList.length ? "다음" : "꼭 가기 없이 다음"} />}>
       <PlanHeader />
       <div className="pt-[20px]">
-        {EXPERIMENT_MODE && <p className="mx-5 mb-4 text-sm text-wine">꼭 가기 5곳을 고르세요 ({mustList.length}/5). 먼저 고른 곳이 1순위입니다.</p>}
+        <p className="mx-5 mb-4 text-sm leading-6 text-wine">꼭 가기는 5곳을 권장해요. 개수 제한 없이 고르거나, 고르지 않고 넘어가도 돼요.<br />현재 {mustList.length}곳 선택 · 먼저 고른 곳이 1순위예요.</p>
         <TextTabs label="카테고리" items={tabs} value={current as CategoryId} onChange={(v) => { setTab(v); setOpen(null); }} />
         <div className="px-5 pt-2">
           <Box className="min-h-[436px] space-y-[9px] px-[11px] py-[16px]">
@@ -124,6 +124,7 @@ export default function Shortlist() {
                     <span className="block truncate text-[17px] font-medium leading-5">{p.name}</span>
                     <span className="block truncate text-[9px] font-medium leading-3 text-line">{placeLine(p)}</span>
                   </button>
+                  <PlacePhoto key={p.id} place={p} room={state.room} />
                   <div className="mt-[6px] flex justify-around">
                     {(["must", "veto"] as Choice[]).map((k) => (
                       <button key={k} onClick={() => choose(p.id, k)} aria-pressed={c === k}

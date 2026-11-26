@@ -5,7 +5,9 @@ import {loadRuntimeInputs, availability, validateDay} from './validate_real_sche
 import {schedulableDetails} from '../backend/engine/schedulable.mjs';
 import {calculateRealCandidates} from '../backend/engine/real_candidates.mjs';
 import {mockLiveCheck} from '../backend/engine/live_check.mjs';
-const {dataset,profiles}=loadRuntimeInputs();
+// Historical 11/16 landmark publication must remain reproducible after later overlays.
+const dataset=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_catalog_20261116.json',import.meta.url)));
+const profiles=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_profiles_20261116.json',import.meta.url)));
 const ids=['osaka_001','osaka_005','branch_usj'];
 const record=id=>dataset.places.find(r=>r.place.place_id===id);
 const dates=['2026-11-16','2026-11-17','2026-11-18','2026-11-19'];

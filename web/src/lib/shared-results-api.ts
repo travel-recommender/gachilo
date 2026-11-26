@@ -34,6 +34,8 @@ export interface SharedCandidate {
   /** 실제 장소 결과에만 있는 계획 요약 (backend/candidate_results.py). 실험 설명 문장이 쓴다 */
   planning?: {
     must_satisfied: boolean;
+    /** 이전 세션 결과에는 없을 수 있다. */
+    has_must?: boolean;
     unplaced_count: number;
     /** 예전 결과에는 없을 수 있다. "common_across_dates"일 때만 이유를 쓴다 */
     reason_aggregation?: string;

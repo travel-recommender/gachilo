@@ -252,3 +252,22 @@ test("새 정책은 모든 방에서 1번만 설명 없음이며 재접속해도
   assert.throws(() => explanationPolicy("unknown"), /Unknown/);
   assert.throws(() => explainedLetters(0), /Invalid/);
 });
+
+test('새 결과의 그룹 1순위 문장은 참가자 개인 선택이 아니라 공통 사실로 정한다', () => {
+  const c=realCand(planning({has_must:true}));
+  const selected={picks:['a'],must:'a',veto:null,budgetPerDay:0,stepLimit:0};
+  const skipped={picks:[],must:null,veto:null,budgetPerDay:0,stepLimit:0};
+  const common=['1순위를 고른 사람의 꼭 가기가 모두 들어갔어요.','하루 걸음 수는 그룹에서 가장 적은 걸음 한도를 넘지 않아요.'];
+  for(const mine of [selected,skipped]) {
+    const lines=experimentExplanation(c,mine,id=>id);
+    assert.deepEqual(lines.filter(line=>common.includes(line)),common);
+  }
+  const none=realCand(planning({has_must:false}));
+  assert.ok(!experimentExplanation(none,skipped,id=>id).some(line=>line.includes('1순위')));
+  const missing=realCand(planning({has_must:true,must_satisfied:false}));
+  for(const mine of [selected,skipped]) assert.equal(experimentExplanation(missing,mine,id=>id)[0], '1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요.');
+  // 기존 저장 결과의 문장과 표시 조건을 유지한다.
+  const legacy=realCand(planning());
+  assert.ok(experimentExplanation(legacy,selected,id=>id).includes('모두의 1순위 꼭 가기가 모두 들어갔어요.'));
+  assert.ok(!experimentExplanation(legacy,skipped,id=>id).some(line=>line.includes('1순위')));
+});

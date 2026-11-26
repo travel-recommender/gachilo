@@ -1,13 +1,13 @@
 {
-  "version": "2026-11-16-landmarks-v1",
-  "catalog": "final/osaka_catalog_20261116.json",
-  "profiles": "final/osaka_profiles_20261116.json",
+  "version": "2026-11-23-week13-v1",
+  "catalog": "final/osaka_catalog_20261123.json",
+  "profiles": "final/osaka_profiles_20261123.json",
   "searchable_count": 238,
   "new_branch_count": 82,
   "new_branch_dated_eligible_count": 61,
   "supplemental_search_only_count": 23,
   "travel_support": "collections/osaka_traveler_expansion_20261030/travel_support.json",
   "travel_support_count": 5,
-  "dated_verification": "final/catalog_verification_20261116.json",
+  "dated_verification": "final/catalog_verification_20261123.json",
   "brand_registry": "brands/osaka_brand_registry_20261112.json"
 }

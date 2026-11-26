@@ -25,7 +25,7 @@ function mount(fetcher,room=session()) {
  const mocks={react,'react/jsx-runtime':jsx,'next/navigation':{useRouter:()=>({push(){}})},
   '@/lib/experiment':{EXPERIMENT_MODE:false},
   '@/lib/room-state':{vetoFields:()=>({})},'@/components/store':{useTrip:()=>trip},
-  '@/components/PlaceFinder':{placeLine:()=>''},
+  '@/components/PlaceFinder':{placeLine:()=>''},'@/components/PlacePhoto':{PlacePhoto:'PlacePhoto'},
   '@/lib/places':{CATEGORIES:[{id:'landmark',label:'명소'}],findPlace:id=>({id,name:'글리코 장소 카드',category:'landmark'})},
   '@/components/gachiro':{Box:'Box',NavButtons:'NavButtons',Page:'Page',PlanHeader:'PlanHeader',TextTabs:'TextTabs',asset:x=>x}};
  mod.require=name=>{assert.ok(name in mocks,name);return mocks[name];};
@@ -79,5 +79,19 @@ test('local demo stays usable without a pool request; valid empty server pool is
  const demo=mount(()=>{throw new Error('demo must not fetch');},null);let tree=demo.render();
  assert.equal(demo.calls,0);assert.equal(nav(tree).nextDisabled,false);assert.match(text(tree),/글리코 장소 카드/);
  const online=mount(()=>Promise.resolve({roomId:'room-a',placeIds:[]}));online.trip.pool=[];online.trip.state.extra.mustList=[];online.trip.state.mine.picks=[];
- online.render();await flush();tree=online.render();assert.match(text(tree),/아직 모인 곳이 없어요/);assert.equal(retry(tree),undefined);assert.equal(nav(tree).nextDisabled,true);
+ online.render();await flush();tree=online.render();assert.match(text(tree),/아직 모인 곳이 없어요/);assert.equal(retry(tree),undefined);assert.equal(nav(tree).nextDisabled,false);
+});
+
+test('P4 allows zero, four and more than five without clearing picks or vetoes',async()=>{
+ for (const n of [0,1,4,5,6,31]) {
+  const m=mount(()=>Promise.resolve({roomId:'room-a'}));
+  const picks=Array.from({length:n},(_,i)=>'p'+i);
+  m.trip.state.extra={mustList:picks,vetoList:['vetoed']};
+  m.trip.state.mine={picks,must:picks[0]??null,veto:'vetoed'};
+  m.render();await flush();const tree=m.render();
+  assert.equal(nav(tree).nextDisabled,false,n);nav(tree).next();
+  assert.deepEqual(m.trip.state.extra,{mustList:picks,vetoList:['vetoed']});
+  assert.match(text(tree),/5곳을 권장/);
+  if(n===0)assert.equal(nav(tree).nextLabel,'꼭 가기 없이 다음');
+ }
 });

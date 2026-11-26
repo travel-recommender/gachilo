@@ -1,0 +1,369 @@
+{
+  "checked_at": "2026-11-23",
+  "valid_from": "2026-11-16",
+  "valid_through": "2026-11-30",
+  "catalog_input": "data/final/osaka_catalog_20261116.json",
+  "profiles_input": "data/final/osaka_profiles_20261116.json",
+  "input_sha256": {
+    "data/final/osaka_catalog_20261116.json": "ae924da65f592fc1dec082d32f9eb1c1fa0d9ba0f142a982e2e9ed1103c64186",
+    "data/final/osaka_profiles_20261116.json": "c97650d15dd68c4d1c5549e0f222b4802e5c216f7efdf9e63bf3e77d022172a0"
+  },
+  "limits": [
+    "실험 기간에 대한 공식 자료 검토. 이후 영업·가격 변동 및 당일 확인 필요.",
+    "시장·상점가 산책 시간은 모든 점포 공통 영업시간이 아님.",
+    "예산 추정은 구매 조합 가정이며 실제 지출과 다를 수 있음."
+  ],
+  "updates": {
+    "osaka_draft_316598fb77c9": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "opening_hours": "기획전 기준 09:30~17:00, 최종입장 16:30. 월요일 휴관. 11/23 개관·11/24 휴관.",
+        "stay_min": 120,
+        "cost": 500,
+        "bag_load": 0
+      },
+      "profile": {
+        "window": [
+          570,
+          1020,
+          990
+        ],
+        "closed_weekdays": [
+          1
+        ],
+        "holiday_moves_closure": true,
+        "exceptions": {
+          "2026-11-23": {
+            "closed": false
+          },
+          "2026-11-24": {
+            "closed": true
+          }
+        }
+      },
+      "source_urls": [
+        "https://www.osaka-art-museum.jp/planned_exhibition/10412"
+      ],
+      "conditions": [
+        "동아시아 금공품 기획전 성인 일반 500엔. 특별전 요금 별도.",
+        "휴관 및 임시 변경 가능."
+      ],
+      "cost_basis": "기획전 성인 일반 500엔. 특별전·할인 대상 요금 별도.",
+      "resolved_blockers": [
+        "final_calendar_review_required"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 120,
+        "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+      },
+      "field_kinds": {
+        "stay_min": "demo_model_estimate",
+        "bag_load": "team_rule_estimate",
+        "cost": "official_ticket_price"
+      },
+      "field_notes": {
+        "cost": "기획전 성인 일반 500엔. 특별전·할인 대상 요금 별도."
+      },
+      "coordinates": {
+        "kind": "retained_reviewed_map_reference",
+        "source_urls": [
+          "https://www.osaka-art-museum.jp/planned_exhibition/10412"
+        ],
+        "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+      },
+      "cost_kind": "official_ticket_price"
+    },
+    "osaka_006": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "opening_hours": "상점가 산책 계획 11:00~19:00. 개별 점포의 영업시간·휴무는 서로 다름.",
+        "stay_min": 120,
+        "bag_load": 1
+      },
+      "profile": {
+        "window": [
+          660,
+          1140,
+          1020
+        ],
+        "visit_scope": "shopping_street_walk",
+        "window_basis": "editorial_visit_window_not_business_hours"
+      },
+      "source_urls": [
+        "https://www.shinsaibashi.or.jp/contact/faq"
+      ],
+      "conditions": [
+        "거리 산책 기준. 11~19시는 일정 계획 범위이며 전체 점포 공통 영업시간이 아님.",
+        "개별 쇼핑 비용 별도."
+      ],
+      "cost_basis": "거리 산책·쇼핑. 개인 구매액 별도.",
+      "resolved_blockers": [
+        "final_calendar_review_required"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 120,
+        "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+      },
+      "field_kinds": {
+        "stay_min": "demo_model_estimate",
+        "bag_load": "team_rule_estimate",
+        "cost": "not_applicable_shopping"
+      },
+      "field_notes": {
+        "cost": "거리 산책·쇼핑. 개인 구매액 별도."
+      },
+      "coordinates": {
+        "kind": "retained_reviewed_map_reference",
+        "source_urls": [
+          "https://www.shinsaibashi.or.jp/contact/faq"
+        ],
+        "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+      },
+      "cost_kind": "not_applicable_shopping"
+    },
+    "osaka_draft_73505422b2e6": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "opening_hours": "공공 교량 외관 산책 계획 09:00~22:00. 통행 제한은 현장 확인.",
+        "stay_min": 30,
+        "cost": 0,
+        "bag_load": 0
+      },
+      "profile": {
+        "window": [
+          540,
+          1320,
+          1290
+        ],
+        "visit_scope": "public_exterior_view",
+        "window_basis": "editorial_visit_window_not_business_hours"
+      },
+      "source_urls": [
+        "https://www.city.osaka.lg.jp/kensetsu/page/0000493973.html"
+      ],
+      "conditions": [
+        "공공 교량 외관 산책. 계획 시간은 공식 개방시간이 아니며 통행 제한 가능."
+      ],
+      "cost_basis": "공공 교량 외관 산책 무료.",
+      "resolved_blockers": [
+        "final_calendar_review_required"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 30,
+        "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+      },
+      "field_kinds": {
+        "stay_min": "demo_model_estimate",
+        "bag_load": "team_rule_estimate",
+        "cost": "free_exterior_view"
+      },
+      "field_notes": {
+        "cost": "공공 교량 외관 산책 무료."
+      },
+      "coordinates": {
+        "kind": "retained_reviewed_map_reference",
+        "source_urls": [
+          "https://www.city.osaka.lg.jp/kensetsu/page/0000493973.html"
+        ],
+        "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+      },
+      "cost_kind": "free_exterior_view"
+    },
+    "branch_namba_walk": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "latitude": 34.6670705,
+        "longitude": 135.5023085,
+        "opening_hours": "쇼핑 10:00~21:00. 2026-11-18 정기휴무. 음식점은 점포별 확인.",
+        "stay_min": 60,
+        "bag_load": 2,
+        "covered": true
+      },
+      "profile": {
+        "window": [
+          600,
+          1260,
+          1200
+        ],
+        "exceptions": {
+          "2026-11-18": {
+            "closed": true
+          }
+        }
+      },
+      "source_urls": [
+        "https://walk.osaka-chikagai.jp/service",
+        "https://walk.osaka-chikagai.jp/access",
+        "https://www.openstreetmap.org/way/54039110"
+      ],
+      "conditions": [
+        "패션·잡화 점포 기준 10~21시. 식당·카페는 별도, 일부 매장 예외 있음.",
+        "2026년 11월 정기 휴무일 18일. 좌표는 OpenStreetMap 보행로 대표 참조점이며 입구 아님.",
+        "개인 쇼핑 금액 별도."
+      ],
+      "cost_basis": "쇼핑 구매액 별도.",
+      "resolved_blockers": [
+        "collected_visit_conditions_require_profile",
+        "structured_date_profile_missing",
+        "stay_policy_unconfirmed"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+      },
+      "field_kinds": {
+        "stay_min": "demo_model_estimate",
+        "bag_load": "team_rule_estimate",
+        "cost": "not_applicable_shopping"
+      },
+      "field_notes": {
+        "cost": "쇼핑 구매액 별도."
+      },
+      "coordinates": {
+        "kind": "openstreetmap_way_reference_not_entrance",
+        "source_urls": [
+          "https://walk.osaka-chikagai.jp/service",
+          "https://walk.osaka-chikagai.jp/access",
+          "https://www.openstreetmap.org/way/54039110"
+        ],
+        "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+      },
+      "cost_kind": "not_applicable_shopping"
+    },
+    "branch_sushiro_namba_amza": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "opening_hours": "평일 11:00~23:00, 토·일·공휴일 10:30~23:00. 최종 주문 22:30.",
+        "stay_min": 60,
+        "bag_load": 0,
+        "covered": true,
+        "cost": 1500
+      },
+      "profile": {
+        "window": [
+          630,
+          1380,
+          1350
+        ],
+        "weekday_window": [
+          660,
+          1380,
+          1350
+        ]
+      },
+      "source_urls": [
+        "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2225",
+        "https://www.akindo-sushiro.co.jp/menu/menu_detail/?s_id=856"
+      ],
+      "conditions": [
+        "매장 기본 메뉴 150엔 접시 10접시를 가정한 일정 예산 추정. 실제 주문·가격·품절에 따라 달라짐.",
+        "60분은 식사 계획 추정이며 대기시간 별도."
+      ],
+      "cost_basis": "150엔 기본 접시 10접시를 가정한 1,500엔 예산 추정. 모든 메뉴 또는 평균 식사 가격이 아님.",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed",
+        "facility_relation_unconfirmed",
+        "representative_meal_cost_unconfirmed"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+      },
+      "field_kinds": {
+        "stay_min": "demo_model_estimate",
+        "bag_load": "team_rule_estimate",
+        "cost": "official_budget_estimate"
+      },
+      "field_notes": {
+        "cost": "150엔 기본 접시 10접시를 가정한 1,500엔 예산 추정. 모든 메뉴 또는 평균 식사 가격이 아님."
+      },
+      "coordinates": {
+        "kind": "retained_reviewed_map_reference",
+        "source_urls": [
+          "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2225",
+          "https://www.akindo-sushiro.co.jp/menu/menu_detail/?s_id=856"
+        ],
+        "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+      },
+      "cost_kind": "official_budget_estimate",
+      "aliases": "초밥|스시|회전초밥|sushi|스시로",
+      "meal_role": "meal"
+    },
+    "branch_sushiro_umeda_chayamachi": {
+      "status": "eligible_for_dated_demo",
+      "fields": {
+        "opening_hours": "평일 11:00~23:00, 토·일·공휴일 10:30~23:00. 최종 주문 22:30.",
+        "stay_min": 60,
+        "bag_load": 0,
+        "covered": true,
+        "cost": 1500
+      },
+      "profile": {
+        "window": [
+          630,
+          1380,
+          1350
+        ],
+        "weekday_window": [
+          660,
+          1380,
+          1350
+        ]
+      },
+      "source_urls": [
+        "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2369",
+        "https://www.akindo-sushiro.co.jp/menu/menu_detail/?s_id=870"
+      ],
+      "conditions": [
+        "매장 기본 메뉴 150엔 접시 10접시를 가정한 일정 예산 추정. 실제 주문·가격·품절에 따라 달라짐.",
+        "60분은 식사 계획 추정이며 대기시간 별도."
+      ],
+      "cost_basis": "150엔 기본 접시 10접시를 가정한 1,500엔 예산 추정. 모든 메뉴 또는 평균 식사 가격이 아님.",
+      "resolved_blockers": [
+        "branch_collection_review_required",
+        "stay_policy_unconfirmed",
+        "covered_unconfirmed",
+        "bag_load_unconfirmed",
+        "structured_date_profile_missing",
+        "area_scheme_unconfirmed",
+        "facility_relation_unconfirmed",
+        "representative_meal_cost_unconfirmed"
+      ],
+      "remaining": [],
+      "planning_policy": {
+        "stay_min": 60,
+        "note": "체류 시간은 일정 계산용 추정이며 대기·이동은 별도."
+      },
+      "field_kinds": {
+        "stay_min": "demo_model_estimate",
+        "bag_load": "team_rule_estimate",
+        "cost": "official_budget_estimate"
+      },
+      "field_notes": {
+        "cost": "150엔 기본 접시 10접시를 가정한 1,500엔 예산 추정. 모든 메뉴 또는 평균 식사 가격이 아님."
+      },
+      "coordinates": {
+        "kind": "retained_reviewed_map_reference",
+        "source_urls": [
+          "https://www.akindo-sushiro.co.jp/shop/detail.php?id=2369",
+          "https://www.akindo-sushiro.co.jp/menu/menu_detail/?s_id=870"
+        ],
+        "note": "공개 지도 참조 좌표. 입구·실측 좌표가 아님."
+      },
+      "cost_kind": "official_budget_estimate",
+      "aliases": "초밥|스시|회전초밥|sushi|스시로",
+      "meal_role": "meal"
+    }
+  },
+  "additions": []
+}

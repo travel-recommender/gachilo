@@ -229,3 +229,17 @@ test('rankListed: 같은 P3 목록이라도 평균·최소 불만·공정성 순
   // 순서만 바뀌고 빠지거나 더해지는 곳은 없다
   for (const s of ['average', 'least_misery', 'fairness']) assert.deepEqual([...order(s)].sort(), [...listed].sort());
 });
+
+test('public has_must is a shared boolean for all strategies, including no selection or a veto conflict',async()=>{
+  const none=request(['osaka_009','osaka_015']);
+  const zero=await run(none);
+  assert.ok(zero.candidates.every(c=>c.planning.has_must===false&&c.planning.must_satisfied===true));
+  const mixed=request(['osaka_009','osaka_015']);mixed.submissions[0].must='osaka_009';
+  const one=await run(mixed);
+  assert.ok(one.candidates.every(c=>c.planning.has_must===true&&c.planning.must_satisfied===true));
+  const conflict=request(['osaka_009','osaka_015']);
+  conflict.submissions[0].must='osaka_009';conflict.submissions[1].veto='osaka_009';
+  const veto=await run(conflict);
+  assert.ok(veto.candidates.every(c=>c.planning.has_must===true&&c.planning.must_satisfied===false));
+  for(const c of one.candidates) for(const name of ['private-a','private-b','private-c']) assert.ok(!JSON.stringify(c.planning).includes(name));
+});

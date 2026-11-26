@@ -186,7 +186,7 @@ export default function Result() {
                 {on && (
                   <div className="mt-[10px] grid grid-cols-3 gap-[6px] text-center">
                     {[
-                      { k: "하루 걷는 양", v: `${c.steps.toLocaleString("ko-KR")} 보` },
+                      { k: "장소 간 도보 · 하루 평균", v: `${c.steps.toLocaleString("ko-KR")} 보` },
                       { k: "하루 소비", v: `${c.spend.toLocaleString("ko-KR")} 원`, sub: `${Math.round(c.spend / rate).toLocaleString("ko-KR")} 엔` },
                       { k: "하루 총 이동", v: `${c.move.toFixed(1)}KM` },
                     ].map((m) => (
@@ -213,7 +213,7 @@ export default function Result() {
         {server && !EXPERIMENT_MODE && <WeatherRouteNotice summary={shownCard?.note} />}
         <p className="mt-3 text-[10.5px] text-mute-soft">
           엔화는 1엔 = {rate}원으로 계산했어요. 실제 환전 금액과 다를 수 있어요.
-          {server && " 걸음·소비·이동은 추정치이고 교통·숙박비는 빠져 있어요."}
+          {server && " 걸음 수는 입력한 목표가 아니라 장소 사이 도보 이동의 추정치예요. 숙소 왕복·관광지 내부 걷기는 빠져 있어요. 소비에는 교통·숙박비가 포함되지 않아요."}
         </p>
       </div>
     </Page>

@@ -103,7 +103,13 @@ def validate_candidates(output, room, known_ids):
         if not ok:
             raise EngineError('후보 결과 형식 검증에 실패했습니다.')
     def keys(value, expected):
-        check(isinstance(value, dict) and set(value) == set(expected.split()))
+        expected_keys = set(expected.split())
+        # A shared planning flag was added after earlier saved results. It is
+        # optional for those results and is the only additional public fact.
+        if isinstance(value, dict) and 'must_satisfied' in expected_keys and 'has_must' in value:
+            check(type(value['has_must']) is bool)
+            expected_keys.add('has_must')
+        check(isinstance(value, dict) and set(value) == expected_keys)
     def metrics(value, daily=False):
         names = ('walkSteps', 'costKrw', 'totalKm') if daily else ('walkStepsPerDay', 'costKrwPerDay', 'totalKmPerDay')
         keys(value, ' '.join(names))
@@ -197,3 +203,7 @@ def validate_candidates(output, room, known_ids):
             except ValueError:
                 check(False)
             check(isinstance(fx['source'], str) and 0 < len(fx['source']) <= 10000)
+    if room['dataset'] == REAL_DATASET:
+        # The group fact is one shared snapshot; legacy snapshots omit it in all three.
+        flags = [c['planning'].get('has_must') for c in cs]
+        check(all(x is None for x in flags) or (all(type(x) is bool for x in flags) and len(set(flags)) == 1))

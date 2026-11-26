@@ -156,6 +156,8 @@ export const STRATEGY_WORDS = ["평균", "최소 불만", "공정성", "average"
 /** 실제 장소 결과의 계획 요약 (backend/candidate_results.py planning). 데모 방에는 없다 */
 type PlanningLike = {
   must_satisfied: boolean;
+  /** 이전 세션 결과에는 없을 수 있다. */
+  has_must?: boolean;
   unplaced_count: number;
   reason_aggregation?: string;
   exclusion_reason_counts: Record<string, number>;
@@ -216,9 +218,8 @@ export const FILL_SOURCES = FILL_REASON.map(([source]) => source);
  * "누군가 제외한 곳은 넣지 않았어요"는 쓰지 않는다. planning에 제외 수가 없어서 아무도 제외하지 않은 방에서도
  * 누군가 제외했다고 읽히기 때문이다(#71 리뷰). 제외는 내 설명("내가 제외한 곳은 넣지 않았어요")으로만 말한다.
  *
- * hasMust: 이 사람에게 1순위가 있는가. 엔진은 1순위가 하나도 없어도 must_satisfied = true를 주므로,
- * 1순위가 있다는 게 확실할 때만 "모두의 1순위 … 들어갔어요"라고 말한다. 화면은 꼭 가기의 첫 곳을 1순위로 보내고,
- * 실험에서는 모두 꼭 가기 5곳을 고르므로 그룹 모두에게 같은 문장이 된다.
+ * hasMust: 방에서 1순위를 고른 사람이 있는지 나타내는 공통 사실이다.
+ * 이전 결과에는 이 필드가 없으므로 당시의 참가자별 표시를 보존한다.
  */
 export function groupExplanation(c: CandidateLike, hasMust = false, planningLines = true): string[] {
   const p = c.planning;
@@ -235,7 +236,8 @@ export function groupExplanation(c: CandidateLike, hasMust = false, planningLine
   lines.unshift(
     // must_satisfied = false는 1순위가 있었다는 뜻이라 항상 말해도 된다
     ...(!p.must_satisfied ? ["1순위 꼭 가기 중 일부는 이번 일정에 들어가지 못했어요."]
-      : hasMust ? ["모두의 1순위 꼭 가기가 모두 들어갔어요."] : []),
+      : hasMust ? [p.has_must === undefined ? "모두의 1순위 꼭 가기가 모두 들어갔어요."
+        : "1순위를 고른 사람의 꼭 가기가 모두 들어갔어요."] : []),
     // 실제 장소 경로는 하루마다 그룹에서 가장 적은 걸음 한도로 검사한다
     "하루 걸음 수는 그룹에서 가장 적은 걸음 한도를 넘지 않아요.",
   );
@@ -286,7 +288,9 @@ export function experimentExplanation(c: CandidateLike, mine: MineLike, nameOf: 
   const stale = myVetoPlaced
     || (!!c.planning?.must_satisfied && !!mine.must && !represented(mine.must))
     || (mine.stepLimit > 0 && c.metrics.walkStepsPerDay > mine.stepLimit);
-  const lines: string[] = groupExplanation(c, !!mine.must, !stale);
+  // 이전에 저장된 결과는 기존 표시를 보존하고, 새 결과는 방 전체의 공통 사실을 사용한다.
+  const hasMust = c.planning?.has_must ?? !!mine.must;
+  const lines: string[] = groupExplanation(c, hasMust, !stale);
   const picks = mine.picks;
   if (picks.length) {
     const kept = picks.filter((id) => !!represented(id)).length;

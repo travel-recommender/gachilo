@@ -64,7 +64,7 @@ def freeze_bundle(bundle, cfg):
     """Refuse to overwrite frozen code/data/date identity on a restart or deployment."""
     source = support.read_json(ROOT/'data/runtime_catalog.json')
     identity = {'commit': cfg['commit'], 'mode': cfg['mode'], 'dates': cfg['dates'],
-                'recommendationCards': 'disabled_in_experiment', 'survey': 'google_form',
+                'recommendationCards': 'enabled_all_participants_v1', 'inputPolicy': 'optional-must-v1', 'placePhotos': 'on-demand-google-v1', 'survey': 'google_form',
                 'explanationPolicy': support.explanation_policy(), 'groupSize': 3, 'ai': cfg['mode'] == 'live',
                 'osrm': bool(os.getenv('OSRM_FOOT_URL')) if cfg['mode'] == 'live' else False}
     if (bundle/'manifest.json').exists():
@@ -92,7 +92,7 @@ def freeze_bundle(bundle, cfg):
         'commit': cfg['commit'], 'dataset': 'osaka_review_150', 'files': files,
         'catalog_version': source['version'], 'catalog_rows': len(ids),
         'purpose': 'h4_user_experiment' if cfg['mode'] == 'live' else 'local_h4_rehearsal',
-        'explanation_policy': identity['explanationPolicy'], 'travel_dates': cfg['dates'], 'recommendation_card_policy': 'disabled_in_experiment'})
+        'explanation_policy': identity['explanationPolicy'], 'travel_dates': cfg['dates'], 'recommendation_card_policy': 'enabled_all_participants_v1'})
 
 
 def cloud_entry(group, cfg, invite):
@@ -102,7 +102,7 @@ def cloud_entry(group, cfg, invite):
         '<p>가상 오사카 여행: '+cfg['dates'][0]+' ~ '+cfg['dates'][1]+' · 3명</p>'
         '<p>아이폰 Safari / 안드로이드 Chrome · 인터넷만 연결하면 됩니다.</p>'
         '<div class="notice">① 진행자가 배정한 '+code+'-01·02·03 중 본인 번호로 입장하세요. 01번은 진행자가 준 PIN, 02·03번은 처음 입장할 때 정한 PIN을 사용합니다.'
-        '<br>② 장소 6곳 이상 → 꼭 가기 5곳 → 숙소·예산·체력 등 화면의 입력을 완료하세요.'
+        '<br>② 장소 6곳 이상 → 꼭 가기 자유 선택(0곳 가능·5곳 권장) → 숙소·예산·체력 등 화면의 입력을 완료하세요.'
         '<br>③ 세 명 모두 제출하면 일정 A·B·C를 살펴보고 결과 화면의 Google 설문에 답하세요.'
         '<br><br>진행자 안내 후 시작하고, 평가 중에는 다른 사람과 상의하지 마세요. 앱 안에서 일정을 확정하지 않습니다. 새로고침·재접속은 같은 번호와 PIN을 사용하세요.'
         '<br>여행 입력·계산 기록은 실험 서버에, 설문 응답은 혜인님의 Google 설문에 저장됩니다.</div>'
