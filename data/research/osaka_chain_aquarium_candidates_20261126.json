@@ -178,6 +178,211 @@
         "오사카시 외 지역(스이타시) 포함 범위 검토",
         "좌표·날짜별 운영·입장료 확인"
       ]
+    },
+    {
+      "id": "familymart_links_umeda",
+      "name_ko": "패밀리마트 LINKS UMEDA점",
+      "name": "ファミリーマート LINKS UMEDA店",
+      "address": "大阪市北区大深町1-1",
+      "regular_hours": "24시간",
+      "source_url": "https://store.family.co.jp/points/52287",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "familymart_nishi_umeda",
+      "name_ko": "패밀리마트 니시우메다점",
+      "name": "ファミリーマート 西梅田店",
+      "address": "大阪市北区梅田2-1-18",
+      "regular_hours": "24시간",
+      "source_url": "https://store.family.co.jp/points/77843",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "familymart_dojima_kitashinchi",
+      "name_ko": "패밀리마트 도지마 기타신치점",
+      "name": "ファミリーマート 堂島北新地店",
+      "address": "大阪市北区堂島1-3-14",
+      "regular_hours": "24시간; 일요일 23시 폐점·월요일 7시 개점",
+      "source_url": "https://store.family.co.jp/points/36260",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "familymart_shibata2",
+      "name_ko": "패밀리마트 시바타 2초메점",
+      "name": "ファミリーマート 芝田二丁目店",
+      "address": "大阪市北区芝田2-7-18",
+      "regular_hours": "24시간; 일요일 23시 폐점·월요일 7시 개점",
+      "source_url": "https://store.family.co.jp/points/77908",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "familymart_umeda_nakatsu",
+      "name_ko": "패밀리마트 우메다 나카쓰점",
+      "name": "ファミリーマート 梅田中津店",
+      "address": "大阪市北区豊崎3-20-9",
+      "regular_hours": "24시간",
+      "source_url": "https://store.family.co.jp/points/33639",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "lawson_umeda_chayamachi",
+      "name_ko": "로손 우메다 차야마치점",
+      "name": "ローソン 梅田茶屋町",
+      "address": "大阪市北区茶屋町2-25",
+      "regular_hours": null,
+      "source_url": "https://crew.lawson.co.jp/jobfind-multilanguage/en/job/All/12665",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_sennichimae1",
+      "name_ko": "세븐일레븐 오사카 센니치마에 1초메점",
+      "name": "セブン‐イレブン 大阪千日前1丁目",
+      "address": "大阪市中央区千日前1丁目35番3",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=seven_premium_2606_8",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_nihonbashi_station_east",
+      "name_ko": "세븐일레븐 오사카 니혼바시역 동쪽점",
+      "name": "セブン‐イレブン 大阪日本橋駅東",
+      "address": "大阪市中央区日本橋1-4-12",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/library/contents/products/toy/20261120/mie.pdf",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_nihonbashi1",
+      "name_ko": "세븐일레븐 오사카 니혼바시 1초메점",
+      "name": "セブン‐イレブン 大阪日本橋1丁目",
+      "address": "大阪市中央区日本橋1-25-25",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=seven_premium_2606_8",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_nihonbashi3",
+      "name_ko": "세븐일레븐 오사카 니혼바시 3초메점",
+      "name": "セブン‐イレブン 大阪日本橋3丁目",
+      "address": "大阪市浪速区日本橋3-4-10",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=seven_premium_2606_8",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_minamisenba3",
+      "name_ko": "세븐일레븐 오사카 미나미센바 3초메점",
+      "name": "セブン‐イレブン 大阪南船場3丁目",
+      "address": "大阪市中央区南船場3-8-6",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=seven_premium_2606_8",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_umeda2_west",
+      "name_ko": "세븐일레븐 오사카 우메다 2초메 니시점",
+      "name": "セブン‐イレブン 大阪梅田2丁目西",
+      "address": "大阪市福島区福島5-3-1",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=seven_premium_2606_8",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_namba_sankei",
+      "name_ko": "세븐일레븐 오사카 난바 산케이빌딩점",
+      "name": "セブン‐イレブン 大阪難波サンケイビル",
+      "address": "大阪市浪速区湊町2-1-57",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=seven_premium_2606_8",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_ocat",
+      "name_ko": "세븐일레븐 오사카 OCAT 앞점",
+      "name": "セブン‐イレブン 大阪OCAT前",
+      "address": "大阪市浪速区桜川1-1-7",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=seven_premium_2606_8",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
     }
   ]
 }
