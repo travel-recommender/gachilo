@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "status": "research_candidates_not_in_runtime",
+  "scope": "Osaka city branches; NIFREL recorded separately outside city",
+  "notes": [
+    "공식 매장 정보 기준 후보. 일반 영업시간은 방문일 특별 영업이나 임시휴무를 보장하지 않음.",
+    "장소 검색·자동 일정에 연결되지 않았으며 좌표와 조건 검증 및 카탈로그 통합이 필요함.",
+    "가이유칸은 기존 branch_kaiyukan으로 이미 존재하므로 중복 추가하지 않음."
+  ],
+  "places": [
+    {
+      "id": "adidas_shinsaibashi",
+      "name_ko": "아디다스 신사이바시스지점",
+      "name": "アディダスストア 心斎橋筋",
+      "address": "大阪市中央区心斎橋筋2-2-21",
+      "regular_hours": "11:00–21:00",
+      "source_url": "https://www.adidas.jp/stores/japan/osaka/shinsaibashi-suji-chuo-ku-2-2-21/9990019273",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "adidas_hep_five",
+      "name_ko": "아디다스 오리지널스 HEP FIVE점",
+      "name": "adidas Originals Store Osaka, HEP FIVE",
+      "address": "大阪市北区角田町5-15 HEP FIVE 5F",
+      "regular_hours": "11:00–21:00",
+      "source_url": "https://www.adidas.jp/stores/japan/osaka/kakuda-cho-kita-ku-5-15/9990003304",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "nike_shinsaibashi",
+      "name_ko": "나이키 신사이바시점",
+      "name": "Nike Shinsaibashi",
+      "address": "大阪市中央区心斎橋筋1-4-19",
+      "regular_hours": "11:00–21:00",
+      "source_url": "https://www.nike.com/jp/retail/s/nikep-shinsaibashi",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "nike_umeda",
+      "name_ko": "나이키 우메다점",
+      "name": "Nike Umeda",
+      "address": "大阪市北区大深町5-54 グラングリーン大阪南館1F",
+      "regular_hours": "11:00–21:00",
+      "source_url": "https://www.nike.com/jp/retail/s/nike-umeda",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "nike_abeno",
+      "name_ko": "나이키 아베노점",
+      "name": "Nike Abeno",
+      "address": "大阪市阿倍野区阿倍野筋1-6-1 あべのキューズモール1F",
+      "regular_hours": "10:00–21:00",
+      "source_url": "https://www.nike.com/jp/retail/s/nikep-abeno",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "hm_umeda",
+      "name_ko": "H&M 우메다점",
+      "name": "H&M UMEDA",
+      "address": "大阪市北区茶屋町1-27",
+      "regular_hours": "10:00–22:00",
+      "source_url": "https://www2.hm.com/ja_jp/customer-service/shopping-at-hm/store-locator.html",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "familymart_namba1",
+      "name_ko": "패밀리마트 난바 1초메점",
+      "name": "ファミリーマート 難波一丁目店",
+      "address": "大阪市中央区難波1-7-10",
+      "regular_hours": "24시간",
+      "source_url": "https://store.family.co.jp/points/36974",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "familymart_nambanaka1",
+      "name_ko": "패밀리마트 난바나카 1초메점",
+      "name": "ファミリーマート 難波中一丁目店",
+      "address": "大阪市浪速区難波中1-15-21",
+      "regular_hours": "24시간",
+      "source_url": "https://store.family.co.jp/points/33605",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인"
+      ]
+    },
+    {
+      "id": "lawson_dotonbori1",
+      "name_ko": "로손 도톤보리 1초메점",
+      "name": "ローソン 道頓堀一丁目",
+      "address": "大阪市中央区道頓堀1東6-20",
+      "regular_hours": null,
+      "source_url": "https://crew.lawson.co.jp/jobfind-pc/job/Kansai/33399",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_nishishinsaibashi1",
+      "name_ko": "세븐일레븐 오사카 니시신사이바시 1초메점",
+      "name": "セブン‐イレブン 大阪西心斎橋1丁目",
+      "address": "大阪市中央区西心斎橋1-10-15",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=mamegasha_roppou_2508_1",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "seven_namba_sennichimae",
+      "name_ko": "세븐일레븐 난바 센니치마에점",
+      "name": "セブン‐イレブン 難波千日前",
+      "address": "大阪市中央区難波千日前7-19",
+      "regular_hours": null,
+      "source_url": "https://www.sej.co.jp/products/gashapon/shoplist/?product=mamegasha_roppou_2508_1",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "정확한 매장 좌표 및 출입구 대조",
+        "방문일 임시휴무·운영 조건 확인",
+        "지점별 영업시간 확인"
+      ]
+    },
+    {
+      "id": "nifrel",
+      "name_ko": "니프렐",
+      "name": "NIFREL（ニフレル）",
+      "address": "大阪府吹田市千里万博公園2-1 EXPOCITY内",
+      "regular_hours": null,
+      "source_url": "https://www.kaiyukan.com/company/",
+      "checked_on": "2026-11-26",
+      "schedule_ready": false,
+      "remaining": [
+        "오사카시 외 지역(스이타시) 포함 범위 검토",
+        "좌표·날짜별 운영·입장료 확인"
+      ]
+    }
+  ]
+}
