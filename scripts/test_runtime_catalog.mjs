@@ -8,20 +8,22 @@ test('service and historical audit inputs stay separate without local path setti
     delete process.env.REAL_CATALOG_PATH;delete process.env.REAL_PROFILES_PATH;
     assert.equal(loadInputs().dataset.places.length,150);
     const runtime=loadRuntimeInputs();
-    assert.equal(runtime.dataset.places.length,238);
+    assert.equal(runtime.dataset.places.length,239);
+    assert.ok(!runtime.dataset.places.some(r=>r.place.place_id==='osaka_draft_20aa5444aadd'));
     for(const id of ['branch_ichiran_abeno','branch_ichiran_shinsaibashi']) {
       assert.ok(runtime.dataset.places.some(r=>r.place.place_id===id));
       assert.ok(runtime.profiles.places[id]);
     }
-    for(const id of ['branch_starbucks_ebisubashi','branch_kaiyukan']) {
-      const place=runtime.dataset.places.find(r=>r.place.place_id===id);
-      assert.ok(place);
-      assert.equal(place.review.schedule_ready,false);
-      assert.equal(runtime.profiles.places[id],undefined);
+    for(const id of ['branch_starbucks_ebisubashi','branch_starbucks_namba_nankai']) {
+      assert.ok(runtime.dataset.places.some(r=>r.place.place_id===id));
+      assert.equal(runtime.profiles.places[id].valid_from,'2026-11-25');
+      assert.equal(runtime.profiles.places[id].valid_through,'2026-11-25');
     }
+    assert.equal(runtime.profiles.places.branch_kaiyukan.valid_from,'2026-11-25');
+    assert.equal(runtime.profiles.places.branch_kaiyukan.valid_through,'2026-11-25');
     assert.ok(runtime.profiles.places.branch_sushiro_namba_amza);
     assert.equal(runtime.profiles.places.branch_usj.valid_from,'2026-11-17');
-    assert.equal(runtime.profiles.places.branch_usj.valid_through,'2026-11-19');
+    assert.equal(runtime.profiles.places.branch_usj.valid_through,'2026-11-26');
     process.env.REAL_CATALOG_PATH='custom.json';
     assert.throws(()=>loadRuntimeInputs(),/configured together/);
   } finally {

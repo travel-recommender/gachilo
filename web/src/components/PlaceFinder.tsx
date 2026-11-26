@@ -72,6 +72,8 @@ export function PlaceFinder({ added, onPick, placeholder = "장소, 주소 검�
                 <span className="min-w-0">
                   <span className="block truncate text-[15px] font-medium">{p.name}</span>
                   <span className="block truncate text-[10px] font-medium text-mute-soft">{placeLine(p)}</span>
+                  {p.visitNotice && <span className="block text-[11px] text-wine">{p.visitNotice}</span>}
+                  {p.reservationNotice && <span className="block text-[11px] font-bold text-wine">{p.reservationNotice}</span>}
                   {p.catalogStatus && <span className="block text-[10px] text-mute">{p.selectionDisabledReason || p.catalogStatus}{p.costEstimated ? " · 예산 추정" : ""}{!Number.isFinite(p.lat) || !Number.isFinite(p.lng) ? " · 좌표 확인 필요" : ""}</span>}
                 </span>
                 <span className="shrink-0 text-[12px] font-extrabold text-wine">

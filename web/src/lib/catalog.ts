@@ -24,6 +24,8 @@ export interface ApiCatalogPlace {
   cost_basis?: string | null;
   cost_status?: string;
   visit_conditions?: string[];
+  reservation_notice?: string | null;
+  visit_notice?: string | null;
   selection_disabled_reason?: string | null;
   stay_min: number | null;
   bag_load: number | null;
@@ -50,6 +52,8 @@ export function toPlace(p: ApiCatalogPlace): Place {
     catalogStatus: p.record_status,
     branchGroupId: p.branch_group_id ?? null,
     selectionDisabledReason: p.selection_disabled_reason,
+    reservationNotice: p.reservation_notice,
+    visitNotice: p.visit_notice,
     costKnown: p.cost_krw !== null,
     costEstimated: p.cost_status === "estimate",
     shoppingSpendExcluded: p.cost_status === "not_applicable_shopping",

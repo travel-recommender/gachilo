@@ -63,9 +63,10 @@ class RecommendationStore:
             places = self.recommendation_real_places if r['dataset'] == REAL_DATASET else self.recommendation_demo_places
             require(source in places and not source.startswith('custom_'), '이 방의 장소 목록에 없는 placeId입니다.')
             if r['dataset'] == REAL_DATASET:
-                if self.date_availability is None:
+                availability = self.recommendation_availability or self.date_availability
+                if availability is None:
                     raise EngineError('방문일 장소 검증을 사용할 수 없습니다. 다시 시도하세요.')
-                eligible = set(self.date_availability(r['start'], r['end']))
+                eligible = set(availability(r['start'], r['end']))
             else:
                 eligible = set(places)  # Demo data is explicitly labelled below.
             with self.connect() as c:

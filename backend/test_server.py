@@ -106,7 +106,9 @@ class ApiTests(unittest.TestCase):
   ids=['osaka_001','osaka_005','branch_usj']
   self.assertTrue(set(ids)<=set(result['placeIds']))
   self.assertTrue(all(pid not in result['unavailableReasons'] for pid in ids))
-  self.assertIn('입장 시간 예약',result['unavailableReasons']['osaka_002'])
+  self.assertIn('osaka_002',result['placeIds'])
+  tower=next(p for p in self.req('GET','/api/places?limit=150')[1]['places'] if p['place_id']=='osaka_002')
+  self.assertIn('예약',tower['reservation_notice'])
   body={'longlist':ids,'picks':ids,'must':'branch_usj','veto':None,'budgetPerDay':150000,'stepLimit':20000,'activeMin':720}
   self.assertEqual(self.req('PUT',f"/rooms/{rid}/submissions/{a['id']}",body,token)[0],200)
   self.assertEqual(set(self.req('GET',f'/rooms/{rid}/pool',token=token)[1]['placeIds']),set(ids))

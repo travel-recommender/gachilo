@@ -66,7 +66,11 @@ export function toEnginePlace(record, check, rate) {
 export function availability(record, date, profiles, {allowShopping = false} = {}) {
   if (!validDate(date)) throw Error('date must be a real YYYY-MM-DD date in Japan');
   const p = record.place, profile = profiles.places[p.place_id];
-  const reasons = [...(record.review.recommendation_blockers || [])];
+  const provisionalReservation = profile?.provisional_reservation === true;
+  const reservationRequired = provisionalReservation && (profile?.entry_time_reservation === true
+    || (record.review.recommendation_blockers || []).includes('entry_time_reservation_required'));
+  const reasons = [...(record.review.recommendation_blockers || [])].filter(
+    reason => !(reservationRequired && reason === 'entry_time_reservation_required'));
   // Historical stay_min alone cannot confirm a missing or unagreed policy.
   const representative = record.review.stay_policy?.representative;
   if (!Number.isSafeInteger(representative) || representative <= 0) reasons.push('stay_policy_unconfirmed');
@@ -74,6 +78,13 @@ export function availability(record, date, profiles, {allowShopping = false} = {
   if (!p.opening_hours) reasons.push('opening_hours_missing');
   const shopping = shoppingRecord(record);
   const override = profile?.exceptions?.[date];
+  // Explicit opt-in for individually reviewed regular reference profiles. Past dates retain
+  // their original checks; a regular pattern is never a confirmed live opening.
+  const regularReference = profile?.regular_reference_unverified === true
+    && validDate(profile.checked_at) && date >= profile.checked_at;
+  const outsideRange = date < profiles.valid_from || date > profiles.valid_through
+    || !!(profile?.valid_from && date < profile.valid_from || profile?.valid_through && date > profile.valid_through);
+  const dateNeedsConfirmation = regularReference && outsideRange;
   // Keep the catalogue's ordinary price; dated free-admission rules apply only to this visit.
   const visitCost = override && Object.hasOwn(override, 'cost_jpy') ? override.cost_jpy : p.cost;
   if (shopping ? !allowShopping : !Number.isSafeInteger(visitCost) || visitCost < 0) reasons.push('cost_unknown_or_not_applicable');
@@ -83,14 +94,14 @@ export function availability(record, date, profiles, {allowShopping = false} = {
       || p.latitude < -90 || p.latitude > 90 || p.longitude < -180 || p.longitude > 180) reasons.push('coordinates_invalid');
   if (!engineCategory(p.category)) reasons.push('category_unknown');
   if (!profile) reasons.push('structured_date_profile_missing');
-  if (date < profiles.valid_from || date > profiles.valid_through) reasons.push('outside_reviewed_date_range');
+  if (!dateNeedsConfirmation && (date < profiles.valid_from || date > profiles.valid_through)) reasons.push('outside_reviewed_date_range');
   let window = null, windows = null;
   if (profile) {
-    if (profile.valid_from && date < profile.valid_from || profile.valid_through && date > profile.valid_through) {
+    if (!dateNeedsConfirmation && (profile.valid_from && date < profile.valid_from || profile.valid_through && date > profile.valid_through)) {
       reasons.push('outside_place_reviewed_date_range');
     }
     if (profile.requires_visit_confirmation) reasons.push('visit_confirmation_required');
-    if (profile.entry_time_reservation) reasons.push('entry_time_reservation_required');
+    if (profile.entry_time_reservation && !reservationRequired) reasons.push('entry_time_reservation_required');
     if (profile.uncertain_dates?.includes(date)) reasons.push('closure_notice_year_unconfirmed');
     const weekday = dayOfWeek(date);
     const holiday = profiles.japan_holidays.includes(date);
@@ -127,6 +138,7 @@ export function availability(record, date, profiles, {allowShopping = false} = {
   return {place_id: p.place_id, name_ko: p.name_ko, reasons: [...new Set(reasons)], window, windows,
     cost_jpy: shopping ? null : visitCost,
     cost_basis: profile?.cost_basis ?? null, source_urls: profile?.source_urls ?? [],
+    reservation_required: reservationRequired, date_needs_confirmation: dateNeedsConfirmation,
     eligible_for_model: reasons.length === 0, schedule_ready: false};
 }
 

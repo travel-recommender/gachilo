@@ -1,11 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {availability, loadRuntimeInputs, validateDay} from './validate_real_schedule.mjs';
+import {availability, validateDay} from './validate_real_schedule.mjs';
 import {schedulableDetails} from '../backend/engine/schedulable.mjs';
 import {calculateRealCandidates} from '../backend/engine/real_candidates.mjs';
 import {mockLiveCheck} from '../backend/engine/live_check.mjs';
-const {dataset,profiles}=loadRuntimeInputs();
+// This test exercises the pinned week-13 snapshot even when a newer catalog is active.
+const dataset=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_catalog_20261123.json',import.meta.url)));
+const profiles=JSON.parse(fs.readFileSync(new URL('../data/final/osaka_profiles_20261123.json',import.meta.url)));
 const record=id=>dataset.places.find(r=>r.place.place_id===id);
 const check=(id,date)=>availability(record(id),date,profiles,{allowShopping:true});
 const dates=['2026-11-16','2026-11-17','2026-11-18','2026-11-19'];

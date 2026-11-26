@@ -16,8 +16,8 @@ with tempfile.TemporaryDirectory() as tmp:
   with urllib.request.urlopen(request,timeout=150) as response:return json.load(response)
  try:
   page1=req('GET','/api/places?limit=150');page2=req('GET','/api/places?offset=150&limit=150')
-  assert page1['total']==238 and len(page2['places'])==88
-  assert req('GET','/api/places?offset=238')['places']==[]
+  assert page1['total']==239 and len(page2['places'])==89
+  assert req('GET','/api/places?offset=239')['places']==[]
   for query in ['?offset=-1','?offset=bad','?limit=151']:
    try:req('GET','/api/places'+query);raise AssertionError('invalid pagination accepted')
    except urllib.error.HTTPError as error:assert error.code==400
@@ -45,10 +45,13 @@ with tempfile.TemporaryDirectory() as tmp:
   assert len(result['candidates'])==3
   for candidate in result['candidates']:
    ids=[pid for d in candidate['days'] for pid in d['placeIds']]
-   assert ids and branch in ids and held not in ids
+   # Same-brand replacement is allowed when the result explains the original.
+   items=[item for d in candidate['days'] for item in d['items']]
+   replacements=[item for item in items if (item.get('branch') or {}).get('fromPlaceId')==branch]
+   assert ids and (branch in ids or replacements) and held not in ids,(ids,branch,candidate.get('planning'))
    assert not set(supplemental).intersection(ids)
   selected=req('PUT',path+'/selection',{'strategy':'fairness','revision':2,'selectionVersion':0},room['ownerToken'])
   for m in room['members']:assert req('GET',path+'/results',token=m['submissionToken'])==selected
   assert Store(db).result(room['roomId'],room['ownerToken'])==selected
-  print(json.dumps({'catalog':238,'submission_with_new_branch':'accepted','strategies':3,'verified_branch':'scheduled in all 3 candidates','unverified_branch_and_supplements':'excluded','shared_result_and_db_reload':'passed'},ensure_ascii=False))
+  print(json.dumps({'catalog':239,'submission_with_new_branch':'accepted','strategies':3,'verified_branch':'selected branch or explained same-brand replacement in all 3 candidates','unverified_branch_and_supplements':'excluded','shared_result_and_db_reload':'passed'},ensure_ascii=False))
  finally:server.shutdown();server.server_close();thread.join()
